@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – Fat Mass</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+<style>
+/* Ensure indicator is visible */
+.indicator {
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  width: 2px;
+  background: black;
+}
+.indicator-label {
+  position: absolute;
+  top: -25px;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+</style>
+
+<script>
+function calculateFatMass() {
+
+  let weight = parseFloat(document.getElementById("weight").value);
+  let unit = document.getElementById("weightUnit").value;
+  let fat = parseFloat(document.getElementById("fat").value);
+
+  if (!weight || weight <= 0 || fat < 0 || fat > 100) {
+    alert("Enter valid values");
+    return;
+  }
+
+  /* kg ← lb */
+  if (unit === "lb") {
+    weight = weight / 2.20462;
+  }
+
+  /* Calculation */
+  const fatMassKg = weight * (fat / 100);
+
+  document.getElementById("result").innerHTML =
+    `Fat Mass: <b>${fatMassKg.toFixed(2)} kg</b> (${fat.toFixed(1)}%)`;
+
+  document.getElementById("formula").innerHTML =
+    `Fat Mass = Weight × (Body Fat ÷ 100)<br>
+     = ${weight.toFixed(2)} × (${fat} ÷ 100)<br>
+     = ${fatMassKg.toFixed(2)} kg`;
+
+  /* Risk classification */
+  let label = "", color = "";
+
+  if (fat < 18) { label = "Healthy"; color = "#22c55e"; }
+  else if (fat < 25) { label = "Moderate"; color = "#eab308"; }
+  else if (fat < 30) { label = "High"; color = "#f97316"; }
+  else { label = "Obese"; color = "#ef4444"; }
+
+  /* Indicator */
+  const indicator = document.getElementById("indicator");
+  const text = document.getElementById("indicatorText");
+
+  const pos = Math.min(Math.max(fat, 0), 100);
+  indicator.style.left = `calc(${pos}% - 1px)`;
+  indicator.style.background = color;
+
+  text.innerText = label;
+  text.style.color = color;
+}
+</script>
+</head>
+
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button class="active">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<div class="main">
+ <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+<div class="card">
+
+<h2>Fat Mass Calculator</h2>
+
+<label>Weight</label>
+<div class="row">
+  <div class="col">
+    <input id="weight" type="number">
+  </div>
+  <div class="col">
+    <select id="weightUnit">
+      <option value="kg">kg</option>
+      <option value="lb">lb</option>
+    </select>
+  </div>
+</div>
+
+<label>Body Fat (%)</label>
+<input id="fat" type="number">
+
+<button class="calculate-btn" onclick="calculateFatMass()">Calculate</button>
+
+<div id="result" class="result"></div>
+<div id="formula"></div>
+
+<!-- Gradient Bar -->
+<div class="bar-container">
+  <div class="bar">
+    <div class="indicator" id="indicator">
+      <span id="indicatorText" class="indicator-label"></span>
+    </div>
+  </div>
+</div>
+
+<table>
+<tr><th>Fat %</th><th>Category</th></tr>
+<tr><td>&lt; 18%</td><td>Healthy</td></tr>
+<tr><td>18 – 24%</td><td>Moderate</td></tr>
+<tr><td>25 – 29%</td><td>High</td></tr>
+<tr><td>≥ 30%</td><td>Obese</td></tr>
+</table>
+
+</div>
+</div>
+
+</body>
+</html>

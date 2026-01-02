@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ClerFit – BMI Calculator</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script>
+    // ===== Unit conversion helpers =====
+    function convertWeightToKg(value, unit) {
+      if (unit === "lbs") return value * 0.453592;
+      return value;
+    }
+
+    function convertHeightToM(value, unit) {
+      switch(unit) {
+        case "cm": return value / 100;
+        case "m": return value;
+        case "in": return value * 0.0254;
+        case "ft": return value * 0.3048;
+        default: return value / 100;
+      }
+    }
+
+    // ===== Move the indicator =====
+    function moveIndicatorBMI(bmi, age, gender) {
+      const indicator = document.getElementById("indicator");
+      if (!indicator) return;
+
+      // Age- and gender-based thresholds
+      let thresholds;
+      if (age < 18) {
+        thresholds = gender === "male" ? [18, 24, 29, 34] : [17, 23, 28, 33];
+      } else {
+        thresholds = [18.5, 25, 30, 35];
+      }
+
+      // Determine position on bar (0% - 100%)
+      let pos = 0;
+      if (bmi < thresholds[0]) pos = 0;
+      else if (bmi < thresholds[1]) pos = 25;
+      else if (bmi < thresholds[2]) pos = 50;
+      else if (bmi < thresholds[3]) pos = 75;
+      else pos = 95;
+
+      indicator.style.left = pos + "%";
+
+      // Set color based on category
+      let color;
+      let label;
+      if (bmi < thresholds[0]) { color = "#3b82f6"; label = "Underweight"; }
+      else if (bmi < thresholds[1]) { color = "#22c55e"; label = "Normal"; }
+      else if (bmi < thresholds[2]) { color = "#eab308"; label = "Overweight"; }
+      else if (bmi < thresholds[3]) { color = "#f97316"; label = "Obese"; }
+      else { color = "#ef4444"; label = "Severe"; }
+
+      indicator.style.backgroundColor = color;
+      indicator.innerHTML = `<div class="tooltip">${label}</div>`;
+    }
+
+    // ===== BMI calculation =====
+    function calculateBMI() {
+      const weightVal = parseFloat(document.getElementById("weight").value);
+      const weightUnit = document.getElementById("weightUnit").value;
+      const heightVal = parseFloat(document.getElementById("height").value);
+      const heightUnit = document.getElementById("heightUnit").value;
+      const age = parseInt(document.getElementById("age").value);
+      const gender = document.getElementById("gender").value;
+
+      if (!weightVal || !heightVal || !age || !gender) {
+        alert("Please enter weight, height, age, and select gender.");
+        return;
+      }
+
+      const weightKg = convertWeightToKg(weightVal, weightUnit);
+      const heightM = convertHeightToM(heightVal, heightUnit);
+
+      const bmi = weightKg / (heightM * heightM);
+
+      // Determine BMI category
+      let category;
+      if (age < 18) {
+        const thresholds = gender === "male" ? [18, 24, 29, 34] : [17, 23, 28, 33];
+        if (bmi < thresholds[0]) category = "Underweight";
+        else if (bmi < thresholds[1]) category = "Normal";
+        else if (bmi < thresholds[2]) category = "Overweight";
+        else if (bmi < thresholds[3]) category = "Obese";
+        else category = "Severe";
+      } else {
+        if (bmi < 18.5) category = "Underweight";
+        else if (bmi < 25) category = "Normal";
+        else if (bmi < 30) category = "Overweight";
+        else if (bmi < 35) category = "Obese";
+        else category = "Severe";
+      }
+
+      // Show result
+      document.getElementById("result").innerHTML =
+        `BMI: <b>${bmi.toFixed(1)}</b> — <b>${category}</b> (Age: ${age}, Gender: ${gender})`;
+
+      // Move the indicator on the bar
+      moveIndicatorBMI(bmi, age, gender);
+    }
+  </script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button class="active">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <div class="card">
+    <h2>BMI Calculator</h2>
+
+    <div class="row">
+      <div class="col">
+        <label for="weight">Weight</label>
+        <input type="number" id="weight" placeholder="Enter weight">
+        <label for="weightUnit">Unit</label>
+        <select id="weightUnit">
+          <option value="kg" selected>kg</option>
+          <option value="lbs">lbs</option>
+        </select>
+      </div>
+
+      <div class="col">
+        <label for="height">Height</label>
+        <input type="number" id="height" placeholder="Enter height">
+        <label for="heightUnit">Unit</label>
+        <select id="heightUnit">
+          <option value="cm" selected>cm</option>
+          <option value="m">m</option>
+          <option value="in">in</option>
+          <option value="ft">ft</option>
+        </select>
+      </div>
+
+      <div class="col">
+        <label for="age">Age</label>
+        <input type="number" id="age" placeholder="Enter age">
+        <label for="gender">Gender</label>
+        <select id="gender">
+          <option value="" selected disabled>Select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="calculate-btn" onclick="calculateBMI()">Calculate BMI</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="bar-container">
+      <div class="bar">
+        <div class="indicator" id="indicator"></div>
+      </div>
+      <small>
+        Blue: Underweight | Green: Normal | Yellow: Overweight |
+        Orange: Obese | Red: Severe
+      </small>
+    </div>
+
+    <div id="formula" style="margin-top:15px;"></div>
+
+    <table>
+      <tr><th>Category</th><th>BMI Range</th><th>Meaning</th></tr>
+      <tr><td>Underweight</td><td>&lt; 18.5</td><td>Low body mass</td></tr>
+      <tr><td>Normal</td><td>18.5 – 24.9</td><td>Healthy</td></tr>
+      <tr><td>Overweight</td><td>25 – 29.9</td><td>Increased risk</td></tr>
+      <tr><td>Obesity I</td><td>30 – 34.9</td><td>High risk</td></tr>
+      <tr><td>Obesity II+</td><td>≥ 35</td><td>Very high risk</td></tr>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

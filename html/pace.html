@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – Pace Calculator</title>
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/engine.js" defer></script>
+<style>
+/* Bar container and gradient */
+.bar-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto;
+  position: relative;
+  height: 30px; /* ensures visible bar */
+}
+
+.bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    #3b82f6 0%,    /* Very Slow */
+    #22c55e 30%,   /* Slow */
+    #eab308 55%,   /* Moderate */
+    #f97316 75%,   /* Fast */
+    #ef4444 100%   /* Very Fast */
+  );
+  border-radius: 10px;
+  position: relative;
+}
+
+.indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px; /* vertical line */
+  background: black; /* visible line */
+  left: 0%; /* default position at start */
+}
+
+.tooltip {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button class="active">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- Main -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <div class="card">
+    <h2>Pace Calculator</h2>
+
+    <div class="row">
+      <div class="col">
+        <label>Distance</label>
+        <input type="number" id="distance" placeholder="Enter distance">
+        <select id="distanceUnit">
+          <option value="km" selected>km</option>
+          <option value="miles">miles</option>
+        </select>
+      </div>
+      <div class="col">
+        <label>Time</label>
+        <input type="number" id="time" placeholder="Enter time">
+        <select id="timeUnit">
+          <option value="minutes" selected>minutes</option>
+          <option value="hours">hours</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="calculate-btn" onclick="calculatePace()">Calculate Pace</button>
+
+    <div id="result" class="result"></div>
+
+    <div class="bar-container">
+      <div class="bar" id="paceBar"></div>
+      <div class="indicator" id="indicator"></div>
+      <div class="indicator-label" id="indicatorLabel"></div>
+    </div>
+
+    <div id="formula"></div>
+  </div>
+</div>
+
+<script>
+function calculatePace() {
+  let distance = parseFloat(document.getElementById('distance').value);
+  let distanceUnit = document.getElementById('distanceUnit').value;
+  let time = parseFloat(document.getElementById('time').value);
+  let timeUnit = document.getElementById('timeUnit').value;
+
+  if(!distance || !time) {
+    alert("Please enter both distance and time");
+    return;
+  }
+
+  // Convert units
+  if(distanceUnit === 'miles') distance *= 1.60934;
+  if(timeUnit === 'hours') time *= 60;
+
+  let pace = time / distance; // min/km
+
+  // Display result
+  document.getElementById('result').innerHTML = `Pace: ${pace.toFixed(2)} min/km`;
+  document.getElementById('formula').innerHTML = `Formula: Pace (min/km) = Time (minutes) ÷ Distance (km)`;
+
+  // Determine pace category
+  let category = "";
+  let color = "";
+  if(pace >= 8) { category = "Slow"; color = "#3b82f6"; }
+  else if(pace >= 6) { category = "Moderate"; color = "#22c55e"; }
+  else if(pace >= 4) { category = "Fast"; color = "#eab308"; }
+  else if(pace >= 3) { category = "Very Fast"; color = "#f97316"; }
+  else { category = "Sprint"; color = "#ef4444"; }
+
+  // Update bar gradient based on category
+  let bar = document.getElementById('paceBar');
+  bar.style.background = `linear-gradient(to right, #3b82f6 0%, #22c55e 30%, #eab308 55%, #f97316 75%, #ef4444 100%)`;
+
+  // Update indicator position and color
+  let minPace = 2, maxPace = 10;
+  let leftPercent = Math.min(100, Math.max(0, ((pace - minPace)/(maxPace - minPace))*100));
+  let indicator = document.getElementById('indicator');
+  indicator.style.left = leftPercent + "%";
+  indicator.style.background = color;
+
+  let label = document.getElementById('indicatorLabel');
+  label.innerText = category + ` (${pace.toFixed(2)} min/km)`;
+  label.style.left = leftPercent + "%";
+}
+</script>
+
+</body>
+</html>

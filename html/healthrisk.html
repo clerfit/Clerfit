@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – Health Risk</title>
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/engine.js" defer></script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button class="active">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <!-- Site Name -->
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <!-- Health Risk Card -->
+  <div class="card">
+    <h2>Health Risk Calculator</h2>
+
+    <div class="row">
+      <div class="col">
+        <label>Age (years)</label>
+        <input id="age" type="number">
+      </div>
+      <div class="col">
+        <label>Gender</label>
+        <select id="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <label>Weight (kg)</label>
+        <input id="weight" type="number">
+        <select id="weightUnit">
+          <option value="kg" selected>kg</option>
+          <option value="lb">lb</option>
+        </select>
+      </div>
+      <div class="col">
+        <label>Height (cm)</label>
+        <input id="height" type="number">
+        <select id="heightUnit">
+          <option value="cm" selected>cm</option>
+          <option value="m">m</option>
+          <option value="inch">inch</option>
+          <option value="ft">ft</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <button class="calculate-btn" onclick="calculateHealthRisk()">Calculate</button>
+    </div>
+
+    <div id="result" class="result"></div>
+    <div id="formula"></div>
+
+    <!-- Risk Bar -->
+    <div class="bar-container">
+      <div class="bar">
+        <div class="indicator" id="indicator">
+          <div class="tooltip" id="indicatorLabel"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Risk Table -->
+    <table>
+      <tr>
+        <th>Risk Category</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>Low</td>
+        <td>0 – 18</td>
+        <td>Healthy</td>
+      </tr>
+      <tr>
+        <td>Moderate</td>
+        <td>19 – 24</td>
+        <td>At risk</td>
+      </tr>
+      <tr>
+        <td>High</td>
+        <td>25 – 29</td>
+        <td>Obese</td>
+      </tr>
+      <tr>
+        <td>Very High</td>
+        <td>30+</td>
+        <td>Severe</td>
+      </tr>
+    </table>
+
+  </div>
+</div>
+<script> 
+function calculateHealthRisk() {
+  // Get input values
+  let age = parseFloat(document.getElementById("age").value);
+  let gender = document.getElementById("gender").value;
+  let weight = parseFloat(document.getElementById("weight").value);
+  let weightUnit = document.getElementById("weightUnit").value;
+  let height = parseFloat(document.getElementById("height").value);
+  let heightUnit = document.getElementById("heightUnit").value;
+
+  // Convert units
+  if(weightUnit === "lb") weight = weight * 0.453592; // lb -> kg
+  if(heightUnit === "m") height = height * 100;       // m -> cm
+  if(heightUnit === "inch") height = height * 2.54;   // inch -> cm
+  if(heightUnit === "ft") height = height * 30.48;    // ft -> cm
+
+  // BMI formula
+  let heightM = height / 100; // cm -> m
+  let bmi = weight / (heightM * heightM);
+  bmi = parseFloat(bmi.toFixed(1));
+
+  // Determine risk category
+  let category = "";
+  let color = "";
+  let leftPercent = 0;
+
+  if(bmi < 18.5){
+    category = "Low Risk";
+    color = "#3b82f6"; // blue
+    leftPercent = (bmi/40)*100;
+  } else if(bmi < 25){
+    category = "Moderate Risk";
+    color = "#22c55e"; // green
+    leftPercent = (bmi/40)*100;
+  } else if(bmi < 30){
+    category = "High Risk";
+    color = "#eab308"; // yellow
+    leftPercent = (bmi/40)*100;
+  } else {
+    category = "Very High Risk";
+    color = "#ef4444"; // red
+    leftPercent = (bmi/40)*100;
+  }
+
+  // Display result
+  document.getElementById("result").innerHTML = `BMI: ${bmi} (${category})`;
+
+  // Update formula section
+  document.getElementById("formula").innerHTML = `BMI = weight(kg) / height(m)²`;
+
+  // Update bar
+  const indicator = document.getElementById("indicator");
+  indicator.style.left = `${leftPercent}%`;
+  indicator.style.backgroundColor = color;
+
+  const tooltip = document.getElementById("indicatorLabel");
+  tooltip.innerHTML = category;
+  tooltip.style.backgroundColor = color;
+}
+</script>
+
+</body>
+</html>

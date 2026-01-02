@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – ABSI Calculator</title>
+<link rel="stylesheet" href="../css/style.css">
+<script defer>
+function calculateABSI() {
+  // Get inputs
+  const waist = parseFloat(document.getElementById('waist').value);
+  const waistUnit = document.getElementById('waistUnit').value;
+  const height = parseFloat(document.getElementById('height').value);
+  const heightUnit = document.getElementById('heightUnit').value;
+  const weight = parseFloat(document.getElementById('weight').value);
+  
+  if (!waist || !height || !weight) {
+    alert("Please enter all values");
+    return;
+  }
+
+  // Convert units to meters
+  let waistM = waist;
+  if (waistUnit === 'cm') waistM = waist / 100;
+  else if (waistUnit === 'inch') waistM = waist * 0.0254;
+
+  let heightM = height;
+  if (heightUnit === 'cm') heightM = height / 100;
+  else if (heightUnit === 'inch') heightM = height * 0.0254;
+  else if (heightUnit === 'ft') heightM = height * 0.3048;
+
+  // BMI
+  const bmi = weight / (heightM * heightM);
+
+  // ABSI formula
+  const absi = waistM / (Math.pow(bmi, 2/3) * Math.pow(heightM, 0.5));
+  const absiRounded = absi.toFixed(3);
+
+  // Determine risk level
+  let risk = '';
+  if (absi < 0.078) risk = 'Low';
+  else if (absi < 0.083) risk = 'Average';
+  else if (absi < 0.089) risk = 'High';
+  else risk = 'Very High';
+
+  // Show result
+  document.getElementById('result').innerHTML = 
+    `ABSI: <strong>${absiRounded}</strong> (${risk} risk)`;
+
+  // Update bar
+  const indicator = document.getElementById('indicator');
+  let position = 0;
+  if (risk === 'Low') position = 10;
+  else if (risk === 'Average') position = 40;
+  else if (risk === 'High') position = 70;
+  else position = 90;
+  indicator.style.left = position + '%';
+}
+</script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'" class="active">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <div class="card">
+    <h2>ABSI Calculator</h2>
+
+    <label>Waist Circumference</label>
+    <input id="waist" type="number">
+    <select id="waistUnit">
+      <option value="m">m</option>
+      <option value="cm" selected>cm</option>
+      <option value="inch">inch</option>
+    </select>
+
+    <label>Height</label>
+    <input id="height" type="number">
+    <select id="heightUnit">
+      <option value="m">m</option>
+      <option value="cm" selected>cm</option>
+      <option value="inch">inch</option>
+      <option value="ft">ft</option>
+    </select>
+
+    <label>Weight (kg)</label>
+    <input id="weight" type="number">
+
+    <button class="calculate-btn" onclick="calculateABSI()">Calculate</button>
+
+    <div id="result" class="result"></div>
+
+    <div class="bar-container">
+      <div class="bar" style="background: linear-gradient(to right, #22c55e 0%, #eab308 40%, #f97316 70%, #ef4444 100%); height: 20px; border-radius: 10px; position: relative;">
+        <div id="indicator" style="position:absolute; top:-5px; width:2px; height:30px; background:black;"></div>
+      </div>
+    </div>
+
+    <h3>ABSI Risk Table</h3>
+    <table>
+      <tr><th>ABSI</th><th>Risk Level</th></tr>
+      <tr><td>&lt; 0.078</td><td>Low</td></tr>
+      <tr><td>0.078 – 0.082</td><td>Average</td></tr>
+      <tr><td>0.083 – 0.088</td><td>High</td></tr>
+      <tr><td>&gt; 0.088</td><td>Very High</td></tr>
+    </table>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – Water Intake</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.bar-container {
+  margin-top: 20px;
+  width: 80%;
+  height: 20px;
+  background: #ddd;
+  border-radius: 10px;
+  position: relative;
+}
+
+.bar {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(to right, #3b82f6 0%, #22c55e 50%, #f97316 100%);
+  position: relative;
+}
+
+.indicator {
+  position: absolute;
+  width: 3px;
+  height: 120%;
+  top: -10%;
+  background: black;
+  transition: left 0.8s ease;
+}
+
+.indicator-label {
+  position: absolute;
+  top: -25px;
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+  white-space: nowrap;
+}
+</style>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'" class="active">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<div class="main">
+ <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <div class="card">
+    <h2>Daily Water Intake Calculator</h2>
+
+    <label>Weight</label>
+    <input id="weight" type="number" placeholder="Enter your weight">
+    <select id="weightUnit">
+      <option value="kg" selected>kg</option>
+      <option value="lb">lb</option>
+    </select>
+
+    <label>Activity Level</label>
+    <select id="activity">
+      <option value="1.0">Sedentary</option>
+      <option value="1.2">Light</option>
+      <option value="1.4">Moderate</option>
+      <option value="1.6">Active</option>
+      <option value="1.8">Very Active</option>
+    </select>
+
+    <button class="calculate-btn" onclick="calculateWater()">Calculate</button>
+
+    <div id="result" class="result"></div>
+    <div id="formula" class="result"></div>
+
+    <div class="bar-container">
+      <div class="bar"></div>
+      <div class="indicator" id="indicator"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function calculateWater() {
+  let weight = parseFloat(document.getElementById('weight').value);
+  if(!weight || weight <= 0){ alert("Enter a valid weight"); return; }
+
+  const unit = document.getElementById('weightUnit').value;
+  if(unit === 'lb') weight = weight * 0.453592;
+
+  const activitySelect = document.getElementById('activity');
+  const activity = parseFloat(activitySelect.options[activitySelect.selectedIndex].value);
+
+  // Calculate recommended water (ml)
+  const waterMl = weight * 35 * activity;
+  const waterL = (waterMl / 1000).toFixed(2);
+
+  document.getElementById('result').innerHTML = `<strong>Recommended Daily Water Intake: ${waterL} L</strong>`;
+  document.getElementById('formula').innerHTML = `Formula: Weight × 35 ml × Activity Factor = ${weight.toFixed(1)} × 35 × ${activity} = ${waterMl.toFixed(0)} ml = ${waterL} L`;
+
+  // Bar setup
+  const indicator = document.getElementById('indicator');
+  const minL = 1.5; // Below this is low
+  const maxL = 4.0; // Above this is high
+  let percent = ((waterL - minL) / (maxL - minL)) * 100;
+  percent = Math.max(0, Math.min(100, percent)); // Clamp 0-100%
+  indicator.style.left = percent + '%';
+}
+</script>
+
+</body>
+</html>

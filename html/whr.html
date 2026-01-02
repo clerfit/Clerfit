@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – WHR</title>
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/engine.js" defer></script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button class="active">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<div class="main">
+ <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+<div class="card">
+<h2>Waist–Hip Ratio (WHR) Calculator</h2>
+
+<label>Gender</label>
+<select id="gender">
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+</select>
+
+<label>Waist</label>
+<input id="waist" type="number">
+<select id="waistUnit">
+  <option value="cm">cm</option>
+  <option value="m">m</option>
+  <option value="inch">inch</option>
+  <option value="ft">ft</option>
+</select>
+
+<label>Hip</label>
+<input id="hip" type="number">
+<select id="hipUnit">
+  <option value="cm">cm</option>
+  <option value="m">m</option>
+  <option value="inch">inch</option>
+  <option value="ft">ft</option>
+</select>
+
+<button class="calculate-btn" onclick="calculateWHR()">Calculate</button>
+
+<div id="result" class="result"></div>
+<div id="formula" class="result"></div>
+
+<div class="bar-container">
+  <div class="bar">
+    <div class="indicator" id="indicator"></div>
+    <div class="indicator-label" id="indicatorLabel"></div>
+  </div>
+</div>
+
+<table>
+  <tr><th>Gender</th><th>WHR Value</th><th>Health Risk</th></tr>
+  <tr><td>Female</td><td>&lt; 0.80</td><td>Healthy</td></tr>
+  <tr><td>Female</td><td>0.80 – 0.85</td><td>Increased Risk</td></tr>
+  <tr><td>Female</td><td>&gt; 0.85</td><td>High Risk</td></tr>
+  <tr><td>Male</td><td>&lt; 0.95</td><td>Healthy</td></tr>
+  <tr><td>Male</td><td>0.95 – 1.00</td><td>Increased Risk</td></tr>
+  <tr><td>Male</td><td>&gt; 1.00</td><td>High Risk</td></tr>
+</table>
+
+</div>
+</div>
+
+<script>
+function calculateWHR() {
+  const gender = document.getElementById('gender').value;
+  let waist = parseFloat(document.getElementById('waist').value);
+  let hip = parseFloat(document.getElementById('hip').value);
+  const waistUnit = document.getElementById('waistUnit').value;
+  const hipUnit = document.getElementById('hipUnit').value;
+
+  if(!waist || !hip || waist<=0 || hip<=0){ alert("Enter valid numbers"); return; }
+
+  // Convert to cm
+  function convertToCm(value, unit){
+    switch(unit){
+      case 'cm': return value;
+      case 'm': return value*100;
+      case 'inch': return value*2.54;
+      case 'ft': return value*30.48;
+      default: return value;
+    }
+  }
+  waist = convertToCm(waist, waistUnit);
+  hip = convertToCm(hip, hipUnit);
+
+  const whr = (waist/hip).toFixed(2);
+  document.getElementById('result').innerHTML = `<strong>WHR: ${whr}</strong>`;
+  document.getElementById('formula').innerHTML = `Formula: Waist ÷ Hip = ${waist.toFixed(1)} ÷ ${hip.toFixed(1)} = ${whr}`;
+
+  // Determine risk
+  let color='', label='';
+  if(gender==='female'){
+    if(whr<0.80){ color='blue'; label='Healthy';}
+    else if(whr<=0.85){ color='green'; label='Increased Risk';}
+    else{ color='red'; label='High Risk';}
+  } else {
+    if(whr<0.95){ color='blue'; label='Healthy';}
+    else if(whr<=1.00){ color='green'; label='Increased Risk';}
+    else{ color='red'; label='High Risk';}
+  }
+
+  const bar = document.querySelector('.bar');
+  const indicator = document.getElementById('indicator');
+  const indicatorLabel = document.getElementById('indicatorLabel');
+
+  // Set indicator position on bar (0-100%)
+  const maxWHR = (gender==='female') ? 1.1 : 1.2;
+  let pos = Math.min(100, (whr/maxWHR)*100);
+
+  indicator.style.left = pos + '%';
+  indicator.style.background = color;
+  indicatorLabel.style.left = pos + '%';
+  indicatorLabel.textContent = label;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – FFMI Calculator</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+/* ===== FFMI Specific Styles ===== */
+
+/* Bar */
+.bar-container {
+  margin-top: 30px;
+}
+.bar {
+  width: 100%;
+  height: 20px;
+  border-radius: 10px;
+  background: linear-gradient(
+    to right,
+    #3b82f6 0%,    /* Low - blue */
+    #22c55e 25%,   /* Average - green */
+    #eab308 50%,   /* Athletic - yellow */
+    #f97316 75%,   /* Elite - orange */
+    #ef4444 100%   /* Very Elite - red */
+  );
+  position: relative;
+}
+.indicator {
+  position: absolute;
+  width: 2px;
+  height: 120%;
+  top: -10%;
+  background: black;
+  transition: left 0.8s ease;
+}
+.tooltip {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+table th {
+  background: #e2e8f0;
+}
+
+/* Input conversions */
+.unit-select {
+  margin-top: 5px;
+  width: 100%;
+  padding: 8px;
+}
+
+/* Result formatting */
+.result {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+}
+</style>
+<script>
+function calculateFFMI() {
+  let height = parseFloat(document.getElementById("height").value);
+  let heightUnit = document.getElementById("heightUnit").value;
+  if(heightUnit === "cm") height = height / 100;
+  else if(heightUnit === "inch") height = height * 0.0254;
+  else if(heightUnit === "ft") height = height * 0.3048;
+
+  let weight = parseFloat(document.getElementById("weight").value);
+  let weightUnit = document.getElementById("weightUnit").value;
+  if(weightUnit === "lb") weight = weight * 0.453592;
+
+  let fat = parseFloat(document.getElementById("fat").value);
+
+  if(isNaN(height) || isNaN(weight) || isNaN(fat)) {
+    alert("Please enter all values!");
+    return;
+  }
+
+  let leanMass = weight * (1 - fat / 100);
+  let ffmi = leanMass / (height * height);
+  let fatPercent = fat.toFixed(1);
+
+  document.getElementById("result").innerHTML =
+    `Lean Mass: ${leanMass.toFixed(2)} kg (${(leanMass/weight*100).toFixed(1)}%)<br>FFMI: ${ffmi.toFixed(2)}`;
+
+  // Move indicator
+  let minFFMI = 15, maxFFMI = 30;
+  let leftPercent = ((ffmi - minFFMI) / (maxFFMI - minFFMI)) * 100;
+  leftPercent = Math.max(0, Math.min(leftPercent, 100));
+  let indicator = document.getElementById("indicator");
+  indicator.style.left = leftPercent + "%";
+
+  // Tooltip
+  let tooltip = document.getElementById("tooltip");
+  let label = "";
+  if(ffmi < 18) label="Low";
+  else if(ffmi < 20) label="Average";
+  else if(ffmi < 22) label="Athletic";
+  else label="Elite";
+  tooltip.innerText = label;
+}
+</script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+<!-- Sidebar -->
+<div class="sidebar">
+<h2>ClerFit</h2>
+<button onclick="location.href='bmi.html'">BMI</button>
+<button onclick="location.href='bmr.html'">BMR</button>
+<button onclick="location.href='bodyfat.html'">Body Fat %</button>
+<button onclick="location.href='idealweight.html'">Ideal Weight</button>
+<button onclick="location.href='calories.html'">Calorie Needs</button>
+<button onclick="location.href='protein.html'">Protein Intake</button>
+<button onclick="location.href='water.html'">Water Intake</button>
+<button onclick="location.href='whr.html'">WHR</button>
+<button onclick="location.href='ffmi.html'" class="active">FFMI</button>
+<button onclick="location.href='rfm.html'">RFM</button>
+<button onclick="location.href='vo2max.html'">VO₂ Max</button>
+<button onclick="location.href='heartrate.html'">Heart Rate</button>
+<button onclick="location.href='leanmass.html'">Lean Mass</button>
+<button onclick="location.href='fatmass.html'">Fat Mass</button>
+<button onclick="location.href='ponderal.html'">Ponderal Index</button>
+<button onclick="location.href='absi.html'">ABSI</button>
+<button onclick="location.href='tdee.html'">TDEE</button>
+<button onclick="location.href='mets.html'">METs</button>
+<button onclick="location.href='pace.html'">Pace</button>
+<button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- Main -->
+<div class="main">
+ <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+<div class="card">
+<h2>FFMI Calculator</h2>
+
+<div class="row">
+  <div class="col">
+    <label>Height</label>
+    <input type="number" id="height" placeholder="Enter height">
+    <select class="unit-select" id="heightUnit">
+      <option value="cm" selected>cm</option>
+      <option value="m">m</option>
+      <option value="inch">inch</option>
+      <option value="ft">ft</option>
+    </select>
+  </div>
+  <div class="col">
+    <label>Weight</label>
+    <input type="number" id="weight" placeholder="Enter weight">
+    <select class="unit-select" id="weightUnit">
+      <option value="kg" selected>kg</option>
+      <option value="lb">lb</option>
+    </select>
+  </div>
+  <div class="col">
+    <label>Body Fat (%)</label>
+    <input type="number" id="fat" placeholder="Enter body fat %">
+  </div>
+</div>
+
+<button class="calculate-btn" onclick="calculateFFMI()">Calculate</button>
+
+<div id="result" class="result"></div>
+
+<!-- Gradient bar -->
+<div class="bar-container">
+  <div class="bar">
+    <div class="indicator" id="indicator">
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+  </div>
+  <small>Low | Average | Athletic | Elite</small>
+</div>
+
+<!-- FFMI Table -->
+<table>
+  <tr>
+    <th>Category</th>
+    <th>FFMI Range</th>
+  </tr>
+  <tr>
+    <td>Low</td>
+    <td>&lt; 18</td>
+  </tr>
+  <tr>
+    <td>Average</td>
+    <td>18 – 19.9</td>
+  </tr>
+  <tr>
+    <td>Athletic</td>
+    <td>20 – 21.9</td>
+  </tr>
+  <tr>
+    <td>Elite</td>
+    <td>&gt; 22</td>
+  </tr>
+</table>
+
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – Heart Rate</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+/* ===== Gradient Bar ===== */
+.bar-container {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 1000px;
+  position: relative;
+  height: 20px;
+  background: linear-gradient(to right,
+    #3b82f6 0%,    /* Very Light - blue */
+    #22c55e 25%,   /* Light - green */
+    #eab308 50%,   /* Moderate - yellow */
+    #f97316 75%,   /* Hard - orange */
+    #ef4444 100%   /* Max - red */
+  );
+  border-radius: 10px;
+}
+
+.indicator {
+  position: absolute;
+  width: 2px;
+  height: 130%;
+  top: -15%;
+  background: black;
+  transition: left 0.8s ease;
+}
+
+.indicator-label {
+  position: absolute;
+  top: -25px;
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+  white-space: nowrap;
+}
+
+/* Table */
+table {
+  width: 100%;
+  max-width: 1000px;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+table th {
+  background: #e2e8f0;
+}
+</style>
+<script>
+function calculateHeartRate() {
+  const age = parseInt(document.getElementById("age").value);
+  let rhr = parseInt(document.getElementById("rhr").value);
+  if (!rhr || rhr <= 0) rhr = 70; // default if empty
+
+  const activityFactor = parseFloat(document.getElementById("activity").value);
+
+  const maxHR = 220 - age;
+  const targetHR = Math.round(rhr + activityFactor * (maxHR - rhr));
+  const percentMHR = Math.round((targetHR / maxHR) * 100);
+
+  document.getElementById("result").innerHTML =
+    `<strong>Target Heart Rate:</strong> ${targetHR} bpm (${percentMHR}% of Max HR)`;
+
+  // Gradient bar
+  const bar = document.getElementById("bar");
+  const indicator = document.getElementById("indicator");
+  const leftPercent = (targetHR / maxHR) * 100;
+  indicator.style.left = leftPercent + "%";
+  document.getElementById("indicatorLabel").innerText = targetHR + " bpm";
+
+  // Formula display
+  document.getElementById("formula").innerHTML =
+    `Formula: Target HR = RHR + Activity Factor × (MHR − RHR)<br>
+     MHR = 220 − Age = ${maxHR}<br>
+     RHR = ${rhr}<br>
+     Activity Factor = ${activityFactor}<br>
+     Target HR = ${rhr} + ${activityFactor} × (${maxHR} − ${rhr}) = ${targetHR} bpm`;
+}
+</script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button class="active">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <div class="card">
+    <h2>Heart Rate Calculator</h2>
+
+    <label>Age (years)</label>
+    <input id="age" type="number">
+
+    <label>Resting Heart Rate (optional, default 70 bpm)</label>
+    <input id="rhr" type="number">
+
+    <label>Activity Level</label>
+    <select id="activity">
+      <option value="0.5">Very Light</option>
+      <option value="0.6">Light</option>
+      <option value="0.7">Moderate</option>
+      <option value="0.8">Hard</option>
+      <option value="0.9">Maximum</option>
+    </select>
+
+    <button class="calculate-btn" onclick="calculateHeartRate()">Calculate</button>
+
+    <div id="result" class="result"></div>
+    <div id="formula" class="result"></div>
+
+    <div class="bar-container" id="bar">
+      <div class="indicator" id="indicator">
+        <div class="indicator-label" id="indicatorLabel"></div>
+      </div>
+    </div>
+
+    <h3>Age-based Heart Rate Zones</h3>
+    <table>
+      <tr>
+        <th>Age Range</th>
+        <th>Very Light</th>
+        <th>Light</th>
+        <th>Moderate</th>
+        <th>Hard</th>
+        <th>Maximum</th>
+      </tr>
+      <tr>
+        <td>20–29</td>
+        <td>95–110</td>
+        <td>111–125</td>
+        <td>126–140</td>
+        <td>141–155</td>
+        <td>156–170</td>
+      </tr>
+      <tr>
+        <td>30–39</td>
+        <td>90–105</td>
+        <td>106–120</td>
+        <td>121–135</td>
+        <td>136–150</td>
+        <td>151–165</td>
+      </tr>
+      <tr>
+        <td>40–49</td>
+        <td>85–100</td>
+        <td>101–115</td>
+        <td>116–130</td>
+        <td>131–145</td>
+        <td>146–160</td>
+      </tr>
+      <tr>
+        <td>50–59</td>
+        <td>80–95</td>
+        <td>96–110</td>
+        <td>111–125</td>
+        <td>126–140</td>
+        <td>141–155</td>
+      </tr>
+      <tr>
+        <td>60–69</td>
+        <td>75–90</td>
+        <td>91–105</td>
+        <td>106–120</td>
+        <td>121–135</td>
+        <td>136–150</td>
+      </tr>
+    </table>
+
+  </div>
+</div>
+
+</body>
+</html>

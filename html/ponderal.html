@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – Ponderal Index</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+/* Gradient bar */
+.bar-container {
+  margin-top: 35px;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  height: 20px;
+  background: linear-gradient(to right,
+    #3b82f6 0%,   /* Underweight - blue */
+    #22c55e 40%,  /* Normal - green */
+    #eab308 70%,  /* Overweight - yellow */
+    #f97316 90%,  /* Obese - orange */
+    #ef4444 100%  /* Severe - red */
+  );
+  border-radius: 10px;
+}
+
+.indicator {
+  position: absolute;
+  width: 2px;
+  height: 130%;
+  top: -15%;
+  background: black;
+  transition: left 0.8s ease;
+}
+
+.indicator-label {
+  position: absolute;
+  top: -25px;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+  white-space: nowrap;
+}
+
+/* Table */
+table {
+  width: 100%;
+  max-width: 500px;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+table th {
+  background: #e2e8f0;
+}
+</style>
+<script>
+function calculatePI() {
+  // Get weight
+  let weight = parseFloat(document.getElementById("weight").value);
+  const weightUnit = document.getElementById("weightUnit").value;
+  if(weightUnit === "lb") weight = weight * 0.453592; // lb to kg
+
+  // Get height
+  let height = parseFloat(document.getElementById("height").value);
+  const heightUnit = document.getElementById("heightUnit").value;
+  if(heightUnit === "cm") height = height / 100; // cm to m
+  if(heightUnit === "inch") height = height * 0.0254; // inch to m
+  if(heightUnit === "ft") height = height * 0.3048; // ft to m
+
+  // Ponderal Index formula: PI = weight / height^3
+  const PI = +(weight / (height*height*height)).toFixed(2);
+
+  document.getElementById("result").innerHTML =
+    `<strong>Ponderal Index:</strong> ${PI}`;
+
+  // Formula
+  document.getElementById("formula").innerHTML =
+    `Formula: PI = Weight (kg) / Height (m)^3 = ${weight} / (${height.toFixed(2)})^3 = ${PI}`;
+
+  // Gradient bar
+  const indicator = document.getElementById("indicator");
+  let leftPercent = 0;
+  if(PI < 11) leftPercent = 0;        // Underweight
+  else if(PI < 13) leftPercent = 40;  // Normal
+  else if(PI < 15) leftPercent = 70;  // Overweight
+  else leftPercent = 90;              // Obese
+  indicator.style.left = leftPercent + "%";
+  document.getElementById("indicatorLabel").innerText = PI;
+}
+</script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>s
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button class="active">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <div class="card">
+    <h2>Ponderal Index Calculator</h2>
+
+    <div class="row">
+      <div class="col">
+        <label>Weight</label>
+        <input id="weight" type="number" placeholder="Enter weight">
+        <select id="weightUnit">
+          <option value="kg" selected>kg</option>
+          <option value="lb">lb</option>
+        </select>
+      </div>
+      <div class="col">
+        <label>Height</label>
+        <input id="height" type="number" placeholder="Enter height">
+        <select id="heightUnit">
+          <option value="cm" selected>cm</option>
+          <option value="m">m</option>
+          <option value="inch">inch</option>
+          <option value="ft">ft</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="calculate-btn" onclick="calculatePI()">Calculate</button>
+
+    <div id="result" class="result"></div>
+    <div id="formula" class="result"></div>
+
+    <div class="bar-container">
+      <div class="indicator" id="indicator">
+        <div class="indicator-label" id="indicatorLabel"></div>
+      </div>
+    </div>
+
+    <h3>Ponderal Index Categories</h3>
+    <table>
+      <tr>
+        <th>Category</th>
+        <th>PI Range</th>
+      </tr>
+      <tr>
+        <td>Underweight</td>
+        <td>&lt; 11</td>
+      </tr>
+      <tr>
+        <td>Normal</td>
+        <td>11 – 13</td>
+      </tr>
+      <tr>
+        <td>Overweight</td>
+        <td>13 – 15</td>
+      </tr>
+      <tr>
+        <td>Obese</td>
+        <td>&gt; 15</td>
+      </tr>
+    </table>
+
+  </div>
+</div>
+
+</body>
+</html>

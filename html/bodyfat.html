@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – Body Fat Percentage</title>
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/engine.js" defer></script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button class="active" type="button">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <div class="card">
+    <h2>Body Fat Percentage Calculator</h2>
+
+    <!-- Gender -->
+    <label>Gender</label>
+    <select id="bf-gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+
+    <!-- Height -->
+    <label>Height</label>
+    <input type="number" id="bf-height" placeholder="Enter height">
+    <select id="bf-height-unit">
+      <option value="cm" selected>cm</option>
+      <option value="m">m</option>
+      <option value="inch">inch</option>
+      <option value="ft">ft</option>
+    </select>
+
+    <!-- Waist -->
+    <label>Waist</label>
+    <input type="number" id="bf-waist" placeholder="Enter waist">
+    <select id="bf-waist-unit">
+      <option value="cm" selected>cm</option>
+      <option value="inch">inch</option>
+      <option value="ft">ft</option>
+    </select>
+
+    <!-- Neck -->
+    <label>Neck</label>
+    <input type="number" id="bf-neck" placeholder="Enter neck">
+    <select id="bf-neck-unit">
+      <option value="cm" selected>cm</option>
+      <option value="inch">inch</option>
+      <option value="ft">ft</option>
+    </select>
+
+    <!-- Hip (female only) -->
+    <label>Hip (females only)</label>
+    <input type="number" id="bf-hip" placeholder="Enter hip">
+    <select id="bf-hip-unit">
+      <option value="cm" selected>cm</option>
+      <option value="inch">inch</option>
+      <option value="ft">ft</option>
+    </select>
+
+    <button class="calculate-btn" type="button" onclick="calculateBodyFat()">Calculate Body Fat %</button>
+
+    <div class="result" id="bf-result"></div>
+
+    <div class="bar-container">
+      <div class="bar">
+        <div class="indicator" id="bf-indicator"></div>
+      </div>
+    </div>
+
+    <div id="bf-formula" style="margin-top:15px;"></div>
+  </div>
+</div>
+
+</body>
+</html>

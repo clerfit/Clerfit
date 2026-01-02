@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – Relative Fat Mass</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+/* ===== Sidebar & Layout ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  background: #d2e1fc;
+}
+.sidebar {
+  width: 250px;
+  background: #0f172a;
+  color: white;
+  padding: 15px;
+  overflow-y: auto;
+}
+.sidebar h2 {
+  text-align: center;
+  color: #38bdf8;
+  margin-bottom: 10px;
+}
+.sidebar button {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0;
+  border: none;
+  background: #1e293b;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+.sidebar button:hover,
+.sidebar button.active {
+  background: #38bdf8;
+  color: black;
+}
+.main {
+  flex: 1;
+  padding: 20px;
+}
+.header {
+  text-align: center;
+}
+.header h1 {
+  margin: 0;
+  color: #0f172a;
+}
+.header p {
+  color: #475569;
+}
+/* ===== Card ===== */
+.card {
+  background: white;
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.col {
+  flex: 1;
+  min-width: 200px;
+}
+label {
+  font-weight: bold;
+}
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+.calculate-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  background: #22c55e;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.calculate-btn:hover {
+  background: #16a34a;
+}
+.result {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+/* ===== Gradient Bar ===== */
+.bar-container {
+  margin-top: 20px;
+  width: 100%;
+  position: relative;
+  height: 25px;
+}
+.bar {
+  width: 100%;
+  height: 25px;
+  background: linear-gradient(
+    to right,
+    #3b82f6 0%,    /* Low - Blue */
+    #22c55e 30%,   /* Normal - Green */
+    #eab308 55%,   /* High - Yellow */
+    #f97316 75%,   /* Very High - Orange */
+    #ef4444 100%   /* Extremely High - Red */
+  );
+  border-radius: 12px;
+  position: relative;
+}
+.indicator {
+  position: absolute;
+  width: 2px;
+  background: black;
+  top: -2px;
+  bottom: -2px;
+  transition: left 1s ease;
+}
+.indicator-label {
+  position: absolute;
+  top: -25px;
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+}
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+table th {
+  background: #e2e8f0;
+}
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+  }
+  .row {
+    flex-direction: column;
+  }
+}
+</style>
+<script>
+function convertToCm(value, unit) {
+  if (unit === 'm') return value * 100;
+  if (unit === 'ft') return value * 30.48;
+  if (unit === 'inch') return value * 2.54;
+  return value; // cm
+}
+
+function calculateRFM() {
+  let gender = document.getElementById('gender').value;
+  let height = parseFloat(document.getElementById('height').value);
+  let waist = parseFloat(document.getElementById('waist').value);
+
+  let heightUnit = document.getElementById('heightUnit').value;
+  let waistUnit = document.getElementById('waistUnit').value;
+
+  height = convertToCm(height, heightUnit);
+  waist = convertToCm(waist, waistUnit);
+
+  let rfm;
+  if (gender === 'male') {
+    rfm = 64 - (20 * (height / waist));
+  } else {
+    rfm = 76 - (20 * (height / waist));
+  }
+
+  rfm = parseFloat(rfm.toFixed(1));
+
+  document.getElementById('result').innerHTML = `RFM: ${rfm}%`;
+
+  // Update indicator
+  let indicator = document.getElementById('indicator');
+  let barWidth = document.getElementById('bar').offsetWidth;
+  let leftPos = Math.min(Math.max((rfm / 50) * barWidth, 0), barWidth); // max 50%
+  indicator.style.left = leftPos + 'px';
+}
+</script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button class="active">RFM</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <div class="card">
+    <h2>Relative Fat Mass (RFM) Calculator</h2>
+
+    <div class="row">
+      <div class="col">
+        <label>Gender</label>
+        <select id="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div class="col">
+        <label>Height</label>
+        <input id="height" type="number" placeholder="Enter height">
+        <select id="heightUnit">
+          <option value="cm" selected>cm</option>
+          <option value="m">m</option>
+          <option value="inch">inch</option>
+          <option value="ft">ft</option>
+        </select>
+      </div>
+      <div class="col">
+        <label>Waist</label>
+        <input id="waist" type="number" placeholder="Enter waist">
+        <select id="waistUnit">
+          <option value="cm" selected>cm</option>
+          <option value="m">m</option>
+          <option value="inch">inch</option>
+          <option value="ft">ft</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="calculate-btn" onclick="calculateRFM()">Calculate</button>
+
+    <div id="result" class="result"></div>
+
+    <div class="bar-container">
+      <div class="bar" id="bar"></div>
+      <div class="indicator" id="indicator"></div>
+    </div>
+
+    <h3>RFM Reference Table</h3>
+    <table>
+      <tr>
+        <th>Gender</th>
+        <th>Category</th>
+        <th>RFM (%)</th>
+      </tr>
+      <tr>
+        <td>Male</td>
+        <td>Low</td>
+        <td>&lt;6%</td>
+      </tr>
+      <tr>
+        <td>Male</td>
+        <td>Normal</td>
+        <td>6 – 21%</td>
+      </tr>
+      <tr>
+        <td>Male</td>
+        <td>High</td>
+        <td>22 – 27%</td>
+      </tr>
+      <tr>
+        <td>Male</td>
+        <td>Very High</td>
+        <td>&gt;27%</td>
+      </tr>
+      <tr>
+        <td>Female</td>
+        <td>Low</td>
+        <td>&lt;16%</td>
+      </tr>
+      <tr>
+        <td>Female</td>
+        <td>Normal</td>
+        <td>16 – 29%</td>
+      </tr>
+      <tr>
+        <td>Female</td>
+        <td>High</td>
+        <td>30 – 35%</td>
+      </tr>
+      <tr>
+        <td>Female</td>
+        <td>Very High</td>
+        <td>&gt;35%</td>
+      </tr>
+    </table>
+
+  </div>
+</div>
+</body>
+</html>

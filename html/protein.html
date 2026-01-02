@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – Protein Intake</title>
+<!-- Central CSS -->
+<link rel="stylesheet" href="../css/style.css">
+<!-- Central JS -->
+<script src="../js/engine.js" defer></script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button class="active">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="main">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <!-- Calculator Card -->
+  <div class="card">
+    <h2>Protein Intake Calculator</h2>
+
+    <!-- Weight with unit converter -->
+    <label>Weight</label>
+    <div class="row">
+      <div class="col">
+        <input id="weight" type="number" placeholder="Enter weight">
+      </div>
+      <div class="col">
+        <select id="weightUnit">
+          <option value="kg" selected>kg</option>
+          <option value="lb">lb</option>
+        </select>
+      </div>
+    </div>
+
+    <label>Activity Level</label>
+    <select id="level">
+      <option value="0.8">Sedentary</option>
+      <option value="1.2">Active</option>
+      <option value="1.6">Athlete</option>
+      <option value="2.0">Bodybuilding</option>
+    </select>
+
+    <button class="calculate-btn" onclick="calculateProtein()">Calculate</button>
+
+    <div id="result" class="result"></div>
+    <div id="formula"></div>
+  </div>
+  <label># Note: These are minimum required values</label>
+</div>
+
+<script>
+// Convert weight to kg for calculation
+function calculateProtein() {
+  let weight = Number(document.getElementById('weight').value);
+  let unit = document.getElementById('weightUnit').value;
+  let level = Number(document.getElementById('level').value);
+
+  if(unit === 'lb') weight = weight / 2.20462; // convert lb -> kg
+
+  let protein = (weight * level).toFixed(2); // grams per day
+
+  document.getElementById('result').innerHTML = `Recommended Protein Intake: <b>${protein} g/day</b>`;
+  document.getElementById('formula').innerHTML = `Formula: Weight (kg) × Activity Factor (${level})`;
+}
+</script>
+
+</body>
+</html>

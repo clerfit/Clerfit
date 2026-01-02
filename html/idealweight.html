@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – Ideal Weight</title>
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/engine.js" defer></script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button class="active" type="button">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <div class="card">
+    <h2>Ideal Weight Calculator</h2>
+
+    <!-- Gender -->
+    <label>Gender</label>
+    <select id="iw-gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+
+    <!-- Height -->
+    <label>Height</label>
+    <input type="number" id="iw-height" placeholder="Enter height">
+    <select id="iw-height-unit">
+      <option value="cm" selected>cm</option>
+      <option value="m">m</option>
+      <option value="inch">inch</option>
+      <option value="ft">ft</option>
+    </select>
+
+    <!-- Weight unit display (optional) -->
+    <label>Preferred Weight Unit</label>
+    <select id="iw-weight-unit">
+      <option value="kg" selected>kg</option>
+      <option value="lb">lb</option>
+    </select>
+
+    <button class="calculate-btn" type="button" onclick="calculateIdealWeight()">Calculate Ideal Weight</button>
+
+    <div class="result" id="iw-result"></div>
+    <div id="iw-formula" style="margin-top:15px;"></div>
+  </div>
+</div>
+
+</body>
+</html>

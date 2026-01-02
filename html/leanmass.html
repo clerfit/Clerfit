@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – Lean Mass</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+/* Ensure bar and indicator are visible */
+.bar-container {
+  margin-top: 20px;
+  width: 100%;
+  position: relative;
+}
+
+.bar {
+  width: 100%;
+  height: 25px;
+  background: linear-gradient(to right, #3b82f6 0%, #22c55e 50%, #f97316 70%, #f97316 100%);
+  border-radius: 12px;
+  position: relative;
+}
+
+.indicator {
+  position: absolute;
+  top: -5px;
+  width: 4px;
+  height: 35px;
+  background: black;
+  transition: left 0.8s;
+  text-align: center;
+}
+
+.indicator-label {
+  position: absolute;
+  top: -20px;
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+  white-space: nowrap;
+}
+</style>
+<script defer>
+function calculateLeanMass() {
+  let weight = parseFloat(document.getElementById('weight').value);
+  const unit = document.getElementById('weightUnit').value;
+  if (!weight || weight <=0) { alert("Enter valid weight"); return; }
+  if(unit==='lb') weight *= 0.453592;
+
+  let fat = parseFloat(document.getElementById('fat').value);
+  if(!fat || fat<0 || fat>100) { alert("Enter valid body fat %"); return; }
+
+  const leanMass = weight * (1 - fat/100);
+  const leanPercent = (leanMass / weight) * 100;
+
+  // Display result
+  document.getElementById('result').innerHTML = `Lean Mass: ${leanMass.toFixed(2)} kg (${leanPercent.toFixed(1)}%)`;
+  document.getElementById('formula').innerHTML = `Formula: Weight × (1 - Body Fat %) = ${weight.toFixed(2)} × (1 - ${fat/100}) = ${leanMass.toFixed(2)} kg`;
+
+  // Determine category and indicator color
+  let category = '', color = '';
+  if(leanPercent < 50){ category='Low'; color='#3b82f6'; }
+  else if(leanPercent <= 70){ category='Normal'; color='#22c55e'; }
+  else { category='High'; color='#f97316'; }
+
+  // Move indicator
+  const indicator = document.getElementById('indicator');
+  const label = document.getElementById('indicator-label');
+  indicator.style.left = `calc(${leanPercent}% - 2px)`; // center the line
+  indicator.style.backgroundColor = color;
+
+  // Add category label above indicator
+  label.innerText = category;
+  label.style.left = `calc(${leanPercent}% - 20px)`; // shift slightly for visibility
+}
+</script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button class="active">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<div class="main">
+ <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <div class="card">
+    <h2>Lean Body Mass Calculator</h2>
+
+    <label>Weight</label>
+    <input id="weight" type="number">
+    <select id="weightUnit">
+      <option value="kg" selected>kg</option>
+      <option value="lb">lb</option>
+    </select>
+
+    <label>Body Fat (%)</label>
+    <input id="fat" type="number">
+
+    <button class="calculate-btn" onclick="calculateLeanMass()">Calculate</button>
+
+    <div id="result" class="result"></div>
+    <div id="formula"></div>
+
+    <div class="bar-container">
+      <div class="bar">
+        <div class="indicator" id="indicator"></div>
+        <div class="indicator-label" id="indicator-label"></div>
+      </div>
+    </div>
+
+    <table>
+      <tr><th>LBM Category</th><th>Percentage of Body Weight</th><th>Description</th></tr>
+      <tr><td>Low</td><td>&lt;50%</td><td>Poor / Below Healthy</td></tr>
+      <tr><td>Normal</td><td>50–70%</td><td>Healthy / Normal</td></tr>
+      <tr><td>High</td><td>&gt;70%</td><td>Above Normal / Very Fit</td></tr>
+    </table>
+
+  </div>
+</div>
+
+</body>
+</html>

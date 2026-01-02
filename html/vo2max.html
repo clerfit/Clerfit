@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – VO₂ Max</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  background: #d2e1fc;
+}
+.sidebar {
+  width: 250px;
+  background: #0f172a;
+  color: white;
+  padding: 15px;
+  overflow-y: auto;
+}
+.sidebar h2 {
+  text-align: center;
+  color: #38bdf8;
+  margin-bottom: 10px;
+}
+.sidebar button {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0;
+  border: none;
+  background: #1e293b;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+.sidebar button:hover,
+.sidebar button.active {
+  background: #38bdf8;
+  color: black;
+}
+.main {
+  flex: 1;
+  padding: 20px;
+}
+.header {
+  text-align: center;
+}
+.header h1 {
+  margin: 0;
+  color: #0f172a;
+}
+.header p {
+  color: #475569;
+}
+.card {
+  background: white;
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.col {
+  flex: 1;
+  min-width: 200px;
+}
+label {
+  font-weight: bold;
+}
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+.calculate-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  background: #22c55e;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.calculate-btn:hover {
+  background: #16a34a;
+}
+.result {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.bar-container {
+  margin-top: 20px;
+  width: 100%;
+  position: relative;
+  height: 25px;
+}
+.bar {
+  width: 100%;
+  height: 25px;
+  background: linear-gradient(
+    to right,
+    #ef4444  0%,    /* Poor */
+    #f97316 30%,   /* Fair */
+    #eab308 55%,   /* Good */
+    #22c55e 75%,   /* Excellent */
+    #15ad3d 100%   /* Superior */
+
+  );
+  border-radius: 12px;
+  position: relative;
+}
+.indicator {
+  position: absolute;
+  width: 2px;
+  background: black;
+  top: -2px;
+  bottom: -2px;
+  transition: left 1s ease;
+}
+.indicator-label {
+  position: absolute;
+  top: -25px;
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+table th {
+  background: #e2e8f0;
+}
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+  }
+  .row {
+    flex-direction: column;
+  }
+}
+</style>
+<script>
+// Age-specific VO2 Max standards (ml/kg/min) for males and females, by age group
+const vo2Standards = {
+  male: [
+    {min: 13, max: 19, poor: 35, fair: 38, good: 42, excellent: 46, superior: 50},
+    {min: 20, max: 29, poor: 33, fair: 36, good: 42, excellent: 45, superior: 50},
+    {min: 30, max: 39, poor: 31, fair: 35, good: 40, excellent: 44, superior: 48},
+    {min: 40, max: 49, poor: 28, fair: 32, good: 37, excellent: 41, superior: 45},
+    {min: 50, max: 59, poor: 25, fair: 29, good: 34, excellent: 38, superior: 42},
+    {min: 60, max: 69, poor: 22, fair: 26, good: 31, excellent: 35, superior: 39}
+  ],
+  female: [
+    {min: 13, max: 19, poor: 28, fair: 31, good: 36, excellent: 40, superior: 45},
+    {min: 20, max: 29, poor: 27, fair: 30, good: 34, excellent: 38, superior: 43},
+    {min: 30, max: 39, poor: 25, fair: 28, good: 32, excellent: 36, superior: 41},
+    {min: 40, max: 49, poor: 23, fair: 26, good: 30, excellent: 34, superior: 38},
+    {min: 50, max: 59, poor: 21, fair: 24, good: 28, excellent: 32, superior: 36},
+    {min: 60, max: 69, poor: 19, fair: 22, good: 26, excellent: 30, superior: 34}
+  ]
+};
+
+function convertDistance(value, unit) {
+  if(unit === 'km') return value * 1000;
+  if(unit === 'mile') return value * 1609.34;
+  return value; // meters
+}
+
+function calculateVO2() {
+  let distance = parseFloat(document.getElementById('distance').value);
+  let unit = document.getElementById('distanceUnit').value;
+  let age = parseInt(document.getElementById('age').value);
+  let gender = document.getElementById('gender').value;
+
+  if(isNaN(distance) || isNaN(age)) {
+    alert("Enter valid distance and age");
+    return;
+  }
+
+  distance = convertDistance(distance, unit);
+
+  let vo2 = ((distance - 504.9) / 44.73).toFixed(1);
+
+  document.getElementById('result').innerHTML = `VO₂ Max ≈ ${vo2} ml/kg/min`;
+
+  // find the correct standard for age
+  let standard = vo2Standards[gender].find(s => age >= s.min && age <= s.max);
+
+  let level = "";
+  if(vo2 < standard.fair) level = "Poor";
+  else if(vo2 < standard.good) level = "Fair";
+  else if(vo2 < standard.excellent) level = "Good";
+  else if(vo2 < standard.superior) level = "Excellent";
+  else level = "Superior";
+
+  document.getElementById('formula').innerHTML = `Fitness Level: ${level}`;
+
+  // move indicator
+  let barWidth = document.getElementById('bar').offsetWidth;
+  let leftPos = Math.min(Math.max((vo2 / (standard.superior + 10)) * barWidth, 0), barWidth);
+  document.getElementById('indicator').style.left = leftPos + 'px';
+}
+</script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button class="active">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <div class="card">
+    <h2>VO₂ Max Calculator (Cooper Test)</h2>
+
+    <div class="row">
+      <div class="col">
+        <label>Gender</label>
+        <select id="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div class="col">
+        <label>Age</label>
+        <input id="age" type="number" placeholder="Years">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <label>Distance</label>
+        <input id="distance" type="number" placeholder="Distance covered in 12 min">
+        <select id="distanceUnit">
+          <option value="m" selected>Meters</option>
+          <option value="km">Kilometers</option>
+          <option value="mile">Miles</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="calculate-btn" onclick="calculateVO2()">Calculate</button>
+
+    <div id="result" class="result"></div>
+    <div id="formula"></div>
+
+    <div class="bar-container">
+      <div class="bar" id="bar"></div>
+      <div class="indicator" id="indicator"></div>
+    </div>
+
+    <h3>VO₂ Max Reference Table</h3>
+    <table>
+      <tr><th>Age</th><th>Gender</th><th>Poor</th><th>Fair</th><th>Good</th><th>Excellent</th><th>Superior</th></tr>
+      <tr><td>13–19</td><td>Male</td><td><35</td><td>35–38</td><td>39–42</td><td>43–46</td><td>>46</td></tr>
+      <tr><td>20–29</td><td>Male</td><td><33</td><td>33–36</td><td>37–42</td><td>43–45</td><td>>45</td></tr>
+      <tr><td>30–39</td><td>Male</td><td><31</td><td>31–35</td><td>36–40</td><td>41–44</td><td>>44</td></tr>
+      <tr><td>40–49</td><td>Male</td><td><28</td><td>28–32</td><td>33–37</td><td>38–41</td><td>>41</td></tr>
+      <tr><td>50–59</td><td>Male</td><td><25</td><td>25–29</td><td>30–34</td><td>35–38</td><td>>38</td></tr>
+      <tr><td>60–69</td><td>Male</td><td><22</td><td>22–26</td><td>27–31</td><td>32–35</td><td>>35</td></tr>
+      <tr><td>13–19</td><td>Female</td><td><28</td><td>28–31</td><td>32–36</td><td>37–40</td><td>>40</td></tr>
+      <tr><td>20–29</td><td>Female</td><td><27</td><td>27–30</td><td>31–34</td><td>35–38</td><td>>38</td></tr>
+      <tr><td>30–39</td><td>Female</td><td><25</td><td>25–28</td><td>29–32</td><td>33–36</td><td>>36</td></tr>
+      <tr><td>40–49</td><td>Female</td><td><23</td><td>23–26</td><td>27–30</td><td>31–34</td><td>>34</td></tr>
+      <tr><td>50–59</td><td>Female</td><td><21</td><td>21–24</td><td>25–28</td><td>29–32</td><td>>32</td></tr>
+      <tr><td>60–69</td><td>Female</td><td><19</td><td>19–22</td><td>23–26</td><td>27–30</td><td>>30</td></tr>
+    </table>
+  </div>
+</div>
+</body>
+</html>

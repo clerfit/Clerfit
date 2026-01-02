@@ -1,0 +1,77 @@
+In<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClerFit – Daily Calorie Calculator</title>
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/engine.js" defer></script>
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button class="active" type="button">Calories</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+  <div class="card">
+    <h2>Daily Calorie Calculator</h2>
+
+    <!-- BMR Input -->
+    <label>BMR</label>
+    <input type="number" id="cal-bmr" placeholder="Enter BMR">
+    <select id="cal-bmr-unit">
+      <option value="kcal" selected>kcal</option>
+      <option value="kj">kJ</option>
+    </select>
+
+    <!-- Activity Level -->
+    <label>Activity Level</label>
+    <select id="cal-activity">
+      <option value="1.2">Sedentary</option>
+      <option value="1.375">Light</option>
+      <option value="1.55">Moderate</option>
+      <option value="1.725">Active</option>
+      <option value="1.9">Very Active</option>
+    </select>
+
+    <button class="calculate-btn" type="button" onclick="calculateCalories()">Calculate</button>
+
+    <div id="cal-result" class="result"></div>
+    <div id="cal-formula" style="margin-top:15px;"></div>
+  </div>
+</div>
+
+</body>
+</html>
