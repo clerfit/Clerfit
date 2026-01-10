@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ClerFit – Health & Fitness Calculators</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Top-right buttons -->
+<div class="top-right-buttons">
+  <button onclick="location.href='index.html'">Home</button>
+  <button onclick="location.href='contact.html'">Contact Us</button>
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='html/bmi.html'">BMI</button>
+  <button onclick="location.href='html/bmr.html'">BMR</button>
+  <button onclick="location.href='html/bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='html/idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='html/calories.html'">Calorie Needs</button>
+  <button onclick="location.href='html/protein.html'">Protein Intake</button>
+  <button onclick="location.href='html/water.html'">Water Intake</button>
+  <button onclick="location.href='html/whr.html'">WHR</button>
+  <button onclick="location.href='html/ffmi.html'">FFMI</button>
+  <button onclick="location.href='html/rfm.html'">RFM</button>
+  <button onclick="location.href='html/vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='html/heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='html/leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='html/fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='html/ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='html/absi.html'">ABSI</button>
+  <button onclick="location.href='html/tdee.html'">TDEE</button>
+  <button onclick="location.href='html/mets.html'">METs</button>
+  <button onclick="location.href='html/pace.html'">Pace</button>
+  <button onclick="location.href='html/healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- Main content -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Explore a wide range of health & fitness calculators to track your body metrics, energy needs, and overall wellness.</p>
+  </div>
+
+  <div class="card">
+    <!-- Placeholder for first calculator -->
+    <h2>BMI (Body Mass Index)</h2>
+    <p><strong>Founder:</strong> Adolphe Quetelet</p>
+    <p><strong>Definition:</strong> BMI measures body fat based on your weight in relation to your height. It helps categorize underweight, normal, overweight, and obesity levels to monitor health risk.</p>
+    <p><strong>Formula:</strong></p>
+    <p style="text-align:center;">
+      Weight (kg)<br>
+      --------------------<br>
+      Height (m)<sup>2</sup>
+    </p>
+
+    <button onclick="location.href='html/bmi.html'" class="calculate-btn">Go to BMI Calculator</button>
+
+    <h3>Category</h3>
+    <table>
+      <tr><th>Category</th><th>BMI Range</th></tr>
+      <tr><td>Underweight</td><td>&lt; 18.5</td></tr>
+      <tr><td>Normal</td><td>18.5 – 24.9</td></tr>
+      <tr><td>Overweight</td><td>25 – 29.9</td></tr>
+      <tr><td>Obese</td><td>30 – 34.9</td></tr>
+      <tr><td>Severely Obese</td><td>≥ 35</td></tr>
+    </table>
+
+    <h3>Types of Health Problems</h3>
+    <ul>
+      <li>Underweight
+        <ul>
+          <li>Weak immunity</li>
+          <li>Anemia</li>
+          <li>Osteoporosis</li>
+          <li>Nutrient deficiency</li>
+        </ul>
+      </li>
+      <li>Normal
+        <ul>
+          <li>Low risk</li>
+          <li>Generally healthy</li>
+        </ul>
+      </li>
+      <li>Overweight
+        <ul>
+          <li>Hypertension</li>
+          <li>Type 2 diabetes</li>
+          <li>Joint pain</li>
+          <li>Stress</li>
+        </ul>
+      </li>
+      <li>Obese
+        <ul>
+          <li>Heart disease</li>
+          <li>Stroke</li>
+          <li>High blood pressure</li>
+          <li>Metabolic syndrome</li>
+        </ul>
+      </li>
+      <li>Severely Obese
+        <ul>
+          <li>Very high risk of cardiac arrest</li>
+          <li>Diabetes</li>
+          <li>Sleep apnea</li>
+          <li>Mobility issues</li>
+        </ul>
+      </li>
+    </ul>
+
+    <button onclick="location.href='html/bmi.html'" class="calculate-btn">Go to BMI Calculator</button>
+   
+
+<!-- BMR (Basal Metabolic Rate) -->
+      <h2>BMR (Basal Metabolic Rate)</h2>
+      <p><strong>Founder:</strong> Harris & Benedict</p>
+      <p><strong>Definition:</strong> BMR estimates the number of calories your body burns while at complete rest to maintain vital functions such as breathing, circulation, and cell production. It helps in planning diets, managing weight, and understanding energy needs.</p>
+      
+      <p class="formula">
+        Male:<br>
+        BMR = 88.36 + (13.4 × Weight kg) + (4.8 × Height cm) - (5.7 × Age years)<br><br>
+        Female:<br>
+        BMR = 447.6 + (9.2 × Weight kg) + (3.1 × Height cm) - (4.3 × Age years)
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/bmr.html'">Go to BMR Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Activity Level</th><th>Multiplier</th></tr>
+        <tr><td>Sedentary</td><td>1.2</td></tr>
+        <tr><td>Lightly active</td><td>1.375</td></tr>
+        <tr><td>Moderately active</td><td>1.55</td></tr>
+        <tr><td>Very active</td><td>1.725</td></tr>
+        <tr><td>Extra active</td><td>1.9</td></tr>
+      </table>
+
+      <h3>Types of Health Problems Due to Low or High BMR</h3>
+      <ul>
+        <li>Low BMR:
+          <ul>
+            <li>Weight gain despite low food intake</li>
+            <li>Fatigue</li>
+            <li>Slower metabolism</li>
+            <li>Difficulty losing weight</li>
+          </ul>
+        </li>
+        <li>High BMR:
+          <ul>
+            <li>Unintended weight loss</li>
+            <li>Rapid heartbeat</li>
+            <li>Insomnia</li>
+            <li>Nutrient deficiencies</li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Ad placeholder middle -->
+      <div class="ad-placeholder"></div>
+
+<!-- 3. Body Fat % -->
+      <h2>Body Fat Percentage</h2>
+      <p><strong>Founder:</strong> William H. Durnin & J. Womersley</p>
+      <p><strong>Definition:</strong> Body Fat Percentage (BFP) indicates the proportion of your body weight that is made up of fat. It helps evaluate fitness, monitor health risks, and design personalized diet and exercise plans.</p>
+      
+      <p class="formula">
+        For Men: BFP = (1.20 × BMI) + (0.23 × Age) - 16.2<br>
+        For Women: BFP = (1.20 × BMI) + (0.23 × Age) - 5.4
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/bodyfat.html'">Go to Body Fat Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Category</th><th>Body Fat % (Men)</th><th>Body Fat % (Women)</th></tr>
+        <tr><td>Essential fat</td><td>2–5%</td><td>10–13%</td></tr>
+        <tr><td>Athletes</td><td>6–13%</td><td>14–20%</td></tr>
+        <tr><td>Fitness</td><td>14–17%</td><td>21–24%</td></tr>
+        <tr><td>Average</td><td>18–24%</td><td>25–31%</td></tr>
+        <tr><td>Obese</td><td>≥ 25%</td><td>≥ 32%</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>Low Body Fat:
+          <ul>
+            <li>Hormonal imbalance</li>
+            <li>Weak immunity</li>
+            <li>Osteoporosis</li>
+          </ul>
+        </li>
+        <li>High Body Fat:
+          <ul>
+            <li>Cardiovascular diseases</li>
+            <li>Diabetes</li>
+            <li>Joint pain</li>
+            <li>Metabolic syndrome</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 4. Ideal Weight -->
+      <h2>Ideal Weight</h2>
+      <p><strong>Founder:</strong> Devine & Robinson</p>
+      <p><strong>Definition:</strong> Ideal Weight estimates the weight you should maintain for optimal health based on height, gender, and body composition. It guides weight management, fitness planning, and reduces disease risk.</p>
+      
+      <p class="formula">
+        Male: Ideal Weight (kg) = 50 + 2.3 × (Height in inches - 60)<br>
+        Female: Ideal Weight (kg) = 45.5 + 2.3 × (Height in inches - 60)
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/idealweight.html'">Go to Ideal Weight Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Category</th><th>Weight Range</th></tr>
+        <tr><td>Underweight</td><td>Below Ideal</td></tr>
+        <tr><td>Normal</td><td>Within Ideal</td></tr>
+        <tr><td>Overweight</td><td>Above Ideal</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>Below Ideal Weight:
+          <ul>
+            <li>Malnutrition</li>
+            <li>Weak immunity</li>
+            <li>Osteoporosis</li>
+          </ul>
+        </li>
+        <li>Above Ideal Weight:
+          <ul>
+            <li>Heart disease</li>
+            <li>Hypertension</li>
+            <li>Type 2 diabetes</li>
+            <li>Joint problems</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 5. Calorie Needs -->
+      <h2>Calorie Needs</h2>
+      <p><strong>Founder:</strong> FAO/WHO/UNU (Dietary guidelines)</p>
+      <p><strong>Definition:</strong> Calorie Needs calculate the total energy your body requires daily based on BMR, activity level, age, and gender. It helps plan diet, control weight, and optimize performance.</p>
+      
+      <p class="formula">
+        Total Calories = BMR × Activity Factor<br>
+        Activity Factor: Sedentary=1.2, Lightly Active=1.375, Moderately Active=1.55, Very Active=1.725, Extra Active=1.9
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/calories.html'">Go to Calorie Needs Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Activity Level</th><th>Calories Multiplier</th></tr>
+        <tr><td>Sedentary</td><td>1.2</td></tr>
+        <tr><td>Lightly active</td><td>1.375</td></tr>
+        <tr><td>Moderately active</td><td>1.55</td></tr>
+        <tr><td>Very active</td><td>1.725</td></tr>
+        <tr><td>Extra active</td><td>1.9</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>Undereating:
+          <ul>
+            <li>Malnutrition</li>
+            <li>Weak immunity</li>
+            <li>Muscle loss</li>
+          </ul>
+        </li>
+        <li>Overeating:
+          <ul>
+            <li>Obesity</li>
+            <li>Heart disease</li>
+            <li>Diabetes</li>
+            <li>Joint stress</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+
+<!-- 6. Protein Intake -->
+      <h2>Protein Intake</h2>
+      <p><strong>Founder:</strong> Recommended by WHO / FAO</p>
+      <p><strong>Definition:</strong> Protein Intake calculates the daily protein requirement based on body weight, activity level, and fitness goals. It helps build muscles, repair tissues, and maintain overall health.</p>
+      
+      <p class="formula">
+        Protein (g/day) = Body Weight (kg) × Protein Factor<br>
+        Protein Factor: Sedentary=0.8, Active=1.2–1.7, Bodybuilding=1.6–2.2
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/protein.html'">Go to Protein Intake Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Activity Level</th><th>Protein Factor (g/kg)</th></tr>
+        <tr><td>Sedentary</td><td>0.8</td></tr>
+        <tr><td>Active</td><td>1.2–1.7</td></tr>
+        <tr><td>Bodybuilding</td><td>1.6–2.2</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>Low Protein Intake:
+          <ul>
+            <li>Muscle loss</li>
+            <li>Delayed recovery</li>
+            <li>Weak immunity</li>
+          </ul>
+        </li>
+        <li>Excess Protein Intake:
+          <ul>
+            <li>Kidney strain</li>
+            <li>Dehydration</li>
+            <li>Digestive issues</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 7. Water Intake -->
+      <h2>Water Intake</h2>
+      <p><strong>Founder:</strong> Institute of Medicine / Dietary Guidelines</p>
+      <p><strong>Definition:</strong> Water Intake calculates the recommended daily water consumption based on body weight, climate, and activity level. Adequate hydration improves metabolism, digestion, and overall health.</p>
+      
+      <p class="formula">
+        Water (L/day) = Body Weight (kg) × 0.033
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/water.html'">Go to Water Intake Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Hydration Level</th><th>Water Intake (L/day)</th></tr>
+        <tr><td>Low</td><td>&lt; 1.5</td></tr>
+        <tr><td>Normal</td><td>1.5–3.0</td></tr>
+        <tr><td>High</td><td>&gt; 3.0</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>Dehydration:
+          <ul>
+            <li>Fatigue</li>
+            <li>Headache</li>
+            <li>Low blood pressure</li>
+          </ul>
+        </li>
+        <li>Overhydration:
+          <ul>
+            <li>Electrolyte imbalance</li>
+            <li>Swelling</li>
+            <li>Confusion</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 8. Waist-Hip Ratio (WHR) -->
+      <h2>Waist-Hip Ratio (WHR)</h2>
+      <p><strong>Founder:</strong> World Health Organization</p>
+      <p><strong>Definition:</strong> WHR measures fat distribution by comparing waist and hip circumferences. It identifies risk for cardiovascular and metabolic diseases more accurately than BMI alone.</p>
+      
+      <p class="formula">
+        WHR = Waist Circumference (cm) ÷ Hip Circumference (cm)
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/whr.html'">Go to WHR Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Gender</th><th>Low Risk</th><th>Moderate Risk</th><th>High Risk</th></tr>
+        <tr><td>Male</td><td>&lt;0.90</td><td>0.90–0.99</td><td>≥1.0</td></tr>
+        <tr><td>Female</td><td>&lt;0.80</td><td>0.80–0.84</td><td>≥0.85</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>High WHR:
+          <ul>
+            <li>Cardiovascular disease</li>
+            <li>Type 2 diabetes</li>
+            <li>Hypertension</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 9. FFMI (Fat-Free Mass Index) -->
+      <h2>FFMI (Fat-Free Mass Index)</h2>
+      <p><strong>Founder:</strong> Kouri et al.</p>
+      <p><strong>Definition:</strong> FFMI measures muscularity adjusted for height. It estimates the amount of lean mass relative to body size and is useful for athletes and bodybuilders to track muscle development.</p>
+      
+      <p class="formula">
+        FFMI = (Lean Mass (kg) ÷ Height (m)²)
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/ffmi.html'">Go to FFMI Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>FFMI Range</th><th>Muscularity</th></tr>
+        <tr><td>&lt;17</td><td>Below Average</td></tr>
+        <tr><td>17–19</td><td>Average</td></tr>
+        <tr><td>19–21</td><td>Above Average</td></tr>
+        <tr><td>&gt;21</td><td>Highly Muscular</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>Low FFMI:
+          <ul>
+            <li>Low muscle mass</li>
+            <li>Higher fat proportion</li>
+            <li>Weaker metabolism</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 10. Relative Fat Mass (RFM) -->
+      <h2>Relative Fat Mass (RFM)</h2>
+      <p><strong>Founder:</strong> Woolcott & Bergman</p>
+      <p><strong>Definition:</strong> RFM is an alternative to BMI for estimating body fat using height and waist circumference. It is more accurate for identifying fat-related health risks across genders.</p>
+      
+      <p class="formula">
+        Male: RFM = 64 – (20 × Height ÷ Waist)<br>
+        Female: RFM = 76 – (20 × Height ÷ Waist)
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/rfm.html'">Go to RFM Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Category</th><th>RFM Range (%)</th></tr>
+        <tr><td>Essential Fat</td><td>2–5 (Men) / 10–13 (Women)</td></tr>
+        <tr><td>Fitness</td><td>6–13 (Men) / 14–20 (Women)</td></tr>
+        <tr><td>Average</td><td>14–24 (Men) / 21–31 (Women)</td></tr>
+        <tr><td>Obese</td><td>&gt;25 (Men) / &gt;32 (Women)</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>High RFM:
+          <ul>
+            <li>Obesity</li>
+            <li>Diabetes</li>
+            <li>Heart disease</li>
+            <li>Joint pain</li>
+          </ul>
+        </li>
+        <li>Low RFM:
+          <ul>
+            <li>Low energy reserves</li>
+            <li>Weak immunity</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+
+<!-- 11. VO₂ Max (Cooper Test) -->
+      <h2>VO₂ Max (Cooper Test)</h2>
+      <p><strong>Founder:</strong> Kenneth H. Cooper</p>
+      <p><strong>Definition:</strong> VO₂ Max measures the maximum amount of oxygen the body can utilize during intense exercise. It indicates aerobic endurance and cardiovascular fitness.</p>
+      
+      <p class="formula">
+        VO₂ Max (ml/kg/min) = (Distance in meters – 504.9) ÷ 44.73
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/vo2max.html'">Go to VO₂ Max Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Gender</th><th>Age</th><th>Poor</th><th>Fair</th><th>Good</th><th>Excellent</th></tr>
+        <tr><td>Male</td><td>20–29</td><td>&lt;35</td><td>35–38</td><td>38–43</td><td>&gt;43</td></tr>
+        <tr><td>Female</td><td>20–29</td><td>&lt;27</td><td>27–31</td><td>31–35</td><td>&gt;35</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>Low VO₂ Max:
+          <ul>
+            <li>Poor aerobic endurance</li>
+            <li>Higher fatigue</li>
+            <li>Increased cardiovascular risk</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 12. Heart Rate -->
+      <h2>Heart Rate</h2>
+      <p><strong>Founder:</strong> N/A</p>
+      <p><strong>Definition:</strong> Heart Rate measures the number of heartbeats per minute. It helps assess cardiovascular fitness, recovery, and health risks related to heart and blood pressure.</p>
+      
+      <p class="formula">
+        Max Heart Rate = 220 – Age<br>
+        Target Heart Rate = Max Heart Rate × 0.5–0.85
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/heartrate.html'">Go to Heart Rate Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Heart Rate (bpm)</th><th>Category</th></tr>
+        <tr><td>&lt;60</td><td>Bradycardia (Low)</td></tr>
+        <tr><td>60–100</td><td>Normal</td></tr>
+        <tr><td>101–120</td><td>Elevated</td></tr>
+        <tr><td>&gt;120</td><td>Tachycardia (High)</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>Low Heart Rate:
+          <ul>
+            <li>Fatigue</li>
+            <li>Dizziness</li>
+            <li>Weak circulation</li>
+          </ul>
+        </li>
+        <li>High Heart Rate:
+          <ul>
+            <li>Heart attack risk</li>
+            <li>High blood pressure</li>
+            <li>Stress</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 13. Lean Mass -->
+      <h2>Lean Mass</h2>
+      <p><strong>Founder:</strong> Derived from body composition studies</p>
+      <p><strong>Definition:</strong> Lean Mass represents the total weight of muscles, bones, organs, and water in the body, excluding fat. It is used to track fitness progress and nutrition effectiveness.</p>
+      
+      <p class="formula">
+        Lean Mass (kg) = Body Weight (kg) × (1 – Body Fat % ÷ 100)
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/leanmass.html'">Go to Lean Mass Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Body Fat %</th><th>Lean Mass %</th></tr>
+        <tr><td>&lt;10</td><td>&gt;90</td></tr>
+        <tr><td>10–20</td><td>80–90</td></tr>
+        <tr><td>20–30</td><td>70–80</td></tr>
+        <tr><td>&gt;30</td><td>&lt;70</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>Low Lean Mass:
+          <ul>
+            <li>Weak muscles</li>
+            <li>Lower metabolism</li>
+            <li>Higher fat accumulation</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 14. Fat Mass -->
+      <h2>Fat Mass</h2>
+      <p><strong>Founder:</strong> Derived from body composition studies</p>
+      <p><strong>Definition:</strong> Fat Mass calculates the total mass of fat in the body. Monitoring fat mass helps reduce obesity-related risks and manage health efficiently.</p>
+      
+      <p class="formula">
+        Fat Mass (kg) = Body Weight (kg) × (Body Fat % ÷ 100)
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/fatmass.html'">Go to Fat Mass Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Body Fat %</th><th>Category</th></tr>
+        <tr><td>&lt;6</td><td>Essential Fat</td></tr>
+        <tr><td>6–13</td><td>Fitness</td></tr>
+        <tr><td>14–24</td><td>Average</td></tr>
+        <tr><td>&gt;25</td><td>Obese</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>High Fat Mass:
+          <ul>
+            <li>Obesity</li>
+            <li>Diabetes</li>
+            <li>Cardiovascular disease</li>
+            <li>Joint problems</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 15. Ponderal Index -->
+      <h2>Ponderal Index</h2>
+      <p><strong>Founder:</strong> Adolphe Quetelet (adapted formula)</p>
+      <p><strong>Definition:</strong> Ponderal Index is an alternative to BMI that measures the relative leanness or corpulence of a person. It is more accurate for very tall or short individuals.</p>
+      
+      <p class="formula">
+        PI = Body Weight (kg) ÷ Height (m)³
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/ponderal.html'">Go to Ponderal Index Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>PI Range</th><th>Category</th></tr>
+        <tr><td>&lt;11</td><td>Underweight</td></tr>
+        <tr><td>11–15</td><td>Normal</td></tr>
+        <tr><td>15–20</td><td>Overweight</td></tr>
+        <tr><td>&gt;20</td><td>Obese</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>Low PI:
+          <ul>
+            <li>Underweight complications</li>
+            <li>Low energy</li>
+            <li>Nutrient deficiency</li>
+          </ul>
+        </li>
+        <li>High PI:
+          <ul>
+            <li>Obesity</li>
+            <li>Cardiovascular disease</li>
+            <li>Diabetes</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+
+
+<!-- 16. ABSI (A Body Shape Index) -->
+      <h2>ABSI (A Body Shape Index)</h2>
+      <p><strong>Founder:</strong> Nir Krakauer</p>
+      <p><strong>Definition:</strong> ABSI measures body shape and waist circumference relative to BMI and height. It helps predict health risks related to abdominal obesity.</p>
+      
+      <p class="formula">
+        ABSI = Waist Circumference (m) ÷ (BMI^(2/3) × Height^(1/2))
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/absi.html'">Go to ABSI Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>ABSI</th><th>Risk</th></tr>
+        <tr><td>&lt;0.080</td><td>Low</td></tr>
+        <tr><td>0.080–0.084</td><td>Moderate</td></tr>
+        <tr><td>&gt;0.084</td><td>High</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>High ABSI:
+          <ul>
+            <li>Abdominal obesity</li>
+            <li>Heart disease</li>
+            <li>Diabetes</li>
+            <li>Metabolic syndrome</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 17. TDEE (Total Daily Energy Expenditure) -->
+      <h2>TDEE (Total Daily Energy Expenditure)</h2>
+      <p><strong>Founder:</strong> Derived from Harris-Benedict equation</p>
+      <p><strong>Definition:</strong> TDEE calculates the total calories burned in a day considering basal metabolism and activity level. It helps with weight management and diet planning.</p>
+      
+      <p class="formula">
+        TDEE = BMR × Activity Factor
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/tdee.html'">Go to TDEE Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Activity Factor</th><th>Description</th></tr>
+        <tr><td>1.2</td><td>Sedentary</td></tr>
+        <tr><td>1.375</td><td>Light Exercise</td></tr>
+        <tr><td>1.55</td><td>Moderate Exercise</td></tr>
+        <tr><td>1.725</td><td>Heavy Exercise</td></tr>
+        <tr><td>1.9</td><td>Very Heavy Exercise</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>Low TDEE:
+          <ul>
+            <li>Weight gain</li>
+            <li>Fat accumulation</li>
+          </ul>
+        </li>
+        <li>High TDEE:
+          <ul>
+            <li>Difficulty gaining weight</li>
+            <li>Malnutrition risk if intake insufficient</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 18. METs (Metabolic Equivalent of Task) -->
+      <h2>METs (Metabolic Equivalent of Task)</h2>
+      <p><strong>Founder:</strong> Ainsworth et al.</p>
+      <p><strong>Definition:</strong> MET quantifies the energy cost of physical activities relative to resting metabolic rate. It is useful for exercise prescription and fitness assessment.</p>
+      
+      <p class="formula">
+        Calories Burned = MET × Weight (kg) × Duration (hr)
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/mets.html'">Go to METs Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>MET Value</th><th>Activity Intensity</th></tr>
+        <tr><td>&lt;3</td><td>Light</td></tr>
+        <tr><td>3–6</td><td>Moderate</td></tr>
+        <tr><td>&gt;6</td><td>Vigorous</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>Low MET activities:
+          <ul>
+            <li>Poor cardiovascular fitness</li>
+            <li>Weight gain</li>
+            <li>Reduced stamina</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 19. Pace -->
+      <h2>Pace</h2>
+      <p><strong>Founder:</strong> Derived from running and cycling studies</p>
+      <p><strong>Definition:</strong> Pace measures the time taken to cover a specific distance. It is used to track running or cycling performance and fitness progress.</p>
+      
+      <p class="formula">
+        Pace = Time ÷ Distance
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/pace.html'">Go to Pace Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Time per km</th><th>Level</th></tr>
+        <tr><td>&gt;7 min</td><td>Beginner</td></tr>
+        <tr><td>5–7 min</td><td>Intermediate</td></tr>
+        <tr><td>&lt;5 min</td><td>Advanced</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>Slow pace:
+          <ul>
+            <li>Low stamina</li>
+            <li>Poor endurance</li>
+          </ul>
+        </li>
+        <li>Extremely fast pace without training:
+          <ul>
+            <li>Risk of injury</li>
+            <li>Muscle strain</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+      <!-- 20. Health Risk -->
+      <h2>Health Risk</h2>
+      <p><strong>Founder:</strong> Derived from epidemiological studies</p>
+      <p><strong>Definition:</strong> Health Risk calculates potential risk levels based on body measurements, lifestyle, and physical activity. It provides guidance for disease prevention and fitness planning.</p>
+      
+      <p class="formula">
+        Risk Level = Combination of BMI, Waist Circumference, Body Fat %, and Activity Level
+      </p>
+      
+      <button class="calculate-btn" onclick="location.href='html/healthrisk.html'">Go to Health Risk Calculator</button>
+
+      <h3>Category</h3>
+      <table>
+        <tr><th>Risk Level</th><th>Description</th></tr>
+        <tr><td>Low</td><td>Healthy</td></tr>
+        <tr><td>Moderate</td><td>Requires caution</td></tr>
+        <tr><td>High</td><td>Medical consultation advised</td></tr>
+      </table>
+
+      <h3>Types of Health Problems</h3>
+      <ul>
+        <li>High Risk:
+          <ul>
+            <li>Cardiac arrest (Heart Attack)</li>
+            <li>High blood pressure</li>
+            <li>Stress</li>
+            <li>Metabolic disorders</li>
+            <li>Obesity-related complications</li>
+          </ul>
+        </li>
+        <li>Moderate Risk:
+          <ul>
+            <li>Mild hypertension</li>
+            <li>Fatigue</li>
+            <li>Nutritional imbalance</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ad-placeholder"></div>
+
+
+  </div> <!-- End of card -->
+</div> <!-- End of main -->
+
+</body>
+</html>
