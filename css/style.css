@@ -378,3 +378,15 @@ input, select, button {
   background-color: #22c55e; /* green hover */
   color: white;
 }
+
+@media only screen and (max-width: 767px) {
+  body {
+    font-size: 18px;
+  }
+
+  h1 { font-size: 26px; }
+  h2 { font-size: 22px; }
+  p, li, button, input {
+    font-size: 18px;
+  }
+}
