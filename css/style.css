@@ -390,3 +390,79 @@ input, select, button {
     font-size: 18px;
   }
 }
+
+/* ===== ClerFit Advanced Mobile Optimization ===== */
+
+/* -------- Fluid Typography (Advanced Font Scaling) -------- */
+html {
+  font-size: clamp(16px, 1.2vw, 18px);
+}
+
+body {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+}
+
+h2 {
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+}
+
+p, label {
+  font-size: 1rem;
+}
+
+input, select, button {
+  font-size: 1rem;
+}
+
+.result {
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+}
+
+table th, table td {
+  font-size: 0.95rem;
+}
+
+
+/* -------- Mobile Sidebar Dropdown System -------- */
+
+.menu-btn {
+  display: none;
+  padding: 8px 12px;
+  background: #38bdf8;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Mobile only */
+@media (max-width: 600px) {
+
+  .menu-btn {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: -260px;
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    transition: left 0.3s ease;
+    z-index: 2000;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .main {
+    margin-left: 0;
+  }
+
+}
