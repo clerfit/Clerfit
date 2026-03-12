@@ -484,4 +484,7 @@ function calculateVO2() {
   document.getElementById("result").innerHTML =
     `VO₂ Max: <b>${vo2.toFixed(2)} ml/kg/min</b>`;
 }
- 
+
+function toggleSidebar() {
+  document.querySelector(".sidebar").classList.toggle("active");
+} 
