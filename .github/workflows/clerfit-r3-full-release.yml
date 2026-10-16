@@ -50,8 +50,8 @@ jobs:
           payload_dir = Path(os.environ["PAYLOAD_DIR"])
           site_dir = Path(os.environ["SITE_DIR"])
           chunks = sorted(payload_dir.glob("chunk_*.txt"))
-          if len(chunks) != 59:
-              raise SystemExit(f"Expected 59 payload chunks, found {len(chunks)}")
+          if len(chunks) != 46:
+              raise SystemExit(f"Expected 46 payload chunks, found {len(chunks)}")
           encoded = "".join(p.read_text(encoding="ascii").strip() for p in chunks)
           manifest = json.loads(gzip.decompress(base64.b64decode(encoded)))
           if len(manifest) != 165:
