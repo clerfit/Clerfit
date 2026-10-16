@@ -1,6 +1,15 @@
 /* ClerFit R3 quick navigation: consistent fixed Home and Contact Us controls. */
 (() => {
   "use strict";
+  // Force browsers to request the current R3 stylesheet after a release update.
+  // This avoids a stale cached UI on mobile devices.
+  for (const link of document.querySelectorAll('link[rel~="stylesheet"][href*="css/style.css"]')) {
+    try {
+      const fresh = new URL(link.href, document.baseURI);
+      fresh.searchParams.set("v", "20261017-r3-live-release");
+      if (link.href !== fresh.href) link.href = fresh.href;
+    } catch (_) {}
+  }
   const init = () => {
     const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
     if (document.querySelector(".clerfit-fixed-actions, .top-right-buttons, .cf-floating-links, .cf-page-actions")) return;
