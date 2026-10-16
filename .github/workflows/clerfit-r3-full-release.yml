@@ -5,8 +5,7 @@ on:
     branches:
       - release-transfer
     paths:
-      - 'deploy_payload/chunk_*.txt'
-      - '.github/workflows/clerfit-r3-full-release.yml'
+      - 'deploy_payload/READY'
 
 permissions:
   contents: write
