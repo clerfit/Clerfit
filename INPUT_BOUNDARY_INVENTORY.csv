@@ -1,0 +1,239 @@
+file,id,label,min,max,step,status
+1rm.html,liftWeight,Weight Lifted,0.1,500,any,bounds present; semantic/range boundary review required
+1rm.html,reps,Repetitions,1,15,1,bounded to 1–15 integer repetitions; higher-rep estimates are not supported
+BMI.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+BMI.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+BMI.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
+absi.html,waist,Waist Circumference,0.1,500,any,bounds present; semantic/range boundary review required
+absi.html,height,Height,0.1,500,any,bounds present; semantic/range boundary review required
+absi.html,weight,Weight (kg),0.1,500,any,bounds present; semantic/range boundary review required
+activity-time.html,duration,Duration,0,10080,any,bounds present; semantic/range boundary review required
+activity-time.html,weightActivity,Your Weight,0.1,500,any,bounds present; semantic/range boundary review required
+bmi-change.html,currentWeightBMI,Current Weight,0.1,500,any,bounds present; semantic/range boundary review required
+bmi-change.html,goalWeightBMI,Goal Weight,0.1,500,any,bounds present; semantic/range boundary review required
+bmi-change.html,heightBMI,Height,30,300,any,bounds present; semantic/range boundary review required
+bmi-compare.html,heightA,Person A — Height,1,300,0.1,bounds present; semantic/range boundary review required
+bmi-compare.html,weightA,Person A — Weight,1,500,0.1,bounds present; semantic/range boundary review required
+bmi-compare.html,heightB,Person B — Height,1,300,0.1,bounds present; semantic/range boundary review required
+bmi-compare.html,weightB,Person B — Weight,1,500,0.1,bounds present; semantic/range boundary review required
+bmr.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
+bmr.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+bmr.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+bodyfat.html,bf-height,Height,0.1,300,any,bounds present; semantic/range boundary review required
+bodyfat.html,bf-waist,Waist,0.1,300,any,bounds present; semantic/range boundary review required
+bodyfat.html,bf-neck,Neck,0.1,300,any,bounds present; semantic/range boundary review required
+bodyfat.html,bf-hip,Hip (females only),0.1,300,any,bounds present; semantic/range boundary review required
+bsa.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+bsa.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+cadence.html,cadenceSteps,Number of Steps,0,200000,1,bounds present; semantic/range boundary review required
+cadence.html,cadenceTime,Time,0,10080,any,bounds present; semantic/range boundary review required
+calories-kg.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+calories-kg.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+calories-kg.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
+carbs.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+carbs.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+carbs.html,age,Age (10+ years),1,120,1,bounds present; semantic/range boundary review required
+cardio-calories.html,bodyWeight,Body Weight,0.1,500,any,bounds present; semantic/range boundary review required
+cardio-calories.html,duration,Duration,0,50000,any,bounds present; semantic/range boundary review required
+circumference-track.html,waistInit,Initial Waist,0.1,300,any,bounds present; semantic/range boundary review required
+circumference-track.html,waistCurrent,Current Waist,0.1,300,any,bounds present; semantic/range boundary review required
+circumference-track.html,hipInit,Initial Hip,0.1,300,any,bounds present; semantic/range boundary review required
+circumference-track.html,hipCurrent,Current Hip,0.1,300,any,bounds present; semantic/range boundary review required
+circumference-track.html,chestInit,Initial Chest,0.1,300,any,bounds present; semantic/range boundary review required
+circumference-track.html,chestCurrent,Current Chest,0.1,300,any,bounds present; semantic/range boundary review required
+circumference-track.html,armInit,Initial Arm,0.1,300,any,bounds present; semantic/range boundary review required
+circumference-track.html,armCurrent,Current Arm,0.1,300,any,bounds present; semantic/range boundary review required
+circumference-track.html,thighInit,Initial Thigh,0.1,300,any,bounds present; semantic/range boundary review required
+circumference-track.html,thighCurrent,Current Thigh,0.1,300,any,bounds present; semantic/range boundary review required
+circumference-track.html,calfInit,Initial Calf,0.1,300,any,bounds present; semantic/range boundary review required
+circumference-track.html,calfCurrent,Current Calf,0.1,300,any,bounds present; semantic/range boundary review required
+cold-exposure.html,tempC,Air Temperature (°C),-100,70,any,bounds present; semantic/range boundary review required
+cold-exposure.html,windSpeed,Wind Speed,0,1000,any,bounds present; semantic/range boundary review required
+cold-exposure.html,duration,Exposure Time,0,10080,any,bounds present; semantic/range boundary review required
+cooper-test.html,cooperDistance,Distance Covered in 12 Minutes,0,10000,any,bounds present; semantic/range boundary review required
+daily-energy.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+daily-energy.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+daily-energy.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
+deficit.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+deficit.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+deficit.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
+difference.html,diffA,First value,-1000000,1000000,0.01,bounds present; semantic/range boundary review required
+difference.html,diffB,Second value,-1000000,1000000,0.01,bounds present; semantic/range boundary review required
+distance-convert.html,distanceValue,Enter distance,0,1000000,any,bounds present; semantic/range boundary review required
+distance-time.html,dtDistance,DistanceiTotal distance traveled. Can be entered in kilometers or miles.,0,100000,any,bounds present; semantic/range boundary review required
+distance-time.html,dtHours,,0,1000,any,bounds present; semantic/range boundary review required
+distance-time.html,dtMinutes,,0,59,any,bounds present; semantic/range boundary review required
+distance-time.html,dtSeconds,,0,59,any,bounds present; semantic/range boundary review required
+distance-time.html,dtSpeed,SpeediAverage speed of travel. Can be entered in km/h or mi/h.,0,1000,any,bounds present; semantic/range boundary review required
+endurance-time.html,enduranceDistance,Distance,0,100000,any,bounds present; semantic/range boundary review required
+endurance-time.html,endurancePace,Pace,0,1000,any,bounds present; semantic/range boundary review required
+energy-balance.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+energy-balance.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+energy-balance.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
+energy-balance.html,intake,Daily Calorie Intake,0,20000,1,bounds present; semantic/range boundary review required
+face-length.html,totalLength,Total Face Length,0.1,300,0.01,bounds present; semantic/range boundary review required
+face-length.html,lowerLength,Lower Face Length,0.1,300,0.01,bounds present; semantic/range boundary review required
+face-shape.html,faceLength,Face Length,0.1,300,any,bounds present; semantic/range boundary review required
+face-shape.html,forehead,Forehead Width,0.1,300,any,bounds present; semantic/range boundary review required
+face-shape.html,cheekbones,Cheekbone Width,0.1,300,any,bounds present; semantic/range boundary review required
+face-shape.html,jawline,Jawline Width,0.1,300,any,bounds present; semantic/range boundary review required
+fat.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+fat.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+fat.html,age,Age (10+ years),1,120,1,bounds present; semantic/range boundary review required
+fatmass.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+fatmass.html,fat,Body Fat (%),0,100,any,bounds present; semantic/range boundary review required
+ffmi.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+ffmi.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+ffmi.html,fat,Body Fat (%),0,100,any,bounds present; semantic/range boundary review required
+fiber.html,age,Age (years),1,120,1,bounds present; semantic/range boundary review required
+fiber.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+fiber.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+fiber.html,calories,Daily Calories (optional),0,50000,any,bounds present; semantic/range boundary review required
+goal-timeline.html,currentWeight,Current Weight,0.1,500,any,bounds present; semantic/range boundary review required
+goal-timeline.html,goalWeight,Goal Weight,0.1,500,any,bounds present; semantic/range boundary review required
+goal-timeline.html,tdeeTimeline,Your TDEE (Daily Calories Burned),0,50000,any,bounds present; semantic/range boundary review required
+goal-timeline.html,intakeTimeline,Your Daily Calorie Intake,0,50000,any,bounds present; semantic/range boundary review required
+healthrisk.html,age,Age (years),1,120,1,bounds present; semantic/range boundary review required
+healthrisk.html,weight,Weight (kg),0.1,500,any,bounds present; semantic/range boundary review required
+healthrisk.html,height,Height (cm),30,300,any,bounds present; semantic/range boundary review required
+heartrate.html,age,Age (years),1,120,1,bounds present; semantic/range boundary review required
+heartrate.html,rhr,"Resting Heart Rate (optional, default 70 bpm)",1,120,1,bounds present; semantic/range boundary review required
+heat-exposure.html,tempC,Air Temperature (°C),-100,70,any,bounds present; semantic/range boundary review required
+heat-exposure.html,humidity,Relative Humidity (%),0,100,any,bounds present; semantic/range boundary review required
+heat-exposure.html,duration,Exposure Time,0,10080,any,bounds present; semantic/range boundary review required
+height-convert.html,heightValue,Enter height,0,300,any,bounds present; semantic/range boundary review required
+hip-change.html,initialHip,Initial Hip,0.1,300,any,bounds present; semantic/range boundary review required
+hip-change.html,currentHip,Current Hip,0.1,300,any,bounds present; semantic/range boundary review required
+hydration-loss.html,weightWL,Body Weight,0.1,500,any,bounds present; semantic/range boundary review required
+hydration-loss.html,duration,Exercise Duration,0,10080,any,bounds present; semantic/range boundary review required
+idealweight.html,iw-height,Height,0.1,500,any,bounds present; semantic/range boundary review required
+leanmass.html,weight,Weight,0,100,any,bounds present; semantic/range boundary review required
+leanmass.html,fat,Body Fat (%),0,100,any,bounds present; semantic/range boundary review required
+length.html,lengthValue,Enter Length,0,1000000,any,bounds present; semantic/range boundary review required
+macro-split.html,weight,Weight,0,100,any,bounds present; semantic/range boundary review required
+macro-split.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+macro-split.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
+maintenance.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+maintenance.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+maintenance.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
+meal-split.html,totalCalories,Total Daily Calories,0,50000,any,bounds present; semantic/range boundary review required
+metabolic-age.html,weight,Weight,1,120,1,bounds present; semantic/range boundary review required
+metabolic-age.html,height,Height,1,120,1,bounds present; semantic/range boundary review required
+metabolic-age.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
+mets.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+mets.html,met,Activity MET value,0.1,500,any,bounds present; semantic/range boundary review required
+mets.html,duration,Duration (minutes),0.1,500,any,bounds present; semantic/range boundary review required
+monthly-weight.html,tdeeMonthly,Your TDEE (Daily Calories Burned),0,20000,any,bounds present; semantic/range boundary review required
+monthly-weight.html,intakeMonthly,Your Daily Calorie Intake,0,20000,any,bounds present; semantic/range boundary review required
+monthly-weight.html,days,Days in Month,0.1,500,any,bounds present; semantic/range boundary review required
+pal.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
+percentage.html,value1,Value 1,-1000000,1000000,any,bounds present; semantic/range boundary review required
+percentage.html,value2,Value 2,-1000000,1000000,any,bounds present; semantic/range boundary review required
+performance-score.html,workOutput,Work OutputiTotal mechanical work done during exercise in Joules. Include all reps and weights lifted.,0.1,500,any,bounds present; semantic/range boundary review required
+performance-score.html,squatWeight,Squat WeightiMaximum squat weight lifted. Used to auto-calculate your Strength Score relative to body weight.,0.1,500,any,bounds present; semantic/range boundary review required
+performance-score.html,bodyWeight,Body WeightiYour current body weight. Used to calculate the Strength Score.,0.1,500,any,bounds present; semantic/range boundary review required
+ponderal.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+ponderal.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+potassium.html,age,Age (years),1,120,1,bounds present; semantic/range boundary review required
+protein.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+pullup-index.html,pu-count,Number of Pull-UpsiEnter the maximum number of consecutive pull-ups you can perform with proper form.,0,1000,1,bounds present; semantic/range boundary review required
+pullup-index.html,pu-body,Body Weight,0.1,500,any,bounds present; semantic/range boundary review required
+pushup-index.html,pu-count,Number of Push-UpsiEnter the maximum number of push-ups you can perform in one set with correct form.,0,1000,1,bounds present; semantic/range boundary review required
+pushup-index.html,pu-body,Body Weight,0.1,500,any,bounds present; semantic/range boundary review required
+ratio.html,ratioA,First Ratio Value,0,1000000,any,bounds present; semantic/range boundary review required
+ratio.html,ratioB,Second Ratio Value,0,1000000,any,bounds present; semantic/range boundary review required
+relative-strength.html,oneRM,One-Rep Max (1RM),0.1,500,any,bounds present; semantic/range boundary review required
+relative-strength.html,bodyWeight,Body Weight,0.1,500,any,bounds present; semantic/range boundary review required
+rfm.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+rfm.html,waist,Waist,0.1,300,any,bounds present; semantic/range boundary review required
+rmr.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+rmr.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+rmr.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
+running-pace.html,runDistance,DistanceiTotal distance you ran. Can be entered in kilometers or miles.,0,100000,any,bounds present; semantic/range boundary review required
+running-pace.html,hours,,0,1000,any,bounds present; semantic/range boundary review required
+running-pace.html,minutes,,0,1000,any,bounds present; semantic/range boundary review required
+running-pace.html,seconds,,0,1000,any,bounds present; semantic/range boundary review required
+sedentary.html,sedentary,Sedentary Duration,0,10080,any,bounds present; semantic/range boundary review required
+sedentary.html,active,Active Duration,0,10080,any,bounds present; semantic/range boundary review required
+sedentary.html,srIntensity,Intensity of Active Period (1–10),1,10,any,bounds present; semantic/range boundary review required
+sleep-consistency.html,bed1,Day 1 Sleep (hours),0,24,any,bounds present; semantic/range boundary review required
+sleep-consistency.html,bed2,Day 2 Sleep (hours),0,24,any,bounds present; semantic/range boundary review required
+sleep-consistency.html,bed3,Day 3 Sleep (hours),0,24,any,bounds present; semantic/range boundary review required
+sleep-consistency.html,bed4,Day 4 Sleep (hours),0,24,any,bounds present; semantic/range boundary review required
+sleep-consistency.html,bed5,Day 5 Sleep (hours),0,24,any,bounds present; semantic/range boundary review required
+sleep-consistency.html,bed6,Day 6 Sleep (hours),0,24,any,bounds present; semantic/range boundary review required
+sleep-consistency.html,bed7,Day 7 Sleep (hours),0,24,any,bounds present; semantic/range boundary review required
+sleep-duration.html,sleepHours,Sleep Duration (hours)iEnter your average nightly sleep. Recommendations depend mainly on age and individual circumstances.,0,24,0.1,bounds present; semantic/range boundary review required
+sodium.html,age,Age (years),1,120,1,bounds present; semantic/range boundary review required
+somatotype.html,height,Height,100,250,any,bounds present; semantic/range boundary review required
+somatotype.html,weight,Weight,20,300,any,bounds present; semantic/range boundary review required
+somatotype.html,triceps,Triceps Skinfold (mm),1,60,any,bounds present; semantic/range boundary review required
+somatotype.html,subscapular,Subscapular Skinfold (mm),1,60,any,bounds present; semantic/range boundary review required
+somatotype.html,supraspinale,Supraspinale Skinfold (mm),1,60,any,bounds present; semantic/range boundary review required
+somatotype.html,medialCalf,Medial Calf Skinfold (mm),1,60,any,bounds present; semantic/range boundary review required
+somatotype.html,biepicondylarHumerus,Biepicondylar Humerus (cm),3,15,any,bounds present; semantic/range boundary review required
+somatotype.html,biepicondylarFemur,Biepicondylar Femur (cm),3,15,any,bounds present; semantic/range boundary review required
+somatotype.html,armGirth,Arm Girth (Flexed & Tensed) (cm),15,80,any,bounds present; semantic/range boundary review required
+somatotype.html,calfGirth,Calf Girth (cm),15,80,any,bounds present; semantic/range boundary review required
+speed-weight.html,speed,Speed,0.1,500,any,bounds present; semantic/range boundary review required
+speed-weight.html,bodyWeight,Body Weight,0.1,500,any,bounds present; semantic/range boundary review required
+squat-ratio.html,squatWeight,Squat Weight,0.1,500,any,bounds present; semantic/range boundary review required
+squat-ratio.html,bodyWeight,Body Weight,0.1,500,any,bounds present; semantic/range boundary review required
+step-length.html,distanceCovered,Distance Covered,0,1000000,any,bounds present; semantic/range boundary review required
+step-length.html,stepsTaken,Number of Steps,0,200000,1,bounds present; semantic/range boundary review required
+steps-calories.html,steps,Number of Steps,0,200000,1,bounds present; semantic/range boundary review required
+steps-calories.html,stepLength,Step Length,0.1,300,any,bounds present; semantic/range boundary review required
+steps-calories.html,weight,Your Weight,0.1,500,any,bounds present; semantic/range boundary review required
+steps-distance.html,steps,Number of Steps,0,200000,1,bounds present; semantic/range boundary review required
+steps-distance.html,stepLength,Step Length,0.1,300,any,bounds present; semantic/range boundary review required
+strength-weight.html,sw-lifted,"Weight LiftediEnter the maximum weight you can lift for the chosen exercise (e.g., bench press, squat) with proper form.",0.1,500,any,bounds present; semantic/range boundary review required
+strength-weight.html,sw-body,Body Weight,0.1,500,any,bounds present; semantic/range boundary review required
+stride-length.html,strideDistance,Distance Covered,0,1000000,any,bounds present; semantic/range boundary review required
+stride-length.html,stridesTaken,Number of Strides,0,1000,1,bounds present; semantic/range boundary review required
+sunlight.html,uvIndex,UV Index,0,30,any,bounds present; semantic/range boundary review required
+sunlight.html,duration,Exposure Time,0,10080,any,bounds present; semantic/range boundary review required
+surplus.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+surplus.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+surplus.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
+tdee.html,weight,Weight,1,120,1,bounds present; semantic/range boundary review required
+tdee.html,height,Height,1,120,1,bounds present; semantic/range boundary review required
+tdee.html,age,Age (years),1,120,1,bounds present; semantic/range boundary review required
+time-convert.html,timeValue,Enter time,0,10000,any,bounds present; semantic/range boundary review required
+training-rest.html,trainingTime,Training DurationiEnter total training time per session (in hours by default).,0,10080,any,bounds present; semantic/range boundary review required
+training-rest.html,restTime,Rest DurationiEnter total rest or recovery time between sessions (in hours by default).,0,10080,any,bounds present; semantic/range boundary review required
+training-volume.html,tv-weight,Weight Lifted,0.1,500,any,bounds present; semantic/range boundary review required
+training-volume.html,tv-reps,Reps per Set,0,1000,1,bounds present; semantic/range boundary review required
+training-volume.html,tv-sets,Number of Sets,0,1000,1,bounds present; semantic/range boundary review required
+unit.html,amount,Value,-1000000,1000000,any,bounds present; semantic/range boundary review required
+vo2max.html,distance,Distance,0,10000,any,bounds present; semantic/range boundary review required
+waist-change.html,initialWaist,Initial Waist,0.1,300,any,bounds present; semantic/range boundary review required
+waist-change.html,currentWaist,Current Waist,0.1,300,any,bounds present; semantic/range boundary review required
+walking-speed.html,walkDistance,DistanceiTotal distance you walked. Can be entered in kilometers or miles.,0,100000,any,bounds present; semantic/range boundary review required
+walking-speed.html,walkHours,,0,1000,any,bounds present; semantic/range boundary review required
+walking-speed.html,walkMinutes,,0,1000,any,bounds present; semantic/range boundary review required
+walking-speed.html,walkSeconds,,0,1000,any,bounds present; semantic/range boundary review required
+water.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+weekly-load.html,wl-weight,Weight Lifted,0.1,500,any,bounds present; semantic/range boundary review required
+weekly-load.html,wl-reps,Reps per Set,0,1000,1,bounds present; semantic/range boundary review required
+weekly-load.html,wl-sets,Number of Sets,0,1000,1,bounds present; semantic/range boundary review required
+weekly-load.html,wl-sessions,Sessions per Week,0,70,1,bounds present; semantic/range boundary review required
+weekly-weight.html,tdee,Your TDEE (Daily Calories Burned),0,20000,any,bounds present; semantic/range boundary review required
+weekly-weight.html,intake,Your Daily Calorie Intake,0,20000,any,bounds present; semantic/range boundary review required
+weight-convert.html,weightValue,Enter weight,0,500,any,bounds present; semantic/range boundary review required
+weight-gain-rate.html,tdeeGain2,Your TDEE (Daily Calories Burned),0,20000,any,bounds present; semantic/range boundary review required
+weight-gain-rate.html,intakeGain2,Your Daily Calorie Intake,0,20000,any,bounds present; semantic/range boundary review required
+weight-loss-rate.html,tdeeRate,Your TDEE (Daily Calories Burned),0,20000,any,bounds present; semantic/range boundary review required
+weight-loss-rate.html,intakeRate,Your Daily Calorie Intake,0,20000,any,bounds present; semantic/range boundary review required
+weight-stability.html,initialWeight,Initial Weight,0.1,500,any,bounds present; semantic/range boundary review required
+weight-stability.html,currentWeight,Current Weight,0.1,500,any,bounds present; semantic/range boundary review required
+weight-stability.html,days,Number of Days,0.1,500,any,bounds present; semantic/range boundary review required
+whr.html,waist,Waist,0.1,300,any,bounds present; semantic/range boundary review required
+whr.html,hip,Hip,0.1,300,any,bounds present; semantic/range boundary review required
+wht.html,waist,Waist Circumference,0.1,300,any,bounds present; semantic/range boundary review required
+wht.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
+work-output.html,liftWeight,Weight LiftediTotal weight lifted per repetition. Include body weight if part of the movement. Enter in kg or lbs; conversion is automatic.,0.1,500,any,bounds present; semantic/range boundary review required
+work-output.html,distance,Distance MovediVertical distance the weight or your body moves per repetition. Enter in meters or feet; conversion is automatic.,0.1,500,any,bounds present; semantic/range boundary review required
+work-output.html,reps,Number of Reps,0,1000,1,bounds present; semantic/range boundary review required
+work-rest.html,work,Work Duration,0,10080,any,bounds present; semantic/range boundary review required
+work-rest.html,rest,Rest Duration,0,10080,any,bounds present; semantic/range boundary review required
+work-rest.html,intensity,Intensity (1–10),1,10,any,bounds present; semantic/range boundary review required

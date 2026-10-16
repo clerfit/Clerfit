@@ -1,0 +1,18 @@
+{
+  "html_documents_checked": 124,
+  "public_pages_checked": 123,
+  "checks": [
+    "viewport",
+    "title",
+    "description",
+    "Open Graph title/description/image",
+    "Twitter card",
+    "favicon",
+    "canonical for public pages"
+  ],
+  "unique_titles": 122,
+  "unique_descriptions": 123,
+  "findings": [
+    "duplicate title: ClerFit \u2013 Contact Us => dist/contact.html, dist/html/contact.html"
+  ]
+}

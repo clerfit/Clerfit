@@ -1,0 +1,111 @@
+{
+  "home_face_category_title": "Face & Aesthetics",
+  "home_face_category_count": "10 calculators",
+  "home_face_category_link_count": 10,
+  "home_topic_search_results": [
+    "Jaw Width RatioFace & Aesthetics\u2197"
+  ],
+  "home_clear_filter_restores_all": true,
+  "sidebar_opens": true,
+  "menu_hidden_when_open": true,
+  "face_category_expanded": "true",
+  "face_category_link_count": 10,
+  "search_results": [
+    "Jaw Width RatioFace & Aesthetics"
+  ],
+  "sidebar_closes": true,
+  "teen_bmi_result": "BMI: 22.9 \u2014 Age-specific interpretation required (Age: 16)\n\nFor children and teens, interpret BMI using an appropriate age- and sex-specific growth-chart percentile. This calculator does not estimate a pediatric percentile.",
+  "bodyfat_male_result": "Estimated Body Fat Percentage: 14.5%",
+  "bodyfat_female_result": "Estimated Body Fat Percentage: 25.7%",
+  "imperial_value": "154.3236",
+  "imperial_unit": "lbs",
+  "metric_value": "70",
+  "metric_unit": "kg",
+  "content_image_count": 1,
+  "image_viewer_opens": true,
+  "image_viewer_closes": true,
+  "responsive_pages": {
+    "html/BMI.html": [
+      {
+        "width": 360,
+        "scroll": 360,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "overflow": false
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "overflow": false
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "overflow": false
+      },
+      {
+        "width": 1365,
+        "scroll": 1365,
+        "overflow": false
+      }
+    ],
+    "html/jaw-width-ratio.html": [
+      {
+        "width": 360,
+        "scroll": 360,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "overflow": false
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "overflow": false
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "overflow": false
+      },
+      {
+        "width": 1365,
+        "scroll": 1365,
+        "overflow": false
+      }
+    ],
+    "contact.html": [
+      {
+        "width": 360,
+        "scroll": 360,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "overflow": false
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "overflow": false
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "overflow": false
+      },
+      {
+        "width": 1365,
+        "scroll": 1365,
+        "overflow": false
+      }
+    ]
+  },
+  "runtime_errors": []
+}

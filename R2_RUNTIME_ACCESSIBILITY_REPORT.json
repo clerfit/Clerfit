@@ -1,0 +1,999 @@
+{
+  "documents": 124,
+  "runtime_structure_failures": [],
+  "javascript_console_errors": [],
+  "pages": {
+    "index.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Health & Fitness Calculators",
+      "lang": true,
+      "buttons": 28,
+      "controls": 3,
+      "unnamed": 0
+    },
+    "contact.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Contact Us",
+      "lang": true,
+      "buttons": 4,
+      "controls": 3,
+      "unnamed": 0
+    },
+    "404.html": {
+      "h1": 1,
+      "title": "Page not found \u2014 ClerFit",
+      "lang": true,
+      "buttons": 0,
+      "controls": 0,
+      "unnamed": 0
+    },
+    "html/1rm.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 One-Rep Max (1RM) Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/BMI.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 BMI Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 8,
+      "unnamed": 0
+    },
+    "html/absi.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 ABSI Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/activity-time.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Activity Time Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/age.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Age Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 3,
+      "unnamed": 0
+    },
+    "html/average.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Average Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 3,
+      "unnamed": 0
+    },
+    "html/bmi-change.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 BMI Change Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/bmi-compare.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 BMI Comparison",
+      "lang": true,
+      "buttons": 17,
+      "controls": 10,
+      "unnamed": 0
+    },
+    "html/bmi-for-age.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 BMI for Age",
+      "lang": true,
+      "buttons": 18,
+      "controls": 8,
+      "unnamed": 0
+    },
+    "html/bmr.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 BMR Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 8,
+      "unnamed": 0
+    },
+    "html/body-alignment.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Body Alignment Comparison",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/bodyfat.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Body Fat Percentage",
+      "lang": true,
+      "buttons": 17,
+      "controls": 11,
+      "unnamed": 0
+    },
+    "html/bsa.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Body Surface Area Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/cadence.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Cadence Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/calories-kg.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Calories per kg Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 9,
+      "unnamed": 0
+    },
+    "html/calories.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Daily Calorie Calculator",
+      "lang": true,
+      "buttons": 18,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/carbs.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Carbohydrate Intake Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 10,
+      "unnamed": 0
+    },
+    "html/cardio-calories.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Calories Burned Calculator",
+      "lang": true,
+      "buttons": 18,
+      "controls": 8,
+      "unnamed": 0
+    },
+    "html/chest-expansion.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Chest Expansion",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/chin-height-ratio.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Chin Height Ratio",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/circumference-track.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Circumference Tracking Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 15,
+      "unnamed": 0
+    },
+    "html/cold-exposure.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Cold Exposure Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/contact.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Contact Us",
+      "lang": true,
+      "buttons": 4,
+      "controls": 3,
+      "unnamed": 0
+    },
+    "html/cooper-test.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Cooper Test Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 4,
+      "unnamed": 0
+    },
+    "html/daily-energy.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Daily Energy Needs Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 9,
+      "unnamed": 0
+    },
+    "html/deficit.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Calorie Deficit Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 10,
+      "unnamed": 0
+    },
+    "html/difference.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Difference Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 4,
+      "unnamed": 0
+    },
+    "html/distance-convert.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Distance Converter",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/distance-time.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Distance\u2013Time Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 9,
+      "unnamed": 0
+    },
+    "html/endurance-time.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Endurance Time Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/energy-balance.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Energy Balance Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 10,
+      "unnamed": 0
+    },
+    "html/eye-spacing.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Eye Spacing",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/face-length.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Face Length Ratio",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/face-shape.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Face Shape Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 10,
+      "unnamed": 0
+    },
+    "html/facial-balance.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Facial Balance Index",
+      "lang": true,
+      "buttons": 18,
+      "controls": 8,
+      "unnamed": 0
+    },
+    "html/facial-thirds.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Facial Thirds",
+      "lang": true,
+      "buttons": 18,
+      "controls": 8,
+      "unnamed": 0
+    },
+    "html/fat.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Fat Intake Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 10,
+      "unnamed": 0
+    },
+    "html/fatigue-index.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Fatigue Check-In",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/fatmass.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Fat Mass",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/ffmi.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 FFMI Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/fiber.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Fiber Intake Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 11,
+      "unnamed": 0
+    },
+    "html/forward-head-index.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Forward Head Index",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/goal-timeline.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 >Goal Timeline Calculator",
+      "lang": true,
+      "buttons": 18,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/healthrisk.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Health Risk",
+      "lang": true,
+      "buttons": 17,
+      "controls": 8,
+      "unnamed": 0
+    },
+    "html/heartrate.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Heart Rate",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/heat-exposure.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Heat Exposure Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 8,
+      "unnamed": 0
+    },
+    "html/height-convert.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Height Converter",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/hip-change.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Hip Change Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/hip-risk.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Waist-to-Hip Context",
+      "lang": true,
+      "buttons": 18,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/hydration-loss.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Water Loss Replacement Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/idealweight.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Ideal Weight",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/jaw-width-ratio.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Jaw Width Ratio",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/leanmass.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Lean Mass",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/leg-length-difference.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Leg Length Difference",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/length.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013Length Converter",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/load-recovery-ratio.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Load-Recovery Ratio",
+      "lang": true,
+      "buttons": 18,
+      "controls": 4,
+      "unnamed": 0
+    },
+    "html/lower-face-height.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Lower Face Height",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/macro-split.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Macro Split Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 11,
+      "unnamed": 0
+    },
+    "html/maintenance.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Maintenance Calories Calculator (TDEE)",
+      "lang": true,
+      "buttons": 17,
+      "controls": 9,
+      "unnamed": 0
+    },
+    "html/meal-split.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Meal Calorie Split Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/metabolic-age.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Metabolic Age Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 8,
+      "unnamed": 0
+    },
+    "html/mets.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 METs Calculator",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/monthly-weight.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Monthly Weight Change Calculator",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/mouth-width-ratio.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Mouth Width Ratio",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/nose-length-ratio.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Nose Length Ratio",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/pace.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Pace Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/pal.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013Physical Activity Level (PAL) Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/percentage.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Percentage Tool",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/performance-score.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Performance Score Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 8,
+      "unnamed": 0
+    },
+    "html/ponderal.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Ponderal Index",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/potassium.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Potassium Intake Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/protein.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Protein Intake",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/pullup-index.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Pull-Up Index Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/pushup-index.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Push-Up Index Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/ratio.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Ratio Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 4,
+      "unnamed": 0
+    },
+    "html/recovery-time.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Recovery Interval",
+      "lang": true,
+      "buttons": 18,
+      "controls": 4,
+      "unnamed": 0
+    },
+    "html/relative-strength.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Relative Strength Calculator",
+      "lang": true,
+      "buttons": 18,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/rest-interval.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Rest Interval",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/rfm.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Relative Fat Mass",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/rmr.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 RMR Calculator (Resting Metabolic Rate)",
+      "lang": true,
+      "buttons": 17,
+      "controls": 8,
+      "unnamed": 0
+    },
+    "html/running-pace.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Running Pace Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/sedentary.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013Sedentary Ratio Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/session-density.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Session Density",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/shoulder-symmetry.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Shoulder Symmetry",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/sit-stand-ratio.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Sit-to-Stand Rate",
+      "lang": true,
+      "buttons": 18,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/sleep-consistency.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Sleep Consistency Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 9,
+      "unnamed": 0
+    },
+    "html/sleep-duration.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Sleep Duration Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 4,
+      "unnamed": 0
+    },
+    "html/sleep-timing.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Sleep Timing Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/sodium.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Sodium Intake Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 4,
+      "unnamed": 0
+    },
+    "html/somatotype.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Somatotype Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 14,
+      "unnamed": 0
+    },
+    "html/speed-weight.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Speed-to-Weight Ratio Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/squat-ratio.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Squat Ratio Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/step-length.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Step Length Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/steps-calories.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Steps to Calories",
+      "lang": true,
+      "buttons": 18,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/steps-distance.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013Steps to Distance Calculator",
+      "lang": true,
+      "buttons": 18,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/strength-weight.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Strength-to-Weight Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/stride-length.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Stride Length Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/sunlight.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Sunlight / UV Exposure Calculator",
+      "lang": true,
+      "buttons": 18,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/surplus.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Calorie Surplus Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 10,
+      "unnamed": 0
+    },
+    "html/tdee.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 TDEE Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 9,
+      "unnamed": 0
+    },
+    "html/time-convert.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Time Converter",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/training-rest.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Training\u2013Rest Ratio Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/training-volume.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Training Volume Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/unit.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Unit Converter",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/vo2max.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 VO\u2082 Max",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/waist-change.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Waist Change Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/waist-height-risk.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Waist-to-Height Ratio",
+      "lang": true,
+      "buttons": 18,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/waist-risk.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Waist Measurement Review",
+      "lang": true,
+      "buttons": 18,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/walking-speed.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Walking Speed Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/water.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Water Intake",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/weekly-load.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Weekly Load Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/weekly-training-count.html": {
+      "h1": 1,
+      "title": "ClerFit \u2014 Weekly Training Count",
+      "lang": true,
+      "buttons": 18,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/weekly-weight.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Weekly Weight Change Calculator",
+      "lang": true,
+      "buttons": 18,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/weight-convert.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Weight Converter",
+      "lang": true,
+      "buttons": 17,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/weight-gain-rate.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Weight Gain Rate Calculator",
+      "lang": true,
+      "buttons": 18,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/weight-loss-rate.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Weight Loss Rate Calculator",
+      "lang": true,
+      "buttons": 18,
+      "controls": 5,
+      "unnamed": 0
+    },
+    "html/weight-stability.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Weight Stability Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/whr.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 WHR",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/wht.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Waist-to-Height Ratio Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 6,
+      "unnamed": 0
+    },
+    "html/work-output.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Work Output Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 7,
+      "unnamed": 0
+    },
+    "html/work-rest.html": {
+      "h1": 1,
+      "title": "ClerFit \u2013 Work\u2013Rest Balance Calculator",
+      "lang": true,
+      "buttons": 17,
+      "controls": 8,
+      "unnamed": 0
+    }
+  }
+}

@@ -1,0 +1,197 @@
+[
+  {
+    "route": "BMI.html",
+    "menuOpen": {
+      "open": true,
+      "expanded": "true",
+      "hidden": "false",
+      "focusClose": true
+    },
+    "menuEscape": {
+      "closed": true,
+      "expanded": "false",
+      "focusReturned": true
+    },
+    "pageErrors": []
+  },
+  {
+    "route": "facial-thirds.html",
+    "menuOpen": {
+      "open": true,
+      "expanded": "true",
+      "hidden": "false",
+      "focusClose": true
+    },
+    "menuEscape": {
+      "closed": true,
+      "expanded": "false",
+      "focusReturned": true
+    },
+    "pageErrors": []
+  },
+  {
+    "route": "tdee.html",
+    "menuOpen": {
+      "open": true,
+      "expanded": "true",
+      "hidden": "false",
+      "focusClose": true
+    },
+    "menuEscape": {
+      "closed": true,
+      "expanded": "false",
+      "focusReturned": true
+    },
+    "pageErrors": []
+  },
+  {
+    "route": "macro-split.html",
+    "menuOpen": {
+      "open": true,
+      "expanded": "true",
+      "hidden": "false",
+      "focusClose": true
+    },
+    "menuEscape": {
+      "closed": true,
+      "expanded": "false",
+      "focusReturned": true
+    },
+    "pageErrors": []
+  },
+  {
+    "route": "1rm.html",
+    "menuOpen": {
+      "open": true,
+      "expanded": "true",
+      "hidden": "false",
+      "focusClose": true
+    },
+    "menuEscape": {
+      "closed": true,
+      "expanded": "false",
+      "focusReturned": true
+    },
+    "pageErrors": []
+  },
+  {
+    "route": "running-pace.html",
+    "menuOpen": {
+      "open": true,
+      "expanded": "true",
+      "hidden": "false",
+      "focusClose": true
+    },
+    "menuEscape": {
+      "closed": true,
+      "expanded": "false",
+      "focusReturned": true
+    },
+    "pageErrors": []
+  },
+  {
+    "route": "goal-timeline.html",
+    "menuOpen": {
+      "open": true,
+      "expanded": "true",
+      "hidden": "false",
+      "focusClose": true
+    },
+    "menuEscape": {
+      "closed": true,
+      "expanded": "false",
+      "focusReturned": true
+    },
+    "pageErrors": []
+  },
+  {
+    "route": "sleep-duration.html",
+    "menuOpen": {
+      "open": true,
+      "expanded": "true",
+      "hidden": "false",
+      "focusClose": true
+    },
+    "menuEscape": {
+      "closed": true,
+      "expanded": "false",
+      "focusReturned": true
+    },
+    "pageErrors": []
+  },
+  {
+    "route": "bmi-for-age.html",
+    "menuOpen": {
+      "open": true,
+      "expanded": "true",
+      "hidden": "false",
+      "focusClose": true
+    },
+    "menuEscape": {
+      "closed": true,
+      "expanded": "false",
+      "focusReturned": true
+    },
+    "pageErrors": []
+  },
+  {
+    "route": "unit.html",
+    "menuOpen": {
+      "open": true,
+      "expanded": "true",
+      "hidden": "false",
+      "focusClose": true
+    },
+    "menuEscape": {
+      "closed": true,
+      "expanded": "false",
+      "focusReturned": true
+    },
+    "pageErrors": []
+  },
+  {
+    "route": "age.html",
+    "menuOpen": {
+      "open": true,
+      "expanded": "true",
+      "hidden": "false",
+      "focusClose": true
+    },
+    "menuEscape": {
+      "closed": true,
+      "expanded": "false",
+      "focusReturned": true
+    },
+    "pageErrors": []
+  },
+  {
+    "route": "heat-exposure.html",
+    "menuOpen": {
+      "open": true,
+      "expanded": "true",
+      "hidden": "false",
+      "focusClose": true
+    },
+    "menuEscape": {
+      "closed": true,
+      "expanded": "false",
+      "focusReturned": true
+    },
+    "pageErrors": []
+  },
+  {
+    "route": "fiber.html",
+    "menuOpen": {
+      "open": true,
+      "expanded": "true",
+      "hidden": "false",
+      "focusClose": true
+    },
+    "menuEscape": {
+      "closed": true,
+      "expanded": "false",
+      "focusReturned": true
+    },
+    "pageErrors": []
+  }
+]

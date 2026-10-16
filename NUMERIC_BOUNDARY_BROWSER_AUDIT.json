@@ -1,0 +1,5196 @@
+{
+  "summary": {
+    "routes": 118,
+    "numeric_boundary_cases": 576,
+    "nonfinite_outputs": 0,
+    "routes_with_page_errors": 0,
+    "route_load_or_script_failures": 0,
+    "missing_bound_cases": 0
+  },
+  "results": [
+    {
+      "route": "BMI.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "BMI: 0.0 \u2014 Underweight (Age: 61, Gender: male)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "BMI.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "BMI: 183.7 \u2014 Obesity class II or higher (Age: 61, Gender: male)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "BMI.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "BMI: 5555.6 \u2014 Obesity class II or higher (Age: 61, Gender: male)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "BMI.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "BMI: 55.6 \u2014 Obesity class II or higher (Age: 61, Gender: male)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "BMI.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "BMI: 55.6 \u2014 Age-specific interpretation required (Age: 1)\n\nFor ages 2\u201319, interpret BMI using an appropriate age- and sex-specific growth-chart percentile. This calculator does not",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "BMI.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "BMI: 55.6 \u2014 Obesity class II or higher (Age: 120, Gender: male)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bodyfat.html",
+      "field": "bf-height",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Check the measurements: height, waist and neck must be plausible, and waist must exceed neck for this equation.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bodyfat.html",
+      "field": "bf-height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Check the measurements: height, waist and neck must be plausible, and waist must exceed neck for this equation.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bodyfat.html",
+      "field": "bf-waist",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Check the measurements: height, waist and neck must be plausible, and waist must exceed neck for this equation.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bodyfat.html",
+      "field": "bf-waist",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Check the measurements: height, waist and neck must be plausible, and waist must exceed neck for this equation.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bodyfat.html",
+      "field": "bf-neck",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Check the measurements: height, waist and neck must be plausible, and waist must exceed neck for this equation.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bodyfat.html",
+      "field": "bf-neck",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Check the measurements: height, waist and neck must be plausible, and waist must exceed neck for this equation.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bodyfat.html",
+      "field": "bf-hip",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Check the measurements: height, waist and neck must be plausible, and waist must exceed neck for this equation.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bodyfat.html",
+      "field": "bf-hip",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Check the measurements: height, waist and neck must be plausible, and waist must exceed neck for this equation.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "leanmass.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "leanmass.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "100",
+      "output_sample": "Lean Mass: 50.00 kg (50.0%)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "leanmass.html",
+      "field": "fat",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Lean Mass: 100.00 kg (100.0%)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "leanmass.html",
+      "field": "fat",
+      "boundary": "max",
+      "value": "100",
+      "output_sample": "Lean Mass: 0.00 kg (0.0%)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fatmass.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Fat Mass: 0.05 kg (50.0%)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fatmass.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Fat Mass: 250.00 kg (50.0%)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fatmass.html",
+      "field": "fat",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Fat Mass: 0.00 kg (0.0%)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fatmass.html",
+      "field": "fat",
+      "boundary": "max",
+      "value": "100",
+      "output_sample": "Fat Mass: 500.00 kg (100.0%)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ffmi.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Enter a valid height (0.5\u20132.5 m), weight (positive and at most 500 kg), and body-fat percentage from 0\u2013100.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ffmi.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Enter a valid height (0.5\u20132.5 m), weight (positive and at most 500 kg), and body-fat percentage from 0\u2013100.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ffmi.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Enter a valid height (0.5\u20132.5 m), weight (positive and at most 500 kg), and body-fat percentage from 0\u2013100.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ffmi.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Enter a valid height (0.5\u20132.5 m), weight (positive and at most 500 kg), and body-fat percentage from 0\u2013100.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ffmi.html",
+      "field": "fat",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Enter a valid height (0.5\u20132.5 m), weight (positive and at most 500 kg), and body-fat percentage from 0\u2013100.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ffmi.html",
+      "field": "fat",
+      "boundary": "max",
+      "value": "100",
+      "output_sample": "Enter a valid height (0.5\u20132.5 m), weight (positive and at most 500 kg), and body-fat percentage from 0\u2013100.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bsa.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Check units and values. Supported range: 1\u2013500 kg and 50\u2013250 cm equivalent.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bsa.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "BSA: 4.79 m\u00b2",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bsa.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Check units and values. Supported range: 1\u2013500 kg and 50\u2013250 cm equivalent.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bsa.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Check units and values. Supported range: 1\u2013500 kg and 50\u2013250 cm equivalent.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "whr.html",
+      "field": "waist",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "whr.html",
+      "field": "waist",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "whr.html",
+      "field": "hip",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "whr.html",
+      "field": "hip",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "wht.html",
+      "field": "waist",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Check the selected units and measurements.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "wht.html",
+      "field": "waist",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Check the selected units and measurements.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "wht.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Check the selected units and measurements.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "wht.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Check the selected units and measurements.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "idealweight.html",
+      "field": "iw-height",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Enter a height between 100 and 250 cm (or the equivalent selected unit).",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "idealweight.html",
+      "field": "iw-height",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Enter a height between 100 and 250 cm (or the equivalent selected unit).",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "100",
+      "output_sample": "Endomorphy: 10.76\nMesomorphy: 20.20\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "250",
+      "output_sample": "Endomorphy: 6.10\nMesomorphy: 0.55\nEctomorphy: 5.13",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "20",
+      "output_sample": "Endomorphy: 6.10\nMesomorphy: 0.55\nEctomorphy: 38.84",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Endomorphy: 6.10\nMesomorphy: 0.55\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "triceps",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Endomorphy: 4.36\nMesomorphy: 1.03\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "triceps",
+      "boundary": "max",
+      "value": "60",
+      "output_sample": "Endomorphy: 7.44\nMesomorphy: 0.08\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "subscapular",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Endomorphy: 6.05\nMesomorphy: 0.08\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "subscapular",
+      "boundary": "max",
+      "value": "60",
+      "output_sample": "Endomorphy: 8.53\nMesomorphy: 0.08\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "supraspinale",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Endomorphy: 7.40\nMesomorphy: 0.08\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "supraspinale",
+      "boundary": "max",
+      "value": "60",
+      "output_sample": "Endomorphy: 9.43\nMesomorphy: 0.08\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "medialCalf",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Endomorphy: 9.43\nMesomorphy: 0.65\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "medialCalf",
+      "boundary": "max",
+      "value": "60",
+      "output_sample": "Endomorphy: 9.43\nMesomorphy: -0.46\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "biepicondylarHumerus",
+      "boundary": "min",
+      "value": "3",
+      "output_sample": "Endomorphy: 9.43\nMesomorphy: -5.61\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "biepicondylarHumerus",
+      "boundary": "max",
+      "value": "15",
+      "output_sample": "Endomorphy: 9.43\nMesomorphy: 4.69\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "biepicondylarFemur",
+      "boundary": "min",
+      "value": "3",
+      "output_sample": "Endomorphy: 9.43\nMesomorphy: 1.08\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "biepicondylarFemur",
+      "boundary": "max",
+      "value": "15",
+      "output_sample": "Endomorphy: 9.43\nMesomorphy: 8.29\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "armGirth",
+      "boundary": "min",
+      "value": "15",
+      "output_sample": "Endomorphy: 9.43\nMesomorphy: 2.98\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "armGirth",
+      "boundary": "max",
+      "value": "80",
+      "output_sample": "Endomorphy: 9.43\nMesomorphy: 13.45\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "calfGirth",
+      "boundary": "min",
+      "value": "15",
+      "output_sample": "Endomorphy: 9.43\nMesomorphy: 7.24\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "somatotype.html",
+      "field": "calfGirth",
+      "boundary": "max",
+      "value": "80",
+      "output_sample": "Endomorphy: 9.43\nMesomorphy: 19.46\nEctomorphy: 0.10",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rfm.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "RFM estimate: 60%\n\nThis is a formula-based body-fat estimate, not a diagnosis. Individual error can be substantial; no universal category is assigned.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rfm.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "RFM estimate: 24%\n\nThis is a formula-based body-fat estimate, not a diagnosis. Individual error can be substantial; no universal category is assigned.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rfm.html",
+      "field": "waist",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "RFM estimate: -59936%\n\nThis is a formula-based body-fat estimate, not a diagnosis. Individual error can be substantial; no universal category is assigned.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rfm.html",
+      "field": "waist",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "RFM estimate: 44%\n\nThis is a formula-based body-fat estimate, not a diagnosis. Individual error can be substantial; no universal category is assigned.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ponderal.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Ponderal Index: 0.02\n\nPonderal Index is a descriptive height-adjusted mass index. These values are not assigned universal underweight/normal/overweight/obesity categories by this c",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ponderal.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Ponderal Index: 111.31\n\nPonderal Index is a descriptive height-adjusted mass index. These values are not assigned universal underweight/normal/overweight/obesity categories by this",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ponderal.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Ponderal Index: 18518.52\n\nPonderal Index is a descriptive height-adjusted mass index. These values are not assigned universal underweight/normal/overweight/obesity categories by th",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ponderal.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Ponderal Index: 18.52\n\nPonderal Index is a descriptive height-adjusted mass index. These values are not assigned universal underweight/normal/overweight/obesity categories by this ",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "absi.html",
+      "field": "waist",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "absi.html",
+      "field": "waist",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "absi.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "absi.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "absi.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "absi.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "face-shape.html",
+      "field": "faceLength",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Dominant Face Shape: Square \u2014 33.3%\n\nOval \u2013 33.3%\nRound \u2013 33.3%\nSquare \u2013 33.3%\nHeart \u2013 0.0%\nDiamond \u2013 0.0%\nOblong \u2013 0.0%",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "face-shape.html",
+      "field": "faceLength",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Dominant Face Shape: Oval \u2014 33.3%\n\nOval \u2013 33.3%\nRound \u2013 23.8%\nSquare \u2013 23.8%\nHeart \u2013 7.2%\nDiamond \u2013 0.0%\nOblong \u2013 11.9%",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "face-shape.html",
+      "field": "forehead",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Dominant Face Shape: Diamond \u2014 87.2%\n\nOval \u2013 2.3%\nRound \u2013 0.0%\nSquare \u2013 5.8%\nHeart \u2013 1.8%\nDiamond \u2013 87.2%\nOblong \u2013 2.9%",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "face-shape.html",
+      "field": "forehead",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Dominant Face Shape: Heart \u2014 81.3%\n\nOval \u2013 3.1%\nRound \u2013 5.2%\nSquare \u2013 10.4%\nHeart \u2013 81.3%\nDiamond \u2013 0.0%\nOblong \u2013 0.0%",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "face-shape.html",
+      "field": "cheekbones",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Dominant Face Shape: Heart \u2014 85.8%\n\nOval \u2013 3.3%\nRound \u2013 5.5%\nSquare \u2013 5.5%\nHeart \u2013 85.8%\nDiamond \u2013 0.0%\nOblong \u2013 0.0%",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "face-shape.html",
+      "field": "cheekbones",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Dominant Face Shape: Heart \u2014 45.8%\n\nOval \u2013 4.7%\nRound \u2013 2.9%\nSquare \u2013 2.9%\nHeart \u2013 45.8%\nDiamond \u2013 43.7%\nOblong \u2013 0.0%",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "face-shape.html",
+      "field": "jawline",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Dominant Face Shape: Heart \u2014 47.7%\n\nOval \u2013 2.5%\nRound \u2013 1.6%\nSquare \u2013 1.6%\nHeart \u2013 47.7%\nDiamond \u2013 46.7%\nOblong \u2013 0.0%",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "face-shape.html",
+      "field": "jawline",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Dominant Face Shape: Square \u2014 31.7%\n\nOval \u2013 25.4%\nRound \u2013 31.7%\nSquare \u2013 31.7%\nHeart \u2013 11.1%\nDiamond \u2013 0.0%\nOblong \u2013 0.0%",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "face-length.html",
+      "field": "totalLength",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "face-length.html",
+      "field": "totalLength",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Face Length Ratio: 0.50 \u2014 Long Lower Face",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "face-length.html",
+      "field": "lowerLength",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Face Length Ratio: 0.00 \u2014 Short Lower Face",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "face-length.html",
+      "field": "lowerLength",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Face Length Ratio: 1.00 \u2014 Long Lower Face",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "facial-thirds.html",
+      "field": "upper",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Upper / middle / lower share\n0.0% / 50.0% / 50.0%\n\nTotal measured height: 1,000 mm. Shares are calculated as each segment \u00f7 total \u00d7 100.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "facial-thirds.html",
+      "field": "upper",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Upper / middle / lower share\n50.0% / 25.0% / 25.0%\n\nTotal measured height: 2,000 mm. Shares are calculated as each segment \u00f7 total \u00d7 100.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "facial-thirds.html",
+      "field": "middle",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Upper / middle / lower share\n66.7% / 0.0% / 33.3%\n\nTotal measured height: 1,500 mm. Shares are calculated as each segment \u00f7 total \u00d7 100.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "facial-thirds.html",
+      "field": "middle",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Upper / middle / lower share\n40.0% / 40.0% / 20.0%\n\nTotal measured height: 2,500 mm. Shares are calculated as each segment \u00f7 total \u00d7 100.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "facial-thirds.html",
+      "field": "lower",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Upper / middle / lower share\n50.0% / 50.0% / 0.0%\n\nTotal measured height: 2,000 mm. Shares are calculated as each segment \u00f7 total \u00d7 100.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "facial-thirds.html",
+      "field": "lower",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Upper / middle / lower share\n33.3% / 33.3% / 33.3%\n\nTotal measured height: 3,000 mm. Shares are calculated as each segment \u00f7 total \u00d7 100.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "jaw-width-ratio.html",
+      "field": "jaw",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Jaw / reference width\n0.000\n\nEquivalent percentage: 0.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "jaw-width-ratio.html",
+      "field": "jaw",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Jaw / reference width\n2.000\n\nEquivalent percentage: 200.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "jaw-width-ratio.html",
+      "field": "face",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Jaw / reference width\n2.000\n\nEquivalent percentage: 200.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "jaw-width-ratio.html",
+      "field": "face",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Jaw / reference width\n1.000\n\nEquivalent percentage: 100.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "chin-height-ratio.html",
+      "field": "chin",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "chin-height-ratio.html",
+      "field": "chin",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Chin / lower-face ratio\n2.000\n\nEquivalent percentage: 200.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "chin-height-ratio.html",
+      "field": "lower",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Chin / lower-face ratio\n2.000\n\nEquivalent percentage: 200.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "chin-height-ratio.html",
+      "field": "lower",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Chin / lower-face ratio\n1.000\n\nEquivalent percentage: 100.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "nose-length-ratio.html",
+      "field": "nose",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "nose-length-ratio.html",
+      "field": "nose",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "nose-length-ratio.html",
+      "field": "face",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "nose-length-ratio.html",
+      "field": "face",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "mouth-width-ratio.html",
+      "field": "mouth",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Mouth / face-width ratio\n0.000\n\nEquivalent percentage: 0.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "mouth-width-ratio.html",
+      "field": "mouth",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Mouth / face-width ratio\n2.000\n\nEquivalent percentage: 200.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "mouth-width-ratio.html",
+      "field": "face",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "The numerator must be non-negative and the denominator must be greater than zero.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "mouth-width-ratio.html",
+      "field": "face",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Mouth / face-width ratio\n1.000\n\nEquivalent percentage: 100.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "eye-spacing.html",
+      "field": "space",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Spacing / eye-width ratio\n0.000\n\nEquivalent percentage: 0.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "eye-spacing.html",
+      "field": "space",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Spacing / eye-width ratio\n2.000\n\nEquivalent percentage: 200.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "eye-spacing.html",
+      "field": "eye",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "The numerator must be non-negative and the denominator must be greater than zero.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "eye-spacing.html",
+      "field": "eye",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Spacing / eye-width ratio\n1.000\n\nEquivalent percentage: 100.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "lower-face-height.html",
+      "field": "lower",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "lower-face-height.html",
+      "field": "lower",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Lower-face share\n2.000\n\nEquivalent percentage: 200.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "lower-face-height.html",
+      "field": "face",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Lower-face share\n2.000\n\nEquivalent percentage: 200.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "lower-face-height.html",
+      "field": "face",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Lower-face share\n1.000\n\nEquivalent percentage: 100.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "facial-balance.html",
+      "field": "upper",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "All three measurements must be greater than zero.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "facial-balance.html",
+      "field": "upper",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Coefficient of variation across thirds\n35.4% variation\n\nMean segment: 666.67 mm. Lower variation means the three entered lengths are closer to one another; no ideal or diagnostic t",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "facial-balance.html",
+      "field": "middle",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "All three measurements must be greater than zero.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "facial-balance.html",
+      "field": "middle",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Coefficient of variation across thirds\n28.3% variation\n\nMean segment: 833.33 mm. Lower variation means the three entered lengths are closer to one another; no ideal or diagnostic t",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "facial-balance.html",
+      "field": "lower",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "All three measurements must be greater than zero.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "facial-balance.html",
+      "field": "lower",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Coefficient of variation across thirds\n0.0% variation\n\nMean segment: 1,000 mm. Lower variation means the three entered lengths are closer to one another; no ideal or diagnostic thr",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmr.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "BMR Result: 3532 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmr.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "BMR Result: 2937 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmr.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "BMR Result: 2094 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmr.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "BMR Result: 3781 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmr.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "BMR Result: 1281 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmr.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "BMR Result: 6280 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rmr.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Your Resting Metabolic Rate (RMR) is 732 calories/day.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rmr.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Your Resting Metabolic Rate (RMR) is 5731 calories/day.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rmr.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Your Resting Metabolic Rate (RMR) is 4888 calories/day.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rmr.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Your Resting Metabolic Rate (RMR) is 6575 calories/day.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rmr.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Your Resting Metabolic Rate (RMR) is 6875 calories/day.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rmr.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Your Resting Metabolic Rate (RMR) is 6280 calories/day.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "tdee.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Your TDEE: 110 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "tdee.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Your TDEE: 1538 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "tdee.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Your TDEE: 1088 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "tdee.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Your TDEE: 1980 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "tdee.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Your TDEE: 2340 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "tdee.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Your TDEE: 1626 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "maintenance.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Your Maintenance Calories (TDEE) are 879 calories/day.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "maintenance.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Your Maintenance Calories (TDEE) are 6878 calories/day.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "maintenance.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Your Maintenance Calories (TDEE) are 5865 calories/day.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "maintenance.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Your Maintenance Calories (TDEE) are 7890 calories/day.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "maintenance.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Your Maintenance Calories (TDEE) are 8250 calories/day.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "maintenance.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Your Maintenance Calories (TDEE) are 7536 calories/day.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "deficit.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Your Target Calories for Fat Loss: 629 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "deficit.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Your Target Calories for Fat Loss: 6628 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "deficit.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Your Target Calories for Fat Loss: 5615 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "deficit.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Your Target Calories for Fat Loss: 7640 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "deficit.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Your Target Calories for Fat Loss: 8000 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "deficit.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Your Target Calories for Fat Loss: 7286 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "surplus.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Your Target Calories for Weight Gain: 1129 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "surplus.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Your Target Calories for Weight Gain: 7128 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "surplus.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Your Target Calories for Weight Gain: 6115 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "surplus.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Your Target Calories for Weight Gain: 8140 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "surplus.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Your Target Calories for Weight Gain: 8500 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "surplus.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Your Target Calories for Weight Gain: 7786 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "energy-balance.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "You are currently in: Calorie Surplus (Weight Gain)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "energy-balance.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "You are currently in: Calorie Surplus (Weight Gain)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "energy-balance.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "You are currently in: Calorie Surplus (Weight Gain)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "energy-balance.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "You are currently in: Calorie Surplus (Weight Gain)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "energy-balance.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "You are currently in: Calorie Surplus (Weight Gain)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "energy-balance.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "You are currently in: Calorie Surplus (Weight Gain)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "energy-balance.html",
+      "field": "intake",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "You are currently in: Calorie Surplus (Weight Gain)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "energy-balance.html",
+      "field": "intake",
+      "boundary": "max",
+      "value": "20000",
+      "output_sample": "You are currently in: Calorie Surplus (Weight Gain)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "daily-energy.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Your Daily Energy Need: 879 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "daily-energy.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Your Daily Energy Need: 6878 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "daily-energy.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Your Daily Energy Need: 5865 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "daily-energy.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Your Daily Energy Need: 7890 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "daily-energy.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Your Daily Energy Need: 8250 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "daily-energy.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Your Daily Energy Need: 7536 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "calories-kg.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Calories per kg: 8787.0 kcal/kg/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "calories-kg.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Calories per kg: 13.8 kcal/kg/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "calories-kg.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Calories per kg: 11.7 kcal/kg/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "calories-kg.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Calories per kg: 15.8 kcal/kg/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "calories-kg.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Calories per kg: 16.5 kcal/kg/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "calories-kg.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Calories per kg: 15.1 kcal/kg/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "metabolic-age.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Estimated resting metabolic rate: 91 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "metabolic-age.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Estimated resting metabolic rate: 1281 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "metabolic-age.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Estimated resting metabolic rate: 906 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "metabolic-age.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Estimated resting metabolic rate: 1650 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "metabolic-age.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Metabolic age not calculated. The available equation is not a validated metabolic-age method; this page can only estimate resting energy expenditure for adults aged 20 and older.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "metabolic-age.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Estimated resting metabolic rate: 1355 kcal/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "protein.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Estimated protein target: 0.1 g/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "protein.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Estimated protein target: 400.0 g/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "carbs.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Recommended Carbohydrates: 99 grams/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "carbs.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Recommended Carbohydrates: 774 grams/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "carbs.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Recommended Carbohydrates: 660 grams/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "carbs.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Recommended Carbohydrates: 888 grams/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "carbs.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Recommended Carbohydrates: 888 grams/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "carbs.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Recommended Carbohydrates: 848 grams/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fat.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Recommended Fat Intake: 20 grams/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fat.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Recommended Fat Intake: 153 grams/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fat.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Recommended Fat Intake: 130 grams/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fat.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Recommended Fat Intake: 175 grams/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fat.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Recommended Fat Intake: 175 grams/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fat.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Recommended Fat Intake: 167 grams/day",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "macro-split.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "macro-split.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "100",
+      "output_sample": "Total Calories (TDEE): 2078 kcal\nMacro Split: Protein: 130g (25%), Fat: 58g (25%), Carbs: 260g (50%)\n\nPer Meal Distribution:\nBreakfast: Protein: 43g, Fat: 19g, Carbs: 87g\nLunch: Pr",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "macro-split.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Total Calories (TDEE): 1065 kcal\nMacro Split: Protein: 67g (25%), Fat: 30g (25%), Carbs: 133g (50%)\n\nPer Meal Distribution:\nBreakfast: Protein: 22g, Fat: 10g, Carbs: 44g\nLunch: Pro",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "macro-split.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Total Calories (TDEE): 3090 kcal\nMacro Split: Protein: 193g (25%), Fat: 86g (25%), Carbs: 386g (50%)\n\nPer Meal Distribution:\nBreakfast: Protein: 64g, Fat: 29g, Carbs: 129g\nLunch: P",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "macro-split.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Total Calories (TDEE): 3450 kcal\nMacro Split: Protein: 216g (25%), Fat: 96g (25%), Carbs: 431g (50%)\n\nPer Meal Distribution:\nBreakfast: Protein: 72g, Fat: 32g, Carbs: 144g\nLunch: P",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "macro-split.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Total Calories (TDEE): 2736 kcal\nMacro Split: Protein: 171g (25%), Fat: 76g (25%), Carbs: 342g (50%)\n\nPer Meal Distribution:\nBreakfast: Protein: 57g, Fat: 25g, Carbs: 114g\nLunch: P",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fiber.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fiber.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fiber.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fiber.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fiber.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fiber.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fiber.html",
+      "field": "calories",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Recommended Daily Fiber Intake: 30.00 g (Age: 120, Gender: male). Reference method: age/sex recommendation or 14 g per 1,000 kcal, whichever is higher; no arbitrary activity multip",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fiber.html",
+      "field": "calories",
+      "boundary": "max",
+      "value": "50000",
+      "output_sample": "Recommended Daily Fiber Intake: 30.00 g (Age: 120, Gender: male). Reference method: age/sex recommendation or 14 g per 1,000 kcal, whichever is higher; no arbitrary activity multip",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "water.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Recommended Daily Water Intake: 0.00 L",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "water.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Recommended Daily Water Intake: 17.50 L",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sodium.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Age-based sodium adequate-intake reference: 800 mg/day\n\nThis is a population reference, not a personalized requirement. Do not increase sodium intake solely because an activity-lev",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sodium.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Age-based sodium adequate-intake reference: 1500 mg/day\n\nThis is a population reference, not a personalized requirement. Do not increase sodium intake solely because an activity-le",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "potassium.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Age-based potassium adequate-intake reference: 2000 mg/day\n\nThis is a population reference, not a personalized prescription. Activity level alone is not used to multiply the recomm",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "potassium.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Age-based potassium adequate-intake reference: 3400 mg/day\n\nThis is a population reference, not a personalized prescription. Activity level alone is not used to multiply the recomm",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "meal-split.html",
+      "field": "totalCalories",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "meal-split.html",
+      "field": "totalCalories",
+      "boundary": "max",
+      "value": "50000",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "hydration-loss.html",
+      "field": "weightWL",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Estimated water to replace: 50.40 L (~50400 mL, ~201.6 cups)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "hydration-loss.html",
+      "field": "weightWL",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Estimated water to replace: 50.40 L (~50400 mL, ~201.6 cups)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "hydration-loss.html",
+      "field": "duration",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Estimated water to replace: 50.40 L (~50400 mL, ~201.6 cups)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "hydration-loss.html",
+      "field": "duration",
+      "boundary": "max",
+      "value": "10080",
+      "output_sample": "Estimated water to replace: 100.80 L (~100800 mL, ~403.2 cups)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "1rm.html",
+      "field": "liftWeight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Warning: Accuracy significantly decreases above 15 reps.\nEstimated 1RM: 1.77 kg\nEstimation Confidence: Very Low Accuracy",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "1rm.html",
+      "field": "liftWeight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Warning: Accuracy significantly decreases above 15 reps.\nEstimated 1RM: 8833.33 kg\nEstimation Confidence: Very Low Accuracy",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "1rm.html",
+      "field": "reps",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Warning: Accuracy significantly decreases above 15 reps.\nEstimated 1RM: 8833.33 kg\nEstimation Confidence: Very Low Accuracy",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "1rm.html",
+      "field": "reps",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Warning: Accuracy significantly decreases above 15 reps.\nEstimated 1RM: 17166.67 kg\nEstimation Confidence: Very Low Accuracy",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "relative-strength.html",
+      "field": "oneRM",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Relative Strength: 0.00\nNo universal strength tier is assigned; interpretation varies by lift, training experience, sex, age and reference population.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "relative-strength.html",
+      "field": "oneRM",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Relative Strength: 2.00\nNo universal strength tier is assigned; interpretation varies by lift, training experience, sex, age and reference population.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "relative-strength.html",
+      "field": "bodyWeight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Relative Strength: 5000.00\nNo universal strength tier is assigned; interpretation varies by lift, training experience, sex, age and reference population.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "relative-strength.html",
+      "field": "bodyWeight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Relative Strength: 1.00\nNo universal strength tier is assigned; interpretation varies by lift, training experience, sex, age and reference population.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "training-volume.html",
+      "field": "tv-weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Total Training Volume: 25000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "training-volume.html",
+      "field": "tv-weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Total Training Volume: 125000000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "training-volume.html",
+      "field": "tv-reps",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Total Training Volume: 125000000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "training-volume.html",
+      "field": "tv-reps",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Total Training Volume: 250000000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "training-volume.html",
+      "field": "tv-sets",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Total Training Volume: 250000000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "training-volume.html",
+      "field": "tv-sets",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Total Training Volume: 500000000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-load.html",
+      "field": "wl-weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Weekly Load: 875000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-load.html",
+      "field": "wl-weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Weekly Load: 4375000000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-load.html",
+      "field": "wl-reps",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Weekly Load: 4375000000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-load.html",
+      "field": "wl-reps",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Weekly Load: 8750000000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-load.html",
+      "field": "wl-sets",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Weekly Load: 8750000000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-load.html",
+      "field": "wl-sets",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Weekly Load: 17500000000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-load.html",
+      "field": "wl-sessions",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Weekly Load: 17500000000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-load.html",
+      "field": "wl-sessions",
+      "boundary": "max",
+      "value": "70",
+      "output_sample": "Weekly Load: 35000000000.0 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "strength-weight.html",
+      "field": "sw-lifted",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Strength-to-Weight Ratio: 0.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "strength-weight.html",
+      "field": "sw-lifted",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Strength-to-Weight Ratio: 2.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "strength-weight.html",
+      "field": "sw-body",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Strength-to-Weight Ratio: 5000.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "strength-weight.html",
+      "field": "sw-body",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Strength-to-Weight Ratio: 1.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "pushup-index.html",
+      "field": "pu-count",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Push-Up Index: 0.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "pushup-index.html",
+      "field": "pu-count",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Push-Up Index: 4.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "pushup-index.html",
+      "field": "pu-body",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Push-Up Index: 10000.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "pushup-index.html",
+      "field": "pu-body",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Push-Up Index: 2.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "pullup-index.html",
+      "field": "pu-count",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Pull-Up Index: 0.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "pullup-index.html",
+      "field": "pu-count",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Pull-Up Index: 4.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "pullup-index.html",
+      "field": "pu-body",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Pull-Up Index: 10000.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "pullup-index.html",
+      "field": "pu-body",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Pull-Up Index: 2.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "squat-ratio.html",
+      "field": "squatWeight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Squat-to-Bodyweight Ratio: 0.00\nNo universal strength tier is assigned; standards vary by lift technique, sex, age and training population.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "squat-ratio.html",
+      "field": "squatWeight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Squat-to-Bodyweight Ratio: 2.00\nNo universal strength tier is assigned; standards vary by lift technique, sex, age and training population.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "squat-ratio.html",
+      "field": "bodyWeight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Squat-to-Bodyweight Ratio: 5000.00\nNo universal strength tier is assigned; standards vary by lift technique, sex, age and training population.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "squat-ratio.html",
+      "field": "bodyWeight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Squat-to-Bodyweight Ratio: 1.00\nNo universal strength tier is assigned; standards vary by lift technique, sex, age and training population.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "work-output.html",
+      "field": "liftWeight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Total Work Output: 122674.05 J",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "work-output.html",
+      "field": "liftWeight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Total Work Output: 613370250.00 J",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "work-output.html",
+      "field": "distance",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Total Work Output: 245250.00 J",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "work-output.html",
+      "field": "distance",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Total Work Output: 1226250000.00 J",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "work-output.html",
+      "field": "reps",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Total Work Output: 1226250000.00 J",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "work-output.html",
+      "field": "reps",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Total Work Output: 2452500000.00 J",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "performance-score.html",
+      "field": "workOutput",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Strength Score: 1.00\nPerformance Score: 0.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "performance-score.html",
+      "field": "workOutput",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Strength Score: 1.00\nPerformance Score: 0.50",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "performance-score.html",
+      "field": "squatWeight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Strength Score: 0.00\nPerformance Score: 0.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "performance-score.html",
+      "field": "squatWeight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Strength Score: 2.00\nPerformance Score: 1.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "performance-score.html",
+      "field": "bodyWeight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Strength Score: 5000.00\nPerformance Score: 2500.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "performance-score.html",
+      "field": "bodyWeight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Strength Score: 1.00\nPerformance Score: 0.50",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "running-pace.html",
+      "field": "runDistance",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "running-pace.html",
+      "field": "runDistance",
+      "boundary": "max",
+      "value": "100000",
+      "output_sample": "Running Pace: 0 min 18 sec per km",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "running-pace.html",
+      "field": "hours",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Running Pace: 0 min 0 sec per km",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "running-pace.html",
+      "field": "hours",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Running Pace: 0 min 36 sec per km",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "running-pace.html",
+      "field": "minutes",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Running Pace: 0 min 36 sec per km",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "running-pace.html",
+      "field": "minutes",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Running Pace: 0 min 37 sec per km",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "running-pace.html",
+      "field": "seconds",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Running Pace: 0 min 37 sec per km",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "running-pace.html",
+      "field": "seconds",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Running Pace: 0 min 37 sec per km",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "walking-speed.html",
+      "field": "walkDistance",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "walking-speed.html",
+      "field": "walkDistance",
+      "boundary": "max",
+      "value": "100000",
+      "output_sample": "Walking Speed: 196.67 km/h",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "walking-speed.html",
+      "field": "walkHours",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Walking Speed: 11803.28 km/h",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "walking-speed.html",
+      "field": "walkHours",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Walking Speed: 99.16 km/h",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "walking-speed.html",
+      "field": "walkMinutes",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Walking Speed: 99.99 km/h",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "walking-speed.html",
+      "field": "walkMinutes",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Walking Speed: 98.35 km/h",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "walking-speed.html",
+      "field": "walkSeconds",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Walking Speed: 98.36 km/h",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "walking-speed.html",
+      "field": "walkSeconds",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Walking Speed: 98.33 km/h",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "distance-time.html",
+      "field": "dtDistance",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Distance Covered: 250254.17 km",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "distance-time.html",
+      "field": "dtDistance",
+      "boundary": "max",
+      "value": "100000",
+      "output_sample": "Time Required: 200h 0m 0s",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "distance-time.html",
+      "field": "dtHours",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Time Required: 200h 0m 0s",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "distance-time.html",
+      "field": "dtHours",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Time Required: 200h 0m 0s",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "distance-time.html",
+      "field": "dtMinutes",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Time Required: 200h 0m 0s",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "distance-time.html",
+      "field": "dtMinutes",
+      "boundary": "max",
+      "value": "59",
+      "output_sample": "Time Required: 200h 0m 0s",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "distance-time.html",
+      "field": "dtSeconds",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Time Required: 200h 0m 0s",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "distance-time.html",
+      "field": "dtSeconds",
+      "boundary": "max",
+      "value": "59",
+      "output_sample": "Time Required: 200h 0m 0s",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "distance-time.html",
+      "field": "dtSpeed",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Average Speed: 99.90 km/h",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "distance-time.html",
+      "field": "dtSpeed",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Time Required: 100h 0m 0s",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cardio-calories.html",
+      "field": "bodyWeight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Estimated Calories Burned: 43.75 kcal\nEstimate: MET \u00d7 3.5 \u00d7 body mass (kg) \u00d7 duration (minutes) \u00f7 200. Individual energy expenditure varies.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cardio-calories.html",
+      "field": "bodyWeight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Estimated Calories Burned: 218750.00 kcal\nEstimate: MET \u00d7 3.5 \u00d7 body mass (kg) \u00d7 duration (minutes) \u00f7 200. Individual energy expenditure varies.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cardio-calories.html",
+      "field": "duration",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Estimated Calories Burned: 0.00 kcal\nEstimate: MET \u00d7 3.5 \u00d7 body mass (kg) \u00d7 duration (minutes) \u00f7 200. Individual energy expenditure varies.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cardio-calories.html",
+      "field": "duration",
+      "boundary": "max",
+      "value": "50000",
+      "output_sample": "Estimated Calories Burned: 437500.00 kcal\nEstimate: MET \u00d7 3.5 \u00d7 body mass (kg) \u00d7 duration (minutes) \u00f7 200. Individual energy expenditure varies.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "mets.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Calories burned: 109.46 kcal",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "mets.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Calories burned: 547312.59 kcal",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "mets.html",
+      "field": "met",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Calories burned: 218.84 kcal",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "mets.html",
+      "field": "met",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Calories burned: 1094187.50 kcal",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "mets.html",
+      "field": "duration",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Calories burned: 437.50 kcal",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "mets.html",
+      "field": "duration",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Calories burned: 2187500.00 kcal",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "step-length.html",
+      "field": "distanceCovered",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "step-length.html",
+      "field": "distanceCovered",
+      "boundary": "max",
+      "value": "1000000",
+      "output_sample": "Average Step Length: 10.000 meters",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "step-length.html",
+      "field": "stepsTaken",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Average Step Length: 10.000 meters",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "step-length.html",
+      "field": "stepsTaken",
+      "boundary": "max",
+      "value": "200000",
+      "output_sample": "Average Step Length: 5.000 meters",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "stride-length.html",
+      "field": "strideDistance",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "stride-length.html",
+      "field": "strideDistance",
+      "boundary": "max",
+      "value": "1000000",
+      "output_sample": "Average Stride Length: 2000.000 meters",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "stride-length.html",
+      "field": "stridesTaken",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Average Stride Length: 2000.000 meters",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "stride-length.html",
+      "field": "stridesTaken",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Average Stride Length: 1000.000 meters",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cadence.html",
+      "field": "cadenceSteps",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cadence.html",
+      "field": "cadenceSteps",
+      "boundary": "max",
+      "value": "200000",
+      "output_sample": "Cadence: 39.68 steps per minute (SPM)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cadence.html",
+      "field": "cadenceTime",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Cadence: 39.68 steps per minute (SPM)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cadence.html",
+      "field": "cadenceTime",
+      "boundary": "max",
+      "value": "10080",
+      "output_sample": "Cadence: 19.84 steps per minute (SPM)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cooper-test.html",
+      "field": "cooperDistance",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cooper-test.html",
+      "field": "cooperDistance",
+      "boundary": "max",
+      "value": "10000",
+      "output_sample": "Estimated VO\u2082 Max: 212.28 ml/kg/min",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "endurance-time.html",
+      "field": "enduranceDistance",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "endurance-time.html",
+      "field": "enduranceDistance",
+      "boundary": "max",
+      "value": "100000",
+      "output_sample": "Estimated Endurance Time: 833333h 20m 0s",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "endurance-time.html",
+      "field": "endurancePace",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Estimated Endurance Time: 833333h 20m 0s",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "endurance-time.html",
+      "field": "endurancePace",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Estimated Endurance Time: 1666666h 40m 0s",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "speed-weight.html",
+      "field": "speed",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Speed-to-Weight Ratio: 0.000\nNo universal speed-to-weight performance category is assigned; compare only with consistent personal measurements.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "speed-weight.html",
+      "field": "speed",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Speed-to-Weight Ratio: 1.999\nNo universal speed-to-weight performance category is assigned; compare only with consistent personal measurements.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "speed-weight.html",
+      "field": "bodyWeight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Speed-to-Weight Ratio: 5000.000\nNo universal speed-to-weight performance category is assigned; compare only with consistent personal measurements.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "speed-weight.html",
+      "field": "bodyWeight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Speed-to-Weight Ratio: 1.000\nNo universal speed-to-weight performance category is assigned; compare only with consistent personal measurements.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "vo2max.html",
+      "field": "distance",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Enter a positive distance measured during a 12-minute run.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "vo2max.html",
+      "field": "distance",
+      "boundary": "max",
+      "value": "10000",
+      "output_sample": "Estimated VO\u2082 max: 212.3 ml/kg/min",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-weight.html",
+      "field": "tdee",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-weight.html",
+      "field": "tdee",
+      "boundary": "max",
+      "value": "20000",
+      "output_sample": "Weekly Calorie Difference: -70000 kcal\nExpected Weekly Weight Loss: 9.09 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-weight.html",
+      "field": "intake",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Weekly Calorie Difference: -70000 kcal\nExpected Weekly Weight Loss: 9.09 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-weight.html",
+      "field": "intake",
+      "boundary": "max",
+      "value": "20000",
+      "output_sample": "Weekly Calorie Difference: 0 kcal\nNo expected weight change.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "monthly-weight.html",
+      "field": "tdeeMonthly",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "monthly-weight.html",
+      "field": "tdeeMonthly",
+      "boundary": "max",
+      "value": "20000",
+      "output_sample": "Monthly Calorie Difference: -2501000 kcal\nExpected Monthly Weight Loss: 324.81 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "monthly-weight.html",
+      "field": "intakeMonthly",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Monthly Calorie Difference: -2501000 kcal\nExpected Monthly Weight Loss: 324.81 kg",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "monthly-weight.html",
+      "field": "intakeMonthly",
+      "boundary": "max",
+      "value": "20000",
+      "output_sample": "Monthly Calorie Difference: 0 kcal\nNo expected weight change.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "monthly-weight.html",
+      "field": "days",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Monthly Calorie Difference: 0 kcal\nNo expected weight change.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "monthly-weight.html",
+      "field": "days",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Monthly Calorie Difference: 0 kcal\nNo expected weight change.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-loss-rate.html",
+      "field": "tdeeRate",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-loss-rate.html",
+      "field": "tdeeRate",
+      "boundary": "max",
+      "value": "20000",
+      "output_sample": "Daily Calorie Deficit: 10000 kcal\nExpected Weekly Loss: 9.09 kg\nExpected Monthly Loss: 38.96 kg\nWarning: This rate may be too aggressive.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-loss-rate.html",
+      "field": "intakeRate",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Daily Calorie Deficit: 10000 kcal\nExpected Weekly Loss: 9.09 kg\nExpected Monthly Loss: 38.96 kg\nWarning: This rate may be too aggressive.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-loss-rate.html",
+      "field": "intakeRate",
+      "boundary": "max",
+      "value": "20000",
+      "output_sample": "No calorie deficit detected. You are not in fat loss mode.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-gain-rate.html",
+      "field": "tdeeGain2",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-gain-rate.html",
+      "field": "tdeeGain2",
+      "boundary": "max",
+      "value": "20000",
+      "output_sample": "No calorie surplus detected. You are not in weight gain mode.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-gain-rate.html",
+      "field": "intakeGain2",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "No calorie surplus detected. You are not in weight gain mode.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-gain-rate.html",
+      "field": "intakeGain2",
+      "boundary": "max",
+      "value": "20000",
+      "output_sample": "No calorie surplus detected. You are not in weight gain mode.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "goal-timeline.html",
+      "field": "currentWeight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "goal-timeline.html",
+      "field": "currentWeight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "goal-timeline.html",
+      "field": "goalWeight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "goal-timeline.html",
+      "field": "goalWeight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "goal-timeline.html",
+      "field": "tdeeTimeline",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "goal-timeline.html",
+      "field": "tdeeTimeline",
+      "boundary": "max",
+      "value": "50000",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "goal-timeline.html",
+      "field": "intakeTimeline",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "goal-timeline.html",
+      "field": "intakeTimeline",
+      "boundary": "max",
+      "value": "50000",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-change.html",
+      "field": "currentWeightBMI",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Current BMI: 0.04 (Underweight)\nGoal BMI: 91.86 (Obesity)\nBMI Change Required: 91.83",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-change.html",
+      "field": "currentWeightBMI",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Current BMI: 183.65 (Obesity)\nGoal BMI: 91.86 (Obesity)\nBMI Change Required: -91.79",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-change.html",
+      "field": "goalWeightBMI",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Current BMI: 183.65 (Obesity)\nGoal BMI: 0.04 (Underweight)\nBMI Change Required: -183.62",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-change.html",
+      "field": "goalWeightBMI",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Current BMI: 183.65 (Obesity)\nGoal BMI: 183.65 (Obesity)\nBMI Change Required: 0.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-change.html",
+      "field": "heightBMI",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Current BMI: 5555.56 (Obesity)\nGoal BMI: 5555.56 (Obesity)\nBMI Change Required: 0.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-change.html",
+      "field": "heightBMI",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Current BMI: 55.56 (Obesity)\nGoal BMI: 55.56 (Obesity)\nBMI Change Required: 0.00",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-change.html",
+      "field": "initialWaist",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Initial Waist: 0.10 cm\nCurrent Waist: 150.10 cm\nWaist Change: 150.00 cm (Increase)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-change.html",
+      "field": "initialWaist",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Initial Waist: 300.00 cm\nCurrent Waist: 150.10 cm\nWaist Change: -149.90 cm (Decrease)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-change.html",
+      "field": "currentWaist",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Initial Waist: 300.00 cm\nCurrent Waist: 0.10 cm\nWaist Change: -299.90 cm (Decrease)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-change.html",
+      "field": "currentWaist",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Initial Waist: 300.00 cm\nCurrent Waist: 300.00 cm\nWaist Change: 0.00 cm (No Change)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "hip-change.html",
+      "field": "initialHip",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Initial Hip: 0.10 cm\nCurrent Hip: 150.10 cm\nHip Change: 150.00 cm (Increase)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "hip-change.html",
+      "field": "initialHip",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Initial Hip: 300.00 cm\nCurrent Hip: 150.10 cm\nHip Change: -149.90 cm (Decrease)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "hip-change.html",
+      "field": "currentHip",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Initial Hip: 300.00 cm\nCurrent Hip: 0.10 cm\nHip Change: -299.90 cm (Decrease)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "hip-change.html",
+      "field": "currentHip",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Initial Hip: 300.00 cm\nCurrent Hip: 300.00 cm\nHip Change: 0.00 cm (No Change)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "waistInit",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Waist: Initial: 0.10 cm, Current: 150.10 cm, Change: 150.00 cm (Increase)\nHip: Initial: 150.10 cm, Current: 150.10 cm, Change: 0.00 cm (No Change)\nChest: Initial: 150.10 cm, Curren",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "waistInit",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 150.10 cm, Change: -149.90 cm (Decrease)\nHip: Initial: 150.10 cm, Current: 150.10 cm, Change: 0.00 cm (No Change)\nChest: Initial: 150.10 cm, Cur",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "waistCurrent",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 0.10 cm, Change: -299.90 cm (Decrease)\nHip: Initial: 150.10 cm, Current: 150.10 cm, Change: 0.00 cm (No Change)\nChest: Initial: 150.10 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "waistCurrent",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 150.10 cm, Current: 150.10 cm, Change: 0.00 cm (No Change)\nChest: Initial: 150.10 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "hipInit",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 0.10 cm, Current: 150.10 cm, Change: 150.00 cm (Increase)\nChest: Initial: 150.10 cm, Curren",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "hipInit",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 150.10 cm, Change: -149.90 cm (Decrease)\nChest: Initial: 150.10 cm, Cur",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "hipCurrent",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 0.10 cm, Change: -299.90 cm (Decrease)\nChest: Initial: 150.10 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "hipCurrent",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 150.10 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "chestInit",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 0.10 cm, Current",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "chestInit",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "chestCurrent",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "chestCurrent",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "armInit",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "armInit",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "armCurrent",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "armCurrent",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "thighInit",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "thighInit",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "thighCurrent",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "thighCurrent",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "calfInit",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "calfInit",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "calfCurrent",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "circumference-track.html",
+      "field": "calfCurrent",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 300.00 cm, Current: 300.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 300.00 cm, Curre",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-stability.html",
+      "field": "initialWeight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Initial Weight: 0.10 kg\nCurrent Weight: 250.10 kg\nTotal Change: 250.00 kg\nDaily Change: 1.00 kg/day\nStatus: Gaining Weight",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-stability.html",
+      "field": "initialWeight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Initial Weight: 500.00 kg\nCurrent Weight: 250.10 kg\nTotal Change: -249.90 kg\nDaily Change: -1.00 kg/day\nStatus: Losing Weight",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-stability.html",
+      "field": "currentWeight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Initial Weight: 500.00 kg\nCurrent Weight: 0.10 kg\nTotal Change: -499.90 kg\nDaily Change: -2.00 kg/day\nStatus: Losing Weight",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-stability.html",
+      "field": "currentWeight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Initial Weight: 500.00 kg\nCurrent Weight: 500.00 kg\nTotal Change: 0.00 kg\nDaily Change: 0.00 kg/day\nStatus: Stable",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-stability.html",
+      "field": "days",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Initial Weight: 500.00 kg\nCurrent Weight: 500.00 kg\nTotal Change: 0.00 kg\nDaily Change: 0.00 kg/day\nStatus: Stable",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-stability.html",
+      "field": "days",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Initial Weight: 500.00 kg\nCurrent Weight: 500.00 kg\nTotal Change: 0.00 kg\nDaily Change: 0.00 kg/day\nStatus: Stable",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-duration.html",
+      "field": "sleepHours",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-duration.html",
+      "field": "sleepHours",
+      "boundary": "max",
+      "value": "24",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed1",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Average Sleep: 10.3 hrs\nVariation (Std Dev): 4.20 hrs\nConsistency Score: 16 / 100\nRating: Poor",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed1",
+      "boundary": "max",
+      "value": "24",
+      "output_sample": "Average Sleep: 13.7 hrs\nVariation (Std Dev): 4.20 hrs\nConsistency Score: 16 / 100\nRating: Poor",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed2",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Average Sleep: 12.0 hrs\nVariation (Std Dev): 6.41 hrs\nConsistency Score: 0 / 100\nRating: Poor",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed2",
+      "boundary": "max",
+      "value": "24",
+      "output_sample": "Average Sleep: 15.4 hrs\nVariation (Std Dev): 5.42 hrs\nConsistency Score: 0 / 100\nRating: Poor",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed3",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Average Sleep: 13.7 hrs\nVariation (Std Dev): 7.67 hrs\nConsistency Score: 0 / 100\nRating: Poor",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed3",
+      "boundary": "max",
+      "value": "24",
+      "output_sample": "Average Sleep: 17.1 hrs\nVariation (Std Dev): 5.94 hrs\nConsistency Score: 0 / 100\nRating: Poor",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed4",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Average Sleep: 15.4 hrs\nVariation (Std Dev): 8.40 hrs\nConsistency Score: 0 / 100\nRating: Poor",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed4",
+      "boundary": "max",
+      "value": "24",
+      "output_sample": "Average Sleep: 18.9 hrs\nVariation (Std Dev): 5.94 hrs\nConsistency Score: 0 / 100\nRating: Poor",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed5",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Average Sleep: 17.1 hrs\nVariation (Std Dev): 8.74 hrs\nConsistency Score: 0 / 100\nRating: Poor",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed5",
+      "boundary": "max",
+      "value": "24",
+      "output_sample": "Average Sleep: 20.6 hrs\nVariation (Std Dev): 5.42 hrs\nConsistency Score: 0 / 100\nRating: Poor",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed6",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Average Sleep: 18.9 hrs\nVariation (Std Dev): 8.74 hrs\nConsistency Score: 0 / 100\nRating: Poor",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed6",
+      "boundary": "max",
+      "value": "24",
+      "output_sample": "Average Sleep: 22.3 hrs\nVariation (Std Dev): 4.20 hrs\nConsistency Score: 16 / 100\nRating: Poor",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed7",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Average Sleep: 20.6 hrs\nVariation (Std Dev): 8.40 hrs\nConsistency Score: 0 / 100\nRating: Poor",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sleep-consistency.html",
+      "field": "bed7",
+      "boundary": "max",
+      "value": "24",
+      "output_sample": "Average Sleep: 24.0 hrs\nVariation (Std Dev): 0.00 hrs\nConsistency Score: 100 / 100\nRating: Excellent",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "training-rest.html",
+      "field": "trainingTime",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "training-rest.html",
+      "field": "trainingTime",
+      "boundary": "max",
+      "value": "10080",
+      "output_sample": "Training\u2013Rest Ratio: 2.00 : 1 \u2014 Very High\nSelected Intensity: Very Low",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "training-rest.html",
+      "field": "restTime",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Training\u2013Rest Ratio: 2.00 : 1 \u2014 Very High\nSelected Intensity: Very Low",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "training-rest.html",
+      "field": "restTime",
+      "boundary": "max",
+      "value": "10080",
+      "output_sample": "Training\u2013Rest Ratio: 1.00 : 1 \u2014 High\nSelected Intensity: Very Low",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rest-interval.html",
+      "field": "work",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Work time must be greater than zero and rest time cannot be negative.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rest-interval.html",
+      "field": "work",
+      "boundary": "max",
+      "value": "86400",
+      "output_sample": "Rest-to-work ratio\n0.50 : 1\n\nCycle duration: 129,600 seconds. Work share: 66.7%.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rest-interval.html",
+      "field": "rest",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Rest-to-work ratio\n0.00 : 1\n\nCycle duration: 86,400 seconds. Work share: 100.0%.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "rest-interval.html",
+      "field": "rest",
+      "boundary": "max",
+      "value": "86400",
+      "output_sample": "Rest-to-work ratio\n1.00 : 1\n\nCycle duration: 172,800 seconds. Work share: 50.0%.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "session-density.html",
+      "field": "work",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Session work density\n0.0%\n\nNon-work time: 720 minutes. This is a time ratio, not a measure of physiological intensity.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "session-density.html",
+      "field": "work",
+      "boundary": "max",
+      "value": "1440",
+      "output_sample": "Total time must be positive and active work time must be between zero and total time.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "session-density.html",
+      "field": "total",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Total time must be positive and active work time must be between zero and total time.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "session-density.html",
+      "field": "total",
+      "boundary": "max",
+      "value": "1440",
+      "output_sample": "Session work density\n100.0%\n\nNon-work time: 0 minutes. This is a time ratio, not a measure of physiological intensity.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "load-recovery-ratio.html",
+      "field": "load",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "load-recovery-ratio.html",
+      "field": "recovery",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-training-count.html",
+      "field": "sessions",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Estimated weekly training time\n0 min/week\n\n0 sessions per week at 720 minutes each.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-training-count.html",
+      "field": "minutes",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Estimated weekly training time\n0 min/week\n\n0 sessions per week at 0 minutes each.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weekly-training-count.html",
+      "field": "minutes",
+      "boundary": "max",
+      "value": "1440",
+      "output_sample": "Estimated weekly training time\n0 min/week\n\n0 sessions per week at 1,440 minutes each.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fatigue-index.html",
+      "field": "fatigue",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Personal fatigue indicator\n39 / 100\n\nHigher values mean more reported fatigue/soreness/stress and/or poorer sleep. Compare only your own repeated entries.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fatigue-index.html",
+      "field": "fatigue",
+      "boundary": "max",
+      "value": "10",
+      "output_sample": "Personal fatigue indicator\n64 / 100\n\nHigher values mean more reported fatigue/soreness/stress and/or poorer sleep. Compare only your own repeated entries.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fatigue-index.html",
+      "field": "soreness",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Personal fatigue indicator\n50 / 100\n\nHigher values mean more reported fatigue/soreness/stress and/or poorer sleep. Compare only your own repeated entries.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fatigue-index.html",
+      "field": "soreness",
+      "boundary": "max",
+      "value": "10",
+      "output_sample": "Personal fatigue indicator\n75 / 100\n\nHigher values mean more reported fatigue/soreness/stress and/or poorer sleep. Compare only your own repeated entries.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fatigue-index.html",
+      "field": "stress",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Personal fatigue indicator\n61 / 100\n\nHigher values mean more reported fatigue/soreness/stress and/or poorer sleep. Compare only your own repeated entries.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fatigue-index.html",
+      "field": "stress",
+      "boundary": "max",
+      "value": "10",
+      "output_sample": "Personal fatigue indicator\n86 / 100\n\nHigher values mean more reported fatigue/soreness/stress and/or poorer sleep. Compare only your own repeated entries.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fatigue-index.html",
+      "field": "sleep",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Personal fatigue indicator\n100 / 100\n\nHigher values mean more reported fatigue/soreness/stress and/or poorer sleep. Compare only your own repeated entries.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "fatigue-index.html",
+      "field": "sleep",
+      "boundary": "max",
+      "value": "10",
+      "output_sample": "Personal fatigue indicator\n75 / 100\n\nHigher values mean more reported fatigue/soreness/stress and/or poorer sleep. Compare only your own repeated entries.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-for-age.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-for-age.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "BMI (kg/m\u00b2)\n222.2\n\nAge entered: 11 years. A BMI-for-age percentile cannot be responsibly calculated without a specified validated growth-chart reference and exact age/sex inputs. U",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-for-age.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "BMI (kg/m\u00b2)\n222.2\n\nAge entered: 11 years. A BMI-for-age percentile cannot be responsibly calculated without a specified validated growth-chart reference and exact age/sex inputs. U",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-for-age.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "BMI (kg/m\u00b2)\n55.6\n\nAge entered: 11 years. A BMI-for-age percentile cannot be responsibly calculated without a specified validated growth-chart reference and exact age/sex inputs. Us",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-for-age.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "2",
+      "output_sample": "BMI (kg/m\u00b2)\n55.6\n\nAge entered: 2 years. A BMI-for-age percentile cannot be responsibly calculated without a specified validated growth-chart reference and exact age/sex inputs. Use",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-for-age.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "19",
+      "output_sample": "BMI (kg/m\u00b2)\n55.6\n\nAge entered: 19 years. A BMI-for-age percentile cannot be responsibly calculated without a specified validated growth-chart reference and exact age/sex inputs. Us",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-risk.html",
+      "field": "waist",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-risk.html",
+      "field": "waist",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Recorded waist circumference\n300 cm\n\nNo universal risk classification is shown because clinically appropriate cutoffs depend on the reference guideline and population. Measure at a",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-risk.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Recorded waist circumference\n300 cm\n\nNo universal risk classification is shown because clinically appropriate cutoffs depend on the reference guideline and population. Measure at a",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-risk.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Recorded waist circumference\n300 cm\n\nNo universal risk classification is shown because clinically appropriate cutoffs depend on the reference guideline and population. Measure at a",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "hip-risk.html",
+      "field": "waist",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "hip-risk.html",
+      "field": "waist",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist-to-hip ratio\n2.000\n\nThis ratio is a screening measurement only; it is not a diagnosis. Interpretation depends on age, sex, population, and chosen clinical guideline.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "hip-risk.html",
+      "field": "hip",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Waist-to-hip ratio\n2.000\n\nThis ratio is a screening measurement only; it is not a diagnosis. Interpretation depends on age, sex, population, and chosen clinical guideline.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "hip-risk.html",
+      "field": "hip",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist-to-hip ratio\n1.000\n\nThis ratio is a screening measurement only; it is not a diagnosis. Interpretation depends on age, sex, population, and chosen clinical guideline.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-height-risk.html",
+      "field": "waist",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-height-risk.html",
+      "field": "waist",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist-to-height ratio\n2.000\n\nThis is an adult screening indicator, not a diagnosis. Use a population-appropriate guideline and clinical context.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-height-risk.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Waist-to-height ratio\n2.000\n\nThis is an adult screening indicator, not a diagnosis. Use a population-appropriate guideline and clinical context.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-height-risk.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Waist-to-height ratio\n1.000\n\nThis is an adult screening indicator, not a diagnosis. Use a population-appropriate guideline and clinical context.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-height-risk.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Waist-to-height ratio\n1.000\n\nThis is an adult screening indicator, not a diagnosis. Use a population-appropriate guideline and clinical context.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "waist-height-risk.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Waist-to-height ratio\n1.000\n\nThis is an adult screening indicator, not a diagnosis. Use a population-appropriate guideline and clinical context.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "forward-head-index.html",
+      "field": "offset",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Normalized head offset\n0.000\n\nEquivalent percentage: 0.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "forward-head-index.html",
+      "field": "offset",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Normalized head offset\n2.000\n\nEquivalent percentage: 200.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "forward-head-index.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Normalized head offset\n2.000\n\nEquivalent percentage: 200.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "forward-head-index.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Normalized head offset\n1.000\n\nEquivalent percentage: 100.0%. This is a descriptive ratio, not a normative score.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "shoulder-symmetry.html",
+      "field": "left",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "shoulder-symmetry.html",
+      "field": "left",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Absolute side-to-side difference\n500 mm difference\n\nDifference relative to the mean: 66.67%. Measurement setup can strongly affect this value; persistent concerns should be assesse",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "shoulder-symmetry.html",
+      "field": "right",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Absolute side-to-side difference\n500 mm difference\n\nDifference relative to the mean: 66.67%. Measurement setup can strongly affect this value; persistent concerns should be assesse",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "shoulder-symmetry.html",
+      "field": "right",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Absolute side-to-side difference\n0 mm difference\n\nDifference relative to the mean: 0.00%. Measurement setup can strongly affect this value; persistent concerns should be assessed b",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "leg-length-difference.html",
+      "field": "left",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Both leg lengths must be greater than zero.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "leg-length-difference.html",
+      "field": "left",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Absolute measured difference\n150 cm\n\nLonger side: left. Home measurements can be inaccurate; pain or persistent asymmetry warrants professional assessment.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "leg-length-difference.html",
+      "field": "right",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Both leg lengths must be greater than zero.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "leg-length-difference.html",
+      "field": "right",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Absolute measured difference\n0 cm\n\nLonger side: equal. Home measurements can be inaccurate; pain or persistent asymmetry warrants professional assessment.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sit-stand-ratio.html",
+      "field": "reps",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Sit-to-stand rate\n0 reps/min\n\n0 repetitions in 43,200 seconds. This result is not interpreted against clinical norms.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sit-stand-ratio.html",
+      "field": "time",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Repetitions cannot be negative and test duration must be greater than zero.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sit-stand-ratio.html",
+      "field": "time",
+      "boundary": "max",
+      "value": "86400",
+      "output_sample": "Sit-to-stand rate\n0 reps/min\n\n0 repetitions in 86,400 seconds. This result is not interpreted against clinical norms.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "chest-expansion.html",
+      "field": "exhale",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "chest-expansion.html",
+      "field": "exhale",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Enter positive values; the inhalation measurement should be equal to or greater than the exhalation measurement.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "chest-expansion.html",
+      "field": "inhale",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Enter positive values; the inhalation measurement should be equal to or greater than the exhalation measurement.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "chest-expansion.html",
+      "field": "inhale",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Chest expansion\n0 cm\n\nRelative expansion: 0.0%. Technique and tape placement affect repeatability. This is not a lung-function test.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "body-alignment.html",
+      "field": "left",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Both measurements must be greater than zero.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "body-alignment.html",
+      "field": "left",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Absolute side-to-side difference\n500 mm difference\n\nNormalized difference: 66.67%. Use the same posture, landmarks, and measurement method each time.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "body-alignment.html",
+      "field": "right",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Both measurements must be greater than zero.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "body-alignment.html",
+      "field": "right",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "Absolute side-to-side difference\n0 mm difference\n\nNormalized difference: 0.00%. Use the same posture, landmarks, and measurement method each time.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "heartrate.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "This adult age-prediction equation is intended for ages 18 and older. For younger athletes, use youth-specific guidance from a qualified professional.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "heartrate.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Target Heart Rate: 93 bpm (75% of Max HR)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "heartrate.html",
+      "field": "rhr",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Target Heart Rate: 93 bpm (75% of Max HR)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "heartrate.html",
+      "field": "rhr",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Target Heart Rate: 122 bpm (98% of Max HR)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "healthrisk.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "BMI: 91.9 \u2014 age-specific interpretation required.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "healthrisk.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "BMI: 91.9 \u2014 Obesity class II or higher",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "healthrisk.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Check the selected units and measurements.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "healthrisk.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "BMI: 183.7 \u2014 Obesity class II or higher",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "healthrisk.html",
+      "field": "height",
+      "boundary": "min",
+      "value": "30",
+      "output_sample": "Check the selected units and measurements.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "healthrisk.html",
+      "field": "height",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Check the selected units and measurements.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "unit.html",
+      "field": "amount",
+      "boundary": "min",
+      "value": "-1000000",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "unit.html",
+      "field": "amount",
+      "boundary": "max",
+      "value": "1000000",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "height-convert.html",
+      "field": "heightValue",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "height-convert.html",
+      "field": "heightValue",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Converted Height: 3 m",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-convert.html",
+      "field": "weightValue",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "weight-convert.html",
+      "field": "weightValue",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Converted Weight: 500000 g",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "distance-convert.html",
+      "field": "distanceValue",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Converted Distance: 0 m",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "distance-convert.html",
+      "field": "distanceValue",
+      "boundary": "max",
+      "value": "1000000",
+      "output_sample": "Converted Distance: 1000000000 m",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "time-convert.html",
+      "field": "timeValue",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Converted Time: 0 ms",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "time-convert.html",
+      "field": "timeValue",
+      "boundary": "max",
+      "value": "10000",
+      "output_sample": "Converted Time: 10000 ms",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-compare.html",
+      "field": "heightA",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Person A: BMI 2505000 (Obese)\nPerson B: BMI 110.6 (Obese)\n\nDifference: 2504889.4 BMI points\nPerson A has the higher BMI.\n\nBMI is a general health indicator and not a complete medic",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-compare.html",
+      "field": "heightA",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Person A: BMI 27.8 (Overweight)\nPerson B: BMI 110.6 (Obese)\n\nDifference: 82.8 BMI points\nPerson B has the higher BMI.\n\nBMI is a general health indicator and not a complete medical ",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-compare.html",
+      "field": "weightA",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Person A: BMI 0.1 (Underweight)\nPerson B: BMI 110.6 (Obese)\n\nDifference: 110.5 BMI points\nPerson B has the higher BMI.\n\nBMI is a general health indicator and not a complete medical",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-compare.html",
+      "field": "weightA",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Person A: BMI 55.6 (Obese)\nPerson B: BMI 110.6 (Obese)\n\nDifference: 55 BMI points\nPerson B has the higher BMI.\n\nBMI is a general health indicator and not a complete medical diagnos",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-compare.html",
+      "field": "heightB",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Person A: BMI 55.6 (Obese)\nPerson B: BMI 2505000 (Obese)\n\nDifference: 2504944.4 BMI points\nPerson B has the higher BMI.\n\nBMI is a general health indicator and not a complete medica",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-compare.html",
+      "field": "heightB",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Person A: BMI 55.6 (Obese)\nPerson B: BMI 27.8 (Overweight)\n\nDifference: 27.7 BMI points\nPerson A has the higher BMI.\n\nBMI is a general health indicator and not a complete medical d",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-compare.html",
+      "field": "weightB",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Person A: BMI 55.6 (Obese)\nPerson B: BMI 0.1 (Underweight)\n\nDifference: 55.4 BMI points\nPerson A has the higher BMI.\n\nBMI is a general health indicator and not a complete medical d",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "bmi-compare.html",
+      "field": "weightB",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Person A: BMI 55.6 (Obese)\nPerson B: BMI 55.6 (Obese)\n\nDifference: 0 BMI points\nBoth BMIs are equal.\n\nBMI is a general health indicator and not a complete medical diagnosis.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ratio.html",
+      "field": "ratioA",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ratio.html",
+      "field": "ratioA",
+      "boundary": "max",
+      "value": "1000000",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ratio.html",
+      "field": "ratioB",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Enter a non-negative first value and a positive second value.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "ratio.html",
+      "field": "ratioB",
+      "boundary": "max",
+      "value": "1000000",
+      "output_sample": "Enter a non-negative first value and a positive second value.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "percentage.html",
+      "field": "value1",
+      "boundary": "min",
+      "value": "-1000000",
+      "output_sample": "Division by zero is not allowed.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "percentage.html",
+      "field": "value1",
+      "boundary": "max",
+      "value": "1000000",
+      "output_sample": "Division by zero is not allowed.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "percentage.html",
+      "field": "value2",
+      "boundary": "min",
+      "value": "-1000000",
+      "output_sample": "Division by zero is not allowed.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "percentage.html",
+      "field": "value2",
+      "boundary": "max",
+      "value": "1000000",
+      "output_sample": "Division by zero is not allowed.",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "difference.html",
+      "field": "diffA",
+      "boundary": "min",
+      "value": "-1000000",
+      "output_sample": "Absolute difference: 1000000\nSigned difference (First - Second): -1000000\nPercent difference: 200.00%",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "difference.html",
+      "field": "diffA",
+      "boundary": "max",
+      "value": "1000000",
+      "output_sample": "Absolute difference: 1000000\nSigned difference (First - Second): 1000000\nPercent difference: 200.00%",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "difference.html",
+      "field": "diffB",
+      "boundary": "min",
+      "value": "-1000000",
+      "output_sample": "Absolute difference: 1000000\nSigned difference (First - Second): 1000000\nPercent difference: 200.00%",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "difference.html",
+      "field": "diffB",
+      "boundary": "max",
+      "value": "1000000",
+      "output_sample": "Absolute difference: 1000000\nSigned difference (First - Second): 1000000\nPercent difference: 200.00%",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "length.html",
+      "field": "lengthValue",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "0 Angstrom (A) = 0 Angstrom (A)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "length.html",
+      "field": "lengthValue",
+      "boundary": "max",
+      "value": "1000000",
+      "output_sample": "1,000,000 Angstrom (A) = 1,000,000 Angstrom (A)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "steps-distance.html",
+      "field": "steps",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Distance: 0.00 m | 0.00 km | 0.00 miles",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "steps-distance.html",
+      "field": "steps",
+      "boundary": "max",
+      "value": "200000",
+      "output_sample": "Distance: 300200.00 m | 300.20 km | 186.54 miles",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "steps-distance.html",
+      "field": "stepLength",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Distance: 200.00 m | 0.20 km | 0.12 miles",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "steps-distance.html",
+      "field": "stepLength",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Distance: 600000.00 m | 600.00 km | 372.82 miles",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "steps-calories.html",
+      "field": "steps",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Distance: 0.00 km\nEstimated Calories Burned: 0.00 kcal",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "steps-calories.html",
+      "field": "steps",
+      "boundary": "max",
+      "value": "200000",
+      "output_sample": "Distance: 300.20 km\nEstimated Calories Burned: 48051.21 kcal",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "steps-calories.html",
+      "field": "stepLength",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Distance: 0.20 km\nEstimated Calories Burned: 32.01 kcal",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "steps-calories.html",
+      "field": "stepLength",
+      "boundary": "max",
+      "value": "300",
+      "output_sample": "Distance: 600.00 km\nEstimated Calories Burned: 96038.40 kcal",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "steps-calories.html",
+      "field": "weight",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Distance: 600.00 km\nEstimated Calories Burned: 38.40 kcal",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "steps-calories.html",
+      "field": "weight",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Distance: 600.00 km\nEstimated Calories Burned: 192000.00 kcal",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "activity-time.html",
+      "field": "duration",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Activity: Walking (3 km/h)\nDuration: 0 minutes\nEstimated Calories Burned: 0.00 \u2013 0.00 kcal\nEstimate: MET \u00d7 3.5 \u00d7 body mass (kg) \u00d7 duration (minutes) \u00f7 200. Individual energy expend",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "activity-time.html",
+      "field": "duration",
+      "boundary": "max",
+      "value": "10080",
+      "output_sample": "Activity: Walking (3 km/h)\nDuration: 10080 minutes\nEstimated Calories Burned: 132352.92 \u2013 158823.50 kcal\nEstimate: MET \u00d7 3.5 \u00d7 body mass (kg) \u00d7 duration (minutes) \u00f7 200. Individual",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "activity-time.html",
+      "field": "weightActivity",
+      "boundary": "min",
+      "value": "0.1",
+      "output_sample": "Activity: Walking (3 km/h)\nDuration: 10080 minutes\nEstimated Calories Burned: 52.92 \u2013 63.50 kcal\nEstimate: MET \u00d7 3.5 \u00d7 body mass (kg) \u00d7 duration (minutes) \u00f7 200. Individual energy ",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "activity-time.html",
+      "field": "weightActivity",
+      "boundary": "max",
+      "value": "500",
+      "output_sample": "Activity: Walking (3 km/h)\nDuration: 10080 minutes\nEstimated Calories Burned: 264600.00 \u2013 317520.00 kcal\nEstimate: MET \u00d7 3.5 \u00d7 body mass (kg) \u00d7 duration (minutes) \u00f7 200. Individual",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sedentary.html",
+      "field": "sedentary",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Sedentary Ratio: 0.0%\nFatigue Score: 0\nStatus: Active\n\n\nActive\nGreen: Active | Orange: Moderate Sedentary | Red: Highly Sedentary\n\n\nCATEGORY\tSEDENTARY RATIO (%)\tFATIGUE SCORE\tRECOM",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sedentary.html",
+      "field": "sedentary",
+      "boundary": "max",
+      "value": "10080",
+      "output_sample": "Sedentary Ratio: 66.7%\nFatigue Score: 47\nStatus: Highly Sedentary\n\n\nModerate Sedentary\nGreen: Active | Orange: Moderate Sedentary | Red: Highly Sedentary\n\n\nCATEGORY\tSEDENTARY RATIO",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sedentary.html",
+      "field": "active",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Sedentary Ratio: 100.0%\nFatigue Score: 100\nStatus: Highly Sedentary\n\n\nHighly Sedentary\nGreen: Active | Orange: Moderate Sedentary | Red: Highly Sedentary\n\n\nCATEGORY\tSEDENTARY RATIO",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sedentary.html",
+      "field": "active",
+      "boundary": "max",
+      "value": "10080",
+      "output_sample": "Sedentary Ratio: 50.0%\nFatigue Score: 35\nStatus: Moderate Sedentary\n\n\nModerate Sedentary\nGreen: Active | Orange: Moderate Sedentary | Red: Highly Sedentary\n\n\nCATEGORY\tSEDENTARY RAT",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sedentary.html",
+      "field": "srIntensity",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Sedentary Ratio: 50.0%\nFatigue Score: 48\nStatus: Moderate Sedentary\n\n\nModerate Sedentary\nGreen: Active | Orange: Moderate Sedentary | Red: Highly Sedentary\n\n\nCATEGORY\tSEDENTARY RAT",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sedentary.html",
+      "field": "srIntensity",
+      "boundary": "max",
+      "value": "10",
+      "output_sample": "Sedentary Ratio: 50.0%\nFatigue Score: 25\nStatus: Moderate Sedentary\n\n\nActive\nGreen: Active | Orange: Moderate Sedentary | Red: Highly Sedentary\n\n\nCATEGORY\tSEDENTARY RATIO (%)\tFATIG",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "work-rest.html",
+      "field": "work",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "work-rest.html",
+      "field": "work",
+      "boundary": "max",
+      "value": "10080",
+      "output_sample": "Work\u2013Rest Ratio: 2.00\nFatigue Score: 24\nStatus: Excessive Rest\n\n\nExcessive Rest\nBlue: Excessive Rest | Green: Optimal Balance | Red: Overload Risk\n\n\nTRAINING TYPE\tRATIO (WORK:REST)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "work-rest.html",
+      "field": "rest",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "Work\u2013Rest Ratio: 2.00\nFatigue Score: 24\nStatus: Excessive Rest\n\n\nExcessive Rest\nBlue: Excessive Rest | Green: Optimal Balance | Red: Overload Risk\n\n\nTRAINING TYPE\tRATIO (WORK:REST)",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "work-rest.html",
+      "field": "rest",
+      "boundary": "max",
+      "value": "10080",
+      "output_sample": "Work\u2013Rest Ratio: 1.00\nFatigue Score: 8\nStatus: Excessive Rest\n\n\nExcessive Rest\nBlue: Excessive Rest | Green: Optimal Balance | Red: Overload Risk\n\n\nTRAINING TYPE\tRATIO (WORK:REST)\t",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "work-rest.html",
+      "field": "intensity",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Work\u2013Rest Ratio: 1.00\nFatigue Score: 8\nStatus: Excessive Rest\n\n\nExcessive Rest\nBlue: Excessive Rest | Green: Optimal Balance | Red: Overload Risk\n\n\nTRAINING TYPE\tRATIO (WORK:REST)\t",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "work-rest.html",
+      "field": "intensity",
+      "boundary": "max",
+      "value": "10",
+      "output_sample": "Work\u2013Rest Ratio: 1.00\nFatigue Score: 8\nStatus: Excessive Rest\n\n\nExcessive Rest\nBlue: Excessive Rest | Green: Optimal Balance | Red: Overload Risk\n\n\nTRAINING TYPE\tRATIO (WORK:REST)\t",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "heat-exposure.html",
+      "field": "tempC",
+      "boundary": "min",
+      "value": "-100",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "heat-exposure.html",
+      "field": "tempC",
+      "boundary": "max",
+      "value": "70",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "heat-exposure.html",
+      "field": "humidity",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "heat-exposure.html",
+      "field": "humidity",
+      "boundary": "max",
+      "value": "100",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "heat-exposure.html",
+      "field": "duration",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "heat-exposure.html",
+      "field": "duration",
+      "boundary": "max",
+      "value": "10080",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cold-exposure.html",
+      "field": "tempC",
+      "boundary": "min",
+      "value": "-100",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cold-exposure.html",
+      "field": "tempC",
+      "boundary": "max",
+      "value": "70",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cold-exposure.html",
+      "field": "windSpeed",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cold-exposure.html",
+      "field": "windSpeed",
+      "boundary": "max",
+      "value": "1000",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cold-exposure.html",
+      "field": "duration",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "cold-exposure.html",
+      "field": "duration",
+      "boundary": "max",
+      "value": "10080",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sunlight.html",
+      "field": "uvIndex",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sunlight.html",
+      "field": "uvIndex",
+      "boundary": "max",
+      "value": "30",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sunlight.html",
+      "field": "duration",
+      "boundary": "min",
+      "value": "0",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "sunlight.html",
+      "field": "duration",
+      "boundary": "max",
+      "value": "10080",
+      "output_sample": "",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "pal.html",
+      "field": "age",
+      "boundary": "min",
+      "value": "1",
+      "output_sample": "Age: 1, Gender: male\nPhysical Activity Level (PAL): 1.20",
+      "nonfinite_output": false,
+      "pageErrors": []
+    },
+    {
+      "route": "pal.html",
+      "field": "age",
+      "boundary": "max",
+      "value": "120",
+      "output_sample": "Age: 120, Gender: male\nPhysical Activity Level (PAL): 1.20",
+      "nonfinite_output": false,
+      "pageErrors": []
+    }
+  ]
+}

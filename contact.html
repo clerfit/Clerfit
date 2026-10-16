@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-GTRER5RZH6');
-</script>
 <title>ClerFit – Contact Us</title>
-<link rel="stylesheet" href="../css/style.css">
+<meta name="description" content="Contact ClerFit with questions or feedback about its health and performance calculators. Use this page to send a message and request support.">
+<link rel="stylesheet" href="css/style.css">
 <style>
 /* Contact page specific overrides */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #d2e1fc;
+  background: radial-gradient(circle at 12% 4%, #e0f2fe 0, transparent 34%), linear-gradient(145deg, #f4f8ff 0%, #e7f2fb 55%, #e7faf5 100%);
 }
 
 .main {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 20px;
+  max-width: 760px;
+  margin: 76px auto 44px;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
 .card {
   background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  padding: clamp(22px, 4vw, 38px);
+  border: 1px solid #dbe7f1;
+  border-radius: 22px;
+  box-shadow: 0 22px 60px rgba(21, 54, 88, 0.12);
 }
 
-h2 {
+h1, h2 {
   text-align: center;
   color: #0f172a;
+  letter-spacing: -.035em;
 }
+.main > p { color:#526579; line-height:1.7; text-align:center; max-width:620px; margin:0 auto 22px; }
 
 form label {
   font-weight: bold;
@@ -50,21 +50,26 @@ form input, form textarea {
   padding: 10px;
   margin-top: 5px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid #cbd8e5;
+  background:#fbfdff;
   font-size: 1rem;
+  transition:border-color .15s,box-shadow .15s,background .15s;
   box-sizing: border-box;
 }
 
 form textarea {
   resize: vertical;
-  min-height: 120px;
+  min-height: 150px;
 }
+form input:focus,form textarea:focus{outline:0;border-color:#1685a1;background:#fff;box-shadow:0 0 0 3px rgba(22,133,161,.14)}
+.contact-privacy-note{font-size:13px;line-height:1.55;color:#475569;margin-top:16px}
+.contact-privacy-note a{color:#14532d;text-decoration:underline}\n.contact-consent{display:flex;align-items:flex-start;gap:9px;font-size:13px;line-height:1.5;font-weight:500!important}.contact-consent input{width:18px;height:18px;flex:0 0 18px;margin:2px 0 0}.contact-consent a{color:#14532d;text-decoration:underline}
 
 form button {
   margin-top: 20px;
   width: 100%;
   padding: 12px;
-  background: #22c55e;
+  background: linear-gradient(115deg,#155eef,#087f8c 60%,#0f9f75);
   color: white;
   font-size: 16px;
   border: none;
@@ -74,7 +79,9 @@ form button {
 }
 
 form button:hover {
-  background: #16a34a;
+  background: linear-gradient(115deg,#124ec9,#076b77 60%,#0b805e);
+  box-shadow:0 8px 20px rgba(8,127,140,.22);
+  transform:translateY(-1px);
 }
 
 .success-message {
@@ -91,87 +98,76 @@ form button:hover {
   text-align: center;
 }
 
-/* Optional: Home & Contact button top right */
-.top-buttons {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-}
-
-.top-buttons button {
-  margin-left: 10px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  background: #1e293b;
-  color: white;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.top-buttons button:hover {
-  background: #38bdf8;
-  color: black;
-}
+@media(max-width:600px){.main{margin:68px auto 28px;padding:14px}.card{border-radius:17px;padding:20px!important}}
 </style>
+<link rel="icon" type="image/jpeg" href="./logo.jpeg"><link rel="apple-touch-icon" href="./logo.jpeg">
 </head>
 <body>
 
-<div class="top-buttons">
-  <button onclick="location.href='index.html'">Home</button>
-  <button onclick="location.href='contact.html'">Contact Us</button>
-</div>
-
 <div class="main">
   <div class="card">
-    <h2>Contact Us</h2>
+    <h1>Contact Us</h1>
     <form id="contactForm" action="https://formspree.io/f/xaqqwlew" method="POST">
       <label for="name">Name</label>
-      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      <input type="text" id="name" name="name" placeholder="Your Name" required aria-label="Your Name">
 
       <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="Your Email" required>
+      <input type="email" id="email" name="email" placeholder="Your Email" required aria-label="Your Email">
 
       <label for="message">Message</label>
       <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+      <label class="contact-consent"><input type="checkbox" id="privacyConsent" name="privacy_consent" value="yes" required> I understand that my name, email and message will be sent to Formspree to deliver my request, as explained in the <a href="privacy.html">Privacy Notice</a>.</label>
 
       <button type="submit">Send Message</button>
     </form>
+    <p class="contact-privacy-note">When you submit this form, your name, email address and message are sent to our contact-form provider, Formspree, so we can receive your message. Do not include medical records or sensitive personal information. Calculator entries are processed in your browser by the calculator code and are not intentionally saved by ClerFit. Hosting and service providers may process routine technical data. <a href="privacy.html">Read the Privacy Notice</a>.</p>
     <div id="formMessage"></div>
   </div>
 </div>
 
 <script>
-// Optional: show message without redirect
 const form = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
-
-form.addEventListener('submit', function(event) {
+const submitButton = form.querySelector('button[type="submit"]');
+const originalButtonText = submitButton.textContent;
+formMessage.setAttribute('role', 'status');
+formMessage.setAttribute('aria-live', 'polite');
+form.addEventListener('submit', async function(event) {
   event.preventDefault();
-  const formData = new FormData(form);
-  fetch(form.action, {
-    method: 'POST',
-    body: formData,
-    headers: { 'Accept': 'application/json' }
-  })
-  .then(response => {
-    if (response.ok) {
-      formMessage.innerHTML = '<div class="success-message">Message sent successfully!</div>';
-      form.reset();
-    } else {
-      response.json().then(data => {
-        formMessage.innerHTML = '<div class="error-message">Oops! ' + (data.error || 'Please try again.') + '</div>';
-      })
+  if (!form.reportValidity()) return;
+  submitButton.disabled = true;
+  submitButton.textContent = 'Sending…';
+  formMessage.className = '';
+  formMessage.textContent = '';
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!response.ok) {
+      let message = 'Please try again later.';
+      try {
+        const data = await response.json();
+        if (data && typeof data.error === 'string' && data.error.trim()) message = data.error;
+      } catch (_) {}
+      throw new Error(message);
     }
-  })
-  .catch(() => {
-    formMessage.innerHTML = '<div class="error-message">Oops! There was a problem submitting your form.</div>';
-  });
+    formMessage.className = 'success-message';
+    formMessage.textContent = 'Message sent successfully.';
+    form.reset();
+  } catch (error) {
+    formMessage.className = 'error-message';
+    formMessage.textContent = error && error.message ? `Message could not be sent: ${error.message}` : 'Message could not be sent. Please try again.';
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = originalButtonText;
+  }
 });
 </script>
 
+<script src="js/navigation.js" defer></script>
+<script src="js/unit-system.js" defer></script>
+<script src="./js/site-polish.js" defer></script>
 </body>
-
 </html>
-

@@ -1,0 +1,7 @@
+{
+  "base": "http://127.0.0.1:8766/",
+  "requests": 126,
+  "registeredRoutes": 118,
+  "passed": 126,
+  "failures": []
+}

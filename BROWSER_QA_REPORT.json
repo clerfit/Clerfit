@@ -1,0 +1,1325 @@
+{
+  "pages_checked": 124,
+  "fatal_pages": [],
+  "runtime_error_pages": [],
+  "console_error_pages": [],
+  "sidebar_invariant_failures": [],
+  "broken_static_images": [],
+  "faq": {
+    "items": 7,
+    "initial_open": 0,
+    "opens_on_touch_click": true
+  },
+  "validation_interactions": [
+    {
+      "page": "html/BMI.html",
+      "field": "weight",
+      "value": "1000000",
+      "aria_invalid": "true",
+      "errors": []
+    },
+    {
+      "page": "html/bodyfat.html",
+      "field": "bf-height",
+      "value": "177",
+      "aria_invalid": null,
+      "errors": []
+    },
+    {
+      "page": "html/weight-loss-rate.html",
+      "field": "tdeeRate",
+      "value": "2500",
+      "aria_invalid": null,
+      "errors": []
+    },
+    {
+      "page": "html/macro-split.html",
+      "field": "height",
+      "value": "177",
+      "aria_invalid": null,
+      "errors": []
+    }
+  ],
+  "reset_test": {
+    "result_before": "Jaw / reference width\n0.667\n\nEquivalent percentage: 66.7%. This is a descriptive ratio, not a normative score.",
+    "result_after": "",
+    "formula_after": "Submit the form to see the formula used."
+  },
+  "home_responsive": [
+    {
+      "width": 360,
+      "scroll": 360,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "scroll": 390,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "scroll": 768,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "scroll": 1024,
+      "overflow": false
+    },
+    {
+      "width": 1365,
+      "scroll": 1365,
+      "overflow": false
+    }
+  ],
+  "page_results": [
+    {
+      "page": "index.html",
+      "title": "ClerFit \u2014 Health & Fitness Calculators",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "contact.html",
+      "title": "ClerFit \u2013 Contact Us",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "404.html",
+      "title": "Page not found \u2014 ClerFit",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "html/1rm.html",
+      "title": "ClerFit \u2013 One-Rep Max (1RM) Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/BMI.html",
+      "title": "ClerFit \u2013 BMI Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/absi.html",
+      "title": "ClerFit \u2013 ABSI Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/activity-time.html",
+      "title": "ClerFit \u2013 Activity Time Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/age.html",
+      "title": "ClerFit \u2013 Age Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/average.html",
+      "title": "ClerFit \u2013 Average Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/bmi-change.html",
+      "title": "ClerFit \u2013 BMI Change Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/bmi-compare.html",
+      "title": "ClerFit \u2013 BMI Comparison",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/bmi-for-age.html",
+      "title": "ClerFit \u2014 BMI for Age",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/bmr.html",
+      "title": "ClerFit \u2013 BMR Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/body-alignment.html",
+      "title": "ClerFit \u2014 Body Alignment Comparison",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/bodyfat.html",
+      "title": "ClerFit \u2013 Body Fat Percentage",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/bsa.html",
+      "title": "ClerFit \u2013 Body Surface Area Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/cadence.html",
+      "title": "ClerFit \u2013 Cadence Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/calories-kg.html",
+      "title": "ClerFit \u2013 Calories per kg Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/calories.html",
+      "title": "ClerFit \u2013 Daily Calorie Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/carbs.html",
+      "title": "ClerFit \u2013 Carbohydrate Intake Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/cardio-calories.html",
+      "title": "ClerFit \u2013 Calories Burned Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/chest-expansion.html",
+      "title": "ClerFit \u2014 Chest Expansion",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/chin-height-ratio.html",
+      "title": "ClerFit \u2014 Chin Height Ratio",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/circumference-track.html",
+      "title": "ClerFit \u2013 Circumference Tracking Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/cold-exposure.html",
+      "title": "ClerFit \u2013 Cold Exposure Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/contact.html",
+      "title": "ClerFit \u2013 Contact Us",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 0,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/cooper-test.html",
+      "title": "ClerFit \u2013 Cooper Test Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/daily-energy.html",
+      "title": "ClerFit \u2013 Daily Energy Needs Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/deficit.html",
+      "title": "ClerFit \u2013 Calorie Deficit Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/difference.html",
+      "title": "ClerFit \u2013 Difference Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/distance-convert.html",
+      "title": "ClerFit \u2013 Distance Converter",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/distance-time.html",
+      "title": "ClerFit \u2013 Distance\u2013Time Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/endurance-time.html",
+      "title": "ClerFit \u2013 Endurance Time Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/energy-balance.html",
+      "title": "ClerFit \u2013 Energy Balance Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/eye-spacing.html",
+      "title": "ClerFit \u2014 Eye Spacing",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/face-length.html",
+      "title": "ClerFit \u2013 Face Length Ratio",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/face-shape.html",
+      "title": "ClerFit \u2013 Face Shape Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/facial-balance.html",
+      "title": "ClerFit \u2014 Facial Balance Index",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/facial-thirds.html",
+      "title": "ClerFit \u2014 Facial Thirds",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/fat.html",
+      "title": "ClerFit \u2013 Fat Intake Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/fatigue-index.html",
+      "title": "ClerFit \u2014 Fatigue Check-In",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/fatmass.html",
+      "title": "ClerFit \u2013 Fat Mass",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/ffmi.html",
+      "title": "ClerFit \u2013 FFMI Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/fiber.html",
+      "title": "ClerFit \u2013 Fiber Intake Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/forward-head-index.html",
+      "title": "ClerFit \u2014 Forward Head Index",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/goal-timeline.html",
+      "title": "ClerFit \u2013 >Goal Timeline Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/healthrisk.html",
+      "title": "ClerFit \u2013 Health Risk",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/heartrate.html",
+      "title": "ClerFit \u2013 Heart Rate",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/heat-exposure.html",
+      "title": "ClerFit \u2013 Heat Exposure Calculaor",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/height-convert.html",
+      "title": "ClerFit \u2013 Height Converter",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/hip-change.html",
+      "title": "ClerFit \u2013 Hip Change Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/hip-risk.html",
+      "title": "ClerFit \u2014 Waist-to-Hip Context",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/hydration-loss.html",
+      "title": "ClerFit \u2013 Water Loss Replacement Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/idealweight.html",
+      "title": "ClerFit \u2013 Ideal Weight",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/jaw-width-ratio.html",
+      "title": "ClerFit \u2014 Jaw Width Ratio",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/leanmass.html",
+      "title": "ClerFit \u2013 Lean Mass",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/leg-length-difference.html",
+      "title": "ClerFit \u2014 Leg Length Difference",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/length.html",
+      "title": "ClerFit \u2013Length Converter",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/load-recovery-ratio.html",
+      "title": "ClerFit \u2014 Load-Recovery Ratio",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/lower-face-height.html",
+      "title": "ClerFit \u2014 Lower Face Height",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/macro-split.html",
+      "title": "ClerFit \u2013 Macro Split Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/maintenance.html",
+      "title": "ClerFit \u2013 Maintenance Calories Calculator (TDEE)",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/meal-split.html",
+      "title": "ClerFit \u2013 Meal Calorie Split Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/metabolic-age.html",
+      "title": "ClerFit \u2013 Metabolic Age Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/mets.html",
+      "title": "ClerFit \u2013 METs Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/monthly-weight.html",
+      "title": "ClerFit \u2013 Monthly Weight Change Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/mouth-width-ratio.html",
+      "title": "ClerFit \u2014 Mouth Width Ratio",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/nose-length-ratio.html",
+      "title": "ClerFit \u2014 Nose Length Ratio",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/pace.html",
+      "title": "ClerFit \u2013 Pace Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/pal.html",
+      "title": "ClerFit \u2013Physical Activity Level (PAL) Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/percentage.html",
+      "title": "ClerFit \u2013 Percentage Tool",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/performance-score.html",
+      "title": "ClerFit \u2013 Performance Score Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/ponderal.html",
+      "title": "ClerFit \u2013 Ponderal Index",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/potassium.html",
+      "title": "ClerFit \u2013 Potassium Intake Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/protein.html",
+      "title": "ClerFit \u2013 Protein Intake",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/pullup-index.html",
+      "title": "ClerFit \u2013 Pull-Up Index Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/pushup-index.html",
+      "title": "ClerFit \u2013 Push-Up Index Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/ratio.html",
+      "title": "ClerFit \u2013 Ratio Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/recovery-time.html",
+      "title": "ClerFit \u2014 Recovery Interval",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/relative-strength.html",
+      "title": "ClerFit \u2013 Relative Strength Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/rest-interval.html",
+      "title": "ClerFit \u2014 Rest Interval",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/rfm.html",
+      "title": "ClerFit \u2013 Relative Fat Mass",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/rmr.html",
+      "title": "ClerFit \u2013 RMR Calculator (Resting Metabolic Rate)",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/running-pace.html",
+      "title": "ClerFit \u2013 Running Pace Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/sedentary.html",
+      "title": "ClerFit \u2013Sedentary Ratio Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/session-density.html",
+      "title": "ClerFit \u2014 Session Density",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/shoulder-symmetry.html",
+      "title": "ClerFit \u2014 Shoulder Symmetry",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/sit-stand-ratio.html",
+      "title": "ClerFit \u2014 Sit-to-Stand Rate",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/sleep-consistency.html",
+      "title": "ClerFit \u2013 Sleep Consistency Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/sleep-duration.html",
+      "title": "ClerFit \u2013 Sleep Duration Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/sleep-timing.html",
+      "title": "ClerFit \u2013 Sleep Timing Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/sodium.html",
+      "title": "ClerFit \u2013 Sodium Intake Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/somatotype.html",
+      "title": "ClerFit \u2013 Somatotype Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/speed-weight.html",
+      "title": "ClerFit \u2013 Speed-to-Weight Ratio Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/squat-ratio.html",
+      "title": "ClerFit \u2013 Squat Ratio Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/step-length.html",
+      "title": "ClerFit \u2013 Step Length Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/steps-calories.html",
+      "title": "ClerFit \u2013 Steps to Calories",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/steps-distance.html",
+      "title": "ClerFit \u2013Steps to Distance Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/strength-weight.html",
+      "title": "ClerFit \u2013 Strength-to-Weight Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/stride-length.html",
+      "title": "ClerFit \u2013 Stride Length Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/sunlight.html",
+      "title": "ClerFit \u2013 Sunlight / UV Exposure Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/surplus.html",
+      "title": "ClerFit \u2013 Calorie Surplus Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/tdee.html",
+      "title": "ClerFit \u2013 TDEE Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/time-convert.html",
+      "title": "ClerFit \u2013 Time Converter",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/training-rest.html",
+      "title": "ClerFit \u2013 Training\u2013Rest Ratio Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/training-volume.html",
+      "title": "ClerFit \u2013 Training Volume Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/unit.html",
+      "title": "ClerFit \u2014 Unit Converter",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/vo2max.html",
+      "title": "ClerFit \u2013 VO\u2082 Max",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/waist-change.html",
+      "title": "ClerFit \u2013 Waist Change Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/waist-height-risk.html",
+      "title": "ClerFit \u2014 Waist-to-Height Ratio",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/waist-risk.html",
+      "title": "ClerFit \u2014 Waist Measurement Review",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/walking-speed.html",
+      "title": "ClerFit \u2013 Walking Speed Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/water.html",
+      "title": "ClerFit \u2013 Water Intake",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/weekly-load.html",
+      "title": "ClerFit \u2013 Weekly Load Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/weekly-training-count.html",
+      "title": "ClerFit \u2014 Weekly Training Count",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/weekly-weight.html",
+      "title": "ClerFit \u2013 Weekly Weight Change Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/weight-convert.html",
+      "title": "ClerFit \u2013 Weight Converter",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/weight-gain-rate.html",
+      "title": "ClerFit \u2013 Weight Gain Rate Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/weight-loss-rate.html",
+      "title": "ClerFit \u2013 Weight Loss Rate Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/weight-stability.html",
+      "title": "ClerFit \u2013 Weight Stability Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/whr.html",
+      "title": "ClerFit \u2013 WHR",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/wht.html",
+      "title": "ClerFit \u2013 Waist-to-Height Ratio Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/work-output.html",
+      "title": "ClerFit \u2013 Work Output Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    },
+    {
+      "page": "html/work-rest.html",
+      "title": "ClerFit \u2013 Work\u2013Rest Balance Calculator",
+      "runtime_errors": [],
+      "console_errors": [],
+      "sidebar_groups": 11,
+      "menu_toggle": 1,
+      "broken_images": []
+    }
+  ],
+  "sidebar_invariant_note": "The standalone contact page intentionally does not render calculator category groups; this is not a failure.",
+  "calculator_interaction_smoke": {
+    "html_pages_exercised": 121,
+    "includes_all_118_registered_calculator_routes": true,
+    "primary_action_invoked_on_each_page": true,
+    "runtime_error_pages": 0,
+    "console_error_pages": 0,
+    "mobile_overflow_pages_at_390px": 0
+  },
+  "navigation_unit_image_tests": {
+    "home_face_category_title": "Face & Aesthetics",
+    "home_face_category_count": "10 calculators",
+    "home_face_category_link_count": 10,
+    "home_topic_search_results": [
+      "Jaw Width RatioFace & Aesthetics\u2197"
+    ],
+    "home_clear_filter_restores_all": true,
+    "sidebar_opens": true,
+    "menu_hidden_when_open": true,
+    "face_category_expanded": "true",
+    "face_category_link_count": 10,
+    "search_results": [
+      "Jaw Width RatioFace & Aesthetics"
+    ],
+    "sidebar_closes": true,
+    "teen_bmi_result": "BMI: 22.9 \u2014 Age-specific interpretation required (Age: 16)\n\nFor children and teens, interpret BMI using an appropriate age- and sex-specific growth-chart percentile. This calculator does not estimate a pediatric percentile.",
+    "bodyfat_male_result": "Estimated Body Fat Percentage: 14.5%",
+    "bodyfat_female_result": "Estimated Body Fat Percentage: 25.7%",
+    "imperial_value": "154.3236",
+    "imperial_unit": "lbs",
+    "metric_value": "70",
+    "metric_unit": "kg",
+    "content_image_count": 1,
+    "image_viewer_opens": true,
+    "image_viewer_closes": true,
+    "responsive_pages": {
+      "html/BMI.html": [
+        {
+          "width": 360,
+          "scroll": 360,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "scroll": 390,
+          "overflow": false
+        },
+        {
+          "width": 768,
+          "scroll": 768,
+          "overflow": false
+        },
+        {
+          "width": 1024,
+          "scroll": 1024,
+          "overflow": false
+        },
+        {
+          "width": 1365,
+          "scroll": 1365,
+          "overflow": false
+        }
+      ],
+      "html/jaw-width-ratio.html": [
+        {
+          "width": 360,
+          "scroll": 360,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "scroll": 390,
+          "overflow": false
+        },
+        {
+          "width": 768,
+          "scroll": 768,
+          "overflow": false
+        },
+        {
+          "width": 1024,
+          "scroll": 1024,
+          "overflow": false
+        },
+        {
+          "width": 1365,
+          "scroll": 1365,
+          "overflow": false
+        }
+      ],
+      "contact.html": [
+        {
+          "width": 360,
+          "scroll": 360,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "scroll": 390,
+          "overflow": false
+        },
+        {
+          "width": 768,
+          "scroll": 768,
+          "overflow": false
+        },
+        {
+          "width": 1024,
+          "scroll": 1024,
+          "overflow": false
+        },
+        {
+          "width": 1365,
+          "scroll": 1365,
+          "overflow": false
+        }
+      ]
+    },
+    "runtime_errors": []
+  },
+  "homepage_topic_filter_tests": {
+    "home_face_category_title": "Face & Aesthetics",
+    "home_face_category_count": "10 calculators",
+    "home_face_category_link_count": 10,
+    "home_topic_search_results": [
+      "Jaw Width RatioFace & Aesthetics\u2197"
+    ],
+    "home_clear_filter_restores_all": true
+  },
+  "code_level_fixes": [
+    "shared header direct-child insertion",
+    "single image-viewer event binding",
+    "form reset clears stale result",
+    "specialist facial-height tooltips",
+    "somatotype image responsive sizing",
+    "US Navy body-fat input converted cm-to-inches",
+    "Heath-Carter corrected girths",
+    "age-specific pediatric BMI warning",
+    "length/distance compatible conversion and incompatible-dimension rejection",
+    "domain-aware sitemap/canonical generation"
+  ]
+}

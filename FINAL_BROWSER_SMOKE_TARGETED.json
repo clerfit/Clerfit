@@ -1,0 +1,144 @@
+{
+  "summary": {
+    "documents": 16,
+    "loaded": 16,
+    "actions": 16,
+    "errors": 0,
+    "pages_with_errors": [],
+    "pages_without_action": [],
+    "mobile_overflow": [],
+    "load_failures": [],
+    "action_errors": [],
+    "pages_no_result": []
+  },
+  "pages": [
+    {
+      "file": "html/BMI.html",
+      "loaded": true,
+      "action": "calculateBMI()",
+      "result": "BMI: 22.9 \u2014 Normal (Age: 25, Gender: male)",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/absi.html",
+      "loaded": true,
+      "action": "calculateABSI()",
+      "result": "ABSI: 0.075\n\nRaw ABSI only. No low/average/high risk label is assigned because interpretation requires an appropriate reference population and standardized score.",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/bsa.html",
+      "loaded": true,
+      "action": "calculateBSA()",
+      "result": "BSA: 1.84 m\u00b2",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/whr.html",
+      "loaded": true,
+      "action": "calculateWHR()",
+      "result": "WHR: 0.84\n\nScreening ratio only. This calculator does not assign a universal risk category or diagnose a condition.",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/sleep-duration.html",
+      "loaded": true,
+      "action": "updateSleepIndicator()",
+      "result": "Sleep: 1.2 hours \u2014 Below the usual recommendation of at least 7 hours. Adults often need around 7\u20139 hours; more or less can be appropriate for an individual.",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/sodium.html",
+      "loaded": true,
+      "action": "calculateSodium()",
+      "result": "Age-based sodium adequate-intake reference: 1500 mg/day\n\nThis is a population reference, not a personalized requirement. Do not increase sodium intake solely because an activity-level selector suggests it.",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/potassium.html",
+      "loaded": true,
+      "action": "calculatePotassium()",
+      "result": "Age-based potassium adequate-intake reference: 3400 mg/day\n\nThis is a population reference, not a personalized prescription. Activity level alone is not used to multiply the recommendation. People with kidney disease or certain medications may need i",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/heat-exposure.html",
+      "loaded": true,
+      "action": "calculateHeat()",
+      "result": "Estimated heat index: 8.7 \u00b0C (47.6 \u00b0F)\n\nAir temperature: 10.0 \u00b0C; relative humidity: 10%; planned duration: 1 minutes; sun exposure: Shade; work intensity: Light.\n\nHeat index is a shade-based apparent-temperature estimate, not a personal safety guara",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/cold-exposure.html",
+      "loaded": true,
+      "action": "calculateCold()",
+      "result": "Estimated wind-chill temperature: 8.6 \u00b0C\n\nActual air temperature: 10.0 \u00b0C; wind speed: 10.0 km/h; planned exposure: 1 minutes.\n\nWind chill estimates cooling of exposed skin from wind and cold; it is not the actual air temperature and does not predict",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/wht.html",
+      "loaded": true,
+      "action": "calculateWHtR()",
+      "result": "Waist-to-height ratio: 0.457\n\nA common adult rule of thumb is to keep waist circumference below half of height. This is not a diagnosis and should not be applied automatically to children or teenagers.",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/rfm.html",
+      "loaded": true,
+      "action": "calculateRFM()",
+      "result": "RFM estimate: 20.3%\n\nThis is a formula-based body-fat estimate, not a diagnosis. Individual error can be substantial; no universal category is assigned.",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/fatmass.html",
+      "loaded": true,
+      "action": "calculateFatMass()",
+      "result": "Fat Mass: 14.00 kg (20.0%)",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/leanmass.html",
+      "loaded": true,
+      "action": "calculateLeanMass()",
+      "result": "Lean Mass: 56.00 kg (80.0%)",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/healthrisk.html",
+      "loaded": true,
+      "action": "calculateHealthRisk()",
+      "result": "BMI: 22.9 \u2014 Normal adult BMI range",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/ffmi.html",
+      "loaded": true,
+      "action": "calculateFFMI()",
+      "result": "Lean Mass: 56.00 kg (80.0%)\nFFMI: 18.29\n\nFFMI is a calculated index, not a diagnosis. There is no universal low/average/athletic/elite category valid across sex, age, training history and populations.",
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "file": "html/ponderal.html",
+      "loaded": true,
+      "action": "calculatePI()",
+      "result": "Ponderal Index: 13.06\n\nPonderal Index is a descriptive height-adjusted mass index. These values are not assigned universal underweight/normal/overweight/obesity categories by this calculator.",
+      "errors": [],
+      "overflow": false
+    }
+  ]
+}

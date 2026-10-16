@@ -1,0 +1,96 @@
+{
+  "generated_at": "2026-10-16",
+  "site_url_build_target": "https://clerfit.github.io/Clerfit/",
+  "file_count": 158,
+  "uncompressed_bytes": 1762107,
+  "gzip_estimated_bytes": 754201,
+  "largest_files": [
+    {
+      "bytes": 181736,
+      "file": "logo.png"
+    },
+    {
+      "bytes": 72240,
+      "file": "css/style.css"
+    },
+    {
+      "bytes": 63479,
+      "file": "logo resized.png"
+    },
+    {
+      "bytes": 31324,
+      "file": "logo.jpeg"
+    },
+    {
+      "bytes": 30244,
+      "file": "js/navigation.js"
+    },
+    {
+      "bytes": 23473,
+      "file": "allmorph.jpg"
+    },
+    {
+      "bytes": 19334,
+      "file": "html/relative-strength.txt"
+    },
+    {
+      "bytes": 19173,
+      "file": "js/advanced-calculators.js"
+    },
+    {
+      "bytes": 17657,
+      "file": "js/engine.js"
+    },
+    {
+      "bytes": 16796,
+      "file": "sitemap.xml"
+    },
+    {
+      "bytes": 15642,
+      "file": "html/vo2max.html"
+    },
+    {
+      "bytes": 15165,
+      "file": "html/somatotype.html"
+    },
+    {
+      "bytes": 15131,
+      "file": "html/cardio-calories.html"
+    },
+    {
+      "bytes": 13875,
+      "file": "html/rfm.html"
+    },
+    {
+      "bytes": 13825,
+      "file": "html/training-rest.html"
+    },
+    {
+      "bytes": 13809,
+      "file": "html/BMI.html"
+    },
+    {
+      "bytes": 13534,
+      "file": "html/sleep-timing.html"
+    },
+    {
+      "bytes": 12940,
+      "file": "html/macro-split.html"
+    },
+    {
+      "bytes": 12906,
+      "file": "html/heartrate.html"
+    },
+    {
+      "bytes": 12869,
+      "file": "html/bmi-compare.html"
+    }
+  ],
+  "weak_network_estimate": {
+    "assumed_bandwidth_kbps": 400,
+    "assumed_rtt_seconds": 0.15,
+    "model": "estimated transfer time = compressed total bytes \u00d7 8 / 400000 + 0.15 seconds \u00d7 file_count; ignores caching, multiplexing, server processing and real browser behavior",
+    "estimated_seconds": 38.78
+  },
+  "measurement_type": "Static asset inventory and gzip simulation only; not real field data or Lighthouse/Core Web Vitals."
+}

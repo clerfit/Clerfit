@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+# The Netlify build generates the Sitemap line from SITE_URL/URL.

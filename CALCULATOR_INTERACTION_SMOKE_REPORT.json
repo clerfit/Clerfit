@@ -1,0 +1,978 @@
+{
+  "pages": 121,
+  "mobile_overflow_pages": [],
+  "fatal_pages": [],
+  "runtime_error_pages": [],
+  "console_error_pages": [],
+  "no_action_button": [],
+  "results": [
+    {
+      "page": "1rm.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Estimated 1RM: 93.33 kg\nEstimation Confidence: Moderate Accuracy",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "BMI.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "BMI: 24.2 \u2014 Normal (Age: 25, Gender: male)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "absi.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "ABSI: 0.073 (Low risk)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "activity-time.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Activity: Walking (3 km/h)\nDuration: 30 minutes\nEstimated Calories Burned: 105.00 \u2013 126.00 kcal",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "age.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "You are 0 years, 0 months, and 0 days old.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "average.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Count: 3\n\nSum: 60\n\nAverage: 20\n\nMin: 10\n\nMax: 30",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "bmi-change.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Current BMI: 24.22 (Normal Weight)\nGoal BMI: 24.22 (Normal Weight)\nBMI Change Required: 0.00",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "bmi-compare.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Person A: BMI 24.2 (Normal weight)\nPerson B: BMI 24.2 (Normal weight)\n\nDifference: 0 BMI points\nBoth BMIs are equal.\n\nBMI is a general health indicator and not a complete medical d",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "bmi-for-age.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "BMI (kg/m\u00b2)\n24.2\n\nAge entered: 16 years. A BMI-for-age percentile cannot be responsibly calculated without a specified validated growth-chart reference and exact age/sex inputs. Us",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "bmr.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "BMR Result: 1643 kcal/day",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "body-alignment.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Absolute side-to-side difference\n0 mm difference\n\nNormalized difference: 0.00%. Use the same posture, landmarks, and measurement method each time.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "bodyfat.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Estimated Body Fat Percentage: 15.4%",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "bsa.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "BSA: 1.82 m\u00b2",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "cadence.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Cadence: 1.00 steps per minute (SPM)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "calories-kg.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Calories per kg: 28.2 kcal/kg/day",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "calories.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Daily Calorie Needs: 573.6 kcal",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "carbs.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Recommended Carbohydrates: 246 grams/day",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "cardio-calories.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Estimated Calories Burned: 35.00 kcal",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "chest-expansion.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Chest expansion\n0 cm\n\nRelative expansion: 0.0%. Technique and tape placement affect repeatability. This is not a lung-function test.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "chin-height-ratio.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Chin / lower-face ratio\n1.000\n\nEquivalent percentage: 100.0%. This is a descriptive ratio, not a normative score.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "circumference-track.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Waist: Initial: 80.00 cm, Current: 80.00 cm, Change: 0.00 cm (No Change)\nHip: Initial: 95.00 cm, Current: 95.00 cm, Change: 0.00 cm (No Change)\nChest: Initial: 100.00 cm, Current: ",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "cold-exposure.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Wind chill formula valid only for \u226410\u00b0C and wind \u22654.8 km/h.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "contact.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "cooper-test.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Estimated VO\u2082 Max: 212.28 ml/kg/min",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "daily-energy.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Your Daily Energy Need: 1971 kcal/day",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "deficit.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Your Target Calories for Fat Loss: 1471 kcal/day",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "difference.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Absolute difference: 20\nSigned difference (First - Second): -20\nPercent difference: 100.00%",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "distance-convert.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Converted Distance: 1000 km",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "distance-time.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Time Required: 0h 12m 0s",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "endurance-time.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Estimated Endurance Time: 0h 25m 0s",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "energy-balance.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "You are currently in: Maintenance (Weight Stable)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "eye-spacing.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Spacing / eye-width ratio\n0.500\n\nEquivalent percentage: 50.0%. This is a descriptive ratio, not a normative score.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "face-length.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Face Length Ratio: 1.00 \u2014 Long Lower Face",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "face-shape.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Dominant Face Shape: Oblong \u2014 73.9%\n\nOval \u2013 8.7%\nRound \u2013 8.7%\nSquare \u2013 8.7%\nHeart \u2013 0.0%\nDiamond \u2013 0.0%\nOblong \u2013 73.9%\n",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "facial-balance.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Coefficient of variation across thirds\n0.0% variation\n\nMean segment: 100 mm. Lower variation means the three entered lengths are closer to one another; no ideal or diagnostic thres",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "facial-thirds.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Upper / middle / lower share\n33.3% / 33.3% / 33.3%\n\nTotal measured height: 300 mm. Shares are calculated as each segment \u00f7 total \u00d7 100.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "fat.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Recommended Fat Intake: 55 grams/day",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "fatigue-index.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Personal fatigue indicator\n6 / 100\n\nHigher values mean more reported fatigue/soreness/stress and/or poorer sleep. Compare only your own repeated entries.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "fatmass.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Fat Mass: 7.00 kg (10.0%)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "ffmi.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Lean Mass: 63.00 kg (90.0%)\nFFMI: 21.80",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "fiber.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Recommended Daily Fiber Intake: 38.00 g (Age: 25, Gender: male, Activity: sedentary \u2014 Sedentary: little or no exercise, Calories: 2000)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "forward-head-index.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Normalized head offset\n0.100\n\nEquivalent percentage: 10.0%. This is a descriptive ratio, not a normative score.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "goal-timeline.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "No calorie difference detected. Progress will not occur.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "healthrisk.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "BMI: 24.2 (Moderate Risk)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "heartrate.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Target Heart Rate: 133 bpm (68% of Max HR)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "heat-exposure.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Adjusted Heat Index: 24.4 \u00b0C\nExposure Stress Score: 6.1 / 100\nRisk Level: Low\nLow\n\n\nRecommendations:\n\u2022 Maintain normal hydration (250\u2013500 ml/hour)\n\u2022 Light breathable clothing\n\u2022 Mon",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "height-convert.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Converted Height: 170 cm",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "hip-change.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Initial Hip: 95.00 cm\nCurrent Hip: 95.00 cm\nHip Change: 0.00 cm (No Change)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "hip-risk.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Waist-to-hip ratio\n0.842\n\nThis ratio is a screening measurement only; it is not a diagnosis. Interpretation depends on age, sex, population, and chosen clinical guideline.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "hydration-loss.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Estimated water to replace: 0.30 L (~300 mL, ~1.2 cups)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "idealweight.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Ideal Weight: 66.0 kg",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "jaw-width-ratio.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Jaw / reference width\n1.000\n\nEquivalent percentage: 100.0%. This is a descriptive ratio, not a normative score.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "leanmass.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Lean Mass: 63.00 kg (90.0%)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "leg-length-difference.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Absolute measured difference\n0 cm\n\nLonger side: equal. Home measurements can be inaccurate; pain or persistent asymmetry warrants professional assessment.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "length.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "1,000 Meter (m) = 3,280.839895013123 Foot (ft)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "load-recovery-ratio.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Load \u00f7 recovery score\n70.00\n\nUse the same scoring scale consistently over time. This ratio has no universal safe/unsafe threshold.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "lower-face-height.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Lower-face share\n1.000\n\nEquivalent percentage: 100.0%. This is a descriptive ratio, not a normative score.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "macro-split.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Total Calories (TDEE): 1971 kcal\nMacro Split: Protein: 123g (25%), Fat: 55g (25%), Carbs: 246g (50%)\n\nPer Meal Distribution:\nBreakfast: Protein: 41g, Fat: 18g, Carbs: 82g\nLunch: Pr",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "maintenance.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Your Maintenance Calories (TDEE) are 1971 calories/day.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "meal-split.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Calorie Distribution:\nBreakfast: 667 kcal \u2014 Moderate\nLunch: 667 kcal \u2014 Moderate\nDinner: 667 kcal \u2014 Moderate",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "metabolic-age.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Your Metabolic Age: 32 years",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "mets.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Calories burned: 18375.00 kcal",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "monthly-weight.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Monthly Calorie Difference: 0 kcal\nNo expected weight change.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "mouth-width-ratio.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Mouth / face-width ratio\n1.000\n\nEquivalent percentage: 100.0%. This is a descriptive ratio, not a normative score.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "nose-length-ratio.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Nose / face-height ratio\n1.000\n\nEquivalent percentage: 100.0%. This is a descriptive ratio, not a normative score.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "pace.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Pace: 6.00 min/km",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "pal.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Age: 25, Gender: male\nPhysical Activity Level (PAL): 1.20",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "percentage.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "10 is 33.33% of 30",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "performance-score.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Strength Score: 1.00\nPerformance Score: 0.07",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "ponderal.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Ponderal Index: 14.25",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "potassium.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Recommended Daily Potassium Intake: 3400.00 mg\n(Age: 25, Gender: male, Activity: sedentary \u2014 Sedentary: little or no exercise)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "protein.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Estimated protein target: 56.0 g/day",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "pullup-index.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Pull-Up Index: 0.14",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "pushup-index.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Push-Up Index: 0.14",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "ratio.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Original Ratio: 1 : 30\n\nSimplified Ratio: 1 : 30\n\nDecimal Form: 0.0333\n\nPercentage Form: 3.33%",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "recovery-time.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Time between sessions\n1 hours\n\nEquivalent to 0.04 days. Adequate recovery depends on training type, intensity, sleep, nutrition, and individual factors.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "relative-strength.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Relative Strength: 1.00\nStrength Level: Intermediate Level",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "rest-interval.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Rest-to-work ratio\n1.00 : 1\n\nCycle duration: 60 seconds. Work share: 50.0%.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "rfm.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "RFM: 21.5%",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "rmr.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Your Resting Metabolic Rate (RMR) is 1643 calories/day.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "running-pace.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Running Pace: 366 min 6 sec per km",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "sedentary.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Sedentary Ratio: 50.0%\nFatigue Score: 25\nStatus: Moderate Sedentary\n\n\nActive\nGreen: Active | Orange: Moderate Sedentary | Red: Highly Sedentary\n\n\nCATEGORY\tSEDENTARY RATIO (%)\tFATIG",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "session-density.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Session work density\n100.0%\n\nNon-work time: 0 minutes. This is a time ratio, not a measure of physiological intensity.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "shoulder-symmetry.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Absolute side-to-side difference\n0 mm difference\n\nDifference relative to the mean: 0.00%. Measurement setup can strongly affect this value; persistent concerns should be assessed b",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "sit-stand-ratio.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Sit-to-stand rate\n20 reps/min\n\n10 repetitions in 30 seconds. This result is not interpreted against clinical norms.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "sleep-consistency.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Average Sleep: 8.0 hrs\nVariation (Std Dev): 0.00 hrs\nConsistency Score: 100 / 100\nRating: Excellent",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "sleep-duration.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "sleep-timing.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Recommended Bedtimes:\n6 cycles \u2192 00:45\n5 cycles \u2192 02:15\n4 cycles \u2192 03:45",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "sodium.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Recommended Daily Sodium Intake: 2300.00 mg (Age: 25, Gender: male, Activity: sedentary \u2014 Sedentary: little or no exercise)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "somatotype.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Endomorphy: 3.06\nMesomorphy: 5.09\nEctomorphy: 1.61",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "speed-weight.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Speed-to-Weight Ratio: 0.040 \u2014 Very Good",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "squat-ratio.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Squat-to-Bodyweight Ratio: 1.00 \u2014 Intermediate",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "step-length.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Average Step Length: 100000.000 meters",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "steps-calories.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Distance: 0.01 km\nEstimated Calories Burned: 0.45 kcal",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "steps-distance.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Distance: 10.00 m | 0.01 km | 0.01 miles",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "strength-weight.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Strength-to-Weight Ratio: 1.00",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "stride-length.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Average Stride Length: 1000.000 meters",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "sunlight.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "UV index category\nModerate\n\nExposure duration: 30.0 minutes\n\nRelative exposure indicator (UV index \u00d7 minutes): 150.0\n\nUse shade, protective clothing, sunglasses, and broad-spectrum",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "surplus.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Your Target Calories for Weight Gain: 2221 kcal/day",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "tdee.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Your TDEE: 1596 kcal/day",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "time-convert.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Converted Time: 0.5 min",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "training-rest.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Training\u2013Rest Ratio: 3.00 : 1 \u2014 Very High\nSelected Intensity: Moderate",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "training-volume.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Total Training Volume: 7000.0 kg",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "unit.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "0.1 m\n10 cm converted to m",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "vo2max.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "VO\u2082 Max \u2248 100.5 ml/kg/min",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "waist-change.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Initial Waist: 80.00 cm\nCurrent Waist: 80.00 cm\nWaist Change: 0.00 cm (No Change)",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "waist-height-risk.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Waist-to-height ratio\n0.471\n\nThis is an adult screening indicator, not a diagnosis. Use a population-appropriate guideline and clinical context.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "waist-risk.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Recorded waist circumference\n80 cm\n\nNo universal risk classification is shown because clinically appropriate cutoffs depend on the reference guideline and population. Measure at a ",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "walking-speed.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Walking Speed: 0.16 km/h",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "water.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Recommended Daily Water Intake: 2.45 L",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "weekly-load.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Weekly Load: 70000.0 kg",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "weekly-training-count.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Estimated weekly training time\n250 min/week\n\n10 sessions per week at 25 minutes each.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "weekly-weight.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Weekly Calorie Difference: 0 kcal\nNo expected weight change.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "weight-convert.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Converted Weight: 0.5 kg",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "weight-gain-rate.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "No calorie surplus detected. You are not in weight gain mode.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "weight-loss-rate.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "No calorie deficit detected. You are not in fat loss mode.",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "weight-stability.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Initial Weight: 70.00 kg\nCurrent Weight: 70.00 kg\nTotal Change: 0.00 kg\nDaily Change: 0.00 kg/day\nStatus: Stable",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "whr.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "WHR: 0.84",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "wht.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Waist-to-Height Ratio: 0.47 \u2014 Healthy",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "work-output.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Total Work Output: 480690.00 J",
+      "runtime_errors": [],
+      "console_errors": []
+    },
+    {
+      "page": "work-rest.html",
+      "clicked": true,
+      "mobile_overflow": false,
+      "result_sample": "Work\u2013Rest Ratio: 1.00\nFatigue Score: 8\nStatus: Excessive Rest\n\n\nExcessive Rest\nBlue: Excessive Rest | Green: Optimal Balance | Red: Overload Risk\n\n\nTRAINING TYPE\tRATIO (WORK:REST)\t",
+      "runtime_errors": [],
+      "console_errors": []
+    }
+  ]
+}
