@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Sleep Timing Calculator</title>
+  <meta name="description" content="Use the ClerFit Sleep Timing Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/sleep-timing.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Sleep Timing Calculator">
+<meta property="og:description" content="Use the ClerFit Sleep Timing Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/sleep-timing.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Sleep Timing Calculator">
+<meta name="twitter:description" content="Use the ClerFit Sleep Timing Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+<div class="card">
+  <h2>Sleep Timing Calculator</h2>
+
+  <style>
+    .tooltip-container {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+
+    .tooltip-container .tooltiptext {
+      visibility: hidden;
+      width: 220px;
+      background-color: #555;
+      color: #fff;
+      text-align: left;
+      padding: 6px 8px;
+      border-radius: 6px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -110px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 13px;
+    }
+
+    .tooltip-container .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+
+    .tooltip-container:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .tooltip-circle {
+      background: #aaa;
+      color: #fff;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  </style>
+
+  <div class="row">
+    <div class="col">
+      <label for="mode">
+        Calculation Mode
+        <span class="tooltip-container">
+          <span class="tooltip-circle">i</span>
+          <span class="tooltiptext">
+            Choose whether you want to calculate ideal bedtimes (based on your wake-up time) or ideal wake-up times (based on when you go to bed).
+          </span>
+        </span>
+      </label>
+      <select id="mode" aria-label="Time entry mode">
+        <option value="sleep">I want to wake up at...</option>
+        <option value="wake">I want to sleep at...</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="format">
+        Time Format
+        <span class="tooltip-container">
+          <span class="tooltip-circle">i</span>
+          <span class="tooltiptext">
+            Select 24-hour format (e.g., 22:30) or 12-hour format with AM/PM.
+          </span>
+        </span>
+      </label>
+      <select id="format" onchange="toggleFormat()" aria-label="Time format">
+        <option value="24">24-Hour</option>
+        <option value="12">12-Hour (AM/PM)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top:15px;">
+    <div class="col">
+      <label for="timeInput">
+        Select Time
+        <span class="tooltip-container">
+          <span class="tooltip-circle">i</span>
+          <span class="tooltiptext">
+            Enter your target sleep time or wake-up time. Calculations are based on full sleep cycles.
+          </span>
+        </span>
+      </label>
+      <input type="time" id="timeInput">
+    </div>
+
+    <div class="col">
+      <label for="cycleLength">
+        Sleep Cycle Length
+        <span class="tooltip-container">
+          <span class="tooltip-circle">i</span>
+          <span class="tooltiptext">
+            Average human sleep cycle is about 90 minutes. You may adjust between 80–110 minutes if needed.
+          </span>
+        </span>
+      </label>
+      <select id="cycleLength" aria-label="Sleep cycle length">
+        <option value="90" selected>90 Minutes (Standard)</option>
+        <option value="80">80 Minutes</option>
+        <option value="100">100 Minutes</option>
+        <option value="110">110 Minutes</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="calculateSleepTiming()">Calculate</button>
+
+  <div class="result" id="result" style="margin-top:15px;"></div>
+
+  <div id="formula" style="margin-top:10px;"></div>
+</div>
+
+<script>
+function toggleFormat() {}
+
+function formatTime(date, format) {
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+
+  if (format === "12") {
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    return hours + ":" + minutes + " " + ampm;
+  } else {
+    hours = hours < 10 ? "0" + hours : hours;
+    return hours + ":" + minutes;
+  }
+}
+
+function calculateSleepTiming() {
+  const mode = document.getElementById("mode").value;
+  const format = document.getElementById("format").value;
+  const timeValue = document.getElementById("timeInput").value;
+  const cycleLength = parseInt(document.getElementById("cycleLength").value);
+
+  if (!timeValue) {
+    alert("Please select a time.");
+    return;
+  }
+
+  const [hour, minute] = timeValue.split(":").map(Number);
+  const baseTime = new Date();
+  baseTime.setHours(hour);
+  baseTime.setMinutes(minute);
+  baseTime.setSeconds(0);
+
+  const fallAsleepMinutes = 15;
+  const cycleMillis = cycleLength * 60 * 1000;
+  let results = [];
+
+  if (mode === "sleep") {
+    for (let cycles = 6; cycles >= 4; cycles--) {
+      const totalSleepMillis = (cycles * cycleMillis) + (fallAsleepMinutes * 60 * 1000);
+      const sleepTime = new Date(baseTime.getTime() - totalSleepMillis);
+      results.push(cycles + " cycles → " + formatTime(sleepTime, format));
+    }
+    document.getElementById("result").innerHTML =
+      "<b>Recommended Bedtimes:</b><br>" + results.join("<br>");
+  } else {
+    const adjustedBase = new Date(baseTime.getTime() + (fallAsleepMinutes * 60 * 1000));
+    for (let cycles = 4; cycles <= 6; cycles++) {
+      const wakeTime = new Date(adjustedBase.getTime() + (cycles * cycleMillis));
+      results.push(cycles + " cycles → " + formatTime(wakeTime, format));
+    }
+    document.getElementById("result").innerHTML =
+      "<b>Recommended Wake-up Times:</b><br>" + results.join("<br>");
+  }
+
+  document.getElementById("formula").innerHTML =
+    "Formula: Sleep/Wake Time ± (Cycles × " + cycleLength + " minutes) + 15 minutes to fall asleep.";
+}
+</script>
+
+
+
+<div class="card">
+  <h2>Sleep Timing: Meaning, Applications & Cautions</h2>
+
+  <h3>Meaning</h3>
+  <p>
+    Sleep timing is based on complete sleep cycles. One sleep cycle lasts approximately 90 minutes and
+    consists of light sleep, deep sleep, and REM sleep. Waking up at the end of a full cycle reduces
+    grogginess and improves alertness.
+  </p>
+
+  <h3>Applications</h3>
+  <ul>
+    <li>Improves morning alertness and energy</li>
+    <li>Helps maintain a consistent sleep schedule</li>
+    <li>Supports athletic recovery and performance</li>
+    <li>Assists students and professionals in planning optimal sleep</li>
+    <li>Reduces sleep inertia (morning grogginess)</li>
+  </ul>
+
+  <h3>Cautions</h3>
+  <ul>
+    <li>Individual sleep needs may vary; cycles are approximate averages</li>
+    <li>Overriding natural sleep-wake patterns can cause fatigue</li>
+    <li>Not suitable for people with sleep disorders without consulting a doctor</li>
+    <li>Ensure sufficient total sleep hours in addition to cycle timing</li>
+  </ul>
+</div>
+
+
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Sleep Timing <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/recovery.svg" alt="Illustration for Sleep Timing" loading="lazy" width="120" height="120"><figcaption>Visual guide for Sleep Timing</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Sleep Timing?</h3><p>Sleep Timing is a descriptive recovery, sleep or training-load metric. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Sleep Timing result in the context of the input values, displayed units and assumptions. Many recovery indices are planning aids rather than clinically validated measures. Pain, illness and persistent fatigue require appropriate attention.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help organize routines and compare patterns across days or weeks.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Many recovery indices are planning aids rather than clinically validated measures. Pain, illness and persistent fatigue require appropriate attention.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Read the required inputs and units shown on the page, enter valid values, run the calculation if a button is provided, and review the result and any assumptions before using it.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-GTRER5RZH6');
-</script>
 <title>ClerFit – METs Calculator</title>
-<link rel="stylesheet" href="../css/style.css?v=20261017-r3-live-ui">
+  <meta name="description" content="Use the ClerFit METs Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+
+<link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <script defer>
 function calculateMETs() {
     let weight = parseFloat(document.getElementById('weight').value);
@@ -40,16 +46,24 @@ function calculateMETs() {
     indicator.style.left = pos + '%';
 }
 </script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/mets.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – METs Calculator">
+<meta property="og:description" content="Use the ClerFit METs Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/mets.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – METs Calculator">
+<meta name="twitter:description" content="Use the ClerFit METs Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body>
 
-<div class="top-right-buttons">
-  <button onclick="location.href='../index.html'">Home</button>
-  <button onclick="location.href='../contact.html'">Contact Us</button>
-</div>
 <div class="sidebar">
 <h2>ClerFit</h2>
-<button onclick="location.href='bmi.html'">BMI</button>
+<button onclick="location.href='BMI.html'">BMI</button>
 <button onclick="location.href='bmr.html'">BMR</button>
 <button onclick="location.href='bodyfat.html'">Body Fat %</button>
 <button onclick="location.href='idealweight.html'">Ideal Weight</button>
@@ -77,21 +91,39 @@ function calculateMETs() {
 <p>Health & Fitness Calculators</p>
 </div>
 
+
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
 <div class="card">
 <h2>METs Calculator</h2>
+  <p class="cf-note">Activity MET values are estimates and vary with pace, technique and individual differences. Compare activity definitions with the <a href="https://pacompendium.com/" target="_blank" rel="noopener noreferrer">2024 Adult Compendium of Physical Activities</a>.</p>
 
-<label>Weight</label>
-<input id="weight" type="number" placeholder="Enter your weight">
-<select id="weightUnit">
+<label for="weight">Weight</label>
+<input id="weight" type="number" placeholder="Enter your weight" min="0.1" max="500" step="any" aria-label="Enter your weight">
+<select id="weightUnit" aria-label="Weight unit">
 <option value="kg" selected>kg</option>
 <option value="lb">lb</option>
 </select>
 
-<label>Activity MET value</label>
-<input id="met" type="number" placeholder="Example: 8 for running">
+<label for="met">Activity MET value</label>
+<input id="met" type="number" placeholder="Example: 8 for running" min="0.1" max="500" step="any" aria-label="Example: 8 for running">
 
-<label>Duration (minutes)</label>
-<input id="duration" type="number" placeholder="Enter minutes">
+<label for="duration">Duration (minutes)</label>
+<input id="duration" type="number" placeholder="Enter minutes" min="0.1" max="500" step="any" aria-label="Enter minutes">
 
 <button class="calculate-btn" onclick="calculateMETs()">Calculate</button>
 
@@ -152,7 +184,58 @@ function calculateMETs() {
 </tbody>
 </table>
 
-<script src="../js/menu-fix.js" defer></script>
-</body>
+<div class="card">
+  <h2>METs (Metabolic Equivalent of Task)</h2>
 
+  <h3>Definition</h3>
+  <p>METs are a unit that estimates the amount of energy expended during physical activity compared to resting metabolism. 1 MET is the energy cost of sitting quietly, approximately 1 kcal/kg/hour.</p>
+
+  <h3>Applications</h3>
+  <ul>
+    <li>Quantifies intensity of physical activities and workouts</li>
+    <li>Used to calculate calorie expenditure during exercise</li>
+    <li>Helps design fitness programs with appropriate intensity</li>
+    <li>Monitors cardiovascular and metabolic health</li>
+    <li>Supports weight management and energy balance calculations</li>
+    <li>Useful in research and clinical exercise prescription</li>
+    <li>Integrated in fitness tracking devices and apps</li>
+  </ul>
+
+  <h3>Related Health Problems</h3>
+
+  <h3>Low MET Activity (Sedentary Lifestyle)</h3>
+  <ul>
+    <li>Low cardiovascular fitness</li>
+    <li>Increased risk of obesity and metabolic disorders</li>
+    <li>Higher risk of heart disease and type 2 diabetes</li>
+    <li>Muscle weaknes
+
+   </div>
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand ClerFit – METs Calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/utilities.svg" alt="Illustration for ClerFit – METs Calculator" loading="lazy" width="120" height="120"><figcaption>Visual guide for ClerFit – METs Calculator</figcaption></figure>
+   <div class="cf-education-section"><h3>What is ClerFit – METs Calculator?</h3><p>a MET-based estimate of activity intensity or energy expenditure. The result depends on the inputs and method used on this page.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>MET-based calorie values are estimates and are not laboratory measurements. Individual energy cost varies.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>MET = activity energy cost expressed relative to a resting reference; calorie estimates depend on the method and inputs.</code><p>MET-based calorie values are estimates and are not laboratory measurements. Individual energy cost varies.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help compare activity levels when the activity definition and duration are consistent.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>MET-based calorie values are estimates and are not laboratory measurements. Individual energy cost varies.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the requested activity value, body mass and duration, then review the reported unit and assumptions.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
 </html>

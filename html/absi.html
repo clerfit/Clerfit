@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="apple-touch-icon" href="../favicon-180.png"><link rel="manifest" href="../site.webmanifest">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>ClerFit – ABSI Calculator</title>
+  <meta name="description" content="Use the ClerFit ABSI Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
 <meta charset="UTF-8">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-GTRER5RZH6');
-</script>
-<title>ClerFit – ABSI Calculator</title>
-<link rel="stylesheet" href="../css/style.css?v=20261017-r3-live-ui">
+
+
+
+<link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <script defer>
 function calculateABSI() {
   // Get inputs
@@ -44,36 +50,32 @@ function calculateABSI() {
   const absi = waistM / (Math.pow(bmi, 2/3) * Math.pow(heightM, 0.5));
   const absiRounded = absi.toFixed(3);
 
-  // Determine risk level
-  let risk = '';
-  if (absi < 0.078) risk = 'Low';
-  else if (absi < 0.083) risk = 'Average';
-  else if (absi < 0.089) risk = 'High';
-  else risk = 'Very High';
-
-  // Show result
-  document.getElementById('result').innerHTML = 
-    `ABSI: <strong>${absiRounded}</strong> (${risk} risk)`;
-
-  // Update bar
+  // ABSI is a statistical index. Absolute values alone do not support a
+  // universal risk category; published interpretation uses reference data
+  // (including age/sex-specific standardization) and population context.
+  document.getElementById('result').innerHTML =
+    `ABSI: <strong>${absiRounded}</strong><p class="cf-note">Raw ABSI only. No low/average/high risk label is assigned because interpretation requires an appropriate reference population and standardized score.</p>`;
   const indicator = document.getElementById('indicator');
-  let position = 0;
-  if (risk === 'Low') position = 10;
-  else if (risk === 'Average') position = 40;
-  else if (risk === 'High') position = 70;
-  else position = 90;
-  indicator.style.left = position + '%';
+  if (indicator) indicator.parentElement.hidden = true;
 }
 </script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/absi.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – ABSI Calculator">
+<meta property="og:description" content="Use the ClerFit ABSI Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/absi.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – ABSI Calculator">
+<meta name="twitter:description" content="Use the ClerFit ABSI Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body>
-<div class="top-right-buttons">
-  <button onclick="location.href='../index.html'">Home</button>
-  <button onclick="location.href='../contact.html'">Contact Us</button>
-</div>
 <div class="sidebar">
   <h2>ClerFit</h2>
-  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='BMI.html'">BMI</button>
   <button onclick="location.href='bmr.html'">BMR</button>
   <button onclick="location.href='bodyfat.html'">Body Fat %</button>
   <button onclick="location.href='idealweight.html'">Ideal Weight</button>
@@ -101,52 +103,94 @@ function calculateABSI() {
     <p>Health & Fitness Calculators</p>
   </div>
 
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
   <div class="card">
     <h2>ABSI Calculator</h2>
 
-    <label>Waist Circumference</label>
-    <input id="waist" type="number">
-    <select id="waistUnit">
+    <label for="waist">Waist Circumference</label>
+    <input id="waist" type="number" min="0.1" max="500" step="any">
+    <select id="waistUnit" aria-label="Waist unit">
       <option value="m">m</option>
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
     </select>
 
-    <label>Height</label>
-    <input id="height" type="number">
-    <select id="heightUnit">
+    <label for="height">Height</label>
+    <input id="height" type="number" min="0.1" max="500" step="any">
+    <select id="heightUnit" aria-label="Height unit">
       <option value="m">m</option>
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
       <option value="ft">ft</option>
     </select>
 
-    <label>Weight (kg)</label>
-    <input id="weight" type="number">
+    <label for="weight">Weight (kg)</label>
+    <input id="weight" type="number" min="0.1" max="500" step="any">
 
     <button class="calculate-btn" onclick="calculateABSI()">Calculate</button>
 
     <div id="result" class="result"></div>
 
-    <div class="bar-container">
-      <div class="bar" style="background: linear-gradient(to right, #22c55e 0%, #eab308 40%, #f97316 70%, #ef4444 100%); height: 20px; border-radius: 10px; position: relative;">
-        <div id="indicator" style="position:absolute; top:-5px; width:2px; height:30px; background:black;"></div>
-      </div>
-    </div>
-
-    <h3>ABSI Risk Table</h3>
-    <table>
-      <tr><th>ABSI</th><th>Risk Level</th></tr>
-      <tr><td>&lt; 0.078</td><td>Low</td></tr>
-      <tr><td>0.078 – 0.082</td><td>Average</td></tr>
-      <tr><td>0.083 – 0.088</td><td>High</td></tr>
-      <tr><td>&gt; 0.088</td><td>Very High</td></tr>
-    </table>
+    <div class="cf-warning"><strong>Interpretation limitation:</strong> ABSI is a statistical index. A raw value alone should not be mapped to universal low/average/high risk categories; standardized reference data and population context are needed.</div>
 
   </div>
-</div>
 
-<script src="../js/menu-fix.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand ABSI <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+  <h2>ABSI (A Body Shape Index)</h2>
+  <h3>What is ABSI?</h3>
+  <p>ABSI combines waist circumference with BMI and height to describe body shape. Its raw value should not be interpreted as an individual health-risk category without an appropriate reference model.</p>
+
+  <h3>Definition</h3>
+  <p>ABSI (A Body Shape Index) is a metric that assesses body shape using waist circumference, height, and weight. It is used in research to describe body shape in relation to height and weight; a raw value alone is not an individual risk assessment.</p>
+
+  <h3>Applications</h3>
+  <ul>
+    <li>Evaluates abdominal fat independent of BMI</li>
+    <li>Helps identify risk of cardiovascular disease</li>
+    <li>Used in obesity and metabolic health assessments</li>
+    <li>Supports personalized diet and fitness programs</li>
+    <li>Monitors changes in body composition over time</li>
+    <li>Used in selected population research with appropriate reference models</li>
+    <li>Integrated in health and fitness tracking tools</li>
+  </ul>
+
+  <h3>Interpreting ABSI</h3>
+  <p>ABSI values should be interpreted using an appropriate published reference model, commonly involving age- and sex-standardized values. This page deliberately reports the raw index only and does not infer an individual risk category.</p>
+
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the ABSI result in the context of the input values, displayed units and assumptions. Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>ABSI = waist circumference ÷ (BMI^(2/3) × height^(1/2)), using compatible canonical units.</code><p>ABSI is a statistical index; risk interpretation requires an appropriate reference and should not be treated as a diagnosis.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Use it to calculate and compare measurements collected with a consistent method.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the requested measurements in the displayed units, confirm the method and calculate. For tracking, repeat measurements under similar conditions.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
 </body>
-
 </html>

@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>ClerFit – Protein Intake</title>
+  <meta name="description" content="Use the ClerFit Protein Intake to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
 <meta charset="UTF-8">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-GTRER5RZH6');
-</script>
-<title>ClerFit – Protein Intake</title>
+
 <!-- Central CSS -->
-<link rel="stylesheet" href="../css/style.css?v=20261017-r3-live-ui">
+<link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <!-- Central JS -->
 <script src="../js/engine.js" defer></script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/protein.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Protein Intake">
+<meta property="og:description" content="Use the ClerFit Protein Intake to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/protein.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Protein Intake">
+<meta name="twitter:description" content="Use the ClerFit Protein Intake to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body>
-<div class="top-right-buttons">
-  <button onclick="location.href='../index.html'">Home</button>
-  <button onclick="location.href='../contact.html'">Contact Us</button>
-</div>
 <!-- ===== Sidebar ===== -->
 <div class="sidebar">
   <h2>ClerFit</h2>
-  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='BMI.html'">BMI</button>
   <button onclick="location.href='bmr.html'">BMR</button>
   <button onclick="location.href='bodyfat.html'">Body Fat %</button>
   <button onclick="location.href='idealweight.html'">Ideal Weight</button>
@@ -56,26 +66,42 @@
     <p>Health & Fitness Calculators</p>
   </div>
 
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
   <!-- Calculator Card -->
   <div class="card">
     <h2>Protein Intake Calculator</h2>
 
     <!-- Weight with unit converter -->
-    <label>Weight</label>
+    <label for="weight">Weight</label>
     <div class="row">
       <div class="col">
-        <input id="weight" type="number" placeholder="Enter weight">
+        <input id="weight" type="number" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
       </div>
       <div class="col">
-        <select id="weightUnit">
+        <select id="weightUnit" aria-label="Weight unit">
           <option value="kg" selected>kg</option>
           <option value="lb">lb</option>
         </select>
       </div>
     </div>
 
-    <label>Activity Level</label>
-    <select id="level">
+    <label for="level">Activity Level</label>
+    <select id="level" aria-label="Activity or training level">
       <option value="0.8">Sedentary</option>
       <option value="1.2">Active</option>
       <option value="1.6">Athlete</option>
@@ -88,6 +114,46 @@
     <div id="formula"></div>
   </div>
   <label># Note: These are minimum required values</label>
+<div class="card">
+
+
+
+
+
+<h2>Protein Intake</h2>
+<p>Protein intake refers to the amount of protein consumed through food or supplements to meet the body’s daily requirements. Adequate protein intake supports muscle growth, tissue repair, enzyme and hormone production, and overall health.</p>
+
+  <h2>Protein – Applications</h2>
+  <ul>
+    <li>Essential for muscle building and repair</li>
+    <li>Supports weight management and fat loss</li>
+    <li>Helps in overall growth and development</li>
+    <li>Used in diet planning for athletes and fitness enthusiasts</li>
+    <li>Maintains healthy skin, hair, and nails</li>
+    <li>Supports immune system function</li>
+    <li>Used in health tracking and nutrition apps</li>
+  </ul>
+
+  <h2>Related Health Problems</h2>
+
+  <h3>Low Protein Intake</h3>
+  <ul>
+    <li>Muscle loss and weakness</li>
+    <li>Fatigue and low energy</li>
+    <li>Slow recovery from injuries</li>
+    <li>Weakened immunity</li>
+    <li>Hair, skin, and nail problems</li>
+  </ul>
+
+  <h3>Excess Protein Intake</h3>
+  <ul>
+    <li>Kidney strain in susceptible individuals</li>
+    <li>Dehydration</li>
+    <li>Digestive issues</li>
+    <li>Potential weight gain if calories are excessive</li>
+  </ul>
+</div>
+
 </div>
 
 <script>
@@ -106,7 +172,30 @@ function calculateProtein() {
 }
 </script>
 
-<script src="../js/menu-fix.js" defer></script>
-</body>
 
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Protein Intake <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/nutrition.svg" alt="Illustration for Protein Intake" loading="lazy" width="120" height="120"><figcaption>Visual guide for Protein Intake</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Protein Intake?</h3><p>Protein Intake is an estimate or planning aid for a nutrition or fluid target. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Protein Intake result in the context of the input values, displayed units and assumptions. Individual requirements vary with age, activity, climate, diet and health. This tool does not replace individualized clinical advice.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help organize daily intake and compare a plan with a chosen target.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Individual requirements vary with age, activity, climate, diet and health. This tool does not replace individualized clinical advice.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the requested values and goals, check the displayed units and assumptions, then use the result as a guide rather than a prescription.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
 </html>

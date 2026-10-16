@@ -1,137 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/index.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/contact.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- All 20 calculators -->
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/bmi.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/bmr.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/bodyfat.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/idealweight.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/calories.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/protein.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/water.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/whr.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/ffmi.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/rfm.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/vo2max.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/heartrate.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/leanmass.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/fatmass.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/ponderal.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/absi.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/tdee.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/mets.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/pace.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://clerfit.github.io/Clerfit/html/healthrisk.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://clerfit.github.io/Clerfit/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/contact.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/privacy.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/terms-of-use.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/educational-disclaimer.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/BMI.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/bodyfat.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/leanmass.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/fatmass.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/ffmi.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/bsa.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/whr.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/wht.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/idealweight.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/somatotype.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/rfm.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/ponderal.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/absi.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/face-shape.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/face-length.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/facial-thirds.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/jaw-width-ratio.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/chin-height-ratio.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/nose-length-ratio.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/mouth-width-ratio.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/eye-spacing.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/lower-face-height.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/facial-balance.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/bmr.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/rmr.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/tdee.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/maintenance.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/deficit.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/surplus.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/energy-balance.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/daily-energy.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/calories-kg.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/metabolic-age.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/protein.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/carbs.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/fat.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/macro-split.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/fiber.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/water.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/sodium.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/potassium.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/meal-split.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/hydration-loss.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/1rm.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/relative-strength.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/training-volume.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/weekly-load.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/strength-weight.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/pushup-index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/pullup-index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/squat-ratio.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/work-output.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/performance-score.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/running-pace.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/walking-speed.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/distance-time.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/cardio-calories.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/mets.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/step-length.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/stride-length.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/cadence.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/cooper-test.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/endurance-time.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/speed-weight.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/vo2max.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/weekly-weight.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/monthly-weight.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/weight-loss-rate.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/weight-gain-rate.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/goal-timeline.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/bmi-change.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/waist-change.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/hip-change.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/circumference-track.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/weight-stability.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/sleep-duration.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/sleep-consistency.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/sleep-timing.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/training-rest.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/rest-interval.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/session-density.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/load-recovery-ratio.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/weekly-training-count.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/recovery-time.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/fatigue-index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/bmi-for-age.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/waist-risk.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/hip-risk.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/waist-height-risk.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/forward-head-index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/shoulder-symmetry.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/leg-length-difference.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/sit-stand-ratio.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/chest-expansion.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/body-alignment.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/heartrate.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/healthrisk.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/unit.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/height-convert.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/weight-convert.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/distance-convert.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/time-convert.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/bmi-compare.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/ratio.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/percentage.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/average.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/difference.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/length.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/age.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/steps-distance.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/steps-calories.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/activity-time.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/sedentary.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/work-rest.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/heat-exposure.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/cold-exposure.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/sunlight.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/pal.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

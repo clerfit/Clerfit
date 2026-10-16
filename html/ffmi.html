@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="apple-touch-icon" href="../favicon-180.png"><link rel="manifest" href="../site.webmanifest">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>ClerFit – FFMI Calculator</title>
+  <meta name="description" content="Use the ClerFit FFMI Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+
 <meta charset="UTF-8">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-GTRER5RZH6');
-</script>
-<title>ClerFit – FFMI Calculator</title>
-<link rel="stylesheet" href="../css/style.css?v=20261017-r3-live-ui">
+
+<link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <style>
 /* ===== FFMI Specific Styles ===== */
 
@@ -98,8 +103,8 @@ function calculateFFMI() {
 
   let fat = parseFloat(document.getElementById("fat").value);
 
-  if(isNaN(height) || isNaN(weight) || isNaN(fat)) {
-    alert("Please enter all values!");
+  if(!Number.isFinite(height) || !Number.isFinite(weight) || !Number.isFinite(fat) || height <= 0 || weight <= 0 || fat < 0 || fat > 100 || height < 0.5 || height > 2.5 || weight > 500) {
+    document.getElementById("result").textContent = "Enter a valid height (0.5–2.5 m), weight (positive and at most 500 kg), and body-fat percentage from 0–100.";
     return;
   }
 
@@ -110,33 +115,29 @@ function calculateFFMI() {
   document.getElementById("result").innerHTML =
     `Lean Mass: ${leanMass.toFixed(2)} kg (${(leanMass/weight*100).toFixed(1)}%)<br>FFMI: ${ffmi.toFixed(2)}`;
 
-  // Move indicator
-  let minFFMI = 15, maxFFMI = 30;
-  let leftPercent = ((ffmi - minFFMI) / (maxFFMI - minFFMI)) * 100;
-  leftPercent = Math.max(0, Math.min(leftPercent, 100));
-  let indicator = document.getElementById("indicator");
-  indicator.style.left = leftPercent + "%";
-
-  // Tooltip
-  let tooltip = document.getElementById("tooltip");
-  let label = "";
-  if(ffmi < 18) label="Low";
-  else if(ffmi < 20) label="Average";
-  else if(ffmi < 22) label="Athletic";
-  else label="Elite";
-  tooltip.innerText = label;
+  const barContainer = document.querySelector('.bar-container');
+  if (barContainer) barContainer.hidden = true;
+  document.getElementById("result").innerHTML += `<p class="cf-note">FFMI is a calculated index, not a diagnosis. There is no universal low/average/athletic/elite category valid across sex, age, training history and populations.</p>`;
 }
 </script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/ffmi.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – FFMI Calculator">
+<meta property="og:description" content="Use the ClerFit FFMI Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/ffmi.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – FFMI Calculator">
+<meta name="twitter:description" content="Use the ClerFit FFMI Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body>
-<div class="top-right-buttons">
-  <button onclick="location.href='../index.html'">Home</button>
-  <button onclick="location.href='../contact.html'">Contact Us</button>
-</div>
 <!-- Sidebar -->
 <div class="sidebar">
 <h2>ClerFit</h2>
-<button onclick="location.href='bmi.html'">BMI</button>
+<button onclick="location.href='BMI.html'">BMI</button>
 <button onclick="location.href='bmr.html'">BMR</button>
 <button onclick="location.href='bodyfat.html'">Body Fat %</button>
 <button onclick="location.href='idealweight.html'">Ideal Weight</button>
@@ -165,14 +166,32 @@ function calculateFFMI() {
     <p>Health & Fitness Calculators</p>
   </div>
 
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
 <div class="card">
 <h2>FFMI Calculator</h2>
 
 <div class="row">
   <div class="col">
-    <label>Height</label>
-    <input type="number" id="height" placeholder="Enter height">
-    <select class="unit-select" id="heightUnit">
+    <label for="height">Height</label>
+    <input type="number" id="height" placeholder="Enter height" min="30" max="300" step="any" aria-label="Enter height">
+    <select class="unit-select" id="heightUnit" aria-label="Height unit">
       <option value="cm" selected>cm</option>
       <option value="m">m</option>
       <option value="inch">inch</option>
@@ -180,16 +199,16 @@ function calculateFFMI() {
     </select>
   </div>
   <div class="col">
-    <label>Weight</label>
-    <input type="number" id="weight" placeholder="Enter weight">
-    <select class="unit-select" id="weightUnit">
+    <label for="weight">Weight</label>
+    <input type="number" id="weight" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+    <select class="unit-select" id="weightUnit" aria-label="Weight unit">
       <option value="kg" selected>kg</option>
       <option value="lb">lb</option>
     </select>
   </div>
   <div class="col">
-    <label>Body Fat (%)</label>
-    <input type="number" id="fat" placeholder="Enter body fat %">
+    <label for="fat">Body Fat (%)</label>
+    <input type="number" id="fat" placeholder="Enter body fat %" min="0" max="100" step="any" aria-label="Enter body fat %">
   </div>
 </div>
 
@@ -204,37 +223,80 @@ function calculateFFMI() {
       <div class="tooltip" id="tooltip"></div>
     </div>
   </div>
-  <small>Low | Average | Athletic | Elite</small>
+  <small>Numeric index only; interpretation depends on context.</small>
 </div>
 
-<!-- FFMI Table -->
-<table>
-  <tr>
-    <th>Category</th>
-    <th>FFMI Range</th>
-  </tr>
-  <tr>
-    <td>Low</td>
-    <td>&lt; 18</td>
-  </tr>
-  <tr>
-    <td>Average</td>
-    <td>18 – 19.9</td>
-  </tr>
-  <tr>
-    <td>Athletic</td>
-    <td>20 – 21.9</td>
-  </tr>
-  <tr>
-    <td>Elite</td>
-    <td>&gt; 22</td>
-  </tr>
-</table>
+<p class="cf-warning">FFMI is a calculated index. Category cutoffs are not universal across age, sex, training history, population and measurement method; this calculator reports the value without assigning an athletic or elite label.</p>
 
 </div>
+
+
+<div class="card">
+
+
+
+
+<h2>FFMI (Fat-Free Mass Index)</h2>
+<p>Fat-Free Mass Index (FFMI) is a measure of the amount of muscle mass relative to height. It is used to assess muscularity and lean body mass, providing a different height-adjusted estimate; it does not directly measure strength or overall fitness.</p>
+
+  <h2>FFMI (Fat-Free Mass Index) – Applications</h2>
+  <ul>
+    <li>Measures muscle mass relative to height</li>
+    <li>Used by athletes and bodybuilders to track muscle development</li>
+    <li>Helps design strength training programs</li>
+    <li>Monitors lean body mass progress over time</li>
+    <li>Assists in nutrition planning for muscle gain</li>
+    <li>Supports fitness assessments beyond BMI</li>
+    <li>Useful in health and body composition tracking apps</li>
+  </ul>
+
+  <h2>Related Health Problems</h2>
+
+  <h3>Low FFMI</h3>
+  <ul>
+    <li>Low muscle mass and strength</li>
+    <li>Slower metabolism</li>
+    <li>Higher risk of injury</li>
+    <li>Difficulty maintaining healthy weight</li>
+    <li>Reduced athletic performance</li>
+  </ul>
+
+  <h3>High FFMI</h3>
+  <ul>
+    <li>Increased calorie needs to maintain muscle</li>
+    <li>Potential joint strain if not balanced with flexibility</li>
+    <li>Overtraining risks in extreme cases</li>
+  </ul>
 </div>
 
-<script src="../js/menu-fix.js" defer></script>
+</div>
+
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand FFMI <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/body-measurements.svg" alt="Illustration for FFMI" loading="lazy" width="120" height="120"><figcaption>Visual guide for FFMI</figcaption></figure>
+   <div class="cf-education-section"><h3>What is FFMI?</h3><p>FFMI is a body measurement or composition indicator. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the FFMI result in the context of the input values, displayed units and assumptions. Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>FFMI = fat-free mass (kg) ÷ height (m)².</code><p>FFMI depends on the quality of the body-fat or fat-free-mass estimate used as input.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Use it to calculate and compare measurements collected with a consistent method.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the requested measurements in the displayed units, confirm the method and calculate. For tracking, repeat measurements under similar conditions.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
 </body>
-
 </html>

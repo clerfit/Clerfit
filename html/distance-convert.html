@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Distance Converter</title>
+  <meta name="description" content="Use the ClerFit Distance Converter to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/distance-convert.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Distance Converter">
+<meta property="og:description" content="Use the ClerFit Distance Converter to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/distance-convert.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Distance Converter">
+<meta name="twitter:description" content="Use the ClerFit Distance Converter to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+<div class="card">
+  <h2>Distance Converter</h2>
+
+  <div class="row">
+    <div class="col">
+      <label for="distanceValue">Enter distance</label>
+      <input
+        type="number"
+        id="distanceValue"
+        step="any"
+        min="0"
+        placeholder="e.g. 5"
+       max="1000000" aria-label="e.g. 5">
+    </div>
+
+    <div class="col">
+      <label for="fromDistanceUnit">From</label>
+      <select id="fromDistanceUnit" aria-label="Source distance unit">
+        <option value="km" selected>Kilometers (km)</option>
+        <option value="m">Meters (m)</option>
+        <option value="cm">Centimeters (cm)</option>
+        <option value="mm">Millimeters (mm)</option>
+        <option value="mi">Miles (mi)</option>
+        <option value="yd">Yards (yd)</option>
+        <option value="ft">Feet (ft)</option>
+        <option value="in">Inches (in)</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="toDistanceUnit">To</label>
+      <select id="toDistanceUnit" aria-label="Target distance unit">
+        <option value="m" selected>Meters (m)</option>
+        <option value="km">Kilometers (km)</option>
+        <option value="cm">Centimeters (cm)</option>
+        <option value="mm">Millimeters (mm)</option>
+        <option value="mi">Miles (mi)</option>
+        <option value="yd">Yards (yd)</option>
+        <option value="ft">Feet (ft)</option>
+        <option value="in">Inches (in)</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="calculate-btn" type="button" onclick="convertDistance()">
+    Convert Distance
+  </button>
+
+  <div class="result" id="distanceResult"></div>
+</div>
+
+<script>
+  function convertDistance() {
+    const raw = document.getElementById("distanceValue").value.trim();
+    const fromUnit = document.getElementById("fromDistanceUnit").value;
+    const toUnit = document.getElementById("toDistanceUnit").value;
+    const out = document.getElementById("distanceResult");
+
+    // Conversion constants
+    const M_PER_KM = 1000;
+    const M_PER_CM = 0.01;
+    const M_PER_MM = 0.001;
+    const M_PER_MI = 1609.344;
+    const M_PER_YD = 0.9144;
+    const M_PER_FT = 0.3048;
+    const M_PER_IN = 0.0254;
+
+    if (raw === "") {
+      out.innerHTML = "Please enter a distance value.";
+      return;
+    }
+
+    const value = Number(raw);
+
+    if (!Number.isFinite(value) || value < 0) {
+      out.innerHTML = "Please enter a valid non-negative number.";
+      return;
+    }
+
+    // Convert input to meters
+    let meters;
+
+    switch (fromUnit) {
+      case "km":
+        meters = value * M_PER_KM;
+        break;
+
+      case "m":
+        meters = value;
+        break;
+
+      case "cm":
+        meters = value * M_PER_CM;
+        break;
+
+      case "mm":
+        meters = value * M_PER_MM;
+        break;
+
+      case "mi":
+        meters = value * M_PER_MI;
+        break;
+
+      case "yd":
+        meters = value * M_PER_YD;
+        break;
+
+      case "ft":
+        meters = value * M_PER_FT;
+        break;
+
+      case "in":
+        meters = value * M_PER_IN;
+        break;
+
+      default:
+        meters = value;
+    }
+
+    // Convert meters to output unit
+    let converted;
+    let label;
+
+    switch (toUnit) {
+      case "km":
+        converted = meters / M_PER_KM;
+        label = "km";
+        break;
+
+      case "m":
+        converted = meters;
+        label = "m";
+        break;
+
+      case "cm":
+        converted = meters / M_PER_CM;
+        label = "cm";
+        break;
+
+      case "mm":
+        converted = meters / M_PER_MM;
+        label = "mm";
+        break;
+
+      case "mi":
+        converted = meters / M_PER_MI;
+        label = "mi";
+        break;
+
+      case "yd":
+        converted = meters / M_PER_YD;
+        label = "yd";
+        break;
+
+      case "ft":
+        converted = meters / M_PER_FT;
+        label = "ft";
+        break;
+
+      case "in":
+        converted = meters / M_PER_IN;
+        label = "in";
+        break;
+
+      default:
+        converted = meters;
+        label = "m";
+    }
+
+    // Remove unnecessary trailing zeros
+    const shown = parseFloat(converted.toFixed(6));
+
+    out.innerHTML = `
+      Converted Distance:
+      <b>${shown}</b> ${label}
+    `;
+  }
+</script>
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Distance Converter <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/utilities.svg" alt="Illustration for Distance Converter" loading="lazy" width="120" height="120"><figcaption>Visual guide for Distance Converter</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Distance Converter?</h3><p>Distance Converter is a general mathematical or unit-conversion utility. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Distance Converter result in the context of the input values, displayed units and assumptions. Results depend on correct inputs, compatible units and the selected operation. Check the order of values and rounding.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>The same physical distance is expressed in the selected length unit.</code><p>Use the unit shown beside the input and output; rounding may affect the displayed final digit.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can reduce manual arithmetic and make calculations repeatable.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Results depend on correct inputs, compatible units and the selected operation. Check the order of values and rounding.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Choose the operation or units, enter the required values, verify the input order, and review the result and units.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

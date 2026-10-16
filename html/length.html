@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit –Length Converter</title>
+  <meta name="description" content="Use the ClerFit Length Converter to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/length.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit –Length Converter">
+<meta property="og:description" content="Use the ClerFit Length Converter to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/length.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit –Length Converter">
+<meta name="twitter:description" content="Use the ClerFit Length Converter to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+<div class="card">
+
+  <h2>Length Converter</h2>
+
+  <div class="row">
+
+    <div class="col">
+
+      <label for="lengthValue">
+        Enter Length
+      </label>
+
+      <input
+        type="number"
+        id="lengthValue"
+        step="any"
+        placeholder="e.g. 12.5"
+       min="0" max="1000000" aria-label="e.g. 12.5">
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col">
+
+      <label for="fromUnit">
+        From Unit
+      </label>
+
+      <!-- CLOSED DROPDOWN -->
+      <select id="fromUnit" aria-label="Source unit"></select>
+
+    </div>
+
+    <div class="col">
+
+      <label for="toUnit">
+        To Unit
+      </label>
+
+      <!-- CLOSED DROPDOWN -->
+      <select id="toUnit" aria-label="Target unit"></select>
+
+    </div>
+
+  </div>
+
+  <button
+    type="button"
+    class="calculate-btn"
+    onclick="convertLength()"
+  >
+    Convert Length
+  </button>
+
+  <div
+    class="result"
+    id="lengthResult"
+  ></div>
+
+  <script>
+
+    // ===== Length Units =====
+
+    const LENGTH_UNITS = {
+
+      "Planck Length (lP)": 1.616255e-35,
+      "Femtometer (fm)": 1e-15,
+      "Picometer (pm)": 1e-12,
+      "Nanometer (nm)": 1e-9,
+      "Micrometer (um)": 1e-6,
+      "Millimeter (mm)": 1e-3,
+      "Centimeter (cm)": 1e-2,
+      "Decimeter (dm)": 1e-1,
+      "Meter (m)": 1,
+      "Decameter (dam)": 1e1,
+      "Hectometer (hm)": 1e2,
+      "Kilometer (km)": 1e3,
+      "Megameter (Mm)": 1e6,
+      "Gigameter (Gm)": 1e9,
+      "Terameter (Tm)": 1e12,
+
+      "Angstrom (A)": 1e-10,
+
+      "Thou": 0.0000254,
+      "Inch (in)": 0.0254,
+      "Hand": 0.1016,
+      "Foot (ft)": 0.3048,
+      "US Survey Foot": 1200 / 3937,
+      "Yard (yd)": 0.9144,
+      "Rod": 5.0292,
+      "Chain": 20.1168,
+      "Furlong": 201.168,
+      "Mile (mi)": 1609.344,
+      "US Survey Mile": (1200 / 3937) * 5280,
+      "League": 4828.032,
+      "Fathom": 1.8288,
+      "Cable": 185.2,
+      "Nautical Mile": 1852,
+
+      "Point (pt)": 0.0254 / 72,
+      "Pica": 0.0254 / 6,
+      "Printer Point": 0.0003514598,
+      "Twip": 0.0254 / 1440,
+      "Pixel (96dpi)": 0.0254 / 96,
+
+      "Barleycorn": 0.0084666666667,
+      "Palm": 0.0762,
+      "Span": 0.2286,
+      "Cubit": 0.4572,
+      "Pace": 0.762,
+
+      "Roman Foot": 0.296,
+      "Roman Cubit": 0.444,
+      "Roman Mile": 1480,
+
+      "Chinese Fen": 0.003333333333,
+      "Chinese Cun": 0.03333333333,
+      "Chinese Chi": 0.3333333333,
+      "Chinese Zhang": 3.333333333,
+      "Chinese Li": 500,
+
+      "Japanese Sun": 0.0303030303,
+      "Japanese Shaku": 0.303030303,
+      "Japanese Ken": 1.818181818,
+      "Japanese Cho": 109.0909091,
+      "Japanese Ri": 3927.272727,
+
+      "Angul": 0.019,
+      "Vitasti": 0.228,
+      "Hasta": 0.457,
+      "Dhanus": 1.9,
+      "Krosha": 3200,
+      "Yojana": 12800,
+
+      "Earth Radius": 6371008.8,
+      "Moon Distance": 384400000,
+      "Astronomical Unit (AU)": 149597870700,
+      "Light Second": 299792458,
+      "Light Minute": 17987547480,
+      "Light Hour": 1079252848800,
+      "Light Day": 25902068371200,
+      "Light Week": 181314478598400,
+      "Light Month": 7.775e14,
+      "Light Year": 9.4607304725808e15,
+      "Parsec": 3.085677581491367e16,
+      "Kiloparsec": 3.085677581491367e19,
+      "Megaparsec": 3.085677581491367e22,
+      "Gigaparsec": 3.085677581491367e25
+
+    };
+
+    // ===== Format Numbers =====
+
+    function formatNumber(x) {
+
+      if (!isFinite(x)) {
+        return "Invalid";
+      }
+
+      const absX = Math.abs(x);
+
+      if (
+        (absX !== 0 && absX < 1e-6) ||
+        absX >= 1e9
+      ) {
+
+        return x.toExponential(12);
+
+      }
+
+      return x.toLocaleString(
+        undefined,
+        {
+          maximumFractionDigits: 12
+        }
+      );
+    }
+
+    // ===== Populate Dropdowns =====
+
+    function populateUnits() {
+
+      const from =
+        document.getElementById("fromUnit");
+
+      const to =
+        document.getElementById("toUnit");
+
+      const names =
+        Object.keys(LENGTH_UNITS)
+        .sort();
+
+      from.innerHTML = "";
+      to.innerHTML = "";
+
+      names.forEach(name => {
+
+        const option1 =
+          document.createElement("option");
+
+        option1.value = name;
+        option1.textContent = name;
+
+        from.appendChild(option1);
+
+        const option2 =
+          document.createElement("option");
+
+        option2.value = name;
+        option2.textContent = name;
+
+        to.appendChild(option2);
+
+      });
+
+      from.value = "Meter (m)";
+      to.value = "Foot (ft)";
+    }
+
+    // ===== Convert =====
+
+    function convertLength() {
+
+      const value =
+        parseFloat(
+          document.getElementById("lengthValue")
+          .value
+        );
+
+      const fromUnit =
+        document.getElementById("fromUnit")
+        .value;
+
+      const toUnit =
+        document.getElementById("toUnit")
+        .value;
+
+      const resultBox =
+        document.getElementById("lengthResult");
+
+      // Validation
+
+      if (!Number.isFinite(value) || value < 0) {
+
+        resultBox.innerHTML =
+          "Please enter a valid non-negative length.";
+
+        return;
+      }
+
+      // Universal Conversion
+
+      const meters =
+        value * LENGTH_UNITS[fromUnit];
+
+      const converted =
+        meters / LENGTH_UNITS[toUnit];
+
+      // Result
+
+      resultBox.innerHTML =
+
+        `<b>${formatNumber(value)}</b>
+         ${fromUnit}
+         =
+         <b>${formatNumber(converted)}</b>
+         ${toUnit}`;
+
+    }
+
+    // ===== Initialize =====
+
+    populateUnits();
+
+  </script>
+
+</div>
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Length Converter <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/utilities.svg" alt="Illustration for Length Converter" loading="lazy" width="120" height="120"><figcaption>Visual guide for Length Converter</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Length Converter?</h3><p>Length Converter is a general mathematical or unit-conversion utility. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Length Converter result in the context of the input values, displayed units and assumptions. Results depend on correct inputs, compatible units and the selected operation. Check the order of values and rounding.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can reduce manual arithmetic and make calculations repeatable.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Results depend on correct inputs, compatible units and the selected operation. Check the order of values and rounding.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Choose the operation or units, enter the required values, verify the input order, and review the result and units.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

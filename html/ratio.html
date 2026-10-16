@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Ratio Calculator</title>
+  <meta name="description" content="Use the ClerFit Ratio Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/ratio.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Ratio Calculator">
+<meta property="og:description" content="Use the ClerFit Ratio Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/ratio.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Ratio Calculator">
+<meta name="twitter:description" content="Use the ClerFit Ratio Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
+<div class="card">
+  <h2>Ratio Calculator</h2>
+
+  <div class="row">
+    <div class="col">
+      <label for="ratioA">
+        First Ratio Value
+      </label>
+
+      <div class="input-wrapper">
+        <input
+          type="number"
+          id="ratioA"
+          step="any"
+          min="0"
+          placeholder="e.g. 2"
+         max="1000000" aria-label="e.g. 2">
+
+        <span class="input-tip">
+          Example: 2 in 2:5
+        </span>
+      </div>
+    </div>
+
+    <div class="col">
+      <label for="ratioB">
+        Second Ratio Value
+      </label>
+
+      <div class="input-wrapper">
+        <input
+          type="number"
+          id="ratioB"
+          step="any"
+          min="0"
+          placeholder="e.g. 5"
+         max="1000000" aria-label="e.g. 5">
+
+        <span class="input-tip">
+          Example: 5 in 2:5
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="calculate-btn"
+    onclick="calculateRatio()"
+  >
+    Calculate Ratio
+  </button>
+
+  <div class="result" id="ratioResult"></div>
+
+  <div class="info-box">
+    <h3>Meaning</h3>
+
+    <p>
+      A ratio compares two quantities and shows how much of one value
+      exists relative to another.
+    </p>
+
+    <h3>Accepted Input Formats</h3>
+
+    <ul>
+      <li>Whole numbers → 2 : 5</li>
+      <li>Decimals → 1.5 : 3.5</li>
+      <li>Fitness values → Protein : Carbs</li>
+      <li>Measurements → Waist : Hip</li>
+      <li>Financial comparisons → Income : Expense</li>
+    </ul>
+
+    <h3>Applications</h3>
+
+    <ul>
+      <li>Fitness and body proportion tracking</li>
+      <li>Nutrition planning</li>
+      <li>Mathematics and education</li>
+      <li>Business and finance analysis</li>
+      <li>Statistics and performance comparison</li>
+    </ul>
+
+    <h3>Caution</h3>
+
+    <p>
+      Ratios should only compare compatible quantities or units.
+      Incorrect or unrelated measurements may produce misleading
+      interpretations.
+    </p>
+  </div>
+</div>
+
+<style>
+  .input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .input-wrapper input {
+    width: 100%;
+  }
+
+  .input-tip {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    opacity: 0.7;
+    line-height: 1.4;
+  }
+
+  .info-box {
+    margin-top: 28px;
+    padding: 22px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .info-box h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .info-box p,
+  .info-box li {
+    line-height: 1.7;
+  }
+
+  .result {
+    margin-top: 22px;
+    padding: 18px;
+    border-radius: 16px;
+    background: linear-gradient(
+      135deg,
+      rgba(110,168,255,0.12),
+      rgba(130,255,200,0.08)
+    );
+    border: 1px solid rgba(110,168,255,0.15);
+    line-height: 1.8;
+  }
+</style>
+
+<script>
+  function gcd(a, b) {
+    a = Math.abs(a);
+    b = Math.abs(b);
+    while (b > 0) {
+      let temp = b;
+      b = a % b;
+      a = temp;
+    }
+    return a;
+  }
+
+  function calculateRatio() {
+    let a = Number(document.getElementById("ratioA").value.trim());
+    let b = Number(document.getElementById("ratioB").value.trim());
+    const out = document.getElementById("ratioResult");
+
+    // Standard Validation
+    if (!Number.isFinite(a) || !Number.isFinite(b) || a < 0 || b <= 0) {
+      out.innerHTML = "Enter a non-negative first value and a positive second value.";
+      return;
+    }
+
+    // Decimal-to-Integer Scaling (The Accuracy Fix)
+    let tempA = a;
+    let tempB = b;
+    while (!Number.isInteger(tempA) || !Number.isInteger(tempB)) {
+      tempA = parseFloat((tempA * 10).toFixed(10));
+      tempB = parseFloat((tempB * 10).toFixed(10));
+      // Safety break to prevent infinite loops on irrational-like floats
+      if (tempA > 1e12 || tempB > 1e12) break; 
+    }
+
+    const commonDivisor = gcd(Math.round(tempA), Math.round(tempB));
+    const simplifiedA = Math.round(tempA) / commonDivisor;
+    const simplifiedB = Math.round(tempB) / commonDivisor;
+
+    const decimalRatio = parseFloat((a / b).toFixed(4));
+    const percentage = parseFloat(((a / b) * 100).toFixed(2));
+
+    out.innerHTML = `
+      <b>Original Ratio:</b> ${a} : ${b}<br><br>
+      <b>Simplified Ratio:</b> ${simplifiedA} : ${simplifiedB}<br><br>
+      <b>Decimal Form:</b> ${decimalRatio}<br><br>
+      <b>Percentage Form:</b> ${percentage}%
+    `;
+  }
+</script>
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Ratio Calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/utilities.svg" alt="Illustration for Ratio Calculator" loading="lazy" width="120" height="120"><figcaption>Visual guide for Ratio Calculator</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Ratio Calculator?</h3><p>Ratio Calculator is a general mathematical or unit-conversion utility. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Ratio Calculator result in the context of the input values, displayed units and assumptions. Results depend on correct inputs, compatible units and the selected operation. Check the order of values and rounding.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>Ratio = first quantity ÷ second quantity.</code><p>The denominator must not be zero. Ensure both quantities are compatible and use the intended order.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can reduce manual arithmetic and make calculations repeatable.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Results depend on correct inputs, compatible units and the selected operation. Check the order of values and rounding.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Choose the operation or units, enter the required values, verify the input order, and review the result and units.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

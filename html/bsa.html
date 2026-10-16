@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Body Surface Area Calculator</title>
+  <meta name="description" content="Use the ClerFit Body Surface Area Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  <script>
+    // ===== Unit conversion helpers =====
+    function convertWeightToKg(value, unit) {
+      if (unit === "lbs") return value * 0.453592;
+      return value;
+    }
+
+    function convertHeightToCm(value, unit) {
+      switch(unit) {
+        case "m": return value * 100;
+        case "in": return value * 2.54;
+        case "ft": return value * 30.48;
+        default: return value;
+      }
+    }
+
+    // BSA is a calculated surface-area estimate, not a low/average/high
+    // health classification. The old arbitrary category bar is intentionally
+    // not used because BSA has no universal healthy range.
+    function moveIndicatorBSA() {
+      const container = document.querySelector(".bar-container");
+      if (container) container.hidden = true;
+    }
+
+    // ===== BSA Calculation (Mosteller Formula) =====
+    function calculateBSA() {
+      const weightVal = parseFloat(document.getElementById("weight").value);
+      const weightUnit = document.getElementById("weightUnit").value;
+      const heightVal = parseFloat(document.getElementById("height").value);
+      const heightUnit = document.getElementById("heightUnit").value;
+
+      if (!Number.isFinite(weightVal) || !Number.isFinite(heightVal) || weightVal <= 0 || heightVal <= 0) {
+        document.getElementById("result").textContent = "Enter positive, valid weight and height values.";
+        return;
+      }
+
+      const weightKg = convertWeightToKg(weightVal, weightUnit);
+      const heightCm = convertHeightToCm(heightVal, heightUnit);
+      if (!Number.isFinite(weightKg) || !Number.isFinite(heightCm) || weightKg < 1 || weightKg > 500 || heightCm < 50 || heightCm > 250) {
+        document.getElementById("result").textContent = "Check units and values. Supported range: 1–500 kg and 50–250 cm equivalent.";
+        return;
+      }
+
+      // Mosteller Formula
+      const bsa = Math.sqrt((heightCm * weightKg) / 3600);
+
+      document.getElementById("result").innerHTML =
+        `BSA: <b>${bsa.toFixed(2)} m²</b>`;
+
+      document.getElementById("formula").innerHTML =
+        `Mosteller formula: √[(Height(cm) × Weight(kg)) ÷ 3600]. This is an estimate of body surface area, not a low/average/high health rating.`;
+
+      moveIndicatorBSA();
+    }
+  </script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/bsa.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Body Surface Area Calculator">
+<meta property="og:description" content="Use the ClerFit Body Surface Area Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/bsa.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Body Surface Area Calculator">
+<meta name="twitter:description" content="Use the ClerFit Body Surface Area Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+
+<!-- ===== Sidebar ===== -->
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+  <div class="card">
+    <h2>Body Surface Area (BSA) Calculator</h2>
+
+    <div class="row">
+      <div class="col">
+        <label for="weight">Weight</label>
+        <input type="number" id="weight" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+        <label for="weightUnit">Unit</label>
+        <select id="weightUnit" aria-label="Weight unit">
+          <option value="kg" selected>kg</option>
+          <option value="lbs">lbs</option>
+        </select>
+      </div>
+
+      <div class="col">
+        <label for="height">Height</label>
+        <input type="number" id="height" placeholder="Enter height" min="30" max="300" step="any" aria-label="Enter height">
+        <label for="heightUnit">Unit</label>
+        <select id="heightUnit" aria-label="Height unit">
+          <option value="cm" selected>cm</option>
+          <option value="m">m</option>
+          <option value="in">in</option>
+          <option value="ft">ft</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="calculate-btn" onclick="calculateBSA()">Calculate BSA</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="bar-container" hidden>
+      <div class="bar"><div class="indicator" id="indicator"></div></div>
+    </div>
+
+    <div id="formula" style="margin-top:15px;"></div>
+
+    <p class="cf-warning">BSA is a size estimate and has no universal low, normal or high health classification. Clinical dosing must follow the specific medication's approved protocol and a qualified clinician's instructions; do not use this calculator to determine a drug dose.</p>
+  </div>
+
+  <div class="card">
+    <h2>Body Surface Area (BSA)</h2>
+    <p>
+      Body Surface Area (BSA) is an estimate of the body's surface area,
+      expressed in square metres (m²). Some clinical protocols use BSA as one
+      input, but dosing and treatment decisions must follow the specific approved
+      protocol and a qualified clinician's instructions.
+    </p>
+
+    <h2>BSA Applications</h2>
+    <ul>
+      <li>Selected clinical calculations when a validated protocol specifies BSA</li>
+      <li>Clinical research and body-size indexing</li>
+      <li>Kidney function assessment</li>
+      <li>Cardiac output indexing</li>
+      <li>Burn treatment evaluation</li>
+      <li>Clinical research measurements</li>
+      <li>Pediatric growth assessment</li>
+    </ul>
+
+    <h2>Why BSA is Important</h2>
+    <ul>
+      <li>Used in selected clinical calculations when a validated protocol specifies BSA</li>
+      <li>Used in intensive care and surgery</li>
+      <li>Important for metabolic and cardiac studies</li>
+      <li>Standard measurement in hospitals worldwide</li>
+    </ul>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Body Surface Area <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/body-measurements.svg" alt="Illustration for Body Surface Area" loading="lazy" width="120" height="120"><figcaption>Visual guide for Body Surface Area</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Body Surface Area?</h3><p>Body Surface Area is a body measurement or composition indicator. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Body Surface Area result in the context of the input values, displayed units and assumptions. Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>Mosteller method: BSA (m²) = √(height (cm) × weight (kg) ÷ 3600).</code><p>This is one commonly used estimate. Other accepted methods may produce slightly different values.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Use it to calculate and compare measurements collected with a consistent method.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the requested measurements in the displayed units, confirm the method and calculate. For tracking, repeat measurements under similar conditions.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>ClerFit – VO₂ Max</title>
+  <meta name="description" content="Use the ClerFit VO₂ Max to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+
 <meta charset="UTF-8">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-GTRER5RZH6');
-</script>
-<title>ClerFit – VO₂ Max</title>
-<link rel="stylesheet" href="../css/style.css?v=20261017-r3-live-ui">
+
+
+
+<link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <style>
 body {
   margin: 0;
@@ -107,56 +114,6 @@ input, select {
   font-size: 18px;
   font-weight: bold;
 }
-.bar-container {
-  margin-top: 20px;
-  width: 100%;
-  position: relative;
-  height: 25px;
-}
-.bar {
-  width: 100%;
-  height: 25px;
-  background: linear-gradient(
-    to right,
-    #ef4444  0%,    /* Poor */
-    #f97316 30%,   /* Fair */
-    #eab308 55%,   /* Good */
-    #22c55e 75%,   /* Excellent */
-    #15ad3d 100%   /* Superior */
-
-  );
-  border-radius: 12px;
-  position: relative;
-}
-.indicator {
-  position: absolute;
-  width: 2px;
-  background: black;
-  top: -2px;
-  bottom: -2px;
-  transition: left 1s ease;
-}
-.indicator-label {
-  position: absolute;
-  top: -25px;
-  font-size: 12px;
-  font-weight: bold;
-  color: black;
-  text-align: center;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-table th, table td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: center;
-}
-table th {
-  background: #e2e8f0;
-}
 @media (max-width: 768px) {
   body {
     flex-direction: column;
@@ -170,76 +127,50 @@ table th {
 }
 </style>
 <script>
-// Age-specific VO2 Max standards (ml/kg/min) for males and females, by age group
-const vo2Standards = {
-  male: [
-    {min: 13, max: 19, poor: 35, fair: 38, good: 42, excellent: 46, superior: 50},
-    {min: 20, max: 29, poor: 33, fair: 36, good: 42, excellent: 45, superior: 50},
-    {min: 30, max: 39, poor: 31, fair: 35, good: 40, excellent: 44, superior: 48},
-    {min: 40, max: 49, poor: 28, fair: 32, good: 37, excellent: 41, superior: 45},
-    {min: 50, max: 59, poor: 25, fair: 29, good: 34, excellent: 38, superior: 42},
-    {min: 60, max: 69, poor: 22, fair: 26, good: 31, excellent: 35, superior: 39}
-  ],
-  female: [
-    {min: 13, max: 19, poor: 28, fair: 31, good: 36, excellent: 40, superior: 45},
-    {min: 20, max: 29, poor: 27, fair: 30, good: 34, excellent: 38, superior: 43},
-    {min: 30, max: 39, poor: 25, fair: 28, good: 32, excellent: 36, superior: 41},
-    {min: 40, max: 49, poor: 23, fair: 26, good: 30, excellent: 34, superior: 38},
-    {min: 50, max: 59, poor: 21, fair: 24, good: 28, excellent: 32, superior: 36},
-    {min: 60, max: 69, poor: 19, fair: 22, good: 26, excellent: 30, superior: 34}
-  ]
-};
-
 function convertDistance(value, unit) {
-  if(unit === 'km') return value * 1000;
-  if(unit === 'mile') return value * 1609.34;
-  return value; // meters
+  if (unit === 'km') return value * 1000;
+  if (unit === 'mile') return value * 1609.344;
+  return value;
 }
-
 function calculateVO2() {
-  let distance = parseFloat(document.getElementById('distance').value);
-  let unit = document.getElementById('distanceUnit').value;
-  let age = parseInt(document.getElementById('age').value);
-  let gender = document.getElementById('gender').value;
-
-  if(isNaN(distance) || isNaN(age)) {
-    alert("Enter valid distance and age");
+  const distanceInput = document.getElementById('distance');
+  const unit = document.getElementById('distanceUnit').value;
+  const rawDistance = Number(distanceInput.value);
+  const result = document.getElementById('result');
+  const formula = document.getElementById('formula');
+  if (!distanceInput.value.trim() || !Number.isFinite(rawDistance) || rawDistance <= 0) {
+    result.textContent = 'Enter a positive distance measured during a 12-minute run.';
+    formula.textContent = '';
     return;
   }
-
-  distance = convertDistance(distance, unit);
-
-  let vo2 = ((distance - 504.9) / 44.73).toFixed(1);
-
-  document.getElementById('result').innerHTML = `VO₂ Max ≈ ${vo2} ml/kg/min`;
-
-  // find the correct standard for age
-  let standard = vo2Standards[gender].find(s => age >= s.min && age <= s.max);
-
-  let level = "";
-  if(vo2 < standard.fair) level = "Poor";
-  else if(vo2 < standard.good) level = "Fair";
-  else if(vo2 < standard.excellent) level = "Good";
-  else if(vo2 < standard.superior) level = "Excellent";
-  else level = "Superior";
-
-  document.getElementById('formula').innerHTML = `Fitness Level: ${level}`;
-
-  // move indicator
-  let barWidth = document.getElementById('bar').offsetWidth;
-  let leftPos = Math.min(Math.max((vo2 / (standard.superior + 10)) * barWidth, 0), barWidth);
-  document.getElementById('indicator').style.left = leftPos + 'px';
+  const distanceMetres = convertDistance(rawDistance, unit);
+  if (!Number.isFinite(distanceMetres) || distanceMetres <= 504.9) {
+    result.textContent = 'This distance is outside the valid output range of the Cooper equation. Check the distance and unit, or use a different assessment.';
+    formula.textContent = 'Cooper estimate: (distance in metres − 504.9) ÷ 44.73. A non-positive estimate is not interpreted as a valid VO₂ max.';
+    return;
+  }
+  const vo2 = (distanceMetres - 504.9) / 44.73;
+  result.textContent = `Estimated VO₂ max: ${vo2.toFixed(1)} ml/kg/min`;
+  formula.textContent = 'Cooper 12-minute run estimate: VO₂ max ≈ (distance in metres − 504.9) ÷ 44.73. This is a field-test estimate, not a laboratory measurement. No universal fitness category is assigned.';
 }
 </script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/vo2max.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – VO₂ Max">
+<meta property="og:description" content="Use the ClerFit VO₂ Max to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/vo2max.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – VO₂ Max">
+<meta name="twitter:description" content="Use the ClerFit VO₂ Max to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body>
-<div class="top-right-buttons">
-  <button onclick="location.href='../index.html'">Home</button>
-  <button onclick="location.href='../contact.html'">Contact Us</button>
-</div>
 <div class="sidebar">
   <h2>ClerFit</h2>
-  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='BMI.html'">BMI</button>
   <button onclick="location.href='bmr.html'">BMR</button>
   <button onclick="location.href='bodyfat.html'">Body Fat %</button>
   <button onclick="location.href='idealweight.html'">Ideal Weight</button>
@@ -267,28 +198,31 @@ function calculateVO2() {
     <p>Health & Fitness Calculators</p>
   </div>
 
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
   <div class="card">
     <h2>VO₂ Max Calculator (Cooper Test)</h2>
 
     <div class="row">
       <div class="col">
-        <label>Gender</label>
-        <select id="gender">
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-      </div>
-      <div class="col">
-        <label>Age</label>
-        <input id="age" type="number" placeholder="Years">
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <label>Distance</label>
-        <input id="distance" type="number" placeholder="Distance covered in 12 min">
-        <select id="distanceUnit">
+        <label for="distance">Distance</label>
+        <input id="distance" type="number" placeholder="Distance covered in 12 minutes" min="0" max="10000" step="any" aria-label="Distance covered in 12 minutes" required>
+        <select id="distanceUnit" aria-label="Distance unit">
           <option value="m" selected>Meters</option>
           <option value="km">Kilometers</option>
           <option value="mile">Miles</option>
@@ -301,30 +235,33 @@ function calculateVO2() {
     <div id="result" class="result"></div>
     <div id="formula"></div>
 
-    <div class="bar-container">
-      <div class="bar" id="bar"></div>
-      <div class="indicator" id="indicator"></div>
-    </div>
+    <p class="cf-note">This is a field-test estimate, not a laboratory measurement or a medical report. Results vary with test protocol, pacing, terrain, health and individual factors. Do not use this result to diagnose a condition or guarantee exercise safety.</p>
 
-    <h3>VO₂ Max Reference Table</h3>
-    <table>
-      <tr><th>Age</th><th>Gender</th><th>Poor</th><th>Fair</th><th>Good</th><th>Excellent</th><th>Superior</th></tr>
-      <tr><td>13–19</td><td>Male</td><td><35</td><td>35–38</td><td>39–42</td><td>43–46</td><td>>46</td></tr>
-      <tr><td>20–29</td><td>Male</td><td><33</td><td>33–36</td><td>37–42</td><td>43–45</td><td>>45</td></tr>
-      <tr><td>30–39</td><td>Male</td><td><31</td><td>31–35</td><td>36–40</td><td>41–44</td><td>>44</td></tr>
-      <tr><td>40–49</td><td>Male</td><td><28</td><td>28–32</td><td>33–37</td><td>38–41</td><td>>41</td></tr>
-      <tr><td>50–59</td><td>Male</td><td><25</td><td>25–29</td><td>30–34</td><td>35–38</td><td>>38</td></tr>
-      <tr><td>60–69</td><td>Male</td><td><22</td><td>22–26</td><td>27–31</td><td>32–35</td><td>>35</td></tr>
-      <tr><td>13–19</td><td>Female</td><td><28</td><td>28–31</td><td>32–36</td><td>37–40</td><td>>40</td></tr>
-      <tr><td>20–29</td><td>Female</td><td><27</td><td>27–30</td><td>31–34</td><td>35–38</td><td>>38</td></tr>
-      <tr><td>30–39</td><td>Female</td><td><25</td><td>25–28</td><td>29–32</td><td>33–36</td><td>>36</td></tr>
-      <tr><td>40–49</td><td>Female</td><td><23</td><td>23–26</td><td>27–30</td><td>31–34</td><td>>34</td></tr>
-      <tr><td>50–59</td><td>Female</td><td><21</td><td>21–24</td><td>25–28</td><td>29–32</td><td>>32</td></tr>
-      <tr><td>60–69</td><td>Female</td><td><19</td><td>19–22</td><td>23–26</td><td>27–30</td><td>>30</td></tr>
-    </table>
   </div>
 </div>
-<script src="../js/menu-fix.js" defer></script>
-</body>
 
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand VO2 Max Estimate <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/cardio.svg" alt="Illustration for VO2 Max Estimate" loading="lazy" width="120" height="120"><figcaption>Visual guide for VO2 Max Estimate</figcaption></figure>
+   <div class="cf-education-section"><h3>What is VO2 Max Estimate?</h3><p>VO2 Max Estimate is a pace, speed, distance, time or endurance estimate. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the VO2 Max Estimate result in the context of the input values, displayed units and assumptions. Terrain, weather, pacing and measurement accuracy affect results. Calorie and VO₂ estimates are not laboratory measurements.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help plan and compare activity when distance and timing are measured consistently.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Terrain, weather, pacing and measurement accuracy affect results. Calorie and VO₂ estimates are not laboratory measurements.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the measured distance and elapsed time or the activity values requested, then confirm the unit format before calculating.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
 </html>

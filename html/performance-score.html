@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Performance Score Calculator</title>
+  <meta name="description" content="Use the ClerFit Performance Score Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/performance-score.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Performance Score Calculator">
+<meta property="og:description" content="Use the ClerFit Performance Score Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/performance-score.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Performance Score Calculator">
+<meta name="twitter:description" content="Use the ClerFit Performance Score Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
+<div class="card">
+  <h2>Performance Score Calculator</h2>
+  <p>Calculate an overall performance score based on work output and relative strength.</p>
+
+  <div class="row">
+    <div class="col">
+      <label for="workOutput">
+        Work Output
+        <span class="info-tooltip">i
+          <span class="tooltip-text">
+            Total mechanical work done during exercise in Joules. Include all reps and weights lifted.
+          </span>
+        </span>
+      </label>
+      <input type="number" id="workOutput" placeholder="Enter work output" min="0.1" max="500" step="any" aria-label="Enter work output">
+      <label for="workUnit">Unit</label>
+      <select id="workUnit" aria-label="Work interval unit">
+        <option value="J" selected>Joules</option>
+        <option value="kJ">kJ</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="squatWeight">
+        Squat Weight
+        <span class="info-tooltip">i
+          <span class="tooltip-text">
+            Maximum squat weight lifted. Used to auto-calculate your Strength Score relative to body weight.
+          </span>
+        </span>
+      </label>
+      <input type="number" id="squatWeight" placeholder="Enter squat weight" min="0.1" max="500" step="any" aria-label="Enter squat weight">
+      <label for="squatUnit">Unit</label>
+      <select id="squatUnit" aria-label="Squat weight unit">
+        <option value="kg" selected>kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+
+      <label for="bodyWeight">
+        Body Weight
+        <span class="info-tooltip">i
+          <span class="tooltip-text">
+            Your current body weight. Used to calculate the Strength Score.
+          </span>
+        </span>
+      </label>
+      <input type="number" id="bodyWeight" placeholder="Enter body weight" min="0.1" max="500" step="any" aria-label="Enter body weight">
+      <label for="bodyUnit">Unit</label>
+      <select id="bodyUnit" aria-label="Body weight unit">
+        <option value="kg" selected>kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="calculatePerformanceScore()">Calculate Performance Score</button>
+
+  <div class="result" id="performanceResult"></div>
+
+  <!-- Formula -->
+  <div id="formula" style="margin-top:15px;">
+    <h3>Formula:</h3>
+    <p>
+      <b>Strength Score = Squat Weight ÷ Body Weight</b><br>
+      <b>Performance Score = Work Output (kJ) × Strength Score</b>
+    </p>
+  </div>
+
+  <!-- Applications -->
+  <div id="applications" style="margin-top:15px;">
+    <h3>Applications:</h3>
+    <ul>
+      <li>Evaluate overall training performance</li>
+      <li>Track improvements over multiple workouts</li>
+      <li>Compare performance across athletes</li>
+      <li>Design progressive training programs</li>
+    </ul>
+  </div>
+
+  <!-- Cautions -->
+  <div id="cautions" style="margin-top:15px;">
+    <h3>Cautions:</h3>
+    <ul>
+      <li>Ensure accurate inputs; incorrect work output or squat/body weight will skew results</li>
+      <li>Do not over-rely on the score; individual variation is important</li>
+      <li>Use alongside proper technique and safety measures</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function convertWorkToKJ(value, unit) {
+  return unit === 'J' ? value / 1000 : value;
+}
+
+function convertToKg(value, unit) {
+  return unit === 'lbs' ? value * 0.453592 : value;
+}
+
+function calculatePerformanceScore() {
+  const workVal = parseFloat(document.getElementById('workOutput').value);
+  const workUnit = document.getElementById('workUnit').value;
+
+  const squatVal = parseFloat(document.getElementById('squatWeight').value);
+  const squatUnit = document.getElementById('squatUnit').value;
+  const bodyVal = parseFloat(document.getElementById('bodyWeight').value);
+  const bodyUnit = document.getElementById('bodyUnit').value;
+
+  if (!workVal || !squatVal || !bodyVal) {
+    alert("Please enter Work Output, Squat Weight, and Body Weight.");
+    return;
+  }
+
+  const workKJ = convertWorkToKJ(workVal, workUnit);
+  const squatKg = convertToKg(squatVal, squatUnit);
+  const bodyKg = convertToKg(bodyVal, bodyUnit);
+
+  // Auto-calculate Strength Score
+  const strengthScore = squatKg / bodyKg;
+
+  const performanceScore = workKJ * strengthScore;
+
+  document.getElementById('performanceResult').innerHTML =
+    `Strength Score: <b>${strengthScore.toFixed(2)}</b><br>` +
+    `Performance Score: <b>${performanceScore.toFixed(2)}</b>`;
+}
+</script>
+
+<style>
+.info-tooltip {
+  display: inline-block;
+  background: #ccc;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  line-height: 18px;
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  margin-left: 6px;
+}
+
+.info-tooltip .tooltip-text {
+  visibility: hidden;
+  width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -125px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 13px;
+}
+
+.info-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Performance Score <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/strength.svg" alt="Illustration for Performance Score" loading="lazy" width="120" height="120"><figcaption>Visual guide for Performance Score</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Performance Score?</h3><p>Performance Score is a training or performance metric calculated from entered exercise data. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Performance Score result in the context of the input values, displayed units and assumptions. Estimates depend on technique, load, effort and measurement method. This result is not a substitute for safe training practice or a direct laboratory measurement.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can support consistent tracking and comparison when the same protocol is used.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Estimates depend on technique, load, effort and measurement method. This result is not a substitute for safe training practice or a direct laboratory measurement.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the load, repetitions, sets, duration or other fields requested. Check whether the calculator reports an estimate or a directly measured value.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

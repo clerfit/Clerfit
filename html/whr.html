@@ -1,28 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>ClerFit – WHR</title>
+  <meta name="description" content="Use the ClerFit WHR to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
 <meta charset="UTF-8">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-GTRER5RZH6');
-</script>
-<title>ClerFit – WHR</title>
-<link rel="stylesheet" href="../css/style.css?v=20261017-r3-live-ui">
+<link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <script src="../js/engine.js" defer></script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/whr.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – WHR">
+<meta property="og:description" content="Use the ClerFit WHR to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/whr.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – WHR">
+<meta name="twitter:description" content="Use the ClerFit WHR to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body>
-<div class="top-right-buttons">
-  <button onclick="location.href='../index.html'">Home</button>
-  <button onclick="location.href='../contact.html'">Contact Us</button>
-</div>
 <div class="sidebar">
   <h2>ClerFit</h2>
-  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='BMI.html'">BMI</button>
   <button onclick="location.href='bmr.html'">BMR</button>
   <button onclick="location.href='bodyfat.html'">Body Fat %</button>
   <button onclick="location.href='idealweight.html'">Ideal Weight</button>
@@ -50,27 +59,44 @@
     <p>Health & Fitness Calculators</p>
   </div>
 
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
 <div class="card">
 <h2>Waist–Hip Ratio (WHR) Calculator</h2>
 
-<label>Gender</label>
-<select id="gender">
+<label for="gender">Gender</label>
+<select id="gender" aria-label="Sex / reference group">
   <option value="male">Male</option>
   <option value="female">Female</option>
 </select>
 
-<label>Waist</label>
-<input id="waist" type="number">
-<select id="waistUnit">
+<label for="waist">Waist</label>
+<input id="waist" type="number" min="0.1" max="300" step="any">
+<select id="waistUnit" aria-label="Waist unit">
   <option value="cm">cm</option>
   <option value="m">m</option>
   <option value="inch">inch</option>
   <option value="ft">ft</option>
 </select>
 
-<label>Hip</label>
-<input id="hip" type="number">
-<select id="hipUnit">
+<label for="hip">Hip</label>
+<input id="hip" type="number" min="0.1" max="300" step="any">
+<select id="hipUnit" aria-label="Hip unit">
   <option value="cm">cm</option>
   <option value="m">m</option>
   <option value="inch">inch</option>
@@ -89,17 +115,19 @@
   </div>
 </div>
 
-<table>
-  <tr><th>Gender</th><th>WHR Value</th><th>Health Risk</th></tr>
-  <tr><td>Female</td><td>&lt; 0.80</td><td>Healthy</td></tr>
-  <tr><td>Female</td><td>0.80 – 0.85</td><td>Increased Risk</td></tr>
-  <tr><td>Female</td><td>&gt; 0.85</td><td>High Risk</td></tr>
-  <tr><td>Male</td><td>&lt; 0.95</td><td>Healthy</td></tr>
-  <tr><td>Male</td><td>0.95 – 1.00</td><td>Increased Risk</td></tr>
-  <tr><td>Male</td><td>&gt; 1.00</td><td>High Risk</td></tr>
-</table>
+<p class="cf-warning">WHR is a screening measure, not a diagnosis. Interpretation thresholds vary across guidelines and populations; this page reports the ratio without assigning a universal risk category.</p>
 
 </div>
+
+<div class="card">
+
+
+
+<h2>WHR (Waist-to-Hip Ratio)</h2>
+<p>Waist-to-Hip Ratio (WHR) is a measurement that compares the circumference of the waist to that of the hips. It is a screening measure of body-fat distribution; interpretation depends on the reference guideline and population.</p>
+
+  </div>
+
 </div>
 
 <script>
@@ -129,34 +157,41 @@ function calculateWHR() {
   document.getElementById('result').innerHTML = `<strong>WHR: ${whr}</strong>`;
   document.getElementById('formula').innerHTML = `Formula: Waist ÷ Hip = ${waist.toFixed(1)} ÷ ${hip.toFixed(1)} = ${whr}`;
 
-  // Determine risk
-  let color='', label='';
-  if(gender==='female'){
-    if(whr<0.80){ color='blue'; label='Healthy';}
-    else if(whr<=0.85){ color='green'; label='Increased Risk';}
-    else{ color='red'; label='High Risk';}
-  } else {
-    if(whr<0.95){ color='blue'; label='Healthy';}
-    else if(whr<=1.00){ color='green'; label='Increased Risk';}
-    else{ color='red'; label='High Risk';}
-  }
-
-  const bar = document.querySelector('.bar');
-  const indicator = document.getElementById('indicator');
-  const indicatorLabel = document.getElementById('indicatorLabel');
-
-  // Set indicator position on bar (0-100%)
-  const maxWHR = (gender==='female') ? 1.1 : 1.2;
-  let pos = Math.min(100, (whr/maxWHR)*100);
-
-  indicator.style.left = pos + '%';
-  indicator.style.background = color;
-  indicatorLabel.style.left = pos + '%';
-  indicatorLabel.textContent = label;
+  // Report the ratio without universal risk labels; interpretation thresholds
+  // vary by guideline and population.
+  document.getElementById('result').innerHTML = `<strong>WHR: ${whr}</strong><p class="cf-note">Screening ratio only. This calculator does not assign a universal risk category or diagnose a condition.</p>`;
+  document.getElementById('formula').innerHTML = `Formula: Waist ÷ Hip = ${waist.toFixed(1)} ÷ ${hip.toFixed(1)} = ${whr}`;
+  const barContainer = document.querySelector('.bar-container');
+  if (barContainer) barContainer.hidden = true;
 }
 </script>
 
-<script src="../js/menu-fix.js" defer></script>
-</body>
 
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Waist-to-Hip Ratio <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/body-measurements.svg" alt="Illustration for Waist-to-Hip Ratio" loading="lazy" width="120" height="120"><figcaption>Visual guide for Waist-to-Hip Ratio</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Waist-to-Hip Ratio?</h3><p>Waist-to-Hip Ratio is a body measurement or composition indicator. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Waist-to-Hip Ratio result in the context of the input values, displayed units and assumptions. Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>Waist-to-hip ratio = waist circumference ÷ hip circumference.</code><p>Measure both circumferences consistently and use the same unit. Interpretation depends on the reference standard and personal context.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Use it to calculate and compare measurements collected with a consistent method.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the requested measurements in the displayed units, confirm the method and calculate. For tracking, repeat measurements under similar conditions.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
 </html>

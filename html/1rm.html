@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – One-Rep Max (1RM) Calculator</title>
+  <meta name="description" content="Use the ClerFit One-Rep Max (1RM) Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/1rm.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – One-Rep Max (1RM) Calculator">
+<meta property="og:description" content="Use the ClerFit One-Rep Max (1RM) Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/1rm.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – One-Rep Max (1RM) Calculator">
+<meta name="twitter:description" content="Use the ClerFit One-Rep Max (1RM) Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+<!-- ================= Professional 1RM Calculator ================= -->
+<div class="card">
+  <h2>One-Rep Max (1RM) Calculator</h2>
+  <p>Estimate your one-repetition maximum using commonly used prediction equations. Results are estimates, not guaranteed accurate measurements.</p>
+
+  <div class="row">
+    <div class="col">
+      <label for="liftWeight">Weight Lifted</label>
+      <input type="number" id="liftWeight" placeholder="Enter lifted weight" min="0.1" max="500" step="any" aria-label="Enter lifted weight">
+    </div>
+
+    <div class="col">
+      <label for="weightUnit1RM">Unit</label>
+      <select id="weightUnit1RM" aria-label="Lifted weight unit">
+        <option value="kg" selected>kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="reps">Repetitions</label>
+      <input type="number" id="reps" placeholder="Enter reps (recommended 1–10)" min="1" max="15" step="1" aria-label="Enter repetitions (1–15; estimates become less reliable at higher repetitions)">
+    </div>
+
+    <div class="col">
+      <label for="formula">Formula</label>
+      <select id="formula" onchange="updateFormulaInfo()" aria-label="One-rep-max formula">
+        <option value="epley" selected>Epley (General use, 1–10 reps)</option>
+        <option value="brzycki">Brzycki (commonly used for low reps)</option>
+        <option value="lander">Lander (prediction equation, 1–10 reps)</option>
+        <option value="lombardi">Lombardi (Higher reps 8–15)</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="formulaInfo" style="margin:10px 0; font-size:14px; color:#444;"></div>
+
+  <button class="calculate-btn" onclick="calculate1RM()">Calculate 1RM</button>
+
+  <div class="result" id="oneRMResult" style="margin-top:10px;"></div>
+</div>
+
+<script>
+function convertWeightToKg(value, unit){
+  return unit === "lbs" ? value * 0.453592 : value;
+}
+
+function updateFormulaInfo(){
+  const formula = document.getElementById("formula").value;
+  let message = "";
+
+  switch(formula){
+    case "epley":
+      message = "Common prediction equation; accuracy varies by person, lift, effort and repetition count. Use mainly for lower-repetition sets.";
+      break;
+    case "brzycki":
+      message = "Common prediction equation; estimates become less reliable as repetition count rises.";
+      break;
+    case "lander":
+      message = "Prediction equation; no universal accuracy guarantee applies to every lifter or exercise.";
+      break;
+    case "lombardi":
+      message = "Prediction equation sometimes used for higher-repetition sets; error varies by lifter and exercise.";
+      break;
+  }
+
+  document.getElementById("formulaInfo").innerHTML = "<b>Formula Guidance:</b> " + message;
+}
+
+function calculate1RM(){
+  const weight = parseFloat(document.getElementById("liftWeight").value);
+  const unit = document.getElementById("weightUnit1RM").value;
+  const reps = Number(document.getElementById("reps").value);
+  const formula = document.getElementById("formula").value;
+
+  if(!Number.isFinite(weight) || weight <= 0 || !Number.isInteger(reps) || reps < 1 || reps > 15){
+    alert("Enter a positive lifted weight and an integer repetition count from 1 to 15.");
+    return;
+  }
+
+  const weightKg = convertWeightToKg(weight, unit);
+  if (!Number.isFinite(weightKg) || weightKg <= 0 || !["epley","brzycki","lander","lombardi"].includes(formula)) {
+    alert("Check the lifted weight, unit and selected prediction equation.");
+    return;
+  }
+  let oneRM;
+  let warning = "";
+  let accuracy = "";
+
+  // Global rep warning
+  if(reps > 15){
+    warning = "Warning: Accuracy significantly decreases above 15 reps.<br>";
+  }
+
+  switch(formula){
+    case "epley":
+      oneRM = weightKg * (1 + reps / 30);
+      break;
+    case "brzycki":
+      oneRM = weightKg * (36 / (37 - reps));
+      break;
+    case "lander":
+      oneRM = weightKg * (100 / (101.3 - 2.67123 * reps));
+      break;
+    case "lombardi":
+      oneRM = weightKg * Math.pow(reps, 0.10);
+      break;
+  }
+
+  // Avoid unsupported universal accuracy grades; prediction error varies by
+  // exercise, population, effort, technique and the equation selected.
+  accuracy = reps <= 10 ? "Estimate; individual accuracy varies" : "Higher uncertainty at 11–15 repetitions";
+
+  const outputWeight = unit === "lbs" ? oneRM / 0.453592 : oneRM;
+  const outputUnit = unit === "lbs" ? "lb" : "kg";
+  document.getElementById("oneRMResult").innerHTML = `
+    ${warning}
+    <b>Estimated 1RM:</b> ${outputWeight.toFixed(2)} ${outputUnit}<br>
+    <b>Interpretation:</b> ${accuracy}
+  `;
+}
+
+// Initialize default formula info
+updateFormulaInfo();
+</script>
+
+
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand One-Rep Max <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/strength.svg" alt="Illustration for One-Rep Max" loading="lazy" width="120" height="120"><figcaption>Visual guide for One-Rep Max</figcaption></figure>
+   <div class="cf-education-section"><h3>What is One-Rep Max?</h3><p>One-Rep Max is a training or performance metric calculated from entered exercise data. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the One-Rep Max result in the context of the input values, displayed units and assumptions. Estimates depend on technique, load, effort and measurement method. This result is not a substitute for safe training practice or a direct laboratory measurement.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>Estimated one-rep maximum depends on the selected equation and the load/repetitions entered. Epley and Brzycki are common options.</code><p>Formula-based 1RM values are estimates and become less reliable at higher repetition counts. Do not attempt maximal lifts without suitable technique and supervision.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can support consistent tracking and comparison when the same protocol is used.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Estimates depend on technique, load, effort and measurement method. This result is not a substitute for safe training practice or a direct laboratory measurement.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the load, repetitions, sets, duration or other fields requested. Check whether the calculator reports an estimate or a directly measured value.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

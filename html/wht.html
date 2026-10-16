@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Waist-to-Height Ratio Calculator</title>
+  <meta name="description" content="Use the ClerFit Waist-to-Height Ratio Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  <script>
+
+    // ===== Unit Conversion =====
+    function convertToCm(value, unit) {
+      switch(unit) {
+        case "m": return value * 100;
+        case "in": return value * 2.54;
+        case "ft": return value * 30.48;
+        default: return value;
+      }
+    }
+
+    // WHtR is reported descriptively; no universal risk category is assigned.
+    function moveIndicatorWHtR() {
+      const container = document.querySelector(".bar-container");
+      if (container) container.hidden = true;
+    }
+
+    function calculateWHtR() {
+      const waistVal = Number(document.getElementById("waist").value);
+      const waistUnit = document.getElementById("waistUnit").value;
+      const heightVal = Number(document.getElementById("height").value);
+      const heightUnit = document.getElementById("heightUnit").value;
+      const result = document.getElementById("result");
+      if (!Number.isFinite(waistVal) || !Number.isFinite(heightVal) || waistVal <= 0 || heightVal <= 0) {
+        result.textContent = "Enter positive, valid waist and height values.";
+        return;
+      }
+      const waistCm = convertToCm(waistVal, waistUnit);
+      const heightCm = convertToCm(heightVal, heightUnit);
+      if (!Number.isFinite(waistCm) || !Number.isFinite(heightCm) || waistCm < 20 || waistCm > 250 || heightCm < 50 || heightCm > 250) {
+        result.textContent = "Check the selected units and measurements.";
+        return;
+      }
+      const ratio = waistCm / heightCm;
+      result.innerHTML = `Waist-to-height ratio: <strong>${ratio.toFixed(3)}</strong><p class="cf-note">A common adult rule of thumb is to keep waist circumference below half of height. This is not a diagnosis and should not be applied automatically to children or teenagers.</p>`;
+      document.getElementById("formula").textContent = `Formula: waist circumference (${waistCm.toFixed(1)} cm) ÷ height (${heightCm.toFixed(1)} cm) = ${ratio.toFixed(3)}.`;
+      moveIndicatorWHtR();
+    }
+
+  </script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/wht.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Waist-to-Height Ratio Calculator">
+<meta property="og:description" content="Use the ClerFit Waist-to-Height Ratio Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/wht.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Waist-to-Height Ratio Calculator">
+<meta name="twitter:description" content="Use the ClerFit Waist-to-Height Ratio Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+
+<!-- ===== Sidebar (NO WHtR Button Added) ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+  <div class="card">
+    <h2>Waist-to-Height Ratio (WHtR) Calculator</h2>
+
+    <div class="row">
+      <div class="col">
+        <label for="waist">Waist Circumference</label>
+        <input type="number" id="waist" placeholder="Enter waist" min="0.1" max="300" step="any" aria-label="Enter waist">
+        <label for="waistUnit">Unit</label>
+        <select id="waistUnit" aria-label="Waist unit">
+          <option value="cm" selected>cm</option>
+          <option value="m">m</option>
+          <option value="in">in</option>
+          <option value="ft">ft</option>
+        </select>
+      </div>
+
+      <div class="col">
+        <label for="height">Height</label>
+        <input type="number" id="height" placeholder="Enter height" min="30" max="300" step="any" aria-label="Enter height">
+        <label for="heightUnit">Unit</label>
+        <select id="heightUnit" aria-label="Height unit">
+          <option value="cm" selected>cm</option>
+          <option value="m">m</option>
+          <option value="in">in</option>
+          <option value="ft">ft</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="calculate-btn" onclick="calculateWHtR()">Calculate WHtR</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="bar-container">
+      <div class="bar">
+        <div class="indicator" id="indicator"></div>
+      </div>
+      <small>
+        Blue: Underfat | Green: Healthy | Orange: Overweight Risk | Red: High Risk
+      </small>
+    </div>
+
+    <div id="formula" style="margin-top:15px;"></div>
+
+    <p class="cf-warning">WHtR is a screening ratio, not a diagnosis. Thresholds and interpretation depend on age, population and clinical context. The common “waist less than half your height” rule is an adult rule of thumb, not a universal category system.</p>
+  </div>
+
+  <div class="card">
+    <h2>Waist-to-Height Ratio (WHtR)</h2>
+    <p>
+      Waist-to-Height Ratio measures abdominal fat distribution by comparing waist circumference to height.
+      It complements other screening measures but does not diagnose disease or replace clinical assessment.
+    </p>
+
+    <h2>Applications</h2>
+    <ul>
+      <li>Cardiovascular risk screening</li>
+      <li>Metabolic syndrome detection</li>
+      <li>Obesity risk assessment</li>
+      <li>Better predictor than BMI in many cases</li>
+      <li>Use adult screening rules cautiously; pediatric interpretation differs</li>
+    </ul>
+
+    <h2>Health Guideline</h2>
+    <p><strong>Keep your waist circumference less than half your height.</strong></p>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Waist-to-Height Ratio <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/body-measurements.svg" alt="Illustration for Waist-to-Height Ratio" loading="lazy" width="120" height="120"><figcaption>Visual guide for Waist-to-Height Ratio</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Waist-to-Height Ratio?</h3><p>Waist-to-Height Ratio is a body measurement or composition indicator. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Waist-to-Height Ratio result in the context of the input values, displayed units and assumptions. Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>Waist-to-height ratio = waist circumference ÷ height.</code><p>Waist and height must use compatible units. This is a screening indicator, not a diagnosis.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Use it to calculate and compare measurements collected with a consistent method.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the requested measurements in the displayed units, confirm the method and calculate. For tracking, repeat measurements under similar conditions.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

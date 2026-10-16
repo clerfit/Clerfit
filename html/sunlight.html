@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Sunlight / UV Exposure Calculator</title>
+  <meta name="description" content="Use the ClerFit Sunlight / UV Exposure Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/sunlight.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Sunlight / UV Exposure Calculator">
+<meta property="og:description" content="Use the ClerFit Sunlight / UV Exposure Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/sunlight.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Sunlight / UV Exposure Calculator">
+<meta name="twitter:description" content="Use the ClerFit Sunlight / UV Exposure Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
+<style>
+.card {
+  max-width: 1000px;
+  margin: auto;
+  padding: 25px;
+  border-radius: 15px;
+  background: #ffffff;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+
+.row {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex: 1;
+  min-width: 180px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.calculate-btn {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #ffffff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.calculate-btn:hover {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
+</style>
+
+<div class="card">
+  <h2>Sunlight/ UV Exposure Calculator</h2>
+
+  <div class="row">
+
+    <div class="col">
+      <label for="uvIndex">UV Index</label>
+      <input type="number" id="uvIndex" placeholder="0 - 11+" min="0" max="30" step="any" aria-label="0 - 11+">
+    </div>
+
+    <div class="col">
+      <label for="duration">Exposure Time</label>
+      <input type="number" id="duration" min="0" max="10080" step="any">
+      <select id="timeUnit" aria-label="Time unit">
+        <option value="minutes">Minutes</option>
+        <option value="hours">Hours</option>
+      </select>
+    </div>
+
+  </div>
+
+  <br>
+  <button class="calculate-btn" onclick="calculateUV()">Calculate</button>
+
+  <div id="result" style="margin-top:25px;"></div>
+</div>
+
+<script>
+function calculateUV(){
+  const uv = Number(document.getElementById("uvIndex").value);
+  let duration = Number(document.getElementById("duration").value);
+  const timeUnit = document.getElementById("timeUnit").value;
+  const output = document.getElementById("result");
+  if(!Number.isFinite(uv) || uv < 0 || uv > 20 || !Number.isFinite(duration) || duration <= 0){
+    output.innerHTML = "<div class='cf-warning' role='alert'>Enter a UV index from 0 to 20 and an exposure duration greater than zero.</div>";
+    return;
+  }
+  if(timeUnit === "hours") duration *= 60;
+  const exposureIndexMinutes = uv * duration;
+  let category, advice;
+  if(uv < 3){category="Low";advice="UV protection is generally less important, but consider reflection, altitude, and personal sensitivity.";}
+  else if(uv < 6){category="Moderate";advice="Use shade, protective clothing, sunglasses, and broad-spectrum sunscreen.";}
+  else if(uv < 8){category="High";advice="Reduce midday sun exposure and use shade and sun protection.";}
+  else if(uv < 11){category="Very high";advice="Avoid peak sun where possible and use multiple sun-protection measures.";}
+  else{category="Extreme";advice="Minimize direct exposure and prioritize shade and protective clothing.";}
+  output.innerHTML = `<div class="cf-result"><span class="cf-note">UV index category</span><strong>${category}</strong><p><b>Exposure duration:</b> ${duration.toFixed(1)} minutes</p><p><b>Relative exposure indicator (UV index × minutes):</b> ${exposureIndexMinutes.toFixed(1)}</p><p>${advice}</p></div><div class="cf-warning">This is a simple exposure-context estimate, not a safe-time or sunburn prediction. Clouds, altitude, reflection, location, time of day, skin sensitivity, and sunscreen application affect actual exposure. Follow local UV guidance and reapply sunscreen as directed.</div>`;
+}
+</script>
+
+<style>
+.tooltip-trigger {
+  position: relative;
+  display: inline-flex;
+  margin-left: 6px;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.tooltip-trigger:hover {
+  color: #111827;
+}
+
+.info-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.tooltip-content {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.25s ease;
+
+  position: absolute;
+  top: 28px;
+  left: 0;
+
+  width: 260px;
+  background: #111827;
+  color: #f9fafb;
+
+  padding: 12px;
+  border-radius: 10px;
+
+  font-size: 12px;
+  line-height: 1.5;
+
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  z-index: 100;
+}
+
+.tooltip-content::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 12px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent #111827 transparent;
+}
+
+.tooltip-trigger:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tooltip-note {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: #9ca3af;
+}
+</style>
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Sunlight Duration <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/lifestyle.svg" alt="Illustration for Sunlight Duration" loading="lazy" width="120" height="120"><figcaption>Visual guide for Sunlight Duration</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Sunlight Duration?</h3><p>Sunlight Duration is an estimate based on the entered date, activity or environmental conditions. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Sunlight Duration result in the context of the input values, displayed units and assumptions. Real-world conditions vary; an estimate cannot guarantee safety, health outcomes or exact activity results.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help structure planning and make assumptions visible.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Real-world conditions vary; an estimate cannot guarantee safety, health outcomes or exact activity results.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter accurate values and the relevant time period or conditions. Review warnings and do not treat a calculated exposure duration as a safety guarantee.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Strength-to-Weight Calculator</title>
+  <meta name="description" content="Use the ClerFit Strength-to-Weight Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/strength-weight.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Strength-to-Weight Calculator">
+<meta property="og:description" content="Use the ClerFit Strength-to-Weight Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/strength-weight.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Strength-to-Weight Calculator">
+<meta name="twitter:description" content="Use the ClerFit Strength-to-Weight Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
+<div class="card">
+  <h2>Strength-to-Weight Calculator</h2>
+  <p>The Strength-to-Weight Ratio evaluates how strong you are relative to your body weight.</p>
+  <p><b>Strength-to-Weight Ratio = Weight Lifted ÷ Body Weight</b></p>
+
+  <div class="row">
+    <div class="col">
+      <label for="sw-lifted">Weight Lifted 
+        <span class="info-tooltip">i
+          <span class="tooltip-text">
+            Enter the maximum weight you can lift for the chosen exercise (e.g., bench press, squat) with proper form.
+          </span>
+        </span>
+      </label>
+      <input type="number" id="sw-lifted" placeholder="Enter weight lifted" min="0.1" max="500" step="any" aria-label="Enter weight lifted">
+      <label for="sw-liftedUnit">Unit</label>
+      <select id="sw-liftedUnit" aria-label="Lifted weight unit">
+        <option value="kg" selected>kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="sw-body">Body Weight</label>
+      <input type="number" id="sw-body" placeholder="Enter body weight" min="0.1" max="500" step="any" aria-label="Enter body weight">
+      <label for="sw-bodyUnit">Unit</label>
+      <select id="sw-bodyUnit" aria-label="Body weight unit">
+        <option value="kg" selected>kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="calculateStrengthToWeight()">Calculate Ratio</button>
+
+  <div class="result" id="sw-result"></div>
+
+  <h3>Meaning & Importance</h3>
+  <ul>
+    <li>Shows your strength level relative to your body weight.</li>
+    <li>Helps assess performance potential in bodyweight and strength sports.</li>
+    <li>Tracks progress in strength training over time.</li>
+  </ul>
+
+  <h3>Applications</h3>
+  <ul>
+    <li>Strength training programs and competitions.</li>
+    <li>Determining readiness for sports requiring relative strength (gymnastics, calisthenics, climbing).</li>
+    <li>Setting personalized strength goals.</li>
+  </ul>
+
+  <h3>Reference Table (Strength-to-Weight Ratio)</h3>
+  <table>
+    <tr><th>Ratio</th><th>Interpretation</th></tr>
+    <tr><td>&lt; 0.5</td><td>Below Average</td></tr>
+    <tr><td>0.5 – 0.9</td><td>Average</td></tr>
+    <tr><td>0.9 – 1.2</td><td>Above Average</td></tr>
+    <tr><td>1.2 – 1.5</td><td>Strong</td></tr>
+    <tr><td>&gt; 1.5</td><td>Elite</td></tr>
+  </table>
+
+  <p><b>Caution:</b> Always use proper form and a spotter for heavy lifts. Avoid lifting beyond safe limits.</p>
+
+  <script>
+    // ===== Unit conversion =====
+    function convertToKg(value, unit) {
+      return unit === "lbs" ? value * 0.453592 : value;
+    }
+
+    // ===== Strength-to-Weight calculation =====
+    function calculateStrengthToWeight() {
+      const liftedVal = parseFloat(document.getElementById("sw-lifted").value);
+      const liftedUnit = document.getElementById("sw-liftedUnit").value;
+      const bodyVal = parseFloat(document.getElementById("sw-body").value);
+      const bodyUnit = document.getElementById("sw-bodyUnit").value;
+
+      if (!liftedVal || !bodyVal) {
+        alert("Please enter both weight lifted and body weight.");
+        return;
+      }
+
+      // Convert both values to kg
+      const liftedKg = convertToKg(liftedVal, liftedUnit);
+      const bodyKg = convertToKg(bodyVal, bodyUnit);
+
+      const ratio = liftedKg / bodyKg;
+
+      document.getElementById("sw-result").innerHTML =
+        `Strength-to-Weight Ratio: <b>${ratio.toFixed(2)}</b>`;
+    }
+  </script>
+
+  <style>
+    .info-tooltip {
+      position: relative;
+      display: inline-block;
+      border-radius: 50%;
+      background: #888; /* gray */
+      color: white;
+      width: 18px;
+      height: 18px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: default;
+      line-height: 18px;
+      margin-left: 5px;
+      font-family: sans-serif;
+    }
+
+    .info-tooltip .tooltip-text {
+      visibility: hidden;
+      width: 220px;
+      background-color: #333; /* dark gray background */
+      color: #fff;
+      text-align: left;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%; 
+      left: 50%;
+      margin-left: -110px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .info-tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</div>
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Strength-to-Weight <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/strength.svg" alt="Illustration for Strength-to-Weight" loading="lazy" width="120" height="120"><figcaption>Visual guide for Strength-to-Weight</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Strength-to-Weight?</h3><p>Strength-to-Weight is a training or performance metric calculated from entered exercise data. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Strength-to-Weight result in the context of the input values, displayed units and assumptions. Estimates depend on technique, load, effort and measurement method. This result is not a substitute for safe training practice or a direct laboratory measurement.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can support consistent tracking and comparison when the same protocol is used.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Estimates depend on technique, load, effort and measurement method. This result is not a substitute for safe training practice or a direct laboratory measurement.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the load, repetitions, sets, duration or other fields requested. Check whether the calculator reports an estimate or a directly measured value.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

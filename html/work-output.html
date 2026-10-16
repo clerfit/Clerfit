@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Work Output Calculator</title>
+  <meta name="description" content="Use the ClerFit Work Output Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/work-output.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Work Output Calculator">
+<meta property="og:description" content="Use the ClerFit Work Output Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/work-output.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Work Output Calculator">
+<meta name="twitter:description" content="Use the ClerFit Work Output Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+<div class="card">
+  <h2>Work Output Calculator</h2>
+  <p>Calculate the total mechanical work done during lifting based on weight, distance moved, and repetitions.</p>
+
+  <div class="row">
+    <div class="col">
+      <label for="liftWeight">
+        Weight Lifted
+        <span class="info-tooltip">i
+          <span class="tooltip-text">
+            Total weight lifted per repetition. Include body weight if part of the movement. Enter in kg or lbs; conversion is automatic.
+          </span>
+        </span>
+      </label>
+      <input type="number" id="liftWeight" placeholder="Enter weight lifted" min="0.1" max="500" step="any" aria-label="Enter weight lifted">
+      <label for="weightUnit">Unit</label>
+      <select id="weightUnit" aria-label="Weight unit">
+        <option value="kg" selected>kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="distance">
+        Distance Moved
+        <span class="info-tooltip">i
+          <span class="tooltip-text">
+            Vertical distance the weight or your body moves per repetition. Enter in meters or feet; conversion is automatic.
+          </span>
+        </span>
+      </label>
+      <input type="number" id="distance" placeholder="Enter distance moved per rep" min="0.1" max="500" step="any" aria-label="Enter distance moved per rep">
+      <label for="distanceUnit">Unit</label>
+      <select id="distanceUnit" aria-label="Distance unit">
+        <option value="m" selected>meters</option>
+        <option value="ft">feet</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="reps">Number of Reps</label>
+      <input type="number" id="reps" placeholder="Enter number of repetitions" min="0" max="1000" step="1" aria-label="Enter number of repetitions">
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="calculateWorkOutput()">Calculate Work Output</button>
+
+  <div class="result" id="workResult"></div>
+
+  <!-- Formula -->
+  <div id="formula" style="margin-top:15px;">
+    <h3>Formula:</h3>
+    <p>
+      <b>Work Output (J) = Weight × Gravity × Distance × Reps</b><br>
+      (Weight in kg, Distance in meters, Reps count, Gravity = 9.81 m/s²)
+    </p>
+  </div>
+
+  <!-- Applications -->
+  <div id="applications" style="margin-top:15px;">
+    <h3>Applications:</h3>
+    <ul>
+      <li>Assess total mechanical work in strength training</li>
+      <li>Track progress in lifting performance</li>
+      <li>Compare work output across different training sessions</li>
+      <li>Use for programming and load monitoring</li>
+    </ul>
+  </div>
+
+  <!-- Cautions -->
+  <div id="cautions" style="margin-top:15px;">
+    <h3>Cautions:</h3>
+    <ul>
+      <li>Always warm up before lifting heavy weights</li>
+      <li>Maintain proper lifting form to prevent injury</li>
+      <li>Do not exceed your lifting capacity without supervision</li>
+      <li>Ratios and totals are guidelines; individual variation applies</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function convertWeightToKg(value, unit) {
+  return unit === 'lbs' ? value * 0.453592 : value;
+}
+
+function convertDistanceToM(value, unit) {
+  return unit === 'ft' ? value * 0.3048 : value;
+}
+
+function calculateWorkOutput() {
+  const weightVal = parseFloat(document.getElementById('liftWeight').value);
+  const weightUnit = document.getElementById('weightUnit').value;
+  const distanceVal = parseFloat(document.getElementById('distance').value);
+  const distanceUnit = document.getElementById('distanceUnit').value;
+  const reps = parseFloat(document.getElementById('reps').value);
+
+  if (!weightVal || !distanceVal || !reps) {
+    alert("Please enter weight, distance, and number of repetitions.");
+    return;
+  }
+
+  const weightKg = convertWeightToKg(weightVal, weightUnit);
+  const distanceM = convertDistanceToM(distanceVal, distanceUnit);
+  const gravity = 9.81; // m/s²
+  const work = weightKg * gravity * distanceM * reps;
+
+  document.getElementById('workResult').innerHTML =
+    `Total Work Output: <b>${work.toFixed(2)} J</b>`;
+}
+</script>
+
+<style>
+.info-tooltip {
+  display: inline-block;
+  background: #ccc;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  line-height: 18px;
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  margin-left: 6px;
+}
+
+.info-tooltip .tooltip-text {
+  visibility: hidden;
+  width: 220px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -110px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 13px;
+}
+
+.info-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Work Output <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/strength.svg" alt="Illustration for Work Output" loading="lazy" width="120" height="120"><figcaption>Visual guide for Work Output</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Work Output?</h3><p>Work Output is a training or performance metric calculated from entered exercise data. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Work Output result in the context of the input values, displayed units and assumptions. Estimates depend on technique, load, effort and measurement method. This result is not a substitute for safe training practice or a direct laboratory measurement.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can support consistent tracking and comparison when the same protocol is used.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Estimates depend on technique, load, effort and measurement method. This result is not a substitute for safe training practice or a direct laboratory measurement.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the load, repetitions, sets, duration or other fields requested. Check whether the calculator reports an estimate or a directly measured value.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

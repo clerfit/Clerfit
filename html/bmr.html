@@ -1,29 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="apple-touch-icon" href="../favicon-180.png"><link rel="manifest" href="../site.webmanifest">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>ClerFit – BMR Calculator</title>
+  <meta name="description" content="Use the ClerFit BMR Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
 <meta charset="UTF-8">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-GTRER5RZH6');
-</script>
-<title>ClerFit – BMR Calculator</title>
-<link rel="stylesheet" href="../css/style.css?v=20261017-r3-live-ui">
+
+<link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <script src="../js/engine.js" defer></script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/bmr.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – BMR Calculator">
+<meta property="og:description" content="Use the ClerFit BMR Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/bmr.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – BMR Calculator">
+<meta name="twitter:description" content="Use the ClerFit BMR Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body>
-<div class="top-right-buttons">
-  <button onclick="location.href='../index.html'">Home</button>
-  <button onclick="location.href='../contact.html'">Contact Us</button>
-</div>
 <!-- ===== Sidebar ===== -->
 <div class="sidebar">
   <h2>ClerFit</h2>
-  <button onclick="location.href='bmi.html'">BMI Calculator</button>
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
   <button class="active">BMR Calculator</button>
   <button onclick="location.href='bodyfat.html'">Body Fat %</button>
   <button onclick="location.href='idealweight.html'">Ideal Weight</button>
@@ -51,23 +61,41 @@
     <h1>ClerFit</h1>
     <p>Health & Fitness Calculators</p>
   </div>
+
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
   <div class="card">
     <h2>BMR Calculator</h2>
 
     <label for="gender">Gender</label>
-    <select id="gender">
+    <select id="gender" aria-label="Sex / reference group">
       <option value="male">Male</option>
       <option value="female">Female</option>
     </select>
 
     <label for="age">Age</label>
-    <input type="number" id="age">
+    <input type="number" id="age" min="1" max="120" step="1">
 
     <div class="row">
       <div class="col">
         <label for="height">Height</label>
-        <input type="number" id="height">
-        <select id="heightUnit">
+        <input type="number" id="height" min="30" max="300" step="any">
+        <select id="heightUnit" aria-label="Height unit">
           <option value="cm" selected>cm</option>
           <option value="m">m</option>
           <option value="inch">inch</option>
@@ -76,8 +104,8 @@
       </div>
       <div class="col">
         <label for="weight">Weight</label>
-        <input type="number" id="weight">
-        <select id="weightUnit">
+        <input type="number" id="weight" min="0.1" max="500" step="any">
+        <select id="weightUnit" aria-label="Weight unit">
           <option value="kg" selected>kg</option>
           <option value="lbs">lbs</option>
         </select>
@@ -89,9 +117,68 @@
     <div id="result" class="result"></div>
     <div id="formula"></div>
   </div>
+<div class="card">
+
+<h2>BMR (Basal Metabolic Rate)</h2>
+<p>Basal Metabolic Rate (BMR) is the number of calories your body needs at rest to maintain basic physiological functions such as breathing, circulation, and cell production. It represents the minimum energy required to keep the body alive while at rest.</p>
+
+  <h2>BMR Applications</h2>
+  <ul>
+    <li>Calculates daily calorie needs at rest</li>
+    <li>Helps plan weight loss or weight gain diets</li>
+    <li>Used by nutritionists for meal planning</li>
+    <li>Supports fitness and bodybuilding programs</li>
+    <li>Helps track metabolic health</li>
+    <li>Useful in medical and health assessments</li>
+    <li>Base input for calorie-tracking apps</li>
+  </ul>
+
+  <h2>Related Health Problems</h2>
+
+  <h3>Low BMR</h3>
+  <ul>
+    <li>Easy weight gain</li>
+    <li>Low energy and fatigue</li>
+    <li>Cold sensitivity</li>
+    <li>Possible thyroid issues</li>
+  </ul>
+
+  <h3>High BMR</h3>
+  <ul>
+    <li>Difficulty gaining weight</li>
+    <li>Rapid calorie burn</li>
+    <li>Increased hunger</li>
+    <li>Risk of muscle loss if underfed</li>
+  </ul>
 </div>
 
-<script src="../js/menu-fix.js" defer></script>
+</div>
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand BMR Calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/metabolism.svg" alt="Illustration for BMR Calculator" loading="lazy" width="120" height="120"><figcaption>Visual guide for BMR Calculator</figcaption></figure>
+   <div class="cf-education-section"><h3>What is BMR Calculator?</h3><p>BMR Calculator is an estimate of energy use or a calorie target. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>It is a resting-energy estimate, not the full amount of energy needed across a normal day.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>If using Mifflin–St Jeor: male equation = 10 × mass(kg) + 6.25 × height(cm) − 5 × age + 5; female equation uses −161 instead of +5.</code><p>Different BMR equations can produce different estimates. Confirm the method selected by this page and do not treat BMR as total daily energy expenditure.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Useful as one input when estimating total daily energy needs.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Equation-based results are estimates and can differ from measured metabolic rate; BMR is not the same as TDEE.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Read each field label and its unit, enter your measurements or values, check that none are missing or implausible, and activate the calculator button. Review the displayed result, formula and limitations. If comparing results over time, use the same measurement method.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
 </body>
 </html>
-

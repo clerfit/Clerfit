@@ -1,87 +1,28 @@
-In<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head><link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="apple-touch-icon" href="../favicon-180.png"><link rel="manifest" href="../site.webmanifest">
-<meta charset="UTF-8">
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-GTRER5RZH6');
-</script>
-<title>ClerFit – Daily Calorie Calculator</title>
-<link rel="stylesheet" href="../css/style.css?v=20261017-r3-live-ui">
-<script src="../js/engine.js" defer></script>
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="Open the current ClerFit daily energy calculator. This legacy URL redirects to the current calculator page.">
+<meta name="theme-color" content="#101827">
+<title>Daily Energy Calculator | ClerFit</title>
+<link rel="canonical" href="https://clerfit.github.io/Clerfit/html/daily-energy.html">
+<meta http-equiv="refresh" content="0; url=daily-energy.html">
+  
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="Daily Energy Calculator | ClerFit">
+<meta property="og:description" content="Open the current ClerFit daily energy calculator. This legacy URL redirects to the current calculator page.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/daily-energy.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Daily Energy Calculator | ClerFit">
+<meta name="twitter:description" content="Open the current ClerFit daily energy calculator. This legacy URL redirects to the current calculator page.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
-<body>
-<div class="top-right-buttons">
-  <button onclick="location.href='../index.html'">Home</button>
-  <button onclick="location.href='../contact.html'">Contact Us</button>
-</div>
-<!-- ===== Sidebar ===== -->
-<div class="sidebar">
-  <h2>ClerFit</h2>
-
-  <button onclick="location.href='bmi.html'">BMI</button>
-  <button onclick="location.href='bmr.html'">BMR</button>
-  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
-  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
-  <button class="active" type="button">Calories</button>
-  <button onclick="location.href='protein.html'">Protein Intake</button>
-  <button onclick="location.href='water.html'">Water Intake</button>
-  <button onclick="location.href='whr.html'">WHR</button>
-  <button onclick="location.href='ffmi.html'">FFMI</button>
-  <button onclick="location.href='rfm.html'">RFM</button>
-  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
-  <button onclick="location.href='heartrate.html'">Heart Rate</button>
-  <button onclick="location.href='leanmass.html'">Lean Mass</button>
-  <button onclick="location.href='fatmass.html'">Fat Mass</button>
-  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
-  <button onclick="location.href='absi.html'">ABSI</button>
-  <button onclick="location.href='tdee.html'">TDEE</button>
-  <button onclick="location.href='mets.html'">METs</button>
-  <button onclick="location.href='pace.html'">Pace</button>
-  <button onclick="location.href='healthrisk.html'">Health Risk</button>
-</div>
-
-<!-- ===== Main ===== -->
-<div class="main">
-  <div class="header">
-    <h1>ClerFit</h1>
-    <p>Health & Fitness Calculators</p>
-  </div>
-
-  <div class="card">
-    <h2>Daily Calorie Calculator</h2>
-
-    <!-- BMR Input -->
-    <label>BMR</label>
-    <input type="number" id="cal-bmr" placeholder="Enter BMR">
-    <select id="cal-bmr-unit">
-      <option value="kcal" selected>kcal</option>
-      <option value="kj">kJ</option>
-    </select>
-
-    <!-- Activity Level -->
-    <label>Activity Level</label>
-    <select id="cal-activity">
-      <option value="1.2">Sedentary</option>
-      <option value="1.375">Light</option>
-      <option value="1.55">Moderate</option>
-      <option value="1.725">Active</option>
-      <option value="1.9">Very Active</option>
-    </select>
-
-    <button class="calculate-btn" type="button" onclick="calculateCalories()">Calculate</button>
-
-    <div id="cal-result" class="result"></div>
-    <div id="cal-formula" style="margin-top:15px;"></div>
-  </div>
-</div>
-
-<script src="../js/menu-fix.js" defer></script>
+<body><main><h1>Daily Energy Calculator</h1><p>This page has moved. <a href="daily-energy.html">Continue to the current ClerFit page</a>.</p></main><script src="../js/page-chrome.js" defer></script>
 </body>
-
 </html>

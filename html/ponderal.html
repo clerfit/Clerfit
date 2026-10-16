@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>ClerFit – Ponderal Index</title>
+  <meta name="description" content="Use the ClerFit Ponderal Index to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
 <meta charset="UTF-8">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-GTRER5RZH6');
-</script>
-<title>ClerFit – Ponderal Index</title>
-<link rel="stylesheet" href="../css/style.css?v=20261017-r3-live-ui">
+
+
+<link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <style>
 /* Gradient bar */
 .bar-container {
@@ -91,26 +96,28 @@ function calculatePI() {
   document.getElementById("formula").innerHTML =
     `Formula: PI = Weight (kg) / Height (m)^3 = ${weight} / (${height.toFixed(2)})^3 = ${PI}`;
 
-  // Gradient bar
-  const indicator = document.getElementById("indicator");
-  let leftPercent = 0;
-  if(PI < 11) leftPercent = 0;        // Underweight
-  else if(PI < 13) leftPercent = 40;  // Normal
-  else if(PI < 15) leftPercent = 70;  // Overweight
-  else leftPercent = 90;              // Obese
-  indicator.style.left = leftPercent + "%";
-  document.getElementById("indicatorLabel").innerText = PI;
+  const barContainer = document.querySelector('.bar-container');
+  if (barContainer) barContainer.hidden = true;
+  document.getElementById("result").innerHTML += `<p class="cf-note">Ponderal Index is a descriptive height-adjusted mass index. These values are not assigned universal underweight/normal/overweight/obesity categories by this calculator.</p>`;
 }
 </script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/ponderal.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Ponderal Index">
+<meta property="og:description" content="Use the ClerFit Ponderal Index to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/ponderal.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Ponderal Index">
+<meta name="twitter:description" content="Use the ClerFit Ponderal Index to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body>
-<div class="top-right-buttons">
-  <button onclick="location.href='../index.html'">Home</button>
-  <button onclick="location.href='../contact.html'">Contact Us</button>
-</div>
 <div class="sidebar">
   <h2>ClerFit</h2>
-  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='BMI.html'">BMI</button>
   <button onclick="location.href='bmr.html'">BMR</button>
   <button onclick="location.href='bodyfat.html'">Body Fat %</button>
   <button onclick="location.href='idealweight.html'">Ideal Weight</button>
@@ -138,22 +145,40 @@ function calculatePI() {
     <p>Health & Fitness Calculators</p>
   </div>
 
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
   <div class="card">
     <h2>Ponderal Index Calculator</h2>
 
     <div class="row">
       <div class="col">
-        <label>Weight</label>
-        <input id="weight" type="number" placeholder="Enter weight">
-        <select id="weightUnit">
+        <label for="weight">Weight</label>
+        <input id="weight" type="number" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+        <select id="weightUnit" aria-label="Weight unit">
           <option value="kg" selected>kg</option>
           <option value="lb">lb</option>
         </select>
       </div>
       <div class="col">
-        <label>Height</label>
-        <input id="height" type="number" placeholder="Enter height">
-        <select id="heightUnit">
+        <label for="height">Height</label>
+        <input id="height" type="number" placeholder="Enter height" min="30" max="300" step="any" aria-label="Enter height">
+        <select id="heightUnit" aria-label="Height unit">
           <option value="cm" selected>cm</option>
           <option value="m">m</option>
           <option value="inch">inch</option>
@@ -173,34 +198,58 @@ function calculatePI() {
       </div>
     </div>
 
-    <h3>Ponderal Index Categories</h3>
-    <table>
-      <tr>
-        <th>Category</th>
-        <th>PI Range</th>
-      </tr>
-      <tr>
-        <td>Underweight</td>
-        <td>&lt; 11</td>
-      </tr>
-      <tr>
-        <td>Normal</td>
-        <td>11 – 13</td>
-      </tr>
-      <tr>
-        <td>Overweight</td>
-        <td>13 – 15</td>
-      </tr>
-      <tr>
-        <td>Obese</td>
-        <td>&gt; 15</td>
-      </tr>
-    </table>
+    <p class="cf-warning">Ponderal Index values should be interpreted using an appropriate age- and population-specific reference. This calculator reports the numeric index only and does not assign a medical category.</p>
 
   </div>
+
+<div class="card">
+  <h2>Ponderal Index (PI)</h2>
+
+  <h3>Definition</h3>
+  <p>The Ponderal Index (PI) is a measure of the leanness or corpulence of a person, calculated using height and weight. It is defined as weight (kg) divided by height (m) cubed: <strong>PI = weight / height³</strong>. It is another height-adjusted index; it should not be assumed superior to BMI for all people or uses.</p>
+
+  <h3>Applications</h3>
+  <ul>
+    <li>Provides a different height-adjusted index for descriptive comparison</li>
+    <li>Used in pediatric and adult growth studies</li>
+    <li>Helps evaluate nutritional status and risk of obesity</li>
+    <li>Supports fitness and health assessment programs</li>
+    <li>Used in research for body composition and health risk studies</li>
+    <li>Useful for comparing body types across different populations</li>
+  </ul>
+
+  <h3>Limitations</h3>
+  <p>A Ponderal Index value alone cannot diagnose undernutrition, obesity or associated diseases. Use age- and population-appropriate references when interpretation is needed.</p>
+
 </div>
 
-<script src="../js/menu-fix.js" defer></script>
-</body>
+</div>
 
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Ponderal Index <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/body-measurements.svg" alt="Illustration for Ponderal Index" loading="lazy" width="120" height="120"><figcaption>Visual guide for Ponderal Index</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Ponderal Index?</h3><p>Ponderal Index is a body measurement or composition indicator. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Ponderal Index result in the context of the input values, displayed units and assumptions. Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Use it to calculate and compare measurements collected with a consistent method.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the requested measurements in the displayed units, confirm the method and calculate. For tracking, repeat measurements under similar conditions.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
 </html>

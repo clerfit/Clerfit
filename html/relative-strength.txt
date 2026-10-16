@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ClerFit – Relative Strength Calculator</title>
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GTRER5RZH6');
+</script>
+
+
+
+  <link rel="stylesheet" href="../css/style.css">
+  
+</head>
+<body>
+<div class="top-right-buttons">
+  <button onclick="location.href='../index.html'">Home</button>
+  <button onclick="location.href='../contact.html'">Contact Us</button>
+</div>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='bmi.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper">
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+<script>
+function searchCalculators() {
+  const input = document.getElementById('searchInput').value.toLowerCase();
+  const resultsContainer = document.getElementById('searchResults');
+  resultsContainer.innerHTML = '';
+
+  if (!input) return;
+
+  const allLinks = document.querySelectorAll('.cf-links a');
+  const filtered = Array.from(allLinks).filter(link =>
+    link.textContent.toLowerCase().includes(input)
+  );
+
+  if (filtered.length === 0) {
+    resultsContainer.innerHTML = '<p style="color:#555;">No calculators found.</p>';
+    return;
+  }
+
+  filtered.forEach(link => {
+    const item = document.createElement('div');
+    item.innerHTML = `<a href="${link.href}">${link.textContent}</a>`;
+    resultsContainer.appendChild(item);
+  });
+}
+</script>
+
+
+
+
+<!-- ================= Relative Strength Calculator ================= -->
+<div class="card">
+  <h2>Relative Strength Calculator</h2>
+  <p>Measure how strong you are relative to your body weight.</p>
+
+  <div class="row">
+    <div class="col">
+      <label for="oneRM">One-Rep Max (1RM)</label>
+      <input type="number" id="oneRM" placeholder="Enter 1RM weight">
+    </div>
+
+    <div class="col">
+      <label for="bodyWeight">Body Weight</label>
+      <input type="number" id="bodyWeight" placeholder="Enter body weight">
+    </div>
+
+    <div class="col">
+      <label for="unitRelative">Unit</label>
+      <select id="unitRelative">
+        <option value="kg" selected>kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="calculateRelativeStrength()">Calculate Relative Strength</button>
+
+  <div class="result" id="relativeResult" style="margin-top:10px;"></div>
+</div>
+
+<!-- ================= Relative Strength JS ================= -->
+<script>
+function convertToKg(value, unit){
+  return unit === "lbs" ? value * 0.453592 : value;
+}
+
+function calculateRelativeStrength(){
+  const oneRM = parseFloat(document.getElementById("oneRM").value);
+  const bodyWeight = parseFloat(document.getElementById("bodyWeight").value);
+  const unit = document.getElementById("unitRelative").value;
+
+  if(!oneRM || !bodyWeight){
+    alert("Please enter both 1RM and body weight.");
+    return;
+  }
+
+  const oneRMkg = convertToKg(oneRM, unit);
+  const bodyWeightKg = convertToKg(bodyWeight, unit);
+
+  const relativeStrength = oneRMkg / bodyWeightKg;
+
+  let level;
+
+  if(relativeStrength < 0.75){
+    level = "Beginner Level";
+  } else if(relativeStrength < 1.25){
+    level = "Intermediate Level";
+  } else if(relativeStrength < 1.75){
+    level = "Advanced Level";
+  } else {
+    level = "Elite Level";
+  }
+
+  document.getElementById("relativeResult").innerHTML = `
+    <b>Relative Strength:</b> ${relativeStrength.toFixed(2)}<br>
+    <b>Strength Level:</b> ${level}
+  `;
+}
+</script>
+
+<!-- ================= Meaning & Applications ================= -->
+<div class="card">
+  <h2>Meaning & Applications</h2>
+
+  <h3>Meaning</h3>
+  <p>
+    Relative Strength measures how strong you are compared to your body weight.
+    It reflects strength efficiency rather than total lifting capacity.
+  </p>
+
+  <h3>Applications</h3>
+  <ul>
+    <li>Compare strength between individuals of different body sizes.</li>
+    <li>Track progress during fat loss or muscle gain phases.</li>
+    <li>Important for bodyweight sports like gymnastics, calisthenics, and martial arts.</li>
+    <li>Used in athletic performance evaluation.</li>
+  </ul>
+
+  <h3>Important Note</h3>
+  <p>
+    Strength standards vary by exercise (bench press, squat, deadlift), age, and gender.
+    This calculator gives a general reference only.
+  </p>
+</div>
+
+<!-- ================= CLERFIT GENRE EXTENSION ================= -->
+<style>
+.cf-genres{
+  margin:80px auto;
+  max-width:1200px;
+  padding:0 16px;
+}
+
+.cf-genres h2{
+  font-size:26px;
+  margin-bottom:30px;
+}
+
+.cf-genre-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:28px;
+}
+
+.cf-genre{
+  background:#ffffff;
+  border-radius:18px;
+  padding:22px 24px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.12);
+  transition:0.3s ease;
+}
+
+.cf-genre:hover{
+  transform:translateY(-6px);
+  box-shadow:0 14px 32px rgba(0,0,0,0.2);
+}
+
+.cf-genre-head{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:8px;
+}
+
+.cf-genre-icon{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  background:linear-gradient(135deg,#4f46e5,#22c55e);
+  color:#fff;
+}
+
+.cf-genre h3{
+  margin:0;
+  font-size:18px;
+}
+
+.cf-genre p{
+  font-size:14px;
+  color:#555;
+  margin:6px 0 14px;
+}
+
+.cf-links a{
+  display:block;
+  text-decoration:none;
+  font-size:14px;
+  padding:6px 0;
+  color:#2563eb;
+  transition:0.2s;
+}
+
+.cf-links a:hover{
+  color:#ea580c;
+  padding-left:6px;
+}
+
+@media(max-width:768px){
+  .cf-genre-grid{grid-template-columns:1fr;}
+}
+</style>
+
+<!-- ================= CLERFIT GENRE EXTENSION ================= -->
+<style>
+.cf-genres{
+  margin:80px auto;
+  max-width:1200px;
+  padding:0 16px;
+}
+
+.cf-genres h2{
+  font-size:26px;
+  margin-bottom:30px;
+}
+
+.cf-genre-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:28px;
+}
+
+.cf-genre{
+  background:#ffffff;
+  border-radius:18px;
+  padding:22px 24px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.12);
+  transition:0.3s ease;
+}
+
+.cf-genre:hover{
+  transform:translateY(-6px);
+  box-shadow:0 14px 32px rgba(0,0,0,0.2);
+}
+
+.cf-genre-head{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:8px;
+}
+
+.cf-genre-icon{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  background:linear-gradient(135deg,#4f46e5,#22c55e);
+  color:#fff;
+}
+
+.cf-genre h3{
+  margin:0;
+  font-size:18px;
+}
+
+.cf-genre p{
+  font-size:14px;
+  color:#555;
+  margin:6px 0 14px;
+}
+
+.cf-links a{
+  display:block;
+  text-decoration:none;
+  font-size:14px;
+  padding:6px 0;
+  color:#2563eb;
+  transition:0.2s;
+}
+
+.cf-links a:hover{
+  color:#ea580c;
+  padding-left:6px;
+}
+
+@media(max-width:768px){
+  .cf-genre-grid{grid-template-columns:1fr;}
+}
+</style>
+
+<section class="cf-genres" id="all-calculators">
+  <h2>✨ Explore All Health & Fitness Calculators ✨</h2>
+
+  <div class="cf-genre-grid">
+
+    <!-- 1 (UNCHANGED – EXACTLY AS GIVEN BY YOU) -->
+    <div class="cf-genre">
+      <div class="cf-genre-head">
+        <div class="cf-genre-icon">📏</div>
+        <h3>Body Measurements & Composition</h3>
+      </div>
+      <p>Understand body size, fat percentage, lean mass, and body ratios.</p>
+      <div class="cf-links">
+        <a href="bmi.html">BMI Calculator</a>
+        <a href="bodyfat.html">Body Fat Percentage Calculator</a>
+        <a href="leanmass.html">Lean Body Mass Calculator</a>
+        <a href="fatmass.html">Fat Mass Calculator</a>
+        <a href="ffmi.html">FFMI Calculator</a>
+        <a href="bsa.html">Body Surface Area Calculator</a>
+        <a href="whr.html">Waist-to-Hip Ratio Calculator</a>
+        <a href="wht.html">Waist-to-Height Ratio Calculator</a>
+        <a href="idealweight.html">Ideal Body Weight Calculator</a>
+        <a href="somatotype.html">Body Shape / Somatotype Calculator</a>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="cf-genre">
+      <div class="cf-genre-head">
+        <div class="cf-genre-icon">🧑</div>
+        <h3>Face & Aesthetics</h3>
+      </div>
+      <p>Analyze facial proportions using direct ruler-based facial measurements.</p>
+      <div class="cf-links">
+        <a href="face-shape.html">Face Shape Calculator</a>
+        <a href="face-length.html">Face Length Ratio</a>
+        <a href="facial-thirds.html">Facial Thirds</a>
+        <a href="jaw-width.html">Jaw Width Ratio</a>
+        <a href="chin-height.html">Chin Height Ratio</a>
+        <a href="nose-length.html">Nose Length Ratio</a>
+        <a href="mouth-width.html">Mouth Width Ratio</a>
+        <a href="eye-spacing.html">Eye Spacing Calculator</a>
+        <a href="lower-face.html">Lower Face Height</a>
+        <a href="facial-balance.html">Facial Balance Index</a>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="cf-genre">
+      <div class="cf-genre-head">
+        <div class="cf-genre-icon">🔥</div>
+        <h3>Metabolism & Calories</h3>
+      </div>
+      <p>Estimate calorie and energy needs using body measurements and activity level.</p>
+      <div class="cf-links">
+        <a href="bmr.html">BMR Calculator</a>
+        <a href="rmr.html">RMR Calculator</a>
+        <a href="tdee.html">TDEE Calculator</a>
+        <a href="maintenance.html">Maintenance Calories</a>
+        <a href="deficit.html">Calorie Deficit</a>
+        <a href="surplus.html">Calorie Surplus</a>
+        <a href="energy-balance.html">Energy Balance</a>
+        <a href="daily-energy.html">Daily Energy Need</a>
+        <a href="calories-kg.html">Calories per kg</a>
+        <a href="metabolic-age.html">Metabolic Age</a>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="cf-genre">
+      <div class="cf-genre-head">
+        <div class="cf-genre-icon">🥗</div>
+        <h3>Nutrition & Hydration</h3>
+      </div>
+      <p>Plan nutrition and hydration using body weight and daily activity.</p>
+      <div class="cf-links">
+        <a href="protein.html">Protein Intake</a>
+        <a href="carbs.html">Carbohydrate Intake</a>
+        <a href="fat.html">Fat Intake</a>
+        <a href="macro-split.html">Macro Split</a>
+        <a href="fiber.html">Fiber Intake</a>
+        <a href="water.html">Water Intake</a>
+        <a href="sodium.html">Sodium Intake</a>
+        <a href="potassium.html">Potassium Intake</a>
+        <a href="meal-split.html">Meal Calorie Split</a>
+        <a href="hydration-loss.html">Water Loss Replacement</a>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="cf-genre">
+      <div class="cf-genre-head">
+        <div class="cf-genre-icon">💪</div>
+        <h3>Muscle, Strength & Performance</h3>
+      </div>
+      <p>Measure strength and performance using lifted weight, reps, and body weight.</p>
+      <div class="cf-links">
+        <a href="1rm.html">One-Rep Max</a>
+        <a href="relative-strength.html">Relative Strength</a>
+        <a href="training-volume.html">Training Volume</a>
+        <a href="weekly-load.html">Weekly Load</a>
+        <a href="strength-weight.html">Strength-to-Weight</a>
+        <a href="pushup-index.html">Push-Up Index</a>
+        <a href="pullup-index.html">Pull-Up Index</a>
+        <a href="squat-ratio.html">Squat Ratio</a>
+        <a href="work-output.html">Work Output</a>
+        <a href="performance-score.html">Performance Score</a>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="cf-genre">
+      <div class="cf-genre-head">
+        <div class="cf-genre-icon">❤️</div>
+        <h3>Cardio & Endurance</h3>
+      </div>
+      <p>Analyze endurance using time, distance, steps, and pace.</p>
+      <div class="cf-links">
+        <a href="running-pace.html">Running Pace</a>
+        <a href="walking-speed.html">Walking Speed</a>
+        <a href="distance-time.html">Distance–Time</a>
+        <a href="cardio-calories.html">Calories Burned</a>
+        <a href="step-length.html">Step Length</a>
+        <a href="stride-length.html">Stride Length</a>
+        <a href="cadence.html">Cadence</a>
+        <a href="cooper-test.html">Cooper Test</a>
+        <a href="endurance-time.html">Endurance Time</a>
+        <a href="speed-weight.html">Speed–Weight Ratio</a>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="cf-genre">
+      <div class="cf-genre-head">
+        <div class="cf-genre-icon">⚖️</div>
+        <h3>Fat Loss & Weight Goals</h3>
+      </div>
+      <p>Track weight and circumference changes using scale and tape.</p>
+      <div class="cf-links">
+        <a href="weekly-weight.html">Weekly Weight Change</a>
+        <a href="monthly-weight.html">Monthly Weight Change</a>
+        <a href="weight-loss-rate.html">Weight Loss Rate</a>
+        <a href="weight-gain-rate.html">Weight Gain Rate</a>
+        <a href="goal-timeline.html">Goal Timeline</a>
+        <a href="bmi-change.html">BMI Change</a>
+        <a href="waist-change.html">Waist Change</a>
+        <a href="hip-change.html">Hip Change</a>
+        <a href="circumference-track.html">Circumference Tracker</a>
+        <a href="weight-stability.html">Weight Stability</a>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="cf-genre">
+      <div class="cf-genre-head">
+        <div class="cf-genre-icon">😴</div>
+        <h3>Recovery, Sleep & Fatigue</h3>
+      </div>
+      <p>Assess recovery using sleep duration and training frequency.</p>
+      <div class="cf-links">
+        <a href="sleep-duration.html">Sleep Duration</a>
+        <a href="sleep-consistency.html">Sleep Consistency</a>
+        <a href="sleep-timing.html">Sleep Timing</a>
+        <a href="training-rest.html">Training–Rest Ratio</a>
+        <a href="rest-interval.html">Rest Interval</a>
+        <a href="session-density.html">Session Density</a>
+        <a href="load-recovery.html">Load–Recovery Ratio</a>
+        <a href="weekly-training.html">Weekly Training Count</a>
+        <a href="recovery-time.html">Recovery Time</a>
+        <a href="fatigue-index.html">Fatigue Index</a>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="cf-genre">
+      <div class="cf-genre-head">
+        <div class="cf-genre-icon">🩺</div>
+        <h3>Health, Posture & Medical</h3>
+      </div>
+      <p>Assess health and posture using alignment and body proportions.</p>
+      <div class="cf-links">
+        <a href="bmi-age.html">BMI for Age</a>
+        <a href="waist-risk.html">Waist Risk</a>
+        <a href="hip-risk.html">Hip Risk</a>
+        <a href="wht-risk.html">Waist–Height Risk</a>
+        <a href="forward-head.html">Forward Head Index</a>
+        <a href="shoulder-symmetry.html">Shoulder Symmetry</a>
+        <a href="leg-length.html">Leg Length Difference</a>
+        <a href="sit-stand.html">Sit–Stand Ratio</a>
+        <a href="chest-expansion.html">Chest Expansion</a>
+        <a href="alignment.html">Body Alignment</a>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="cf-genre">
+      <div class="cf-genre-head">
+        <div class="cf-genre-icon">🧮</div>
+        <h3>Utility & Tools</h3>
+      </div>
+      <p>Quick measurement and fitness calculation utilities.</p>
+      <div class="cf-links">
+        <a href="unit.html">Unit Converter</a>
+        <a href="height-convert.html">Height Converter</a>
+        <a href="weight-convert.html">Weight Converter</a>
+        <a href="distance-convert.html">Distance Converter</a>
+        <a href="time-convert.html">Time Converter</a>
+        <a href="bmi-compare.html">BMI Comparison</a>
+        <a href="ratio.html">Ratio Calculator</a>
+        <a href="percentage.html">Percentage Tool</a>
+        <a href="average.html">Average Calculator</a>
+        <a href="difference.html">Difference Calculator</a>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="cf-genre">
+      <div class="cf-genre-head">
+        <div class="cf-genre-icon">🌍</div>
+        <h3>Lifestyle, Age & Environment</h3>
+      </div>
+      <p>Understand lifestyle impact using steps, time, and exposure duration.</p>
+      <div class="cf-links">
+        <a href="age.html">Age Calculator</a>
+        <a href="steps-distance.html">Steps to Distance</a>
+        <a href="steps-calories.html">Steps to Calories</a>
+        <a href="activity-time.html">Activity Time</a>
+        <a href="sedentary.html">Sedentary Ratio</a>
+        <a href="work-rest.html">Work–Rest Balance</a>
+        <a href="heat-exposure.html">Heat Exposure</a>
+        <a href="cold-exposure.html">Cold Exposure</a>
+        <a href="sunlight.html">Sunlight Duration</a>
+        <a href="pal.html">Physical Activity Level</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ================= END CLERFIT GENRE EXTENSION ================= --></section>
+<!-- ================= END CLERFIT GENRE EXTENSION ================= -->
+</body>
+</html>

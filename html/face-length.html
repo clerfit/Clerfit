@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Face Length Ratio</title>
+  <meta name="description" content="Use the ClerFit Face Length Ratio to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  <script>
+    // ===== Unit conversion helper =====
+    function convertToCm(value, unit) {
+      switch(unit) {
+        case "cm": return value;
+        case "mm": return value / 10;
+        case "inch": return value * 2.54;
+        default: return value; // default cm
+      }
+    }
+
+    // ===== Face Length Ratio Calculation =====
+    function calculateFaceLengthRatio() {
+      const totalVal = parseFloat(document.getElementById("totalLength").value);
+      const totalUnit = document.getElementById("totalUnit").value;
+      const lowerVal = parseFloat(document.getElementById("lowerLength").value);
+      const lowerUnit = document.getElementById("lowerUnit").value;
+
+      if (!totalVal || !lowerVal) {
+        alert("Please enter both total and lower face lengths.");
+        return;
+      }
+
+      const totalCm = convertToCm(totalVal, totalUnit);
+      const lowerCm = convertToCm(lowerVal, lowerUnit);
+
+      if (lowerCm > totalCm) {
+        alert("Lower face length cannot be greater than total face length.");
+        return;
+      }
+
+      const ratio = (lowerCm / totalCm).toFixed(2);
+      let category;
+
+      if (ratio < 0.33) category = "Short Lower Face";
+      else if (ratio <= 0.36) category = "Average Proportion";
+      else category = "Long Lower Face";
+
+      document.getElementById("result").innerHTML =
+        `Face Length Ratio: <b>${ratio}</b> — <b>${category}</b>`;
+    }
+  </script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/face-length.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Face Length Ratio">
+<meta property="og:description" content="Use the ClerFit Face Length Ratio to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/face-length.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Face Length Ratio">
+<meta name="twitter:description" content="Use the ClerFit Face Length Ratio to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button class="active">Face Length Ratio</button>
+  <button onclick="location.href='facial-thirds.html'">Facial Thirds</button>
+  <button onclick="location.href='jaw-width-ratio.html'">Jaw Width Ratio</button>
+  <button onclick="location.href='chin-height-ratio.html'">Chin Height Ratio</button>
+  <button onclick="location.href='nose-length-ratio.html'">Nose Length Ratio</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators – Face Length Ratio</p>
+  </div>
+
+  <div class="card">
+    <h2>Face Length Ratio Calculator</h2>
+    <div class="row">
+      <div class="col">
+        <label for="totalLength">Total Face Length</label>
+        <input type="number" step="0.01" id="totalLength" placeholder="Enter total face length" min="0.1" max="300" aria-label="Enter total face length">
+        <label for="totalUnit">Unit</label>
+        <select id="totalUnit" aria-label="Total face-height unit">
+          <option value="cm" selected>cm</option>
+          <option value="mm">mm</option>
+          <option value="inch">inch</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="lowerLength">Lower Face Length</label>
+        <input type="number" step="0.01" id="lowerLength" placeholder="Enter lower face length" min="0.1" max="300" aria-label="Enter lower face length">
+        <label for="lowerUnit">Unit</label>
+        <select id="lowerUnit" aria-label="Lower-face-height unit">
+          <option value="cm" selected>cm</option>
+          <option value="mm">mm</option>
+          <option value="inch">inch</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="calculate-btn" onclick="calculateFaceLengthRatio()">Calculate Ratio</button>
+    <div class="result" id="result" style="margin-top:15px;"></div>
+
+    <h3>About Face Length Ratio</h3>
+    <p>
+      The face length ratio compares the lower third of your face (base of nose to chin) 
+      with total face length (hairline to chin). It helps in aesthetic analysis and facial proportionality.
+    </p>
+
+    <h3>Reference from BMI</h3>
+    <p>
+      BMI reflects body composition, and while it does not directly affect face length ratio, 
+      extreme BMI levels may influence facial fat distribution, which can slightly alter perceived facial ratios.
+    </p>
+  </div>
+</div>
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Face Length Ratio <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/face-guide.svg" alt="Illustration for Face Length Ratio" loading="lazy" width="120" height="120"><figcaption>Visual guide for Face Length Ratio</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Face Length Ratio?</h3><p>Face Length Ratio is a ratio or descriptive comparison of manually measured facial landmarks. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Face Length Ratio result in the context of the input values, displayed units and assumptions. Facial ratios are not universal standards of attractiveness, health or medical status. Camera angle and landmark choice affect measurements.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help make manual measurements repeatable when the same landmarks and method are used.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Facial ratios are not universal standards of attractiveness, health or medical status. Camera angle and landmark choice affect measurements.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Follow the page’s landmark instructions, use compatible units, and enter the measurements manually. This tool does not automatically analyse a face photo unless explicitly stated.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

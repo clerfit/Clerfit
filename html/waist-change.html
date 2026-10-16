@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Waist Change Calculator</title>
+  <meta name="description" content="Use the ClerFit Waist Change Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/waist-change.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Waist Change Calculator">
+<meta property="og:description" content="Use the ClerFit Waist Change Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/waist-change.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Waist Change Calculator">
+<meta name="twitter:description" content="Use the ClerFit Waist Change Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
+<!-- ================= Waist Change Calculator ================= -->
+<div class="card">
+  <h2>Waist Change Calculator</h2>
+  <p>Calculate your waist measurement change over time to monitor fat loss or gain.</p>
+
+  <div class="row">
+    <div class="col">
+      <label for="initialWaist">Initial Waist</label>
+      <input type="number" id="initialWaist" placeholder="Enter initial waist" min="0.1" max="300" step="any" aria-label="Enter initial waist">
+    </div>
+
+    <div class="col">
+      <label for="currentWaist">Current Waist</label>
+      <input type="number" id="currentWaist" placeholder="Enter current waist" min="0.1" max="300" step="any" aria-label="Enter current waist">
+    </div>
+
+    <div class="col">
+      <label for="waistUnit">Unit</label>
+      <select id="waistUnit" aria-label="Waist unit">
+        <option value="cm" selected>cm</option>
+        <option value="in">inches</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="calculateWaistChange()">Calculate Waist Change</button>
+
+  <div class="result" id="waistResult"></div>
+</div>
+
+<!-- ================= Waist Meaning & Applications ================= -->
+<div class="card">
+  <h2>Waist Measurement Meaning & Applications</h2>
+
+  <h3>Meaning</h3>
+  <p>
+    Waist Change indicates the difference between your current waist measurement and your initial waist. 
+    Tracking waist measurements helps evaluate central fat distribution, which is strongly linked to metabolic health and cardiovascular risk.
+  </p>
+
+  <h3>Applications</h3>
+  <ul>
+    <li>Monitor fat loss or gain over time.</li>
+    <li>Assess abdominal fat accumulation, which is linked to higher health risks.</li>
+    <li>Track effectiveness of diet and exercise programs.</li>
+    <li>Used in clinical, fitness, and research settings for body composition monitoring.</li>
+  </ul>
+
+  <h3>Add-On: Waist Risk Reference</h3>
+  <table>
+    <tr><th>Waist (cm)</th><th>Health Risk</th></tr>
+    <tr><td>Men &lt; 94 / Women &lt; 80</td><td>Low Risk</td></tr>
+    <tr><td>Men 94–102 / Women 80–88</td><td>Increased Risk</td></tr>
+    <tr><td>Men &gt; 102 / Women &gt; 88</td><td>High Risk</td></tr>
+  </table>
+
+  <p><b>Note:</b> Waist change alone does not reflect total body fat. Combine with BMI or body fat measurements for a complete health assessment.</p>
+</div>
+
+<script>
+function convertWaistToCm(value, unit){
+  return unit === "in" ? value * 2.54 : value;
+}
+
+function calculateWaistChange(){
+  const initial = parseFloat(document.getElementById("initialWaist").value);
+  const current = parseFloat(document.getElementById("currentWaist").value);
+  const unit = document.getElementById("waistUnit").value;
+
+  if(!initial || !current){
+    alert("Please enter both initial and current waist measurements.");
+    return;
+  }
+
+  const initialCm = convertWaistToCm(initial, unit);
+  const currentCm = convertWaistToCm(current, unit);
+  const change = currentCm - initialCm;
+
+  let trend = change > 0 ? "Increase" : change < 0 ? "Decrease" : "No Change";
+
+  document.getElementById("waistResult").innerHTML = `
+    <b>Initial Waist:</b> ${initialCm.toFixed(2)} cm<br>
+    <b>Current Waist:</b> ${currentCm.toFixed(2)} cm<br>
+    <b>Waist Change:</b> ${change.toFixed(2)} cm (${trend})
+  `;
+}
+</script>
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Waist Change <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/weight-goals.svg" alt="Illustration for Waist Change" loading="lazy" width="120" height="120"><figcaption>Visual guide for Waist Change</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Waist Change?</h3><p>Waist Change is a tool for comparing body-weight or circumference changes and planning a goal. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Waist Change result in the context of the input values, displayed units and assumptions. Short-term changes can reflect fluid, glycogen and digestive contents, not just fat or muscle. Forecasts assume a rate that may change.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help track trends and estimate a timeline from an explicitly chosen rate.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Short-term changes can reflect fluid, glycogen and digestive contents, not just fat or muscle. Forecasts assume a rate that may change.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Use dates and measurements taken under similar conditions. Enter the goal and rate assumptions clearly and interpret trends over time.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

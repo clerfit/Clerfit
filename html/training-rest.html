@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Training–Rest Ratio Calculator</title>
+  <meta name="description" content="Use the ClerFit Training–Rest Ratio Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/training-rest.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Training–Rest Ratio Calculator">
+<meta property="og:description" content="Use the ClerFit Training–Rest Ratio Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/training-rest.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Training–Rest Ratio Calculator">
+<meta name="twitter:description" content="Use the ClerFit Training–Rest Ratio Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+<div class="card">
+  <h2>Training–Rest Ratio Calculator</h2>
+
+  <style>
+    .tooltip-container {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+    .tooltip-container .tooltiptext {
+      visibility: hidden;
+      width: 180px;
+      background-color: #555;
+      color: #fff;
+      text-align: left;
+      padding: 6px 8px;
+      border-radius: 6px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -90px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 13px;
+    }
+    .tooltip-container .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+    .tooltip-container:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+    .tooltip-circle {
+      background: #aaa;
+      color: #fff;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* Gradient bar */
+    .bar-container {
+      margin-top: 20px;
+      position: relative;
+      height: 20px;
+      background: linear-gradient(to right, 
+        #3b82f6 0%, #22c55e 20%, #a3e635 40%, #facc15 60%, #f97316 80%, #ef4444 100%);
+      border-radius: 12px;
+      width: 100%;
+    }
+    .indicator {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background-color: black;
+      border-radius: 0;
+    }
+    .bar-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    .intensity-label {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  </style>
+
+  <div class="row">
+  <div class="col">
+    <label for="trainingTime">
+      Training Duration
+      <span class="tooltip-container">
+        <span class="tooltip-circle">i</span>
+        <span class="tooltiptext">
+          Enter total training time per session (in hours by default).
+        </span>
+      </span>
+    </label>
+    <input type="number" id="trainingTime" placeholder="Enter value" value="" min="0" max="10080" step="any" aria-label="Enter value">
+    <select id="trainingUnit" aria-label="Training interval unit">
+      <option value="hours" selected>Hours</option>
+      <option value="minutes">Minutes</option>
+    </select>
+  </div>
+
+  <div class="col">
+    <label for="restTime">
+      Rest Duration
+      <span class="tooltip-container">
+        <span class="tooltip-circle">i</span>
+        <span class="tooltiptext">
+          Enter total rest or recovery time between sessions (in hours by default).
+        </span>
+      </span>
+    </label>
+    <input type="number" id="restTime" placeholder="Enter value" value="" min="0" max="10080" step="any" aria-label="Enter value">
+    <select id="restUnit" aria-label="Rest interval unit">
+      <option value="hours" selected>Hours</option>
+      <option value="minutes">Minutes</option>
+    </select>
+  </div>
+
+  <div class="col">
+    <label for="intensityLevel">
+      Intended Intensity
+      <span class="tooltip-container">
+        <span class="tooltip-circle">i</span>
+        <span class="tooltiptext">
+          Select your preferred training intensity to personalize results.
+        </span>
+      </span>
+    </label>
+    <select id="intensityLevel" aria-label="Activity intensity level">
+      <option value="Very Low">Very Low</option>
+      <option value="Low">Low</option>
+      <option value="Moderate" selected>Moderate</option>
+      <option value="High">High</option>
+      <option value="Very High">Very High</option>
+    </select>
+  </div>
+</div>
+  <button class="calculate-btn" onclick="calculateTrainingRestRatio()">Calculate Ratio</button>
+
+  <div class="intensity-label">Intensity: <span id="trrIntensity">—</span></div>
+  <div class="result" id="trrResult" style="margin-top:10px;"></div>
+  <div id="trrFormula" style="margin-top:5px; font-size:13px;"></div>
+
+  <div class="bar-container">
+    <div class="indicator" id="trrIndicator"></div>
+  </div>
+  <div class="bar-labels">
+    <span>Very Low</span>
+    <span>Low</span>
+    <span>Moderate</span>
+    <span>High</span>
+    <span>Very High</span>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <h3>Meaning</h3>
+    <p>The Training–Rest Ratio shows the balance between your workout and recovery time.</p>
+    <h3>Applications</h3>
+    <ul>
+      <li>Plan workouts and rest to avoid overtraining</li>
+      <li>Personalize HIIT, strength, or endurance routines</li>
+      <li>Optimize recovery for better performance</li>
+      <li>Assist coaches and athletes in workload planning</li>
+    </ul>
+    <h3>Cautions</h3>
+    <ul>
+      <li>Ratios differ by fitness level; adjust intensity accordingly</li>
+      <li>Too high ratio increases risk of fatigue or injury</li>
+      <li>Consult a professional if persistent fatigue occurs</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function convertToMinutes(value, unit) {
+  return unit === "hours" ? value * 60 : value;
+}
+
+function calculateTrainingRestRatio() {
+  const trainingVal = parseFloat(document.getElementById("trainingTime").value);
+  const trainingUnit = document.getElementById("trainingUnit").value;
+  const restVal = parseFloat(document.getElementById("restTime").value);
+  const restUnit = document.getElementById("restUnit").value;
+  const intendedIntensity = document.getElementById("intensityLevel").value;
+
+  if (!trainingVal || !restVal) {
+    alert("Please enter both training and rest durations.");
+    return;
+  }
+
+  const trainingMins = convertToMinutes(trainingVal, trainingUnit);
+  const restMins = convertToMinutes(restVal, restUnit);
+
+  const ratio = trainingMins / restMins;
+
+  // Map ratio to gradient categories
+  let category;
+  if (ratio < 0.25) category = "Very Low";
+  else if (ratio < 0.5) category = "Low";
+  else if (ratio < 1) category = "Moderate";
+  else if (ratio < 1.5) category = "High";
+  else category = "Very High";
+
+  // Show result including personalized intensity
+  document.getElementById("trrResult").innerHTML =
+    `<b>Training–Rest Ratio:</b> ${ratio.toFixed(2)} : 1 — <b>${category}</b> <br>
+     <b>Selected Intensity:</b> ${intendedIntensity}`;
+
+  document.getElementById("trrIntensity").innerText = intendedIntensity;
+
+  document.getElementById("trrFormula").innerHTML =
+    `Formula: Training ÷ Rest = ${trainingMins} ÷ ${restMins} ≈ ${ratio.toFixed(2)}`;
+
+  // Move thin indicator line
+  const indicator = document.getElementById("trrIndicator");
+  let pos = 0;
+  if (ratio < 0.25) pos = (ratio / 0.25) * 20;
+  else if (ratio < 0.5) pos = 20 + ((ratio - 0.25) / 0.25) * 20;
+  else if (ratio < 1) pos = 40 + ((ratio - 0.5) / 0.5) * 20;
+  else if (ratio < 1.5) pos = 60 + ((ratio - 1) / 0.5) * 20;
+  else pos = 80 + Math.min((ratio - 1.5) / 2 * 20, 20);
+
+  indicator.style.left = pos + "%";
+}
+</script>
+
+
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Training-Rest Ratio <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/recovery.svg" alt="Illustration for Training-Rest Ratio" loading="lazy" width="120" height="120"><figcaption>Visual guide for Training-Rest Ratio</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Training-Rest Ratio?</h3><p>Training-Rest Ratio is a descriptive recovery, sleep or training-load metric. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Training-Rest Ratio result in the context of the input values, displayed units and assumptions. Many recovery indices are planning aids rather than clinically validated measures. Pain, illness and persistent fatigue require appropriate attention.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help organize routines and compare patterns across days or weeks.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Many recovery indices are planning aids rather than clinically validated measures. Pain, illness and persistent fatigue require appropriate attention.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Read the required inputs and units shown on the page, enter valid values, run the calculation if a button is provided, and review the result and any assumptions before using it.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

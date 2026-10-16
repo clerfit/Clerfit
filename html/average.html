@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Average Calculator</title>
+  <meta name="description" content="Use the ClerFit Average Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/average.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Average Calculator">
+<meta property="og:description" content="Use the ClerFit Average Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/average.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Average Calculator">
+<meta name="twitter:description" content="Use the ClerFit Average Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+<div class="card">
+
+  <h2>Average Calculator</h2>
+
+  <p>
+    Calculate the average, total, minimum,
+    and maximum values from multiple numbers.
+  </p>
+
+  <div class="row">
+
+    <div class="col">
+
+      <label for="avgNumbers">
+        Enter Numbers
+      </label>
+
+      <input
+        type="text"
+        id="avgNumbers"
+        placeholder="Example: 10, 20, 30 or 10 20 30"
+       aria-label="Example: 10, 20, 30 or 10 20 30">
+
+    </div>
+
+  </div>
+
+  <button
+    type="button"
+    class="calculate-btn"
+    onclick="calculateAverage()"
+  >
+    Calculate Average
+  </button>
+
+  <div class="result" id="avgResult">
+    Enter values to calculate.
+  </div>
+
+  <div style="margin-top:25px;">
+
+    <h3>Meaning</h3>
+
+    <p>
+      The average (mean) is calculated by adding
+      all numbers together and dividing by the
+      total number of values.
+    </p>
+
+    <h3>Applications</h3>
+
+    <ul>
+      <li>Workout performance tracking</li>
+      <li>Average calorie intake calculation</li>
+      <li>Weight monitoring</li>
+      <li>Sports performance analysis</li>
+      <li>Fitness progress evaluation</li>
+    </ul>
+
+    <h3>Caution</h3>
+
+    <p>
+      Ensure all entered values are numerical.
+      Extremely high or low values may affect
+      the average significantly.
+    </p>
+
+  </div>
+
+</div>
+
+<script>
+
+function calculateAverage() {
+
+  const raw =
+    document.getElementById("avgNumbers")
+    .value
+    .trim();
+
+  const resultBox =
+    document.getElementById("avgResult");
+
+  // Empty check
+
+  if (!raw) {
+
+    resultBox.innerHTML =
+      "Please enter some numbers.";
+
+    return;
+  }
+
+  // Split numbers
+
+  const parts =
+    raw
+    .split(/[\s,]+/)
+    .filter(Boolean);
+
+  // Convert to numbers
+
+  const nums =
+    parts
+    .map(v => Number(v))
+    .filter(n => Number.isFinite(n));
+
+  // Validation
+
+  if (nums.length === 0) {
+
+    resultBox.innerHTML =
+      "No valid numbers found.";
+
+    return;
+  }
+
+  // Calculations
+
+  const sum =
+    nums.reduce((a, b) => a + b, 0);
+
+  const avg =
+    sum / nums.length;
+
+  const min =
+    Math.min(...nums);
+
+  const max =
+    Math.max(...nums);
+
+  // Display result
+
+  resultBox.innerHTML =
+
+    `Count: <b>${nums.length}</b><br><br>
+
+     Sum: <b>${
+       sum.toFixed(4).replace(/\.?0+$/, "")
+     }</b><br><br>
+
+     Average: <b>${
+       avg.toFixed(4).replace(/\.?0+$/, "")
+     }</b><br><br>
+
+     Min: <b>${min}</b><br><br>
+
+     Max: <b>${max}</b>`;
+
+}
+
+</script>
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Average Calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/utilities.svg" alt="Illustration for Average Calculator" loading="lazy" width="120" height="120"><figcaption>Visual guide for Average Calculator</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Average Calculator?</h3><p>Average Calculator is a general mathematical or unit-conversion utility. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Average Calculator result in the context of the input values, displayed units and assumptions. Results depend on correct inputs, compatible units and the selected operation. Check the order of values and rounding.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>Arithmetic mean = sum of values ÷ number of values.</code><p>The mean can be strongly affected by unusually high or low values.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can reduce manual arithmetic and make calculations repeatable.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Results depend on correct inputs, compatible units and the selected operation. Check the order of values and rounding.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Choose the operation or units, enter the required values, verify the input order, and review the result and units.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

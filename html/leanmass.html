@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>ClerFit – Lean Mass</title>
+  <meta name="description" content="Use the ClerFit Lean Mass to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
 <meta charset="UTF-8">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-GTRER5RZH6');
-</script>
-<title>ClerFit – Lean Mass</title>
-<link rel="stylesheet" href="../css/style.css?v=20261017-r3-live-ui">
+
+
+<link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <style>
 /* Ensure bar and indicator are visible */
 .bar-container {
@@ -56,7 +60,7 @@ function calculateLeanMass() {
   if(unit==='lb') weight *= 0.453592;
 
   let fat = parseFloat(document.getElementById('fat').value);
-  if(!fat || fat<0 || fat>100) { alert("Enter valid body fat %"); return; }
+  if(!Number.isFinite(fat) || fat<0 || fat>100) { alert("Enter valid body fat %"); return; }
 
   const leanMass = weight * (1 - fat/100);
   const leanPercent = (leanMass / weight) * 100;
@@ -65,32 +69,27 @@ function calculateLeanMass() {
   document.getElementById('result').innerHTML = `Lean Mass: ${leanMass.toFixed(2)} kg (${leanPercent.toFixed(1)}%)`;
   document.getElementById('formula').innerHTML = `Formula: Weight × (1 - Body Fat %) = ${weight.toFixed(2)} × (1 - ${fat/100}) = ${leanMass.toFixed(2)} kg`;
 
-  // Determine category and indicator color
-  let category = '', color = '';
-  if(leanPercent < 50){ category='Low'; color='#3b82f6'; }
-  else if(leanPercent <= 70){ category='Normal'; color='#22c55e'; }
-  else { category='High'; color='#f97316'; }
-
-  // Move indicator
-  const indicator = document.getElementById('indicator');
-  const label = document.getElementById('indicator-label');
-  indicator.style.left = `calc(${leanPercent}% - 2px)`; // center the line
-  indicator.style.backgroundColor = color;
-
-  // Add category label above indicator
-  label.innerText = category;
-  label.style.left = `calc(${leanPercent}% - 20px)`; // shift slightly for visibility
+  const container = document.querySelector('.bar-container');
+  if (container) container.hidden = true;
 }
 </script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/leanmass.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Lean Mass">
+<meta property="og:description" content="Use the ClerFit Lean Mass to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/leanmass.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Lean Mass">
+<meta name="twitter:description" content="Use the ClerFit Lean Mass to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body>
-<div class="top-right-buttons">
-  <button onclick="location.href='../index.html'">Home</button>
-  <button onclick="location.href='../contact.html'">Contact Us</button>
-</div>
 <div class="sidebar">
   <h2>ClerFit</h2>
-  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='BMI.html'">BMI</button>
   <button onclick="location.href='bmr.html'">BMR</button>
   <button onclick="location.href='bodyfat.html'">Body Fat %</button>
   <button onclick="location.href='idealweight.html'">Ideal Weight</button>
@@ -118,42 +117,107 @@ function calculateLeanMass() {
     <p>Health & Fitness Calculators</p>
   </div>
 
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
   <div class="card">
     <h2>Lean Body Mass Calculator</h2>
 
-    <label>Weight</label>
-    <input id="weight" type="number">
-    <select id="weightUnit">
+    <label for="weight">Weight</label>
+    <input id="weight" type="number" min="0" max="100" step="any">
+    <select id="weightUnit" aria-label="Weight unit">
       <option value="kg" selected>kg</option>
       <option value="lb">lb</option>
     </select>
 
-    <label>Body Fat (%)</label>
-    <input id="fat" type="number">
+    <label for="fat">Body Fat (%)</label>
+    <input id="fat" type="number" min="0" max="100" step="any">
 
     <button class="calculate-btn" onclick="calculateLeanMass()">Calculate</button>
 
     <div id="result" class="result"></div>
     <div id="formula"></div>
 
-    <div class="bar-container">
-      <div class="bar">
-        <div class="indicator" id="indicator"></div>
-        <div class="indicator-label" id="indicator-label"></div>
-      </div>
-    </div>
-
-    <table>
-      <tr><th>LBM Category</th><th>Percentage of Body Weight</th><th>Description</th></tr>
-      <tr><td>Low</td><td>&lt;50%</td><td>Poor / Below Healthy</td></tr>
-      <tr><td>Normal</td><td>50–70%</td><td>Healthy / Normal</td></tr>
-      <tr><td>High</td><td>&gt;70%</td><td>Above Normal / Very Fit</td></tr>
-    </table>
+    <p class="cf-warning">Lean mass includes muscle, bone, organs and body water. There is no universal healthy lean-mass percentage cutoff for all ages, sexes and body types; this calculator reports the calculated mass without assigning a category.</p>
 
   </div>
+
+
+<div class="card">
+
+
+
+<h2>Lean Mass</h2>
+<p>Lean Mass refers to the total weight of the body minus the fat mass, including muscles, bones, organs, and water. It is an important measure for assessing strength, fitness, and overall body composition.</p>
+
+  <h2>Lean Mass – Applications</h2>
+  <ul>
+    <li>Helps assess muscle mass vs fat mass</li>
+    <li>Used in strength training and bodybuilding programs</li>
+    <li>Supports weight management and fat loss planning</li>
+    <li>Monitors growth and fitness progress</li>
+    <li>Used by nutritionists to design high-protein diets</li>
+    <li>Tracks metabolic health and overall fitness</li>
+    <li>Useful in health and fitness tracking apps</li>
+  </ul>
+
+  <h2>Related Health Problems</h2>
+
+  <h3>Low Lean Mass</h3>
+  <ul>
+    <li>Reduced strength and endurance</li>
+    <li>Higher risk of injury</li>
+    <li>Slower metabolism</li>
+    <li>Fatigue and low energy</li>
+    <li>Difficulty maintaining healthy weight</li>
+  </ul>
+
+  <h3>Excess Lean Mass (Rare)</h3>
+  <ul>
+    <li>May cause joint strain if not balanced with flexibility</li>
+    <li>Possible overtraining injuries</li>
+    <li>Higher calorie requirements to maintain muscle</li>
+  </ul>
 </div>
 
-<script src="../js/menu-fix.js" defer></script>
-</body>
+</div>
 
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Lean Body Mass <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/body-measurements.svg" alt="Illustration for Lean Body Mass" loading="lazy" width="120" height="120"><figcaption>Visual guide for Lean Body Mass</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Lean Body Mass?</h3><p>Lean Body Mass is a body measurement or composition indicator. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Lean Body Mass result in the context of the input values, displayed units and assumptions. Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Use it to calculate and compare measurements collected with a consistent method.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the requested measurements in the displayed units, confirm the method and calculate. For tracking, repeat measurements under similar conditions.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
 </html>

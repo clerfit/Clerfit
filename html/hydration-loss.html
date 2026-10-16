@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Water Loss Replacement Calculator</title>
+  <meta name="description" content="Use the ClerFit Water Loss Replacement Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/hydration-loss.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Water Loss Replacement Calculator">
+<meta property="og:description" content="Use the ClerFit Water Loss Replacement Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/hydration-loss.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Water Loss Replacement Calculator">
+<meta name="twitter:description" content="Use the ClerFit Water Loss Replacement Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
+<!-- ================= Water Loss Replacement Calculator ================= -->
+<div class="card">
+  <h2>Water Loss Replacement Calculator</h2>
+  <p>Estimate how much water you need to drink to replace fluid lost during activity or sweat.</p>
+
+  <div class="row">
+    <div class="col">
+      <label for="weightWL">Body Weight</label>
+      <input type="number" id="weightWL" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+      <label for="weightUnitWL">Unit</label>
+      <select id="weightUnitWL" aria-label="Body weight unit">
+        <option value="kg" selected>kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="duration">Exercise Duration</label>
+      <input type="number" id="duration" placeholder="Enter duration" min="0" max="10080" step="any" aria-label="Enter duration">
+      <select id="durationUnit" aria-label="Duration unit">
+        <option value="minutes" selected>minutes</option>
+        <option value="hours">hours</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="intensity">Exercise Intensity</label>
+      <select id="intensity" aria-label="Activity intensity">
+        <option value="" disabled selected>Select intensity</option>
+        <option value="low">Low (light activity)</option>
+        <option value="moderate">Moderate (jogging, cycling)</option>
+        <option value="high">High (running, intense sports)</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="calculateWaterReplacement()">Calculate Water Replacement</button>
+
+  <div class="result" id="waterResult"></div>
+</div>
+
+<!-- ================= Water Loss Replacement Meaning & Applications ================= -->
+<div class="card">
+  <h2>About Water Loss Replacement</h2>
+
+  <h3>Meaning:</h3>
+  <p>
+    Water Loss Replacement refers to the amount of fluid your body needs to restore after sweating during exercise, heat exposure, or physical activity. Proper hydration is essential for performance, thermoregulation, and overall health.
+  </p>
+
+  <h3>Applications:</h3>
+  <ul>
+    <li>Maintain hydration during workouts and sports.</li>
+    <li>Prevent dehydration, fatigue, and heat-related illnesses.</li>
+    <li>Support proper digestion, kidney function, and metabolism.</li>
+    <li>Used in fitness programs, sports training, and medical guidance.</li>
+  </ul>
+
+  <h3>Potential Health Concerns if Ignored:</h3>
+  <ul>
+    <li>Dehydration leading to dizziness, cramps, or heat stroke.</li>
+    <li>Reduced athletic performance and endurance.</li>
+    <li>Electrolyte imbalances in prolonged activity.</li>
+    <li>Headaches, fatigue, and impaired cognitive function.</li>
+  </ul>
+</div>
+
+<script>
+function convertWeightToKg(value, unit) {
+  return unit === "lbs" ? value * 0.453592 : value;
+}
+
+function convertDurationToHours(value, unit) {
+  return unit === "minutes" ? value / 60 : value;
+}
+
+function calculateWaterReplacement() {
+  const weightVal = parseFloat(document.getElementById("weightWL").value);
+  const weightUnit = document.getElementById("weightUnitWL").value;
+  const durationVal = parseFloat(document.getElementById("duration").value);
+  const durationUnit = document.getElementById("durationUnit").value;
+  const intensity = document.getElementById("intensity").value;
+
+  if (!weightVal || !durationVal || !intensity) {
+    alert("Please fill all fields correctly.");
+    return;
+  }
+
+  const weightKg = convertWeightToKg(weightVal, weightUnit);
+  const durationHr = convertDurationToHours(durationVal, durationUnit);
+
+  // Sweat rate (L/hr) based on intensity
+  let sweatRate;
+  switch(intensity) {
+    case "low": sweatRate = 0.5; break;       // 0.4–0.6 L/hr
+    case "moderate": sweatRate = 1.0; break;  // 0.8–1.2 L/hr
+    case "high": sweatRate = 1.5; break;      // 1.2–2.0 L/hr
+    default: sweatRate = 1.0;
+  }
+
+  // Step 1: Calculate water lost
+  const waterLostL = sweatRate * durationHr;
+
+  // Step 2: Apply rehydration factor (1.2x)
+  const waterReplacementL = waterLostL * 1.2;
+
+  // Step 3: Convert to mL and cups
+  const waterML = Math.round(waterReplacementL * 1000);
+  const waterCups = (waterML / 250).toFixed(1);
+
+  document.getElementById("waterResult").innerHTML =
+    `Estimated water to replace: <b>${waterReplacementL.toFixed(2)} L</b> (~${waterML} mL, ~${waterCups} cups)`;
+}
+</script>
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Water Loss Replacement <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/nutrition.svg" alt="Illustration for Water Loss Replacement" loading="lazy" width="120" height="120"><figcaption>Visual guide for Water Loss Replacement</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Water Loss Replacement?</h3><p>Water Loss Replacement is an estimate or planning aid for a nutrition or fluid target. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Water Loss Replacement result in the context of the input values, displayed units and assumptions. Individual requirements vary with age, activity, climate, diet and health. This tool does not replace individualized clinical advice.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help organize daily intake and compare a plan with a chosen target.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Individual requirements vary with age, activity, climate, diet and health. This tool does not replace individualized clinical advice.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the requested values and goals, check the displayed units and assumptions, then use the result as a guide rather than a prescription.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

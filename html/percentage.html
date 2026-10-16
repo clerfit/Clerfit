@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Percentage Tool</title>
+  <meta name="description" content="Use the ClerFit Percentage Tool to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/percentage.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Percentage Tool">
+<meta property="og:description" content="Use the ClerFit Percentage Tool to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/percentage.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Percentage Tool">
+<meta name="twitter:description" content="Use the ClerFit Percentage Tool to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+<div class="card">
+
+  <h2>Percentage Tool</h2>
+
+  <p>
+    Calculate percentage increase, decrease,
+    weight-loss progress, calorie changes,
+    workout completion, and fitness tracking.
+  </p>
+
+  <div class="row">
+
+    <div class="col">
+      <label for="percentType">Calculation Type</label>
+
+      <select id="percentType" aria-label="Percentage calculation type">
+        <option value="basic">What % is X of Y?</option>
+        <option value="increase">Percentage Increase</option>
+        <option value="decrease">Percentage Decrease</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col">
+
+      <label for="value1">Value 1</label>
+
+      <input
+        type="number"
+        id="value1"
+        placeholder="Enter first value"
+       min="-1000000" max="1000000" step="any" aria-label="Enter first value">
+
+    </div>
+
+    <div class="col">
+
+      <label for="value2">Value 2</label>
+
+      <input
+        type="number"
+        id="value2"
+        placeholder="Enter second value"
+       min="-1000000" max="1000000" step="any" aria-label="Enter second value">
+
+    </div>
+
+  </div>
+
+  <button
+    class="calculate-btn"
+    onclick="calculatePercentage()"
+  >
+    Calculate Percentage
+  </button>
+
+  <div class="result" id="percentageResult">
+    Enter values to calculate.
+  </div>
+
+  <div style="margin-top:25px;">
+
+    <h3>Meaning</h3>
+
+    <p>
+      Percentage calculations help measure
+      progress in fitness, body transformation,
+      calorie management, and workout performance.
+    </p>
+
+    <h3>Applications</h3>
+
+    <ul>
+      <li>Weight loss tracking</li>
+      <li>Muscle gain analysis</li>
+      <li>Workout progress monitoring</li>
+      <li>Calorie surplus or deficit tracking</li>
+      <li>Body composition comparison</li>
+    </ul>
+
+    <h3>Caution</h3>
+
+    <p>
+      Percentage values should be used along with
+      proper nutrition, training consistency,
+      hydration, recovery, and overall health analysis.
+    </p>
+
+  </div>
+
+</div>
+
+<script>
+
+function calculatePercentage() {
+
+  const type =
+    document.getElementById("percentType").value;
+
+  const value1 = parseFloat(
+    document.getElementById("value1").value
+  );
+
+  const value2 = parseFloat(
+    document.getElementById("value2").value
+  );
+
+  const resultBox =
+    document.getElementById("percentageResult");
+
+  // Validation
+
+  if (
+    isNaN(value1) ||
+    isNaN(value2)
+  ) {
+
+    resultBox.innerHTML =
+      "Please enter valid numerical values.";
+
+    return;
+  }
+
+  // Prevent division by zero
+
+  if (
+    (type === "basic" && value2 === 0) ||
+    ((type === "increase" || type === "decrease") && value1 === 0)
+  ) {
+
+    resultBox.innerHTML =
+      "Division by zero is not allowed.";
+
+    return;
+  }
+
+  let result = 0;
+  let text = "";
+
+  // What percentage is X of Y
+
+  if (type === "basic") {
+
+    result =
+      (value1 / value2) * 100;
+
+    text =
+      `${value1} is <strong>${result.toFixed(2)}%</strong> of ${value2}`;
+
+  }
+
+  // Percentage Increase
+
+  else if (type === "increase") {
+
+    result =
+      ((value2 - value1) / value1) * 100;
+
+    text =
+      `Percentage Increase: <strong>${result.toFixed(2)}%</strong>`;
+
+  }
+
+  // Percentage Decrease
+
+  else if (type === "decrease") {
+
+    result =
+      ((value1 - value2) / value1) * 100;
+
+    text =
+      `Percentage Decrease: <strong>${result.toFixed(2)}%</strong>`;
+
+  }
+
+  resultBox.innerHTML = text;
+}
+
+</script>
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Percentage Tool <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/utilities.svg" alt="Illustration for Percentage Tool" loading="lazy" width="120" height="120"><figcaption>Visual guide for Percentage Tool</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Percentage Tool?</h3><p>Percentage Tool is a general mathematical or unit-conversion utility. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Percentage Tool result in the context of the input values, displayed units and assumptions. Results depend on correct inputs, compatible units and the selected operation. Check the order of values and rounding.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>The formula depends on the selected mode: part ÷ whole × 100; percentage change = (new − old) ÷ old × 100.</code><p>Percentage increase/decrease is undefined when the reference value is zero; confirm the selected mode.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can reduce manual arithmetic and make calculations repeatable.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Results depend on correct inputs, compatible units and the selected operation. Check the order of values and rounding.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Choose the operation or units, enter the required values, verify the input order, and review the result and units.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

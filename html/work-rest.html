@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Work–Rest Balance Calculator</title>
+  <meta name="description" content="Use the ClerFit Work–Rest Balance Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/work-rest.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Work–Rest Balance Calculator">
+<meta property="og:description" content="Use the ClerFit Work–Rest Balance Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/work-rest.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Work–Rest Balance Calculator">
+<meta name="twitter:description" content="Use the ClerFit Work–Rest Balance Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
+
+<!-- ===== Advanced Work–Rest Balance Calculator with Bar Above Table & Bullet Applications ===== -->
+
+<script>
+// ===== Unit Conversion =====
+function convertToSeconds(value, unit) {
+  switch(unit) {
+    case "minutes": return value * 60;
+    case "hours": return value * 3600;
+    default: return value; // seconds
+  }
+}
+
+// ===== Move Indicator =====
+function moveIndicatorWR(score) {
+  const indicator = document.getElementById("indicator");
+  if (!indicator) return;
+
+  let pos, color, label;
+
+  if (score < 40) {
+    pos = 15;
+    color = "#3b82f6";
+    label = "Excessive Rest";
+  } 
+  else if (score <= 75) {
+    pos = 50;
+    color = "#22c55e";
+    label = "Optimal Balance";
+  } 
+  else {
+    pos = 90;
+    color = "#ef4444";
+    label = "Overload Risk";
+  }
+
+  indicator.style.left = pos + "%";
+  indicator.style.backgroundColor = color;
+  indicator.innerHTML = `<div class="tooltip">${label}</div>`;
+}
+
+// ===== Advanced Calculation =====
+function calculateWorkRest() {
+  const workVal = parseFloat(document.getElementById("work").value);
+  const workUnit = document.getElementById("workUnit").value;
+
+  const restVal = parseFloat(document.getElementById("rest").value);
+  const restUnit = document.getElementById("restUnit").value;
+
+  const type = document.getElementById("trainingType").value;
+  const intensity = parseFloat(document.getElementById("intensity").value) || 1;
+
+  if (!workVal || !restVal) {
+    alert("Please enter both work and rest duration.");
+    return;
+  }
+
+  const workSec = convertToSeconds(workVal, workUnit);
+  const restSec = convertToSeconds(restVal, restUnit);
+
+  const ratio = workSec / restSec;
+
+  // Optimal ranges by training type
+  let optimalMin, optimalMax;
+  let recommendedSleep;
+
+  switch(type) {
+    case "no-training":
+      optimalMin = 0;
+      optimalMax = 1;
+      recommendedSleep = 7; 
+      break;
+    case "strength":
+      optimalMin = 0.2; // 1:5
+      optimalMax = 1.0; // 1:1
+      recommendedSleep = 8;
+      break;
+    case "hiit":
+      optimalMin = 0.5; // 1:2
+      optimalMax = 2.0; // 2:1
+      recommendedSleep = 8;
+      break;
+    case "cardio":
+      optimalMin = 3.0;
+      optimalMax = 10.0;
+      recommendedSleep = 7;
+      break;
+    case "skill":
+      optimalMin = 0.8;
+      optimalMax = 1.5;
+      recommendedSleep = 7;
+      break;
+  }
+
+  // Fatigue score formula
+let fatigueScore;
+if(type === "no-training") {
+    fatigueScore = ratio * 10; // ignore intensity
+} else {
+    fatigueScore = ratio * intensity * 10;
+}
+
+// Adjust score if outside optimal range
+if (ratio >= optimalMin && ratio <= optimalMax) fatigueScore *= 0.8;
+else fatigueScore *= 1.2;
+
+
+  let category;
+  if (fatigueScore < 40) category = "Excessive Rest";
+  else if (fatigueScore <= 75) category = "Optimal Balance";
+  else category = "Overload Risk";
+
+  // Display results
+  document.getElementById("result").innerHTML = `
+    <b>Work–Rest Ratio:</b> ${ratio.toFixed(2)}<br>
+    <b>Fatigue Score:</b> ${fatigueScore.toFixed(0)}<br>
+    <b>Status:</b> ${category}<br><br>
+
+    <!-- Indicator Bar Above Table -->
+    <div class="bar-container">
+      <div class="bar">
+        <div class="indicator" id="indicator"></div>
+      </div>
+      <small>
+        Blue: Excessive Rest | Green: Optimal Balance | Red: Overload Risk
+      </small>
+    </div><br>
+
+    <!-- Table -->
+    <table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse; width:100%; margin-top:10px;">
+      <tr>
+        <th>Training Type</th>
+        <th>Ratio (Work:Rest)</th>
+        <th>Fatigue Score</th>
+        <th>Recommended Sleep (hrs)</th>
+      </tr>
+      <tr><td>No Training</td><td>0 – 1</td><td>Low</td><td>7</td></tr>
+      <tr><td>Strength</td><td>0.2 – 1.0</td><td>Moderate</td><td>8</td></tr>
+      <tr><td>HIIT (High-Intensity Interval Training)</td><td>0.5 – 2.0</td><td>Moderate-High</td><td>8</td></tr>
+      <tr><td>Cardio</td><td>3.0 – 10.0</td><td>Moderate</td><td>7</td></tr>
+      <tr><td>Skill Practice</td><td>0.8 – 1.5</td><td>Low-Moderate</td><td>7</td></tr>
+    </table><br>
+
+    <p style="margin-top:10px;"><b>Meaning:</b> 
+    This calculator evaluates the balance between work (training/study/activity) and rest periods.  
+    An optimal ratio ensures recovery, avoids fatigue, and maintains performance.</p>
+
+    <p><b>Applications:</b></p>
+    <ul>
+      <li>Planning workouts and training sessions</li>
+      <li>HIIT interval management</li>
+      <li>Cardio or strength scheduling</li>
+      <li>Study or work/rest cycles</li>
+      <li>Recovery and fatigue monitoring</li>
+      <li>Sleep and performance optimization</li>
+    </ul>
+  `;
+
+  moveIndicatorWR(fatigueScore);
+}
+</script>
+
+<div class="card">
+  <h2>Advanced Work–Rest Balance Calculator</h2>
+
+  <div class="row">
+    <div class="col">
+      <label for="work">Work Duration</label>
+      <input type="number" id="work" min="0" max="10080" step="any">
+      <select id="workUnit" aria-label="Work interval unit">
+        <option value="seconds" selected>Seconds</option>
+        <option value="minutes">Minutes</option>
+        <option value="hours">Hours</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="rest">Rest Duration</label>
+      <input type="number" id="rest" min="0" max="10080" step="any">
+      <select id="restUnit" aria-label="Rest interval unit">
+        <option value="seconds" selected>Seconds</option>
+        <option value="minutes">Minutes</option>
+        <option value="hours">Hours</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="trainingType">Training Type</label>
+      <select id="trainingType" aria-label="Training type">
+        <option value="no-training">No Training</option>
+        <option value="strength">Strength</option>
+        <option value="hiit">HIIT (High-Intensity Interval Training)</option>
+        <option value="cardio">Cardio</option>
+        <option value="skill">Skill Practice</option>
+      </select>
+
+      <label for="intensity">Intensity (1–10)</label>
+      <input type="number" id="intensity" min="1" max="10" value="5" step="any">
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="calculateWorkRest()">Calculate</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Work-Rest Balance <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/lifestyle.svg" alt="Illustration for Work-Rest Balance" loading="lazy" width="120" height="120"><figcaption>Visual guide for Work-Rest Balance</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Work-Rest Balance?</h3><p>Work-Rest Balance is an estimate based on the entered date, activity or environmental conditions. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Work-Rest Balance result in the context of the input values, displayed units and assumptions. Real-world conditions vary; an estimate cannot guarantee safety, health outcomes or exact activity results.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help structure planning and make assumptions visible.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Real-world conditions vary; an estimate cannot guarantee safety, health outcomes or exact activity results.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter accurate values and the relevant time period or conditions. Review warnings and do not treat a calculated exposure duration as a safety guarantee.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

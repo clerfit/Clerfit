@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Meal Calorie Split Calculator</title>
+  <meta name="description" content="Use the ClerFit Meal Calorie Split Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/meal-split.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Meal Calorie Split Calculator">
+<meta property="og:description" content="Use the ClerFit Meal Calorie Split Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/meal-split.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Meal Calorie Split Calculator">
+<meta name="twitter:description" content="Use the ClerFit Meal Calorie Split Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
+<div class="card">
+  <h2>Meal Calorie Split Calculator</h2>
+  <p>Distribute your daily calories across meals (Breakfast, Lunch, Dinner) or more meals with meal heaviness.</p>
+
+  <div class="row">
+    <div class="col">
+      <label for="totalCalories">Total Daily Calories</label>
+      <input type="number" id="totalCalories" placeholder="Enter daily calories" min="0" max="50000" step="any" aria-label="Enter daily calories">
+    </div>
+
+    <div class="col">
+      <label for="meals">Number of Meals</label>
+      <select id="meals" onchange="generateHeavinessInputs()" aria-label="Meals per day">
+        <option value="3" selected>3 Meals</option>
+        <option value="4">4 Meals</option>
+        <option value="5">5 Meals</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="heavinessInputs" style="margin-top:10px;"></div>
+
+  <button class="calculate-btn" onclick="calculateMealSplit()">Calculate Split</button>
+
+  <div class="result" id="mealResult"></div>
+</div>
+
+
+<div class="card">
+  <h2>About Meal Calorie Split</h2>
+  
+  <h3>Meaning:</h3>
+  <p>
+    Meal Calorie Split refers to distributing your total daily calories across meals in a balanced way. 
+    This ensures steady energy, proper digestion, and optimal nutrient absorption throughout the day.
+  </p>
+
+  <h3>Applications:</h3>
+  <ul>
+    <li>Maintains consistent energy levels and avoids fatigue.</li>
+    <li>Supports healthy weight management and fat loss.</li>
+    <li>Improves metabolism and nutrient utilization.</li>
+    <li>Helps plan meals in fitness, sports, or clinical nutrition.</li>
+    <li>Prevents overeating or under-eating at specific meals.</li>
+  </ul>
+
+  <h3>Potential Health Concerns with Poor Meal Splits:</h3>
+  <ul>
+    <li>Skipping meals may cause energy crashes and overeating later.</li>
+    <li>Uneven meal heaviness may affect digestion and metabolic efficiency.</li>
+    <li>Can increase cravings and unhealthy snacking.</li>
+    <li>May negatively impact workout performance if calories are insufficient before exercise.</li>
+  </ul>
+</div>
+
+
+<script>
+const mealNamesMap = {
+  3: ["Breakfast", "Lunch", "Dinner"],
+  4: ["Breakfast", "Post-Breakfast Snack", "Lunch", "Dinner"],
+  5: ["Breakfast", "Post-Breakfast Snack", "Lunch", "Post-Lunch Snack", "Dinner"]
+};
+
+function generateHeavinessInputs() {
+  const meals = parseInt(document.getElementById("meals").value);
+  const container = document.getElementById("heavinessInputs");
+  container.innerHTML = "";
+
+  mealNamesMap[meals].forEach((meal, index) => {
+    const select = document.createElement("select");
+    select.id = `heaviness-${index}`;
+    select.innerHTML = `
+      <option value="Light">Light</option>
+      <option value="Moderate" selected>Moderate</option>
+      <option value="Heavy">Heavy</option>
+    `;
+    select.setAttribute("aria-label", `${meal} heaviness`);
+    container.innerHTML += `<label for="heaviness-${index}">${meal} Heaviness: </label>`;
+    container.appendChild(select);
+    container.innerHTML += "<br>";
+  });
+}
+
+generateHeavinessInputs(); // initial load for 3 meals
+
+function calculateMealSplit() {
+  const totalCalories = parseFloat(document.getElementById("totalCalories").value);
+  const meals = parseInt(document.getElementById("meals").value);
+
+  if (!totalCalories || !meals) {
+    alert("Please enter total daily calories and number of meals.");
+    return;
+  }
+
+  const mealNames = mealNamesMap[meals];
+  let heaviness = [];
+  for (let i = 0; i < mealNames.length; i++) {
+    heaviness.push(document.getElementById(`heaviness-${i}`).value);
+  }
+
+  // Assign default calorie percentages based on heaviness
+  let splitPercent = heaviness.map(h => {
+    if (h === "Light") return 0.1;
+    if (h === "Moderate") return 0.25;
+    if (h === "Heavy") return 0.35;
+    return 0.25;
+  });
+
+  // Normalize to 100%
+  const totalPercent = splitPercent.reduce((a,b)=>a+b,0);
+  splitPercent = splitPercent.map(p => p/totalPercent);
+
+  let resultHTML = `<h3>Calorie Distribution:</h3><ul>`;
+  mealNames.forEach((meal, index) => {
+    const calories = Math.round(totalCalories * splitPercent[index]);
+    resultHTML += `<li><b>${meal}:</b> ${calories} kcal — <i>${heaviness[index]}</i></li>`;
+  });
+  resultHTML += `</ul>`;
+  document.getElementById("mealResult").innerHTML = resultHTML;
+}
+</script>
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Meal Calorie Split <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/nutrition.svg" alt="Illustration for Meal Calorie Split" loading="lazy" width="120" height="120"><figcaption>Visual guide for Meal Calorie Split</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Meal Calorie Split?</h3><p>Meal Calorie Split is an estimate or planning aid for a nutrition or fluid target. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Meal Calorie Split result in the context of the input values, displayed units and assumptions. Individual requirements vary with age, activity, climate, diet and health. This tool does not replace individualized clinical advice.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help organize daily intake and compare a plan with a chosen target.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Individual requirements vary with age, activity, climate, diet and health. This tool does not replace individualized clinical advice.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the requested values and goals, check the displayed units and assumptions, then use the result as a guide rather than a prescription.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

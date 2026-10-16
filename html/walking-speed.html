@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Walking Speed Calculator</title>
+  <meta name="description" content="Use the ClerFit Walking Speed Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/walking-speed.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Walking Speed Calculator">
+<meta property="og:description" content="Use the ClerFit Walking Speed Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/walking-speed.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Walking Speed Calculator">
+<meta name="twitter:description" content="Use the ClerFit Walking Speed Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
+<div class="card">
+  <h2>Walking Speed Calculator</h2>
+  <p>Calculate your average walking speed based on distance and time.</p>
+
+  <div class="row">
+    <div class="col">
+      <label for="walkDistance">
+        Distance
+        <span class="info-tooltip">i
+          <span class="tooltip-text">
+            Total distance you walked. Can be entered in kilometers or miles.
+          </span>
+        </span>
+      </label>
+      <input type="number" id="walkDistance" placeholder="Enter distance" min="0" max="100000" step="any" aria-label="Enter distance">
+      <label for="walkDistanceUnit">Unit</label>
+      <select id="walkDistanceUnit" aria-label="Distance unit">
+        <option value="km" selected>Kilometers</option>
+        <option value="mi">Miles</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="walkTime">
+        Time
+        <span class="info-tooltip">i
+          <span class="tooltip-text">
+            Total walking time. Enter in hours, minutes, and seconds.
+          </span>
+        </span>
+      </label>
+      <input type="number" id="walkHours" placeholder="Hours" style="width:60px;" min="0" max="1000" step="any" aria-label="Hours">
+      <input type="number" id="walkMinutes" placeholder="Minutes" style="width:60px;" min="0" max="1000" step="any" aria-label="Minutes">
+      <input type="number" id="walkSeconds" placeholder="Seconds" style="width:60px;" min="0" max="1000" step="any" aria-label="Seconds">
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="calculateWalkingSpeed()">Calculate Speed</button>
+
+  <div class="result" id="walkSpeedResult"></div>
+
+  <!-- Formula -->
+  <div id="formula" style="margin-top:15px;">
+    <h3>Formula:</h3>
+    <p>
+      <b>Walking Speed = Distance ÷ Time</b><br>
+      Output is in km/h or mi/h depending on distance unit.
+    </p>
+  </div>
+
+  <!-- Applications -->
+  <div id="applications" style="margin-top:15px;">
+    <h3>Applications:</h3>
+    <ul>
+      <li>Track walking performance and pace</li>
+      <li>Plan daily walking goals or fitness routines</li>
+      <li>Compare speed over different distances or days</li>
+      <li>Monitor improvements in endurance and mobility</li>
+    </ul>
+  </div>
+
+  <!-- Cautions -->
+  <div id="cautions" style="margin-top:15px;">
+    <h3>Cautions:</h3>
+    <ul>
+      <li>Ensure accurate distance measurement for correct speed calculation</li>
+      <li>Do not walk beyond safe limits or ignore physical discomfort</li>
+      <li>Use results as a guideline; individual walking ability may vary</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function convertDistanceToKm(value, unit) {
+  return unit === 'mi' ? value * 1.60934 : value;
+}
+
+function calculateWalkingSpeed() {
+  const distanceVal = parseFloat(document.getElementById('walkDistance').value);
+  const distanceUnit = document.getElementById('walkDistanceUnit').value;
+
+  const hours = parseFloat(document.getElementById('walkHours').value) || 0;
+  const minutes = parseFloat(document.getElementById('walkMinutes').value) || 0;
+  const seconds = parseFloat(document.getElementById('walkSeconds').value) || 0;
+
+  if (!distanceVal) {
+    alert("Please enter the distance walked.");
+    return;
+  }
+
+  const distanceKm = convertDistanceToKm(distanceVal, distanceUnit);
+  const totalHours = hours + minutes / 60 + seconds / 3600;
+
+  const speed = distanceKm / totalHours;
+
+  document.getElementById('walkSpeedResult').innerHTML =
+    `Walking Speed: <b>${speed.toFixed(2)} ${distanceUnit === 'mi' ? 'mi/h' : 'km/h'}</b>`;
+}
+</script>
+
+<style>
+.info-tooltip {
+  display: inline-block;
+  background: #ccc;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  line-height: 18px;
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  margin-left: 6px;
+}
+
+.info-tooltip .tooltip-text {
+  visibility: hidden;
+  width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -125px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 13px;
+}
+
+.info-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Walking Speed <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/cardio.svg" alt="Illustration for Walking Speed" loading="lazy" width="120" height="120"><figcaption>Visual guide for Walking Speed</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Walking Speed?</h3><p>Walking Speed is a pace, speed, distance, time or endurance estimate. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Walking Speed result in the context of the input values, displayed units and assumptions. Terrain, weather, pacing and measurement accuracy affect results. Calorie and VO₂ estimates are not laboratory measurements.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>Average speed = distance ÷ elapsed time.</code><p>The result is an average over the entered interval and may not reflect changes in speed along the route.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help plan and compare activity when distance and timing are measured consistently.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Terrain, weather, pacing and measurement accuracy affect results. Calorie and VO₂ estimates are not laboratory measurements.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the measured distance and elapsed time or the activity values requested, then confirm the unit format before calculating.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

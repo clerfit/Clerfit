@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Calories Burned Calculator</title>
+  <meta name="description" content="Use the ClerFit Calories Burned Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/cardio-calories.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Calories Burned Calculator">
+<meta property="og:description" content="Use the ClerFit Calories Burned Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/cardio-calories.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Calories Burned Calculator">
+<meta name="twitter:description" content="Use the ClerFit Calories Burned Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+<div class="card">
+  <h2>Calories Burned Calculator</h2>
+  <p class="cf-note">Calories burned are estimates. MET values depend on the exact activity and intensity; see the <a href="https://pacompendium.com/" target="_blank" rel="noopener noreferrer">Compendium of Physical Activities</a> for activity-specific values.</p>
+  <p>Estimate calories burned using MET, body weight, and duration.</p>
+
+  <div class="row">
+    <!-- Body Weight -->
+    <div class="col">
+      <label for="bodyWeight">Body Weight</label>
+      <input type="number" id="bodyWeight" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+      <select id="weightUnit" aria-label="Weight unit">
+        <option value="kg" selected>kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+    </div>
+
+    <!-- MET Selector -->
+    <div class="col">
+      <label for="activityMET">Choose Activity (MET)</label>
+
+      <input type="text" id="metSearch" placeholder="Search MET activity..." style="width:100%; padding:6px; margin-bottom:6px;" aria-label="Search MET activities">
+
+      <!-- CLOSED by default -->
+      <select id="activityMET" size="1" style="width:100%;" aria-label="Activity by MET value">
+        <option value="1.0">Sitting quietly – 1.0 MET</option>
+        <option value="1.2">Sitting (TV / reading) – 1.2 MET</option>
+        <option value="1.3">Writing, desk work – 1.3 MET</option>
+        <option value="1.5">Standing crafts – 1.5 MET</option>
+        <option value="1.8">Light standing tasks – 1.8 MET</option>
+        <option value="2.0">Very slow walking – 2.0 MET</option>
+        <option value="2.0">Household chores light – 2.0 MET</option>
+        <option value="2.3">Laundry folding – 2.3 MET</option>
+        <option value="2.3">Walking dog – 2.3 MET</option>
+        <option value="2.5">Sweeping / gardening light – 2.5 MET</option>
+        <option value="2.5">Playing musical instruments – 2.5 MET</option>
+        <option value="2.8">Walking 3 mph – 2.8 MET</option>
+        <option value="3.0">Bowling – 3.0 MET</option>
+        <option value="3.0">Dancing slow – 3.0 MET</option>
+        <option value="3.3">Cleaning floors – 3.3 MET</option>
+        <option value="3.5">Yoga / stretching – 3.5 MET</option>
+        <option value="3.5">Brisk walking – 3.5 MET</option>
+        <option value="3.5">Moderate gardening – 3.5 MET</option>
+        <option value="3.5">Home calisthenics – 3.5 MET</option>
+        <option value="3.8">Bicycling <10 mph – 3.8 MET</option>
+        <option value="4.0">Table tennis – 4.0 MET</option>
+        <option value="4.0">Water aerobics – 4.0 MET</option>
+        <option value="4.3">Golf walking – 4.3 MET</option>
+        <option value="4.3">Brisk walking 3.5 mph – 4.3 MET</option>
+        <option value="4.5">Badminton recreational – 4.5 MET</option>
+        <option value="4.8">Stair stepping moderate – 4.8 MET</option>
+        <option value="4.8">Lawn mowing – 4.8 MET</option>
+        <option value="5.0">Jog/walk combo – 5.0 MET</option>
+        <option value="5.0">Golf cart – 5.0 MET</option>
+        <option value="5.0">Baseball / softball – 5.0 MET</option>
+        <option value="5.0">Tennis doubles – 5.0 MET</option>
+        <option value="5.5">Hand mower – 5.5 MET</option>
+        <option value="5.8">Swimming moderate laps – 5.8 MET</option>
+        <option value="6.0">Light aerobics – 6.0 MET</option>
+        <option value="6.0">Basketball general – 6.0 MET</option>
+        <option value="6.0">Stationary cycling moderate – 6.0 MET</option>
+        <option value="6.0">Hiking average terrain – 6.0 MET</option>
+        <option value="6.0">Jogging slow – 6.0 MET</option>
+        <option value="6.3">Walking brisk 4 mph – 6.3 MET</option>
+        <option value="6.5">Basketball shooting – 6.5 MET</option>
+        <option value="6.5">Scrubbing floors vigorous – 6.5 MET</option>
+        <option value="7.0">Aerobic dance – 7.0 MET</option>
+        <option value="7.0">Cycling moderate-vigorous – 7.0 MET</option>
+        <option value="7.0">Soccer recreational – 7.0 MET</option>
+        <option value="7.0">Tennis singles – 7.0 MET</option>
+        <option value="7.0">Dancing fast – 7.0 MET</option>
+        <option value="8.0">Bicycling 10–11.9 mph – 8.0 MET</option>
+        <option value="8.0">Swimming vigorous laps – 8.0 MET</option>
+        <option value="8.0">Racquet sports vigorous – 8.0 MET</option>
+        <option value="8.3">Walking fast 5 mph – 8.3 MET</option>
+        <option value="8.3">Running 12 min/mile – 8.3 MET</option>
+        <option value="9.0">Jump rope – 9.0 MET</option>
+        <option value="9.0">Running hill moderate – 9.0 MET</option>
+        <option value="9.5">Nordic walking – 9.5 MET</option>
+        <option value="10.0">Running 10 min/mile – 10.0 MET</option>
+        <option value="10.0">Cycling 14–15.9 mph – 10.0 MET</option>
+        <option value="11.0">Running 7 mph – 11.0 MET</option>
+        <option value="11.5">Running 8 min/mile – 11.5 MET</option>
+        <option value="12.0">Rowing vigorous – 12.0 MET</option>
+        <option value="12.5">Running fast 8 min/mile – 12.5 MET</option>
+        <option value="14.0">Backpacking uphill – 14.0 MET</option>
+        <option value="14.0">Cross country skiing vigorous – 14.0 MET</option>
+        <option value="15.0">Running 10 mph – 15.0 MET</option>
+        <option value="19.0">Running 12 mph – 19.0 MET</option>
+        <option value="23.0">Running 14 mph – 23.0 MET</option>      </select>
+    </div>
+
+    <!-- Duration -->
+    <div class="col">
+      <label for="duration">Duration</label>
+      <input type="number" id="duration" placeholder="Enter duration" min="0" max="50000" step="any" aria-label="Enter duration">
+      <select id="durationUnit" aria-label="Duration unit">
+        <option value="minutes" selected>Minutes</option>
+        <option value="hours">Hours</option>
+        <option value="seconds">Seconds</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="calculateCalories()">Calculate Calories</button>
+
+  <div class="result" id="caloriesResult"></div>
+</div>
+
+<script>
+const metSearch = document.getElementById('metSearch');
+const activityMET = document.getElementById('activityMET');
+
+metSearch.addEventListener('input', function() {
+  const filter = this.value.toLowerCase();
+
+  let visibleCount = 0;
+
+  Array.from(activityMET.options).forEach(option => {
+    if (option.text.toLowerCase().includes(filter) || option.value === "") {
+      option.style.display = 'block';
+      visibleCount++;
+    } else {
+      option.style.display = 'none';
+    }
+  });
+
+  // Open dropdown only if typing and matches exist
+  if (filter.length > 0 && visibleCount > 1) {
+    activityMET.size = Math.min(8, visibleCount);
+  } else {
+    activityMET.size = 1;
+  }
+});
+
+
+function convertToKg(weight, unit) {
+  return unit === 'lbs' ? weight * 0.453592 : weight;
+}
+
+function convertDuration(value, unit) {
+  if (unit === 'hours') return value * 60;
+  if (unit === 'seconds') return value / 60;
+  return value; // minutes
+}
+
+function calculateCalories() {
+  const weight = parseFloat(document.getElementById('bodyWeight').value);
+  const weightUnit = document.getElementById('weightUnit').value;
+  const met = parseFloat(activityMET.value);
+  const durationVal = parseFloat(document.getElementById('duration').value);
+  const durationUnit = document.getElementById('durationUnit').value;
+
+  if (!Number.isFinite(weight) || weight <= 0 || !Number.isFinite(met) || met <= 0 || !Number.isFinite(durationVal) || durationVal < 0) {
+    alert("Enter positive body weight and MET values, and a non-negative duration.");
+    return;
+  }
+
+  const weightKg = convertToKg(weight, weightUnit);
+  const durationMin = convertDuration(durationVal, durationUnit);
+
+  const calories = met * 3.5 * weightKg * durationMin / 200;
+
+  document.getElementById('caloriesResult').innerHTML =
+    `Estimated Calories Burned: <b>${calories.toFixed(2)}</b> kcal<br><small>Estimate: MET × 3.5 × body mass (kg) × duration (minutes) ÷ 200. Individual energy expenditure varies.</small>`;
+}
+</script>
+
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Calories Burned <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/cardio.svg" alt="Illustration for Calories Burned" loading="lazy" width="120" height="120"><figcaption>Visual guide for Calories Burned</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Calories Burned?</h3><p>Calories Burned is a pace, speed, distance, time or endurance estimate. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Calories Burned result in the context of the input values, displayed units and assumptions. Terrain, weather, pacing and measurement accuracy affect results. Calorie and VO₂ estimates are not laboratory measurements.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>Exercise energy expenditure is estimated from the activity inputs and the method implemented by this calculator.</code><p>Energy expenditure estimates vary with effort, fitness, terrain and individual physiology.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help plan and compare activity when distance and timing are measured consistently.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Terrain, weather, pacing and measurement accuracy affect results. Calorie and VO₂ estimates are not laboratory measurements.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the measured distance and elapsed time or the activity values requested, then confirm the unit format before calculating.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

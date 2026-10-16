@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Sleep Duration Calculator</title>
+  <meta name="description" content="Use the ClerFit Sleep Duration Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/sleep-duration.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Sleep Duration Calculator">
+<meta property="og:description" content="Use the ClerFit Sleep Duration Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/sleep-duration.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Sleep Duration Calculator">
+<meta name="twitter:description" content="Use the ClerFit Sleep Duration Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
+<div class="card">
+  <h2>Sleep Duration Tracker</h2>
+  <p>Compare your average sleep duration with broad age-group guidance. Activity level alone does not define a required sleep duration.</p>
+
+  <div class="row">
+    <div class="col">
+      <label for="sleepHours">Sleep Duration (hours) 
+        <span class="info-tooltip">i
+          <span class="tooltip-text">
+            Enter your average nightly sleep. Recommendations depend mainly on age and individual circumstances.
+          </span>
+        </span>
+      </label>
+      <input type="number" id="sleepHours" step="0.1" placeholder="Hours of sleep" min="0" max="24" aria-label="Hours of sleep">
+    </div>
+    <div class="col">
+      <label for="sleepAgeGroup">Age group</label>
+      <select id="sleepAgeGroup" aria-label="Age group for sleep guidance">
+        <option value="teen">Teen (13–17)</option>
+        <option value="adult" selected>Adult (18–64)</option>
+        <option value="older">Older adult (65+)</option>
+      </select>
+    </div>
+  </div>
+
+  <button onclick="updateSleepIndicator()">Calculate Sleep Duration</button>
+
+  <div style="margin-top:15px;">
+    <div style="height:25px; width:100%; background: linear-gradient(to right, red 0%, yellow 25%, green 75%, darkgreen 100%); border-radius:12px; position:relative;">
+      <div id="sleepIndicator" style="position:absolute; top:0; width:2px; height:100%; background:black;"></div>
+    </div>
+  </div>
+
+  <div id="sleepResult" style="margin-top:10px; font-weight:bold;"></div>
+
+  <div id="sleepInfo" style="margin-top:15px;">
+    <h3>Sleep Info:</h3>
+    <ul>
+      <li><b>Meaning:</b> A broad comparison with age-group sleep recommendations, not an individual diagnosis.</li>
+      <li><b>Application:</b> Helps track average nightly sleep over time.</li>
+      <li><b>Caution:</b> Avoid consistently sleeping too little or too much.</li>
+      <li><b>Health Risk:</b> Under-sleeping can lead to fatigue, poor recovery; over-sleeping may indicate health issues.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const sleepIndicator = document.getElementById('sleepIndicator');
+const sleepResult = document.getElementById('sleepResult');
+
+function updateSleepIndicator() {
+  const sleepHours = Number(document.getElementById('sleepHours').value);
+  const ageGroup = document.getElementById('sleepAgeGroup').value;
+  if (!Number.isFinite(sleepHours) || sleepHours < 0.1 || sleepHours > 24) {
+    sleepResult.textContent = "Enter a sleep duration greater than 0 and no more than 24 hours.";
+    return;
+  }
+  if (ageGroup === "teen") {
+    const status = sleepHours < 8 ? "Below the usual 8–10 hour teen recommendation" : sleepHours <= 10 ? "Within the usual 8–10 hour teen recommendation" : "Above the usual 8–10 hour teen recommendation";
+    sleepResult.textContent = `Sleep: ${sleepHours} hours — ${status}. Individual needs vary; persistent sleep concerns deserve professional advice.`;
+  } else if (ageGroup === "adult") {
+    const status = sleepHours < 7 ? "Below the usual recommendation of at least 7 hours" : "At or above the usual recommendation of at least 7 hours";
+    sleepResult.textContent = `Sleep: ${sleepHours} hours — ${status}. Adults often need around 7–9 hours; more or less can be appropriate for an individual.`;
+  } else {
+    const status = sleepHours < 7 ? "Below the usual 7–8 hour older-adult range" : sleepHours <= 8 ? "Within the usual 7–8 hour older-adult range" : "Above the usual 7–8 hour older-adult range";
+    sleepResult.textContent = `Sleep: ${sleepHours} hours — ${status}. Individual needs vary; this is not a diagnosis.`;
+  }
+  const position = Math.min(Math.max((sleepHours / 16) * 100, 0), 100);
+  sleepIndicator.style.left = `calc(${position}% - 1px)`;
+}
+</script>
+
+<style>
+.info-tooltip {
+  display:inline-block;
+  width:16px; height:16px;
+  background: #aaa;
+  color: white;
+  text-align:center;
+  border-radius:50%;
+  font-size:12px;
+  line-height:16px;
+  cursor:pointer;
+  margin-left:4px;
+  position:relative;
+}
+.tooltip-text {
+  visibility:hidden;
+  width:200px;
+  background-color:#555;
+  color:#fff;
+  text-align:left;
+  border-radius:6px;
+  padding:5px;
+  position:absolute;
+  z-index:1;
+  bottom:125%;
+  left:50%;
+  margin-left:-100px;
+  opacity:0;
+  transition:opacity 0.3s;
+  font-size:12px;
+}
+.info-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Sleep Duration <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/recovery.svg" alt="Illustration for Sleep Duration" loading="lazy" width="120" height="120"><figcaption>Visual guide for Sleep Duration</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Sleep Duration?</h3><p>Sleep Duration is a descriptive recovery, sleep or training-load metric. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Sleep Duration result in the context of the input values, displayed units and assumptions. Many recovery indices are planning aids rather than clinically validated measures. Pain, illness and persistent fatigue require appropriate attention.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>Sleep duration is the elapsed time between sleep and wake times or the duration entered.</code><p>Time crossing midnight must be handled correctly; this is not an assessment of sleep quality.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help organize routines and compare patterns across days or weeks.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Many recovery indices are planning aids rather than clinically validated measures. Pain, illness and persistent fatigue require appropriate attention.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter values for the same time period and measurement convention, then interpret the result alongside how you feel and your training context.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

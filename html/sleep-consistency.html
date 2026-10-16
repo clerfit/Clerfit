@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Sleep Consistency Calculator</title>
+  <meta name="description" content="Use the ClerFit Sleep Consistency Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/sleep-consistency.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Sleep Consistency Calculator">
+<meta property="og:description" content="Use the ClerFit Sleep Consistency Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/sleep-consistency.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Sleep Consistency Calculator">
+<meta name="twitter:description" content="Use the ClerFit Sleep Consistency Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
+<div class="card">
+  <h2>Sleep Consistency Calculator</h2>
+
+  <div class="row">
+    <div class="col">
+      <label for="bed1">Day 1 Sleep (hours)</label>
+      <input type="number" id="bed1" placeholder="e.g., 7.5" min="0" max="24" step="any" aria-label="e.g., 7.5">
+    </div>
+
+    <div class="col">
+      <label for="bed2">Day 2 Sleep (hours)</label>
+      <input type="number" id="bed2" placeholder="e.g., 8" min="0" max="24" step="any" aria-label="e.g., 8">
+    </div>
+
+    <div class="col">
+      <label for="bed3">Day 3 Sleep (hours)</label>
+      <input type="number" id="bed3" placeholder="e.g., 6.5" min="0" max="24" step="any" aria-label="e.g., 6.5">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <label for="bed4">Day 4 Sleep (hours)</label>
+      <input type="number" id="bed4" placeholder="e.g., 7" min="0" max="24" step="any" aria-label="e.g., 7">
+    </div>
+
+    <div class="col">
+      <label for="bed5">Day 5 Sleep (hours)</label>
+      <input type="number" id="bed5" placeholder="e.g., 8" min="0" max="24" step="any" aria-label="e.g., 8">
+    </div>
+
+    <div class="col">
+      <label for="bed6">Day 6 Sleep (hours)</label>
+      <input type="number" id="bed6" placeholder="e.g., 7.5" min="0" max="24" step="any" aria-label="e.g., 7.5">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <label for="bed7">Day 7 Sleep (hours)</label>
+      <input type="number" id="bed7" placeholder="e.g., 8" min="0" max="24" step="any" aria-label="e.g., 8">
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="calculateSleepConsistency()">Calculate Consistency</button>
+
+  <div class="result" id="sleepResult"></div>
+</div>
+
+<div class="card">
+  <h2>About Sleep Consistency</h2>
+
+  <h3>Meaning</h3>
+  <p>
+    Sleep consistency refers to how regularly you sleep the same number of hours each night.
+    Lower variation between days means better sleep stability, which supports physical
+    recovery, hormone balance, and mental performance.
+  </p>
+
+  <h3>Applications</h3>
+  <ul>
+    <li>Track weekly sleep stability</li>
+    <li>Improve recovery from workouts</li>
+    <li>Support weight management programs</li>
+    <li>Enhance focus and productivity</li>
+    <li>Monitor sleep habits in fitness plans</li>
+    <li>Assist in long-term health tracking</li>
+  </ul>
+
+  <h3>Consistency Rating Table</h3>
+  <table>
+    <tr>
+      <th>Score</th>
+      <th>Rating</th>
+      <th>Meaning</th>
+    </tr>
+    <tr>
+      <td>85 – 100</td>
+      <td>Excellent</td>
+      <td>Very stable sleep pattern</td>
+    </tr>
+    <tr>
+      <td>70 – 84</td>
+      <td>Good</td>
+      <td>Minor variations, healthy routine</td>
+    </tr>
+    <tr>
+      <td>50 – 69</td>
+      <td>Moderate</td>
+      <td>Noticeable irregularity</td>
+    </tr>
+    <tr>
+      <td>Below 50</td>
+      <td>Poor</td>
+      <td>Highly inconsistent sleep schedule</td>
+    </tr>
+  </table>
+
+  <h3>Possible or Related Health Problems</h3>
+
+  <h4>Poor Sleep Consistency May Lead To:</h4>
+  <ul>
+    <li>Fatigue and low energy</li>
+    <li>Reduced concentration and memory issues</li>
+    <li>Increased stress levels</li>
+    <li>Hormonal imbalance</li>
+    <li>Higher risk of weight gain</li>
+    <li>Weakened immune response</li>
+  </ul>
+
+  <h3>Cautions</h3>
+  <ul>
+    <li>This calculator provides an estimate based on sleep duration only.</li>
+    <li>It does not measure sleep quality or sleep disorders.</li>
+    <li>Chronic sleep problems should be evaluated by a healthcare professional.</li>
+    <li>Shift workers may naturally show higher variation.</li>
+  </ul>
+</div>
+
+<script>
+function calculateSleepConsistency() {
+
+  const days = [
+    parseFloat(document.getElementById("bed1").value),
+    parseFloat(document.getElementById("bed2").value),
+    parseFloat(document.getElementById("bed3").value),
+    parseFloat(document.getElementById("bed4").value),
+    parseFloat(document.getElementById("bed5").value),
+    parseFloat(document.getElementById("bed6").value),
+    parseFloat(document.getElementById("bed7").value)
+  ];
+
+  if (days.some(isNaN)) {
+    alert("Please enter all 7 days of sleep.");
+    return;
+  }
+
+  const avg = days.reduce((a, b) => a + b, 0) / 7;
+
+  const variance = days.reduce((sum, value) => {
+    return sum + Math.pow(value - avg, 2);
+  }, 0) / 7;
+
+  const stdDev = Math.sqrt(variance);
+
+  let score = 100 - (stdDev * 20);
+  if (score < 0) score = 0;
+  if (score > 100) score = 100;
+
+  let category;
+
+  if (score >= 85) category = "Excellent";
+  else if (score >= 70) category = "Good";
+  else if (score >= 50) category = "Moderate";
+  else category = "Poor";
+
+  document.getElementById("sleepResult").innerHTML =
+    `Average Sleep: <b>${avg.toFixed(1)} hrs</b><br>
+     Variation (Std Dev): <b>${stdDev.toFixed(2)} hrs</b><br>
+     Consistency Score: <b>${score.toFixed(0)} / 100</b><br>
+     Rating: <b>${category}</b>`;
+}
+</script>
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Sleep Consistency <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/recovery.svg" alt="Illustration for Sleep Consistency" loading="lazy" width="120" height="120"><figcaption>Visual guide for Sleep Consistency</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Sleep Consistency?</h3><p>Sleep Consistency is a descriptive recovery, sleep or training-load metric. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Sleep Consistency result in the context of the input values, displayed units and assumptions. Many recovery indices are planning aids rather than clinically validated measures. Pain, illness and persistent fatigue require appropriate attention.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help organize routines and compare patterns across days or weeks.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Many recovery indices are planning aids rather than clinically validated measures. Pain, illness and persistent fatigue require appropriate attention.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter values for the same time period and measurement convention, then interpret the result alongside how you feel and your training context.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

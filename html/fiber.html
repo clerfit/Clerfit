@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Fiber Intake Calculator</title>
+  <meta name="description" content="Use the ClerFit Fiber Intake Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/fiber.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Fiber Intake Calculator">
+<meta property="og:description" content="Use the ClerFit Fiber Intake Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/fiber.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Fiber Intake Calculator">
+<meta name="twitter:description" content="Use the ClerFit Fiber Intake Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+  <div class="card">
+  <h2>Fiber Intake Calculator</h2>
+
+  <div class="row">
+    <div class="col">
+      <label for="age">Age (years)</label>
+      <input type="number" id="age" placeholder="Enter age" min="1" max="120" step="1" aria-label="Enter age">
+    </div>
+
+    <div class="col">
+      <label for="gender">Gender</label>
+      <select id="gender" aria-label="Sex / reference group">
+        <option value="" selected disabled>Select</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="weight">Weight</label>
+      <input type="number" id="weight" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+      <label for="weightUnit">Unit</label>
+      <select id="weightUnit" aria-label="Weight unit">
+        <option value="kg" selected>kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="height">Height</label>
+      <input type="number" id="height" placeholder="Enter height" min="30" max="300" step="any" aria-label="Enter height">
+      <label for="heightUnit">Unit</label>
+      <select id="heightUnit" aria-label="Height unit">
+        <option value="cm" selected>cm</option>
+        <option value="m">m</option>
+        <option value="in">inches</option>
+        <option value="ft">feet</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="calories">Daily Calories (optional)</label>
+      <input type="number" id="calories" placeholder="Calories per day" min="0" max="50000" step="any" aria-label="Calories per day">
+    </div>
+
+    <div class="col">
+      <label for="unit">Output Unit</label>
+      <select id="unit" aria-label="Measurement unit">
+        <option value="g" selected>grams (g)</option>
+        <option value="oz">ounces (oz)</option>
+      </select>
+    </div>
+
+
+  </div>
+
+  <button class="calculate-btn" onclick="calculateFiber()">Calculate Fiber Intake</button>
+
+  <div class="result" id="result" style="margin-top:10px;"></div>
+</div>
+
+<script>
+function convertWeightToKg(weight, unit) {
+  return unit === "lbs" ? weight * 0.453592 : weight;
+}
+
+function convertHeightToM(height, unit) {
+  switch(unit) {
+    case "cm": return height / 100;
+    case "m": return height;
+    case "in": return height * 0.0254;
+    case "ft": return height * 0.3048;
+    default: return height / 100;
+  }
+}
+
+function calculateFiber() {
+  const age = parseFloat(document.getElementById("age").value);
+  const gender = document.getElementById("gender").value;
+  const weight = parseFloat(document.getElementById("weight").value);
+  const weightUnit = document.getElementById("weightUnit").value;
+  const height = parseFloat(document.getElementById("height").value);
+  const heightUnit = document.getElementById("heightUnit").value;
+  const calories = parseFloat(document.getElementById("calories").value);
+  const unit = document.getElementById("unit").value;
+
+  if (!age || !gender || !weight || !height) {
+    alert("Please enter age, gender, weight, and height.");
+    return;
+  }
+
+  const weightKg = convertWeightToKg(weight, weightUnit);
+  const heightM = convertHeightToM(height, heightUnit);
+
+  // Base fiber by age & gender
+  let fiber = 0;
+  if (age >= 1 && age <= 3) fiber = 19;
+  else if (age >= 4 && age <= 8) fiber = 25;
+  else if (age >= 9 && age <= 13) fiber = gender === "male" ? 31 : 26;
+  else if (age >= 14 && age <= 18) fiber = gender === "male" ? 38 : 26;
+  else if (age >= 19 && age <= 50) fiber = gender === "male" ? 38 : 25;
+  else fiber = gender === "male" ? 30 : 21;
+
+  // Adjust by calories if provided
+  if (!isNaN(calories) && calories > 0) {
+    const fiberByCalories = (calories / 1000) * 14;
+    fiber = Math.max(fiber, fiberByCalories);
+  }
+
+  // Convert to ounces if needed
+  let displayFiber = fiber;
+  if (unit === "oz") displayFiber = fiber * 0.035274;
+
+  document.getElementById("result").innerHTML =
+    `Recommended Daily Fiber Intake: <b>${displayFiber.toFixed(2)} ${unit}</b> ` +
+    `(Age: ${age}, Gender: ${gender}${Number.isFinite(calories) && calories > 0 ? `, Calories: ${calories}` : ""}). ` +
+    `Reference method: age/sex recommendation or 14 g per 1,000 kcal, whichever is higher; no arbitrary activity multiplier is applied.`;
+}
+</script>
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Fiber Intake <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/nutrition.svg" alt="Illustration for Fiber Intake" loading="lazy" width="120" height="120"><figcaption>Visual guide for Fiber Intake</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Fiber Intake?</h3><p>Fiber Intake is an estimate or planning aid for a nutrition or fluid target. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>Reference method</h3><p>This estimate uses age- and sex-specific adequate-intake values or 14 g per 1,000 kcal, whichever is higher. Source: <a href="https://www.nationalacademies.org/publications/10490" target="_blank" rel="noopener noreferrer">National Academies Dietary Reference Intakes</a>. Activity level is not used as an arbitrary multiplier.</p></div>
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Fiber Intake result in the context of the input values, displayed units and assumptions. Individual requirements vary with age, activity, climate, diet and health. This tool does not replace individualized clinical advice.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help organize daily intake and compare a plan with a chosen target.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Individual requirements vary with age, activity, climate, diet and health. This tool does not replace individualized clinical advice.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the requested values and goals, check the displayed units and assumptions, then use the result as a guide rather than a prescription.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

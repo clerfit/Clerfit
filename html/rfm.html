@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>ClerFit – Relative Fat Mass</title>
+  <meta name="description" content="Use the ClerFit Relative Fat Mass to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+
 <meta charset="UTF-8">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-GTRER5RZH6');
-</script>
-<title>ClerFit – Relative Fat Mass</title>
-<link rel="stylesheet" href="../css/style.css?v=20261017-r3-live-ui">
+
+
+
+<link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <style>
 /* ===== Sidebar & Layout ===== */
 body {
@@ -202,23 +208,30 @@ function calculateRFM() {
 
   document.getElementById('result').innerHTML = `RFM: ${rfm}%`;
 
-  // Update indicator
-  let indicator = document.getElementById('indicator');
-  let barWidth = document.getElementById('bar').offsetWidth;
-  let leftPos = Math.min(Math.max((rfm / 50) * barWidth, 0), barWidth); // max 50%
-  indicator.style.left = leftPos + 'px';
+  // RFM is an estimate, not a validated diagnosis. Do not assign body-fat
+  // categories without age- and population-appropriate reference data.
+  const container = document.querySelector('.bar-container');
+  if (container) container.hidden = true;
+  document.getElementById('result').innerHTML = `RFM estimate: <strong>${rfm}%</strong><p class="cf-note">This is a formula-based body-fat estimate, not a diagnosis. Individual error can be substantial; no universal category is assigned.</p>`;
 }
 </script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/rfm.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Relative Fat Mass">
+<meta property="og:description" content="Use the ClerFit Relative Fat Mass to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/rfm.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Relative Fat Mass">
+<meta name="twitter:description" content="Use the ClerFit Relative Fat Mass to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body>
-<div class="top-right-buttons">
-  <button onclick="location.href='index.html'">Home</button>
-  <button onclick="location.href='contact.html'">Contact Us</button>
-</div>
-
 <div class="sidebar">
   <h2>ClerFit</h2>
-  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='BMI.html'">BMI</button>
   <button onclick="location.href='bmr.html'">BMR</button>
   <button onclick="location.href='bodyfat.html'">Body Fat %</button>
   <button onclick="location.href='idealweight.html'">Ideal Weight</button>
@@ -246,21 +259,38 @@ function calculateRFM() {
     <p>Health & Fitness Calculators</p>
   </div>
 
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
   <div class="card">
     <h2>Relative Fat Mass (RFM) Calculator</h2>
 
     <div class="row">
       <div class="col">
-        <label>Gender</label>
-        <select id="gender">
+        <label for="gender">Gender</label>
+        <select id="gender" aria-label="Sex / reference group">
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
       </div>
       <div class="col">
-        <label>Height</label>
-        <input id="height" type="number" placeholder="Enter height">
-        <select id="heightUnit">
+        <label for="height">Height</label>
+        <input id="height" type="number" placeholder="Enter height" min="30" max="300" step="any" aria-label="Enter height">
+        <select id="heightUnit" aria-label="Height unit">
           <option value="cm" selected>cm</option>
           <option value="m">m</option>
           <option value="inch">inch</option>
@@ -268,9 +298,9 @@ function calculateRFM() {
         </select>
       </div>
       <div class="col">
-        <label>Waist</label>
-        <input id="waist" type="number" placeholder="Enter waist">
-        <select id="waistUnit">
+        <label for="waist">Waist</label>
+        <input id="waist" type="number" placeholder="Enter waist" min="0.1" max="300" step="any" aria-label="Enter waist">
+        <select id="waistUnit" aria-label="Waist unit">
           <option value="cm" selected>cm</option>
           <option value="m">m</option>
           <option value="inch">inch</option>
@@ -288,58 +318,67 @@ function calculateRFM() {
       <div class="indicator" id="indicator"></div>
     </div>
 
-    <h3>RFM Reference Table</h3>
-    <table>
-      <tr>
-        <th>Gender</th>
-        <th>Category</th>
-        <th>RFM (%)</th>
-      </tr>
-      <tr>
-        <td>Male</td>
-        <td>Low</td>
-        <td>&lt;6%</td>
-      </tr>
-      <tr>
-        <td>Male</td>
-        <td>Normal</td>
-        <td>6 – 21%</td>
-      </tr>
-      <tr>
-        <td>Male</td>
-        <td>High</td>
-        <td>22 – 27%</td>
-      </tr>
-      <tr>
-        <td>Male</td>
-        <td>Very High</td>
-        <td>&gt;27%</td>
-      </tr>
-      <tr>
-        <td>Female</td>
-        <td>Low</td>
-        <td>&lt;16%</td>
-      </tr>
-      <tr>
-        <td>Female</td>
-        <td>Normal</td>
-        <td>16 – 29%</td>
-      </tr>
-      <tr>
-        <td>Female</td>
-        <td>High</td>
-        <td>30 – 35%</td>
-      </tr>
-      <tr>
-        <td>Female</td>
-        <td>Very High</td>
-        <td>&gt;35%</td>
-      </tr>
-    </table>
+    <p class="cf-warning">RFM estimates body-fat percentage from waist, height and sex-based equations. It does not directly measure body fat, and a raw estimate should not be mapped to universal low/normal/high categories without an appropriate reference.</p>
 
   </div>
-</div>
-<script src="../js/menu-fix.js" defer></script>
-</body>
 
+
+<!-- RFM Information Section -->
+<div class="card cf-info">
+  <h2>What is Relative Fat Mass (RFM)?</h2>
+
+  <p>
+    <strong>Relative Fat Mass (RFM)</strong> is a body composition metric used to
+    estimate <strong>body fat percentage</strong> using a person’s
+    <strong>height and waist circumference</strong>.
+    It focuses on abdominal fat, which is strongly linked to health risks.
+  </p>
+
+  <h3>Applications of RFM</h3>
+  <ul>
+    <li>Estimates body fat percentage without special equipment</li>
+    <li>Identifies abdominal and central obesity</li>
+    <li>A complementary estimate; it does not replace validated body-composition assessment</li>
+    <li>Tracks fat loss and fitness progress</li>
+    <li>Used in health screening and medical studies</li>
+    <li>Helps in diet and exercise planning</li>
+    <li>May help track estimates over time when measurements are taken consistently</li>
+    <li>Applicable for both males and females</li>
+    <li>Quick and simple calculation</li>
+    <li>Supports long-term health monitoring</li>
+  </ul>
+
+  <h3>Limitations</h3>
+  <p>RFM estimates body-fat percentage from waist, height and a sex-based equation. It is not a direct measurement and should not be used by itself to diagnose body-fat excess, cardiovascular risk or metabolic disease. Measurement technique and population differences affect accuracy.</p>
+</div>
+
+</div>
+
+
+	
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Relative Fat Mass <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/body-measurements.svg" alt="Illustration for Relative Fat Mass" loading="lazy" width="120" height="120"><figcaption>Visual guide for Relative Fat Mass</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Relative Fat Mass?</h3><p>Relative Fat Mass is a body measurement or composition indicator. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Relative Fat Mass result in the context of the input values, displayed units and assumptions. Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>Common RFM equations: male estimate = 64 − 20 × (height ÷ waist); female estimate = 76 − 20 × (height ÷ waist), using compatible length units.</code><p>RFM is an estimation equation, not a direct body-fat measurement. Formula populations and assumptions affect accuracy.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Use it to calculate and compare measurements collected with a consistent method.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Measurement error and the assumptions of the selected equation can materially affect the result. It is not a medical diagnosis.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter the requested measurements in the displayed units, confirm the method and calculate. For tracking, repeat measurements under similar conditions.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
 </html>

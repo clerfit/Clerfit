@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>ClerFit – Steps to Calories</title>
+  <meta name="description" content="Use the ClerFit Steps to Calories to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+<link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+
+<style>
+.main{
+  margin-left:260px;
+  padding:30px;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.header h1{
+  margin:0;
+  font-size:32px;
+}
+
+.header p{
+  margin:5px 0 0;
+  color:#555;
+}
+
+.card{
+  background:#fff;
+  padding:25px;
+  border-radius:14px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+  max-width:800px;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+label{
+  font-weight:600;
+  display:block;
+  margin-bottom:5px;
+}
+
+input, select{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+.calculate-btn{
+  margin-top:20px;
+  background:#22c55e;
+  color:#fff;
+  border:none;
+  padding:12px;
+  font-size:16px;
+  border-radius:10px;
+  cursor:pointer;
+  width:100%;
+}
+
+.calculate-btn:hover{
+  background:#16a34a;
+}
+
+.result{
+  margin-top:20px;
+  font-size:18px;
+  font-weight:600;
+}
+</style>
+
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/steps-calories.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Steps to Calories">
+<meta property="og:description" content="Use the ClerFit Steps to Calories to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/steps-calories.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Steps to Calories">
+<meta name="twitter:description" content="Use the ClerFit Steps to Calories to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+
+<body>
+
+<!-- TOP RIGHT -->
+<!-- SIDEBAR (UNCHANGED) -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='BMI.html'">BMI</button>
+  <button onclick="location.href='bmr.html'">BMR</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
+<div class="card">
+  <h2>Steps to Calories Calculator</h2>
+
+  <div class="row">
+    <div class="col">
+      <label for="steps">Number of Steps</label>
+      <input type="number" id="steps" placeholder="Enter steps" min="0" max="200000" step="1" aria-label="Enter steps">
+    </div>
+
+    <div class="col">
+      <label for="stepLength">Step Length</label>
+      <input type="number" id="stepLength" placeholder="Enter step length" min="0.1" max="300" step="any" aria-label="Enter step length">
+      <label for="unit">Unit</label>
+      <select id="unit" aria-label="Measurement unit">
+        <option value="cm" selected>cm</option>
+        <option value="m">m</option>
+        <option value="in">inches</option>
+        <option value="ft">ft</option>
+      </select>
+      <small style="display:block; margin-top:5px; color:#555;">
+        Tip: Measure your step length by walking 10 steps, measure the distance, and divide by 10.
+      </small>
+    </div>
+
+    <div class="col">
+      <label for="weight">Your Weight</label>
+      <input type="number" id="weight" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+      <label for="weightUnit">Unit</label>
+      <select id="weightUnit" aria-label="Weight unit">
+        <option value="kg" selected>kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="stepsToCaloriesBest()">Calculate Calories</button>
+
+  <div class="result" id="calorieResult" style="margin-top:10px;"></div>
+
+  <script>
+    function stepsToCaloriesBest() {
+      const steps = parseFloat(document.getElementById("steps").value);
+      const stepLength = parseFloat(document.getElementById("stepLength").value);
+      const unit = document.getElementById("unit").value;
+      const weight = parseFloat(document.getElementById("weight").value);
+      const weightUnit = document.getElementById("weightUnit").value;
+
+      if (!Number.isFinite(steps) || steps < 0 || !Number.isFinite(stepLength) || stepLength <= 0 || !Number.isFinite(weight) || weight <= 0) {
+        alert("Enter a non-negative step count, positive step length, and positive body weight.");
+        return;
+      }
+
+      // Convert step length to meters
+      let stepM;
+      switch(unit) {
+        case "cm": stepM = stepLength / 100; break;
+        case "m": stepM = stepLength; break;
+        case "in": stepM = stepLength * 0.0254; break;
+        case "ft": stepM = stepLength * 0.3048; break;
+        default: stepM = stepLength / 100;
+      }
+
+      // Convert weight to kg if in lbs
+      let weightKg = weightUnit === "lbs" ? weight * 0.453592 : weight;
+
+      // Distance in km
+      const distanceKm = (steps * stepM) / 1000;
+
+      // Calories burned (best-practice, user-friendly formula)
+      const calories = distanceKm * weightKg * 0.64;
+
+      document.getElementById("calorieResult").innerHTML =
+        `Distance: <b>${distanceKm.toFixed(2)} km</b><br>
+         Estimated Calories Burned: <b>${calories.toFixed(2)} kcal</b>`;
+    }
+  </script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Steps to Calories <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/lifestyle.svg" alt="Illustration for Steps to Calories" loading="lazy" width="120" height="120"><figcaption>Visual guide for Steps to Calories</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Steps to Calories?</h3><p>Steps to Calories is an estimate based on the entered date, activity or environmental conditions. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Steps to Calories result in the context of the input values, displayed units and assumptions. Real-world conditions vary; an estimate cannot guarantee safety, health outcomes or exact activity results.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>Calorie expenditure is estimated from the entered activity and body data using assumptions in the calculator.</code><p>Step-based calorie expenditure is approximate and should not be treated as a measured energy value.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help structure planning and make assumptions visible.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Real-world conditions vary; an estimate cannot guarantee safety, health outcomes or exact activity results.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter accurate values and the relevant time period or conditions. Review warnings and do not treat a calculated exposure duration as a safety guarantee.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

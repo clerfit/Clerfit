@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ClerFit — Unit Converter</title>
+  <meta name="description" content="Use the ClerFit Unit Converter to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance."><link rel="stylesheet" href="../css/style.css?v=20261017-new-ui"><script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/unit.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit — Unit Converter">
+<meta property="og:description" content="Use the ClerFit Unit Converter to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/unit.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit — Unit Converter">
+<meta name="twitter:description" content="Use the ClerFit Unit Converter to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body><aside class="sidebar" aria-label="Main navigation"></aside><main class="main"><header class="header"><h1>Unit Converter</h1><p>Convert common measurement units with explicit dimensions and reliable conversion factors.</p></header>
+<section class="card"><div class="row"><div class="col"><label for="dimension">Quantity</label><select id="dimension" aria-label="Conversion dimension"><option value="length">Length / distance</option><option value="mass">Mass</option><option value="temperature">Temperature</option><option value="volume">Volume</option><option value="energy">Energy</option><option value="time">Time</option><option value="speed">Speed</option></select></div><div class="col"><label for="from">From unit</label><select id="from" aria-label="Source unit"></select></div><div class="col"><label for="to">To unit</label><select id="to" aria-label="Target unit"></select></div></div>
+<div class="row" style="margin-top:14px"><div class="col"><label for="amount">Value</label><input id="amount" type="number" step="any" value="1" min="-1000000" max="1000000"></div><div class="col"><label>Converted result</label><div id="result" class="cf-result" aria-live="polite" style="margin-top:0"><strong>—</strong><span class="cf-note">Enter a value to convert.</span></div></div></div><p id="converter-error" class="cf-note" role="alert"></p><button type="button" id="swap" class="calculate-btn" style="background:#334155">Swap units</button></section>
+<section class="card"><h2>Conversion notes</h2><p>Conversions preserve the physical quantity; values are rounded only for display. Volume units distinguish US customary units from metric units. This converter does not infer or mix incompatible dimensions.</p></section></main>
+<script>
+const unitSets={
+ length:{m:1,cm:.01,mm:.001,km:1000,in:.0254,ft:.3048,yd:.9144,mi:1609.344},
+ mass:{kg:1,g:.001,mg:.000001,lb:.45359237,oz:.028349523125},
+ temperature:{'°C':'C','°F':'F','K':'K'},
+ volume:{L:1,mL:.001,'US gal':3.785411784,'US qt':.946352946,'US cup':.2365882365,'Imp gal':4.54609,'Imp qt':1.1365225},
+ energy:{kcal:1,kJ:1/4.184,J:1/4184},
+ time:{s:1,min:60,h:3600,day:86400},
+ speed:{'m/s':1,'km/h':1/3.6,mph:.44704}
+};
+const dim=document.getElementById('dimension'),from=document.getElementById('from'),to=document.getElementById('to'),amount=document.getElementById('amount'),result=document.getElementById('result'),err=document.getElementById('converter-error');
+function populate(){const keys=Object.keys(unitSets[dim.value]);from.innerHTML=keys.map(x=>`<option>${x}</option>`).join('');to.innerHTML=keys.map(x=>`<option>${x}</option>`).join('');to.selectedIndex=Math.min(1,keys.length-1);convert()}
+function canonical(v,u,d){if(d==='temperature'){if(u==='°C')return v;if(u==='°F')return (v-32)*5/9;if(u==='K')return v-273.15}return v*unitSets[d][u]}
+function display(v,u,d){if(d==='temperature'){if(u==='°C')return v;if(u==='°F')return v*9/5+32;if(u==='K')return v+273.15}return v/unitSets[d][u]}
+function convert(){const v=Number(amount.value);if(amount.value.trim()===''||!Number.isFinite(v)){result.innerHTML='<strong>—</strong><span class="cf-note">Enter a valid number.</span>';err.textContent='';return}if(dim.value!=='temperature'&&v<0){result.innerHTML='<strong>—</strong><span class="cf-note">Use a non-negative value for this quantity. Negative temperatures remain supported.</span>';err.textContent='';return}const out=display(canonical(v,from.value,dim.value),to.value,dim.value);if(!Number.isFinite(out)){err.textContent='Unable to convert this value.';return}result.innerHTML=`<strong>${new Intl.NumberFormat(undefined,{maximumFractionDigits:8}).format(out)} ${to.value}</strong><span class="cf-note">${v} ${from.value} converted to ${to.value}</span>`;err.textContent=''}
+dim.addEventListener('change',populate);[from,to,amount].forEach(x=>x.addEventListener('input',convert));document.getElementById('swap').addEventListener('click',()=>{const old=from.value;from.value=to.value;to.value=old;convert()});populate();
+</script>
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Unit Converter <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/utilities.svg" alt="Illustration for Unit Converter" loading="lazy" width="120" height="120"><figcaption>Visual guide for Unit Converter</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Unit Converter?</h3><p>Unit Converter is a general mathematical or unit-conversion utility. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Unit Converter result in the context of the input values, displayed units and assumptions. Results depend on correct inputs, compatible units and the selected operation. Check the order of values and rounding.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>Converted value = input value expressed in the target unit using the corresponding conversion factor or offset.</code><p>Only compatible dimensions can be converted. Temperature conversions require offsets, unlike simple scale factors.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can reduce manual arithmetic and make calculations repeatable.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Results depend on correct inputs, compatible units and the selected operation. Check the order of values and rounding.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Choose the operation or units, enter the required values, verify the input order, and review the result and units.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body></html>

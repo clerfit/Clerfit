@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Somatotype Calculator</title>
+  <meta name="description" content="Use the ClerFit Somatotype Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  <script>
+    function calculateSomatotype() {
+      const height = parseFloat(document.getElementById("height").value);
+      const heightUnit = document.getElementById("heightUnit").value;
+      const weight = parseFloat(document.getElementById("weight").value);
+      const weightUnit = document.getElementById("weightUnit").value;
+      const triceps = parseFloat(document.getElementById("triceps").value);
+      const subscapular = parseFloat(document.getElementById("subscapular").value);
+      const supraspinale = parseFloat(document.getElementById("supraspinale").value);
+      const medialCalf = parseFloat(document.getElementById("medialCalf").value);
+      const biepicondylarHumerus = parseFloat(document.getElementById("biepicondylarHumerus").value);
+      const biepicondylarFemur = parseFloat(document.getElementById("biepicondylarFemur").value);
+      const armGirth = parseFloat(document.getElementById("armGirth").value);
+      const calfGirth = parseFloat(document.getElementById("calfGirth").value);
+
+      if (!height || !weight || !triceps || !subscapular || !supraspinale || !medialCalf ||
+          !biepicondylarHumerus || !biepicondylarFemur || !armGirth || !calfGirth) {
+        alert("Please fill in all measurements.");
+        return;
+      }
+
+      let heightCm = height;
+      let weightKg = weight;
+      if (heightUnit === "m") heightCm = height * 100;
+      if (heightUnit === "ft") heightCm = height * 30.48;
+      if (heightUnit === "in") heightCm = height * 2.54;
+      if (weightUnit === "lbs") weightKg = weight * 0.453592;
+
+      // Endomorphy (Heath–Carter adult formula using 3 skinfolds)
+      const sumSkinfolds = triceps + subscapular + supraspinale; // classic
+      const x = sumSkinfolds * 170.18 / heightCm;
+      const endomorphy = -0.7182 + 0.1451 * x - 0.00068 * x*x + 0.0000014 * x*x*x;
+
+      // Heath–Carter mesomorphy uses corrected girths: subtract the matching
+      // skinfold converted from millimetres to centimetres before applying the equation.
+      const correctedArmGirth = armGirth - triceps / 10;
+      const correctedCalfGirth = calfGirth - medialCalf / 10;
+      if (correctedArmGirth <= 0 || correctedCalfGirth <= 0) {
+        alert("Check arm/calf girths and skinfolds; corrected girths must remain positive.");
+        return;
+      }
+      const mesomorphy = 0.858 * biepicondylarHumerus + 0.601 * biepicondylarFemur +
+                         0.188 * correctedCalfGirth + 0.161 * correctedArmGirth - 0.131 * heightCm + 4.5;
+
+      // Ectomorphy (Heath–Carter method)
+const HWR = heightCm / Math.cbrt(weightKg); // height in cm / cube root of weight in kg
+let ectomorphy;
+if (HWR >= 40.75) ectomorphy = 0.732 * HWR - 28.58;
+else if (HWR > 38.25) ectomorphy = 0.463 * HWR - 17.63;
+else ectomorphy = 0.1;
+
+
+      // Display results
+      document.getElementById("result").innerHTML = `
+        <b>Endomorphy:</b> ${endomorphy.toFixed(2)}<br>
+        <b>Mesomorphy:</b> ${mesomorphy.toFixed(2)}<br>
+        <b>Ectomorphy:</b> ${ectomorphy.toFixed(2)}
+      `;
+
+      let primaryType = "";
+      if (endomorphy > mesomorphy && endomorphy > ectomorphy) primaryType = "Endomorph Dominant";
+      else if (mesomorphy > endomorphy && mesomorphy > ectomorphy) primaryType = "Mesomorph Dominant";
+      else if (ectomorphy > endomorphy && ectomorphy > mesomorphy) primaryType = "Ectomorph Dominant";
+      else primaryType = "Combination Type";
+
+      document.getElementById("classification").innerHTML = `<b>Primary Somatotype:</b> ${primaryType}`;
+    }
+  </script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/somatotype.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Somatotype Calculator">
+<meta property="og:description" content="Use the ClerFit Somatotype Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/somatotype.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Somatotype Calculator">
+<meta name="twitter:description" content="Use the ClerFit Somatotype Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+  <div class="sidebar">
+  <h2>ClerFit</h2>
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+
+  <div class="main">
+    <div class="header">
+      <h1>ClerFit</h1>
+      <p>Health & Fitness Calculators</p>
+    </div>
+
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+    <div class="card">
+      <h2>Body Type / Somatotype Calculator (Heath–Carter Method)</h2>
+
+<img src="../allmorph.jpg" alt="All Body Types">
+
+      <div class="row">
+        <div class="col">
+          <label for="height">Height</label>
+          <input type="number" id="height" placeholder="Enter height" step="any" min="100" max="250" aria-label="Enter height">
+          <label for="heightUnit">Unit</label>
+          <select id="heightUnit" aria-label="Height unit">
+            <option value="cm" selected>cm</option>
+            <option value="m">m</option>
+            <option value="in">in</option>
+            <option value="ft">ft</option>
+          </select>
+
+          <label for="weight">Weight</label>
+          <input type="number" id="weight" placeholder="Enter weight" step="any" min="20" max="300" aria-label="Enter weight">
+          <label for="weightUnit">Unit</label>
+          <select id="weightUnit" aria-label="Weight unit">
+            <option value="kg" selected>kg</option>
+            <option value="lbs">lbs</option>
+          </select>
+
+          <label for="triceps">Triceps Skinfold (mm)</label>
+          <input type="number" id="triceps" placeholder="Enter measurement" step="any" min="1" max="60" aria-label="Enter measurement">
+          <label for="subscapular">Subscapular Skinfold (mm)</label>
+          <input type="number" id="subscapular" placeholder="Enter measurement" step="any" min="1" max="60" aria-label="Enter measurement">
+          <label for="supraspinale">Supraspinale Skinfold (mm)</label>
+          <input type="number" id="supraspinale" placeholder="Enter measurement" step="any" min="1" max="60" aria-label="Enter measurement">
+          <label for="medialCalf">Medial Calf Skinfold (mm)</label>
+          <input type="number" id="medialCalf" placeholder="Enter measurement" step="any" min="1" max="60" aria-label="Enter measurement">
+        </div>
+
+        <div class="col">
+          <label for="biepicondylarHumerus">Biepicondylar Humerus (cm)</label>
+          <input type="number" id="biepicondylarHumerus" placeholder="Enter measurement" step="any" min="3" max="15" aria-label="Enter measurement">
+          <label for="biepicondylarFemur">Biepicondylar Femur (cm)</label>
+          <input type="number" id="biepicondylarFemur" placeholder="Enter measurement" step="any" min="3" max="15" aria-label="Enter measurement">
+          <label for="armGirth">Arm Girth (Flexed & Tensed) (cm)</label>
+          <input type="number" id="armGirth" placeholder="Enter measurement" step="any" min="15" max="80" aria-label="Enter measurement">
+          <label for="calfGirth">Calf Girth (cm)</label>
+          <input type="number" id="calfGirth" placeholder="Enter measurement" step="any" min="15" max="80" aria-label="Enter measurement">
+        </div>
+      </div>
+
+      <button class="calculate-btn" onclick="calculateSomatotype()">Calculate Somatotype</button>
+
+      <div class="result" id="result" style="margin-top:15px;"></div>
+      <div class="result" id="classification" style="margin-top:5px;"></div>
+
+      <div class="card" style="margin-top:20px;">
+        <h2>Somatotype Meaning & Applications</h2>
+        <p>The Heath–Carter somatotype classifies body composition into three components:</p>
+        <table>
+          <tr>
+            <th>Component</th>
+            <th>Meaning</th>
+            <th>Applications</th>
+          </tr>
+          <tr>
+            <td>Endomorphy</td>
+            <td>Relative fatness; higher values indicate more body fat accumulation.</td>
+            <td>
+              <ul>
+                <li>Focus on fat control and weight management.</li>
+                <li>Cardiovascular fitness programs.</li>
+                <li>Track body composition changes over time.</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Mesomorphy</td>
+            <td>Musculoskeletal development; higher values indicate more muscle and stronger bones.</td>
+            <td>
+              <ul>
+                <li>Strength and power sports performance.</li>
+                <li>Resistance training programs.</li>
+                <li>Muscle gain or preservation strategies.</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Ectomorphy</td>
+            <td>Linearity or slenderness; higher values indicate less fat and muscle mass.</td>
+            <td>
+              <ul>
+                <li>Endurance sports potential.</li>
+                <li>Strength-focused training for muscle gain.</li>
+                <li>Nutrition strategies for weight or muscle gain.</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+
+        <h3>Overall Applications</h3>
+        <ul>
+          <li>Tailor fitness programs based on body type.</li>
+          <li>Guide nutrition strategies for weight, muscle, and fat management.</li>
+          <li>Match body type with sport-specific demands.</li>
+          <li>Monitor body composition changes over time.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Body Shape / Somatotype <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/body-measurements.svg" alt="Illustration for Body Shape / Somatotype" loading="lazy" width="120" height="120"><figcaption>Visual guide for Body Shape / Somatotype</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Body Shape / Somatotype?</h3><p>Body Shape / Somatotype is a body measurement or composition indicator. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>These categories are descriptive models and do not determine health, athletic potential or personality.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Can provide a simple vocabulary for discussing body-build patterns.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>People do not always fit fixed categories, and classifications should not be used to prescribe training or diet on their own.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Read each field label and its unit, enter your measurements or values, check that none are missing or implausible, and activate the calculator button. Review the displayed result, formula and limitations. If comparing results over time, use the same measurement method.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

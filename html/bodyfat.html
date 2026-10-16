@@ -1,30 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="apple-touch-icon" href="../favicon-180.png"><link rel="manifest" href="../site.webmanifest">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>ClerFit – Body Fat Percentage</title>
+  <meta name="description" content="Use the ClerFit Body Fat Percentage to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
 <meta charset="UTF-8">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GTRER5RZH6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-GTRER5RZH6');
-</script>
-<title>ClerFit – Body Fat Percentage</title>
-<link rel="stylesheet" href="../css/style.css?v=20261017-r3-live-ui">
+
+<link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <script src="../js/engine.js" defer></script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/bodyfat.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Body Fat Percentage">
+<meta property="og:description" content="Use the ClerFit Body Fat Percentage to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/bodyfat.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Body Fat Percentage">
+<meta name="twitter:description" content="Use the ClerFit Body Fat Percentage to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body>
-<div class="top-right-buttons">
-  <button onclick="location.href='../index.html'">Home</button>
-  <button onclick="location.href='../contact.html'">Contact Us</button>
-</div>
 <!-- ===== Sidebar ===== -->
 <div class="sidebar">
   <h2>ClerFit</h2>
 
-  <button onclick="location.href='bmi.html'">BMI</button>
+  <button onclick="location.href='BMI.html'">BMI</button>
   <button onclick="location.href='bmr.html'">BMR</button>
   <button class="active" type="button">Body Fat %</button>
   <button onclick="location.href='idealweight.html'">Ideal Weight</button>
@@ -53,20 +64,36 @@
     <p>Health & Fitness Calculators</p>
   </div>
 
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
   <div class="card">
     <h2>Body Fat Percentage Calculator</h2>
 
     <!-- Gender -->
-    <label>Gender</label>
-    <select id="bf-gender">
+    <label for="bf-gender">Gender</label>
+    <select id="bf-gender" aria-label="Sex used by body-fat equation">
       <option value="male">Male</option>
       <option value="female">Female</option>
     </select>
 
     <!-- Height -->
-    <label>Height</label>
-    <input type="number" id="bf-height" placeholder="Enter height">
-    <select id="bf-height-unit">
+    <label for="bf-height">Height</label>
+    <input type="number" id="bf-height" placeholder="Enter height" step="any" min="0.1" max="300" aria-label="Enter height">
+    <select id="bf-height-unit" aria-label="Height unit">
       <option value="cm" selected>cm</option>
       <option value="m">m</option>
       <option value="inch">inch</option>
@@ -74,27 +101,27 @@
     </select>
 
     <!-- Waist -->
-    <label>Waist</label>
-    <input type="number" id="bf-waist" placeholder="Enter waist">
-    <select id="bf-waist-unit">
+    <label for="bf-waist">Waist</label>
+    <input type="number" id="bf-waist" placeholder="Enter waist" step="any" min="0.1" max="300" aria-label="Enter waist">
+    <select id="bf-waist-unit" aria-label="Waist unit">
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
       <option value="ft">ft</option>
     </select>
 
     <!-- Neck -->
-    <label>Neck</label>
-    <input type="number" id="bf-neck" placeholder="Enter neck">
-    <select id="bf-neck-unit">
+    <label for="bf-neck">Neck</label>
+    <input type="number" id="bf-neck" placeholder="Enter neck" step="any" min="0.1" max="300" aria-label="Enter neck">
+    <select id="bf-neck-unit" aria-label="Neck unit">
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
       <option value="ft">ft</option>
     </select>
 
     <!-- Hip (female only) -->
-    <label>Hip (females only)</label>
-    <input type="number" id="bf-hip" placeholder="Enter hip">
-    <select id="bf-hip-unit">
+    <label for="bf-hip">Hip (females only)</label>
+    <input type="number" id="bf-hip" placeholder="Enter hip" step="any" min="0.1" max="300" aria-label="Enter hip">
+    <select id="bf-hip-unit" aria-label="Hip unit">
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
       <option value="ft">ft</option>
@@ -112,9 +139,72 @@
 
     <div id="bf-formula" style="margin-top:15px;"></div>
   </div>
+<div class="card">
+
+
+<h2>Body Fat</h2>
+<p>Body fat refers to the total amount of fat tissue in the body, including essential fat needed for normal physiological functions and storage fat accumulated in adipose tissue. It is an important measure of health and body composition.</p>
+
+  <h2>Body Fat Percentage – Applications</h2>
+  <ul>
+    <li>Measures actual fat content in the body</li>
+    <li>Helps assess fitness and athletic performance</li>
+    <li>Used in weight-loss and fat-loss programs</li>
+    <li>Tracks progress in gym and workout routines</li>
+    <li>Better health indicator than BMI in many cases</li>
+    <li>Used by trainers and sports professionals</li>
+    <li>Helps plan diet and calorie intake accurately</li>
+  </ul>
+
+  <h2>Related Health Problems</h2>
+
+  <h3>Low Body Fat</h3>
+  <ul>
+    <li>Hormonal imbalance</li>
+    <li>Weak immunity</li>
+    <li>Fatigue and low energy</li>
+    <li>Fertility and growth issues</li>
+  </ul>
+
+  <h3>High Body Fat</h3>
+  <ul>
+    <li>Obesity and overweight</li>
+    <li>Heart disease</li>
+    <li>Type 2 diabetes</li>
+    <li>High blood pressure</li>
+    <li>Joint and mobility problems</li>
+  </ul>
 </div>
 
-<script src="../js/menu-fix.js" defer></script>
-</body>
+</div>
 
+
+
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Body Fat Percentage <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/body-measurements.svg" alt="Illustration for Body Fat Percentage" loading="lazy" width="120" height="120"><figcaption>Visual guide for Body Fat Percentage</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Body Fat Percentage?</h3><p>Body Fat Percentage is a body measurement or composition indicator. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>The result depends strongly on the measurement method and its assumptions.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Can help monitor a trend when the same method is used consistently.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Consumer equations and devices can be inaccurate; hydration and measurement technique may affect results.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Read each field label and its unit, enter your measurements or values, check that none are missing or implausible, and activate the calculator button. Review the displayed result, formula and limitations. If comparing results over time, use the same measurement method.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
 </html>

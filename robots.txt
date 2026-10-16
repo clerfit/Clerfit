@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 # The Netlify build generates the Sitemap line from SITE_URL/URL.
+
+Sitemap: https://clerfit.github.io/Clerfit/sitemap.xml

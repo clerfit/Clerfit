@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – BMI Calculator</title>
+  <meta name="description" content="Use the ClerFit BMI Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+  <script>
+    // ===== Unit conversion helpers =====
+    function convertWeightToKg(value, unit) {
+      if (unit === "lbs") return value * 0.453592;
+      return value;
+    }
+
+    function convertHeightToM(value, unit) {
+      switch(unit) {
+        case "cm": return value / 100;
+        case "m": return value;
+        case "in": return value * 0.0254;
+        case "ft": return value * 0.3048;
+        default: return value / 100;
+      }
+    }
+
+    // Adult BMI categories are not sex-specific. Pediatric interpretation is
+    // intentionally handled separately using age- and sex-specific growth charts.
+    function moveIndicatorBMI(bmi) {
+      const indicator = document.getElementById("indicator");
+      if (!indicator) return;
+      const ranges = [
+        { max: 18.5, color: "#3b82f6", label: "Underweight" },
+        { max: 25, color: "#22c55e", label: "Normal" },
+        { max: 30, color: "#eab308", label: "Overweight" },
+        { max: 35, color: "#f97316", label: "Obesity class I" },
+        { max: Infinity, color: "#ef4444", label: "Obesity class II or higher" }
+      ];
+      const range = ranges.find(item => bmi < item.max) || ranges[ranges.length - 1];
+      indicator.style.left = `${Math.min(100, Math.max(0, bmi / 40 * 100))}%`;
+      indicator.style.backgroundColor = range.color;
+      indicator.innerHTML = `<div class="tooltip">${range.label}</div>`;
+      indicator.title = range.label;
+    }
+
+    // ===== BMI calculation =====
+    function calculateBMI() {
+      const weightVal = parseFloat(document.getElementById("weight").value);
+      const weightUnit = document.getElementById("weightUnit").value;
+      const heightVal = parseFloat(document.getElementById("height").value);
+      const heightUnit = document.getElementById("heightUnit").value;
+      const age = parseInt(document.getElementById("age").value);
+      const gender = document.getElementById("gender").value;
+
+      if (!weightVal || !heightVal || !age || !gender) {
+        alert("Please enter weight, height, age, and select gender.");
+        return;
+      }
+
+      const weightKg = convertWeightToKg(weightVal, weightUnit);
+      const heightM = convertHeightToM(heightVal, heightUnit);
+
+      const bmi = weightKg / (heightM * heightM);
+
+      // CDC adult BMI categories are for adults aged 20 and older; ages 2–19 require BMI-for-age charts.
+      if (age < 20) {
+        document.getElementById("result").innerHTML =
+          `BMI: <b>${bmi.toFixed(1)}</b> — <b>Age-specific interpretation required</b> (Age: ${age})<p class="cf-note">For ages 2–19, interpret BMI using an appropriate age- and sex-specific growth-chart percentile. This calculator does not estimate a pediatric percentile.</p>`;
+        const indicator = document.getElementById("indicator");
+        indicator.style.left = "0%";
+        indicator.style.backgroundColor = "#64748b";
+        indicator.innerHTML = '<div class="tooltip">Use BMI-for-age charts</div>';
+        return;
+      }
+
+      let category;
+      if (bmi < 18.5) category = "Underweight";
+      else if (bmi < 25) category = "Normal";
+      else if (bmi < 30) category = "Overweight";
+      else if (bmi < 35) category = "Obese";
+      else category = "Obesity class II or higher";
+
+      document.getElementById("result").innerHTML =
+        `BMI: <b>${bmi.toFixed(1)}</b> — <b>${category}</b> (Age: ${age}, Gender: ${gender})`;
+      moveIndicatorBMI(bmi);
+    }
+  </script>
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/BMI.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – BMI Calculator">
+<meta property="og:description" content="Use the ClerFit BMI Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/BMI.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – BMI Calculator">
+<meta name="twitter:description" content="Use the ClerFit BMI Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+  <button class="active">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+  <div class="card">
+    <h2>BMI Calculator</h2>
+
+    <div class="row">
+      <div class="col">
+        <label for="weight">Weight</label>
+        <input type="number" id="weight" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+        <label for="weightUnit">Unit</label>
+        <select id="weightUnit" aria-label="Weight unit">
+          <option value="kg" selected>kg</option>
+          <option value="lbs">lbs</option>
+        </select>
+      </div>
+
+      <div class="col">
+        <label for="height">Height</label>
+        <input type="number" id="height" placeholder="Enter height" min="30" max="300" step="any" aria-label="Enter height">
+        <label for="heightUnit">Unit</label>
+        <select id="heightUnit" aria-label="Height unit">
+          <option value="cm" selected>cm</option>
+          <option value="m">m</option>
+          <option value="in">in</option>
+          <option value="ft">ft</option>
+        </select>
+      </div>
+
+      <div class="col">
+        <label for="age">Age</label>
+        <input type="number" id="age" placeholder="Enter age" min="1" max="120" step="1" aria-label="Enter age">
+        <label for="gender">Gender</label>
+        <select id="gender" aria-label="Sex / reference group">
+          <option value="" selected disabled>Select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="calculate-btn" onclick="calculateBMI()">Calculate BMI</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="bar-container">
+      <div class="bar">
+        <div class="indicator" id="indicator"></div>
+      </div>
+      <small>
+        Blue: Underweight | Green: Normal | Yellow: Overweight |
+        Orange: Obese | Red: Severe
+      </small>
+    </div>
+
+    <div id="formula" style="margin-top:15px;"></div>
+
+    <table>
+      <tr><th>Category</th><th>BMI Range</th><th>Meaning</th></tr>
+      <tr><td>Underweight</td><td>&lt; 18.5</td><td>Low body mass</td></tr>
+      <tr><td>Normal</td><td>18.5 – 24.9</td><td>Healthy</td></tr>
+      <tr><td>Overweight</td><td>25 – 29.9</td><td>Increased risk</td></tr>
+      <tr><td>Obesity I</td><td>30 – 34.9</td><td>High risk</td></tr>
+      <tr><td>Obesity II+</td><td>≥ 35</td><td>Very high risk</td></tr>
+    </table>
+  </div>
+<div class="card">
+
+<h2>BMI (Body Mass Index)</h2>
+<p>Body Mass Index (BMI) is a numerical value calculated from a person’s weight and height, used to categorize underweight, normal weight, overweight, and obesity. It provides a simple assessment of body fatness for population-level health evaluation.</p>
+
+  <h2>BMI Applications</h2>
+  <ul>
+    <li>Used to assess overall body fitness</li>
+    <li>Helps classify underweight, normal, overweight, and obesity</li>
+    <li>Used in hospitals for preliminary health screening</li>
+    <li>Helpful for diet and nutrition planning</li>
+    <li>Used by gyms and fitness trainers</li>
+    <li>Supports health monitoring in fitness apps</li>
+    <li>Useful for school and college health projects</li>
+  </ul>
+
+  <h2>Related Health Problems</h2>
+
+  <h3>Underweight</h3>
+  <ul>
+    <li>Weak immunity</li>
+    <li>Nutritional deficiencies</li>
+    <li>Fatigue and low energy</li>
+  </ul>
+
+  <h3>Overweight</h3>
+  <ul>
+    <li>High blood pressure</li>
+    <li>Risk of type 2 diabetes</li>
+    <li>Heart-related stress</li>
+  </ul>
+
+  <h3>Obesity</h3>
+  <ul>
+    <li>Heart disease</li>
+    <li>Diabetes</li>
+    <li>Joint and back pain</li>
+    <li>Breathing and sleep problems</li>
+  </ul>
+</div>
+
+
+
+
+</div>
+
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand BMI Calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/body-measurements.svg" alt="Illustration for BMI Calculator" loading="lazy" width="120" height="120"><figcaption>Visual guide for BMI Calculator</figcaption></figure>
+   <div class="cf-education-section"><h3>What is BMI Calculator?</h3><p>BMI Calculator is a body measurement or composition indicator. The result depends on the inputs and method used by this calculator.</p></div>
+   <div class="cf-education-formula"><strong>Common adult formula</strong><code>BMI = weight (kg) ÷ height (m)²</code><p>Adult interpretation differs from BMI-for-age assessment for children and teenagers.</p></div>
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>It gives a quick height-adjusted weight screening value; it does not directly measure body fat or diagnose a condition.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Can be calculated with simple measurements and used to follow broad trends.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>It cannot distinguish fat from muscle, does not describe fat distribution, and adult cut-offs are not appropriate for children and teenagers; use BMI-for-age guidance for under-18s.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Read each field label and its unit, enter your measurements or values, check that none are missing or implausible, and activate the calculator button. Review the displayed result, formula and limitations. If comparing results over time, use the same measurement method.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

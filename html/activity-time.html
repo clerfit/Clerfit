@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="../app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png"><link rel="manifest" href="../site.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>ClerFit – Activity Time Calculator</title>
+  <meta name="description" content="Use the ClerFit Activity Time Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+
+
+<meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+
+
+  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+  
+
+  <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/activity-time.html">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Activity Time Calculator">
+<meta property="og:description" content="Use the ClerFit Activity Time Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/activity-time.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Activity Time Calculator">
+<meta name="twitter:description" content="Use the ClerFit Activity Time Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
+</head>
+<body>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+  <h2>ClerFit</h2>
+
+  <button onclick="location.href='BMI.html'">BMI Calculator</button>
+  <button onclick="location.href='bmr.html'">BMR Calculator</button>
+  <button onclick="location.href='bodyfat.html'">Body Fat %</button>
+  <button onclick="location.href='idealweight.html'">Ideal Weight</button>
+  <button onclick="location.href='calories.html'">Calorie Needs</button>
+  <button onclick="location.href='protein.html'">Protein Intake</button>
+  <button onclick="location.href='water.html'">Water Intake</button>
+  <button onclick="location.href='whr.html'">WHR</button>
+  <button onclick="location.href='ffmi.html'">FFMI</button>
+  <button onclick="location.href='rfm.html'">RFM</button>
+  <button onclick="location.href='vo2max.html'">VO₂ Max</button>
+  <button onclick="location.href='heartrate.html'">Heart Rate</button>
+  <button onclick="location.href='leanmass.html'">Lean Mass</button>
+  <button onclick="location.href='fatmass.html'">Fat Mass</button>
+  <button onclick="location.href='ponderal.html'">Ponderal Index</button>
+  <button onclick="location.href='absi.html'">ABSI</button>
+  <button onclick="location.href='tdee.html'">TDEE</button>
+  <button onclick="location.href='mets.html'">METs</button>
+  <button onclick="location.href='pace.html'">Pace</button>
+  <button onclick="location.href='healthrisk.html'">Health Risk</button>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <div class="header">
+    <h1>ClerFit</h1>
+    <p>Health & Fitness Calculators</p>
+  </div>
+
+
+<div class="search-wrapper" hidden>
+  <div class="input-container">
+    <input type="text" id="searchInput" placeholder="Search calculators..." onkeyup="searchCalculators()" aria-label="Search calculators">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+
+
+
+
+
+
+<div class="card">
+  <h2>Activity Time Calculator</h2>
+
+  <div class="row">
+    <div class="col">
+      <label for="activityType">Select Activity</label>
+      <select id="activityType" aria-label="Activity type">
+        <option value="" selected disabled>Select activity</option>
+        <option value="Walking (3 km/h)">Walking (3 km/h)</option>
+        <option value="Walking (5 km/h)">Walking (5 km/h)</option>
+        <option value="Running (8 km/h)">Running (8 km/h)</option>
+        <option value="Running (10 km/h)">Running (10 km/h)</option>
+        <option value="Running (12 km/h)">Running (12 km/h)</option>
+        <option value="Cycling (leisure)">Cycling (leisure)</option>
+        <option value="Cycling (moderate)">Cycling (moderate)</option>
+        <option value="Cycling (vigorous)">Cycling (vigorous)</option>
+        <option value="Swimming (slow)">Swimming (slow)</option>
+        <option value="Swimming (moderate)">Swimming (moderate)</option>
+        <option value="Swimming (vigorous)">Swimming (vigorous)</option>
+        <option value="Strength Training">Strength Training</option>
+        <option value="Yoga">Yoga</option>
+        <option value="Pilates">Pilates</option>
+        <option value="Dancing">Dancing</option>
+        <option value="Hiking">Hiking</option>
+        <option value="Jump Rope">Jump Rope</option>
+        <option value="Rowing (moderate)">Rowing (moderate)</option>
+        <option value="Rowing (vigorous)">Rowing (vigorous)</option>
+        <option value="Elliptical">Elliptical</option>
+        <option value="Basketball">Basketball</option>
+        <option value="Soccer">Soccer</option>
+        <option value="Tennis">Tennis</option>
+        <option value="Golf (walking)">Golf (walking)</option>
+        <option value="House Cleaning">House Cleaning</option>
+        <option value="Gardening">Gardening</option>
+        <option value="Skiing (cross-country)">Skiing (cross-country)</option>
+        <option value="Skating">Skating</option>
+        <option value="Martial Arts">Martial Arts</option>
+        <option value="Boxing">Boxing</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="duration">Duration</label>
+      <input type="number" id="duration" placeholder="Enter duration" min="0" max="10080" step="any" aria-label="Enter duration">
+      <label for="durationUnit">Unit</label>
+      <select id="durationUnit" aria-label="Duration unit">
+        <option value="minutes" selected>Minutes</option>
+        <option value="hours">Hours</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="weightActivity">Your Weight</label>
+      <input type="number" id="weightActivity" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+      <label for="weightUnitActivity">Unit</label>
+      <select id="weightUnitActivity" aria-label="Body weight unit">
+        <option value="kg" selected>kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="calculateActivityRange()">Calculate</button>
+
+  <div class="result" id="activityResult" style="margin-top:10px;"></div>
+
+  <script>
+    // MET values with range [minMET, maxMET] for variability
+    const activityList = {
+      "Walking (3 km/h)": [3.0, 3.6],
+      "Walking (5 km/h)": [4.0, 4.6],
+      "Running (8 km/h)": [8.0, 8.6],
+      "Running (10 km/h)": [9.5, 10.5],
+      "Running (12 km/h)": [11.0, 12.0],
+      "Cycling (leisure)": [5.5, 6.5],
+      "Cycling (moderate)": [7.5, 8.5],
+      "Cycling (vigorous)": [9.5, 10.5],
+      "Swimming (slow)": [5.5, 6.5],
+      "Swimming (moderate)": [7.5, 8.5],
+      "Swimming (vigorous)": [9.5, 10.5],
+      "Strength Training": [5.5, 6.5],
+      "Yoga": [2.5, 3.5],
+      "Pilates": [2.5, 3.5],
+      "Dancing": [5.0, 6.0],
+      "Hiking": [6.5, 7.5],
+      "Jump Rope": [11.0, 13.0],
+      "Rowing (moderate)": [6.5, 7.5],
+      "Rowing (vigorous)": [9.5, 10.5],
+      "Elliptical": [4.5, 5.5],
+      "Basketball": [7.5, 8.5],
+      "Soccer": [6.5, 7.5],
+      "Tennis": [6.5, 7.5],
+      "Golf (walking)": [4.0, 4.6],
+      "House Cleaning": [3.0, 4.0],
+      "Gardening": [3.5, 4.5],
+      "Skiing (cross-country)": [8.5, 9.5],
+      "Skating": [6.5, 7.5],
+      "Martial Arts": [9.5, 10.5],
+      "Boxing": [11.0, 13.0]
+    };
+
+    function calculateActivityRange() {
+      const activity = document.getElementById("activityType").value;
+      const duration = parseFloat(document.getElementById("duration").value);
+      const durationUnit = document.getElementById("durationUnit").value;
+      const weight = parseFloat(document.getElementById("weightActivity").value);
+      const weightUnit = document.getElementById("weightUnitActivity").value;
+
+      if (!activity || !Number.isFinite(duration) || duration < 0 || !Number.isFinite(weight) || weight <= 0) {
+        alert("Select an activity, enter a non-negative duration, and enter positive body weight.");
+        return;
+      }
+
+      // Convert weight to kg
+      let weightKg = weightUnit === "lbs" ? weight * 0.453592 : weight;
+
+      // Convert duration to minutes and use the same MET energy equation as the METs calculator.
+      const durationMin = durationUnit === "minutes" ? duration : duration * 60;
+      const metRange = activityList[activity];
+      const caloriesMin = metRange[0] * 3.5 * weightKg * durationMin / 200;
+      const caloriesMax = metRange[1] * 3.5 * weightKg * durationMin / 200;
+
+      document.getElementById("activityResult").innerHTML =
+        `Activity: <b>${activity}</b><br>
+         Duration: <b>${duration} ${durationUnit}</b><br>
+         Estimated Calories Burned: <b>${caloriesMin.toFixed(2)} – ${caloriesMax.toFixed(2)} kcal</b><br>
+         <small>Estimate: MET × 3.5 × body mass (kg) × duration (minutes) ÷ 200. Individual energy expenditure varies.</small>`;
+    }
+  </script>
+</div>
+
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+
+<section class="cf-education-card" aria-labelledby="cf-understanding-title">
+ <details id="cf-understanding-guide">
+  <summary id="cf-understanding-title">Understand Activity Time <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <div class="cf-education-content">
+   <figure class="cf-education-visual"><img src="../images/lifestyle.svg" alt="Illustration for Activity Time" loading="lazy" width="120" height="120"><figcaption>Visual guide for Activity Time</figcaption></figure>
+   <div class="cf-education-section"><h3>What is Activity Time?</h3><p>Activity Time is an estimate based on the entered date, activity or environmental conditions. The result depends on the inputs and method used by this calculator.</p></div>
+   
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Activity Time result in the context of the input values, displayed units and assumptions. Real-world conditions vary; an estimate cannot guarantee safety, health outcomes or exact activity results.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help structure planning and make assumptions visible.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Real-world conditions vary; an estimate cannot guarantee safety, health outcomes or exact activity results.</p></div></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter accurate values and the relevant time period or conditions. Review warnings and do not treat a calculated exposure duration as a safety guarantee.</p></div>
+   <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
+  </div>
+ </details>
+</section>
+
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js" defer></script>
+</body>
+</html>

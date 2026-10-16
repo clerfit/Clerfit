@@ -3,7 +3,7 @@
 ================================================= */
 
 function toKg(v, u) {
-  return u === "lbs" ? v * 0.453592 : v;
+  return ["lb", "lbs", "pound", "pounds"].includes(String(u).toLowerCase()) ? v * 0.45359237 : v;
 }
 
 function toCm(v, u) {
@@ -45,90 +45,51 @@ function calculateBMI() {
 
   const bmi = w / ((h / 100) ** 2);
   let category = "";
-
-  // Adult thresholds
-  if (age >= 18) {
+  if (age >= 20) {
     if (bmi < 18.5) category = "Underweight";
     else if (bmi < 25) category = "Normal";
     else if (bmi < 30) category = "Overweight";
     else if (bmi < 35) category = "Obese";
     else category = "Severe";
+    document.getElementById("result").innerHTML = `BMI: <b>${bmi.toFixed(1)}</b> — <b>${category}</b>`;
+    moveIndicatorBMI(bmi, age);
   } else {
-    // Teen BMI-for-age approximate categories (simplified)
-    // Real charts use percentiles, here we approximate
-    if (gender === "male") {
-      if (bmi < 16) category = "Underweight";
-      else if (bmi < 22) category = "Normal";
-      else if (bmi < 27) category = "Overweight";
-      else if (bmi < 35) category = "Obese";
-      else category = "Severe";
-    } 
-else {
-      if (bmi < 16) category = "Underweight";
-      else if (bmi < 21) category = "Normal";
-      else if (bmi < 26) category = "Overweight";
-      else if (bmi < 35) category = "Obese";
-      else category = "Severe";
+    // CDC adult BMI cutoffs apply to adults aged 20 and older; ages 2–19 require BMI-for-age charts.
+    category = "Age-specific interpretation required";
+    document.getElementById("result").innerHTML = `BMI: <b>${bmi.toFixed(1)}</b> — <b>${category}</b><p class="cf-note">For ages 2–19, interpret BMI using an appropriate age- and sex-specific growth chart percentile. This calculator does not estimate a pediatric percentile.</p>`;
+    const indicator = document.getElementById("indicator");
+    if (indicator) {
+      indicator.style.left = "0%";
+      indicator.style.backgroundColor = "#64748b";
+      const tooltip = indicator.querySelector(".tooltip");
+      if (tooltip) tooltip.innerText = "Use BMI-for-age charts";
     }
   }
-
-  document.getElementById("result").innerHTML =
-    `BMI: <b>${bmi.toFixed(1)}</b> — <b>${category}</b>`;
-
-  moveIndicatorBMI(bmi, age, gender);
 }
 
 /* =================================================
    INDICATOR BAR
 ================================================= */
 
-function moveIndicatorBMI(bmi, age, gender) {
+function moveIndicatorBMI(bmi, age) {
   const indicator = document.getElementById("indicator");
+  if (!indicator) return;
   const tooltip = indicator.querySelector(".tooltip");
 
-  let ranges;
-  if (gender === "male") {
-    ranges = [
-      { label: "Underweight", min: 0, max: 18.5, color: "#3b82f6", startPct: 0, endPct: 18.5 },
-      { label: "Normal",      min: 18.5, max: 24.9, color: "#22c55e", startPct: 18.5, endPct: 24.9 },
-      { label: "Overweight",  min: 25, max: 29.9, color: "#eab308", startPct: 25, endPct: 29.9 },
-      { label: "Obese",       min: 30, max: 34.9, color: "#f97316", startPct: 30, endPct: 34.9 },
-      { label: "Severe",      min: 35, max: 100, color: "#ef4444", startPct: 35, endPct: 40 }
-    ];
-  } else {
-    ranges = [
-      { label: "Underweight", min: 0, max: 18, color: "#3b82f6", startPct: 0, endPct: 18 },
-      { label: "Normal",      min: 18, max: 24, color: "#22c55e", startPct: 18, endPct: 24 },
-      { label: "Overweight",  min: 24, max: 29, color: "#eab308", startPct: 24, endPct: 29 },
-      { label: "Obese",       min: 29, max: 34, color: "#f97316", startPct: 29, endPct: 34 },
-      { label: "Severe",      min: 34, max: 100, color: "#ef4444", startPct: 34, endPct: 40 }
-    ];
-  }
-
-  const range = ranges.find(r => bmi >= r.min && bmi <= r.max) || ranges[ranges.length - 1];
-  let pos = range.startPct + ((bmi - range.min) / (range.max - range.min)) * (range.endPct - range.startPct);
-  if (pos > 100) pos = 100;
-
-  indicator.style.left = pos + "%";
+  // Standard adult BMI categories are not sex-specific. Pediatric BMI is
+  // handled separately above and must be interpreted with growth charts.
+  const ranges = [
+    { label: "Underweight", min: 0, max: 18.5, color: "#3b82f6" },
+    { label: "Healthy-weight range", min: 18.5, max: 25, color: "#22c55e" },
+    { label: "Overweight", min: 25, max: 30, color: "#eab308" },
+    { label: "Obesity class I", min: 30, max: 35, color: "#f97316" },
+    { label: "Obesity class II or higher", min: 35, max: Infinity, color: "#ef4444" }
+  ];
+  const range = ranges.find(r => bmi >= r.min && bmi < r.max) || ranges[ranges.length - 1];
+  indicator.style.left = `${Math.min(100, Math.max(0, bmi / 40 * 100))}%`;
   indicator.style.backgroundColor = range.color;
-  tooltip.innerText = range.label;
-}
-
-function calculateBMI() {
-  const w = parseFloat(document.getElementById("weight").value);
-  const h = parseFloat(document.getElementById("height").value);
-  const age = parseInt(document.getElementById("age").value);
-  const gender = document.getElementById("gender").value;
-
-  if ([w, h, age].some(isNaN) || w <= 0 || h <= 0 || age <= 0) {
-    alert("Enter valid values");
-    return;
-  }
-
-  const bmi = w / ((h / 100) ** 2);
-
-  document.getElementById("result").innerHTML = `BMI: <b>${bmi.toFixed(1)}</b>`;
-  moveIndicatorBMI(bmi, age, gender);
+  if (tooltip) tooltip.innerText = range.label;
+  indicator.title = range.label;
 }
 
 /* =================================================
@@ -218,36 +179,61 @@ function calculateBodyFat() {
   const formula = document.getElementById("bf-formula");
   const indicator = document.getElementById("bf-indicator");
 
-  if (!height || !waist || !neck) {
-    result.innerHTML = "❌ Please fill all required fields";
+  if (![height, waist, neck].every(Number.isFinite) || height <= 0 || waist <= 0 || neck <= 0) {
+    result.textContent = "Enter valid height, waist and neck measurements.";
+    formula.textContent = "";
     return;
   }
 
-  // Convert all to cm
+  // Convert all measurements to centimetres before checking formula domains.
   height = convertToCm(height, heightUnit);
   waist = convertToCm(waist, waistUnit);
   neck = convertToCm(neck, neckUnit);
-  hip = convertToCm(hip || 0, hipUnit); // 0 if empty
+  hip = Number.isFinite(hip) && hip > 0 ? convertToCm(hip, hipUnit) : 0;
 
+  if (height < 100 || height > 250 || waist < 20 || waist > 250 || neck < 15 || neck > 80 || waist <= neck) {
+    result.textContent = "Check the measurements: height, waist and neck must be plausible, and waist must exceed neck for this equation.";
+    formula.textContent = "";
+    return;
+  }
+  if (gender !== "male" && (hip < 20 || hip > 250 || waist + hip <= neck)) {
+    result.textContent = "A valid hip measurement is required for the female equation.";
+    formula.textContent = "";
+    return;
+  }
+
+  // The US Navy equation constants expect inches. Validate in centimetres above,
+  // then convert every measurement used by the logarithms to inches.
+  const heightIn = height / 2.54;
+  const waistIn = waist / 2.54;
+  const neckIn = neck / 2.54;
+  const hipIn = hip / 2.54;
   let bf;
 
   if (gender === "male") {
-    bf = 86.01 * Math.log10(waist - neck) - 70.041 * Math.log10(height) + 36.76;
-    formula.innerHTML = "Formula (Male): 86.01 × log10(Waist − Neck) − 70.041 × log10(Height) + 36.76";
+    bf = 86.01 * Math.log10(waistIn - neckIn) - 70.041 * Math.log10(heightIn) + 36.76;
+    formula.innerHTML = "US Navy male equation (measurements converted to inches): 86.01 × log10(Waist − Neck) − 70.041 × log10(Height) + 36.76";
   } else {
     if (!hip) {
-      result.innerHTML = "❌ Hip measurement required for females";
+      result.innerHTML = "Hip measurement required for females.";
       return;
     }
-    bf = 163.205 * Math.log10(waist + hip - neck) - 97.684 * Math.log10(height) - 78.387;
-    formula.innerHTML = "Formula (Female): 163.205 × log10(Waist + Hip − Neck) − 97.684 × log10(Height) − 78.387";
+    bf = 163.205 * Math.log10(waistIn + hipIn - neckIn) - 97.684 * Math.log10(heightIn) - 78.387;
+    formula.innerHTML = "US Navy female equation (measurements converted to inches): 163.205 × log10(Waist + Hip − Neck) − 97.684 × log10(Height) − 78.387";
   }
 
+  if (!Number.isFinite(bf)) {
+    result.textContent = "These measurements cannot produce a valid body-fat estimate. Check the inputs.";
+    formula.textContent = "";
+    return;
+  }
   bf = bf.toFixed(1);
-  result.innerHTML = `Body Fat Percentage: <b>${bf}%</b>`;
+  result.textContent = `Estimated Body Fat Percentage: ${bf}%`;
 
-  let pos = Math.min(Math.max(bf, 0), 40);
-  indicator.style.left = (pos / 40) * 100 + "%";
+  if (indicator) {
+    let pos = Math.min(Math.max(Number(bf), 0), 40);
+    indicator.style.left = (pos / 40) * 100 + "%";
+  }
 }
 
 /* =================================================
@@ -262,8 +248,9 @@ function calculateIdealWeight() {
   const resultDiv = document.getElementById("iw-result");
   const formulaDiv = document.getElementById("iw-formula");
 
-  if (!height) {
-    resultDiv.innerHTML = "❌ Please enter your height";
+  if (!Number.isFinite(height) || height <= 0) {
+    resultDiv.textContent = "Please enter a valid height.";
+    formulaDiv.textContent = "";
     return;
   }
 
@@ -271,6 +258,12 @@ function calculateIdealWeight() {
   if (heightUnit === "m") height *= 100;
   else if (heightUnit === "inch") height *= 2.54;
   else if (heightUnit === "ft") height *= 30.48; // 1 ft = 30.48 cm
+
+  if (!Number.isFinite(height) || height < 100 || height > 250) {
+    resultDiv.textContent = "Enter a height between 100 and 250 cm (or the equivalent selected unit).";
+    formulaDiv.textContent = "";
+    return;
+  }
 
   let idealWeight;
 
@@ -301,8 +294,9 @@ function calculateCalories() {
   const resultDiv = document.getElementById("cal-result");
   const formulaDiv = document.getElementById("cal-formula");
 
-  if (!bmr) {
-    resultDiv.innerHTML = "❌ Please enter your BMR";
+  if (!Number.isFinite(bmr) || bmr <= 0 || !Number.isFinite(activity) || activity < 1 || activity > 3) {
+    resultDiv.textContent = "Enter a positive BMR and a valid activity factor.";
+    formulaDiv.textContent = "";
     return;
   }
 
@@ -322,13 +316,12 @@ function calculateProtein() {
   const w = getValUnit("weight", "weightUnit", "weight");
   const f = getVal("level");
 
-  if (isNaN(w) || isNaN(f)) {
-    alert("Enter values");
+  if (!Number.isFinite(w) || w <= 0 || w > 500 || !Number.isFinite(f) || f < 0.8 || f > 2.5) {
+    document.getElementById("result").textContent = "Enter a valid body weight and protein factor (0.8–2.5 g/kg).";
     return;
   }
 
-  document.getElementById("result").innerHTML =
-    `Protein Needed: <b>${(w * f).toFixed(1)} g/day</b>`;
+  document.getElementById("result").textContent = `Estimated protein target: ${(w * f).toFixed(1)} g/day`;
 }
 
 /* =================================================
@@ -337,13 +330,12 @@ function calculateProtein() {
 function calculateWater() {
   const w = getValUnit("weight", "weightUnit", "weight");
 
-  if (isNaN(w)) {
-    alert("Enter weight");
+  if (!Number.isFinite(w) || w <= 0 || w > 500) {
+    document.getElementById("result").textContent = "Enter a valid body weight.";
     return;
   }
 
-  document.getElementById("result").innerHTML =
-    `Water Intake: <b>${(w * 35).toFixed(0)} ml/day</b>`;
+  document.getElementById("result").textContent = `Approximate baseline fluid estimate: ${(w * 35).toFixed(0)} ml/day. Individual needs vary with activity, climate and health.`;
 }
 
 /* =================================================
@@ -356,7 +348,7 @@ function calculateWHR() {
   const waistUnit = document.getElementById('waistUnit').value;
   const hipUnit = document.getElementById('hipUnit').value;
 
-  if(!waist || !hip || waist<=0 || hip<=0){ alert("Enter valid numbers"); return; }
+  if(!Number.isFinite(waist) || !Number.isFinite(hip) || waist<=0 || hip<=0){ alert("Enter valid waist and hip measurements"); return; }
 
   // Convert to cm
   function convertToCm(value, unit){
@@ -370,28 +362,18 @@ function calculateWHR() {
   }
   waist = convertToCm(waist, waistUnit);
   hip = convertToCm(hip, hipUnit);
+  if (waist < 20 || waist > 250 || hip < 20 || hip > 250) { alert("Check the waist and hip measurements (20–250 cm equivalent). "); return; }
 
   const whr = (waist/hip).toFixed(2);
   document.getElementById('result').innerHTML = `<strong>WHR: ${whr}</strong>`;
   document.getElementById('formula').innerHTML = `Formula: Waist ÷ Hip = ${waist.toFixed(1)} ÷ ${hip.toFixed(1)} = ${whr}`;
 
-  // Determine risk
-  let color='', label='';
-  if(gender==='female'){
-    if(whr<0.80){ color='blue'; label='Healthy';}
-    else if(whr<=0.85){ color='green'; label='Increased Risk';}
-    else{ color='red'; label='High Risk';}
-  } else {
-    if(whr<0.95){ color='blue'; label='Healthy';}
-    else if(whr<=1.00){ color='green'; label='Increased Risk';}
-    else{ color='red'; label='High Risk';}
-  }
-
-  // UPDATE ONLY INDICATOR, DO NOT CHANGE BAR STRUCTURE
+  // WHR is a screening ratio. Avoid universal risk labels without an explicit
+  // guideline and population context; keep the output descriptive.
+  document.getElementById('result').innerHTML = `<strong>WHR: ${whr}</strong><p class="cf-note">Screening ratio only. Interpretation varies by guideline and population; this calculator does not assign a diagnosis or universal risk category.</p>`;
+  document.getElementById('formula').innerHTML = `Formula: Waist ÷ Hip = ${waist.toFixed(1)} ÷ ${hip.toFixed(1)} = ${whr}`;
   const indicator = document.getElementById('indicator');
-  indicator.style.left = Math.min(100, (whr*100)) + '%'; // simple position
-  indicator.style.background = color;
-  indicator.title = label; // show label on hover
+  if (indicator && indicator.parentElement) indicator.parentElement.hidden = true;
 }
 
 /* =================================================
@@ -401,13 +383,12 @@ function calculateLeanMass() {
   const w = getValUnit("weight", "weightUnit", "weight");
   const bf = getVal("fat");
 
-  if (isNaN(w) || isNaN(bf)) {
-    alert("Enter weight & fat%");
+  if (!Number.isFinite(w) || w <= 0 || w > 500 || !Number.isFinite(bf) || bf < 0 || bf > 100) {
+    document.getElementById("result").textContent = "Enter a valid weight and body-fat percentage (0–100%).";
     return;
   }
 
-  document.getElementById("result").innerHTML =
-    `Lean Mass: <b>${(w * (1 - bf / 100)).toFixed(2)} kg</b>`;
+  document.getElementById("result").textContent = `Estimated lean mass: ${(w * (1 - bf / 100)).toFixed(2)} kg`;
 }
 
 /* =================================================
@@ -417,13 +398,12 @@ function calculateFatMass() {
   const w = getValUnit("weight", "weightUnit", "weight");
   const bf = getVal("fat");
 
-  if (isNaN(w) || isNaN(bf)) {
-    alert("Enter weight & fat%");
+  if (!Number.isFinite(w) || w <= 0 || w > 500 || !Number.isFinite(bf) || bf < 0 || bf > 100) {
+    document.getElementById("result").textContent = "Enter a valid weight and body-fat percentage (0–100%).";
     return;
   }
 
-  document.getElementById("result").innerHTML =
-    `Fat Mass: <b>${(w * bf / 100).toFixed(2)} kg</b>`;
+  document.getElementById("result").textContent = `Estimated fat mass: ${(w * bf / 100).toFixed(2)} kg`;
 }
 
 /* =================================================
@@ -434,8 +414,8 @@ function calculateFFMI() {
   const bf = getVal("fat");
   const h = getValUnit("height", "heightUnit", "height") / 100;
 
-  if ([w, bf, h].some(isNaN)) {
-    alert("Enter all values");
+  if (![w, bf, h].every(Number.isFinite) || w <= 0 || w > 500 || bf < 0 || bf > 100 || h < 1 || h > 2.5) {
+    document.getElementById("result").textContent = "Enter valid weight, height and body-fat values.";
     return;
   }
 
@@ -453,8 +433,8 @@ function calculateRFM() {
   const w = getValUnit("waist", "waistUnit", "waist");
   const g = document.getElementById("gender").value;
 
-  if (isNaN(h) || isNaN(w)) {
-    alert("Enter values");
+  if (!Number.isFinite(h) || !Number.isFinite(w) || h < 100 || h > 250 || w < 20 || w > 250) {
+    document.getElementById("result").textContent = "Enter plausible height and waist measurements in the selected units.";
     return;
   }
 
@@ -473,18 +453,11 @@ function calculateRFM() {
 ================================================= */
 function calculateVO2() {
   const d = getVal("distance");
-
-  if (isNaN(d)) {
-    alert("Enter distance");
+  const output = document.getElementById("result");
+  if (!Number.isFinite(d) || d <= 504.9 || d > 20000) {
+    output.textContent = "Enter a plausible 12-minute test distance above 504.9 metres and no more than 20,000 metres. The Cooper equation is not valid when it yields a non-positive estimate.";
     return;
   }
-
   const vo2 = (d - 504.9) / 44.73;
-
-  document.getElementById("result").innerHTML =
-    `VO₂ Max: <b>${vo2.toFixed(2)} ml/kg/min</b>`;
+  output.textContent = `Estimated VO₂ max: ${vo2.toFixed(1)} ml/kg/min. Field-test estimate only; no universal fitness category is assigned.`;
 }
-
-function toggleSidebar() {
-  document.querySelector(".sidebar").classList.toggle("active");
-} 

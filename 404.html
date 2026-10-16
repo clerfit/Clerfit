@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-<head><link rel="icon" href="./favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png"><link rel="apple-touch-icon" href="./favicon-180.png"><link rel="manifest" href="./site.webmanifest">
+<head>
+<link rel="icon" href="./favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="./app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"><link rel="manifest" href="./site.webmanifest">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta charset="utf-8">
@@ -9,7 +10,7 @@
 <meta name="robots" content="noindex, follow">
 <title>Page not found — ClerFit</title>
 <meta name="description" content="The page you requested could not be found. Return to ClerFit to explore health and performance calculators.">
-<link rel="stylesheet" href="css/style.css?v=20261017-r3-live-ui">
+<link rel="stylesheet" href="css/style.css">
 
 <style>
 .cf-404{min-height:70vh;display:grid;place-items:center;padding:40px 20px;text-align:center}
@@ -21,11 +22,21 @@
 .cf-404-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 17px;border-radius:12px;text-decoration:none;font-weight:750}
 .cf-404-primary{background:#0e6f75;color:#fff}.cf-404-secondary{border:1px solid #d7e2eb;color:#183047}
 </style>
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="Page not found — ClerFit">
+<meta property="og:description" content="The page you requested could not be found. Return to ClerFit to explore health and performance calculators.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/404.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Page not found — ClerFit">
+<meta name="twitter:description" content="The page you requested could not be found. Return to ClerFit to explore health and performance calculators.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body id="top">
 <main class="cf-404">
 <section class="cf-404-card" aria-labelledby="not-found-title">
-<a class="cf-wordmark" href="index.html" aria-label="ClerFit home"><img class="cf-real-logo" src="./logo.jpeg" alt="ClerFit logo"><span>ClerFit<small>HEALTH &amp; PERFORMANCE</small></span></a>
+<a class="cf-wordmark" href="index.html" aria-label="ClerFit home"><img class="cf-real-logo" src="logo.jpeg" alt="ClerFit logo"><span>ClerFit<small>HEALTH &amp; PERFORMANCE</small></span></a>
 <p class="cf-404-code" aria-hidden="true">404</p>
 <h1 id="not-found-title">We couldn't find that page</h1>
 <p>The link may be outdated or the address may have been entered incorrectly. Return to ClerFit to browse the calculator directory.</p>
@@ -33,6 +44,6 @@
 </section>
 </main>
 <script src="js/site-polish.js" defer></script>
-<script src="js/menu-fix.js" defer></script>
+<script src="js/page-chrome.js" defer></script>
 </body>
 </html>
