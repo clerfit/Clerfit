@@ -1,0 +1,103 @@
+name: Publish complete ClerFit R3 release
+
+on:
+  push:
+    branches:
+      - release-transfer
+    paths:
+      - 'deploy_payload/chunk_*.txt'
+      - '.github/workflows/clerfit-r3-full-release.yml'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: clerfit-r3-full-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout release transfer branch
+        uses: actions/checkout@v4
+        with:
+          ref: release-transfer
+          path: transfer
+          fetch-depth: 1
+
+      - name: Checkout current production branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: site
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Reconstruct exact production release
+        env:
+          SITE_DIR: ${{ github.workspace }}/site
+          PAYLOAD_DIR: ${{ github.workspace }}/transfer/deploy_payload
+        run: |
+          python - <<'PY'
+          import base64, gzip, json, os
+          from pathlib import Path
+          payload_dir = Path(os.environ["PAYLOAD_DIR"])
+          site_dir = Path(os.environ["SITE_DIR"])
+          chunks = sorted(payload_dir.glob("chunk_*.txt"))
+          if len(chunks) != 59:
+              raise SystemExit(f"Expected 59 payload chunks, found {len(chunks)}")
+          encoded = "".join(p.read_text(encoding="ascii").strip() for p in chunks)
+          manifest = json.loads(gzip.decompress(base64.b64decode(encoded)))
+          if len(manifest) != 165:
+              raise SystemExit(f"Expected 165 release files, got {len(manifest)}")
+          paths = set()
+          for item in manifest:
+              rel = Path(item["path"])
+              if rel.is_absolute() or ".." in rel.parts or item["path"] in paths:
+                  raise SystemExit(f"Unsafe or duplicate release path: {item['path']}")
+              paths.add(item["path"])
+              data = item["content"].encode("utf-8") if item["encoding"] == "utf-8" else base64.b64decode(item["content"])
+              target = site_dir / rel
+              target.parent.mkdir(parents=True, exist_ok=True)
+              target.write_bytes(data)
+          html = [p for p in paths if p.endswith(".html")]
+          nested = [p for p in html if p.startswith("html/")]
+          if len(html) != 127 or len(nested) != 121:
+              raise SystemExit(f"Unexpected HTML inventory: {len(html)} total, {len(nested)} nested")
+          required = ["index.html", "css/style.css", "js/navigation.js", "js/home.js", "js/page-chrome.js", "sitemap.xml"]
+          missing = [p for p in required if p not in paths]
+          if missing:
+              raise SystemExit("Missing required production files: " + ", ".join(missing))
+          print(f"Restored {len(paths)} release files, {len(html)} HTML documents, {len(nested)} nested HTML pages.")
+          PY
+
+      - name: Commit exact production files to main
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No release changes to commit."
+          else
+            git commit -m "Publish complete ClerFit R3 production site"
+            git push origin HEAD:main
+          fi
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload the reconstructed full website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy the full ClerFit website
+        id: deployment
+        uses: actions/deploy-pages@v4
