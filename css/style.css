@@ -642,3 +642,6 @@ body .top-right-buttons button:last-child:hover, body .clerfit-fixed-contact:hov
 @media(prefers-reduced-motion:reduce) {
   body .cf-menu-drawer, body .cf-menu-backdrop { transition:none; }
 }
+/* Keep the homepage wordmark clear of the fixed left-side menu button. */
+body:has(.cf-home) .cf-home-top .cf-wordmark { margin-left:58px!important; }
+@media(max-width:430px){body:has(.cf-home) .cf-home-top .cf-wordmark { margin-left:54px!important; }}
