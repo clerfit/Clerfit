@@ -148,6 +148,12 @@ resetEngineOutputs('result', 'formula');
 engineContext.calculateBMR();
 assert.match(engineOutput('result'), /1674 kcal\/day/);
 checks++;
+setEngine('heightUnit', 'bogus');
+resetEngineOutputs('result', 'formula');
+engineContext.calculateBMR();
+assert.match(engineOutput('result'), /Choose supported weight and height units/);
+assert.doesNotMatch(engineOutput('result'), /BMR Result:/);
+checks++;
 
 // Known-answer: US Navy male equation with canonical centimetre inputs.
 Object.entries({
@@ -159,6 +165,12 @@ resetEngineOutputs('bf-result', 'bf-formula');
 engineContext.calculateBodyFat();
 assert.match(engineOutput('bf-result'), /16\.2%/);
 checks++;
+setEngine('bf-waist-unit', 'bogus');
+resetEngineOutputs('bf-result', 'bf-formula');
+engineContext.calculateBodyFat();
+assert.match(engineOutput('bf-result'), /measurements.*plausible/i);
+assert.doesNotMatch(engineOutput('bf-result'), /NaN|Infinity/);
+checks++;
 
 // Known-answer: Devine ideal-body-weight estimate for a 180 cm male.
 Object.entries({
@@ -167,6 +179,12 @@ Object.entries({
 resetEngineOutputs('iw-result', 'iw-formula');
 engineContext.calculateIdealWeight();
 assert.match(engineOutput('iw-result'), /75\.1 kg/);
+checks++;
+setEngine('iw-height-unit', 'bogus');
+resetEngineOutputs('iw-result', 'iw-formula');
+engineContext.calculateIdealWeight();
+assert.match(engineOutput('iw-result'), /Choose supported height and output-weight units/);
+assert.doesNotMatch(engineOutput('iw-result'), /Ideal Weight:/);
 checks++;
 
 // Known-answer: energy multiplier, protein target, and baseline fluid estimate.
