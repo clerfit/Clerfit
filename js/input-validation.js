@@ -114,8 +114,9 @@
     if (!valid) el.setAttribute('aria-invalid', 'true'); else clearError(el);
     return valid;
   }
-  function visibleNumericInputs() {
-    return Array.from(document.querySelectorAll('input[type="number"]')).filter(el => !el.closest('[hidden]') && el.getClientRects().length > 0);
+  function visibleNumericInputs(scope = document) {
+    const root = scope && typeof scope.querySelectorAll === 'function' ? scope : document;
+    return Array.from(root.querySelectorAll('input[type="number"]')).filter(el => !el.closest('[hidden]') && el.getClientRects().length > 0);
   }
   document.addEventListener('input', e => { if (e.target.matches('input[type="number"]') && e.target.getAttribute('aria-invalid') === 'true') validate(e.target, true); });
   document.addEventListener('blur', e => { if (e.target.matches('input[type="number"]') && e.target.value !== '') validate(e.target, true); }, true);
@@ -125,7 +126,8 @@
     const action = [trigger.getAttribute('onclick'), trigger.id, trigger.textContent].filter(Boolean).join(' ').toLowerCase();
     if (!/(calculat|convert|estimate|check|compare|update|submit)/.test(action)) return;
     let firstInvalid = null;
-    for (const el of visibleNumericInputs()) if (!validate(el, true) && !firstInvalid) firstInvalid = el;
+    const scope = trigger.form || trigger.closest('form') || document.querySelector('main') || document;
+    for (const el of visibleNumericInputs(scope)) if (!validate(el, true) && !firstInvalid) firstInvalid = el;
     if (firstInvalid) {
       e.preventDefault(); e.stopImmediatePropagation();
       firstInvalid.focus({ preventScroll: false });
@@ -134,7 +136,8 @@
   }, true);
   document.addEventListener('submit', e => {
     let firstInvalid = null;
-    for (const el of visibleNumericInputs()) if (!validate(el, true) && !firstInvalid) firstInvalid = el;
+    const scope = e.target && e.target.matches && e.target.matches('form') ? e.target : document;
+    for (const el of visibleNumericInputs(scope)) if (!validate(el, true) && !firstInvalid) firstInvalid = el;
     if (firstInvalid) { e.preventDefault(); firstInvalid.focus(); }
   }, true);
   window.ClerFitValidation = { bounds, validate, fieldText };
