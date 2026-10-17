@@ -13,8 +13,7 @@
 
 
 
-<meta charset="UTF-8">
-  <!-- Google tag (gtag.js) -->
+<!-- Legacy analytics are not loaded on this calculator. -->
 
 
 <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
@@ -90,15 +89,97 @@ table th {
 }
 </style>
 <script>
+function clearFFMIOutput() {
+  const result = document.getElementById("result");
+  const formula = document.getElementById("ffmi-formula");
+  if (result) result.textContent = "";
+  if (formula) formula.textContent = "";
+}
+
+function syncFFMIBounds() {
+  const height = document.getElementById("height");
+  const heightUnit = String(document.getElementById("heightUnit").value).toLowerCase();
+  const heightRanges = {
+    cm: [50, 250],
+    m: [0.5, 2.5],
+    meter: [0.5, 2.5],
+    meters: [0.5, 2.5],
+    inch: [19.685, 98.4252],
+    in: [19.685, 98.4252],
+    inches: [19.685, 98.4252],
+    ft: [1.6404, 8.2021],
+    foot: [1.6404, 8.2021],
+    feet: [1.6404, 8.2021]
+  };
+  const hr = heightRanges[heightUnit];
+  if (hr) {
+    height.min = String(hr[0]);
+    height.max = String(hr[1]);
+  }
+
+  const weight = document.getElementById("weight");
+  const weightUnit = String(document.getElementById("weightUnit").value).toLowerCase();
+  const weightRanges = {
+    kg: [0.1, 500],
+    lb: [0.22046227, 1102.31],
+    lbs: [0.22046227, 1102.31]
+  };
+  const wr = weightRanges[weightUnit];
+  if (wr) {
+    weight.min = String(wr[0]);
+    weight.max = String(wr[1]);
+  }
+}
+
+function resetFFMI() {
+  const defaults = {
+    height: "", heightUnit: "cm",
+    weight: "", weightUnit: "kg",
+    fat: ""
+  };
+  Object.entries(defaults).forEach(([id, value]) => {
+    const field = document.getElementById(id);
+    if (!field) return;
+    field.value = value;
+    field.removeAttribute("aria-invalid");
+  });
+  document.querySelectorAll(".clerfit-input-error").forEach(node => node.remove());
+  clearFFMIOutput();
+  syncFFMIBounds();
+  const height = document.getElementById("height");
+  if (height) height.focus();
+}
+
+if (typeof document !== "undefined" && document.addEventListener) {
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!document.getElementById("height") || !document.getElementById("weight")) return;
+    syncFFMIBounds();
+    // Shared unit-system changes convert values and bounds first; restore this
+    // calculator's narrower semantic domain on the next microtask.
+    ["heightUnit", "weightUnit"].forEach(id => {
+      const select = document.getElementById(id);
+      if (!select) return;
+      select.addEventListener("change", () => {
+        if (typeof queueMicrotask === "function") queueMicrotask(syncFFMIBounds);
+        else Promise.resolve().then(syncFFMIBounds);
+      });
+    });
+  }, { once: true });
+}
+
 function calculateFFMI() {
   const result = document.getElementById("result");
-  const rawHeight = Number(document.getElementById("height").value);
+  const formula = document.getElementById("ffmi-formula");
+  const heightText = document.getElementById("height").value.trim();
+  const rawHeight = heightText === "" ? NaN : Number(heightText);
   const heightUnit = document.getElementById("heightUnit").value;
-  const rawWeight = Number(document.getElementById("weight").value);
+  const weightText = document.getElementById("weight").value.trim();
+  const rawWeight = weightText === "" ? NaN : Number(weightText);
   const weightUnit = document.getElementById("weightUnit").value;
-  const fat = Number(document.getElementById("fat").value);
+  const fatText = document.getElementById("fat").value.trim();
+  const fat = fatText === "" ? NaN : Number(fatText);
 
-  result.textContent = "";
+  clearFFMIOutput();
   if (![rawHeight, rawWeight, fat].every(Number.isFinite) || rawHeight <= 0 || rawWeight <= 0 || fat < 0 || fat > 100) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a positive height and weight and a body-fat percentage from 0 to 100.</p>';
     return;
@@ -127,6 +208,7 @@ function calculateFFMI() {
   }
 
   result.innerHTML = `Lean Mass: ${leanMass.toFixed(2)} kg (${(leanMass / weight * 100).toFixed(1)}%)<br>FFMI: ${ffmi.toFixed(2)}<p class="cf-note">FFMI is a calculated index, not a diagnosis. There is no universal low/average/athletic/elite category valid across sex, age, training history and populations.</p>`;
+  formula.textContent = `Formula: Lean mass = weight × (1 − body-fat fraction) = ${weight.toFixed(2)} × (1 − ${fat / 100}) = ${leanMass.toFixed(2)} kg; FFMI = lean mass ÷ height² = ${leanMass.toFixed(2)} ÷ ${height.toFixed(4)}² = ${ffmi.toFixed(2)}.`;
   const barContainer = document.querySelector('.bar-container');
   if (barContainer) barContainer.hidden = true;
 }
@@ -201,8 +283,8 @@ function calculateFFMI() {
 <div class="row">
   <div class="col">
     <label for="height">Height</label>
-    <input type="number" id="height" placeholder="Enter height" min="30" max="300" step="any" aria-label="Enter height">
-    <select class="unit-select" id="heightUnit" aria-label="Height unit">
+    <input type="number" id="height" placeholder="Enter height" min="50" max="250" step="any" aria-label="Enter height" oninput="clearFFMIOutput()">
+    <select class="unit-select" id="heightUnit" aria-label="Height unit" onchange="clearFFMIOutput()">
       <option value="cm" selected>cm</option>
       <option value="m">m</option>
       <option value="inch">inch</option>
@@ -211,24 +293,28 @@ function calculateFFMI() {
   </div>
   <div class="col">
     <label for="weight">Weight</label>
-    <input type="number" id="weight" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
-    <select class="unit-select" id="weightUnit" aria-label="Weight unit">
+    <input type="number" id="weight" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight" oninput="clearFFMIOutput()">
+    <select class="unit-select" id="weightUnit" aria-label="Weight unit" onchange="clearFFMIOutput()">
       <option value="kg" selected>kg</option>
       <option value="lb">lb</option>
     </select>
   </div>
   <div class="col">
     <label for="fat">Body Fat (%)</label>
-    <input type="number" id="fat" placeholder="Enter body fat %" min="0" max="100" step="any" aria-label="Enter body fat %">
+    <input type="number" id="fat" placeholder="Enter body fat %" min="0" max="100" step="any" aria-label="Enter body fat %" oninput="clearFFMIOutput()">
   </div>
 </div>
 
-<button class="calculate-btn" onclick="calculateFFMI()">Calculate</button>
+<div class="cf-form-actions">
+  <button class="calculate-btn" type="button" onclick="calculateFFMI()">Calculate</button>
+  <button class="cf-reset-btn" type="button" onclick="resetFFMI()">Reset</button>
+</div>
 
-<div id="result" class="result"></div>
+<div id="result" class="result" role="status" aria-live="polite" aria-atomic="true"></div>
+<div id="ffmi-formula" class="cf-note" aria-live="polite" aria-atomic="true"></div>
 
 <!-- Gradient bar -->
-<div class="bar-container">
+<div class="bar-container" hidden>
   <div class="bar">
     <div class="indicator" id="indicator">
       <div class="tooltip" id="tooltip"></div>
