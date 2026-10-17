@@ -40,7 +40,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: clerfit-phase-one-two-verification
@@ -71,8 +71,8 @@ jobs:
 
       - name: Run calculator known-answer and domain regressions
         run: node tests/verify.js
-      - name: Synchronize field-bound inventories from static source markup
-        run: node scripts/sync-input-boundaries.js --write
+      - name: Verify field-bound inventories match static source markup
+        run: node scripts/sync-input-boundaries.js --check
       - name: Check phase inventory, sign-off and sitemap integrity
         run: node tests/phase-register-integrity.test.js
 
@@ -166,17 +166,3 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Commit source-synchronized boundary inventories
-        if: success()
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add FIELD_VALIDATION_AUDIT.csv INPUT_BOUNDARY_VERIFIED.csv
-          if git diff --cached --quiet; then
-            echo "Boundary inventories already match source."
-          else
-            git commit -m "audit: sync numeric boundary inventories to source"
-            git push origin HEAD:main
-          fi
