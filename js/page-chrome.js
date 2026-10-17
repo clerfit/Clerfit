@@ -5,7 +5,7 @@
   for (const link of document.querySelectorAll('link[rel~="stylesheet"][href*="css/style.css"]')) {
     try {
       const fresh = new URL(link.href, document.baseURI);
-      fresh.searchParams.set("v", "20261017-r3-live-release");
+      fresh.searchParams.set("v", "20261017-nav-v4");
       if (link.href !== fresh.href) link.href = fresh.href;
     } catch (_) {}
   }
