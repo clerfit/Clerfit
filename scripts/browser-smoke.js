@@ -273,6 +273,25 @@ async function main() {
     const bmi=routeResults.find(r=>r.file==='bmi-for-age.html');
     const bmiResult=!!(bmi && /percentile/i.test(bmi.outputSample) && /CDC reference sex/i.test(bmi.outputSample));
     assert(bmiResult,'BMI-for-age did not render an age/sex-specific CDC percentile result in the browser smoke pass.');
+    // Verify that the generated form preserves the unit conversion contract with real browser interaction.
+    {
+      const p=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+      try {
+        await p.goto(new URL('html/bmi-for-age.html?browserSmoke=bmi-age-units',BASE).href,{waitUntil:'load',timeout:20000});
+        await p.locator('#weight').fill('70');
+        await p.locator('#height').fill('170');
+        await p.locator('[data-unit-for="weight"]').selectOption('lb');
+        await p.locator('[data-unit-for="height"]').selectOption('m');
+        await sleep(100);
+        await approx(p.locator('#weight'),154.3236,'BMI-for-age kg-to-lb field value',.02);
+        await approx(p.locator('#height'),1.7,'BMI-for-age cm-to-m field value',.001);
+        await p.locator('#age').fill('9'); await p.locator('#ageMonths').fill('6'); await p.locator('#sex').selectOption('female');
+        await p.getByRole('button',{name:/calculate result/i}).click();
+        const resultText=await p.locator('#advanced-output').innerText();
+        if(!/percentile/i.test(resultText)||!/CDC reference sex/i.test(resultText)) throw new Error('BMI-for-age unit-converted form did not render a CDC percentile result.');
+        regressionChecks.push('BMI-for-age generated form: weight/height unit selectors convert input values and still calculate');
+      } finally { await p.close(); }
+    }
     const report={
       base:BASE.href, checkedAt:new Date().toISOString(), status:failures.length?'FAIL':'PASS',
       routeCount:registry.length, routesLoaded:routeResults.filter(r=>r.loaded).length,
