@@ -30,6 +30,8 @@ jobs:
           node-version: '22'
       - name: Run known-answer and domain regressions
         run: node tests/verify.js
+      - name: Verify accessible input-validation errors
+        run: node tests/input-validation-accessibility.test.js
       - name: Syntax-check every project JavaScript file
         shell: bash
         run: |
