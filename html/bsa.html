@@ -45,32 +45,42 @@
 
     // ===== BSA Calculation (Mosteller Formula) =====
     function calculateBSA() {
-      const weightVal = parseFloat(document.getElementById("weight").value);
+      const result = document.getElementById("result");
+      const formula = document.getElementById("formula");
+      const weightVal = Number(document.getElementById("weight").value);
       const weightUnit = document.getElementById("weightUnit").value;
-      const heightVal = parseFloat(document.getElementById("height").value);
+      const heightVal = Number(document.getElementById("height").value);
       const heightUnit = document.getElementById("heightUnit").value;
 
-      if (!Number.isFinite(weightVal) || !Number.isFinite(heightVal) || weightVal <= 0 || heightVal <= 0) {
-        document.getElementById("result").textContent = "Enter positive, valid weight and height values.";
+      result.textContent = "";
+      formula.textContent = "";
+      if (![weightVal, heightVal].every(Number.isFinite) || weightVal <= 0 || heightVal <= 0) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">Enter positive, valid weight and height values.</p>';
         return;
       }
 
+      const validWeightUnits = ["kg", "lb", "lbs"];
+      const validHeightUnits = ["cm", "m", "in", "inch", "ft"];
+      if (!validWeightUnits.includes(weightUnit) || !validHeightUnits.includes(heightUnit)) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported weight and height units.</p>';
+        return;
+      }
       const weightKg = convertWeightToKg(weightVal, weightUnit);
       const heightCm = convertHeightToCm(heightVal, heightUnit);
-      if (!Number.isFinite(weightKg) || !Number.isFinite(heightCm) || weightKg < 1 || weightKg > 500 || heightCm < 50 || heightCm > 250) {
-        document.getElementById("result").textContent = "Check units and values. Supported range: 1–500 kg and 50–250 cm equivalent.";
+      if (!Number.isFinite(weightKg) || !Number.isFinite(heightCm) ||
+          weightKg < 1 || weightKg > 500 || heightCm < 50 || heightCm > 250) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">Check units and values. Supported range: 1–500 kg and 50–250 cm equivalent.</p>';
         return;
       }
 
-      // Mosteller Formula
+      // Mosteller equation, used only for the stated input ranges.
       const bsa = Math.sqrt((heightCm * weightKg) / 3600);
-
-      document.getElementById("result").innerHTML =
-        `BSA: <b>${bsa.toFixed(2)} m²</b>`;
-
-      document.getElementById("formula").innerHTML =
-        `Mosteller formula: √[(Height(cm) × Weight(kg)) ÷ 3600]. This is an estimate of body surface area, not a low/average/high health rating.`;
-
+      if (!Number.isFinite(bsa) || bsa <= 0) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">The result could not be calculated from these values.</p>';
+        return;
+      }
+      result.innerHTML = `BSA: <b>${bsa.toFixed(2)} m²</b>`;
+      formula.textContent = "Mosteller formula: √[(Height(cm) × Weight(kg)) ÷ 3600]. This is an estimate of body surface area, not a low/average/high health rating.";
       moveIndicatorBSA();
     }
   </script>
