@@ -1,6 +1,6 @@
 # ClerFit Phase One — Audit Register and Exit Gate
 
-**Refreshed:** 2026-10-17  
+**Refreshed:** 2026-10-18  
 **Repository:** https://github.com/clerfit/Clerfit  
 **Audit work product:** COMPLETE for the source inventory, known automated evidence and prioritized findings  
 **Automated source-level sign-off:** PASS on tested implementation snapshot `486f6c6613b5611d2bd365b1cc21e0e7fba743a3`.  
@@ -62,3 +62,10 @@ The source fixes in this pass also include a keyboard focus/link contrast patch 
 ## Exit gate
 
 **Phase One audit and automated source-level exit gate: PASS** on current source SHA `486f6c6613b5611d2bd365b1cc21e0e7fba743a3`. The route inventory, findings/registers, static checks, build/staging parity, 118-route browser run, 124-page axe scan and live production verifier all passed. The overall human/owner acceptance record remains **OPEN** only for field-by-field semantic-bound review across all 238 static fields and generated controls, a real consented contact-form delivery, physical-device/manual assistive-technology checks, weak-network/performance checks, and expert validation where a formula materially affects health decisions. This distinction is intentional; the automated source gate is complete, while those manual/external obligations are not falsely certified.
+
+
+## Latest final-verification addendum — 2026-10-18
+
+**Automated Phase 1 exit gate: PASS.** The latest full workflow [39061691909](https://github.com/clerfit/Clerfit/actions/runs/39061691909) succeeded on SHA `481fe233daf5ff8c3110419cdd974b379b4672b2`. It includes source syntax and formula regressions, 242-field inventory/source consistency, input-validation accessibility, eight focused calculator tests, contact-form mocks, unit conversion, staging parity, all 118 route interaction/semantic-boundary tests, and the axe scan over 124 user-facing HTML pages. The current inventory is **242 static numeric fields**; earlier archived evidence citing 238 reflects the previous inventory revision.
+
+**Overall release acceptance remains OPEN** for evidence automation cannot manufacture: exact newest design ZIP, full field-by-field scientific/domain justifications including generated inputs, owner-performed screen-reader/keyboard/physical-device checks, a real authorized contact form delivery and receipt, exact reported PageSpeed 404 URL, weak-network tests and host-specific headers, and independent expert review where applicable. Do not confuse automated phase-gate PASS with external release acceptance.
