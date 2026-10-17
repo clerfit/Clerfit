@@ -1,3 +1,4 @@
+/* Phase 2: explicitly exercise the WHR upper endpoint and unsupported-unit branch. */
 #!/usr/bin/env node
 'use strict';
 
