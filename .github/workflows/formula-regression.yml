@@ -30,6 +30,8 @@ jobs:
           node-version: '22'
       - name: Run known-answer and domain regressions
         run: node tests/verify.js
+      - name: Synchronize field-bound inventories from static source markup
+        run: node scripts/sync-input-boundaries.js --write
       - name: Check phase inventory, sign-off and sitemap integrity
         run: node tests/phase-register-integrity.test.js
       - name: Verify accessible input-validation errors
@@ -50,6 +52,17 @@ jobs:
             tests/wht-page.test.js; do
             node "$test_file"
           done
+      - name: Upload synchronized field-bound inventories
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clerfit-field-bound-inventories
+          path: |
+            FIELD_VALIDATION_AUDIT.csv
+            INPUT_BOUNDARY_VERIFIED.csv
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Syntax-check every project JavaScript file
         shell: bash
         run: |
