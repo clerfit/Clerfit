@@ -1,0 +1,39 @@
+name: Formula regression checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'js/**'
+      - 'tests/**'
+      - '.github/workflows/formula-regression.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'js/**'
+      - 'tests/**'
+      - '.github/workflows/formula-regression.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  formula-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run known-answer and domain regressions
+        run: node tests/verify.js
+      - name: Syntax-check every project JavaScript file
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in js/*.js scripts/*.js tests/*.js; do
+            node --check "$file"
+          done
