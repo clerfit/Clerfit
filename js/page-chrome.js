@@ -13,7 +13,7 @@
   const selector = ".clerfit-fixed-actions, .top-right-buttons, .cf-floating-links, .cf-page-actions";
   const placeInHeader = (nav) => {
     // Keep the homepage actions inside its branded header; do not detach them from that background.
-    if (document.body.id === "top" || nav.closest(".cf-home-top")) return;
+    if (nav.closest(".cf-home-top")) return;
     const main = document.querySelector("main.main, main, .main") || document.body;
     const header = main.querySelector(":scope > .header, :scope > header, .header");
     if (header && header.parentNode) {
