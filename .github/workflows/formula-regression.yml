@@ -44,6 +44,8 @@ jobs:
         run: node tests/ffmi-page.test.js
       - name: Run BSA page behavior regressions
         run: node tests/bsa-page.test.js
+      - name: Run WHR page behavior regressions
+        run: node tests/whr-page.test.js
       - name: Syntax-check every project JavaScript file
         shell: bash
         run: |
@@ -80,4 +82,4 @@ jobs:
           cat /tmp/clerfit-http.log
           exit 1
       - name: Test BMI page interactions, responsive layout and accessibility
-        run: npx playwright test tests/bmi-page.browser.spec.js tests/bodyfat-page.browser.spec.js tests/leanmass-page.browser.spec.js tests/fatmass-page.browser.spec.js tests/ffmi-page.browser.spec.js tests/bsa-page.browser.spec.js --reporter=list
+        run: npx playwright test tests/bmi-page.browser.spec.js tests/bodyfat-page.browser.spec.js tests/leanmass-page.browser.spec.js tests/fatmass-page.browser.spec.js tests/ffmi-page.browser.spec.js tests/bsa-page.browser.spec.js tests/whr-page.browser.spec.js --reporter=list
