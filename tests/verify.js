@@ -236,7 +236,6 @@ function runPageFunction(file, functionName, values, resultIds) {
   const scriptBodies = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(match => match[1]);
   const script = scriptBodies.find(source => source.includes('function ' + functionName));
   assert.ok(script, file + ' has an inline script defining ' + functionName);
-  assert.ok(match, file + ' has an inline calculator script');
   const elements = new Map();
   const makeEl = id => {
     if (!elements.has(id)) elements.set(id, {
