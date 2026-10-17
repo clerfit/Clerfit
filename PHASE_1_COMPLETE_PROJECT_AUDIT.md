@@ -57,6 +57,24 @@ Completed on the audit branch and tested in GitHub Actions run #45:
 
 The per-page register now records these distinctions instead of marking BMI “not run.”
 
+### Page 2 — Body Fat Percentage (`html/bodyfat.html`) — source-local sign-off achieved
+
+Completed on the audit branch and tested in GitHub Actions run #61:
+
+- Implemented unit-dependent raw-input ranges for height, waist, neck and hip across the units offered by the page. The shared validator now honors those Body Fat-specific ranges instead of applying incompatible generic minima.
+- Ensured unit-change handling happens after the shared unit system converts the entered value and its constraints. Removed duplicate script inclusion and restored one copy each of the required navigation and unit-system scripts.
+- Added reset behavior that clears fields, inline validation, estimate, formula and indicator, restores all units to centimetres and returns focus to Height.
+- Cleared stale result/formula/indicator content before calculation and whenever relevant inputs or units change.
+- Made hip required only for the female equation; left it optional for the male equation.
+- Rejected estimates outside the physically possible 0–100% range rather than displaying negative or over-100% estimates.
+- Added accessible result announcements and explicit Reset controls.
+- Added a VM-based regression test and a Chromium test covering male and female known-answer estimates (16.2% and 27.2%), metric/inch/feet conversions, dynamic bounds, female hip requirement, invalid units, waist-versus-neck validation, impossible result rejection, reset, visible keyboard focus, 320 px no-overflow, local asset/runtime errors and Axe.
+- Updated the scientific-review and page sign-off records with the test evidence.
+
+**Result:** GitHub Actions run #61 passed both `formula-regression` and the combined Chromium/Axe suite for BMI and Body Fat. The Axe scan reports zero violations for the local Body Fat test build.
+
+**Not claimed:** The production URL and current release ZIP remain unverified. A source-local pass does not certify that the live release contains these changes.
+
 ## Evidence-based findings
 
 ### P1 — Release archive parity is unverified
