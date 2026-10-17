@@ -138,6 +138,16 @@ async function runRoute(browser, route) {
     await page.waitForLoadState('load',{timeout:10000}).catch(()=>{});
     await page.waitForTimeout(120);
     await fillPageInputs(page,pageName);
+    // Dynamically generated BMI-for-age fields have a CDC-supported numeric domain;
+    // explicitly set values after units and controls are present to guard against
+    // browser fill differences and catch input-to-result regressions.
+    if (pageName === 'bmi-for-age.html') {
+      await page.locator('#weight').fill('33.125');
+      await page.locator('#height').fill('125');
+      await page.locator('#age').fill('9');
+      await page.locator('#ageMonths').fill('6');
+      await page.locator('#sex').selectOption('female');
+    }
     inputCount = await page.locator('input:visible,select:visible,textarea:visible').count();
     outputsBefore = await outputSnapshot(page);
     const action = await chooseAction(page);
