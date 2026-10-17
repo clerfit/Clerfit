@@ -60,7 +60,7 @@
         control.getAttribute("aria-labelledby")?.trim() ||
         control.getAttribute("title")?.trim() ||
         (control.labels && [...control.labels].some((label) => label.textContent.trim())) ||
-        (control.matches("button") && control.textContent?.replace(/\\s+/g, " ").trim()) ||
+        (control.matches("button") && control.textContent?.replace(/\s+/g, " ").trim()) ||
         (control.matches('input[type="button"], input[type="submit"], input[type="reset"]') && (control.value || "").trim())
       );
       if (hasName) return;
@@ -72,7 +72,7 @@
         control.getAttribute("placeholder") || svgTitle || parentHint ||
         (control.matches("button") ? control.className : "");
       const label = String(raw).replace(/([a-z0-9])([A-Z])/g, "$1 $2")
-        .replace(/[-_]+/g, " ").replace(/\\s+/g, " ").trim();
+        .replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim();
       if (label) {
         control.setAttribute("aria-label", label.charAt(0).toUpperCase() + label.slice(1));
       } else if (control.matches("button")) {
