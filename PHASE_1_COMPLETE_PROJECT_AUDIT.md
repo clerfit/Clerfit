@@ -124,6 +124,23 @@ Completed on the audit branch and tested in GitHub Actions run #93:
 
 **Not claimed:** The live FFMI URL and release ZIP parity remain unverified. This is source-local sign-off, not production sign-off.
 
+### Page 6 — Body Surface Area (BSA) (`html/bsa.html`) — source-local sign-off achieved
+
+Completed on the audit branch and tested in GitHub Actions run #115:
+
+- Corrected weight conversion to use the exact pound-to-kilogram factor and support both `lb` and `lbs` aliases; broadened height conversion aliases for inches, feet and metres.
+- Added unit-dependent bounds consistent with the formula domain: weight 1–500 kg and height 50–250 cm, with equivalent bounds for pounds, metres, inches and feet.
+- Fixed empty raw inputs to be treated as missing values, not as zeros.
+- Added Reset behavior, which clears inputs/errors/output, restores kg/cm and returns focus to Weight.
+- Cleared stale formula/results when input or unit selectors change; made result and formula announcements accessible via live regions.
+- Removed duplicate character encoding and stale analytics marker.
+- Added VM-based tests for Mosteller known-answer (70 kg, 175 cm → 1.84 m²), lb/in equivalent input, metre/feet values, lower/upper domain boundaries (1 kg/50 cm → 0.12 m²; 500 kg/250 cm → 5.89 m²), invalid units/limits, reset and metadata.
+- Added Chromium/Playwright tests for calculations, unit switching/conversion, empty-input error, boundary values, invalid-value blocking, reset, visible keyboard focus, Home/Contact controls, 320 px reflow, asset/runtime health and Axe.
+
+**Result:** GitHub Actions run #115 passed the existing known-answer/domain suite, all six page-specific Node regressions, JavaScript syntax checks and the combined Chromium/Axe suite. Axe reports zero violations for the local BSA test build.
+
+**Not claimed:** The deployed BSA URL and ZIP parity remain unverified. This is source-local sign-off, not production sign-off.
+
 ## Evidence-based findings
 
 ### P1 — Release archive parity is unverified
@@ -176,7 +193,7 @@ These are deliberately marked open; a source patch is not proof that Lighthouse,
 
 ## Phase 1 exit criteria
 
-Phase 1 is complete only when the exact source archive, repository, and live release are reconciled; every registered calculator and public page has an evidence-backed status; PageSpeed issues have been reproduced or explicitly disproven; fixes have been re-tested; and the sign-off register has no unresolved release-blocking rows. BMI, Body Fat Percentage, Lean Body Mass, Fat Mass and FFMI have passed source-local CI/browser checks, but the site-wide phase is **not signed off** because 113 other calculator pages and the remaining public routes still need the same page-by-page treatment, and archive parity/live-host checks remain open.
+Phase 1 is complete only when the exact source archive, repository, and live release are reconciled; every registered calculator and public page has an evidence-backed status; PageSpeed issues have been reproduced or explicitly disproven; fixes have been re-tested; and the sign-off register has no unresolved release-blocking rows. BMI, Body Fat Percentage, Lean Body Mass, Fat Mass, FFMI and BSA have passed source-local CI/browser checks, but the site-wide phase is **not signed off** because 112 other calculator pages and the remaining public routes still need the same page-by-page treatment, and archive parity/live-host checks remain open.
 
 ## Safety of changes
 
