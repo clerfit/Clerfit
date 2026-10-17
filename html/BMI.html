@@ -53,31 +53,57 @@
 
     // ===== BMI calculation =====
     function calculateBMI() {
-      const weightVal = parseFloat(document.getElementById("weight").value);
+      const result = document.getElementById("result");
+      const weightEl = document.getElementById("weight");
+      const heightEl = document.getElementById("height");
+      const ageEl = document.getElementById("age");
+      const weightVal = Number(weightEl.value);
       const weightUnit = document.getElementById("weightUnit").value;
-      const heightVal = parseFloat(document.getElementById("height").value);
+      const heightVal = Number(heightEl.value);
       const heightUnit = document.getElementById("heightUnit").value;
-      const age = parseInt(document.getElementById("age").value);
+      const age = Number(ageEl.value);
       const gender = document.getElementById("gender").value;
 
-      if (!weightVal || !heightVal || !age || !gender) {
-        alert("Please enter weight, height, age, and select gender.");
+      // Remove an old answer before validating a new submission.
+      result.textContent = "";
+      const indicator = document.getElementById("indicator");
+      if (indicator) {
+        indicator.style.left = "0%";
+        indicator.innerHTML = "";
+        indicator.removeAttribute("title");
+      }
+      const validWeightUnit = ["kg", "lb", "lbs"].includes(weightUnit);
+      const validHeightUnit = ["cm", "m", "in", "inch", "ft"].includes(heightUnit);
+      if (![weightVal, heightVal, age].every(Number.isFinite) ||
+          weightVal <= 0 || heightVal <= 0 ||
+          !Number.isInteger(age) || age < 2 || age > 120 ||
+          !validWeightUnit || !validHeightUnit || !["male", "female"].includes(gender)) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a valid positive weight and height, an age from 2 to 120 years, and supported units and sex selection.</p>';
         return;
       }
 
       const weightKg = convertWeightToKg(weightVal, weightUnit);
       const heightM = convertHeightToM(heightVal, heightUnit);
+      if (![weightKg, heightM].every(Number.isFinite) ||
+          weightKg < 2 || weightKg > 500 || heightM < 0.5 || heightM > 2.74) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">Check the measurements and units. Supported ranges are 2–500 kg and 0.5–2.74 m after conversion.</p>';
+        return;
+      }
 
       const bmi = weightKg / (heightM * heightM);
+      if (!Number.isFinite(bmi) || bmi <= 0) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">A valid BMI could not be calculated from these measurements.</p>';
+        return;
+      }
 
       // CDC adult BMI categories are for adults aged 20 and older; ages 2–19 require BMI-for-age charts.
       if (age < 20) {
-        document.getElementById("result").innerHTML =
-          `BMI: <b>${bmi.toFixed(1)}</b> — <b>Age-specific interpretation required</b> (Age: ${age})<p class="cf-note">For ages 2–19, interpret BMI using an appropriate age- and sex-specific growth-chart percentile. This calculator does not estimate a pediatric percentile.</p>`;
-        const indicator = document.getElementById("indicator");
-        indicator.style.left = "0%";
-        indicator.style.backgroundColor = "#64748b";
-        indicator.innerHTML = '<div class="tooltip">Use BMI-for-age charts</div>';
+        result.innerHTML = `BMI: <b>${bmi.toFixed(1)}</b> — <b>Age-specific interpretation required</b> (Age: ${age})<p class="cf-note">For ages 2–19, interpret BMI using an appropriate age- and sex-specific growth-chart percentile. This calculator does not estimate a pediatric percentile.</p>`;
+        if (indicator) {
+          indicator.style.left = "0%";
+          indicator.style.backgroundColor = "#64748b";
+          indicator.innerHTML = '<div class="tooltip">Use BMI-for-age charts</div>';
+        }
         return;
       }
 
@@ -88,8 +114,7 @@
       else if (bmi < 35) category = "Obese";
       else category = "Obesity class II or higher";
 
-      document.getElementById("result").innerHTML =
-        `BMI: <b>${bmi.toFixed(1)}</b> — <b>${category}</b> (Age: ${age}, Gender: ${gender})`;
+      result.innerHTML = `BMI: <b>${bmi.toFixed(1)}</b> — <b>${category}</b> (Age: ${age}, Gender: ${gender})`;
       moveIndicatorBMI(bmi);
     }
   </script>
