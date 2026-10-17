@@ -30,8 +30,8 @@ jobs:
           node-version: '22'
       - name: Run known-answer and domain regressions
         run: node tests/verify.js
-      - name: Synchronize field-bound inventories from static source markup
-        run: node scripts/sync-input-boundaries.js --write
+      - name: Verify field-bound inventories match static source markup
+        run: node scripts/sync-input-boundaries.js --check
       - name: Check phase inventory, sign-off and sitemap integrity
         run: node tests/phase-register-integrity.test.js
       - name: Verify accessible input-validation errors
