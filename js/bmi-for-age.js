@@ -1,4 +1,4 @@
-/* CDC Extended BMI-for-age growth-chart reference values for ages 2–19 years.
+/* R3 BMI-for-age reference module: R3-2026-10-17-calculator-fixes-03 */\n/* CDC Extended BMI-for-age growth-chart reference values for ages 2–19 years.
  * Source: CDC/NCHS, "Data file for the Extended CDC BMI-for-age Growth Charts"
  * https://www.cdc.gov/growthcharts/extended-bmi-data-files.htm
  * Source CSV used to prepare the exact table rows:

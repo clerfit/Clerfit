@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 'use strict';
+const vm = require('node:vm');
 /* Live production smoke verification for ClerFit. No user data is submitted. */
 const BASE_INPUT = process.argv[2] || process.env.CLERFIT_LIVE_BASE || 'https://clerfit.github.io/Clerfit/';
 const BASE = new URL(BASE_INPUT.endsWith('/') ? BASE_INPUT : BASE_INPUT + '/');
@@ -78,10 +79,25 @@ async function main() {
   const cssUrl = new URL('css/style.css?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
   const homeUrl = new URL('index.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
   const unitUrl = new URL('js/unit-system.js?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
+  const advancedUrl = new URL('js/advanced-calculators.js?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
+  const bmiHelperUrl = new URL('js/bmi-for-age.js?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
+  const validationUrl = new URL('js/input-validation.js?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
+  const bmiAgePageUrl = new URL('html/bmi-for-age.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
+  const bmiChangePageUrl = new URL('html/bmi-change.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
+  const relativeStrengthPageUrl = new URL('html/relative-strength.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
+  const weeklyWeightPageUrl = new URL('html/weekly-weight.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
+  const tdeePageUrl = new URL('html/tdee.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
+  const metabolicAgePageUrl = new URL('html/metabolic-age.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
+  const leanMassPageUrl = new URL('html/leanmass.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
+  const macroSplitPageUrl = new URL('html/macro-split.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
   const releaseMarker = 'name="clerfit-release" content="' + EXPECTED_RELEASE_ID + '"';
-  const [sitemap, nav, css, home, unit] = await Promise.all([
+  const [sitemap, nav, css, home, unit, advanced, bmiHelper, validation, bmiAgePage, bmiChangePage, relativeStrengthPage, weeklyWeightPage, tdeePage, metabolicAgePage, leanMassPage, macroSplitPage] = await Promise.all([
     fetchText(sitemapUrl), fetchText(navUrl), fetchUntilMarker(cssUrl, 'ClerFit R3 live calculator UI'),
-    fetchUntilMarker(homeUrl, releaseMarker), fetchUntilMarker(unitUrl, EXPECTED_RELEASE_ID)
+    fetchUntilMarker(homeUrl, releaseMarker), fetchUntilMarker(unitUrl, EXPECTED_RELEASE_ID),
+    fetchUntilMarker(advancedUrl, EXPECTED_RELEASE_ID),
+    fetchText(bmiHelperUrl), fetchText(validationUrl), fetchText(bmiAgePageUrl),
+    fetchText(bmiChangePageUrl), fetchText(relativeStrengthPageUrl), fetchText(weeklyWeightPageUrl),
+    fetchText(tdeePageUrl), fetchText(metabolicAgePageUrl), fetchText(leanMassPageUrl), fetchText(macroSplitPageUrl)
   ]);
   if (![sitemap.body, nav.body, css.body, home.body, unit.body].every(Boolean)) {
     console.error(JSON.stringify({ status: 'FAIL', failures: FAILURES }, null, 2));
@@ -92,6 +108,44 @@ async function main() {
   assert(home.body.includes('js/page-chrome.js'), 'Homepage missing shared page-chrome script.');
   assert(unit.body.includes('PAGE_UNIT_ASSOCIATIONS'), 'Live unit-system script missing explicit input-to-unit associations.');
   assert(css.body.includes('ClerFit R3 live calculator UI'), 'Live stylesheet missing the R3 calculator UI marker.');
+  const regressionChecks = [];
+
+  // Advanced calculator calculation stays synchronous so submit handlers and
+  // test callers see results immediately; it also avoids a race in result panels.
+  assert(!/form\.addEventListener\('submit',\s*async\s/.test(advanced.body), 'Advanced calculator submit handler must calculate synchronously.');
+  assert(advanced.body.includes('const r=def.calculate(values);'), 'Advanced calculator must render the calculation result directly.');
+  regressionChecks.push('synchronous advanced calculator result handling');
+
+  // Execute the real deployed BMI-for-age helper against known sex/age reference vectors.
+  try {
+    const bmiWindow = {};
+    vm.runInNewContext(bmiHelper.body, { window: bmiWindow, Math, Number, Error }, { timeout: 1500 });
+    const calculate = bmiWindow.ClerFitBMIForAge && bmiWindow.ClerFitBMIForAge.calculate;
+    assert(typeof calculate === 'function', 'BMI-for-age helper did not export calculate().');
+    if (typeof calculate === 'function') {
+      const female = calculate({weight:33.125,height:125,age:9,ageMonths:6,sex:'female'});
+      const male = calculate({weight:24.9165,height:105,age:4,ageMonths:2,sex:'male'});
+      assert(female.primary === '21.2 kg/m²' && female.details.includes('92.2th'), 'BMI-for-age female known-answer vector did not match the expected CDC percentile.');
+      assert(male.primary === '22.6 kg/m²' && male.details.includes('95.9th'), 'BMI-for-age male known-answer vector did not match the expected CDC percentile.');
+      let missingSexRejected = false;
+      try { calculate({weight:33.125,height:125,age:9,ageMonths:6,sex:'not-specified'}); } catch { missingSexRejected = true; }
+      assert(missingSexRejected, 'BMI-for-age must require the sex-specific growth-chart reference.');
+      regressionChecks.push('male/female CDC BMI-for-age known-answer vectors and required reference inputs');
+    }
+  } catch (error) { FAILURES.push('BMI-for-age known-answer execution failed: ' + (error && error.message || error)); }
+
+  // Critical reported bugs: explicit shared-field associations, no output selector
+  // changing a calorie input, and realistic field constraints for body measures.
+  assert(bmiAgePage.body.includes('id="weight"') && bmiAgePage.body.includes('id="height"') && bmiAgePage.body.includes('id="ageMonths"') && bmiAgePage.body.includes('src="../js/bmi-for-age.js"'), 'BMI-for-age must render usable inputs and load the CDC reference module.');
+  assert(bmiChangePage.body.includes('data-unit-for="currentWeightBMI,goalWeightBMI"'), 'BMI Change must convert both current and goal weights with its shared unit selector.');
+  assert(relativeStrengthPage.body.includes('data-unit-for="oneRM,bodyWeight"'), 'Relative Strength must convert both compared weight values.');
+  assert(weeklyWeightPage.body.includes('data-unit-role="output"'), 'Weekly Weight result unit must not mutate calorie inputs.');
+  assert(tdeePage.body.includes('id="weight" type="number" min="0.1" max="500" step="any"') && tdeePage.body.includes('id="height" type="number" min="30" max="300" step="any"') && tdeePage.body.includes('id="age" type="number" min="18" max="120" step="1"'), 'TDEE must accept valid decimal body measurements and enforce its adult equation range.');
+  assert(metabolicAgePage.body.includes('id="weight" placeholder="Enter weight" min="0.1" max="500" step="any"') && metabolicAgePage.body.includes('id="height" placeholder="Enter height" min="30" max="300" step="any"') && metabolicAgePage.body.includes('id="age" placeholder="Enter age" min="20" max="120" step="1"'), 'Resting-energy calculator fields must accept realistic body measurements and adult age.');
+  assert(leanMassPage.body.includes('id="weight" type="number" min="0.1" max="500" step="any"'), 'Lean Mass must accept weights over 100 kg.');
+  assert(macroSplitPage.body.includes('id="weight" placeholder="Enter weight" min="0.1" max="500" step="any"') && macroSplitPage.body.includes('id="age" placeholder="Enter age" min="18" max="120" step="1"'), 'Macro Split must accept realistic weights and constrain its adult equation range.');
+  assert(validation.body.includes('function calculatorScope(trigger)') && validation.body.includes('visibleNumericInputs(scope)'), 'Numeric validation must be scoped to the active form/card.');
+  regressionChecks.push('shared validation scope, decimal input bounds, and unit-selector regressions');
 
   const locs = [...sitemap.body.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(m => m[1].trim());
   const pages = [...new Set(locs)];
@@ -138,6 +192,7 @@ async function main() {
     checkedAt: new Date().toISOString(),
     status: FAILURES.length ? 'FAIL' : 'PASS',
     counts: { calculators: registry.length, sitemapPages: pages.length, nestedHtmlPages: nested.length, htmlPagesFetched: PAGE_BODIES.size, localReferencesChecked: RESOURCES.size, failures: FAILURES.length },
+    regressionChecks,
     failures: FAILURES
   };
   console.log(JSON.stringify(report, null, 2));
