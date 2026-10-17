@@ -30,6 +30,28 @@ function clampToInput(value, info) {
 function preferredValue(info, pageName) {
   const s = [info.id, info.name, info.placeholder, info.aria, info.label].join(' ').toLowerCase();
   // Page-specific realistic values avoid mistaking a test-fixture value for a calculator defect.
+  if (pageName === 'face-shape.html') {
+    if (/facelength/.test(s)) return 18;
+    if (/forehead/.test(s)) return 13;
+    if (/cheekbones/.test(s)) return 15;
+    if (/jawline/.test(s)) return 12;
+  }
+  if (pageName === 'nose-length-ratio.html') {
+    if (/nose/.test(s)) return 50;
+    if (/face/.test(s)) return 150;
+  }
+  if (pageName === 'eye-spacing.html') {
+    if (/space|spacing/.test(s)) return 30;
+    if (/eye width|\beye\b/.test(s)) return 30;
+  }
+  if (pageName === 'shoulder-symmetry.html') {
+    if (/left/.test(s)) return 500;
+    if (/right/.test(s)) return 510;
+  }
+  if (pageName === 'sit-stand-ratio.html') {
+    if (/reps|repetition/.test(s)) return 15;
+    if (/time|duration/.test(s)) return 30;
+  }
   if (pageName === 'vo2max.html' && /distance/.test(s)) return 2400;
   if (pageName === 'heartrate.html' && /rhr|resting heart rate/.test(s)) return 70;
   if (pageName === 'weekly-training-count.html' && /sessions/.test(s)) return 5;
@@ -121,7 +143,13 @@ async function outputSnapshot(page) {
     const selectors = '[id="result"],[id="output"],[id$="Result"],[id$="Output"],.result,.cf-result,.cf-warning,[role="alert"],[role="status"],output';
     return Array.from(document.querySelectorAll(selectors))
       .filter(el => !/searchResults|search-results/i.test(el.id || '') && (el.getClientRects().length > 0))
-      .map(el => ({id:el.id || '',text:(el.innerText || el.textContent || '').replace(/\s+/g,' ').trim()}))
+      .map(el => ({
+        id:el.id || '',
+        className:typeof el.className === 'string' ? el.className : '',
+        role:el.getAttribute('role') || '',
+        validation:el.matches('.cf-validation-message,.cf-warning') || el.getAttribute('role') === 'alert',
+        text:(el.innerText || el.textContent || '').replace(/\s+/g,' ').trim()
+      }))
       .filter(x => x.text);
   });
 }
@@ -186,6 +214,11 @@ async function runRoute(browser, route) {
       await page.locator('#amount').dispatchEvent('input').catch(()=>{});
     }
     outputsAfter = await outputSnapshot(page);
+    const rejectedFixture = outputsAfter.filter(x => x.validation && x.text);
+    if (rejectedFixture.length) {
+      failures.push(pageName + ' rejected the populated browser-smoke fixture: ' +
+        rejectedFixture.map(x => x.text.slice(0,160)).join(' | '));
+    }
     navState = await page.evaluate(() => {
       const nav = document.querySelector('.cf-page-actions, .clerfit-fixed-actions, .cf-floating-links, .top-right-buttons');
       const main = document.querySelector('main.main, main, .main');
@@ -220,7 +253,7 @@ async function runRoute(browser, route) {
   } finally {
     await page.close().catch(()=>{});
   }
-  const row={file:pageName,url,loaded,inputCount,actionClicked:clicked,bodyOverflow,navState,pageErrors,consoleErrors,outputs:outputsAfter.length,outputSample:outputsAfter.map(x=>x.text).join(' | ').slice(0,260)};
+  const row={file:pageName,url,loaded,inputCount,actionClicked:clicked,bodyOverflow,navState,pageErrors,consoleErrors,outputs:outputsAfter.length,validationOutputs:outputsAfter.filter(x=>x.validation).map(x=>x.text).slice(0,4),outputSample:outputsAfter.map(x=>x.text).join(' | ').slice(0,260)};
   if (!loaded) failures.push(pageName + ' failed to load/execute: ' + pageErrors.join(' | '));
   if (inputCount===0) failures.push(pageName + ' has no visible interactive input.');
   if (!clicked && !/unit\.html$/i.test(pageName)) failures.push(pageName + ' has no actionable Calculate/Convert control.');
