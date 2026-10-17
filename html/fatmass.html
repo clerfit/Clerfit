@@ -37,32 +37,37 @@
 
 <script>
 function calculateFatMass() {
+  const result = document.getElementById("result");
+  const formula = document.getElementById("formula");
+  const rawWeight = Number(document.getElementById("weight").value);
+  const unit = document.getElementById("weightUnit").value;
+  const fat = Number(document.getElementById("fat").value);
 
-  let weight = parseFloat(document.getElementById("weight").value);
-  let unit = document.getElementById("weightUnit").value;
-  let fat = parseFloat(document.getElementById("fat").value);
-
-  if (!Number.isFinite(weight) || weight <= 0 || !Number.isFinite(fat) || fat < 0 || fat > 100) {
-    alert("Enter valid values");
+  result.textContent = "";
+  formula.textContent = "";
+  if (!Number.isFinite(rawWeight) || !Number.isFinite(fat) || rawWeight <= 0 || fat < 0 || fat > 100) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a positive weight and a body-fat percentage from 0 to 100.</p>';
+    return;
+  }
+  let weight = rawWeight;
+  if (unit === "lb" || unit === "lbs") weight *= 0.45359237;
+  else if (unit !== "kg") {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose a supported weight unit (kg or lb).</p>';
+    return;
+  }
+  if (!Number.isFinite(weight) || weight < 0.1 || weight > 500) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check the weight value and unit; the converted weight must be from 0.1 to 500 kg.</p>';
     return;
   }
 
-  /* kg ← lb */
-  if (unit === "lb") {
-    weight = weight / 2.20462;
+  const fatMassKg = weight * (fat / 100);
+  if (!Number.isFinite(fatMassKg)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">The result could not be calculated from these values.</p>';
+    return;
   }
 
-  /* Calculation */
-  const fatMassKg = weight * (fat / 100);
-
-  document.getElementById("result").innerHTML =
-    `Fat Mass: <b>${fatMassKg.toFixed(2)} kg</b> (${fat.toFixed(1)}%)`;
-
-  document.getElementById("formula").innerHTML =
-    `Fat Mass = Weight × (Body Fat ÷ 100)<br>
-     = ${weight.toFixed(2)} × (${fat} ÷ 100)<br>
-     = ${fatMassKg.toFixed(2)} kg`;
-
+  result.innerHTML = `Fat Mass: <b>${fatMassKg.toFixed(2)} kg</b> (${fat.toFixed(1)}%)`;
+  formula.innerHTML = `Fat Mass = Weight × (Body Fat ÷ 100)<br> = ${weight.toFixed(2)} × (${fat} ÷ 100)<br> = ${fatMassKg.toFixed(2)} kg`;
   const indicator = document.getElementById("indicator");
   const container = document.querySelector(".bar-container");
   if (container) container.hidden = true;
