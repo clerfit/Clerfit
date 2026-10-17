@@ -96,18 +96,32 @@
     if (b) return `${label}: ${b.label.toLowerCase()} must be between ${b.min} and ${b.max}${/age/.test(text) ? ' years' : ''}. Please check the value and unit.`;
     return `${label}: this value is outside the supported range.`;
   }
+  let errorIdSequence = 0;
   function errorNode(el) {
     let node = el.parentElement && el.parentElement.querySelector(':scope > .clerfit-input-error');
     if (!node) {
-      node = document.createElement('small'); node.className = 'clerfit-input-error'; node.setAttribute('role', 'alert');
+      node = document.createElement('small');
+      node.className = 'clerfit-input-error';
+      node.setAttribute('role', 'alert');
+      node.id = 'clerfit-input-error-' + (++errorIdSequence);
       if (el.insertAdjacentElement) el.insertAdjacentElement('afterend', node); else el.parentNode.appendChild(node);
     }
+    // Explicitly associate the inline message with its input for screen readers.
+    // Preserve any descriptions already supplied by the calculator page.
+    const describedBy = new Set((el.getAttribute('aria-describedby') || '').split(/\\s+/).filter(Boolean));
+    if (node.id) describedBy.add(node.id);
+    if (describedBy.size) el.setAttribute('aria-describedby', Array.from(describedBy).join(' '));
     return node;
   }
   function clearError(el) {
     el.removeAttribute('aria-invalid');
     const node = el.parentElement && el.parentElement.querySelector(':scope > .clerfit-input-error');
-    if (node) node.remove();
+    if (node) {
+      const describedBy = (el.getAttribute('aria-describedby') || '').split(/\\s+/).filter(id => id && id !== node.id);
+      if (describedBy.length) el.setAttribute('aria-describedby', describedBy.join(' '));
+      else el.removeAttribute('aria-describedby');
+      node.remove();
+    }
   }
   function validate(el, show) {
     if (!el || el.type !== 'number' || el.disabled || el.readOnly) return true;
