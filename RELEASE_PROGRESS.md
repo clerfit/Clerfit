@@ -76,3 +76,20 @@ A fresh static audit of all 127 HTML documents in that available archive also pa
 - **Phase One audit inventory:** consolidated and refreshed; static package evidence is strong.
 - **Phase Two calculator inventory/implementation:** 118 routes present with 118/118 route-level known-answer or method vectors recorded in the tested archive; targeted semantic and accessibility fixes added to main.
 - **Final release sign-off remains open:** the latest exact-HEAD workflow status could not be confirmed in this attempt; the live homepage response still exposed the previous FAQ copy when rechecked; full semantic boundary review for every numeric field, full keyboard/screen-reader and physical-device acceptance, deep-link parity against the exact final SHA, live contact delivery, and expert validation where warranted remain open. Do not represent these as passed until fresh evidence is recorded.
+
+
+## Follow-up — 2026-10-17, integrated Phase 1 / Phase 2 work
+
+### Source corrections committed to main
+
+- Restored a reproducible staging build (`scripts/build-site.js`) and staging parity checker (`scripts/verify-staging.js`) referenced by the README and Netlify config but absent from main; added mocked contact-form and unit-conversion property test files that were also previously missing from main.
+- Added `scripts/browser-smoke-staging.js`, a staging-targeted copy of the route interaction suite that bypasses live-release marker polling only when `CLERFIT_ALLOW_LOCAL_STAGING=1`; canonical sitemap comparison is explicitly based on `CLERFIT_SITEMAP_BASE` when provided.
+- Added `scripts/accessibility-smoke.js` to run axe across staged user-facing HTML pages and collect critical/serious issues, browser errors, load failures and manual-review notes.
+- Added `.github/workflows/phase-one-ci.yml` to run source syntax, calculator regressions, accessible validation tests, seven page-specific tests, mocked contact tests, unit conversion tests, sitemap/build/staging checks, 118-route Chromium tests and all-page axe tests. The new workflow is included in the main branch and is designed to provide exact-source evidence; no green result is claimed until GitHub Actions confirms it.
+- Updated the BMI, Body Fat Percentage, BSA, Fat Mass, FFMI, Lean Body Mass, WHR and WHtR pages with reset/stale-output/unit-bound handling from the audited remediation source. Added Node regressions for the first seven of these pages.
+- Expanded `js/page-chrome.js` to restore a semantic main landmark and add names for otherwise unnamed controls/links on legacy pages. Added keyboard-focus, non-color link distinction, forced-colors and narrow-homepage responsive CSS rules.
+- Added `PHASE_1_CALCULATOR_INVENTORY.csv`, `PHASE_1_SIGNOFF_REGISTER.csv`, `PHASE_1_FINDINGS_REGISTER.csv`, and provenance notes. The detailed register explicitly distinguishes prior branch-local evidence from fresh current-main verification.
+
+### Current gate status
+
+These are concrete source and QA-harness changes, not a claim that all final gates have already passed. CI for the newest exact main SHA must finish and all failed tests must be repaired; full semantic-boundary rationale across 238 static fields and generated inputs, physical-device and manual screen-reader acceptance, exact deployed-source parity, and real contact delivery remain unclosed until their evidence is recorded.
