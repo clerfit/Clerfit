@@ -170,61 +170,63 @@
 <script>
 // ===== Unit Conversion =====
 function convertWeightToKg(value, unit) {
-  if (unit === "lbs") return value * 0.45359237;
-  return value;
+  switch (String(unit).toLowerCase()) {
+    case "kg": return value;
+    case "lbs": return value * 0.45359237;
+    default: return NaN;
+  }
 }
 
 function convertHeightToCm(value, unit) {
-  switch(unit) {
+  switch (String(unit).toLowerCase()) {
     case "cm": return value;
     case "m": return value * 100;
     case "in": return value * 2.54;
     case "ft": return value * 30.48;
-    default: return value;
+    default: return NaN;
   }
 }
 
 // ===== Calorie Surplus Calculation =====
 function calculateSurplus() {
-  const weightVal = parseFloat(document.getElementById("weight").value);
+  const weightVal = Number(document.getElementById("weight").value);
   const weightUnit = document.getElementById("weightUnit").value;
-  const heightVal = parseFloat(document.getElementById("height").value);
+  const heightVal = Number(document.getElementById("height").value);
   const heightUnit = document.getElementById("heightUnit").value;
-  const age = parseInt(document.getElementById("age").value);
+  const age = Number(document.getElementById("age").value);
   const gender = document.getElementById("gender").value;
-  const activityFactor = parseFloat(document.getElementById("activity").value);
-  const surplusAmount = parseFloat(document.getElementById("surplus").value);
+  const activityFactor = Number(document.getElementById("activity").value);
+  const surplusAmount = Number(document.getElementById("surplus").value);
+  const result = document.getElementById("result");
+  const details = document.getElementById("details");
+  result.textContent = "";
+  details.textContent = "";
 
-  if (!weightVal || !heightVal || !age || !gender) {
-    alert("Please enter all required fields.");
+  if (![weightVal, heightVal, age, activityFactor, surplusAmount].every(Number.isFinite) ||
+      weightVal <= 0 || heightVal <= 0 || !Number.isInteger(age) || age < 18 || age > 120 ||
+      !["male", "female"].includes(gender) || ![1.2, 1.375, 1.55, 1.725, 1.9].includes(activityFactor) ||
+      ![250, 500, 750, 1000].includes(surplusAmount)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter supported measurements, age 18–120, sex/reference group, activity level, and surplus option.</p>';
     return;
   }
-
   const weightKg = convertWeightToKg(weightVal, weightUnit);
   const heightCm = convertHeightToCm(heightVal, heightUnit);
-
-  let rmr;
-
-  // Mifflin–St Jeor Equation
-  if (gender === "male") {
-    rmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5;
-  } else {
-    rmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) - 161;
+  if (!Number.isFinite(weightKg) || !Number.isFinite(heightCm) ||
+      weightKg < 2 || weightKg > 500 || heightCm < 100 || heightCm > 250) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check units and measurements. Converted weight must be 2–500 kg and height 100–250 cm.</p>';
+    return;
   }
-
+  const rmr = 10 * weightKg + 6.25 * heightCm - 5 * age + (gender === "male" ? 5 : -161);
   const maintenanceCalories = rmr * activityFactor;
   const targetCalories = maintenanceCalories + surplusAmount;
-
-  // Estimated weight gain per week (7700 kcal ≈ 1 kg)
-  const weeklyGain = (surplusAmount * 7) / 7700;
-
-  document.getElementById("result").innerHTML =
-    `Your Target Calories for Weight Gain: <b>${targetCalories.toFixed(0)} kcal/day</b>`;
-
-  document.getElementById("details").innerHTML =
-    `Maintenance Calories: ${maintenanceCalories.toFixed(0)} kcal/day<br>
-     Selected Surplus: ${surplusAmount} kcal/day<br>
-     Estimated Weight Gain: ~${weeklyGain.toFixed(2)} kg per week`;
+  const weeklyGain = surplusAmount * 7 / 7700;
+  if (![maintenanceCalories, targetCalories, weeklyGain].every(Number.isFinite) ||
+      maintenanceCalories <= 0 || targetCalories <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">A valid calorie target could not be calculated from these inputs.</p>';
+    return;
+  }
+  result.innerHTML = `Your Target Calories for Weight Gain: <b>${targetCalories.toFixed(0)} kcal/day</b>`;
+  details.innerHTML = `Maintenance Calories: ${maintenanceCalories.toFixed(0)} kcal/day<br>Selected Surplus: ${surplusAmount} kcal/day<br>Approximate energy-balance estimate: ~${weeklyGain.toFixed(2)} kg per week<p class="cf-note">This is a simplified estimate, not a personalized weight-gain prediction or medical plan. Actual weight change is dynamic.</p>`;
 }
 </script>
 
