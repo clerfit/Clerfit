@@ -141,48 +141,40 @@
 
 <script>
 function calculateWeightLossRate(){
-  const tdee = parseFloat(document.getElementById("tdeeRate").value);
-  const intake = parseFloat(document.getElementById("intakeRate").value);
+  const result = document.getElementById("rateResult");
+  const tdee = Number(document.getElementById("tdeeRate").value);
+  const intake = Number(document.getElementById("intakeRate").value);
   const unit = document.getElementById("unitRate").value;
+  result.textContent = "";
 
-  if(!tdee || !intake){
-    alert("Please enter both TDEE and intake.");
+  if (![tdee, intake].every(Number.isFinite) || tdee < 0 || intake < 0 || tdee > 50000 || intake > 50000) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter non-negative TDEE and intake values up to 50,000 kcal/day.</p>';
+    return;
+  }
+  if (!["kg", "lbs"].includes(unit)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose kg or lb as the preferred weight unit.</p>';
     return;
   }
 
   const dailyDeficit = tdee - intake;
-
-  if(dailyDeficit <= 0){
-    document.getElementById("rateResult").innerHTML =
-      "<b>No calorie deficit detected. You are not in fat loss mode.</b>";
+  if (dailyDeficit <= 0) {
+    result.innerHTML = '<p class="cf-note">No calorie deficit is entered, so this model does not estimate weight loss.</p>';
     return;
   }
 
-  let weeklyLoss, monthlyLoss;
-
-  if(unit === "kg"){
-    weeklyLoss = (dailyDeficit * 7) / 7700;
-    monthlyLoss = (dailyDeficit * 30) / 7700;
-  } else {
-    weeklyLoss = (dailyDeficit * 7) / 3500;
-    monthlyLoss = (dailyDeficit * 30) / 3500;
+  const unitFactor = unit === "kg" ? 1 : 0.45359237;
+  const weeklyLossKg = (dailyDeficit * 7) / 7700;
+  const monthlyLossKg = (dailyDeficit * 30) / 7700;
+  const weeklyLoss = weeklyLossKg / unitFactor;
+  const monthlyLoss = monthlyLossKg / unitFactor;
+  if (![weeklyLoss, monthlyLoss].every(Number.isFinite)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">A result could not be calculated from these values.</p>';
+    return;
   }
 
-  // Safety warning
-  let warning = "";
-  if(unit === "kg" && weeklyLoss > 1){
-    warning = "<br><span style='color:red;'>Warning: This rate may be too aggressive.</span>";
-  }
-  if(unit === "lbs" && weeklyLoss > 2){
-    warning = "<br><span style='color:red;'>Warning: This rate may be too aggressive.</span>";
-  }
-
-  document.getElementById("rateResult").innerHTML = `
-    <b>Daily Calorie Deficit:</b> ${dailyDeficit.toFixed(0)} kcal<br>
-    <b>Expected Weekly Loss:</b> ${weeklyLoss.toFixed(2)} ${unit}<br>
-    <b>Expected Monthly Loss:</b> ${monthlyLoss.toFixed(2)} ${unit}
-    ${warning}
-  `;
+  const tooFast = weeklyLossKg > 1;
+  const warning = tooFast ? '<p class="cf-warning">This simplified model implies more than 1 kg/week. That may be too aggressive for many people and is not a personalized or medically reviewed target.</p>' : '';
+  result.innerHTML = `<b>Daily Calorie Deficit:</b> ${dailyDeficit.toFixed(0)} kcal<br><b>Estimated Weekly Change:</b> ${weeklyLoss.toFixed(2)} ${unit}<br><b>Estimated 30-day Change:</b> ${monthlyLoss.toFixed(2)} ${unit}${warning}<p class="cf-note">Static calorie-to-mass estimate only. Actual weight change is dynamic and can differ due to metabolic adaptation, water shifts, composition, and adherence; this is not a personalized prediction.</p>`;
 }
 </script>
 
