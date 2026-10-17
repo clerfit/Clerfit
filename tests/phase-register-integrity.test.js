@@ -62,6 +62,53 @@ for (const row of inventory) {
 const inventoryFiles = new Set(inventory.map(row => row[sourceIndex].replace(/^html\//, '')));
 assert.deepEqual([...routeFiles].sort(), [...inventoryFiles].sort(), 'registry and audit inventory routes must match');
 
+
+function parseTagAttributes(tag) {
+  const attributes = {};
+  for (const match of tag.matchAll(/([^\\s=/>]+)(?:\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+)))?/g)) {
+    attributes[match[1].toLowerCase()] = match[2] ?? match[3] ?? match[4] ?? '';
+  }
+  return attributes;
+}
+const fieldAuditRows = parseCsv(read('FIELD_VALIDATION_AUDIT.csv'));
+const fieldAuditHeader = fieldAuditRows[0];
+const verifiedBoundsRows = parseCsv(read('INPUT_BOUNDARY_VERIFIED.csv'));
+const verifiedBoundsHeader = verifiedBoundsRows[0];
+for (const field of ['file', 'id', 'min', 'max', 'step', 'constraint_consistency']) {
+  assert.ok(fieldAuditHeader.includes(field), 'field validation audit header missing ' + field);
+}
+for (const field of ['file', 'id', 'min', 'max', 'step']) {
+  assert.ok(verifiedBoundsHeader.includes(field), 'verified boundary header missing ' + field);
+}
+const fieldAuditData = new Map(fieldAuditRows.slice(1).map(row => [row[fieldAuditHeader.indexOf('file')] + '|' + row[fieldAuditHeader.indexOf('id')], row]));
+const verifiedBoundsData = new Map(verifiedBoundsRows.slice(1).map(row => [row[verifiedBoundsHeader.indexOf('file')] + '|' + row[verifiedBoundsHeader.indexOf('id')], row]));
+assert.equal(fieldAuditRows.length - 1, 238, 'field validation audit must contain 238 static numeric fields');
+assert.equal(verifiedBoundsRows.length - 1, 238, 'verified boundary inventory must contain 238 static numeric fields');
+assert.equal(fieldAuditData.size, 238, 'field audit must not duplicate file/id records');
+assert.equal(verifiedBoundsData.size, 238, 'boundary inventory must not duplicate file/id records');
+let sourceNumericFieldCount = 0;
+for (const file of fs.readdirSync(path.join(root, 'html')).filter(name => name.toLowerCase().endsWith('.html'))) {
+  const relative = 'html/' + file;
+  // Script-generated input markup belongs to runtime-generated controls, not the static inventory.
+  const staticMarkup = read(relative).replace(/<script\\b[\\s\\S]*?<\\/script\\s*>/gi, '').replace(/<style\\b[\\s\\S]*?<\\/style\\s*>/gi, '');
+  for (const match of staticMarkup.matchAll(/<input\\b[^>]*>/gi)) {
+    const attributes = parseTagAttributes(match[0]);
+    if ((attributes.type || '').toLowerCase() !== 'number') continue;
+    sourceNumericFieldCount++;
+    const key = relative + '|' + (attributes.id || '');
+    const auditRow = fieldAuditData.get(key);
+    const boundsRow = verifiedBoundsData.get(file + '|' + (attributes.id || ''));
+    assert.ok(auditRow, 'numeric input missing from FIELD_VALIDATION_AUDIT.csv: ' + key);
+    assert.ok(boundsRow, 'numeric input missing from INPUT_BOUNDARY_VERIFIED.csv: ' + key);
+    for (const attribute of ['min', 'max', 'step']) {
+      const actual = attributes[attribute] ?? '';
+      assert.equal(auditRow[fieldAuditHeader.indexOf(attribute)], actual, 'FIELD_VALIDATION_AUDIT.csv stale ' + attribute + ' for ' + key);
+      assert.equal(boundsRow[verifiedBoundsHeader.indexOf(attribute)], actual, 'INPUT_BOUNDARY_VERIFIED.csv stale ' + attribute + ' for ' + key);
+    }
+  }
+}
+assert.equal(sourceNumericFieldCount, 238, 'static HTML numeric input count must match field inventories');
+
 const sitemapText = read('sitemap.xml');
 const sitemapUrls = [...sitemapText.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(match => match[1].trim());
 assert.equal(new Set(sitemapUrls).size, sitemapUrls.length, 'sitemap must not contain duplicate URLs');
@@ -85,4 +132,4 @@ assert.match(accessibleTest, /sibling error node is retained/, 'validation acces
 assert.match(read('.github/workflows/phase-one-ci.yml'), /browser-smoke-staging\.js/, 'full workflow must run source-staging interaction tests');
 assert.match(read('.github/workflows/phase-one-ci.yml'), /accessibility-smoke\.js/, 'full workflow must run all-page accessibility checks');
 
-console.log('PASS: 118 routes, inventory/file parity, unique 123-URL sitemap, per-route sign-off register and release-gate honesty.');
+console.log('PASS: 118 routes, 238 source-matched static field bounds, inventory/file parity, unique 123-URL sitemap, per-route sign-off register and release-gate honesty.');
