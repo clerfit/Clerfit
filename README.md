@@ -8,7 +8,7 @@ A static HTML/CSS/JavaScript health, fitness, measurement and everyday-calculato
 2. Open `index.html` in a modern browser.
 3. Use the left-edge three-line menu to open the sidebar; it starts closed.
 4. Use the magnifying-glass control inside the sidebar to search calculators.
-5. Home and Contact Us appear in the shared page header in normal document flow; they do not float over calculator fields.
+5. Home and Contact Us appear right-aligned in the shared page header in normal document flow; they do not float over calculator fields.
 6. Supported unit selectors convert values within the calculator when you change units. The site does not save a global unit preference in browser storage.
 
 For a local server, run `python -m http.server 8000` from this folder and open `http://localhost:8000`.
@@ -54,7 +54,6 @@ For a local server, run `python -m http.server 8000` from this folder and open `
 ```bash
 for f in js/*.js scripts/*.js tests/*.js; do node --check "$f"; done
 node tests/verify.js
-node tests/contact-form.test.js
 node tests/contact-form.test.js
 node tests/unit-conversion-property.test.js
 node scripts/generate-sitemap.js --check
