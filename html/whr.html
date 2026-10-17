@@ -171,6 +171,10 @@ function resetWHR() {
     if (!field) return;
     field.value = value;
     field.removeAttribute('aria-invalid');
+    // Keep the shared unit converter's previous-unit cache synchronized with Reset.
+    if (field.matches && field.matches('select') && field.dataset) {
+      field.dataset.clerfitPreviousUnit = value;
+    }
   });
   document.querySelectorAll('.clerfit-input-error').forEach(node => node.remove());
   clearWHROutput();
