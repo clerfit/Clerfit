@@ -177,6 +177,90 @@ function convertToCm(value, unit) {
   }
 }
 
+function clearBodyFatOutput() {
+  const result = document.getElementById("bf-result");
+  const formula = document.getElementById("bf-formula");
+  const indicator = document.getElementById("bf-indicator");
+  if (result) result.textContent = "";
+  if (formula) formula.textContent = "";
+  if (indicator) {
+    indicator.style.left = "0%";
+    indicator.style.backgroundColor = "";
+    indicator.innerHTML = "";
+    indicator.removeAttribute("title");
+  }
+}
+
+function syncBodyFatBounds() {
+  const fields = [
+    { id: "bf-height", unitId: "bf-height-unit", bounds: {
+      cm: [100, 250], m: [1, 2.5], inch: [39.3701, 98.4252], ft: [3.2809, 8.2021]
+    }},
+    { id: "bf-waist", unitId: "bf-waist-unit", bounds: {
+      cm: [20, 250], inch: [7.8741, 98.4252], ft: [0.6562, 8.2021]
+    }},
+    { id: "bf-neck", unitId: "bf-neck-unit", bounds: {
+      cm: [15, 80], inch: [5.9056, 31.4961], ft: [0.4922, 2.6247]
+    }},
+    { id: "bf-hip", unitId: "bf-hip-unit", bounds: {
+      cm: [20, 250], inch: [7.8741, 98.4252], ft: [0.6562, 8.2021]
+    }}
+  ];
+  fields.forEach(({ id, unitId, bounds }) => {
+    const field = document.getElementById(id);
+    const unit = document.getElementById(unitId);
+    if (!field || !unit) return;
+    const range = bounds[unit.value];
+    if (range) {
+      field.min = String(range[0]);
+      field.max = String(range[1]);
+    }
+  });
+  const gender = document.getElementById("bf-gender");
+  const hip = document.getElementById("bf-hip");
+  const hipUnit = document.getElementById("bf-hip-unit");
+  const female = !!gender && gender.value === "female";
+  if (hip) {
+    hip.disabled = !female;
+    hip.required = female;
+    if (!female) {
+      hip.removeAttribute("aria-invalid");
+      if (hip.nextElementSibling && hip.nextElementSibling.classList &&
+          hip.nextElementSibling.classList.contains("clerfit-input-error")) {
+        hip.nextElementSibling.remove();
+      }
+    }
+  }
+  if (hipUnit) hipUnit.disabled = !female;
+}
+
+function resetBodyFat() {
+  const defaults = {
+    "bf-gender": "male",
+    "bf-height": "", "bf-height-unit": "cm",
+    "bf-waist": "", "bf-waist-unit": "cm",
+    "bf-neck": "", "bf-neck-unit": "cm",
+    "bf-hip": "", "bf-hip-unit": "cm"
+  };
+  Object.entries(defaults).forEach(([id, value]) => {
+    const field = document.getElementById(id);
+    if (!field) return;
+    field.value = value;
+    field.removeAttribute("aria-invalid");
+  });
+  document.querySelectorAll(".clerfit-input-error").forEach(node => node.remove());
+  clearBodyFatOutput();
+  syncBodyFatBounds();
+  const height = document.getElementById("bf-height");
+  if (height) height.focus();
+}
+
+if (typeof document !== "undefined" && document.addEventListener) {
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.getElementById("bf-height")) syncBodyFatBounds();
+  }, { once: true });
+}
+
 function calculateBodyFat() {
   const gender = document.getElementById("bf-gender").value;
 
@@ -193,6 +277,9 @@ function calculateBodyFat() {
   const result = document.getElementById("bf-result");
   const formula = document.getElementById("bf-formula");
   const indicator = document.getElementById("bf-indicator");
+
+  // Clear the prior estimate before any validation path can return.
+  clearBodyFatOutput();
 
   if (![height, waist, neck].every(Number.isFinite) || height <= 0 || waist <= 0 || neck <= 0 ||
       !["male", "female"].includes(gender)) {
