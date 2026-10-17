@@ -93,7 +93,7 @@
     <!-- Height -->
     <label for="bf-height">Height</label>
     <input type="number" id="bf-height" placeholder="Enter height" step="any" min="100" max="250" aria-label="Enter height" oninput="clearBodyFatOutput()">
-    <select id="bf-height-unit" aria-label="Height unit" onchange="clearBodyFatOutput(); syncBodyFatBounds()">
+    <select id="bf-height-unit" aria-label="Height unit" onchange="clearBodyFatOutput()">
       <option value="cm" selected>cm</option>
       <option value="m">m</option>
       <option value="inch">inch</option>
@@ -103,7 +103,7 @@
     <!-- Waist -->
     <label for="bf-waist">Waist</label>
     <input type="number" id="bf-waist" placeholder="Enter waist" step="any" min="20" max="250" aria-label="Enter waist" oninput="clearBodyFatOutput()">
-    <select id="bf-waist-unit" aria-label="Waist unit" onchange="clearBodyFatOutput(); syncBodyFatBounds()">
+    <select id="bf-waist-unit" aria-label="Waist unit" onchange="clearBodyFatOutput()">
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
       <option value="ft">ft</option>
@@ -112,7 +112,7 @@
     <!-- Neck -->
     <label for="bf-neck">Neck</label>
     <input type="number" id="bf-neck" placeholder="Enter neck" step="any" min="15" max="80" aria-label="Enter neck" oninput="clearBodyFatOutput()">
-    <select id="bf-neck-unit" aria-label="Neck unit" onchange="clearBodyFatOutput(); syncBodyFatBounds()">
+    <select id="bf-neck-unit" aria-label="Neck unit" onchange="clearBodyFatOutput()">
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
       <option value="ft">ft</option>
@@ -120,8 +120,8 @@
 
     <!-- Hip (female only) -->
     <label for="bf-hip">Hip (females only)</label>
-    <input type="number" id="bf-hip" placeholder="Enter hip" step="any" min="20" max="250" aria-label="Enter hip" oninput="clearBodyFatOutput()" disabled>
-    <select id="bf-hip-unit" aria-label="Hip unit" onchange="clearBodyFatOutput(); syncBodyFatBounds()" disabled>
+    <input type="number" id="bf-hip" placeholder="Enter hip" step="any" min="20" max="250" aria-label="Enter hip" oninput="clearBodyFatOutput()">
+    <select id="bf-hip-unit" aria-label="Hip unit" onchange="clearBodyFatOutput()" disabled>
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
       <option value="ft">ft</option>
