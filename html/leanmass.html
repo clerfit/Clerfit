@@ -53,15 +53,62 @@
 }
 </style>
 <script defer>
+function clearLeanMassOutput() {
+  const result = document.getElementById('result');
+  const formula = document.getElementById('formula');
+  if (result) result.textContent = '';
+  if (formula) formula.textContent = '';
+}
+
+function syncLeanMassBounds() {
+  const weight = document.getElementById('weight');
+  const unit = document.getElementById('weightUnit').value;
+  const ranges = { kg: [0.1, 500], lb: [0.22046227, 1102.31] };
+  const range = ranges[unit];
+  if (range) {
+    weight.min = String(range[0]);
+    weight.max = String(range[1]);
+  }
+}
+
+function resetLeanMass() {
+  document.getElementById('weight').value = '';
+  document.getElementById('weightUnit').value = 'kg';
+  document.getElementById('fat').value = '';
+  for (const input of [document.getElementById('weight'), document.getElementById('fat')]) {
+    input.removeAttribute('aria-invalid');
+  }
+  document.querySelectorAll('.clerfit-input-error').forEach(node => node.remove());
+  clearLeanMassOutput();
+  syncLeanMassBounds();
+  document.getElementById('weight').focus();
+}
+
+if (typeof document !== 'undefined' && document.addEventListener) {
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!document.getElementById('weight') || !document.getElementById('weightUnit')) return;
+    syncLeanMassBounds();
+    // Sync after the shared unit-system handler has converted values and constraints.
+    document.getElementById('weightUnit').addEventListener('change', () => {
+      if (typeof queueMicrotask === 'function') queueMicrotask(syncLeanMassBounds);
+      else Promise.resolve().then(syncLeanMassBounds);
+    });
+  }, { once: true });
+}
+
 function calculateLeanMass() {
   const result = document.getElementById('result');
   const formula = document.getElementById('formula');
-  const rawWeight = Number(document.getElementById('weight').value);
+  const weightField = document.getElementById('weight');
+  const fatField = document.getElementById('fat');
+  const weightText = weightField.value.trim();
+  const fatText = fatField.value.trim();
+  const rawWeight = weightText === '' ? NaN : Number(weightText);
   const unit = document.getElementById('weightUnit').value;
-  const fat = Number(document.getElementById('fat').value);
+  const fat = fatText === '' ? NaN : Number(fatText);
 
-  result.textContent = '';
-  formula.textContent = '';
+  // Clear previous values before every calculation attempt.
+  clearLeanMassOutput();
   if (!Number.isFinite(rawWeight) || !Number.isFinite(fat) || rawWeight <= 0 || fat < 0 || fat > 100) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a positive weight and a body-fat percentage from 0 to 100.</p>';
     return;
@@ -155,19 +202,22 @@ function calculateLeanMass() {
     <h2>Lean Body Mass Calculator</h2>
 
     <label for="weight">Weight</label>
-    <input id="weight" type="number" min="0.1" max="500" step="any">
-    <select id="weightUnit" aria-label="Weight unit">
+    <input id="weight" type="number" min="0.1" max="500" step="any" aria-label="Enter weight" oninput="clearLeanMassOutput()">
+    <select id="weightUnit" aria-label="Weight unit" onchange="clearLeanMassOutput()">
       <option value="kg" selected>kg</option>
       <option value="lb">lb</option>
     </select>
 
     <label for="fat">Body Fat (%)</label>
-    <input id="fat" type="number" min="0" max="100" step="any">
+    <input id="fat" type="number" min="0" max="100" step="any" aria-label="Body fat percentage" oninput="clearLeanMassOutput()">
 
-    <button class="calculate-btn" onclick="calculateLeanMass()">Calculate</button>
+    <div class="cf-form-actions">
+      <button class="calculate-btn" type="button" onclick="calculateLeanMass()">Calculate</button>
+      <button class="cf-reset-btn" type="button" onclick="resetLeanMass()">Reset</button>
+    </div>
 
-    <div id="result" class="result"></div>
-    <div id="formula"></div>
+    <div id="result" class="result" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div id="formula" aria-live="polite" aria-atomic="true"></div>
 
     <p class="cf-warning">Lean mass includes muscle, bone, organs and body water. There is no universal healthy lean-mass percentage cutoff for all ages, sexes and body types; this calculator reports the calculated mass without assigning a category.</p>
 
