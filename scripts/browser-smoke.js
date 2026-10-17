@@ -36,6 +36,10 @@ function preferredValue(info, pageName) {
     if (/cheekbones/.test(s)) return 15;
     if (/jawline/.test(s)) return 12;
   }
+  if (pageName === 'load-recovery-ratio.html') {
+    if (/load/.test(s)) return 6;
+    if (/recovery/.test(s)) return 7;
+  }
   if (pageName === 'nose-length-ratio.html') {
     if (/nose/.test(s)) return 50;
     if (/face/.test(s)) return 150;
@@ -199,6 +203,13 @@ async function runRoute(browser, route) {
       await page.locator('#age').fill('9');
       await page.locator('#ageMonths').fill('6');
       await page.locator('#sex').selectOption('female');
+    }
+    if (pageName === 'recovery-time.html') {
+      const dateTimeInputs = page.locator('input[type="datetime-local"]:visible');
+      if (await dateTimeInputs.count() >= 2) {
+        await dateTimeInputs.nth(0).fill('2026-10-17T10:00');
+        await dateTimeInputs.nth(1).fill('2026-10-17T12:00');
+      }
     }
     if (pageName === 'average.html') await page.locator('#avgNumbers').fill('10, 20, 30');
     inputCount = await page.locator('input:visible,select:visible,textarea:visible').count();
