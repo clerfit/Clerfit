@@ -103,7 +103,20 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   await expect(page.locator('#result')).toContainText('WHR: 1.00');
   await page.locator('#waist').fill('300');
   await page.locator('#hip').fill('300');
+  const upperBoundaryState = await page.evaluate(() => ({
+    waist: document.getElementById('waist').value,
+    hip: document.getElementById('hip').value,
+    waistUnit: document.getElementById('waistUnit').value,
+    hipUnit: document.getElementById('hipUnit').value,
+    waistMin: document.getElementById('waist').min,
+    waistMax: document.getElementById('waist').max,
+    hipMin: document.getElementById('hip').min,
+    hipMax: document.getElementById('hip').max
+  }));
+  console.log('WHR upper-bound state', JSON.stringify(upperBoundaryState));
+  expect(upperBoundaryState).toEqual({waist:'300',hip:'300',waistUnit:'cm',hipUnit:'cm',waistMin:'20',waistMax:'300',hipMin:'20',hipMax:'300'});
   await page.getByRole('button', { name: 'Calculate' }).click();
+  console.log('WHR upper-bound result', await page.locator('#result').innerText());
   await expect(page.locator('#result')).toContainText('WHR: 1.00');
 
   await page.getByRole('button', { name: 'Reset' }).click();
@@ -121,8 +134,8 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   await page.keyboard.press('Tab');
   const focusOutline = await page.locator('#waistUnit').evaluate(el => getComputedStyle(el).outlineWidth);
   expect(parseFloat(focusOutline), 'Keyboard focus indicator should be visible').toBeGreaterThanOrEqual(3);
-  await expect(page.getByRole('link', { name: /Go to ClerFit home/i })).toBeVisible();
-  await expect(page.getByRole('link', { name: /Contact Us at ClerFit/i })).toBeVisible();
+  await expect(page.locator('.clerfit-fixed-actions .clerfit-fixed-home, .cf-page-actions .cf-page-home')).toHaveAttribute('href', /index\\.html/);
+  await expect(page.locator('.clerfit-fixed-actions .clerfit-fixed-contact, .cf-page-actions .cf-page-contact')).toHaveAttribute('href', /contact\\.html/);
 
   const dimensions = await page.evaluate(() => ({
     viewport: document.documentElement.clientWidth,

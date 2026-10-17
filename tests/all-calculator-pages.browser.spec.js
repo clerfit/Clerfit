@@ -20,7 +20,7 @@ for (const routeInfo of routes) {
       if (url.hostname !== '127.0.0.1' && url.hostname !== 'localhost') return route.abort();
       return route.continue();
     });
-    const response=await page.goto('http://127.0.0.1:8000/'+routeInfo.file,{waitUntil:'domcontentloaded'});
+    const response=await page.goto('http://127.0.0.1:8000/'+routeInfo.file,{waitUntil:'networkidle'});
     expect(response && response.status(), 'page should load successfully').toBe(200);
     await expect(page.locator('h1').first()).toBeVisible({timeout:3000});
     await expect(page.locator('main, [role="main"]').first()).toBeVisible({timeout:3000});
@@ -29,8 +29,9 @@ for (const routeInfo of routes) {
     const controls=await page.locator('input:not([type="hidden"]),select,textarea,button').evaluateAll(nodes=>nodes.filter(el=>!el.disabled&&!el.closest('[hidden]')&&el.getClientRects().length).filter(el=>{
       if(el.matches('button,input[type="button"],input[type="submit"],input[type="reset"]')) return !String(el.getAttribute('aria-label')||el.getAttribute('aria-labelledby')||el.innerText||el.value||el.title||'').trim();
       if(el.matches('select,textarea,input:not([type="hidden"])')) {
-        const label=el.id && document.querySelector('label[for="'+CSS.escape(el.id)+'"]');
-        return !(el.getAttribute('aria-label')||el.getAttribute('aria-labelledby')||el.title||(label&&label.textContent.trim()));
+        const explicitLabel=el.id && document.querySelector('label[for="'+CSS.escape(el.id)+'"]');
+        const associatedLabel=el.labels && Array.from(el.labels).some(label=>label.textContent.trim());
+        return !(el.getAttribute('aria-label')||el.getAttribute('aria-labelledby')||el.title||associatedLabel||(explicitLabel&&explicitLabel.textContent.trim()));
       }
       return false;
     }).map(el=>({tag:el.tagName,id:el.id,type:el.type||'',text:(el.innerText||el.value||'').slice(0,60)})));

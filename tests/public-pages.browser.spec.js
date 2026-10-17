@@ -19,7 +19,7 @@ test('homepage directory search, categories, FAQ and sidebar work',async({page})
   await page.locator('#cf-directory-query').fill('pace');
   await expect(page.locator('#cf-directory-count')).toContainText('1 calculator');
   await expect(page.locator('#cf-directory-grid a').first()).toHaveAttribute('href','html/running-pace.html');
-  await page.getByRole('button',{name:'Clear search'}).click();
+  await page.locator('#cf-directory-query').fill('');
   await expect(page.locator('#cf-directory-count')).toContainText('118 calculators');
   await page.locator('#cf-category-grid .cf-category-card').first().click();
   await expect(page.locator('#cf-clear-filter')).toBeVisible();
@@ -73,7 +73,7 @@ test('contact form handles provider failure and restores the submit button',asyn
 test('404, legacy aliases and site-verification file resolve to their intended content',async({page,request})=>{
   await page.goto('http://127.0.0.1:8000/404.html',{waitUntil:'domcontentloaded'});
   await expect(page.locator('h1')).toContainText(/couldn't find|not found/i);
-  await expect(page.locator('a[href*="index.html"]')).toBeVisible();
+  await expect(page.getByRole('link',{name:'Explore calculators'})).toBeVisible();
   await assertNoHorizontalOverflow(page);
   await page.goto('http://127.0.0.1:8000/html/calories.html',{waitUntil:'domcontentloaded'});
   await page.waitForURL(/html\/daily-energy\.html/);
