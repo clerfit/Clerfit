@@ -13,6 +13,7 @@ on:
     paths:
       - 'js/**'
       - 'tests/**'
+      - 'html/**'
       - '.github/workflows/formula-regression.yml'
 
 permissions:
@@ -40,3 +41,33 @@ jobs:
           for file in js/*.js scripts/*.js tests/*.js; do
             node --check "$file"
           done
+
+  bmi-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser-test dependencies
+        run: npm install --no-save @playwright/test @axe-core/playwright
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Start local static site
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8000 --bind 127.0.0.1 > /tmp/clerfit-http.log 2>&1 &
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent http://127.0.0.1:8000/html/BMI.html >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/clerfit-http.log
+          exit 1
+      - name: Test BMI page interactions, responsive layout and accessibility
+        run: npx playwright test tests/bmi-page.browser.spec.js --reporter=list
