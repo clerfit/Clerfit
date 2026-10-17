@@ -64,6 +64,8 @@ jobs:
       - name: Run all-route browser interaction smoke tests
         env:
           CLERFIT_BROWSER_REPORT: browser-smoke-report.json
+          CLERFIT_ALLOW_LOCAL_STAGING: '1'
+          CLERFIT_SITEMAP_BASE: https://clerfit.github.io/Clerfit/
         shell: bash
         run: |
           set -euo pipefail
