@@ -291,14 +291,13 @@
       return;
     }
 
-    const catA = bmiCategory(bmiA);
-    const catB = bmiCategory(bmiB);
-    const higher = bmiA > bmiB ? "Person A has the higher BMI." : bmiB > bmiA ? "Person B has the higher BMI." : "Both BMIs are equal.";
+    const higher = bmiA > bmiB ? "Person A has the higher calculated BMI." : bmiB > bmiA ? "Person B has the higher calculated BMI." : "Both calculated BMIs are equal.";
     const shownA = Number(bmiA.toFixed(1));
     const shownB = Number(bmiB.toFixed(1));
     const shownDiff = Number(diff.toFixed(1));
 
-    out.innerHTML = `<b>Person A:</b> BMI <b>${shownA}</b> (${catA})<br><b>Person B:</b> BMI <b>${shownB}</b> (${catB})<br><br><b>Difference:</b> <b>${shownDiff}</b> BMI points<br><i>${higher}</i><br><br><small>BMI is a general health indicator and not a complete medical diagnosis. Interpretation for people under 20 requires age- and sex-specific BMI-for-age charts; this comparison does not apply pediatric categories.</small>`;
+    // This page does not collect age or sex, so it cannot safely assign BMI categories.
+    out.innerHTML = `<b>Person A:</b> BMI <b>${shownA}</b><br><b>Person B:</b> BMI <b>${shownB}</b><br><br><b>Difference:</b> <b>${shownDiff}</b> BMI points<br><i>${higher}</i><br><br><small>BMI is a screening measure, not a diagnosis. Interpretation depends on age and sex; children and teenagers require age- and sex-specific BMI-for-age references. This comparison reports numeric values only and does not assign categories.</small>`;
   }
 </script>
 
