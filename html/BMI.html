@@ -117,6 +117,7 @@
 
       // Remove any old answer before validating a new submission.
       clearBMIResult();
+      const indicator = document.getElementById("indicator");
       const validWeightUnit = ["kg", "lb", "lbs"].includes(weightUnit);
       const validHeightUnit = ["cm", "m", "in", "inch", "ft"].includes(heightUnit);
       if (![weightVal, heightVal, age].every(Number.isFinite) ||
