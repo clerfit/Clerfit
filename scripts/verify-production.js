@@ -75,12 +75,12 @@ function references(html, from) {
 async function main() {
   const sitemapUrl = new URL('sitemap.xml', BASE).href;
   const navUrl = new URL('js/navigation.js', BASE).href;
-  const cssUrl = new URL('css/style.css', BASE).href;
+  const cssUrl = new URL('css/style.css?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
   const homeUrl = new URL('index.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
   const unitUrl = new URL('js/unit-system.js?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
   const releaseMarker = 'name="clerfit-release" content="' + EXPECTED_RELEASE_ID + '"';
   const [sitemap, nav, css, home, unit] = await Promise.all([
-    fetchText(sitemapUrl), fetchText(navUrl), fetchText(cssUrl),
+    fetchText(sitemapUrl), fetchText(navUrl), fetchUntilMarker(cssUrl, 'ClerFit R3 live calculator UI'),
     fetchUntilMarker(homeUrl, releaseMarker), fetchUntilMarker(unitUrl, EXPECTED_RELEASE_ID)
   ]);
   if (![sitemap.body, nav.body, css.body, home.body, unit.body].every(Boolean)) {
