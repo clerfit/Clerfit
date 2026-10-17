@@ -1,0 +1,284 @@
+#!/usr/bin/env node
+'use strict';
+const fs = require('node:fs');
+const vm = require('node:vm');
+const { chromium } = require('playwright');
+
+const BASE = new URL(process.argv[2] || process.env.CLERFIT_LIVE_BASE || 'https://clerfit.github.io/Clerfit/');
+const REPORT_PATH = process.env.CLERFIT_BROWSER_REPORT || 'live-browser-smoke-report.json';
+const EXPECTED_ROUTES = 118;
+const WORKERS = 4;
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const failures = [];
+const rows = [];
+function assert(condition, message) { if (!condition) failures.push(message); }
+function finiteAttr(value) { if (value === null || value === '') return null; const n = Number(value); return Number.isFinite(n) ? n : null; }
+function clampToInput(value, info) {
+  let v = Number(value);
+  const min = finiteAttr(info.min), max = finiteAttr(info.max), step = info.step;
+  if (min !== null) v = Math.max(v, min);
+  if (max !== null) v = Math.min(v, max);
+  if (step && step !== 'any' && Number.isFinite(Number(step)) && Number(step) > 0) {
+    const base = min === null ? 0 : min;
+    v = base + Math.round((v - base) / Number(step)) * Number(step);
+    if (min !== null) v = Math.max(v, min);
+    if (max !== null) v = Math.min(v, max);
+  }
+  return String(Number(v.toFixed(6)));
+}
+function preferredValue(info, pageName) {
+  const s = [info.id, info.name, info.placeholder, info.aria, info.label].join(' ').toLowerCase();
+  if (pageName === 'bmi-for-age.html') {
+    if (/age.?months|additional.*months/.test(s)) return 6;
+    if (/\bage\b|completed years/.test(s)) return 9;
+    if (/height|stature/.test(s)) return 125;
+    if (/weight|mass/.test(s)) return 33.125;
+  }
+  if (/age.?months|additional.*months/.test(s)) return 0;
+  if (/(^|[\s_-])age([\s_-]|$)|years old|age in years/.test(s)) return 25;
+  if (/(bf-)?height|stature|heightvalue|facelength|total length/.test(s)) return 170;
+  if (/neck/.test(s)) return 38;
+  if (/waist/.test(s)) return 80;
+  if (/hip/.test(s)) return 95;
+  if (/chest/.test(s)) return 100;
+  if (/upper|middle|lower|nose|mouth|jaw|face|chin|forehead|cheekbone|eye.?space|left|right|offset/.test(s)) return 40;
+  if (/step.?length|stride.?length/.test(s)) return 70;
+  if (/steps|reps|repetition|sessions|count|strides/.test(s)) return 1000;
+  if (/sleep.?hours|hours.*sleep/.test(s)) return 7.5;
+  if (/uv.?index/.test(s)) return 6;
+  if (/humidity/.test(s)) return 50;
+  if (/wind.?speed/.test(s)) return 10;
+  if (/temp|temperature/.test(s)) return pageName === 'cold-exposure.html' ? 0 : 30;
+  if (/tdee|calories|kcal|energy|intake/.test(s)) return /intake/.test(s) ? 2000 : 2300;
+  if (/duration|minutes|seconds|interval|rest.?time|time.?value/.test(s)) return 30;
+  if (/distance/.test(s)) return pageName === 'cooper-test.html' ? 2400 : 3;
+  if (/speed|pace|cadence/.test(s)) return 6;
+  if (/weight|mass|body.?mass|load|liftweight|one.?rm/.test(s)) return 70;
+  if (/percent|percentage|humidity|fat.?fraction/.test(s)) return 20;
+  if (/ratio|factor|score|index|quality|level/.test(s)) return 1.5;
+  if (/height|measurement|circumference|length|diameter/.test(s)) return 50;
+  if (/year/.test(s)) return 2024;
+  if (/month/.test(s)) return 6;
+  return 10;
+}
+async function fillPageInputs(page, pageName) {
+  const inputs = page.locator('input:visible');
+  const n = await inputs.count();
+  for (let i = 0; i < n; i++) {
+    const input = inputs.nth(i);
+    const info = await input.evaluate(el => ({
+      id: el.id || '', name: el.name || '', type: (el.type || '').toLowerCase(),
+      value: el.value || '', min: el.getAttribute('min'), max: el.getAttribute('max'),
+      step: el.getAttribute('step'), placeholder: el.getAttribute('placeholder') || '',
+      aria: el.getAttribute('aria-label') || '',
+      label: el.labels ? Array.from(el.labels).map(x => x.innerText).join(' ') : '',
+      disabled: el.disabled, readOnly: el.readOnly
+    }));
+    if (info.disabled || info.readOnly || /search|password|email|file|button|submit|reset|hidden|image|range|color/i.test(info.type)) continue;
+    if (/search/i.test(info.id + ' ' + info.name)) continue;
+    if (['checkbox','radio'].includes(info.type)) {
+      const required = await input.getAttribute('required');
+      if (required !== null && !(await input.isChecked())) await input.check({force:true}).catch(()=>{});
+      continue;
+    }
+    if (info.type === 'date') { if (!info.value) await input.fill('2000-01-15').catch(()=>{}); continue; }
+    if (info.type === 'datetime-local') { if (!info.value) await input.fill('2026-10-17T10:00').catch(()=>{}); continue; }
+    if (info.type === 'time') { if (!info.value) await input.fill('10:00').catch(()=>{}); continue; }
+    if (info.type === 'number') {
+      let v = info.value.trim() !== '' ? Number(info.value) : preferredValue(info, pageName);
+      if (!Number.isFinite(v)) v = preferredValue(info, pageName);
+      const result = clampToInput(v, info);
+      if (info.value !== result) await input.fill(result).catch(async()=>{ await input.evaluate((el,val)=>{el.value=val;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));},result); });
+      continue;
+    }
+    if (info.type === 'text' && !info.value && /date|birth|time/i.test(info.id + ' ' + info.placeholder + ' ' + info.aria)) {
+      if (/birth|dob/i.test(info.id + ' ' + info.placeholder)) await input.fill('2000-01-15').catch(()=>{});
+    }
+  }
+  const selects = page.locator('select:visible');
+  for (let i = 0; i < await selects.count(); i++) {
+    const select = selects.nth(i);
+    if (await select.isDisabled().catch(()=>true)) continue;
+    const value = await select.inputValue().catch(()=> '');
+    if (value !== '') continue;
+    const options = await select.locator('option').evaluateAll(os => os.filter(o=>!o.disabled && o.value!=='').map(o=>o.value));
+    if (options.length) await select.selectOption(options[0]).catch(()=>{});
+  }
+}
+async function outputSnapshot(page) {
+  return page.evaluate(() => {
+    const selectors = '[id="result"],[id="output"],[id$="Result"],[id$="Output"],.result,.cf-result,.cf-warning,[role="alert"],[role="status"],output';
+    return Array.from(document.querySelectorAll(selectors))
+      .filter(el => !/searchResults|search-results/i.test(el.id || '') && (el.getClientRects().length > 0))
+      .map(el => ({id:el.id || '',text:(el.innerText || el.textContent || '').replace(/\s+/g,' ').trim()}))
+      .filter(x => x.text);
+  });
+}
+async function chooseAction(page) {
+  const primary = page.locator('button.calculate-btn:not(.cf-reset-btn):not([type="reset"]):visible');
+  if (await primary.count()) return primary.first();
+  const submit = page.locator('button[type="submit"]:visible,input[type="submit"]:visible');
+  if (await submit.count()) return submit.first();
+  const textButton = page.getByRole('button', {name:/calculate|convert|estimate|check|compare|update|submit|swap units/i}).filter({visible:true});
+  if (await textButton.count()) return textButton.first();
+  return null;
+}
+async function runRoute(browser, route) {
+  const pageName = route.file;
+  const url = new URL('html/' + encodeURI(pageName) + '?browserSmoke=R3-2026-10-17', BASE).href;
+  const page = await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1,isMobile:true,hasTouch:true});
+  const pageErrors=[], consoleErrors=[];
+  page.on('pageerror', err=>pageErrors.push(err.message || String(err)));
+  page.on('console', msg=>{ if(msg.type()==='error') consoleErrors.push(msg.text()); });
+  let loaded=false, inputCount=0, clicked=false, bodyOverflow=false, outputsBefore=[], outputsAfter=[];
+  try {
+    const response = await page.goto(url, {waitUntil:'domcontentloaded',timeout:20000});
+    if (!response || !response.ok()) throw new Error('page HTTP status ' + (response ? response.status() : 'no response'));
+    await page.waitForLoadState('load',{timeout:10000}).catch(()=>{});
+    await page.waitForTimeout(120);
+    await fillPageInputs(page,pageName);
+    inputCount = await page.locator('input:visible,select:visible,textarea:visible').count();
+    outputsBefore = await outputSnapshot(page);
+    const action = await chooseAction(page);
+    if (action) {
+      await action.scrollIntoViewIfNeeded().catch(()=>{});
+      await action.click({timeout:7000}).catch(async error=>{
+        throw new Error('primary action click failed: ' + error.message);
+      });
+      clicked=true;
+      await page.waitForTimeout(180);
+    } else if (/unit\.html$/i.test(pageName)) {
+      await page.locator('#amount').dispatchEvent('input').catch(()=>{});
+    }
+    outputsAfter = await outputSnapshot(page);
+    bodyOverflow = await page.evaluate(()=>document.documentElement.scrollWidth > window.innerWidth + 1);
+    loaded=true;
+  } catch (error) {
+    pageErrors.push(String(error && error.message || error));
+  } finally {
+    await page.close().catch(()=>{});
+  }
+  const row={file:pageName,url,loaded,inputCount,actionClicked:clicked,bodyOverflow,pageErrors,consoleErrors,outputs:outputsAfter.length,outputSample:outputsAfter.map(x=>x.text).join(' | ').slice(0,260)};
+  if (!loaded) failures.push(pageName + ' failed to load/execute: ' + pageErrors.join(' | '));
+  if (inputCount===0) failures.push(pageName + ' has no visible interactive input.');
+  if (!clicked && !/unit\.html$/i.test(pageName)) failures.push(pageName + ' has no actionable Calculate/Convert control.');
+  if (bodyOverflow) failures.push(pageName + ' overflows the 390px mobile viewport.');
+  if (pageErrors.length) failures.push(pageName + ' JavaScript/page errors: ' + pageErrors.join(' | '));
+  if (consoleErrors.length) failures.push(pageName + ' console errors: ' + consoleErrors.join(' | '));
+  return row;
+}
+async function approx(locator, expected, label, tolerance=.15) {
+  const actual=Number(await locator.inputValue());
+  if (!Number.isFinite(actual) || Math.abs(actual-expected)>tolerance) throw new Error(label+' conversion mismatch; expected '+expected+', got '+await locator.inputValue());
+}
+async function targetedUnits(browser) {
+  const report=[];
+  {
+    const p=await browser.newPage({viewport:{width:390,height:844}});
+    await p.goto(new URL('html/bmi-change.html?browserSmoke=targeted',BASE).href,{waitUntil:'load'});
+    await p.locator('#currentWeightBMI').fill('80'); await p.locator('#goalWeightBMI').fill('65'); await p.locator('#heightBMI').fill('170');
+    await p.locator('#weightUnitBMI').selectOption('lbs'); await sleep(100);
+    await approx(p.locator('#currentWeightBMI'),176.37,'BMI Change current weight');
+    await approx(p.locator('#goalWeightBMI'),143.30,'BMI Change goal weight');
+    await approx(p.locator('#heightBMI'),170,'BMI Change height preserved',.001);
+    report.push('BMI Change: both weights converted, height preserved'); await p.close();
+  }
+  {
+    const p=await browser.newPage({viewport:{width:390,height:844}});
+    await p.goto(new URL('html/relative-strength.html?browserSmoke=targeted',BASE).href,{waitUntil:'load'});
+    await p.locator('#oneRM').fill('120'); await p.locator('#bodyWeight').fill('70');
+    await p.locator('#unitRelative').selectOption('lbs'); await sleep(100);
+    await approx(p.locator('#oneRM'),264.55,'Relative Strength 1RM');
+    await approx(p.locator('#bodyWeight'),154.32,'Relative Strength body weight');
+    report.push('Relative Strength: both compared weights converted'); await p.close();
+  }
+  {
+    const p=await browser.newPage({viewport:{width:390,height:844}});
+    await p.goto(new URL('html/weekly-weight.html?browserSmoke=targeted',BASE).href,{waitUntil:'load'});
+    await p.locator('#tdee').fill('2200'); await p.locator('#intake').fill('2000');
+    await p.locator('#unit').selectOption('lbs'); await sleep(100);
+    await approx(p.locator('#tdee'),2200,'Weekly Weight TDEE preserved',.001);
+    await approx(p.locator('#intake'),2000,'Weekly Weight intake preserved',.001);
+    report.push('Weekly Weight output unit: calorie inputs preserved'); await p.close();
+  }
+  {
+    const p=await browser.newPage({viewport:{width:390,height:844}});
+    await p.goto(new URL('html/tdee.html?browserSmoke=targeted',BASE).href,{waitUntil:'load'});
+    await p.locator('#height').fill('170'); await p.locator('#heightUnit').selectOption('m'); await sleep(100);
+    await approx(p.locator('#height'),1.7,'TDEE cm-to-m height');
+    report.push('TDEE height unit: field value and constraints convert'); await p.close();
+  }
+  {
+    const p=await browser.newPage({viewport:{width:390,height:844}});
+    await p.goto(new URL('html/bodyfat.html?browserSmoke=targeted',BASE).href,{waitUntil:'load'});
+    await p.locator('#bf-height').fill('175'); await p.locator('#bf-waist').fill('80'); await p.locator('#bf-neck').fill('38');
+    await p.locator('#bf-height-unit').selectOption('m'); await sleep(100);
+    await approx(p.locator('#bf-height'),1.75,'Body Fat height selector');
+    await approx(p.locator('#bf-waist'),80,'Body Fat waist field preserved',.001);
+    await approx(p.locator('#bf-neck'),38,'Body Fat neck field preserved',.001);
+    report.push('Body Fat independent unit selector: only intended input converted'); await p.close();
+  }
+  return report;
+}
+async function main() {
+  const navUrl=new URL('js/navigation.js?browserSmoke=R3-2026-10-17',BASE).href;
+  const sitemapUrl=new URL('sitemap.xml?browserSmoke=R3-2026-10-17',BASE).href;
+  const [navResponse,sitemapResponse]=await Promise.all([fetch(navUrl),fetch(sitemapUrl)]);
+  if(!navResponse.ok||!sitemapResponse.ok) throw new Error('Could not fetch live registry/sitemap');
+  const navText=await navResponse.text(), sitemapText=await sitemapResponse.text();
+  const registryMatch=navText.match(/const\s+CALCULATORS\s*=\s*(\[[\s\S]*?\])\s*;\s*\nconst path/);
+  if(!registryMatch) throw new Error('Cannot parse live calculator registry');
+  const registry=JSON.parse(registryMatch[1]);
+  if(registry.length!==EXPECTED_ROUTES) throw new Error('Expected '+EXPECTED_ROUTES+' calculator routes, found '+registry.length);
+  const sitemap=new Set([...sitemapText.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(m=>m[1].trim()));
+  const missing=registry.filter(r=>!sitemap.has(new URL('html/'+encodeURI(r.file),BASE).href));
+  if(missing.length) throw new Error('Registered calculator routes missing from sitemap: '+missing.map(x=>x.file).join(', '));
+  const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+  try {
+    let cursor=0;
+    const routeResults=new Array(registry.length);
+    async function worker(){ while(true){const i=cursor++;if(i>=registry.length)return;routeResults[i]=await runRoute(browser,registry[i]);} }
+    await Promise.all(Array.from({length:Math.min(WORKERS,registry.length)},worker));
+    let targeted=[];
+    try { targeted=await targetedUnits(browser); }
+    catch(error){ failures.push('Targeted unit conversion test failed: '+(error && error.message || error)); }
+    const bmi=routeResults.find(r=>r.file==='bmi-for-age.html');
+    const bmiResult=!!(bmi && /percentile/i.test(bmi.outputSample) && /CDC reference sex/i.test(bmi.outputSample));
+    assert(bmiResult,'BMI-for-age did not render an age/sex-specific CDC percentile result in the browser smoke pass.');
+    const report={
+      base:BASE.href, checkedAt:new Date().toISOString(), status:failures.length?'FAIL':'PASS',
+      routeCount:registry.length, routesLoaded:routeResults.filter(r=>r.loaded).length,
+      actionsClicked:routeResults.filter(r=>r.actionClicked).length,
+      mobileOverflow:routeResults.filter(r=>r.bodyOverflow).map(r=>r.file),
+      pageErrors:routeResults.filter(r=>r.pageErrors.length).map(r=>({file:r.file,errors:r.pageErrors})),
+      consoleErrors:routeResults.filter(r=>r.consoleErrors.length).map(r=>({file:r.file,errors:r.consoleErrors})),
+      noVisibleInput:routeResults.filter(r=>!r.inputCount).map(r=>r.file),
+      noAction:routeResults.filter(r=>!r.actionClicked&&!/unit\.html$/i.test(r.file)).map(r=>r.file),
+      routesWithoutResultText:routeResults.filter(r=>!r.outputs).map(r=>r.file),
+      targetedUnitChecks:targeted, failures, routes:routeResults
+    };
+    fs.writeFileSync(REPORT_PATH,JSON.stringify(report,null,2)+'\n');
+    if(process.env.GITHUB_STEP_SUMMARY){
+      const summary=[
+        '# ClerFit live browser smoke',
+        '',
+        '- Status: **'+report.status+'**',
+        '- Registered calculators: '+report.routeCount,
+        '- Routes loaded: '+report.routesLoaded,
+        '- Action buttons clicked: '+report.actionsClicked,
+        '- Mobile overflows: '+report.mobileOverflow.length,
+        '- Page errors: '+report.pageErrors.length,
+        '- Console errors: '+report.consoleErrors.length,
+        '- Targeted unit checks: '+targeted.length,
+        '- Failures: '+failures.length,
+        '',
+        ...targeted.map(x=>'- '+x),
+        ...failures.map(x=>'- **FAIL:** '+x)
+      ].join('\n');
+      fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary+'\n');
+    }
+    console.log(JSON.stringify({status:report.status,routeCount:report.routeCount,routesLoaded:report.routesLoaded,actionsClicked:report.actionsClicked,mobileOverflow:report.mobileOverflow.length,pageErrors:report.pageErrors.length,consoleErrors:report.consoleErrors.length,targetedUnitChecks:targeted.length,failures:report.failures},null,2));
+    if(failures.length)process.exit(1);
+  } finally { await browser.close(); }
+}
+main().catch(error=>{console.error(error && error.stack || String(error));process.exit(1);});

@@ -1,0 +1,45 @@
+name: Verify live calculator interactions
+
+on:
+  workflow_run:
+    workflows: ["pages build and deployment"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clerfit-live-browser-smoke
+  cancel-in-progress: false
+
+jobs:
+  browser-smoke:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout the deployed source revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        run: npm install --no-save playwright
+      - name: Install Chromium
+        run: ./node_modules/.bin/playwright install --with-deps chromium
+      - name: Run mobile browser smoke tests across all calculators
+        env:
+          CLERFIT_LIVE_BASE: https://clerfit.github.io/Clerfit/
+        run: node scripts/browser-smoke.js "$CLERFIT_LIVE_BASE"
+      - name: Upload browser smoke report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clerfit-live-browser-smoke-report
+          path: live-browser-smoke-report.json
+          if-no-files-found: ignore
+          retention-days: 14
