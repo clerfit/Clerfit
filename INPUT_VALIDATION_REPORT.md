@@ -12,6 +12,13 @@ Audit date: 2026-10-16
 - `js/unit-system.js` provides unit conversion inside applicable calculators. There is no global unit-preference toggle and no localStorage/sessionStorage persistence.
 - Length/distance conversion is supported across compatible units; incompatible dimensions such as kg to km return `NaN`.
 
+## Accessibility regression follow-up (2026-10-17)
+
+- Each displayed numeric-input error now has a unique ID and is linked to its field via aria-describedby; existing help references are preserved and removed error IDs are cleaned up.
+- Each input owns its own error element. Sibling fields that share a parent cannot accidentally reuse or clear one another's error messages.
+- Regression coverage: invalid-to-valid correction, aria-invalid lifecycle, role=alert, unique IDs, help-reference preservation, and sibling-isolation behavior. The formula-regression GitHub Actions workflow runs tests/input-validation-accessibility.test.js.
+- The test is a DOM-stub regression for shared validation behavior; it does not replace manual assistive-technology testing on a real browser/device.
+
 ## Verification
 
 - `node tests/verify.js`: PASS — route vectors, static bounds, conversion guards and interpretation safeguards.
