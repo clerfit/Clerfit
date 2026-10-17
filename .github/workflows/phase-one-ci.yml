@@ -71,6 +71,8 @@ jobs:
 
       - name: Run calculator known-answer and domain regressions
         run: node tests/verify.js
+      - name: Synchronize field-bound inventories from static source markup
+        run: node scripts/sync-input-boundaries.js --write
       - name: Check phase inventory, sign-off and sitemap integrity
         run: node tests/phase-register-integrity.test.js
 
@@ -159,5 +161,7 @@ jobs:
           path: |
             browser-smoke-report.json
             accessibility-smoke-report.json
+            FIELD_VALIDATION_AUDIT.csv
+            INPUT_BOUNDARY_VERIFIED.csv
           if-no-files-found: ignore
           retention-days: 14
