@@ -1033,3 +1033,9 @@ body .info-tooltip,body .tooltip-circle,body .info-box{flex-shrink:0!important}
 /* WCAG 2.1 AA: category captions need 4.5:1 contrast on their light card background. */
 .cf-category-card .cf-category-copy small,
 button[data-category] .cf-category-copy small { color: #4b5563 !important; }
+
+
+/* WCAG 2.1 AA: keep small homepage directory text legible on pale panels. */
+.cf-directory-head .cf-kicker,
+#cf-directory-count,
+.cf-directory-copy small { color: #4b5563 !important; }
