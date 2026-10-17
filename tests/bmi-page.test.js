@@ -182,7 +182,7 @@ runCase('markup includes reset, a live results region, and unit-bound handlers',
   assert.match(page, /id="result" role="status" aria-live="polite" aria-atomic="true"/);
   assert.match(page, /onclick="resetBMI\(\)"/);
   assert.ok(page.includes('id="weightUnit"') && page.includes('onchange="clearBMIResult(); syncBMIBounds()"'));
-  assert.ok(page.includes('id="heightUnit"') && page.includes('onchange="syncBMIBounds()"'));
+  assert.ok(page.includes('id="heightUnit"') && page.includes('onchange="clearBMIResult(); syncBMIBounds()"'));
   assert.match(page, /id="age"[^>]*min="2"[^>]*max="120"/);
   assert.match(page, /<th scope="col">Category<\/th>/);
 });
