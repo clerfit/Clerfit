@@ -88,6 +88,13 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   // Boundary measurements at 10cm and 300cm are accepted.
   await page.locator('#waist').fill('10');
   await page.locator('#hip').fill('10');
+  const boundaryState = await page.evaluate(() => ({
+    waist: document.getElementById('waist').value,
+    hip: document.getElementById('hip').value,
+    waistUnit: document.getElementById('waistUnit').value,
+    hipUnit: document.getElementById('hipUnit').value
+  }));
+  expect(boundaryState).toEqual({ waist: '10', hip: '10', waistUnit: 'cm', hipUnit: 'cm' });
   await page.getByRole('button', { name: 'Calculate' }).click();
   await expect(page.locator('#result')).toContainText('WHR: 1.00');
   await page.locator('#waist').fill('300');
