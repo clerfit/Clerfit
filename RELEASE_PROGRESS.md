@@ -53,3 +53,26 @@ Earlier failure history is retained in GitHub Actions. The failed WHR check was 
 ## Release rule
 
 Do not claim 100% completion while material issues or required verification remain open. A green route smoke, known-answer suite, and Pages deployment establish strong progress but do not prove every formula, every semantic input boundary, exact design parity, or real-world service delivery.
+
+
+## Follow-up — 2026-10-17, Phase One / Phase Two attempt
+
+Main-branch changes made after the earlier 1869d9 release record:
+
+- Added unique validation-message IDs and aria-describedby links while retaining existing help-text descriptions (commit 95f5689).
+- Fixed a sibling-field defect in which a parent-only query could reuse or clear another input's validation message; each input now owns its error node and a valid sibling clears only its own error (commit 3f5dfd).
+- Added a Node regression for input error association, existing help preservation, unique IDs, and two invalid sibling inputs sharing one parent; the formula-regression workflow now runs this test (commit 2762de4 wires the test, follow-up test commit eb4ec8e strengthens sibling isolation).
+- Corrected documentation that incorrectly described Home/Contact links as floating and unit preferences as globally persistent. Current source states that unit selectors are per-calculator and are not saved as a site-wide preference.
+- Refreshed the Phase One audit register and added a Phase Two calculator sign-off register with explicit completed scope and unclosed acceptance gates.
+
+### Fresh verification performed in this attempt
+
+The available R3 final release archive was extracted and checked locally. JavaScript syntax checks, node tests/verify.js, node tests/input-validation-accessibility.test.js, node tests/contact-form.test.js, node tests/unit-conversion-property.test.js, node scripts/generate-sitemap.js --check, the production build, and scripts/verify-staging.js all passed. The staging verifier compared 154 source files with generated output and reported 118 calculator routes, 123 sitemap URLs, and zero source/staging differences beyond expected canonical metadata.
+
+A fresh static audit of all 127 HTML documents in that available archive also passed: every document has a title, exactly one H1, language and viewport metadata; there were no duplicate IDs, unnamed controls, images missing alt attributes, missing local resource paths, or numeric fields without min/max/step. This archive is not identical to the latest GitHub HEAD, so it is not represented as an exact-HEAD test run.
+
+### Current disposition
+
+- **Phase One audit inventory:** consolidated and refreshed; static package evidence is strong.
+- **Phase Two calculator inventory/implementation:** 118 routes present with 118/118 route-level known-answer or method vectors recorded in the tested archive; targeted semantic and accessibility fixes added to main.
+- **Final release sign-off remains open:** the latest exact-HEAD workflow status could not be confirmed in this attempt; the live homepage response still exposed the previous FAQ copy when rechecked; full semantic boundary review for every numeric field, full keyboard/screen-reader and physical-device acceptance, deep-link parity against the exact final SHA, live contact delivery, and expert validation where warranted remain open. Do not represent these as passed until fresh evidence is recorded.
