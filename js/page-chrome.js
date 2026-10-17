@@ -53,7 +53,8 @@
       const content = document.querySelector(".main") || document.querySelector("#content");
       if (content) content.setAttribute("role", "main");
     }
-    document.querySelectorAll('input:not([type="hidden"]), select, textarea, button').forEach((control) => {
+    const labelControl = (control) => {
+      if (!control || !control.matches('input:not([type="hidden"]), select, textarea, button')) return;
       const hasName = Boolean(
         control.getAttribute("aria-label")?.trim() ||
         control.getAttribute("aria-labelledby")?.trim() ||
@@ -63,10 +64,42 @@
         (control.matches('input[type="button"], input[type="submit"], input[type="reset"]') && (control.value || "").trim())
       );
       if (hasName) return;
-      const raw = control.id || control.name || control.getAttribute("placeholder") || control.getAttribute("data-label") || "";
-      const label = raw.replace(/([a-z0-9])([A-Z])/g, "$1 $2").replace(/[-_]+/g, " ").replace(/\\s+/g, " ").trim();
-      if (label) control.setAttribute("aria-label", label.charAt(0).toUpperCase() + label.slice(1));
-    });
+      const svgTitle = control.querySelector("svg title")?.textContent?.trim() || "";
+      const parentHint = control.closest("[aria-label], [title], label")?.getAttribute("aria-label") ||
+        control.closest("[aria-label], [title], label")?.getAttribute("title") || "";
+      const raw = control.getAttribute("data-label") || control.getAttribute("data-tooltip") ||
+        control.getAttribute("data-action") || control.id || control.name ||
+        control.getAttribute("placeholder") || svgTitle || parentHint ||
+        (control.matches("button") ? control.className : "");
+      const label = String(raw).replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+        .replace(/[-_]+/g, " ").replace(/\\s+/g, " ").trim();
+      if (label) {
+        control.setAttribute("aria-label", label.charAt(0).toUpperCase() + label.slice(1));
+      } else if (control.matches("button")) {
+        // Last-resort accessible name for legacy icon-only controls with no semantic metadata.
+        // The audit still reports these for source-level cleanup; this prevents an unnamed control.
+        control.setAttribute("aria-label", "Calculator action");
+      } else {
+        const preceding = control.previousElementSibling;
+        const nearbyLabel = preceding?.matches("label") ? preceding.textContent.trim() : "";
+        if (nearbyLabel) control.setAttribute("aria-label", nearbyLabel);
+      }
+    };
+    const labelControls = (root = document) => {
+      if (root.matches?.('input:not([type="hidden"]), select, textarea, button')) labelControl(root);
+      root.querySelectorAll?.('input:not([type="hidden"]), select, textarea, button').forEach(labelControl);
+    };
+    labelControls();
+    // Several legacy pages add icon controls after DOMContentLoaded. Keep their accessible names
+    // synchronized without changing their click behavior or requiring a page-specific fork.
+    if (!window.__clerfitControlLabelObserver && document.documentElement) {
+      window.__clerfitControlLabelObserver = new MutationObserver((records) => {
+        records.forEach((record) => record.addedNodes.forEach((node) => {
+          if (node.nodeType === 1) labelControls(node);
+        }));
+      });
+      window.__clerfitControlLabelObserver.observe(document.documentElement, { childList: true, subtree: true });
+    }
     document.querySelectorAll("a").forEach((anchor) => {
       const hasName = Boolean(
         anchor.getAttribute("aria-label")?.trim() ||
