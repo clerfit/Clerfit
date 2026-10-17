@@ -283,6 +283,23 @@ async function targetedCalculatorBoundaries(browser) {
       pageUrl.searchParams.set('browserSmoke', 'calculator-boundaries');
       pageUrl.searchParams.set('releaseProbe', 'r3-semantic-2026-10-17-v2');
       await p.goto(pageUrl.href, { waitUntil: 'load' });
+      if (file === 'whr.html') {
+        const expectedRevision = 'WHR-validated-units-2026-10-17-v1';
+        let servedRevision = null;
+        // GitHub Pages can briefly serve an older edge copy after a successful deploy.
+        // Wait for the deployed HTML marker rather than executing stale calculator code.
+        for (let attempt = 0; attempt < 15; attempt++) {
+          servedRevision = await p.locator('meta[name="clerfit-calculator-revision"]').getAttribute('content').catch(() => null);
+          if (servedRevision === expectedRevision) break;
+          if (attempt < 14) {
+            await p.waitForTimeout(3000);
+            await p.reload({ waitUntil: 'load' });
+          }
+        }
+        if (servedRevision !== expectedRevision) {
+          throw new Error('WHR page is stale: expected release marker ' + expectedRevision + ', received ' + String(servedRevision));
+        }
+      }
       await p.evaluate(({fields}) => {
         for (const [id, value] of Object.entries(fields)) {
           const el = document.getElementById(id);
