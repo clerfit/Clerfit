@@ -180,10 +180,17 @@ table th {
 </style>
 <script>
 function convertToCm(value, unit) {
-  if (unit === 'm') return value * 100;
-  if (unit === 'ft') return value * 30.48;
-  if (unit === 'inch') return value * 2.54;
-  return value; // cm
+  switch (String(unit).toLowerCase()) {
+    case 'cm': return value;
+    case 'm': return value * 100;
+    case 'in':
+    case 'inch':
+    case 'inches': return value * 2.54;
+    case 'ft':
+    case 'foot':
+    case 'feet': return value * 30.48;
+    default: return NaN;
+  }
 }
 
 function calculateRFM() {
@@ -207,19 +214,20 @@ function calculateRFM() {
 
   height = convertToCm(height, heightUnit);
   waist = convertToCm(waist, waistUnit);
-  if (!Number.isFinite(height) || !Number.isFinite(waist) || height <= 0 || waist <= 0) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">Check the measurement values and selected units.</p>';
+  if (!Number.isFinite(height) || !Number.isFinite(waist) ||
+      height < 100 || height > 250 || waist < 20 || waist > 250) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check the measurements and units. Converted height must be 100–250 cm and waist 20–250 cm.</p>';
     return;
   }
 
   const rfm = (gender === 'male' ? 64 : 76) - (20 * (height / waist));
-  if (!Number.isFinite(rfm)) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">The result could not be calculated from these measurements.</p>';
+  if (!Number.isFinite(rfm) || rfm < 0 || rfm > 100) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">These measurements produce an RFM value outside the supported 0–100% range. Check the measurements and units.</p>';
     return;
   }
 
   // RFM is an estimate, not a diagnosis. Do not assign unsupported universal categories.
-  const container = document.querySelector('.bar-container');
+  const container = typeof document.querySelector === 'function' ? document.querySelector('.bar-container') : null;
   if (container) container.hidden = true;
   result.innerHTML = `RFM estimate: <strong>${rfm.toFixed(1)}%</strong><p class="cf-note">This is a formula-based body-fat estimate, not a diagnosis. Individual error can be substantial; no universal category is assigned.</p>`;
 }
