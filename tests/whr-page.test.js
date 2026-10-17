@@ -1,5 +1,5 @@
-/* Phase 2: explicitly exercise the WHR upper endpoint and unsupported-unit branch. */
 #!/usr/bin/env node
+/* Phase 2: explicitly exercise the WHR upper endpoint and unsupported-unit branch. */
 'use strict';
 
 // Focused behavior tests for the WHR page's actual inline calculator.
