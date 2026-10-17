@@ -51,6 +51,7 @@ For a local server, run `python -m http.server 8000` from this folder and open `
 for f in js/*.js scripts/*.js tests/*.js; do node --check "$f"; done
 node tests/verify.js
 node tests/input-validation-accessibility.test.js
+for test_file in tests/bmi-page.test.js tests/bodyfat-page.test.js tests/bsa-page.test.js tests/fatmass-page.test.js tests/ffmi-page.test.js tests/leanmass-page.test.js tests/whr-page.test.js; do node "$test_file"; done
 node tests/contact-form.test.js
 node scripts/generate-sitemap.js --check
 SITE_URL=https://clerfit.github.io/Clerfit node scripts/build-site.js
