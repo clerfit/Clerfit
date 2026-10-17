@@ -111,70 +111,70 @@ function moveIndicatorBMI(bmi, age) {
    BMR CALCULATION (Mifflin–St Jeor)
 ================================================= */
 function calculateBMR() {
-  // GET VALUES
-  let weight = parseFloat(document.getElementById("weight").value);
-  let height = parseFloat(document.getElementById("height").value);
-  const age = parseInt(document.getElementById("age").value);
+  let weight = Number(document.getElementById("weight").value);
+  let height = Number(document.getElementById("height").value);
+  const age = Number(document.getElementById("age").value);
   const gender = document.getElementById("gender").value;
-
   const weightUnit = document.getElementById("weightUnit").value;
   const heightUnit = document.getElementById("heightUnit").value;
+  const result = document.getElementById("result");
+  const formula = document.getElementById("formula");
 
-  // VALIDATION
-  if ([weight, height, age].some(isNaN) || weight <= 0 || height <= 0 || age <= 0) {
-    alert("Please enter all values correctly");
+  result.textContent = "";
+  formula.textContent = "";
+  if (![weight, height, age].every(Number.isFinite) || weight <= 0 || height <= 0 ||
+      !Number.isInteger(age) || age < 1 || age > 120 ||
+      !["male", "female"].includes(gender)) {
+    result.textContent = "Enter valid positive weight and height values, an integer age from 1 to 120, and a supported sex/reference group.";
+    return;
+  }
+  const weightFactors = { kg: 1, lbs: 0.45359237 };
+  const heightFactors = { cm: 1, m: 100, inch: 2.54, foot: 30.48 };
+  if (!(weightUnit in weightFactors) || !(heightUnit in heightFactors)) {
+    result.textContent = "Choose supported weight and height units.";
+    return;
+  }
+  weight *= weightFactors[weightUnit];
+  height *= heightFactors[heightUnit];
+  if (![weight, height].every(Number.isFinite) || weight < 2 || weight > 500 || height < 100 || height > 250) {
+    result.textContent = "Check the measurements and units. Converted weight must be 2–500 kg and height 100–250 cm.";
     return;
   }
 
-  // CONVERT WEIGHT → KG
-  if (weightUnit === "lbs") {
-    weight = weight * 0.453592;
+  // Mifflin–St Jeor estimate. Its reference population is adults; interpretation
+  // for children/adolescents requires an age-appropriate equation.
+  const bmr = 10 * weight + 6.25 * height - 5 * age + (gender === "male" ? 5 : -161);
+  if (!Number.isFinite(bmr) || bmr <= 0) {
+    result.textContent = "A valid BMR estimate could not be calculated from these values.";
+    return;
   }
-
-  // CONVERT HEIGHT → CM
-  switch (heightUnit) {
-    case "m":
-      height = height * 100;
-      break;
-    case "inch":
-      height = height * 2.54;
-      break;
-    case "foot":
-      height = height * 30.48;
-      break;
-    // cm is default
-  }
-
-  // CALCULATE BMR
-  let bmr;
-  if (gender === "male") {
-    bmr = 10 * weight + 6.25 * height - 5 * age + 5;
-  } else {
-    bmr = 10 * weight + 6.25 * height - 5 * age - 161;
-  }
-
-  bmr = bmr.toFixed(0);
-
-  // DISPLAY RESULT
-  document.getElementById("result").innerHTML = `BMR Result: <b>${bmr} kcal/day</b>`;
-  document.getElementById("formula").innerHTML = `
+  const rounded = bmr.toFixed(0);
+  result.innerHTML = `BMR Result: <b>${rounded} kcal/day</b>`;
+  formula.innerHTML = `
     <b>Formula (Mifflin–St Jeor)</b><br>
     Weight: ${weight.toFixed(2)} kg<br>
     Height: ${height.toFixed(2)} cm<br>
     Age: ${age} years<br>
     Gender: ${gender}<br><br>
-    BMR = ${bmr} kcal/day
+    BMR = ${rounded} kcal/day
+    <p class="cf-note">Mifflin–St Jeor is an estimate developed for adults; it is not an individualized metabolic measurement.</p>
   `;
 }
 /* =================================================
    BODY FAT % (US NAVY)
 ================================================= */
 function convertToCm(value, unit) {
-  if (unit === "cm") return value;
-  else if (unit === "m") return value * 100;
-  else if (unit === "inch") return value * 2.54;
-  else if (unit === "ft") return value * 30.48;
-  return value;
+  switch (String(unit).toLowerCase()) {
+    case "cm": return value;
+    case "m": return value * 100;
+    case "in":
+    case "inch":
+    case "inches": return value * 2.54;
+    case "ft":
+    case "foot":
+    case "feet": return value * 30.48;
+    default: return NaN;
+  }
 }
 
 function calculateBodyFat() {
@@ -194,8 +194,9 @@ function calculateBodyFat() {
   const formula = document.getElementById("bf-formula");
   const indicator = document.getElementById("bf-indicator");
 
-  if (![height, waist, neck].every(Number.isFinite) || height <= 0 || waist <= 0 || neck <= 0) {
-    result.textContent = "Enter valid height, waist and neck measurements.";
+  if (![height, waist, neck].every(Number.isFinite) || height <= 0 || waist <= 0 || neck <= 0 ||
+      !["male", "female"].includes(gender)) {
+    result.textContent = "Enter valid positive height, waist and neck measurements and choose a supported sex/reference group.";
     formula.textContent = "";
     return;
   }
@@ -206,7 +207,9 @@ function calculateBodyFat() {
   neck = convertToCm(neck, neckUnit);
   hip = Number.isFinite(hip) && hip > 0 ? convertToCm(hip, hipUnit) : 0;
 
-  if (height < 100 || height > 250 || waist < 20 || waist > 250 || neck < 15 || neck > 80 || waist <= neck) {
+  if (![height, waist, neck].every(Number.isFinite) ||
+      (gender !== "male" && !Number.isFinite(hip)) ||
+      height < 100 || height > 250 || waist < 20 || waist > 250 || neck < 15 || neck > 80 || waist <= neck) {
     result.textContent = "Check the measurements: height, waist and neck must be plausible, and waist must exceed neck for this equation.";
     formula.textContent = "";
     return;
@@ -256,46 +259,41 @@ function calculateBodyFat() {
 ================================================= */
 function calculateIdealWeight() {
   const gender = document.getElementById("iw-gender").value;
-  let height = parseFloat(document.getElementById("iw-height").value);
+  const rawHeight = Number(document.getElementById("iw-height").value);
   const heightUnit = document.getElementById("iw-height-unit").value;
   const weightUnit = document.getElementById("iw-weight-unit").value;
-
   const resultDiv = document.getElementById("iw-result");
   const formulaDiv = document.getElementById("iw-formula");
 
-  if (!Number.isFinite(height) || height <= 0) {
-    resultDiv.textContent = "Please enter a valid height.";
-    formulaDiv.textContent = "";
+  resultDiv.textContent = "";
+  formulaDiv.textContent = "";
+  if (!Number.isFinite(rawHeight) || rawHeight <= 0 || !["male", "female"].includes(gender)) {
+    resultDiv.textContent = "Enter a valid positive height and supported sex/reference group.";
     return;
   }
-
-  // Convert height to cm
-  if (heightUnit === "m") height *= 100;
-  else if (heightUnit === "inch") height *= 2.54;
-  else if (heightUnit === "ft") height *= 30.48; // 1 ft = 30.48 cm
-
+  const heightFactors = { cm: 1, m: 100, inch: 2.54, ft: 30.48 };
+  if (!(heightUnit in heightFactors) || !["kg", "lb"].includes(weightUnit)) {
+    resultDiv.textContent = "Choose supported height and output-weight units.";
+    return;
+  }
+  const height = rawHeight * heightFactors[heightUnit];
   if (!Number.isFinite(height) || height < 100 || height > 250) {
     resultDiv.textContent = "Enter a height between 100 and 250 cm (or the equivalent selected unit).";
-    formulaDiv.textContent = "";
     return;
   }
 
-  let idealWeight;
-
-  // Devine Formula
-  if (gender === "male") {
-    idealWeight = 50 + 0.91 * (height - 152.4); // height in cm
-    formulaDiv.innerHTML = "Formula (Male): 50 + 0.91 × (Height(cm) − 152.4)";
-  } else {
-    idealWeight = 45.5 + 0.91 * (height - 152.4);
-    formulaDiv.innerHTML = "Formula (Female): 45.5 + 0.91 × (Height(cm) − 152.4)";
+  // Devine ideal-body-weight estimate; it is not a universal healthy-weight target.
+  let idealWeight = gender === "male"
+    ? 50 + 0.91 * (height - 152.4)
+    : 45.5 + 0.91 * (height - 152.4);
+  if (!Number.isFinite(idealWeight) || idealWeight <= 0) {
+    resultDiv.textContent = "An ideal-weight estimate could not be calculated from these values.";
+    return;
   }
-
-  // Convert to lb if needed
-  if (weightUnit === "lb") idealWeight = (idealWeight * 2.20462).toFixed(1);
-  else idealWeight = idealWeight.toFixed(1);
-
-  resultDiv.innerHTML = `Ideal Weight: <b>${idealWeight} ${weightUnit}</b>`;
+  if (weightUnit === "lb") idealWeight *= 2.2046226218;
+  const rounded = idealWeight.toFixed(1);
+  resultDiv.innerHTML = `Ideal Weight: <b>${rounded} ${weightUnit}</b>`;
+  formulaDiv.innerHTML = `Formula (${gender === "male" ? "Male" : "Female"}): ${gender === "male" ? "50" : "45.5"} + 0.91 × (Height(cm) − 152.4)<p class="cf-note">Devine formula estimate only; it is not a diagnosis or a universal healthy-weight target.</p>`;
 }
 
 /* =================================================
