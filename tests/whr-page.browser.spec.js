@@ -81,19 +81,24 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   await page.locator('#hipUnit').selectOption('cm');
   await expect(page.locator('#waistUnit')).toHaveValue('cm');
   await expect(page.locator('#hipUnit')).toHaveValue('cm');
-  await expect(page.locator('#waist')).toHaveAttribute('min', '10');
+  await expect(page.locator('#waist')).toHaveAttribute('min', '20');
   await expect(page.locator('#hip')).toHaveAttribute('min', '10');
 
-  // Boundary measurements at 10cm and 300cm are accepted.
+  // A 10cm circumference is rejected as implausibly small; 20cm and 300cm are domain endpoints.
   await page.locator('#waist').fill('10');
   await page.locator('#hip').fill('10');
+  await expect.poll(() => page.locator('#waist').evaluate(el => el.validity.rangeUnderflow)).toBe(true);
+  await page.getByRole('button', { name: 'Calculate' }).click();
+  await expect(page.locator('#result')).toBeEmpty();
+  await page.locator('#waist').fill('20');
+  await page.locator('#hip').fill('20');
   const boundaryState = await page.evaluate(() => ({
     waist: document.getElementById('waist').value,
     hip: document.getElementById('hip').value,
     waistUnit: document.getElementById('waistUnit').value,
     hipUnit: document.getElementById('hipUnit').value
   }));
-  expect(boundaryState).toEqual({ waist: '10', hip: '10', waistUnit: 'cm', hipUnit: 'cm' });
+  expect(boundaryState).toEqual({ waist: '20', hip: '20', waistUnit: 'cm', hipUnit: 'cm' });
   await page.getByRole('button', { name: 'Calculate' }).click();
   await expect(page.locator('#result')).toContainText('WHR: 1.00');
   await page.locator('#waist').fill('300');
