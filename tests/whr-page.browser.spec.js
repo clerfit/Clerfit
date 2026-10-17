@@ -80,6 +80,10 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   await page.getByRole('button', { name: 'Reset' }).click();
   await page.locator('#waistUnit').selectOption('cm');
   await page.locator('#hipUnit').selectOption('cm');
+  await expect(page.locator('#waistUnit')).toHaveValue('cm');
+  await expect(page.locator('#hipUnit')).toHaveValue('cm');
+  await expect(page.locator('#waist')).toHaveAttribute('min', '10');
+  await expect(page.locator('#hip')).toHaveAttribute('min', '10');
 
   // Boundary measurements at 10cm and 300cm are accepted.
   await page.locator('#waist').fill('10');
