@@ -1,239 +1,243 @@
 file,id,name,label_or_accessible_name,min,max,step,required,unit_selector_in_same_field,constraint_consistency
-html/1rm.html,liftWeight,,Weight Lifted,0.1,500,any,no,not-detected,PASS
-html/1rm.html,reps,,Repetitions,1,15,1,no,not-detected,PASS — bounded to 1–15 and validated in handler
-html/BMI.html,weight,,Weight,2,500,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/BMI.html,height,,Height,50,274,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/BMI.html,age,,Age,2,120,1,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/absi.html,waist,,Waist Circumference,0.1,500,any,no,not-detected,PASS
-html/absi.html,height,,Height,0.1,500,any,no,not-detected,PASS
-html/absi.html,weight,,Weight (kg),0.1,500,any,no,not-detected,PASS
-html/activity-time.html,duration,,Duration,0,10080,any,no,not-detected,PASS
-html/activity-time.html,weightActivity,,Your Weight,0.1,500,any,no,not-detected,PASS
-html/bmi-change.html,currentWeightBMI,,Current Weight,0.1,500,any,no,not-detected,PASS
-html/bmi-change.html,goalWeightBMI,,Goal Weight,0.1,500,any,no,not-detected,PASS
-html/bmi-change.html,heightBMI,,Height,30,300,any,no,not-detected,PASS
-html/bmi-compare.html,heightA,,Person A — Height,1,300,0.1,no,not-detected,PASS
-html/bmi-compare.html,weightA,,Person A — Weight,1,500,0.1,no,not-detected,PASS
-html/bmi-compare.html,heightB,,Person B — Height,1,300,0.1,no,not-detected,PASS
-html/bmi-compare.html,weightB,,Person B — Weight,1,500,0.1,no,not-detected,PASS
-html/bmr.html,age,,Age,1,120,1,no,not-detected,PASS
-html/bmr.html,height,,Height,30,300,any,no,not-detected,PASS
-html/bmr.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/bodyfat.html,bf-height,,Height,100,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/bodyfat.html,bf-waist,,Waist,20,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/bodyfat.html,bf-neck,,Neck,15,80,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/bodyfat.html,bf-hip,,Hip (females only),20,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/bsa.html,weight,,Weight,1,500,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/bsa.html,height,,Height,50,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/cadence.html,cadenceSteps,,Number of Steps,0,200000,1,no,not-detected,PASS
-html/cadence.html,cadenceTime,,Time,0,10080,any,no,not-detected,PASS
-html/calories-kg.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/calories-kg.html,height,,Height,30,300,any,no,not-detected,PASS
-html/calories-kg.html,age,,Age,1,120,1,no,not-detected,PASS
-html/carbs.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/carbs.html,height,,Height,30,300,any,no,not-detected,PASS
-html/carbs.html,age,,Age (10+ years),1,120,1,no,not-detected,PASS
-html/cardio-calories.html,bodyWeight,,Body Weight,0.1,500,any,no,not-detected,PASS
-html/cardio-calories.html,duration,,Duration,0,50000,any,no,not-detected,PASS
-html/circumference-track.html,waistInit,,Initial Waist,0.1,300,any,no,not-detected,PASS
-html/circumference-track.html,waistCurrent,,Current Waist,0.1,300,any,no,not-detected,PASS
-html/circumference-track.html,hipInit,,Initial Hip,0.1,300,any,no,not-detected,PASS
-html/circumference-track.html,hipCurrent,,Current Hip,0.1,300,any,no,not-detected,PASS
-html/circumference-track.html,chestInit,,Initial Chest,0.1,300,any,no,not-detected,PASS
-html/circumference-track.html,chestCurrent,,Current Chest,0.1,300,any,no,not-detected,PASS
-html/circumference-track.html,armInit,,Initial Arm,0.1,300,any,no,not-detected,PASS
-html/circumference-track.html,armCurrent,,Current Arm,0.1,300,any,no,not-detected,PASS
-html/circumference-track.html,thighInit,,Initial Thigh,0.1,300,any,no,not-detected,PASS
-html/circumference-track.html,thighCurrent,,Current Thigh,0.1,300,any,no,not-detected,PASS
-html/circumference-track.html,calfInit,,Initial Calf,0.1,300,any,no,not-detected,PASS
-html/circumference-track.html,calfCurrent,,Current Calf,0.1,300,any,no,not-detected,PASS
-html/cold-exposure.html,tempC,,Air Temperature (°C),-100,70,any,no,not-detected,PASS
-html/cold-exposure.html,windSpeed,,Wind Speed,0,1000,any,no,not-detected,PASS
-html/cold-exposure.html,duration,,Exposure Time,0,10080,any,no,not-detected,PASS
-html/cooper-test.html,cooperDistance,,Distance Covered in 12 Minutes,0,10000,any,no,not-detected,PASS
-html/daily-energy.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/daily-energy.html,height,,Height,30,300,any,no,not-detected,PASS
-html/daily-energy.html,age,,Age,1,120,1,no,not-detected,PASS
-html/deficit.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/deficit.html,height,,Height,30,300,any,no,not-detected,PASS
-html/deficit.html,age,,Age,1,120,1,no,not-detected,PASS
-html/difference.html,diffA,,First value,-1000000,1000000,0.01,no,not-detected,PASS
-html/difference.html,diffB,,Second value,-1000000,1000000,0.01,no,not-detected,PASS
-html/distance-convert.html,distanceValue,,Enter distance,0,1000000,any,no,not-detected,PASS
-html/distance-time.html,dtDistance,,DistanceiTotal distance traveled. Can be entered in kilometers or miles.,0,100000,any,no,not-detected,PASS
-html/distance-time.html,dtHours,,Hours,0,1000,any,no,not-detected,PASS
-html/distance-time.html,dtMinutes,,Minutes,0,59,any,no,not-detected,PASS
-html/distance-time.html,dtSeconds,,Seconds,0,59,any,no,not-detected,PASS
-html/distance-time.html,dtSpeed,,SpeediAverage speed of travel. Can be entered in km/h or mi/h.,0,1000,any,no,not-detected,PASS
-html/endurance-time.html,enduranceDistance,,Distance,0,100000,any,no,not-detected,PASS
-html/endurance-time.html,endurancePace,,Pace,0,1000,any,no,not-detected,PASS
-html/energy-balance.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/energy-balance.html,height,,Height,30,300,any,no,not-detected,PASS
-html/energy-balance.html,age,,Age,1,120,1,no,not-detected,PASS
-html/energy-balance.html,intake,,Daily Calorie Intake,0,20000,1,no,not-detected,PASS
-html/face-length.html,totalLength,,Total Face Length,0.1,300,0.01,no,not-detected,PASS
-html/face-length.html,lowerLength,,Lower Face Length,0.1,300,0.01,no,not-detected,PASS
-html/face-shape.html,faceLength,,Face Length,0.1,300,any,no,not-detected,PASS
-html/face-shape.html,forehead,,Forehead Width,0.1,300,any,no,not-detected,PASS
-html/face-shape.html,cheekbones,,Cheekbone Width,0.1,300,any,no,not-detected,PASS
-html/face-shape.html,jawline,,Jawline Width,0.1,300,any,no,not-detected,PASS
-html/fat.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/fat.html,height,,Height,30,300,any,no,not-detected,PASS
-html/fat.html,age,,Age (10+ years),1,120,1,no,not-detected,PASS
-html/fatmass.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/fatmass.html,fat,,Body Fat (%),0,100,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/ffmi.html,height,,Height,50,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/ffmi.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/ffmi.html,fat,,Body Fat (%),0,100,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/fiber.html,age,,Age (years),1,120,1,no,not-detected,PASS
-html/fiber.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/fiber.html,height,,Height,30,300,any,no,not-detected,PASS
-html/fiber.html,calories,,Daily Calories (optional),0,50000,any,no,not-detected,PASS
-html/goal-timeline.html,currentWeight,,Current Weight,0.1,500,any,no,not-detected,PASS
-html/goal-timeline.html,goalWeight,,Goal Weight,0.1,500,any,no,not-detected,PASS
-html/goal-timeline.html,tdeeTimeline,,Your TDEE (Daily Calories Burned),0,50000,any,no,not-detected,PASS
-html/goal-timeline.html,intakeTimeline,,Your Daily Calorie Intake,0,50000,any,no,not-detected,PASS
-html/healthrisk.html,age,,Age (years),1,120,1,no,not-detected,PASS
-html/healthrisk.html,weight,,Weight (kg),0.1,500,any,no,not-detected,PASS
-html/healthrisk.html,height,,Height (cm),30,300,any,no,not-detected,PASS
-html/heartrate.html,age,,Age (years),1,120,1,no,not-detected,PASS
-html/heartrate.html,rhr,,"Resting Heart Rate (optional, default 70 bpm)",1,120,1,no,not-detected,PASS
-html/heat-exposure.html,tempC,,Air Temperature (°C),-100,70,any,no,not-detected,PASS
-html/heat-exposure.html,humidity,,Relative Humidity (%),0,100,any,no,not-detected,PASS
-html/heat-exposure.html,duration,,Exposure Time,0,10080,any,no,not-detected,PASS
-html/height-convert.html,heightValue,,Enter height,0,300,any,no,not-detected,PASS
-html/hip-change.html,initialHip,,Initial Hip,0.1,300,any,no,not-detected,PASS
-html/hip-change.html,currentHip,,Current Hip,0.1,300,any,no,not-detected,PASS
-html/hydration-loss.html,weightWL,,Body Weight,0.1,500,any,no,not-detected,PASS
-html/hydration-loss.html,duration,,Exercise Duration,0,10080,any,no,not-detected,PASS
-html/idealweight.html,iw-height,,Height,0.1,500,any,no,not-detected,PASS
-html/leanmass.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/leanmass.html,fat,,Body Fat (%),0,100,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/length.html,lengthValue,,Enter Length,0,1000000,any,no,not-detected,PASS
-html/macro-split.html,weight,,Weight,0,100,any,no,not-detected,PASS
-html/macro-split.html,height,,Height,30,300,any,no,not-detected,PASS
-html/macro-split.html,age,,Age,1,120,1,no,not-detected,PASS
-html/maintenance.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/maintenance.html,height,,Height,30,300,any,no,not-detected,PASS
-html/maintenance.html,age,,Age,1,120,1,no,not-detected,PASS
-html/meal-split.html,totalCalories,,Total Daily Calories,0,50000,any,no,not-detected,PASS
-html/metabolic-age.html,weight,,Weight,1,120,1,no,not-detected,PASS
-html/metabolic-age.html,height,,Height,1,120,1,no,not-detected,PASS
-html/metabolic-age.html,age,,Age,1,120,1,no,not-detected,PASS
-html/mets.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/mets.html,met,,Activity MET value,0.1,500,any,no,not-detected,PASS
-html/mets.html,duration,,Duration (minutes),0.1,500,any,no,not-detected,PASS
-html/monthly-weight.html,tdeeMonthly,,Your TDEE (Daily Calories Burned),0,20000,any,no,not-detected,PASS
-html/monthly-weight.html,intakeMonthly,,Your Daily Calorie Intake,0,20000,any,no,not-detected,PASS
-html/monthly-weight.html,days,,Days in Month,0.1,500,any,no,not-detected,PASS
-html/pal.html,age,,Age,1,120,1,no,not-detected,PASS
-html/percentage.html,value1,,Value 1,-1000000,1000000,any,no,not-detected,PASS
-html/percentage.html,value2,,Value 2,-1000000,1000000,any,no,not-detected,PASS
-html/performance-score.html,workOutput,,Work OutputiTotal mechanical work done during exercise in Joules. Include all reps and weights lifted.,0.1,500,any,no,not-detected,PASS
-html/performance-score.html,squatWeight,,Squat WeightiMaximum squat weight lifted. Used to auto-calculate your Strength Score relative to body weight.,0.1,500,any,no,not-detected,PASS
-html/performance-score.html,bodyWeight,,Body WeightiYour current body weight. Used to calculate the Strength Score.,0.1,500,any,no,not-detected,PASS
-html/ponderal.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/ponderal.html,height,,Height,30,300,any,no,not-detected,PASS
-html/potassium.html,age,,Age (years),1,120,1,no,not-detected,PASS
-html/protein.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/pullup-index.html,pu-count,,Number of Pull-UpsiEnter the maximum number of consecutive pull-ups you can perform with proper form.,0,1000,1,no,not-detected,PASS
-html/pullup-index.html,pu-body,,Body Weight,0.1,500,any,no,not-detected,PASS
-html/pushup-index.html,pu-count,,Number of Push-UpsiEnter the maximum number of push-ups you can perform in one set with correct form.,0,1000,1,no,not-detected,PASS
-html/pushup-index.html,pu-body,,Body Weight,0.1,500,any,no,not-detected,PASS
-html/ratio.html,ratioA,,First Ratio Value,0,1000000,any,no,not-detected,PASS
-html/ratio.html,ratioB,,Second Ratio Value,0,1000000,any,no,not-detected,PASS
-html/relative-strength.html,oneRM,,One-Rep Max (1RM),0.1,500,any,no,not-detected,PASS
-html/relative-strength.html,bodyWeight,,Body Weight,0.1,500,any,no,not-detected,PASS
-html/rfm.html,height,,Height,30,300,any,no,not-detected,PASS
-html/rfm.html,waist,,Waist,0.1,300,any,no,not-detected,PASS
-html/rmr.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/rmr.html,height,,Height,30,300,any,no,not-detected,PASS
-html/rmr.html,age,,Age,1,120,1,no,not-detected,PASS
-html/running-pace.html,runDistance,,DistanceiTotal distance you ran. Can be entered in kilometers or miles.,0,100000,any,no,not-detected,PASS
-html/running-pace.html,hours,,Hours,0,1000,any,no,not-detected,PASS
-html/running-pace.html,minutes,,Minutes,0,1000,any,no,not-detected,PASS
-html/running-pace.html,seconds,,Seconds,0,1000,any,no,not-detected,PASS
-html/sedentary.html,sedentary,,Sedentary Duration,0,10080,any,no,not-detected,PASS
-html/sedentary.html,active,,Active Duration,0,10080,any,no,not-detected,PASS
-html/sedentary.html,srIntensity,,Intensity of Active Period (1–10),1,10,any,no,not-detected,PASS
-html/sleep-consistency.html,bed1,,Day 1 Sleep (hours),0,24,any,no,not-detected,PASS
-html/sleep-consistency.html,bed2,,Day 2 Sleep (hours),0,24,any,no,not-detected,PASS
-html/sleep-consistency.html,bed3,,Day 3 Sleep (hours),0,24,any,no,not-detected,PASS
-html/sleep-consistency.html,bed4,,Day 4 Sleep (hours),0,24,any,no,not-detected,PASS
-html/sleep-consistency.html,bed5,,Day 5 Sleep (hours),0,24,any,no,not-detected,PASS
-html/sleep-consistency.html,bed6,,Day 6 Sleep (hours),0,24,any,no,not-detected,PASS
-html/sleep-consistency.html,bed7,,Day 7 Sleep (hours),0,24,any,no,not-detected,PASS
-html/sleep-duration.html,sleepHours,,Sleep Duration (hours)iEnter your average nightly sleep. Recommendations depend mainly on age and individual circumstances.,0,24,0.1,no,not-detected,PASS
-html/sodium.html,age,,Age (years),1,120,1,yes,not-detected,PASS
-html/somatotype.html,height,,Height,100,250,any,no,not-detected,PASS
-html/somatotype.html,weight,,Weight,20,300,any,no,not-detected,PASS
-html/somatotype.html,triceps,,Triceps Skinfold (mm),1,60,any,no,not-detected,PASS
-html/somatotype.html,subscapular,,Subscapular Skinfold (mm),1,60,any,no,not-detected,PASS
-html/somatotype.html,supraspinale,,Supraspinale Skinfold (mm),1,60,any,no,not-detected,PASS
-html/somatotype.html,medialCalf,,Medial Calf Skinfold (mm),1,60,any,no,not-detected,PASS
-html/somatotype.html,biepicondylarHumerus,,Biepicondylar Humerus (cm),3,15,any,no,not-detected,PASS
-html/somatotype.html,biepicondylarFemur,,Biepicondylar Femur (cm),3,15,any,no,not-detected,PASS
-html/somatotype.html,armGirth,,Arm Girth (Flexed & Tensed) (cm),15,80,any,no,not-detected,PASS
-html/somatotype.html,calfGirth,,Calf Girth (cm),15,80,any,no,not-detected,PASS
-html/speed-weight.html,speed,,Speed,0.1,500,any,no,not-detected,PASS
-html/speed-weight.html,bodyWeight,,Body Weight,0.1,500,any,no,not-detected,PASS
-html/squat-ratio.html,squatWeight,,Squat Weight,0.1,500,any,no,not-detected,PASS
-html/squat-ratio.html,bodyWeight,,Body Weight,0.1,500,any,no,not-detected,PASS
-html/step-length.html,distanceCovered,,Distance Covered,0,1000000,any,no,not-detected,PASS
-html/step-length.html,stepsTaken,,Number of Steps,0,200000,1,no,not-detected,PASS
-html/steps-calories.html,steps,,Number of Steps,0,200000,1,no,not-detected,PASS
-html/steps-calories.html,stepLength,,Step Length,0.1,300,any,no,not-detected,PASS
-html/steps-calories.html,weight,,Your Weight,0.1,500,any,no,not-detected,PASS
-html/steps-distance.html,steps,,Number of Steps,0,200000,1,no,not-detected,PASS
-html/steps-distance.html,stepLength,,Step Length,0.1,300,any,no,not-detected,PASS
-html/strength-weight.html,sw-lifted,,"Weight LiftediEnter the maximum weight you can lift for the chosen exercise (e.g., bench press, squat) with proper form.",0.1,500,any,no,not-detected,PASS
-html/strength-weight.html,sw-body,,Body Weight,0.1,500,any,no,not-detected,PASS
-html/stride-length.html,strideDistance,,Distance Covered,0,1000000,any,no,not-detected,PASS
-html/stride-length.html,stridesTaken,,Number of Strides,0,1000,1,no,not-detected,PASS
-html/sunlight.html,uvIndex,,UV Index,0,30,any,no,not-detected,PASS
-html/sunlight.html,duration,,Exposure Time,0,10080,any,no,not-detected,PASS
-html/surplus.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/surplus.html,height,,Height,30,300,any,no,not-detected,PASS
-html/surplus.html,age,,Age,1,120,1,no,not-detected,PASS
-html/tdee.html,weight,,Weight,1,120,1,no,not-detected,PASS
-html/tdee.html,height,,Height,1,120,1,no,not-detected,PASS
-html/tdee.html,age,,Age (years),1,120,1,no,not-detected,PASS
-html/time-convert.html,timeValue,,Enter time,0,10000,any,no,not-detected,PASS
-html/training-rest.html,trainingTime,,Training DurationiEnter total training time per session (in hours by default).,0,10080,any,no,not-detected,PASS
-html/training-rest.html,restTime,,Rest DurationiEnter total rest or recovery time between sessions (in hours by default).,0,10080,any,no,not-detected,PASS
-html/training-volume.html,tv-weight,,Weight Lifted,0.1,500,any,no,not-detected,PASS
-html/training-volume.html,tv-reps,,Reps per Set,0,1000,1,no,not-detected,PASS
-html/training-volume.html,tv-sets,,Number of Sets,0,1000,1,no,not-detected,PASS
-html/unit.html,amount,,Value,-1000000,1000000,any,no,not-detected,PASS
-html/vo2max.html,distance,,Distance,0,10000,any,no,not-detected,PASS
-html/waist-change.html,initialWaist,,Initial Waist,0.1,300,any,no,not-detected,PASS
-html/waist-change.html,currentWaist,,Current Waist,0.1,300,any,no,not-detected,PASS
-html/walking-speed.html,walkDistance,,DistanceiTotal distance you walked. Can be entered in kilometers or miles.,0,100000,any,no,not-detected,PASS
-html/walking-speed.html,walkHours,,Hours,0,1000,any,no,not-detected,PASS
-html/walking-speed.html,walkMinutes,,Minutes,0,1000,any,no,not-detected,PASS
-html/walking-speed.html,walkSeconds,,Seconds,0,1000,any,no,not-detected,PASS
-html/water.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/weekly-load.html,wl-weight,,Weight Lifted,0.1,500,any,no,not-detected,PASS
-html/weekly-load.html,wl-reps,,Reps per Set,0,1000,1,no,not-detected,PASS
-html/weekly-load.html,wl-sets,,Number of Sets,0,1000,1,no,not-detected,PASS
-html/weekly-load.html,wl-sessions,,Sessions per Week,0,70,1,no,not-detected,PASS
-html/weekly-weight.html,tdee,,Your TDEE (Daily Calories Burned),0,20000,any,no,not-detected,PASS
-html/weekly-weight.html,intake,,Your Daily Calorie Intake,0,20000,any,no,not-detected,PASS
-html/weight-convert.html,weightValue,,Enter weight,0,500,any,no,not-detected,PASS
-html/weight-gain-rate.html,tdeeGain2,,Your TDEE (Daily Calories Burned),0,20000,any,no,not-detected,PASS
-html/weight-gain-rate.html,intakeGain2,,Your Daily Calorie Intake,0,20000,any,no,not-detected,PASS
-html/weight-loss-rate.html,tdeeRate,,Your TDEE (Daily Calories Burned),0,20000,any,no,not-detected,PASS
-html/weight-loss-rate.html,intakeRate,,Your Daily Calorie Intake,0,20000,any,no,not-detected,PASS
-html/weight-stability.html,initialWeight,,Initial Weight,0.1,500,any,no,not-detected,PASS
-html/weight-stability.html,currentWeight,,Current Weight,0.1,500,any,no,not-detected,PASS
-html/weight-stability.html,days,,Number of Days,0.1,500,any,no,not-detected,PASS
-html/whr.html,waist,,Waist,20,300,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/whr.html,hip,,Hip,20,300,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/wht.html,waist,,Waist Circumference,20,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/wht.html,height,,Height,50,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/work-output.html,liftWeight,,Weight LiftediTotal weight lifted per repetition. Include body weight if part of the movement. Enter in kg or lbs; conversion is automatic.,0.1,500,any,no,not-detected,PASS
-html/work-output.html,distance,,Distance MovediVertical distance the weight or your body moves per repetition. Enter in meters or feet; conversion is automatic.,0.1,500,any,no,not-detected,PASS
-html/work-output.html,reps,,Number of Reps,0,1000,1,no,not-detected,PASS
-html/work-rest.html,work,,Work Duration,0,10080,any,no,not-detected,PASS
-html/work-rest.html,rest,,Rest Duration,0,10080,any,no,not-detected,PASS
-html/work-rest.html,intensity,,Intensity (1–10),1,10,any,no,not-detected,PASS
+html/1rm.html,liftWeight,,Weight Lifted,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/1rm.html,reps,,Repetitions,1,15,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/BMI.html,weight,,Weight,2,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/BMI.html,height,,Height,50,274,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/BMI.html,age,,Age,2,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/absi.html,waist,,Waist Circumference,20,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/absi.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/absi.html,weight,,Weight (kg),0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/activity-time.html,duration,,Duration,0,10080,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/activity-time.html,weightActivity,,Your Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmi-change.html,currentWeightBMI,,Current Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmi-change.html,goalWeightBMI,,Goal Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmi-change.html,heightBMI,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmi-compare.html,heightA,,Person A — Height,30,300,0.1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmi-compare.html,weightA,,Person A — Weight,1,500,0.1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmi-compare.html,heightB,,Person B — Height,30,300,0.1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmi-compare.html,weightB,,Person B — Weight,1,500,0.1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmr.html,age,,Age,1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmr.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmr.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bodyfat.html,bf-height,,Height,100,250,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bodyfat.html,bf-waist,,Waist,20,250,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bodyfat.html,bf-neck,,Neck,15,80,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bodyfat.html,bf-hip,,Hip (females only),20,250,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bsa.html,weight,,Weight,1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bsa.html,height,,Height,50,250,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/cadence.html,cadenceSteps,,Number of Steps,0,200000,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/cadence.html,cadenceTime,,Time,0,10080,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/calories-kg.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/calories-kg.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/calories-kg.html,age,,Age,1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/carbs.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/carbs.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/carbs.html,age,,Age (10+ years),1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/cardio-calories.html,bodyWeight,,Body Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/cardio-calories.html,duration,,Duration,0,50000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/circumference-track.html,waistInit,,Initial Waist,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/circumference-track.html,waistCurrent,,Current Waist,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/circumference-track.html,hipInit,,Initial Hip,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/circumference-track.html,hipCurrent,,Current Hip,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/circumference-track.html,chestInit,,Initial Chest,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/circumference-track.html,chestCurrent,,Current Chest,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/circumference-track.html,armInit,,Initial Arm,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/circumference-track.html,armCurrent,,Current Arm,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/circumference-track.html,thighInit,,Initial Thigh,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/circumference-track.html,thighCurrent,,Current Thigh,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/circumference-track.html,calfInit,,Initial Calf,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/circumference-track.html,calfCurrent,,Current Calf,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/cold-exposure.html,tempC,,Air Temperature (°C),-100,70,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/cold-exposure.html,windSpeed,,Wind Speed,0,1000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/cold-exposure.html,duration,,Exposure Time,0,10080,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/cooper-test.html,cooperDistance,,Distance Covered in 12 Minutes,0,10000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/daily-energy.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/daily-energy.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/daily-energy.html,age,,Age,1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/deficit.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/deficit.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/deficit.html,age,,Age,1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/difference.html,diffA,,First value,-1000000,1000000,0.01,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/difference.html,diffB,,Second value,-1000000,1000000,0.01,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/distance-convert.html,distanceValue,,Enter distance,0,1000000000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/distance-time.html,dtDistance,,DistanceiTotal distance traveled. Can be entered in kilometers or miles.,0,100000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/distance-time.html,dtHours,,Hours,0,1000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/distance-time.html,dtMinutes,,Minutes,0,59,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/distance-time.html,dtSeconds,,Seconds,0,59,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/distance-time.html,dtSpeed,,SpeediAverage speed of travel. Can be entered in km/h or mi/h.,0,1000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/endurance-time.html,enduranceDistance,,Distance,0,100000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/endurance-time.html,endurancePace,,Pace,0,1000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/energy-balance.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/energy-balance.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/energy-balance.html,age,,Age,1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/energy-balance.html,intake,,Daily Calorie Intake,0,20000,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/face-length.html,totalLength,,Total Face Length,0.1,300,0.01,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/face-length.html,lowerLength,,Lower Face Length,0.1,300,0.01,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/face-shape.html,faceLength,,Face Length,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/face-shape.html,forehead,,Forehead Width,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/face-shape.html,cheekbones,,Cheekbone Width,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/face-shape.html,jawline,,Jawline Width,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/fat.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/fat.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/fat.html,age,,Age (10+ years),1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/fatmass.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/fatmass.html,fat,,Body Fat (%),0,100,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ffmi.html,height,,Height,50,250,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ffmi.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ffmi.html,fat,,Body Fat (%),0,100,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/fiber.html,age,,Age (years),1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/fiber.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/fiber.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/fiber.html,calories,,Daily Calories (optional),0,50000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/goal-timeline.html,currentWeight,,Current Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/goal-timeline.html,goalWeight,,Goal Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/goal-timeline.html,tdeeTimeline,,Your TDEE (Daily Calories Burned),0,50000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/goal-timeline.html,intakeTimeline,,Your Daily Calorie Intake,0,50000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/healthrisk.html,age,,Age (years),1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/healthrisk.html,weight,,Weight (kg),0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/healthrisk.html,height,,Height (cm),30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/heartrate.html,age,,Age (years),1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/heartrate.html,rhr,,"Resting Heart Rate (optional, default 70 bpm)",1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/heat-exposure.html,tempC,,Air Temperature (°C),-100,70,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/heat-exposure.html,humidity,,Relative Humidity (%),0,100,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/heat-exposure.html,duration,,Exposure Time,0,10080,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/height-convert.html,heightValue,,Enter height,0,1000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/hip-change.html,initialHip,,Initial Hip,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/hip-change.html,currentHip,,Current Hip,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/hydration-loss.html,weightWL,,Body Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/hydration-loss.html,duration,,Exercise Duration,0,10080,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/idealweight.html,iw-height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/leanmass.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/leanmass.html,fat,,Body Fat (%),0,100,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/length.html,lengthValue,,Enter Length,0,1000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/macro-split.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/macro-split.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/macro-split.html,age,,Age,18,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/maintenance.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/maintenance.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/maintenance.html,age,,Age,1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/meal-split.html,totalCalories,,Total Daily Calories,0,50000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/metabolic-age.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/metabolic-age.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/metabolic-age.html,age,,Age,20,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/mets.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/mets.html,met,,Activity MET value,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/mets.html,duration,,Duration (minutes),0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/monthly-weight.html,tdeeMonthly,,Your TDEE (Daily Calories Burned),0,20000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/monthly-weight.html,intakeMonthly,,Your Daily Calorie Intake,0,20000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/monthly-weight.html,days,,Days in Month,28,31,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/pal.html,age,,Age,1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/percentage.html,value1,,Value 1,-1000000,1000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/percentage.html,value2,,Value 2,-1000000,1000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/performance-score.html,workOutput,,Work OutputiTotal mechanical work done during exercise in Joules. Include all reps and weights lifted.,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/performance-score.html,squatWeight,,Squat WeightiMaximum squat weight lifted. Used to auto-calculate your Strength Score relative to body weight.,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/performance-score.html,bodyWeight,,Body WeightiYour current body weight. Used to calculate the Strength Score.,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ponderal.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ponderal.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/potassium.html,age,,Age (years),1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/protein.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/pullup-index.html,pu-count,,Number of Pull-UpsiEnter the maximum number of consecutive pull-ups you can perform with proper form.,0,1000,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/pullup-index.html,pu-body,,Body Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/pushup-index.html,pu-count,,Number of Push-UpsiEnter the maximum number of push-ups you can perform in one set with correct form.,0,1000,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/pushup-index.html,pu-body,,Body Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ratio.html,ratioA,,First Ratio Value,0,1000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ratio.html,ratioB,,Second Ratio Value,0,1000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/relative-strength.html,oneRM,,One-Rep Max (1RM),0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/relative-strength.html,bodyWeight,,Body Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/rfm.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/rfm.html,waist,,Waist,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/rmr.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/rmr.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/rmr.html,age,,Age,1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/running-pace.html,runDistance,,DistanceiTotal distance you ran. Can be entered in kilometers or miles.,0,100000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/running-pace.html,hours,,Hours,0,1000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/running-pace.html,minutes,,Minutes,0,1000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/running-pace.html,seconds,,Seconds,0,1000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sedentary.html,sedentary,,Sedentary Duration,0,10080,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sedentary.html,active,,Active Duration,0,10080,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sedentary.html,srIntensity,,Intensity of Active Period (1–10),1,10,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sleep-consistency.html,bed1,,Day 1 Sleep (hours),0,24,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sleep-consistency.html,bed2,,Day 2 Sleep (hours),0,24,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sleep-consistency.html,bed3,,Day 3 Sleep (hours),0,24,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sleep-consistency.html,bed4,,Day 4 Sleep (hours),0,24,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sleep-consistency.html,bed5,,Day 5 Sleep (hours),0,24,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sleep-consistency.html,bed6,,Day 6 Sleep (hours),0,24,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sleep-consistency.html,bed7,,Day 7 Sleep (hours),0,24,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sleep-duration.html,sleepHours,,Sleep Duration (hours)iEnter your average nightly sleep. Recommendations depend mainly on age and individual circumstances.,0,24,0.1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sodium.html,age,,Age (years),1,120,1,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/somatotype.html,height,,Height,100,250,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/somatotype.html,weight,,Weight,20,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/somatotype.html,triceps,,Triceps Skinfold (mm),1,60,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/somatotype.html,subscapular,,Subscapular Skinfold (mm),1,60,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/somatotype.html,supraspinale,,Supraspinale Skinfold (mm),1,60,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/somatotype.html,medialCalf,,Medial Calf Skinfold (mm),1,60,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/somatotype.html,biepicondylarHumerus,,Biepicondylar Humerus (cm),3,15,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/somatotype.html,biepicondylarFemur,,Biepicondylar Femur (cm),3,15,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/somatotype.html,armGirth,,Arm Girth (Flexed & Tensed) (cm),15,80,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/somatotype.html,calfGirth,,Calf Girth (cm),15,80,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/speed-weight.html,speed,,Speed,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/speed-weight.html,bodyWeight,,Body Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/squat-ratio.html,squatWeight,,Squat Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/squat-ratio.html,bodyWeight,,Body Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/step-length.html,distanceCovered,,Distance Covered,0,1000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/step-length.html,stepsTaken,,Number of Steps,0,200000,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/steps-calories.html,steps,,Number of Steps,0,100000,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/steps-calories.html,stepLength,,Step Length,10,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/steps-calories.html,weight,,Your Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/steps-distance.html,steps,,Number of Steps,0,200000,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/steps-distance.html,stepLength,,Step Length,10,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/strength-weight.html,sw-lifted,,"Weight LiftediEnter the maximum weight you can lift for the chosen exercise (e.g., bench press, squat) with proper form.",0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/strength-weight.html,sw-body,,Body Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/stride-length.html,strideDistance,,Distance Covered,0,1000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/stride-length.html,stridesTaken,,Number of Strides,1,200000,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sunlight.html,uvIndex,,UV Index,0,30,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sunlight.html,duration,,Exposure Time,0,10080,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/surplus.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/surplus.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/surplus.html,age,,Age,1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/tdee.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/tdee.html,height,,Height,30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/tdee.html,age,,Age (years),18,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/time-convert.html,timeValue,,Enter time,0,1000000000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/training-rest.html,trainingTime,,Training DurationiEnter total training time per session (in hours by default).,0,10080,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/training-rest.html,restTime,,Rest DurationiEnter total rest or recovery time between sessions (in hours by default).,0,10080,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/training-volume.html,tv-weight,,Weight Lifted,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/training-volume.html,tv-reps,,Reps per Set,0,1000,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/training-volume.html,tv-sets,,Number of Sets,0,1000,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/unit.html,amount,,Value,-1000000,1000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/vo2max.html,distance,,Distance,0,10000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/waist-change.html,initialWaist,,Initial Waist,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/waist-change.html,currentWaist,,Current Waist,0.1,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/walking-speed.html,walkDistance,,DistanceiTotal distance you walked. Can be entered in kilometers or miles.,0,100000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/walking-speed.html,walkHours,,Hours,0,1000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/walking-speed.html,walkMinutes,,Minutes,0,1000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/walking-speed.html,walkSeconds,,Seconds,0,1000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/water.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weekly-load.html,wl-weight,,Weight Lifted,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weekly-load.html,wl-reps,,Reps per Set,0,1000,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weekly-load.html,wl-sets,,Number of Sets,0,1000,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weekly-load.html,wl-sessions,,Sessions per Week,0,70,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weekly-weight.html,tdee,,Your TDEE (Daily Calories Burned),0,20000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weekly-weight.html,intake,,Your Daily Calorie Intake,0,20000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weight-convert.html,weightValue,,Enter weight,0,1000000000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weight-gain-rate.html,tdeeGain2,,Your TDEE (Daily Calories Burned),0,20000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weight-gain-rate.html,intakeGain2,,Your Daily Calorie Intake,0,20000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weight-loss-rate.html,tdeeRate,,Your TDEE (Daily Calories Burned),0,20000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weight-loss-rate.html,intakeRate,,Your Daily Calorie Intake,0,20000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weight-stability.html,initialWeight,,Initial Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weight-stability.html,currentWeight,,Current Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/weight-stability.html,days,,Number of Days,1,36500,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/whr.html,waist,,Waist,20,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/whr.html,hip,,Hip,20,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/wht.html,waist,,Waist Circumference,20,250,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/wht.html,height,,Height,50,250,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/work-output.html,liftWeight,,Weight LiftediTotal weight lifted per repetition. Include body weight if part of the movement. Enter in kg or lbs; conversion is automatic.,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/work-output.html,distance,,Distance MovediVertical distance the weight or your body moves per repetition. Enter in meters or feet; conversion is automatic.,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/work-output.html,reps,,Number of Reps,0,1000,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/work-rest.html,work,,Work Duration,0,10080,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/work-rest.html,rest,,Rest Duration,0,10080,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/work-rest.html,intensity,,Intensity (1–10),1,10,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmi-for-age.html,weight,weight,Weight (kg),4.535,453.592,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmi-for-age.html,height,height,Height (cm),30.48,274.32,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmi-for-age.html,age,age,Age (completed years),2,19,1,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bmi-for-age.html,ageMonths,ageMonths,Additional completed months,0,11,1,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE

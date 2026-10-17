@@ -4,17 +4,17 @@ file,id,label,min,max,step
 BMI.html,weight,Weight,2,500,any
 BMI.html,height,Height,50,274,any
 BMI.html,age,Age,2,120,1
-absi.html,waist,Waist Circumference,0.1,500,any
-absi.html,height,Height,0.1,500,any
+absi.html,waist,Waist Circumference,20,300,any
+absi.html,height,Height,30,300,any
 absi.html,weight,Weight (kg),0.1,500,any
 activity-time.html,duration,Duration,0,10080,any
 activity-time.html,weightActivity,Your Weight,0.1,500,any
 bmi-change.html,currentWeightBMI,Current Weight,0.1,500,any
 bmi-change.html,goalWeightBMI,Goal Weight,0.1,500,any
 bmi-change.html,heightBMI,Height,30,300,any
-bmi-compare.html,heightA,Person A — Height,1,300,0.1
+bmi-compare.html,heightA,Person A — Height,30,300,0.1
 bmi-compare.html,weightA,Person A — Weight,1,500,0.1
-bmi-compare.html,heightB,Person B — Height,1,300,0.1
+bmi-compare.html,heightB,Person B — Height,30,300,0.1
 bmi-compare.html,weightB,Person B — Weight,1,500,0.1
 bmr.html,age,Age,1,120,1
 bmr.html,height,Height,30,300,any
@@ -59,7 +59,7 @@ deficit.html,height,Height,30,300,any
 deficit.html,age,Age,1,120,1
 difference.html,diffA,First value,-1000000,1000000,0.01
 difference.html,diffB,Second value,-1000000,1000000,0.01
-distance-convert.html,distanceValue,Enter distance,0,1000000,any
+distance-convert.html,distanceValue,Enter distance,0,1000000000000,any
 distance-time.html,dtDistance,Distance i Total distance traveled. Can be entered in kilometers or miles.,0,100000,any
 distance-time.html,dtHours,Hours,0,1000,any
 distance-time.html,dtMinutes,Minutes,0,59,any
@@ -101,31 +101,31 @@ heartrate.html,rhr,"Resting Heart Rate (optional, default 70 bpm)",1,120,1
 heat-exposure.html,tempC,Air Temperature (°C),-100,70,any
 heat-exposure.html,humidity,Relative Humidity (%),0,100,any
 heat-exposure.html,duration,Exposure Time,0,10080,any
-height-convert.html,heightValue,Enter height,0,300,any
+height-convert.html,heightValue,Enter height,0,1000000,any
 hip-change.html,initialHip,Initial Hip,0.1,300,any
 hip-change.html,currentHip,Current Hip,0.1,300,any
 hydration-loss.html,weightWL,Body Weight,0.1,500,any
 hydration-loss.html,duration,Exercise Duration,0,10080,any
-idealweight.html,iw-height,Height,0.1,500,any
+idealweight.html,iw-height,Height,30,300,any
 leanmass.html,weight,Weight,0.1,500,any
 leanmass.html,fat,Body Fat (%),0,100,any
 length.html,lengthValue,Enter Length,0,1000000,any
-macro-split.html,weight,Weight,0,100,any
+macro-split.html,weight,Weight,0.1,500,any
 macro-split.html,height,Height,30,300,any
-macro-split.html,age,Age,1,120,1
+macro-split.html,age,Age,18,120,1
 maintenance.html,weight,Weight,0.1,500,any
 maintenance.html,height,Height,30,300,any
 maintenance.html,age,Age,1,120,1
 meal-split.html,totalCalories,Total Daily Calories,0,50000,any
-metabolic-age.html,weight,Weight,1,120,1
-metabolic-age.html,height,Height,1,120,1
-metabolic-age.html,age,Age,1,120,1
+metabolic-age.html,weight,Weight,0.1,500,any
+metabolic-age.html,height,Height,30,300,any
+metabolic-age.html,age,Age,20,120,1
 mets.html,weight,Weight,0.1,500,any
 mets.html,met,Activity MET value,0.1,500,any
 mets.html,duration,Duration (minutes),0.1,500,any
 monthly-weight.html,tdeeMonthly,Your TDEE (Daily Calories Burned),0,20000,any
 monthly-weight.html,intakeMonthly,Your Daily Calorie Intake,0,20000,any
-monthly-weight.html,days,Days in Month,0.1,500,any
+monthly-weight.html,days,Days in Month,28,31,1
 pal.html,age,Age,1,120,1
 percentage.html,value1,Value 1,-1000000,1000000,any
 percentage.html,value2,Value 2,-1000000,1000000,any
@@ -181,24 +181,24 @@ squat-ratio.html,squatWeight,Squat Weight,0.1,500,any
 squat-ratio.html,bodyWeight,Body Weight,0.1,500,any
 step-length.html,distanceCovered,Distance Covered,0,1000000,any
 step-length.html,stepsTaken,Number of Steps,0,200000,1
-steps-calories.html,steps,Number of Steps,0,200000,1
-steps-calories.html,stepLength,Step Length,0.1,300,any
+steps-calories.html,steps,Number of Steps,0,100000,1
+steps-calories.html,stepLength,Step Length,10,300,any
 steps-calories.html,weight,Your Weight,0.1,500,any
 steps-distance.html,steps,Number of Steps,0,200000,1
-steps-distance.html,stepLength,Step Length,0.1,300,any
+steps-distance.html,stepLength,Step Length,10,300,any
 strength-weight.html,sw-lifted,"Weight Lifted i Enter the maximum weight you can lift for the chosen exercise (e.g., bench press, squat) with proper form.",0.1,500,any
 strength-weight.html,sw-body,Body Weight,0.1,500,any
 stride-length.html,strideDistance,Distance Covered,0,1000000,any
-stride-length.html,stridesTaken,Number of Strides,0,1000,1
+stride-length.html,stridesTaken,Number of Strides,1,200000,1
 sunlight.html,uvIndex,UV Index,0,30,any
 sunlight.html,duration,Exposure Time,0,10080,any
 surplus.html,weight,Weight,0.1,500,any
 surplus.html,height,Height,30,300,any
 surplus.html,age,Age,1,120,1
-tdee.html,weight,Weight,1,120,1
-tdee.html,height,Height,1,120,1
-tdee.html,age,Age (years),1,120,1
-time-convert.html,timeValue,Enter time,0,10000,any
+tdee.html,weight,Weight,0.1,500,any
+tdee.html,height,Height,30,300,any
+tdee.html,age,Age (years),18,120,1
+time-convert.html,timeValue,Enter time,0,1000000000000,any
 training-rest.html,trainingTime,Training Duration i Enter total training time per session (in hours by default).,0,10080,any
 training-rest.html,restTime,Rest Duration i Enter total rest or recovery time between sessions (in hours by default).,0,10080,any
 training-volume.html,tv-weight,Weight Lifted,0.1,500,any
@@ -219,14 +219,14 @@ weekly-load.html,wl-sets,Number of Sets,0,1000,1
 weekly-load.html,wl-sessions,Sessions per Week,0,70,1
 weekly-weight.html,tdee,Your TDEE (Daily Calories Burned),0,20000,any
 weekly-weight.html,intake,Your Daily Calorie Intake,0,20000,any
-weight-convert.html,weightValue,Enter weight,0,500,any
+weight-convert.html,weightValue,Enter weight,0,1000000000000,any
 weight-gain-rate.html,tdeeGain2,Your TDEE (Daily Calories Burned),0,20000,any
 weight-gain-rate.html,intakeGain2,Your Daily Calorie Intake,0,20000,any
 weight-loss-rate.html,tdeeRate,Your TDEE (Daily Calories Burned),0,20000,any
 weight-loss-rate.html,intakeRate,Your Daily Calorie Intake,0,20000,any
 weight-stability.html,initialWeight,Initial Weight,0.1,500,any
 weight-stability.html,currentWeight,Current Weight,0.1,500,any
-weight-stability.html,days,Number of Days,0.1,500,any
+weight-stability.html,days,Number of Days,1,36500,1
 whr.html,waist,Waist,20,300,any
 whr.html,hip,Hip,20,300,any
 wht.html,waist,Waist Circumference,20,250,any
@@ -237,3 +237,7 @@ work-output.html,reps,Number of Reps,0,1000,1
 work-rest.html,work,Work Duration,0,10080,any
 work-rest.html,rest,Rest Duration,0,10080,any
 work-rest.html,intensity,Intensity (1–10),1,10,any
+bmi-for-age.html,weight,Weight (kg),4.535,453.592,any
+bmi-for-age.html,height,Height (cm),30.48,274.32,any
+bmi-for-age.html,age,Age (completed years),2,19,1
+bmi-for-age.html,ageMonths,Additional completed months,0,11,1
