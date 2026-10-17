@@ -9,7 +9,7 @@ Audit date: 2026-10-15
 - `node scripts/generate-sitemap.js --check`: PASS; 118 unique registered routes and all corresponding files exist.
 - Sitemap generation integration test: PASS for the GitHub Pages project URL `https://clerfit.github.io/Clerfit`; canonical URLs, sitemap entries and robots sitemap preserve the `/Clerfit` path.
 - Contact-form handler tests: PASS for mocked success, mocked endpoint error, reset behavior and submit-button recovery. This is not a live Formspree delivery test.
-- Static field inventory: 238 static numeric inputs plus runtime-generated controls; all have `min`, `max` and `step`; zero invalid min/max relationships or non-positive numeric steps.
+- Static field inventory: 242 static numeric inputs plus runtime-generated controls; all have `min`, `max` and `step`; zero invalid min/max relationships or non-positive numeric steps.
 - Accessibility-name static audit: zero unnamed visible form controls, buttons or links across the 124 HTML documents audited. Label associations and accessible names were improved across the legacy pages; this does not replace screen-reader testing.
 - Static integrity: zero missing local `href`/`src` references, duplicate IDs, missing descriptions/theme colors, or images missing `alt` text in the current static audit.
 - Browser source-inlined smoke evidence from the latest saved reports: 122 documents loaded, 119 primary actions invoked, zero recorded runtime/console errors and zero horizontal overflow at 390 px. The environment blocks direct browser navigation to local HTTP URLs, so the stored in-memory Chromium harness is the available browser evidence.
@@ -18,7 +18,7 @@ Audit date: 2026-10-15
 
 ## Formula/reference coverage
 
-`SOURCES_AND_METHODS.md`, `FORMULA_REFERENCE_AUDIT.md` and `CALCULATOR_VERIFICATION_MATRIX.csv` now document all 118 registered routes, formula/method summaries, reference or explicit site-defined-method basis, and route-specific test status. The automated suite passes 24 advanced-engine vectors, 20 existing direct/shared vectors and 74 additional route-specific known-answer/method vectors: **118/118 routes have at least one passing route-level vector**. All 238 static numeric fields plus runtime-generated controls have valid min/max/step and are inventoried in `INPUT_BOUNDARY_VERIFIED.csv`. This does not certify every possible input combination or every custom heuristic as scientifically validated.
+`SOURCES_AND_METHODS.md`, `FORMULA_REFERENCE_AUDIT.md` and `CALCULATOR_VERIFICATION_MATRIX.csv` now document all 118 registered routes, formula/method summaries, reference or explicit site-defined-method basis, and route-specific test status. The automated suite passes 24 advanced-engine vectors, 20 existing direct/shared vectors and 74 additional route-specific known-answer/method vectors: **118/118 routes have at least one passing route-level vector**. All 242 static numeric fields plus runtime-generated controls have valid min/max/step and are inventoried in `INPUT_BOUNDARY_VERIFIED.csv`. This does not certify every possible input combination or every custom heuristic as scientifically validated.
 
 ## Remaining release gates
 
