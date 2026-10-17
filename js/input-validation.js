@@ -63,6 +63,15 @@
     const unit = unitFor(el);
     // The Body Fat calculator has a finite converted domain that differs by
     // field; do not apply generic 1-foot/1-inch minima to neck/circumference inputs.
+    const pageName = String((window.location && window.location.pathname) || '').split('/').pop().toLowerCase();
+    const waistHeightRanges = {
+      waist: { cm: [20, 250], m: [0.2, 2.5], in: [7.87401575, 98.42519685], ft: [0.65616798, 8.20209974] },
+      height: { cm: [50, 250], m: [0.5, 2.5], in: [19.68503937, 98.42519685], ft: [1.64041995, 8.20209974] }
+    };
+    if (pageName === 'wht.html' && waistHeightRanges[el.id] && waistHeightRanges[el.id][unit]) {
+      const range = waistHeightRanges[el.id][unit];
+      return { min: range[0], max: range[1], label: 'Measurement' };
+    }
     const bodyFatRanges = {
       "bf-height": { cm: [100, 250], m: [1, 2.5], inch: [39.3701, 98.4252], ft: [3.2809, 8.2021] },
       "bf-waist": { cm: [20, 250], inch: [7.8741, 98.4252], ft: [0.6562, 8.2021] },
