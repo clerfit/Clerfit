@@ -20,6 +20,8 @@ const context = vm.createContext({ window, document, console });
 vm.runInContext(read('js/bmi-for-age.js'), context, { filename: 'js/bmi-for-age.js', timeout: 3000 });
 vm.runInContext(read('js/advanced-calculators.js'), context, { filename: 'js/advanced-calculators.js', timeout: 3000 });
 const defs = window.ClerFitAdvancedDefinitions;
+const validateAdvanced = window.ClerFitAdvancedValidation && window.ClerFitAdvancedValidation.validate;
+assert.equal(typeof validateAdvanced, 'function', 'Advanced semantic validator must be exported for tests.');
 assert.ok(defs && typeof defs === 'object', 'Advanced calculator definitions must be exported for tests.');
 
 const vectors = [
@@ -58,6 +60,15 @@ for (const [key, input, expected] of vectors) {
   assert.ok(result.formula, key + ' displayed formula');
   checks++;
 }
+
+assert.throws(() => validateAdvanced('facial-thirds', {upper:0.1,middle:60,lower:70}), /Upper third must be between 10 and 150 mm/);
+assert.throws(() => validateAdvanced('jaw-width-ratio', {jaw:240,face:50}), /jaw\/reference-width ratio must be between 0.2 and 1.2/);
+assert.throws(() => validateAdvanced('weekly-training-count', {sessions:21,minutes:600}), /weekly training time cannot exceed 10080 minutes/);
+assert.throws(() => validateAdvanced('chest-expansion', {exhale:100,inhale:80}), /Inhalation measurement must be at least the exhalation measurement/);
+assert.throws(() => validateAdvanced('recovery-time', {end:'2026-10-17T08:00',next:'2026-12-17T08:00'}), /must not exceed 30 days/);
+assert.throws(() => validateAdvanced('forward-head-index', {offset:150,height:50}), /head-offset\/height ratio must be between 0 and 1/);
+assert.equal(validateAdvanced('jaw-width-ratio', {jaw:100,face:150}).jaw, 100);
+checks += 7;
 
 const female = window.ClerFitBMIForAge.calculate({
   weight: 33.125, height: 125, age: 9, ageMonths: 6, sex: 'female'

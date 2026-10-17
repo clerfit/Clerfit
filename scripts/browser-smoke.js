@@ -353,6 +353,38 @@ async function targetedCalculatorBoundaries(browser) {
   return checks;
 }
 
+async function targetedAdvancedBoundaries(browser) {
+  const checks = [];
+  async function submitCase(file, fields, caseName, expected) {
+    const p = await browser.newPage({viewport:{width:390,height:844}});
+    try {
+      const url = new URL('html/' + file, BASE);
+      url.searchParams.set('browserSmoke','advanced-boundary');
+      await p.goto(url.href,{waitUntil:'load'});
+      await p.evaluate(fields => {
+        for (const [id,value] of Object.entries(fields)) {
+          const el=document.getElementById(id);
+          if(!el) throw new Error('Missing advanced input #'+id);
+          el.value=String(value);
+        }
+        const form=document.getElementById('advanced-form');
+        if(!form) throw new Error('Missing generated advanced form');
+        form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));
+      },fields);
+      const output=await p.locator('#advanced-output').innerText();
+      if(!expected.test(output)) throw new Error(file+' '+caseName+': expected '+expected+', got: '+output);
+      checks.push(file+': '+caseName+' passed');
+    } finally { await p.close().catch(()=>{}); }
+  }
+  await submitCase('facial-thirds.html',{upper:0.1,middle:60,lower:70},'extreme facial measurement rejected',/Upper third must be between 10 and 150 mm/i);
+  await submitCase('facial-thirds.html',{upper:50,middle:60,lower:70},'valid facial-thirds reference case',/27\.8% \/ 33\.3% \/ 38\.9%/);
+  await submitCase('jaw-width-ratio.html',{jaw:240,face:50},'implausible jaw-to-face ratio rejected',/jaw\/reference-width ratio must be between 0\.2 and 1\.2/i);
+  await submitCase('weekly-training-count.html',{sessions:21,minutes:600},'impossible weekly training time rejected',/weekly training time cannot exceed 10080 minutes/i);
+  await submitCase('chest-expansion.html',{exhale:100,inhale:80},'reversed chest expansion rejected',/Inhalation measurement must be at least the exhalation measurement/i);
+  await submitCase('forward-head-index.html',{offset:150,height:50},'extreme head-offset ratio rejected',/head-offset\/height ratio must be between 0 and 1/i);
+  return checks;
+}
+
 async function targetedUnits(browser) {
   const report=[];
   {
@@ -462,6 +494,9 @@ async function main() {
     let calculatorBoundaries=[];
     try { calculatorBoundaries=await targetedCalculatorBoundaries(browser); }
     catch(error){ failures.push('Targeted calculator-boundary test failed: '+(error && error.message || error)); }
+    let advancedBoundaries=[];
+    try { advancedBoundaries=await targetedAdvancedBoundaries(browser); }
+    catch(error){ failures.push('Targeted advanced-boundary test failed: '+(error && error.message || error)); }
     const bmi=routeResults.find(r=>r.file==='bmi-for-age.html');
     const bmiResult=!!(bmi && /percentile/i.test(bmi.outputSample) && /CDC reference sex/i.test(bmi.outputSample));
     assert(bmiResult,'BMI-for-age did not render an age/sex-specific CDC percentile result in the browser smoke pass.');
@@ -495,7 +530,7 @@ async function main() {
       noVisibleInput:routeResults.filter(r=>!r.inputCount).map(r=>r.file),
       noAction:routeResults.filter(r=>!r.actionClicked&&!/unit\.html$/i.test(r.file)).map(r=>r.file),
       routesWithoutResultText:routeResults.filter(r=>!r.outputs).map(r=>r.file),
-      targetedUnitChecks:targeted, targetedSemanticBoundaryChecks:semanticBoundaries, targetedCalculatorBoundaryChecks:calculatorBoundaries, failures, routes:routeResults
+      targetedUnitChecks:targeted, targetedSemanticBoundaryChecks:semanticBoundaries, targetedCalculatorBoundaryChecks:calculatorBoundaries, targetedAdvancedBoundaryChecks:advancedBoundaries, failures, routes:routeResults
     };
     fs.writeFileSync(REPORT_PATH,JSON.stringify(report,null,2)+'\n');
     if(process.env.GITHUB_STEP_SUMMARY){
@@ -512,11 +547,13 @@ async function main() {
         '- Targeted unit checks: '+targeted.length,
         '- Targeted semantic-boundary checks: '+semanticBoundaries.length,
         '- Targeted calculator-boundary checks: '+calculatorBoundaries.length,
+        '- Targeted advanced-boundary checks: '+advancedBoundaries.length,
         '- Failures: '+failures.length,
         '',
         ...targeted.map(x=>'- '+x),
         ...semanticBoundaries.map(x=>'- '+x),
         ...calculatorBoundaries.map(x=>'- '+x),
+        ...advancedBoundaries.map(x=>'- '+x),
         ...failures.map(x=>'- **FAIL:** '+x)
       ].join('\n');
       fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary+'\n');

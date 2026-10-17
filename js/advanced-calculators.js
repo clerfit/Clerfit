@@ -27,6 +27,108 @@ const definitions={
  'chest-expansion':{title:'Chest Expansion',description:'Compare chest circumference at a consistent landmark after a normal exhale and a comfortable full inhale. Do not strain.',fields:[['exhale','Circumference after exhale','cm'],['inhale','Circumference after inhale','cm']],calculate:v=>{if(v.exhale<=0||v.inhale<=0||v.inhale<v.exhale)throw Error('Enter positive values; the inhalation measurement should be equal to or greater than the exhalation measurement.');return {primary:fmt(v.inhale-v.exhale)+' cm',label:'Chest expansion',details:`Relative expansion: ${((v.inhale-v.exhale)/v.exhale*100).toFixed(1)}%. Technique and tape placement affect repeatability. This is not a lung-function test.`,formula:'Inhalation circumference − exhalation circumference.'}}},
  'body-alignment':{title:'Body Alignment Comparison',description:'Compare paired left/right landmark measurements. This simple comparison cannot diagnose posture, scoliosis, or musculoskeletal disorders.',fields:[['left','Left-side reference measurement','mm'],['right','Right-side reference measurement','mm']],calculate:v=>{if(v.left<=0||v.right<=0)throw Error('Both measurements must be greater than zero.');const d=Math.abs(v.left-v.right);return {primary:fmt(d)+' mm difference',label:'Absolute side-to-side difference',details:`Normalized difference: ${(d/((v.left+v.right)/2)*100).toFixed(2)}%. Use the same posture, landmarks, and measurement method each time.`,formula:'Absolute difference = |left − right|.'}}}
 };
+const semanticBounds = {
+ 'facial-thirds':{upper:[10,150],middle:[10,150],lower:[10,150]},
+ 'jaw-width-ratio':{jaw:[30,250],face:[50,300]},
+ 'chin-height-ratio':{chin:[5,100],lower:[20,150]},
+ 'nose-length-ratio':{nose:[10,100],face:[80,300]},
+ 'mouth-width-ratio':{mouth:[20,120],face:[50,300]},
+ 'eye-spacing':{space:[5,100],eye:[5,80]},
+ 'lower-face-height':{lower:[20,150],face:[80,300]},
+ 'facial-balance':{upper:[10,150],middle:[10,150],lower:[10,150]},
+ 'rest-interval':{work:[1,3600],rest:[0,3600]},
+ 'session-density':{work:[0,1440],total:[1,1440]},
+ 'load-recovery-ratio':{load:[0,100],recovery:[1,100]},
+ 'weekly-training-count':{sessions:[0,21],minutes:[0,600]},
+ 'fatigue-index':{fatigue:[1,10],soreness:[1,10],stress:[1,10],sleep:[1,10]},
+ 'bmi-for-age':{weight:[4.5,300],height:[45,230],age:[2,19],ageMonths:[0,11]},
+ 'waist-risk':{waist:[20,250],age:[2,120]},
+ 'hip-risk':{waist:[20,250],hip:[30,250]},
+ 'waist-height-risk':{waist:[20,250],height:[80,250],age:[2,120]},
+ 'forward-head-index':{offset:[0,150],height:[50,300]},
+ 'shoulder-symmetry':{left:[50,2000],right:[50,2000]},
+ 'leg-length-difference':{left:[30,150],right:[30,150]},
+ 'sit-stand-ratio':{reps:[0,100],time:[1,600]},
+ 'chest-expansion':{exhale:[40,200],inhale:[40,200]},
+ 'body-alignment':{left:[10,1000],right:[10,1000]}
+};
+const ratioBounds = {
+ 'jaw-width-ratio':{numerator:'jaw',denominator:'face',min:0.2,max:1.2,label:'jaw/reference-width'},
+ 'chin-height-ratio':{numerator:'chin',denominator:'lower',min:0.05,max:1.2,label:'chin/lower-face'},
+ 'nose-length-ratio':{numerator:'nose',denominator:'face',min:0.1,max:0.8,label:'nose/face-height'},
+ 'mouth-width-ratio':{numerator:'mouth',denominator:'face',min:0.1,max:1.2,label:'mouth/face-width'},
+ 'eye-spacing':{numerator:'space',denominator:'eye',min:0.1,max:3,label:'eye-spacing/eye-width'},
+ 'lower-face-height':{numerator:'lower',denominator:'face',min:0.1,max:1.2,label:'lower-face/face-height'},
+ 'load-recovery-ratio':{numerator:'load',denominator:'recovery',min:0,max:10,label:'load/recovery'},
+ 'hip-risk':{numerator:'waist',denominator:'hip',min:0.3,max:1.5,label:'waist-to-hip'},
+ 'waist-height-risk':{numerator:'waist',denominator:'height',min:0.2,max:1.5,label:'waist-to-height'},
+ 'forward-head-index':{numerator:'offset',denominator:'height',min:0,max:1,label:'head-offset/height'}
+};
+function validateAdvancedValues(key, values) {
+  const def = definitions[key];
+  if (!def) throw Error('Unknown advanced calculator definition.');
+  for (const [id, bounds] of Object.entries(semanticBounds[key] || {})) {
+    const [min, max] = bounds;
+    const field = def.fields.find(item => item[0] === id);
+    const value = values[id];
+    if (!Number.isFinite(value) || value < min || value > max) {
+      throw Error((field ? field[1] : id) + ' must be between ' + min + ' and ' + max + ' ' + (field ? field[2] : 'units') + '.');
+    }
+  }
+  if (['bmi-for-age','waist-risk','waist-height-risk'].includes(key) && !Number.isInteger(values.age)) {
+    throw Error('Age must be entered as a whole number of completed years.');
+  }
+  if (key === 'bmi-for-age' && (!Number.isInteger(values.ageMonths) || !['male','female'].includes(values.sex))) {
+    throw Error('Enter whole additional months and select a CDC reference sex.');
+  }
+  if (key === 'weekly-training-count') {
+    if (!Number.isInteger(values.sessions)) throw Error('Training sessions per week must be a whole number.');
+    if (values.sessions > 0 && values.minutes < 1) throw Error('Average session duration must be at least one minute when sessions are entered.');
+    if (values.sessions * values.minutes > 10080) throw Error('Estimated weekly training time cannot exceed 10080 minutes.');
+  }
+  if (key === 'rest-interval' && values.rest > values.work * 10) {
+    throw Error('Rest interval must be no more than ten times the work interval for this ratio check.');
+  }
+  if (key === 'session-density' && values.work > values.total) {
+    throw Error('Active work time cannot exceed total session time.');
+  }
+  if (key === 'recovery-time') {
+    const start = new Date(values.end).getTime();
+    const next = new Date(values.next).getTime();
+    if (!Number.isFinite(start) || !Number.isFinite(next) || next <= start) {
+      throw Error('The next session must start after the previous session ends.');
+    }
+    if (next - start > 30 * 24 * 60 * 60 * 1000) {
+      throw Error('Recovery interval must not exceed 30 days for this session-to-session calculator.');
+    }
+  }
+  const ratioRule = ratioBounds[key];
+  if (ratioRule) {
+    const ratioValue = values[ratioRule.numerator] / values[ratioRule.denominator];
+    if (!Number.isFinite(ratioValue) || ratioValue < ratioRule.min || ratioValue > ratioRule.max) {
+      throw Error('The ' + ratioRule.label + ' ratio must be between ' + ratioRule.min + ' and ' + ratioRule.max + '; recheck measurements and units.');
+    }
+  }
+  if (key === 'shoulder-symmetry' || key === 'body-alignment') {
+    const a = values.left, b = values.right;
+    if (Math.abs(a - b) / ((a + b) / 2) > 0.5) {
+      throw Error('The side-to-side difference exceeds 50% of the mean; recheck the landmarks and units.');
+    }
+  }
+  if (key === 'leg-length-difference' && Math.abs(values.left - values.right) > 20) {
+    throw Error('The measured leg-length difference exceeds 20 cm; recheck the landmarks and units.');
+  }
+  if (key === 'sit-stand-ratio') {
+    if (!Number.isInteger(values.reps)) throw Error('Completed repetitions must be a whole number.');
+    if (values.reps / (values.time / 60) > 120) throw Error('The resulting sit-to-stand rate exceeds 120 repetitions per minute; check the count and duration.');
+  }
+  if (key === 'chest-expansion') {
+    if (values.inhale < values.exhale) throw Error('Inhalation measurement must be at least the exhalation measurement.');
+    if (values.inhale - values.exhale > 20) throw Error('Chest expansion must be no more than 20 cm for this input check; recheck units and technique.');
+  }
+  return values;
+}
+window.ClerFitAdvancedValidation = { validate: validateAdvancedValues };
 // Expose pure calculation definitions for deterministic regression tests; UI still calls the same functions.
 window.ClerFitAdvancedDefinitions = definitions;
 function fmt(n){return new Intl.NumberFormat(undefined,{maximumFractionDigits:2}).format(n)}
@@ -34,9 +136,9 @@ function ratio(a,b,label,formula,allowZeroNumerator=false){if(!Number.isFinite(a
 const key=document.body.dataset.calculator;const def=definitions[key];if(!def)return;
 document.title='ClerFit — '+def.title;const title=document.getElementById('advanced-title');if(title)title.textContent=def.title;const desc=document.getElementById('advanced-description');if(desc)desc.textContent=def.description;const fields=document.getElementById('advanced-fields');const output=document.getElementById('advanced-output');const formula=document.getElementById('advanced-formula');
 const unitChoices={mm:['mm','cm','in'],cm:['cm','m','in','ft'],kg:['kg','lb'],seconds:['seconds','minutes','hours'],minutes:['minutes','hours','seconds']};
-fields.innerHTML=def.fields.map(([id,label,unit])=>{if(unit==='select')return `<div class="col"><label for="${id}">${label}</label><select id="${id}" name="${id}"><option value="female">Female</option><option value="male">Male</option><option value="not-specified">Not specified</option></select></div>`;const type=unit==='datetime-local'?'datetime-local':'number';const min=type==='number'?(key==='bmi-for-age'&&id==='weight'?'4.535':key==='bmi-for-age'&&id==='height'?'30.48':(unit==='mm'||unit==='cm'||unit==='kg')&&!(key==='forward-head-index'&&id==='offset')?'0.1':unit==='score'?'1':unit==='years'&&id==='age'&&['bmi-for-age','waist-risk','waist-height-risk'].includes(key)?'2':unit==='months'?'0':'0'):undefined;const max=type==='number'?(key==='bmi-for-age'&&id==='weight'?'453.592':key==='bmi-for-age'&&id==='height'?'274.32':key==='weekly-training-count'&&id==='sessions'?'70':unit==='months'?'11':unit==='score'?'10':unit==='years'&&id==='age'&&key==='bmi-for-age'?'19':unit==='years'?'120':unit==='mm'?'1000':unit==='cm'?'300':unit==='kg'?'500':unit==='seconds'?'86400':unit==='minutes'?'1440':undefined):undefined;const step=type==='number'?(unit==='years'||unit==='months'||unit==='sessions'||unit==='repetitions'||unit==='score'?'1':'any'):undefined;const choices=unitChoices[unit];const unitSelect=choices?`<select class="cf-advanced-unit" aria-label="${label} unit" data-unit-for="${id}" data-unit-base="${unit}">${choices.map(u=>`<option value="${u}" ${u===unit?'selected':''}>${u}</option>`).join('')}</select>`:'';return `<div class="col"><label for="${id}">${label}${choices?'':unit==='datetime-local'?'':` (${unit})`}</label><div class="cf-advanced-input-row"><input id="${id}" name="${id}" data-base-unit="${unit}" type="${type}" ${min!==undefined?`min="${min}"`:''} ${max!==undefined?`max="${max}"`:''} ${step?`step="${step}"`:''} ${id==='ageMonths'?'value="0"':''} required>${unitSelect}</div></div>`}).join('');
+fields.innerHTML=def.fields.map(([id,label,unit])=>{if(unit==='select')return `<div class="col"><label for="${id}">${label}</label><select id="${id}" name="${id}"><option value="female">Female</option><option value="male">Male</option><option value="not-specified">Not specified</option></select></div>`;const type=unit==='datetime-local'?'datetime-local':'number';let min=type==='number'?(key==='bmi-for-age'&&id==='weight'?'4.535':key==='bmi-for-age'&&id==='height'?'30.48':(unit==='mm'||unit==='cm'||unit==='kg')&&!(key==='forward-head-index'&&id==='offset')?'0.1':unit==='score'?'1':unit==='years'&&id==='age'&&['bmi-for-age','waist-risk','waist-height-risk'].includes(key)?'2':unit==='months'?'0':'0'):undefined;let max=type==='number'?(key==='bmi-for-age'&&id==='weight'?'453.592':key==='bmi-for-age'&&id==='height'?'274.32':key==='weekly-training-count'&&id==='sessions'?'70':unit==='months'?'11':unit==='score'?'10':unit==='years'&&id==='age'&&key==='bmi-for-age'?'19':unit==='years'?'120':unit==='mm'?'1000':unit==='cm'?'300':unit==='kg'?'500':unit==='seconds'?'86400':unit==='minutes'?'1440':undefined):undefined;const semanticRange=semanticBounds[key]&&semanticBounds[key][id];if(semanticRange){min=String(semanticRange[0]);max=String(semanticRange[1])}const step=type==='number'?(unit==='years'||unit==='months'||unit==='sessions'||unit==='repetitions'||unit==='score'?'1':'any'):undefined;const choices=unitChoices[unit];const unitSelect=choices?`<select class="cf-advanced-unit" aria-label="${label} unit" data-unit-for="${id}" data-unit-base="${unit}">${choices.map(u=>`<option value="${u}" ${u===unit?'selected':''}>${u}</option>`).join('')}</select>`:'';return `<div class="col"><label for="${id}">${label}${choices?'':unit==='datetime-local'?'':` (${unit})`}</label><div class="cf-advanced-input-row"><input id="${id}" name="${id}" data-base-unit="${unit}" type="${type}" ${min!==undefined?`min="${min}"`:''} ${max!==undefined?`max="${max}"`:''} ${step?`step="${step}"`:''} ${id==='ageMonths'?'value="0"':''} required>${unitSelect}</div></div>`}).join('');
 // Attach the form submission before the capture-phase shared validator runs, then use form validation APIs without blocking the custom result UI.
-const form=document.getElementById('advanced-form');form.addEventListener('submit',e=>{e.preventDefault();try{const values={};for(const [id,,unit] of def.fields){const el=document.getElementById(id);if(unit==='datetime-local'){if(!el.value)throw Error('Complete both date and time fields.');values[id]=el.value;continue}if(unit==='select'){values[id]=el.value;continue}if(el.value.trim()==='')throw Error('Complete all fields before calculating.');const n=Number(el.value);if(!Number.isFinite(n))throw Error('Enter valid finite numbers.');const unitSelect=form.querySelector(`[data-unit-for="${id}"]`);const baseUnit=(el.dataset&&el.dataset.baseUnit)||unit;if(unitSelect&&window.ClerFitUnits){const converted=window.ClerFitUnits.convert(n,unitSelect.value,baseUnit);if(!Number.isFinite(converted))throw Error(`Could not convert ${id} to ${baseUnit}.`);values[id]=converted}else values[id]=n}const r=def.calculate(values);output.innerHTML=`<div class="cf-result"><span class="cf-note">${r.label}</span><strong>${r.primary}</strong><p>${r.details}</p></div>`;formula.textContent=r.formula}catch(err){output.innerHTML=`<div class="cf-warning" role="alert">${err.message}</div>`}});form.addEventListener('reset',()=>{output.innerHTML='';formula.textContent='Submit the form to see the formula used.'});
+const form=document.getElementById('advanced-form');form.addEventListener('submit',e=>{e.preventDefault();try{const values={};for(const [id,,unit] of def.fields){const el=document.getElementById(id);if(unit==='datetime-local'){if(!el.value)throw Error('Complete both date and time fields.');values[id]=el.value;continue}if(unit==='select'){values[id]=el.value;continue}if(el.value.trim()==='')throw Error('Complete all fields before calculating.');const n=Number(el.value);if(!Number.isFinite(n))throw Error('Enter valid finite numbers.');const unitSelect=form.querySelector(`[data-unit-for="${id}"]`);const baseUnit=(el.dataset&&el.dataset.baseUnit)||unit;if(unitSelect&&window.ClerFitUnits){const converted=window.ClerFitUnits.convert(n,unitSelect.value,baseUnit);if(!Number.isFinite(converted))throw Error(`Could not convert ${id} to ${baseUnit}.`);values[id]=converted}else values[id]=n}validateAdvancedValues(key,values);const r=def.calculate(values);output.innerHTML=`<div class="cf-result"><span class="cf-note">${r.label}</span><strong>${r.primary}</strong><p>${r.details}</p></div>`;formula.textContent=r.formula}catch(err){output.innerHTML=`<div class="cf-warning" role="alert">${err.message}</div>`}});form.addEventListener('reset',()=>{output.innerHTML='';formula.textContent='Submit the form to see the formula used.'});
 
 // R3-2026-10-17 interaction regression checks for dynamically generated calculator inputs.
 if (key === 'bmi-for-age') {
