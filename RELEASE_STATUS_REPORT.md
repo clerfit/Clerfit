@@ -4,7 +4,7 @@ Report date: 2026-10-16
 
 ## Verdict
 
-**Locally verified release candidate; not yet production-certified.** The exact live release and real contact-message delivery are left to the owner, as requested.
+**Current source deployed and automated production verification passed; final human/owner acceptance remains open.** GitHub Pages deployment, live release marker, all-route browser smoke, staging parity and the 124-page automated accessibility scan passed for main SHA `486f6c6613b5611d2bd365b1cc21e0e7fba743a3`.
 
 ## Completed locally
 
@@ -19,17 +19,16 @@ Report date: 2026-10-16
 
 ## Owner tasks
 
-1. Publish this exact `dist/` build.
-2. Verify live domain, HTTPS, deep links, canonical URLs, assets and deployed version.
-3. Send a consented test contact message and confirm delivery.
-4. Complete real phone/tablet/laptop testing.
+1. Send a real, consented test contact message and confirm inbox delivery.
+2. Complete real phone/tablet/laptop and manual keyboard/screen-reader acceptance.
+3. Commission/record expert review for formulas or thresholds that materially affect health decisions.
 
 ## Remaining technical evidence
 
 - Full manual keyboard-only and screen-reader testing.
-- Fresh browser visual verification of the latest mobile table CSS (the browser environment blocked local navigation during the last run; earlier browser QA results are retained as historical reports).
+- Manual visual review on physical devices and weak-network conditions; automated route/axe verification now passes for the current source.
 - Live performance measurements under throttled/weak-network conditions.
-- Production network/storage and response-header inspection.
+- Production storage/header review remains limited: GitHub Pages does not apply Netlify `_headers`, so custom HSTS/X-Frame-Options guarantees require a suitable host/CDN.
 - Exhaustive semantic range/boundary checks across all inputs and qualified external scientific review where a specialist judgment is needed.
 
 The formula review classifies custom face/posture/fatigue/recovery/performance indices as descriptive where no universal standard exists. A known-answer test is not proof of universal scientific validity. See `FINAL_COMPLETION_REPORT.md` and `PERFORMANCE_SECURITY_AUDIT.md`.
