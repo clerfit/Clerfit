@@ -72,6 +72,14 @@
       const range = waistHeightRanges[el.id][unit];
       return { min: range[0], max: range[1], label: 'Measurement' };
     }
+    const waistHipRanges = {
+      waist: { cm: [20, 300], m: [0.2, 3], inch: [7.874016, 118.1102], ft: [0.656168, 9.84251] },
+      hip: { cm: [20, 300], m: [0.2, 3], inch: [7.874016, 118.1102], ft: [0.656168, 9.84251] }
+    };
+    if (pageName === 'whr.html' && waistHipRanges[el.id] && waistHipRanges[el.id][unit]) {
+      const range = waistHipRanges[el.id][unit];
+      return { min: range[0], max: range[1], label: 'Measurement' };
+    }
     const bodyFatRanges = {
       "bf-height": { cm: [100, 250], m: [1, 2.5], inch: [39.3701, 98.4252], ft: [3.2809, 8.2021] },
       "bf-waist": { cm: [20, 250], inch: [7.8741, 98.4252], ft: [0.6562, 8.2021] },
