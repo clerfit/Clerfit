@@ -17,7 +17,7 @@ For each route:
 
 ## Workstream 2 — Input semantics and validation
 
-**Scope:** All 238 static numeric fields in `FIELD_VALIDATION_AUDIT.csv`, plus dynamically generated fields in the 24 advanced definitions.
+**Scope:** All 242 static numeric fields in `FIELD_VALIDATION_AUDIT.csv`, plus dynamically generated fields in the 24 advanced definitions.
 
 For each field, verify requiredness, domain range, step precision, valid combinations, unit-specific bounds, clear error messaging, keyboard focus and whether zero/negative values are valid. HTML attribute presence alone is not considered semantic approval.
 
