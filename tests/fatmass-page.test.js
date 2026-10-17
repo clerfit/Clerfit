@@ -99,11 +99,11 @@ runCase('zero percent and 100 percent boundaries are valid', () => {
   clean();
   set({ fat: 0 });
   context.calculateFatMass();
-  assert.match(out(), /Fat Mass: <b>0\.00 kg<\/b> \(0\.0%\)/);
+  assert.match(out(), /Fat Mass: 0\.00 kg \(0\.0%\)/);
   clean();
   set({ fat: 100 });
   context.calculateFatMass();
-  assert.match(out(), /Fat Mass: <b>70\.00 kg<\/b> \(100\.0%\)/);
+  assert.match(out(), /Fat Mass: 70\.00 kg \(100\.0%\)/);
 });
 runCase('empty body-fat value is not silently treated as zero', () => {
   clean();
