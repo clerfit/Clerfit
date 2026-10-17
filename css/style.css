@@ -1028,3 +1028,36 @@ body .info-tooltip,body .tooltip-circle,body .info-box{flex-shrink:0!important}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body *{transition:none!important;animation:none!important}}
 
 /* ClerFit R3 live calculator UI — production stylesheet release marker; R3-2026-10-17-calculator-fixes-05 */
+
+
+/* Phase 1 accessibility remediation: links remain distinguishable without relying on color alone. */
+body a {
+  text-decoration-line: underline;
+  text-decoration-thickness: .08em;
+  text-underline-offset: .16em;
+}
+body a:focus-visible,
+body button:focus-visible,
+body input:focus-visible,
+body select:focus-visible,
+body textarea:focus-visible,
+body summary:focus-visible {
+  outline: 3px solid #0b63ce !important;
+  outline-offset: 3px !important;
+}
+body .cf-breadcrumb {
+  color: #4b5b72 !important;
+}
+body .cf-table-scroll td:before {
+  color: #42536b !important;
+}
+@media (forced-colors: active) {
+  body a:focus-visible,
+  body button:focus-visible,
+  body input:focus-visible,
+  body select:focus-visible,
+  body textarea:focus-visible,
+  body summary:focus-visible {
+    outline: 2px solid LinkText !important;
+  }
+}
