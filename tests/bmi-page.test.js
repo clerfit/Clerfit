@@ -105,7 +105,7 @@ runCase('feet and pounds selectors get compatible bounds', () => {
   ids.height.value = '68.8976378';
   context.syncBMIBounds();
   assert.equal(ids.weight.min, '4.41');
-  assert.equal(ids.weight.max, '1100');
+  assert.equal(ids.weight.max, '1102.31');
   assert.equal(ids.height.min, '19.69');
   assert.equal(ids.height.max, '107.87');
   context.calculateBMI();
@@ -115,8 +115,8 @@ runCase('feet height bounds are dynamically aligned', () => {
   resetInputs();
   ids.heightUnit.value = 'ft';
   context.syncBMIBounds();
-  assert.equal(ids.height.min, '1.64');
-  assert.equal(ids.height.max, '8.99');
+  assert.equal(ids.height.min, '1.641');
+  assert.equal(ids.height.max, '8.989');
 });
 runCase('pediatric ages do not receive adult-category labels', () => {
   resetInputs();
