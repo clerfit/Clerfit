@@ -221,7 +221,9 @@ function syncBodyFatBounds() {
   const hipUnit = document.getElementById("bf-hip-unit");
   const female = !!gender && gender.value === "female";
   if (hip) {
-    hip.disabled = !female;
+    // Keep the field enabled so the shared unit system can wire it on page load.
+    // It is optional for the male equation and required for the female equation.
+    hip.disabled = false;
     hip.required = female;
     if (!female) {
       hip.removeAttribute("aria-invalid");
@@ -231,7 +233,7 @@ function syncBodyFatBounds() {
       }
     }
   }
-  if (hipUnit) hipUnit.disabled = !female;
+  if (hipUnit) hipUnit.disabled = false;
 }
 
 function resetBodyFat() {
@@ -257,7 +259,18 @@ function resetBodyFat() {
 
 if (typeof document !== "undefined" && document.addEventListener) {
   document.addEventListener("DOMContentLoaded", () => {
-    if (document.getElementById("bf-height")) syncBodyFatBounds();
+    if (!document.getElementById("bf-height")) return;
+    syncBodyFatBounds();
+    // Run after the shared unit-system change handler, which converts the input
+    // and its existing limits before we restore the validated domain for the new unit.
+    ["bf-height-unit", "bf-waist-unit", "bf-neck-unit", "bf-hip-unit"].forEach(id => {
+      const select = document.getElementById(id);
+      if (!select) return;
+      select.addEventListener("change", () => {
+        if (typeof queueMicrotask === "function") queueMicrotask(syncBodyFatBounds);
+        else Promise.resolve().then(syncBodyFatBounds);
+      });
+    });
   }, { once: true });
 }
 
