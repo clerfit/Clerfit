@@ -128,7 +128,7 @@ function validateAdvancedValues(key, values) {
   }
   return values;
 }
-window.ClerFitAdvancedValidation = { validate: validateAdvancedValues };
+window.ClerFitAdvancedValidation = { validate: validateAdvancedValues, semanticBounds, ratioBounds };
 // Expose pure calculation definitions for deterministic regression tests; UI still calls the same functions.
 window.ClerFitAdvancedDefinitions = definitions;
 function fmt(n){return new Intl.NumberFormat(undefined,{maximumFractionDigits:2}).format(n)}
