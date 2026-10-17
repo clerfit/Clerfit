@@ -16,6 +16,10 @@ on:
       - 'FIELD_VALIDATION_AUDIT.csv'
       - 'INPUT_BOUNDARY_VERIFIED.csv'
       - 'tests/phase-three-boundary-structure.test.js'
+      - 'tests/phase-three-runtime-fields.test.js'
+      - 'tests/phase-three-generated-unit-bounds.test.js'
+      - 'js/advanced-calculators.js'
+      - 'js/unit-system.js'
       - '.github/workflows/phase-three-boundary-guardrail.yml'
   workflow_dispatch:
 
@@ -35,3 +39,5 @@ jobs:
         run: node tests/phase-three-boundary-structure.test.js
       - name: Audit generated advanced-calculator fields and semantic bounds
         run: node tests/phase-three-runtime-fields.test.js
+      - name: Verify generated numeric bounds follow display-unit changes
+        run: node tests/phase-three-generated-unit-bounds.test.js
