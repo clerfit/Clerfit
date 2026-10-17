@@ -194,6 +194,8 @@ runCase('page exposes labels, unit-bound handler, accessible result and reset', 
   assert.match(page, /onchange="clearLeanMassOutput\(\)"/);
   assert.equal((page.match(/<script src="\.\.\/js\/navigation\.js"/g) || []).length, 1);
   assert.equal((page.match(/<script src="\.\.\/js\/unit-system\.js"/g) || []).length, 1);
+  assert.equal((page.match(/<meta charset=/gi) || []).length, 1, 'Character encoding should be declared once');
+  assert.doesNotMatch(page, /gtag|googletagmanager|google-analytics/i, 'No stale analytics snippet should remain');
 });
 
 console.log('Lean Body Mass page regression checks passed: ' + checks);
