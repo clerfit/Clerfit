@@ -63,6 +63,10 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   // A value beyond a declared range is blocked; it must not reuse an old ratio.
   await page.locator('#waistUnit').selectOption('cm');
   await page.locator('#hipUnit').selectOption('cm');
+  await expect(page.locator('#waistUnit')).toHaveValue('cm');
+  await expect(page.locator('#hipUnit')).toHaveValue('cm');
+  await expect(page.locator('#waist')).toHaveAttribute('max', '300');
+  await expect(page.locator('#hip')).toHaveAttribute('max', '300');
   await page.locator('#waist').fill('301');
   await page.getByRole('button', { name: 'Calculate' }).click();
   await expect(page.locator('#result')).toBeEmpty();
