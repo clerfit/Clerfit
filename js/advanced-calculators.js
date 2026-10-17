@@ -1,4 +1,4 @@
-/* R3 calculator interaction fixes: R3-2026-10-17-calculator-fixes-03 */\n(function(){
+/* R3 calculator interaction fixes: R3-2026-10-17-calculator-fixes-04 */\n(function(){
 'use strict';
 const definitions={
  'facial-thirds':{title:'Facial Thirds',description:'Compare three manually measured facial segments using the same landmarks and unit.',fields:[['upper','Upper third','mm'],['middle','Middle third','mm'],['lower','Lower third','mm']],calculate:v=>{const total=v.upper+v.middle+v.lower;if(total<=0)throw Error('The total of all three measurements must be greater than zero.');return {primary:[v.upper,v.middle,v.lower].map(n=>(n/total*100).toFixed(1)+'%').join(' / '),label:'Upper / middle / lower share',details:`Total measured height: ${fmt(total)} mm. Shares are calculated as each segment ÷ total × 100.`,formula:'Segment share (%) = segment measurement ÷ (upper + middle + lower) × 100.'}}},

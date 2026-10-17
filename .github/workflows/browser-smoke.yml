@@ -1,10 +1,16 @@
 name: Verify live calculator interactions
 
 on:
-  workflow_run:
-    workflows: ["pages build and deployment"]
-    types: [completed]
+  push:
     branches: [main]
+    paths:
+      - 'index.html'
+      - 'html/**'
+      - 'css/**'
+      - 'js/**'
+      - 'sitemap.xml'
+      - 'scripts/browser-smoke.js'
+      - '.github/workflows/browser-smoke.yml'
 
 permissions:
   contents: read
@@ -15,14 +21,11 @@ concurrency:
 
 jobs:
   browser-smoke:
-    if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
-      - name: Checkout the deployed source revision
+      - name: Checkout calculator source
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.workflow_run.head_sha }}
       - name: Set up Node
         uses: actions/setup-node@v4
         with:

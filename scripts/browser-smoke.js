@@ -8,6 +8,7 @@ const BASE = new URL(process.argv[2] || process.env.CLERFIT_LIVE_BASE || 'https:
 const REPORT_PATH = process.env.CLERFIT_BROWSER_REPORT || 'live-browser-smoke-report.json';
 const EXPECTED_ROUTES = 118;
 const WORKERS = 4;
+const EXPECTED_RELEASE_ID = 'R3-2026-10-17-calculator-fixes-04';
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const failures = [];
 const rows = [];
@@ -220,7 +221,24 @@ async function targetedUnits(browser) {
   }
   return report;
 }
+
+async function waitForDeployedRelease() {
+  const target = new URL('index.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
+  let lastStatus = 'no response';
+  for (let attempt = 1; attempt <= 30; attempt++) {
+    try {
+      const response = await fetch(target, { redirect: 'follow', signal: AbortSignal.timeout(12000), headers: { 'cache-control': 'no-cache' } });
+      const body = await response.text();
+      lastStatus = 'HTTP ' + response.status;
+      if (response.ok && body.includes('name="clerfit-release" content="' + EXPECTED_RELEASE_ID + '"')) return;
+    } catch (error) { lastStatus = String(error && error.message || error); }
+    await sleep(4000);
+  }
+  throw new Error('Timed out waiting for live homepage release marker ' + EXPECTED_RELEASE_ID + ' (' + lastStatus + ').');
+}
+
 async function main() {
+  await waitForDeployedRelease();
   const navUrl=new URL('js/navigation.js?browserSmoke=R3-2026-10-17',BASE).href;
   const sitemapUrl=new URL('sitemap.xml?browserSmoke=R3-2026-10-17',BASE).href;
   const [navResponse,sitemapResponse]=await Promise.all([fetch(navUrl),fetch(sitemapUrl)]);

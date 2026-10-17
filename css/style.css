@@ -1027,4 +1027,4 @@ body .info-tooltip,body .tooltip-circle,body .info-box{flex-shrink:0!important}
 @media(max-width:380px){body .cf-form-actions{grid-template-columns:1fr!important}body h1,body .header h1,body main h1{font-size:1.55rem!important}body input:not([type=checkbox]):not([type=radio]):not([type=range]),body select,body textarea{font-size:16px!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body *{transition:none!important;animation:none!important}}
 
-/* ClerFit R3 live calculator UI — production stylesheet release marker */
+/* ClerFit R3 live calculator UI — production stylesheet release marker; R3-2026-10-17-calculator-fixes-04 */
