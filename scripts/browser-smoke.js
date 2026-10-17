@@ -179,21 +179,23 @@ async function runRoute(browser, route) {
       const main = document.querySelector('main.main, main, .main');
       if (!nav) return {present:false,nearTop:false,staticFlow:false,homeLink:false,contactLink:false,insideMain:false};
       const header = main ? main.querySelector(':scope > .header, :scope > header, .header') : null;
+      // Redesigned R3 pages use breadcrumb/title instead of legacy .header.
+      const topMarker = header || (main && main.querySelector(':scope > .cf-breadcrumb, :scope > .cf-page-title, :scope > h1, .cf-breadcrumb, .cf-page-title, h1'));
       const position = getComputedStyle(nav).position;
-      const appearsBeforeHeader = !!header && Boolean(nav.compareDocumentPosition(header) & 4);
+      const appearsBeforeHeader = !!topMarker && Boolean(nav.compareDocumentPosition(topMarker) & 4);
       const describe = el => el ? (el.tagName.toLowerCase() + (el.id ? '#'+el.id : '') + (typeof el.className === 'string' && el.className.trim() ? '.'+el.className.trim().replace(/\\s+/g,'.') : '')) : null;
       return {
         present: nav.getClientRects().length > 0,
-        nearTop: !!main && !!header && main.contains(nav) && appearsBeforeHeader,
+        nearTop: !!main && !!topMarker && main.contains(nav) && appearsBeforeHeader,
         staticFlow: position !== 'fixed' && position !== 'sticky',
         homeLink: !!nav.querySelector('a[href*="index.html"], a[href="../"], a[href="./"]'),
         contactLink: !!nav.querySelector('a[href*="contact.html"]'),
         insideMain: !!main && main.contains(nav),
         debug: {
           nav: describe(nav), navParent: describe(nav.parentElement), main: describe(main),
-          header: describe(header), headerParent: describe(header && header.parentElement),
+          header: describe(header), topMarker: describe(topMarker), topMarkerParent: describe(topMarker && topMarker.parentElement),
           appearsBeforeHeader, navIndexInParent: nav.parentElement ? Array.from(nav.parentElement.children).indexOf(nav) : -1,
-          headerIndexInParent: header && header.parentElement ? Array.from(header.parentElement.children).indexOf(header) : -1,
+          headerIndexInParent: topMarker && topMarker.parentElement ? Array.from(topMarker.parentElement.children).indexOf(topMarker) : -1,
           firstMainChildren: main ? Array.from(main.children).slice(0,5).map(describe) : [],
           pageChromeScripts: Array.from(document.scripts).filter(s => s.src.includes('page-chrome.js')).map(s => s.src)
         }
