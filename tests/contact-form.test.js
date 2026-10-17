@@ -11,6 +11,8 @@ const script = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)]
   .find(body => body.includes("form.addEventListener('submit'"));
 assert.ok(script, 'contact page must contain the contact submission handler');
 assert.match(html, /id="privacyConsent"[^>]*required/, 'contact form must require privacy acknowledgement');
+assert.match(html, /\.contact-consent\{display:flex;/, 'privacy consent checkbox must use the intended accessible layout styles');
+assert.doesNotMatch(html, /\\\\n\\.contact-consent/, 'contact consent CSS must not contain a literal escaped newline that disables its selector');
 
 function fixture(fetchImpl, validForm) {
   let submitHandler = null;
