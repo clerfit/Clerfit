@@ -128,6 +128,14 @@ runCase('lower and upper plausible measurement endpoints are accepted', () => {
   context.calculateWHR();
   assert.match(out(), /WHR: 1\.00/);
 });
+runCase('mixed-unit upper endpoints remain valid without conversion drift', () => {
+  clean();
+  set({ waist: 3, waistUnit: 'm', hip: 300, hipUnit: 'cm' });
+  context.syncWHRBounds();
+  context.calculateWHR();
+  assert.match(out(), /WHR: 1\\.00/);
+  assert.match(out('formula'), /300\\.0 ÷ 300\\.0 = 1\\.00/);
+});
 runCase('empty or non-positive measurements are explicitly rejected', () => {
   for (const values of [{ waist: '' }, { hip: '' }, { waist: 0 }, { hip: -1 }]) {
     clean();

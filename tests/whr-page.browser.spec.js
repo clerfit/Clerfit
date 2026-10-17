@@ -119,6 +119,15 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   console.log('WHR upper-bound result', await page.locator('#result').innerText());
   await expect(page.locator('#result')).toContainText('WHR: 1.00');
 
+  // The exact upper endpoint must remain valid across a metre-to-centimetre unit mix.
+  await page.locator('#waistUnit').selectOption('m');
+  await page.locator('#waist').fill('3');
+  await page.locator('#hipUnit').selectOption('cm');
+  await page.locator('#hip').fill('300');
+  await page.getByRole('button', { name: 'Calculate' }).click();
+  await expect(page.locator('#result')).toContainText('WHR: 1.00');
+  await expect(page.locator('#formula')).toContainText('300.0 ÷ 300.0 = 1.00');
+
   await page.getByRole('button', { name: 'Reset' }).click();
   await expect(page.locator('#waist')).toHaveValue('');
   await expect(page.locator('#hip')).toHaveValue('');
