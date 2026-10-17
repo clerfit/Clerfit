@@ -43,6 +43,13 @@ test('BMI calculator works end-to-end on phone-sized viewport', async ({ page })
   await page.getByRole('button', { name: 'Calculate BMI' }).click();
   await expect(page.locator('#result')).toContainText('22.9');
 
+  // Converted upper domain edge: 1102.31 lb is just under 500 kg.
+  await page.locator('#weight').fill('1102.31');
+  await page.locator('#heightUnit').selectOption('cm');
+  await page.locator('#height').fill('175');
+  await page.getByRole('button', { name: 'Calculate BMI' }).click();
+  await expect(page.locator('#result')).toContainText('Obesity class II or higher');
+
   // Under-20 users must not receive adult BMI category classifications.
   await page.locator('#age').fill('17');
   await page.getByRole('button', { name: 'Calculate BMI' }).click();
