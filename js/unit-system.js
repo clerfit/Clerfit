@@ -31,7 +31,7 @@
   function options(select) { return Array.from(select.options || []).map(o => ({ value: o.value, label: o.textContent || '' })); }
   function classify(select) {
     // The standalone converter owns its dimension/from/to selectors; the global preference must not override them.
-    if (select && ['dimension','from','to'].includes(select.id)) return null;
+    if (select && (/^(?:dimension|from|to)$/i.test(select.id || '') || /^(?:from|to).+unit$/i.test(select.id || ''))) return null;
     const opts = options(select), vals = opts.map(o => norm(o.value));
     if (vals.length < 2) return null;
     const units = vals.map(unit);

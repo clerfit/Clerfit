@@ -2,6 +2,7 @@
 (function () {
   'use strict';
   const rules = [
+    { re: /(age.?months?|additional.*months?)/, min: 0, max: 11, label: 'Additional age months' },
     { re: /\b(age|years? old|userage)\b/, min: 1, max: 120, label: 'Age' },
     { re: /(weight|mass|bodyweight|body-weight|leanmass|fatmass|load|liftweight)/, min: 0.1, max: 500, label: 'Weight or mass' },
     { re: /(height|stature|facelength|nose.length|chin.height|lower.face.height|forehead|cheekbone|jawline|waist|hip|neck|chest|circumference|stride.length|steplength|distance.*cm)/, min: 0.1, max: 300, label: 'Measurement' },
@@ -50,6 +51,14 @@
     return '';
   }
   function bounds(el) {
+    // Standalone source/target converters interpret the raw number using two
+    // separate selectors. Do not apply a body-weight range or auto-convert it
+    // just because its input id contains the word "weight".
+    if (isStandaloneConverterInput(el)) {
+      const min = el.min !== '' && Number.isFinite(Number(el.min)) ? Number(el.min) : 0;
+      const max = el.max !== '' && Number.isFinite(Number(el.max)) ? Number(el.max) : 1e12;
+      return { min, max, label: 'Input value' };
+    }
     const text = fieldText(el);
     const rule = rules.find(r => r.re.test(text));
     if (rule && rule.skip) return null;
@@ -118,6 +127,19 @@
     const root = scope && typeof scope.querySelectorAll === 'function' ? scope : document;
     return Array.from(root.querySelectorAll('input[type="number"]')).filter(el => !el.closest('[hidden]') && el.getClientRects().length > 0);
   }
+  function calculatorScope(trigger) {
+    if (!trigger) return document;
+    if (trigger.form) return trigger.form;
+    const parent = trigger.closest('form, [data-calculator], .calculator-card, .cf-calculator-card, .card, main, .main');
+    return parent || document;
+  }
+  function isStandaloneConverterInput(el) {
+    if (!el || !/^(?:weightValue|distanceValue)$/i.test(el.id || '')) return false;
+    const panel = el.closest('.card, .calculator-card, .cf-calculator-card, main, .main') || el.parentElement;
+    return !!panel && Array.from(panel.querySelectorAll('select')).some(select =>
+      /^(?:from|to)(?:weight|distance)unit$/i.test(select.id || '')
+    );
+  }
   document.addEventListener('input', e => { if (e.target.matches('input[type="number"]') && e.target.getAttribute('aria-invalid') === 'true') validate(e.target, true); });
   document.addEventListener('blur', e => { if (e.target.matches('input[type="number"]') && e.target.value !== '') validate(e.target, true); }, true);
   document.addEventListener('click', e => {
@@ -126,7 +148,7 @@
     const action = [trigger.getAttribute('onclick'), trigger.id, trigger.textContent].filter(Boolean).join(' ').toLowerCase();
     if (!/(calculat|convert|estimate|check|compare|update|submit)/.test(action)) return;
     let firstInvalid = null;
-    const scope = trigger.form || trigger.closest('form') || document.querySelector('main') || document;
+    const scope = calculatorScope(trigger);
     for (const el of visibleNumericInputs(scope)) if (!validate(el, true) && !firstInvalid) firstInvalid = el;
     if (firstInvalid) {
       e.preventDefault(); e.stopImmediatePropagation();
@@ -136,7 +158,7 @@
   }, true);
   document.addEventListener('submit', e => {
     let firstInvalid = null;
-    const scope = e.target && e.target.matches && e.target.matches('form') ? e.target : document;
+    const scope = e.target && e.target.matches && e.target.matches('form') ? e.target : calculatorScope(e.target);
     for (const el of visibleNumericInputs(scope)) if (!validate(el, true) && !firstInvalid) firstInvalid = el;
     if (firstInvalid) { e.preventDefault(); firstInvalid.focus(); }
   }, true);

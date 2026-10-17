@@ -129,14 +129,14 @@ function calculateTDEE() {
 <h2>TDEE Calculator</h2>
 
 <label for="weight">Weight</label>
-<input id="weight" type="number" min="1" max="120" step="1">
+<input id="weight" type="number" min="0.1" max="500" step="any">
 <select id="weightUnit" aria-label="Weight unit">
 <option value="kg" selected>kg</option>
 <option value="lb">lb</option>
 </select>
 
 <label for="height">Height</label>
-<input id="height" type="number" min="1" max="120" step="1">
+<input id="height" type="number" min="30" max="300" step="any">
 <select id="heightUnit" aria-label="Height unit">
 <option value="cm" selected>cm</option>
 <option value="m">m</option>
@@ -145,7 +145,7 @@ function calculateTDEE() {
 </select>
 
 <label for="age">Age (years)</label>
-<input id="age" type="number" min="1" max="120" step="1">
+<input id="age" type="number" min="18" max="120" step="1">
 
 <label for="gender">Gender</label>
 <select id="gender" aria-label="Sex / reference group">
