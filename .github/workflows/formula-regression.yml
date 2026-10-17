@@ -34,6 +34,8 @@ jobs:
         run: node tests/verify.js
       - name: Run BMI page behavior regressions
         run: node tests/bmi-page.test.js
+      - name: Run Body Fat page behavior regressions
+        run: node tests/bodyfat-page.test.js
       - name: Syntax-check every project JavaScript file
         shell: bash
         run: |
@@ -70,4 +72,4 @@ jobs:
           cat /tmp/clerfit-http.log
           exit 1
       - name: Test BMI page interactions, responsive layout and accessibility
-        run: npx playwright test tests/bmi-page.browser.spec.js --reporter=list
+        run: npx playwright test tests/bmi-page.browser.spec.js tests/bodyfat-page.browser.spec.js --reporter=list
