@@ -1,0 +1,38 @@
+name: Verify live ClerFit production
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'contact.html'
+      - 'html/**'
+      - 'css/**'
+      - 'js/**'
+      - 'sitemap.xml'
+      - 'robots.txt'
+      - 'scripts/verify-production.js'
+      - '.github/workflows/verify-production.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clerfit-production-verification
+  cancel-in-progress: false
+
+jobs:
+  verify-production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout production source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify published calculator pages and same-site assets
+        env:
+          CLERFIT_LIVE_BASE: https://clerfit.github.io/Clerfit/
+        run: node scripts/verify-production.js "$CLERFIT_LIVE_BASE"
