@@ -106,6 +106,24 @@ Completed on the audit branch and tested in GitHub Actions run #83:
 
 **Not claimed:** Live HTTP status and deployment/ZIP parity remain open. These four pages have local source sign-off; none is claimed as verified on the production deployment yet.
 
+### Page 5 — FFMI (`html/ffmi.html`) — source-local sign-off achieved
+
+Completed on the audit branch and tested in GitHub Actions run #93:
+
+- Fixed the empty body-fat input being silently converted to zero; the shared validator now blocks incomplete input and the calculator itself validates empty fields as invalid.
+- Added raw-input ranges that follow the selected units: height in cm/metres/inches/feet and weight in kg/lb, matching the calculator's converted domain.
+- Added Reset behavior to restore centimetres/kilograms, clear stale result/formula/errors and return focus to Height.
+- Cleared stale output when any calculator input or unit changes.
+- Added live result/formula announcements and explicit formula text for lean mass and FFMI.
+- Hid the non-functional gradient bar so the page does not suggest an unsupported universal FFMI category.
+- Removed the duplicate character-encoding declaration and stale analytics marker; preserved the established plain-text `FFMI: n.nn` output format expected by the existing regression suite.
+- Added a VM-based test suite covering known answer (70 kg, 20%, 175 cm → 56 kg lean mass; FFMI 18.29), equivalent inch/lb inputs, supported-unit bounds, 0%/100% endpoints, empty/non-positive values, unsupported units, converted boundaries, reset, output/metadata and script inclusion.
+- Added Chromium/Playwright tests for unit conversions, dynamic bounds, blank/invalid inputs, endpoints, reset/focus, 320 px no-overflow, Home/Contact links, local asset/runtime checks and Axe.
+
+**Result:** GitHub Actions run #93 passed all 100 existing known-answer/domain checks, page-specific Node suites for BMI, Body Fat, Lean Body Mass, Fat Mass and FFMI, JavaScript syntax checks, and the combined Chromium/Axe suite. The Axe scan reported zero violations for the local FFMI test build.
+
+**Not claimed:** The live FFMI URL and release ZIP parity remain unverified. This is source-local sign-off, not production sign-off.
+
 ## Evidence-based findings
 
 ### P1 — Release archive parity is unverified
@@ -158,7 +176,7 @@ These are deliberately marked open; a source patch is not proof that Lighthouse,
 
 ## Phase 1 exit criteria
 
-Phase 1 is complete only when the exact source archive, repository, and live release are reconciled; every registered calculator and public page has an evidence-backed status; PageSpeed issues have been reproduced or explicitly disproven; fixes have been re-tested; and the sign-off register has no unresolved release-blocking rows. BMI, Body Fat Percentage, Lean Body Mass and Fat Mass have passed source-local CI/browser checks, but the site-wide phase is **not signed off** because 114 other calculator pages and the remaining public routes still need the same page-by-page treatment, and archive parity/live-host checks remain open.
+Phase 1 is complete only when the exact source archive, repository, and live release are reconciled; every registered calculator and public page has an evidence-backed status; PageSpeed issues have been reproduced or explicitly disproven; fixes have been re-tested; and the sign-off register has no unresolved release-blocking rows. BMI, Body Fat Percentage, Lean Body Mass, Fat Mass and FFMI have passed source-local CI/browser checks, but the site-wide phase is **not signed off** because 113 other calculator pages and the remaining public routes still need the same page-by-page treatment, and archive parity/live-host checks remain open.
 
 ## Safety of changes
 
