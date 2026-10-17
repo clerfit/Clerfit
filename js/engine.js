@@ -357,36 +357,59 @@ function calculateWater() {
    WAIST HIP RATIO
 ================================================= */
 function calculateWHR() {
-  const gender = document.getElementById('gender').value;
-  let waist = parseFloat(document.getElementById('waist').value);
-  let hip = parseFloat(document.getElementById('hip').value);
+  const result = document.getElementById('result');
+  const formula = document.getElementById('formula');
+  const rawWaist = Number(document.getElementById('waist').value);
+  const rawHip = Number(document.getElementById('hip').value);
   const waistUnit = document.getElementById('waistUnit').value;
   const hipUnit = document.getElementById('hipUnit').value;
 
-  if(!Number.isFinite(waist) || !Number.isFinite(hip) || waist<=0 || hip<=0){ alert("Enter valid waist and hip measurements"); return; }
-
-  // Convert to cm
-  function convertToCm(value, unit){
-    switch(unit){
-      case 'cm': return value;
-      case 'm': return value*100;
-      case 'inch': return value*2.54;
-      case 'ft': return value*30.48;
-      default: return value;
-    }
+  // The shared engine loads after inline page scripts, so it must use the
+  // same validation as html/whr.html rather than overriding it with a weaker handler.
+  result.textContent = '';
+  formula.textContent = '';
+  if (!Number.isFinite(rawWaist) || !Number.isFinite(rawHip) || rawWaist <= 0 || rawHip <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter valid positive waist and hip measurements.</p>';
+    return;
   }
-  waist = convertToCm(waist, waistUnit);
-  hip = convertToCm(hip, hipUnit);
-  if (waist < 20 || waist > 250 || hip < 20 || hip > 250) { alert("Check the waist and hip measurements (20–250 cm equivalent). "); return; }
 
-  const whr = (waist/hip).toFixed(2);
-  document.getElementById('result').innerHTML = `<strong>WHR: ${whr}</strong>`;
-  document.getElementById('formula').innerHTML = `Formula: Waist ÷ Hip = ${waist.toFixed(1)} ÷ ${hip.toFixed(1)} = ${whr}`;
+  const toMetres = (value, unit) => {
+    switch (String(unit).toLowerCase()) {
+      case 'cm': return value / 100;
+      case 'm': return value;
+      case 'in':
+      case 'inch':
+      case 'inches': return value * 0.0254;
+      case 'ft':
+      case 'foot':
+      case 'feet': return value * 0.3048;
+      default: return NaN;
+    }
+  };
+  const waistM = toMetres(rawWaist, waistUnit);
+  const hipM = toMetres(rawHip, hipUnit);
+  if (![waistM, hipM].every(value => Number.isFinite(value) && value > 0)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported units for both measurements.</p>';
+    return;
+  }
+  if (waistM < 0.1 || waistM > 3 || hipM < 0.1 || hipM > 3) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check that both circumference measurements are plausible.</p>';
+    return;
+  }
 
-  // WHR is a screening ratio. Avoid universal risk labels without an explicit
-  // guideline and population context; keep the output descriptive.
-  document.getElementById('result').innerHTML = `<strong>WHR: ${whr}</strong><p class="cf-note">Screening ratio only. Interpretation varies by guideline and population; this calculator does not assign a diagnosis or universal risk category.</p>`;
-  document.getElementById('formula').innerHTML = `Formula: Waist ÷ Hip = ${waist.toFixed(1)} ÷ ${hip.toFixed(1)} = ${whr}`;
+  const waist = waistM / 0.01;
+  const hip = hipM / 0.01;
+  const ratio = waist / hip;
+  if (!Number.isFinite(ratio)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">The result could not be calculated from these measurements.</p>';
+    return;
+  }
+
+  const whr = ratio.toFixed(2);
+  result.innerHTML = `<strong>WHR: ${whr}</strong><p class="cf-note">Screening ratio only. This calculator does not assign a universal risk category or diagnose a condition.</p>`;
+  formula.textContent = `Formula: Waist ÷ Hip = ${waist.toFixed(1)} ÷ ${hip.toFixed(1)} = ${whr}`;
+  const barContainer = document.querySelector('.bar-container');
+  if (barContainer) barContainer.hidden = true;
   const indicator = document.getElementById('indicator');
   if (indicator && indicator.parentElement) indicator.parentElement.hidden = true;
 }
