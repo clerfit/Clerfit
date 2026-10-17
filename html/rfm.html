@@ -187,32 +187,41 @@ function convertToCm(value, unit) {
 }
 
 function calculateRFM() {
-  let gender = document.getElementById('gender').value;
+  const result = document.getElementById('result');
+  const gender = document.getElementById('gender').value;
   let height = parseFloat(document.getElementById('height').value);
   let waist = parseFloat(document.getElementById('waist').value);
+  const heightUnit = document.getElementById('heightUnit').value;
+  const waistUnit = document.getElementById('waistUnit').value;
 
-  let heightUnit = document.getElementById('heightUnit').value;
-  let waistUnit = document.getElementById('waistUnit').value;
+  // Clear stale output before any validation failure and never render NaN/Infinity.
+  result.textContent = '';
+  if (!Number.isFinite(height) || !Number.isFinite(waist) || height <= 0 || waist <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a valid height and waist measurement greater than zero.</p>';
+    return;
+  }
+  if (!['male', 'female'].includes(gender)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Select a valid sex-specific RFM equation.</p>';
+    return;
+  }
 
   height = convertToCm(height, heightUnit);
   waist = convertToCm(waist, waistUnit);
-
-  let rfm;
-  if (gender === 'male') {
-    rfm = 64 - (20 * (height / waist));
-  } else {
-    rfm = 76 - (20 * (height / waist));
+  if (!Number.isFinite(height) || !Number.isFinite(waist) || height <= 0 || waist <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check the measurement values and selected units.</p>';
+    return;
   }
 
-  rfm = parseFloat(rfm.toFixed(1));
+  const rfm = (gender === 'male' ? 64 : 76) - (20 * (height / waist));
+  if (!Number.isFinite(rfm)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">The result could not be calculated from these measurements.</p>';
+    return;
+  }
 
-  document.getElementById('result').innerHTML = `RFM: ${rfm}%`;
-
-  // RFM is an estimate, not a validated diagnosis. Do not assign body-fat
-  // categories without age- and population-appropriate reference data.
+  // RFM is an estimate, not a diagnosis. Do not assign unsupported universal categories.
   const container = document.querySelector('.bar-container');
   if (container) container.hidden = true;
-  document.getElementById('result').innerHTML = `RFM estimate: <strong>${rfm}%</strong><p class="cf-note">This is a formula-based body-fat estimate, not a diagnosis. Individual error can be substantial; no universal category is assigned.</p>`;
+  result.innerHTML = `RFM estimate: <strong>${rfm.toFixed(1)}%</strong><p class="cf-note">This is a formula-based body-fat estimate, not a diagnosis. Individual error can be substantial; no universal category is assigned.</p>`;
 }
 </script>
 
