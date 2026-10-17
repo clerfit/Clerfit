@@ -334,6 +334,7 @@ pageTest = runPageFunction('bmi-compare.html', 'compareBMI', {
   heightB: 168, weightB: 65, heightUnitB: 'cm', weightUnitB: 'kg'
 }, ['bmiCompareResult']);
 assert.match(pageTest.output('bmiCompareResult'), /Person A:[\s\S]*Person B:/);
+assert.doesNotMatch(pageTest.output('bmiCompareResult'), /Underweight|Normal|Overweight|Obese/i, 'BMI comparison must not assign categories without age/sex context');
 assert.doesNotMatch(pageTest.output('bmiCompareResult'), /NaN|Infinity/);
 checks++;
 
