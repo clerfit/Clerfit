@@ -103,6 +103,12 @@ async function main() {
     console.error(JSON.stringify({ status: 'FAIL', failures: FAILURES }, null, 2));
     process.exit(1);
   }
+  const whrRevisionMarker = 'name="clerfit-calculator-revision" content="WHR-validated-units-2026-10-17-v1"';
+  const whrRevisionUrl = new URL('html/whr.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
+  const whrRevisionPage = await fetchUntilMarker(whrRevisionUrl, whrRevisionMarker);
+  assert(whrRevisionPage.body.includes(whrRevisionMarker), 'The live WHR page is not serving the validated-unit revision.');
+  assert(whrRevisionPage.body.includes('Choose supported units for both measurements.'), 'The live WHR page is missing unsupported-unit validation.');
+
   assert(home.body.includes(releaseMarker), 'The live homepage release marker does not match the deployed source revision.');
   assert(home.body.includes('js/navigation.js'), 'Homepage missing calculator navigation script.');
   assert(home.body.includes('js/page-chrome.js'), 'Homepage missing shared page-chrome script.');
