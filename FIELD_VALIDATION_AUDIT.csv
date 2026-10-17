@@ -1,9 +1,9 @@
 file,id,name,label_or_accessible_name,min,max,step,required,unit_selector_in_same_field,constraint_consistency
 html/1rm.html,liftWeight,,Weight Lifted,0.1,500,any,no,not-detected,PASS
 html/1rm.html,reps,,Repetitions,1,15,1,no,not-detected,PASS — bounded to 1–15 and validated in handler
-html/BMI.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/BMI.html,height,,Height,30,300,any,no,not-detected,PASS
-html/BMI.html,age,,Age,1,120,1,no,not-detected,PASS
+html/BMI.html,weight,,Weight,2,500,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/BMI.html,height,,Height,50,274,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/BMI.html,age,,Age,2,120,1,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/absi.html,waist,,Waist Circumference,0.1,500,any,no,not-detected,PASS
 html/absi.html,height,,Height,0.1,500,any,no,not-detected,PASS
 html/absi.html,weight,,Weight (kg),0.1,500,any,no,not-detected,PASS
@@ -19,12 +19,12 @@ html/bmi-compare.html,weightB,,Person B — Weight,1,500,0.1,no,not-detected,PAS
 html/bmr.html,age,,Age,1,120,1,no,not-detected,PASS
 html/bmr.html,height,,Height,30,300,any,no,not-detected,PASS
 html/bmr.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/bodyfat.html,bf-height,,Height,0.1,300,any,no,not-detected,PASS
-html/bodyfat.html,bf-waist,,Waist,0.1,300,any,no,not-detected,PASS
-html/bodyfat.html,bf-neck,,Neck,0.1,300,any,no,not-detected,PASS
-html/bodyfat.html,bf-hip,,Hip (females only),0.1,300,any,no,not-detected,PASS
-html/bsa.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/bsa.html,height,,Height,30,300,any,no,not-detected,PASS
+html/bodyfat.html,bf-height,,Height,100,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bodyfat.html,bf-waist,,Waist,20,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bodyfat.html,bf-neck,,Neck,15,80,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bodyfat.html,bf-hip,,Hip (females only),20,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bsa.html,weight,,Weight,1,500,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bsa.html,height,,Height,50,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/cadence.html,cadenceSteps,,Number of Steps,0,200000,1,no,not-detected,PASS
 html/cadence.html,cadenceTime,,Time,0,10080,any,no,not-detected,PASS
 html/calories-kg.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
@@ -80,11 +80,11 @@ html/face-shape.html,jawline,,Jawline Width,0.1,300,any,no,not-detected,PASS
 html/fat.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
 html/fat.html,height,,Height,30,300,any,no,not-detected,PASS
 html/fat.html,age,,Age (10+ years),1,120,1,no,not-detected,PASS
-html/fatmass.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/fatmass.html,fat,,Body Fat (%),0,100,any,no,not-detected,PASS
-html/ffmi.html,height,,Height,30,300,any,no,not-detected,PASS
-html/ffmi.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
-html/ffmi.html,fat,,Body Fat (%),0,100,any,no,not-detected,PASS
+html/fatmass.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/fatmass.html,fat,,Body Fat (%),0,100,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ffmi.html,height,,Height,50,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ffmi.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ffmi.html,fat,,Body Fat (%),0,100,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/fiber.html,age,,Age (years),1,120,1,no,not-detected,PASS
 html/fiber.html,weight,,Weight,0.1,500,any,no,not-detected,PASS
 html/fiber.html,height,,Height,30,300,any,no,not-detected,PASS
@@ -107,8 +107,8 @@ html/hip-change.html,currentHip,,Current Hip,0.1,300,any,no,not-detected,PASS
 html/hydration-loss.html,weightWL,,Body Weight,0.1,500,any,no,not-detected,PASS
 html/hydration-loss.html,duration,,Exercise Duration,0,10080,any,no,not-detected,PASS
 html/idealweight.html,iw-height,,Height,0.1,500,any,no,not-detected,PASS
-html/leanmass.html,weight,,Weight,0,100,any,no,not-detected,PASS
-html/leanmass.html,fat,,Body Fat (%),0,100,any,no,not-detected,PASS
+html/leanmass.html,weight,,Weight,0.1,500,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/leanmass.html,fat,,Body Fat (%),0,100,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/length.html,lengthValue,,Enter Length,0,1000000,any,no,not-detected,PASS
 html/macro-split.html,weight,,Weight,0,100,any,no,not-detected,PASS
 html/macro-split.html,height,,Height,30,300,any,no,not-detected,PASS
@@ -227,10 +227,10 @@ html/weight-loss-rate.html,intakeRate,,Your Daily Calorie Intake,0,20000,any,no,
 html/weight-stability.html,initialWeight,,Initial Weight,0.1,500,any,no,not-detected,PASS
 html/weight-stability.html,currentWeight,,Current Weight,0.1,500,any,no,not-detected,PASS
 html/weight-stability.html,days,,Number of Days,0.1,500,any,no,not-detected,PASS
-html/whr.html,waist,,Waist,0.1,300,any,no,not-detected,PASS
-html/whr.html,hip,,Hip,0.1,300,any,no,not-detected,PASS
-html/wht.html,waist,,Waist Circumference,0.1,300,any,no,not-detected,PASS
-html/wht.html,height,,Height,30,300,any,no,not-detected,PASS
+html/whr.html,waist,,Waist,20,300,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/whr.html,hip,,Hip,20,300,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/wht.html,waist,,Waist Circumference,20,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/wht.html,height,,Height,50,250,any,no,not-detected,STRUCTURAL PASS; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/work-output.html,liftWeight,,Weight LiftediTotal weight lifted per repetition. Include body weight if part of the movement. Enter in kg or lbs; conversion is automatic.,0.1,500,any,no,not-detected,PASS
 html/work-output.html,distance,,Distance MovediVertical distance the weight or your body moves per repetition. Enter in meters or feet; conversion is automatic.,0.1,500,any,no,not-detected,PASS
 html/work-output.html,reps,,Number of Reps,0,1000,1,no,not-detected,PASS
