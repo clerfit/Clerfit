@@ -50,6 +50,7 @@ For a local server, run `python -m http.server 8000` from this folder and open `
 ```bash
 for f in js/*.js scripts/*.js tests/*.js; do node --check "$f"; done
 node tests/verify.js
+node tests/input-validation-accessibility.test.js
 node tests/contact-form.test.js
 node scripts/generate-sitemap.js --check
 SITE_URL=https://clerfit.github.io/Clerfit node scripts/build-site.js
