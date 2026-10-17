@@ -8,7 +8,7 @@ const BASE = new URL(process.argv[2] || process.env.CLERFIT_LIVE_BASE || 'https:
 const REPORT_PATH = process.env.CLERFIT_BROWSER_REPORT || 'live-browser-smoke-report.json';
 const EXPECTED_ROUTES = 118;
 const WORKERS = 4;
-const EXPECTED_RELEASE_ID = 'R3-2026-10-17-nav-v2';
+const EXPECTED_RELEASE_ID = 'R3-2026-10-17-nav-v3';
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const failures = [];
 const rows = [];
@@ -178,12 +178,12 @@ async function runRoute(browser, route) {
       const nav = document.querySelector('.cf-page-actions, .clerfit-fixed-actions, .cf-floating-links, .top-right-buttons');
       const main = document.querySelector('main.main, main, .main');
       if (!nav) return {present:false,nearTop:false,staticFlow:false,homeLink:false,contactLink:false,insideMain:false};
-      const nr = nav.getBoundingClientRect();
-      const mr = main ? main.getBoundingClientRect() : {top:0};
+      const header = main ? main.querySelector(':scope > .header, :scope > header, .header') : null;
       const position = getComputedStyle(nav).position;
+      const appearsBeforeHeader = !!header && Boolean(nav.compareDocumentPosition(header) & 4);
       return {
         present: nav.getClientRects().length > 0,
-        nearTop: !!main && nr.top >= mr.top - 2 && nr.top <= mr.top + 180,
+        nearTop: !!main && !!header && main.contains(nav) && appearsBeforeHeader,
         staticFlow: position !== 'fixed' && position !== 'sticky',
         homeLink: !!nav.querySelector('a[href*="index.html"], a[href="../"], a[href="./"]'),
         contactLink: !!nav.querySelector('a[href*="contact.html"]'),

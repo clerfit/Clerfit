@@ -1,4 +1,4 @@
-/* R3 calculator interaction fixes: R3-2026-10-17-calculator-fixes-05 */
+/* R3 calculator interaction fixes: R3-2026-10-17-nav-v3 */
 (function(){
 'use strict';
 const definitions={
