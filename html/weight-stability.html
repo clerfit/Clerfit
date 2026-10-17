@@ -126,33 +126,44 @@ function convertWeightToKg(value, unit){
 }
 
 function calculateWeightStability(){
-  const initial = parseFloat(document.getElementById("initialWeight").value);
-  const current = parseFloat(document.getElementById("currentWeight").value);
+  const result = document.getElementById("weightStabilityResult");
+  const initial = Number(document.getElementById("initialWeight").value);
+  const current = Number(document.getElementById("currentWeight").value);
   const unit = document.getElementById("weightUnit").value;
   const days = Number(document.getElementById("days").value);
+  result.textContent = "";
 
-  if(!Number.isFinite(initial) || initial <= 0 || !Number.isFinite(current) || current <= 0 || !Number.isInteger(days) || days < 1 || days > 36500){
-    alert("Please enter all required fields.");
+  if (![initial, current].every(Number.isFinite) || initial <= 0 || current <= 0 ||
+      !Number.isInteger(days) || days < 1 || days > 36500) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter positive initial/current weights and an integer duration from 1 to 36,500 days.</p>';
+    return;
+  }
+  if (!["kg", "lbs"].includes(unit)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose kg or lb as the weight unit.</p>';
     return;
   }
 
-  const initialKg = convertWeightToKg(initial, unit);
-  const currentKg = convertWeightToKg(current, unit);
+  const factor = unit === "kg" ? 1 : 0.45359237;
+  const initialKg = initial * factor;
+  const currentKg = current * factor;
+  if (![initialKg, currentKg].every(Number.isFinite) ||
+      initialKg < 0.1 || initialKg > 500 || currentKg < 0.1 || currentKg > 500) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Each converted weight must be between 0.1 and 500 kg.</p>';
+    return;
+  }
+
   const change = currentKg - initialKg;
   const dailyChange = change / days;
+  if (![change, dailyChange].every(Number.isFinite)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">The change could not be calculated from these values.</p>';
+    return;
+  }
   let stability;
-
-  if(Math.abs(dailyChange) < 0.05) stability = "Stable";
-  else if(dailyChange > 0) stability = "Gaining Weight";
+  if (Math.abs(dailyChange) < 0.05) stability = "Stable";
+  else if (dailyChange > 0) stability = "Gaining Weight";
   else stability = "Losing Weight";
 
-  document.getElementById("weightStabilityResult").innerHTML = `
-    <b>Initial Weight:</b> ${initialKg.toFixed(2)} kg<br>
-    <b>Current Weight:</b> ${currentKg.toFixed(2)} kg<br>
-    <b>Total Change:</b> ${change.toFixed(2)} kg<br>
-    <b>Daily Change:</b> ${dailyChange.toFixed(2)} kg/day<br>
-    <b>Status:</b> ${stability}
-  `;
+  result.innerHTML = `<b>Initial Weight:</b> ${initialKg.toFixed(2)} kg<br><b>Current Weight:</b> ${currentKg.toFixed(2)} kg<br><b>Total Change:</b> ${change.toFixed(2)} kg<br><b>Daily Change:</b> ${dailyChange.toFixed(3)} kg/day<br><b>Status:</b> ${stability}<p class="cf-note">This describes average scale-weight change across the entered period; short-term water and measurement variation can affect the result.</p>`;
 }
 </script>
 
