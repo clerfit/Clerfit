@@ -110,7 +110,7 @@
 
     <div class="col">
       <label for="days">Days in Month</label>
-      <input type="number" id="days" value="30" min="0.1" max="500" step="any">
+      <input type="number" id="days" value="30" min="28" max="31" step="1">
     </div>
   </div>
 
@@ -150,8 +150,10 @@ function calculateMonthlyChange(){
   const unit = document.getElementById("unitMonthly").value;
   const days = parseFloat(document.getElementById("days").value);
 
-  if(!tdee || !intake || !days){
-    alert("Please fill all inputs.");
+  if(!Number.isFinite(tdee) || tdee <= 0 || !Number.isFinite(intake) || intake <= 0 ||
+     !Number.isInteger(days) || days < 28 || days > 31){
+    document.getElementById("monthlyResult").innerHTML =
+      '<span role="alert">Enter positive TDEE and daily intake values, plus an integer month length from 28 to 31 days.</span>';
     return;
   }
 
