@@ -24,8 +24,8 @@ for (const routeInfo of routes) {
     expect(response && response.status(), 'page should load successfully').toBe(200);
     await expect(page.locator('h1').first()).toBeVisible({timeout:3000});
     await expect(page.locator('main, [role="main"]').first()).toBeVisible({timeout:3000});
-    await expect(page.locator('.cf-page-actions .cf-page-home')).toHaveAttribute('href',/index\.html/,{timeout:3000});
-    await expect(page.locator('.cf-page-actions .cf-page-contact')).toHaveAttribute('href',/contact\.html/,{timeout:3000});
+    await expect(page.locator('.cf-page-actions .cf-page-home, .clerfit-fixed-actions .clerfit-fixed-home')).toHaveAttribute('href',/index\.html/,{timeout:3000});
+    await expect(page.locator('.cf-page-actions .cf-page-contact, .clerfit-fixed-actions .clerfit-fixed-contact')).toHaveAttribute('href',/contact\.html/,{timeout:3000});
     const controls=await page.locator('input:not([type="hidden"]),select,textarea,button').evaluateAll(nodes=>nodes.filter(el=>!el.disabled&&!el.closest('[hidden]')&&el.getClientRects().length).filter(el=>{
       if(el.matches('button,input[type="button"],input[type="submit"],input[type="reset"]')) return !String(el.getAttribute('aria-label')||el.getAttribute('aria-labelledby')||el.innerText||el.value||el.title||'').trim();
       if(el.matches('select,textarea,input:not([type="hidden"])')) {

@@ -134,8 +134,8 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   await page.keyboard.press('Tab');
   const focusOutline = await page.locator('#waistUnit').evaluate(el => getComputedStyle(el).outlineWidth);
   expect(parseFloat(focusOutline), 'Keyboard focus indicator should be visible').toBeGreaterThanOrEqual(3);
-  await expect(page.locator('.clerfit-fixed-actions .clerfit-fixed-home, .cf-page-actions .cf-page-home')).toHaveAttribute('href', /index\\.html/);
-  await expect(page.locator('.clerfit-fixed-actions .clerfit-fixed-contact, .cf-page-actions .cf-page-contact')).toHaveAttribute('href', /contact\\.html/);
+  await expect(page.locator('.clerfit-fixed-actions .clerfit-fixed-home, .cf-page-actions .cf-page-home, .clerfit-fixed-actions .clerfit-fixed-home')).toHaveAttribute('href', /index\.html/);
+  await expect(page.locator('.clerfit-fixed-actions .clerfit-fixed-contact, .cf-page-actions .cf-page-contact, .clerfit-fixed-actions .clerfit-fixed-contact')).toHaveAttribute('href', /contact\.html/);
 
   const dimensions = await page.evaluate(() => ({
     viewport: document.documentElement.clientWidth,
