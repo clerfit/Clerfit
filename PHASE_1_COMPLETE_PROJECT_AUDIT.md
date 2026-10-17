@@ -141,6 +141,18 @@ Completed on the audit branch and tested in GitHub Actions run #115:
 
 **Not claimed:** The deployed BSA URL and ZIP parity remain unverified. This is source-local sign-off, not production sign-off.
 
+### Page 8 — Waist-to-Height Ratio (WHtR) (`html/wht.html`) — source-local checks passed
+
+- Removed duplicate character-encoding metadata and an obsolete analytics placeholder.
+- Added unit-aware waist/height bounds, explicitly associated each unit selector with its field, and made shared validation honor the page-specific converted ranges (including waist measurements below one foot when expressed in feet).
+- Added Reset behavior that clears results/errors, restores centimetres, restores bounds, and returns focus to Waist.
+- Cleared stale result/formula text when values or units change; added polite result/formula announcements and explicit validation alerts.
+- Removed the obsolete risk-colour legend because this page reports the ratio without assigning a universal risk category.
+- Added known-answer and boundary regression tests plus Chromium checks for mixed-unit conversion, invalid/empty values, reset, keyboard focus, 320px layout, local assets/runtime errors, and Axe.
+- GitHub Actions run `39044004955` passed the WHtR logic test and both WHtR browser tests. The overall workflow was red because the separate WHR browser assertions were being corrected; WHtR's own tests passed.
+
+**Not claimed:** live production parity, current release ZIP parity, or clinical certification.
+
 ## Evidence-based findings
 
 ### P1 — Release archive parity is unverified
