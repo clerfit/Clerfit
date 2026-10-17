@@ -268,6 +268,7 @@ function runPageFunction(file, functionName, values, resultIds) {
     if (!elements.has(id)) elements.set(id, {
       id, value: '', textContent: '', innerHTML: '', hidden: false, style: {},
       parentElement: null, title: '',
+      addEventListener() {},
       removeAttribute(name) { if (name === 'title') this.title = ''; }
     });
     return elements.get(id);
