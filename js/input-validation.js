@@ -110,7 +110,7 @@
     }
     // Explicitly associate the inline message with its input for screen readers.
     // Preserve any descriptions already supplied by the calculator page.
-    const describedBy = new Set((el.getAttribute('aria-describedby') || '').split(/\\s+/).filter(Boolean));
+    const describedBy = new Set((el.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean));
     if (node.id) describedBy.add(node.id);
     if (describedBy.size) el.setAttribute('aria-describedby', Array.from(describedBy).join(' '));
     return node;
@@ -119,7 +119,7 @@
     el.removeAttribute('aria-invalid');
     const node = el.__clerfitInputErrorNode || null;
     if (node) {
-      const describedBy = (el.getAttribute('aria-describedby') || '').split(/\\s+/).filter(id => id && id !== node.id);
+      const describedBy = (el.getAttribute('aria-describedby') || '').split(/\s+/).filter(id => id && id !== node.id);
       if (describedBy.length) el.setAttribute('aria-describedby', describedBy.join(' '));
       else el.removeAttribute('aria-describedby');
       node.remove();
