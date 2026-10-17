@@ -24,6 +24,62 @@ function listHtml(directory, prefix = '') {
   return files;
 }
 
+function metaRefresh(html) {
+  const tag = html.match(/<meta\\b[^>]*http-equiv\\s*=\\s*(['"])refresh\\1[^>]*>/i);
+  if (!tag) return null;
+  const content = tag[0].match(/\\bcontent\\s*=\\s*(['"])(.*?)\\1/i);
+  const target = content && content[2].match(/^\\s*\\d+\\s*;\\s*url\\s*=\\s*['"]?([^'"]+?)['"]?\\s*$/i);
+  return { isRefresh: true, target: target ? target[1].trim() : null };
+}
+
+function classifyDocuments(discovered) {
+  const userPages = [];
+  const redirectAliases = [];
+  const excludedNonUiResources = [];
+  for (const file of discovered) {
+    const html = fs.readFileSync(path.join(ROOT, file), 'utf8');
+    // Google Search Console requires this exact plain-text token. It is an endpoint,
+    // not a rendered UI page, and must not be wrapped in HTML to satisfy axe-core.
+    if (/^google[a-z0-9]+\\.html$/i.test(path.posix.basename(file)) &&
+        /^\\s*google-site-verification:\\s*google[a-z0-9]+\\.html\\s*$/i.test(html)) {
+      excludedNonUiResources.push({
+        file,
+        reason: 'Exact Google Search Console verification token; not a user-facing UI document.'
+      });
+      continue;
+    }
+
+    const redirect = metaRefresh(html);
+    if (redirect) {
+      if (!redirect.target) {
+        failures.push({ file, kind: 'redirect', detail: 'Meta refresh is present but its target URL could not be parsed.' });
+        continue;
+      }
+      try {
+        const sourceUrl = new URL(file.split(path.sep).join('/'), BASE);
+        const targetUrl = new URL(redirect.target, sourceUrl);
+        if (targetUrl.origin !== BASE.origin || !targetUrl.pathname.startsWith(BASE.pathname)) {
+          failures.push({ file, kind: 'redirect', detail: 'Redirect target is outside the staged site: ' + targetUrl.href });
+          continue;
+        }
+        const relative = decodeURIComponent(targetUrl.pathname.slice(BASE.pathname.length)).replace(/^\\/+/, '');
+        const targetPath = path.resolve(ROOT, relative || 'index.html');
+        if (!(targetPath.startsWith(ROOT + path.sep) || targetPath === path.join(ROOT, 'index.html')) ||
+            !fs.existsSync(targetPath) || fs.statSync(targetPath).isDirectory()) {
+          failures.push({ file, kind: 'redirect', detail: 'Redirect target does not resolve to a staged file: ' + targetUrl.href });
+          continue;
+        }
+        redirectAliases.push({ file, target: targetUrl.href });
+      } catch (error) {
+        failures.push({ file, kind: 'redirect', detail: error && error.message ? error.message : String(error) });
+      }
+      continue;
+    }
+    userPages.push(file);
+  }
+  return { userPages, redirectAliases, excludedNonUiResources };
+}
+
 async function pool(items, concurrency, task) {
   let cursor = 0;
   await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, async () => {
@@ -37,8 +93,11 @@ async function pool(items, concurrency, task) {
 
 async function main() {
   if (!fs.existsSync(ROOT)) throw new Error('dist/ not found; run scripts/build-site.js first');
-  const files = listHtml(ROOT).sort();
-  if (!files.includes('index.html')) throw new Error('dist/index.html is missing');
+  const discovered = listHtml(ROOT).sort();
+  if (!discovered.includes('index.html')) throw new Error('dist/index.html is missing');
+  const classified = classifyDocuments(discovered);
+  const files = classified.userPages;
+  if (!files.includes('index.html')) throw new Error('dist/index.html is missing from user-facing pages');
   const axePath = require.resolve('axe-core/axe.min.js');
   const browser = await chromium.launch({ headless: true });
   try {
@@ -102,7 +161,10 @@ async function main() {
       generatedAt: new Date().toISOString(),
       baseUrl: BASE.href,
       scannedPages: results.length,
-      discoveredPages: files.length,
+      discoveredHtmlDocuments: discovered.length,
+      scannedUserFacingPages: files.length,
+      validatedRedirectAliases: classified.redirectAliases,
+      excludedNonUiResources: classified.excludedNonUiResources,
       failureCount: failures.length,
       severeViolationPolicy: 'Fail on axe-core critical/serious violations, uncaught page errors or page-load failures. Moderate/minor violations remain visible for triage. Manual assistive technology and physical-device checks are not replaced.',
       failures,
@@ -114,7 +176,9 @@ async function main() {
       const summary = [
         '## ClerFit accessibility smoke test',
         '',
-        '- HTML pages scanned: ' + results.length + '/' + files.length,
+        '- User-facing HTML pages scanned: ' + results.length + '/' + files.length,
+        '- Validated redirect-only aliases (targets exist): ' + classified.redirectAliases.length,
+        '- Excluded non-UI verification resources: ' + classified.excludedNonUiResources.length,
         '- axe-core violations (all impact levels): ' + results.reduce((sum, page) => sum + page.violations.length, 0),
         '- Critical/serious violations: ' + severe.length,
         '- Pages with uncaught JavaScript errors: ' + results.filter(page => page.pageErrors.length).length,
@@ -127,7 +191,10 @@ async function main() {
     console.log(JSON.stringify({
       status: failures.length ? 'FAIL' : 'PASS',
       scannedPages: results.length,
-      discoveredPages: files.length,
+      discoveredHtmlDocuments: discovered.length,
+      userFacingPages: files.length,
+      validatedRedirectAliases: classified.redirectAliases.length,
+      excludedNonUiResources: classified.excludedNonUiResources,
       allImpactViolations: results.reduce((sum, page) => sum + page.violations.length, 0),
       criticalOrSerious: results.reduce((sum, page) => sum + page.violations.filter(v => SEVERITY.has(v.impact)).length, 0),
       reviewRequiredChecks: results.reduce((sum, page) => sum + page.reviewRequired.length, 0),
