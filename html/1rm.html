@@ -151,56 +151,45 @@ function updateFormulaInfo(){
 }
 
 function calculate1RM(){
-  const weight = parseFloat(document.getElementById("liftWeight").value);
+  const result = document.getElementById("oneRMResult");
+  const weight = Number(document.getElementById("liftWeight").value);
   const unit = document.getElementById("weightUnit1RM").value;
   const reps = Number(document.getElementById("reps").value);
   const formula = document.getElementById("formula").value;
+  result.textContent = "";
 
-  if(!Number.isFinite(weight) || weight <= 0 || !Number.isInteger(reps) || reps < 1 || reps > 15){
-    alert("Enter a positive lifted weight and an integer repetition count from 1 to 15.");
+  if (!Number.isFinite(weight) || weight <= 0 || !Number.isInteger(reps) || reps < 1 || reps > 15) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a positive lifted weight and an integer repetition count from 1 to 15.</p>';
+    return;
+  }
+  const unitKey = String(unit).toLowerCase();
+  const weightFactors = { kg: 1, lb: 0.45359237, lbs: 0.45359237 };
+  if (!(unitKey in weightFactors) || !["epley","brzycki","lander","lombardi"].includes(formula)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check the lifted-weight unit and selected prediction equation.</p>';
+    return;
+  }
+  const weightKg = weight * weightFactors[unitKey];
+  if (!Number.isFinite(weightKg) || weightKg < 0.1 || weightKg > 500) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Lifted weight must convert to a value from 0.1 to 500 kg.</p>';
     return;
   }
 
-  const weightKg = convertWeightToKg(weight, unit);
-  if (!Number.isFinite(weightKg) || weightKg <= 0 || !["epley","brzycki","lander","lombardi"].includes(formula)) {
-    alert("Check the lifted weight, unit and selected prediction equation.");
-    return;
-  }
   let oneRM;
-  let warning = "";
-  let accuracy = "";
-
-  // Global rep warning
-  if(reps > 15){
-    warning = "Warning: Accuracy significantly decreases above 15 reps.<br>";
+  switch (formula) {
+    case "epley": oneRM = weightKg * (1 + reps / 30); break;
+    case "brzycki": oneRM = weightKg * (36 / (37 - reps)); break;
+    case "lander": oneRM = weightKg * (100 / (101.3 - 2.67123 * reps)); break;
+    case "lombardi": oneRM = weightKg * Math.pow(reps, 0.10); break;
+  }
+  if (!Number.isFinite(oneRM) || oneRM <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">The selected equation could not produce a valid estimate.</p>';
+    return;
   }
 
-  switch(formula){
-    case "epley":
-      oneRM = weightKg * (1 + reps / 30);
-      break;
-    case "brzycki":
-      oneRM = weightKg * (36 / (37 - reps));
-      break;
-    case "lander":
-      oneRM = weightKg * (100 / (101.3 - 2.67123 * reps));
-      break;
-    case "lombardi":
-      oneRM = weightKg * Math.pow(reps, 0.10);
-      break;
-  }
-
-  // Avoid unsupported universal accuracy grades; prediction error varies by
-  // exercise, population, effort, technique and the equation selected.
-  accuracy = reps <= 10 ? "Estimate; individual accuracy varies" : "Higher uncertainty at 11–15 repetitions";
-
-  const outputWeight = unit === "lbs" ? oneRM / 0.453592 : oneRM;
-  const outputUnit = unit === "lbs" ? "lb" : "kg";
-  document.getElementById("oneRMResult").innerHTML = `
-    ${warning}
-    <b>Estimated 1RM:</b> ${outputWeight.toFixed(2)} ${outputUnit}<br>
-    <b>Interpretation:</b> ${accuracy}
-  `;
+  const outputWeight = unitKey === "lb" || unitKey === "lbs" ? oneRM / 0.45359237 : oneRM;
+  const outputUnit = unitKey === "lb" || unitKey === "lbs" ? "lb" : "kg";
+  const accuracy = reps <= 10 ? "Estimate; individual accuracy varies" : "Higher uncertainty at 11–15 repetitions";
+  result.innerHTML = `<b>Estimated 1RM:</b> ${outputWeight.toFixed(2)} ${outputUnit}<br><b>Interpretation:</b> ${accuracy}`;
 }
 
 // Initialize default formula info
