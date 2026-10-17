@@ -232,6 +232,7 @@ function calculateWHR() {
     return;
   }
   const tolerance = 1e-9; // avoid floating-point rejection of exact converted endpoints
+  console.log('WHR converted values', JSON.stringify({rawWaist, rawHip, waistUnit, hipUnit, waistM, hipM, tolerance}));
   if (waistM < 0.2 - tolerance || waistM > 3 + tolerance || hipM < 0.2 - tolerance || hipM > 3 + tolerance) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">Check that both circumference measurements are plausible (at least 20 cm and no more than 300 cm after conversion).</p>';
     return;

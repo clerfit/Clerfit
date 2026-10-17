@@ -4,7 +4,14 @@ const AxeBuilder = require('@axe-core/playwright').default;
 async function assertNoHorizontalOverflow(page, widths=[390,320]) {
   for (const width of widths) {
     await page.setViewportSize({width,height:844});
-    const dims=await page.evaluate(()=>({viewport:document.documentElement.clientWidth,document:document.documentElement.scrollWidth}));
+    const dims=await page.evaluate(()=>({
+      viewport:document.documentElement.clientWidth,
+      document:document.documentElement.scrollWidth,
+      offenders:Array.from(document.querySelectorAll('body *')).map(el=>({tag:el.tagName,cls:typeof el.className==='string'?el.className:'',id:el.id,left:Math.round(el.getBoundingClientRect().left),right:Math.round(el.getBoundingClientRect().right),width:Math.round(el.getBoundingClientRect().width),overflow:getComputedStyle(el).overflowX}))
+        .filter(x=>x.right>document.documentElement.clientWidth+1&&x.width>0)
+        .sort((a,b)=>b.right-a.right).slice(0,8)
+    }));
+    if(dims.document>dims.viewport) console.log('Horizontal overflow diagnosis '+width+'px',JSON.stringify(dims));
     expect(dims.document,'no horizontal overflow at '+width+'px').toBeLessThanOrEqual(dims.viewport);
   }
 }
@@ -95,6 +102,6 @@ for (const target of [
     await page.setViewportSize({width:390,height:844});
     await page.goto('http://127.0.0.1:8000'+target.path,{waitUntil:'domcontentloaded'});
     const results=await new AxeBuilder({page}).analyze();
-    expect(results.violations.map(v=>({id:v.id,impact:v.impact,targets:v.nodes.map(n=>n.target)}))).toEqual([]);
+    expect(results.violations.map(v=>({id:v.id,impact:v.impact,help:v.help,description:v.description,targets:v.nodes.map(n=>n.target)}))).toEqual([]);
   });
 }
