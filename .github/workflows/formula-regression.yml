@@ -6,6 +6,7 @@ on:
     paths:
       - 'js/**'
       - 'tests/**'
+      - 'html/**'
       - '.github/workflows/formula-regression.yml'
   pull_request:
     branches: [main]
@@ -30,6 +31,8 @@ jobs:
           node-version: '22'
       - name: Run known-answer and domain regressions
         run: node tests/verify.js
+      - name: Run BMI page behavior regressions
+        run: node tests/bmi-page.test.js
       - name: Syntax-check every project JavaScript file
         shell: bash
         run: |
