@@ -214,6 +214,15 @@ resetEngineOutputs('result', 'formula');
 engineContext.calculateWHR();
 assert.match(engineOutput('result'), /WHR: 0\.85/);
 checks++;
+// Regression: shared engine must reject unsupported unit selectors instead of
+// silently treating unknown units as centimetres.
+setEngine('waist', 85); setEngine('waistUnit', 'cm');
+setEngine('hip', 100); setEngine('hipUnit', 'bogus');
+resetEngineOutputs('result', 'formula');
+engineContext.calculateWHR();
+assert.match(engineOutput('result'), /Choose supported units for both measurements/);
+assert.doesNotMatch(engineOutput('result'), /WHR: 0\.85/);
+checks++;
 Object.entries({ weight: 80, weightUnit: 'kg', fat: 15 }).forEach(([id, value]) => setEngine(id, value));
 resetEngineOutputs('result');
 engineContext.calculateLeanMass();
