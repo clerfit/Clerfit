@@ -11,8 +11,7 @@
   <meta name="description" content="Use the ClerFit BMI Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
   <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 
-<meta charset="UTF-8">
-  <!-- Google tag (gtag.js) -->
+<!-- Legacy page analytics were intentionally removed; this page runs without third-party tracking scripts. -->
 
 
   <script>
@@ -51,6 +50,44 @@
       indicator.title = range.label;
     }
 
+    // Keep input bounds aligned with the selected unit and the converted domain.
+    function syncBMIBounds() {
+      const weight = document.getElementById("weight");
+      const height = document.getElementById("height");
+      const weightBounds = { kg: [2, 500], lbs: [4.41, 1100] }[document.getElementById("weightUnit").value] || [2, 500];
+      const heightBounds = {
+        cm: [50, 274], m: [0.5, 2.74], in: [19.69, 107.87], ft: [1.64, 8.99]
+      }[document.getElementById("heightUnit").value] || [50, 274];
+      weight.min = String(weightBounds[0]);
+      weight.max = String(weightBounds[1]);
+      height.min = String(heightBounds[0]);
+      height.max = String(heightBounds[1]);
+    }
+
+    // Reset all calculator inputs and remove stale output/errors.
+    function resetBMI() {
+      const defaults = { weight: "", height: "", age: "", gender: "", weightUnit: "kg", heightUnit: "cm" };
+      Object.entries(defaults).forEach(([id, value]) => {
+        const field = document.getElementById(id);
+        if (field) {
+          field.value = value;
+          field.removeAttribute("aria-invalid");
+        }
+      });
+      document.querySelectorAll(".clerfit-input-error").forEach(node => node.remove());
+      const result = document.getElementById("result");
+      result.textContent = "";
+      const indicator = document.getElementById("indicator");
+      if (indicator) {
+        indicator.style.left = "0%";
+        indicator.style.backgroundColor = "";
+        indicator.innerHTML = "";
+        indicator.removeAttribute("title");
+      }
+      syncBMIBounds();
+      document.getElementById("weight").focus();
+    }
+
     // ===== BMI calculation =====
     function calculateBMI() {
       const result = document.getElementById("result");
@@ -69,6 +106,7 @@
       const indicator = document.getElementById("indicator");
       if (indicator) {
         indicator.style.left = "0%";
+        indicator.style.backgroundColor = "";
         indicator.innerHTML = "";
         indicator.removeAttribute("title");
       }
@@ -182,9 +220,9 @@
     <div class="row">
       <div class="col">
         <label for="weight">Weight</label>
-        <input type="number" id="weight" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+        <input type="number" id="weight" placeholder="Enter weight" min="2" max="500" step="any" aria-label="Enter weight">
         <label for="weightUnit">Unit</label>
-        <select id="weightUnit" aria-label="Weight unit">
+        <select id="weightUnit" aria-label="Weight unit" onchange="syncBMIBounds()">
           <option value="kg" selected>kg</option>
           <option value="lbs">lbs</option>
         </select>
@@ -192,9 +230,9 @@
 
       <div class="col">
         <label for="height">Height</label>
-        <input type="number" id="height" placeholder="Enter height" min="30" max="300" step="any" aria-label="Enter height">
+        <input type="number" id="height" placeholder="Enter height" min="50" max="274" step="any" aria-label="Enter height">
         <label for="heightUnit">Unit</label>
-        <select id="heightUnit" aria-label="Height unit">
+        <select id="heightUnit" aria-label="Height unit" onchange="syncBMIBounds()">
           <option value="cm" selected>cm</option>
           <option value="m">m</option>
           <option value="in">in</option>
@@ -204,7 +242,7 @@
 
       <div class="col">
         <label for="age">Age</label>
-        <input type="number" id="age" placeholder="Enter age" min="1" max="120" step="1" aria-label="Enter age">
+        <input type="number" id="age" placeholder="Enter age" min="2" max="120" step="1" aria-label="Enter age">
         <label for="gender">Gender</label>
         <select id="gender" aria-label="Sex / reference group">
           <option value="" selected disabled>Select</option>
@@ -214,9 +252,12 @@
       </div>
     </div>
 
-    <button class="calculate-btn" onclick="calculateBMI()">Calculate BMI</button>
+    <div class="cf-form-actions">
+      <button class="calculate-btn" type="button" onclick="calculateBMI()">Calculate BMI</button>
+      <button class="cf-reset-btn" type="button" onclick="resetBMI()">Reset</button>
+    </div>
 
-    <div class="result" id="result"></div>
+    <div class="result" id="result" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <div class="bar-container">
       <div class="bar">
@@ -228,10 +269,10 @@
       </small>
     </div>
 
-    <div id="formula" style="margin-top:15px;"></div>
+    <div id="formula" style="margin-top:15px;"><p><strong>Formula:</strong> BMI = weight (kg) ÷ height (m)². Values entered in other supported units are converted before calculation.</p></div>
 
     <table>
-      <tr><th>Category</th><th>BMI Range</th><th>Meaning</th></tr>
+      <tr><th scope="col">Category</th><th scope="col">BMI Range</th><th scope="col">Meaning</th></tr>
       <tr><td>Underweight</td><td>&lt; 18.5</td><td>Low body mass</td></tr>
       <tr><td>Normal</td><td>18.5 – 24.9</td><td>Healthy</td></tr>
       <tr><td>Overweight</td><td>25 – 29.9</td><td>Increased risk</td></tr>
