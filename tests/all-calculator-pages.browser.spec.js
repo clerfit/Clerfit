@@ -26,7 +26,7 @@ for (const routeInfo of routes) {
     await expect(page.locator('.cf-page-actions .cf-page-home')).toHaveAttribute('href',/index\.html/,{timeout:8000});
     await expect(page.locator('.cf-page-actions .cf-page-contact')).toHaveAttribute('href',/contact\.html/);
     const controls=await page.locator('input:not([type="hidden"]),select,textarea,button').evaluateAll(nodes=>nodes.filter(el=>!el.disabled&&!el.closest('[hidden]')&&el.getClientRects().length).filter(el=>{
-      if(el.matches('button,input[type="button"],input[type="submit"],input[type="reset"]')) return !(el.getAttribute('aria-label')||el.getAttribute('aria-labelledby')||el.innerText||el.value||el.title).trim();
+      if(el.matches('button,input[type="button"],input[type="submit"],input[type="reset"]')) return !String(el.getAttribute('aria-label')||el.getAttribute('aria-labelledby')||el.innerText||el.value||el.title||'').trim();
       if(el.matches('select,textarea,input:not([type="hidden"])')) {
         const label=el.id && document.querySelector('label[for="'+CSS.escape(el.id)+'"]');
         return !(el.getAttribute('aria-label')||el.getAttribute('aria-labelledby')||el.title||(label&&label.textContent.trim()));
