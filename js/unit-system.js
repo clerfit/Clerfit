@@ -55,7 +55,8 @@
     'tdee.html': { weightUnit: ['weight'], heightUnit: ['height'] },
     'waist-change.html': { waistUnit: ['initialWaist', 'currentWaist'] },
     'weight-stability.html': { weightUnit: ['initialWeight', 'currentWeight'] },
-    'whr.html': { waistUnit: ['waist'], hipUnit: ['hip'] }
+    'whr.html': { waistUnit: ['waist'], hipUnit: ['hip'] },
+    'wht.html': { waistUnit: ['waist'], heightUnit: ['height'] }
   };
   const PAGE_OUTPUT_ONLY_UNITS = {
     'fiber.html': ['unit'],

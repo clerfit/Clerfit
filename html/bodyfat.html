@@ -85,15 +85,15 @@
 
     <!-- Gender -->
     <label for="bf-gender">Gender</label>
-    <select id="bf-gender" aria-label="Sex used by body-fat equation">
+    <select id="bf-gender" aria-label="Sex used by body-fat equation" onchange="clearBodyFatOutput(); syncBodyFatBounds()">
       <option value="male">Male</option>
       <option value="female">Female</option>
     </select>
 
     <!-- Height -->
     <label for="bf-height">Height</label>
-    <input type="number" id="bf-height" placeholder="Enter height" step="any" min="30" max="300" aria-label="Enter height">
-    <select id="bf-height-unit" aria-label="Height unit">
+    <input type="number" id="bf-height" placeholder="Enter height" step="any" min="100" max="250" aria-label="Enter height" oninput="clearBodyFatOutput()">
+    <select id="bf-height-unit" aria-label="Height unit" onchange="clearBodyFatOutput()">
       <option value="cm" selected>cm</option>
       <option value="m">m</option>
       <option value="inch">inch</option>
@@ -102,8 +102,8 @@
 
     <!-- Waist -->
     <label for="bf-waist">Waist</label>
-    <input type="number" id="bf-waist" placeholder="Enter waist" step="any" min="20" max="300" aria-label="Enter waist">
-    <select id="bf-waist-unit" aria-label="Waist unit">
+    <input type="number" id="bf-waist" placeholder="Enter waist" step="any" min="20" max="250" aria-label="Enter waist" oninput="clearBodyFatOutput()">
+    <select id="bf-waist-unit" aria-label="Waist unit" onchange="clearBodyFatOutput()">
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
       <option value="ft">ft</option>
@@ -111,8 +111,8 @@
 
     <!-- Neck -->
     <label for="bf-neck">Neck</label>
-    <input type="number" id="bf-neck" placeholder="Enter neck" step="any" min="10" max="100" aria-label="Enter neck">
-    <select id="bf-neck-unit" aria-label="Neck unit">
+    <input type="number" id="bf-neck" placeholder="Enter neck" step="any" min="15" max="80" aria-label="Enter neck" oninput="clearBodyFatOutput()">
+    <select id="bf-neck-unit" aria-label="Neck unit" onchange="clearBodyFatOutput()">
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
       <option value="ft">ft</option>
@@ -120,16 +120,19 @@
 
     <!-- Hip (female only) -->
     <label for="bf-hip">Hip (females only)</label>
-    <input type="number" id="bf-hip" placeholder="Enter hip" step="any" min="20" max="300" aria-label="Enter hip">
-    <select id="bf-hip-unit" aria-label="Hip unit">
+    <input type="number" id="bf-hip" placeholder="Enter hip" step="any" min="20" max="250" aria-label="Enter hip" oninput="clearBodyFatOutput()">
+    <select id="bf-hip-unit" aria-label="Hip unit" onchange="clearBodyFatOutput()">
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
       <option value="ft">ft</option>
     </select>
 
-    <button class="calculate-btn" type="button" onclick="calculateBodyFat()">Calculate Body Fat %</button>
+    <div class="cf-form-actions">
+      <button class="calculate-btn" type="button" onclick="calculateBodyFat()">Calculate Body Fat %</button>
+      <button class="cf-reset-btn" type="button" onclick="resetBodyFat()">Reset</button>
+    </div>
 
-    <div class="result" id="bf-result"></div>
+    <div class="result" id="bf-result" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <div class="bar-container">
       <div class="bar">

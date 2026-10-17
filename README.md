@@ -8,8 +8,8 @@ A static HTML/CSS/JavaScript health, fitness, measurement and everyday-calculato
 2. Open `index.html` in a modern browser.
 3. Use the left-edge three-line menu to open the sidebar; it starts closed.
 4. Use the magnifying-glass control inside the sidebar to search calculators.
-5. Home and Contact Us are available as floating links on calculator pages.
-6. Use the sidebar's Display units setting to switch between Metric and Imperial for recognized unit selectors. The preference persists in the browser.
+5. Home and Contact Us links are placed in the page header in normal document flow; they are not fixed/floating overlays.
+6. Use a calculator's own unit selector where provided. ClerFit does not promise a persistent global unit preference; unit conversion is applied only where the page supports it.
 
 For a local server, run `python -m http.server 8000` from this folder and open `http://localhost:8000`.
 
