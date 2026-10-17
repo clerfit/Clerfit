@@ -292,6 +292,19 @@ let pageTest = runPageFunction('rfm.html', 'calculateRFM', {
 assert.match(pageTest.output('result'), /valid height and waist/i);
 assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
 checks++;
+pageTest = runPageFunction('rfm.html', 'calculateRFM', {
+  gender: 'male', height: 175, heightUnit: 'cm', waist: 0.1, waistUnit: 'cm'
+}, ['result']);
+assert.match(pageTest.output('result'), /height must be 100–250 cm and waist 20–250 cm/i);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity|-59936/);
+checks++;
+
+pageTest = runPageFunction('rfm.html', 'calculateRFM', {
+  gender: 'male', height: 250, heightUnit: 'cm', waist: 20, waistUnit: 'cm'
+}, ['result']);
+assert.match(pageTest.output('result'), /RFM value outside the supported 0–100% range/i);
+assert.doesNotMatch(pageTest.output('result'), /RFM estimate:/);
+checks++;
 
 pageTest = runPageFunction('absi.html', 'calculateABSI', {
   waist: 85, waistUnit: 'nonsense', height: 175, heightUnit: 'cm', weight: 70
