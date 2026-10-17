@@ -148,9 +148,8 @@ async function outputSnapshot(page) {
         className:typeof el.className === 'string' ? el.className : '',
         role:el.getAttribute('role') || '',
         text:(el.innerText || el.textContent || '').replace(/\s+/g,' ').trim(),
-        validation:el.matches('.cf-validation-message') ||
-          ((el.matches('.cf-warning,[role="alert"]')) &&
-           !/^(?:Body-fat percentage categories|Lean mass includes|FFMI is a calculated index|BSA is a size estimate|WHR is a screening measure|WHtR is a screening ratio|RFM estimates body-fat percentage|Interpretation limitation:|Ponderal Index values|This tool provides an estimate|This is a simple exposure-context estimate|BMI is a screening measure|This calculator reports|This is a simplified estimate|This is an estimate|This tool provides|This is a screening measure)/i.test((el.innerText || el.textContent || '').replace(/\s+/g,' ').trim()))
+        // Non-blocking scientific caveats sometimes use role="alert"; only explicit validation styling counts as rejection.
+        validation:el.matches('.cf-validation-message')
       }))
       .filter(x => x.text);
   });
