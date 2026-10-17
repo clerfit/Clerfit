@@ -4,7 +4,7 @@ Audit branch: `phase-1-complete-project-audit`
 Baseline branch inspected: `main`  
 Repository: https://github.com/clerfit/Clerfit  
 Audit date: 2026-10-17  
-Scope: repository tree, central calculator registry, sitemap, existing SEO/performance/security/release reports, supplied PageSpeed screenshots, shared accessibility code, documentation consistency, and a 123-page sign-off register.
+Scope: repository tree, central calculator registry, sitemap, existing SEO/performance/security/release reports, supplied PageSpeed screenshots, shared accessibility code, documentation consistency, and a 128-document sign-off register.
 
 ## Executive status
 
@@ -153,6 +153,24 @@ Completed on the audit branch and tested in GitHub Actions run #115:
 
 **Not claimed:** live production parity, current release ZIP parity, or clinical certification.
 
+### Page 7 — Waist-to-Hip Ratio (WHR) (`html/whr.html`) — remediation in progress; CI rerun pending
+
+- Corrected the browser test to treat the HTML `max` constraint as a native validation guard, not as a custom JavaScript error state.
+- Aligned inch/metre/feet boundary expectations with the calculator's documented 20–300 cm plausible domain; 10 cm is intentionally rejected.
+- Added WHR-specific unit-aware ranges to the shared validator so the browser's raw input constraints match the calculator's conversion domain.
+- Existing logic regression checks cover the 0.80 known answer, cm/in/m/ft conversions, 20 cm and 300 cm endpoints, invalid/empty values, unsupported units, reset, stale-output clearing, metadata and accessible result regions.
+- The earlier browser run exposed stale assertions in the test itself; the assertions have been corrected. The latest full browser run must pass before WHR can receive source-local sign-off.
+
+**Not claimed:** WHR browser/Axe sign-off is still pending the current CI run; production parity and release ZIP parity remain unverified.
+
+### Page 9 — Waist-to-Height Risk (`html/waist-height-risk.html`) — remediation in progress; CI rerun pending
+
+- Added a Chromium regression test for 80 cm waist / 180 cm height (0.444), adolescent-safe interpretation at age 17, invalid measurement/age guards, reset, 320 px reflow, local asset/runtime failures and Axe.
+- Fixed a shared advanced-calculator behavior: changing any generated form input now clears the prior result and formula, preventing an old answer from remaining visible after an invalid value is entered.
+- Updated the browser test to assert stale-output clearing and accessible invalid-field state rather than expecting a submit event that native HTML validation correctly blocks.
+
+**Not claimed:** the new browser and Axe checks have not yet passed CI; production and release ZIP parity remain unverified.
+
 ## Evidence-based findings
 
 ### P1 — Release archive parity is unverified
@@ -183,7 +201,7 @@ Existing reports describe passing local route/formula-method smoke tests and ear
 3. Compared the 118 calculator routes to sitemap mappings; sitemap has 123 unique URLs.
 4. Read existing SEO, performance/security, accessibility and release-status reports and preserved their explicit test limitations.
 5. Reviewed all supplied PageSpeed screenshots. Recorded the reported mobile scores: Performance 100, Accessibility 55, Best Practices 92, SEO 82. Findings shown include insufficient text contrast, links distinguished by color alone, links without discernible names, missing main landmark, and a failed HTTP 404 status.
-6. Added a **123-page sign-off register** at `PHASE_1_SIGNOFF_REGISTER.csv`. It records per-page verification state instead of treating route presence as proof of working behavior.
+6. Added a **128-document sign-off register** at `PHASE_1_SIGNOFF_REGISTER.csv`. It covers the 123 sitemap URLs plus the custom 404 page, site-verification file, and three legacy redirect pages that were missing from the first register. The homepage row now points to `index.html`. It records per-page verification state instead of treating route presence as proof of working behavior.
 7. Implemented a shared runtime fallback in `js/page-chrome.js`: legacy `.main` containers receive a main landmark if none exists, and unnamed anchors receive a fallback accessible name derived from their destination or identifying class/ID.
 8. Added visible link underlines, keyboard focus indicators, a forced-colors focus fallback, and darker text for table row labels/breadcrumbs in `css/style.css`.
 9. Corrected stale README instructions that incorrectly described Home/Contact links as floating and global unit preference as persistent.
@@ -196,7 +214,7 @@ These are deliberately marked open; a source patch is not proof that Lighthouse,
 - [ ] **Release ZIP:** The current turn's mounted uploads contain the PageSpeed screenshots but not the named `ClerFit_R3_COMPLETE_PRODUCT.zip`. Archive hashes and ZIP-to-repository parity cannot be established without the actual archive.
 - [ ] **Production:** Direct live-site inspection was not accessible from the available web inspection path in this run. Verify exact public URLs, response codes, redirects, assets, console errors and headers using a live HTTP/browser environment.
 - [ ] **PageSpeed:** Re-run the exact same production URL on mobile and desktop. The screenshot's 404 may refer to a URL/path error; it must not be assumed to be fixed by the source edits.
-- [ ] **Interaction testing:** The 123-page sign-off register marks interactions, validation, results, reset/unit behavior, keyboard operation and mobile layout as not yet run in this environment. Exercise every calculator, not just the home page or a sample.
+- [ ] **Interaction testing:** The 128-document sign-off register distinguishes route-shell smoke checks from formula/interaction/accessibility sign-off; the all-118-calculator browser smoke suite is currently running. Exercise every calculator, not just the home page or a sample.
 - [ ] **Accessibility:** Re-run Lighthouse/axe and manual keyboard checks after deployment. Verify each contrast pair, each previously unnamed link, main landmark, labels/errors, focus order, zoom/reflow and reduced-motion behavior. Runtime fallback patches are not yet browser-verified.
 - [ ] **Calculator correctness:** Existing reports say 118 routes have regression vectors and that a scientific review register exists; those are prior evidence, not a fresh rerun. Execute all tests from the exact source revision and reconcile the per-calculator scientific register.
 - [ ] **Contact delivery:** Mocked tests do not prove live Formspree delivery. Confirm an authorized test submission reaches the intended inbox.
