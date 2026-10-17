@@ -2,7 +2,7 @@
 
 **Refreshed:** 2026-10-17  
 **Scope:** Complete the requested calculator inventory, preserve working pages, fill missing implementations and verify calculations/validation/interactions.  
-**Implementation status:** Core calculator inventory and route implementations are present.  
+**Implementation status:** The 118-route calculator inventory is present, key calculator handlers have targeted remediation and regression tests are in the main branch, and end-to-end source verification has been added.  
 **Formal Phase Two acceptance:** OPEN until the current revision clears the remaining verification gates below.
 
 ## Inventory and implementation
@@ -35,6 +35,16 @@ Against the available ClerFit_R3_FINAL_RELEASE(1).zip source archive:
 - The focused validation accessibility test passed after the per-input error-node correction.
 
 The extracted archive is not the exact latest GitHub HEAD. Recent implementation and test changes were also committed directly to the main branch, but the latest workflow run for that exact revision could not be confirmed through the available CI status interface in this attempt. Do not merge these two evidence sets into a false claim that every check was just rerun against one identical SHA.
+
+## New source fixes committed to main in this attempt
+
+Eight calculator pages were updated from the page-remediation set and are now part of main: BMI, Body Fat Percentage, Body Surface Area, Fat Mass, FFMI, Lean Body Mass, Waist-to-Hip Ratio and Waist-to-Height Ratio.
+
+The updates add or restore Reset behavior, keep relevant output/formula state from remaining stale after edits or unit changes, align field bounds with selected units on the pages that need unit-aware bounds, and improve required labels/live-result announcements. The shared page-chrome script now adds a main landmark where legacy markup has only a generic content div, normalizes Home/Contact action semantics, and names otherwise unnamed controls/links. Shared CSS now strengthens visible keyboard focus, distinguishability of links, forced-colors support and narrow-screen home layout.
+
+Added page-specific Node regression tests for BMI, body fat, BSA, fat mass, FFMI, lean mass and WHR. Both the formula-regression and full source-verification workflows run these tests. The full workflow now builds `dist/`, compares source/staging parity, tests all 118 calculator routes on local Chromium, and runs axe across user-facing HTML pages. Test/workflow files are committed; **their newest GitHub Actions execution has not been confirmed as green in this response**.
+
+The build/staging/accessibility scripts and mocked contact/unit-conversion tests that the README and hosting config expect are now present on main. A static inventory, route-level sign-off baseline, and finding/dependency register were also added, with a separate provenance note to distinguish historical branch test evidence from fresh current-main acceptance.
 
 ## Remaining Phase Two acceptance gates
 
