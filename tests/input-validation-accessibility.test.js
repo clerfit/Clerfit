@@ -17,12 +17,12 @@ class FakeParent {
   querySelector(selector) { return selector === ':scope > .clerfit-input-error' ? (this.errors[0] || null) : null; }
 }
 class FakeInput {
-  constructor(id, value, describedBy = '') {
+  constructor(id, value, describedBy = '', parent = new FakeParent()) {
     this.id = id; this.name = id; this.placeholder = ''; this.type = 'number';
     this.value = value; this.required = true; this.disabled = false; this.readOnly = false;
     this.min = ''; this.max = ''; this.step = ''; this.validity = { valid: true };
     this.labels = []; this.attributes = {};
-    this.parentElement = new FakeParent(); this.parentElement.children.push(this);
+    this.parentElement = parent; this.parentElement.children.push(this);
     this.nextElementSibling = null;
     if (describedBy) this.attributes['aria-describedby'] = describedBy;
   }
@@ -30,6 +30,7 @@ class FakeInput {
   setAttribute(name, value) { this.attributes[name] = String(value); }
   removeAttribute(name) { delete this.attributes[name]; }
   closest() { return null; }
+  matches(selector) { return selector.includes('input[type="number"]') && this.type === 'number'; }
   insertAdjacentElement(_where, node) { node.parentElement = this.parentElement; this.parentElement.errors.push(node); }
 }
 
@@ -59,10 +60,22 @@ assert.equal(input.getAttribute('aria-invalid'), null, 'invalid state is cleared
 assert.equal(input.getAttribute('aria-describedby'), 'weight-help', 'original help reference is preserved');
 assert.equal(input.parentElement.errors.length, 0, 'stale error message is removed');
 
-const other = new FakeInput('otherWeight', '0');
-assert.equal(validation.validate(other, true), false);
-const secondError = other.parentElement.errors[0];
-assert.notEqual(firstError.id, secondError.id, 'generated error message ids are unique');
-assert.match(other.getAttribute('aria-describedby'), new RegExp(secondError.id));
+const sharedParent = new FakeParent();
+const left = new FakeInput('leftWeight', '0', 'left-help', sharedParent);
+const right = new FakeInput('rightWeight', '0', 'right-help', sharedParent);
+assert.equal(validation.validate(left, true), false);
+assert.equal(validation.validate(right, true), false);
+assert.equal(sharedParent.errors.length, 2, 'sibling fields receive separate error nodes');
+const leftError = left.__clerfitInputErrorNode;
+const rightError = right.__clerfitInputErrorNode;
+assert.notEqual(leftError.id, rightError.id, 'generated error message ids are unique');
+assert.deepEqual(left.getAttribute('aria-describedby').split(/\\s+/).sort(), ['left-help', leftError.id].sort());
+assert.deepEqual(right.getAttribute('aria-describedby').split(/\\s+/).sort(), ['right-help', rightError.id].sort());
+left.value = '70';
+assert.equal(validation.validate(left, true), true, 'one valid field clears only its own error');
+assert.equal(sharedParent.errors.length, 1, 'clearing one field leaves sibling error visible');
+assert.equal(sharedParent.errors[0], rightError, 'sibling error node is retained');
+assert.equal(right.getAttribute('aria-invalid'), 'true', 'sibling remains invalid');
+assert.equal(right.getAttribute('aria-describedby'), 'right-help ' + rightError.id, 'sibling association is preserved');
 
-console.log('PASS: invalid-state semantics, unique error IDs, aria-describedby association, help-text preservation and error cleanup.');
+console.log('PASS: invalid-state semantics, unique per-input error nodes, aria-describedby association, help-text preservation and isolated cleanup.');
