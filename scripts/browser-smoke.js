@@ -272,6 +272,49 @@ async function targetedSemanticBoundaries(browser) {
   }
 }
 
+async function targetedCalculatorBoundaries(browser) {
+  const checks = [];
+  async function exercise({file, fn, fields, resultId, caseName, expect, mustNotMatch}) {
+    const p = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    try {
+      await p.goto(new URL('html/' + file + '?browserSmoke=calculator-boundaries', BASE).href, { waitUntil: 'load' });
+      await p.evaluate(({fields}) => {
+        for (const [id, value] of Object.entries(fields)) {
+          const el = document.getElementById(id);
+          if (!el) throw new Error('Missing field #' + id);
+          el.value = String(value);
+        }
+      }, {fields});
+      await p.evaluate(fn => {
+        const target = window[fn];
+        if (typeof target !== 'function') throw new Error('Missing calculation handler ' + fn);
+        target();
+      }, fn);
+      const output = await p.locator('#' + resultId).innerText();
+      if (expect && !expect.test(output)) throw new Error(file + ' ' + caseName + ': expected validation/output pattern ' + expect + ', got: ' + output);
+      if (mustNotMatch && mustNotMatch.test(output)) throw new Error(file + ' ' + caseName + ': forbidden output ' + mustNotMatch + ', got: ' + output);
+      if (/\b(?:NaN|Infinity|undefined)\b/i.test(output)) throw new Error(file + ' ' + caseName + ': non-finite output: ' + output);
+      checks.push(file + ': ' + caseName + ' passed');
+    } finally {
+      await p.close().catch(() => {});
+    }
+  }
+
+  await exercise({file:'absi.html',fn:'calculateABSI',fields:{waist:85,waistUnit:'cm',height:175,heightUnit:'cm',weight:0},resultId:'result',caseName:'zero weight rejected',expect:/valid positive waist, height, and weight/i});
+  await exercise({file:'whr.html',fn:'calculateWHR',fields:{waist:85,waistUnit:'cm',hip:100,hipUnit:'bogus'},resultId:'result',caseName:'unsupported hip unit rejected',expect:/supported units/i});
+  await exercise({file:'bsa.html',fn:'calculateBSA',fields:{weight:70,weightUnit:'kg',height:30,heightUnit:'cm'},resultId:'result',caseName:'implausible height rejected',expect:/Check units and values/i});
+  await exercise({file:'fatmass.html',fn:'calculateFatMass',fields:{weight:80,weightUnit:'kg',fat:101},resultId:'result',caseName:'body fat above 100 percent rejected',expect:/body-fat percentage from 0 to 100/i});
+  await exercise({file:'leanmass.html',fn:'calculateLeanMass',fields:{weight:80,weightUnit:'kg',fat:-1},resultId:'result',caseName:'negative body fat rejected',expect:/body-fat percentage from 0 to 100/i});
+  await exercise({file:'ffmi.html',fn:'calculateFFMI',fields:{height:175,heightUnit:'cm',weight:80,weightUnit:'kg',fat:101},resultId:'result',caseName:'body fat above 100 percent rejected',expect:/body-fat percentage from 0 to 100/i});
+  await exercise({file:'1rm.html',fn:'calculate1RM',fields:{liftWeight:100,weightUnit1RM:'kg',reps:16,formula:'epley'},resultId:'oneRMResult',caseName:'unsupported rep count rejected',expect:/repetition count from 1 to 15/i});
+  await exercise({file:'bmi-change.html',fn:'calculateBMIChange',fields:{currentWeightBMI:70,goalWeightBMI:75,weightUnitBMI:'kg',heightBMI:30,heightUnitBMI:'cm'},resultId:'bmiResult',caseName:'implausible height rejected after conversion',expect:/Check the measurements/i});
+  await exercise({file:'goal-timeline.html',fn:'calculateGoalTimeline',fields:{currentWeight:80,goalWeight:70,weightUnitTimeline:'kg',tdeeTimeline:2500,intakeTimeline:2000},resultId:'timelineResult',caseName:'valid estimate carries model caveat',expect:/Approximate energy-balance estimate only/i});
+  await exercise({file:'weight-gain-rate.html',fn:'calculateWeightGainRate2',fields:{tdeeGain2:2000,intakeGain2:2500,unitGain2:'kg'},resultId:'gainResult2',caseName:'gain output describes estimate',expect:/not a personalized prediction/i});
+  await exercise({file:'weight-loss-rate.html',fn:'calculateWeightLossRate',fields:{tdeeRate:2500,intakeRate:1800,unitRate:'kg'},resultId:'rateResult',caseName:'loss output describes estimate',expect:/Static calorie-to-mass estimate only/i});
+  await exercise({file:'weight-stability.html',fn:'calculateWeightStability',fields:{initialWeight:70,currentWeight:72,weightUnit:'kg',days:30},resultId:'weightStabilityResult',caseName:'stability output caveat',expect:/water and measurement variation/i});
+  return checks;
+}
+
 async function targetedUnits(browser) {
   const report=[];
   {
@@ -377,7 +420,10 @@ async function main() {
     catch(error){ failures.push('Targeted unit conversion test failed: '+(error && error.message || error)); }
     let semanticBoundaries=[];
     try { semanticBoundaries=await targetedSemanticBoundaries(browser); }
-    catch(error){ failures.push('Targeted semantic-boundary test failed: '+(error && error.message || error)); }
+    catch(error){ failures.push('Targeted BMI semantic-boundary test failed: '+(error && error.message || error)); }
+    let calculatorBoundaries=[];
+    try { calculatorBoundaries=await targetedCalculatorBoundaries(browser); }
+    catch(error){ failures.push('Targeted calculator-boundary test failed: '+(error && error.message || error)); }
     const bmi=routeResults.find(r=>r.file==='bmi-for-age.html');
     const bmiResult=!!(bmi && /percentile/i.test(bmi.outputSample) && /CDC reference sex/i.test(bmi.outputSample));
     assert(bmiResult,'BMI-for-age did not render an age/sex-specific CDC percentile result in the browser smoke pass.');
@@ -411,7 +457,7 @@ async function main() {
       noVisibleInput:routeResults.filter(r=>!r.inputCount).map(r=>r.file),
       noAction:routeResults.filter(r=>!r.actionClicked&&!/unit\.html$/i.test(r.file)).map(r=>r.file),
       routesWithoutResultText:routeResults.filter(r=>!r.outputs).map(r=>r.file),
-      targetedUnitChecks:targeted, targetedSemanticBoundaryChecks:semanticBoundaries, failures, routes:routeResults
+      targetedUnitChecks:targeted, targetedSemanticBoundaryChecks:semanticBoundaries, targetedCalculatorBoundaryChecks:calculatorBoundaries, failures, routes:routeResults
     };
     fs.writeFileSync(REPORT_PATH,JSON.stringify(report,null,2)+'\n');
     if(process.env.GITHUB_STEP_SUMMARY){
@@ -427,10 +473,12 @@ async function main() {
         '- Console errors: '+report.consoleErrors.length,
         '- Targeted unit checks: '+targeted.length,
         '- Targeted semantic-boundary checks: '+semanticBoundaries.length,
+        '- Targeted calculator-boundary checks: '+calculatorBoundaries.length,
         '- Failures: '+failures.length,
         '',
         ...targeted.map(x=>'- '+x),
         ...semanticBoundaries.map(x=>'- '+x),
+        ...calculatorBoundaries.map(x=>'- '+x),
         ...failures.map(x=>'- **FAIL:** '+x)
       ].join('\n');
       fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary+'\n');
