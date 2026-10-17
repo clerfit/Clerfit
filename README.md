@@ -38,7 +38,7 @@ For a local server, run `python -m http.server 8000` from this folder and open `
 - `scripts/browser-smoke-staging.js` and `scripts/accessibility-smoke.js` — all-route Chromium interaction/boundary checks and all-page axe accessibility audit for the local staged build.
 - `scripts/verify-production.js` — post-deployment route, sitemap, robots and HTTPS smoke test.
 - `SOURCES_AND_METHODS.md`, `FORMULA_REFERENCE_AUDIT.md` and `CALCULATOR_VERIFICATION_MATRIX.csv` — formula/method summaries, references, route-level known-answer status and documented limitations.
-- `FIELD_VALIDATION_AUDIT.csv` and `INPUT_BOUNDARY_VERIFIED.csv` — inventory of 238 static numeric fields and verified structural min/max/step constraints; exhaustive semantic edge cases remain a release gate.
+- `FIELD_VALIDATION_AUDIT.csv` and `INPUT_BOUNDARY_VERIFIED.csv` — inventory of 242 static numeric fields and verified structural min/max/step constraints; exhaustive semantic edge cases remain a release gate.
 - `DEPLOYMENT_GUIDE.md` — deployment requirements and post-release checks.
 - `tests/verify.js` — automated route, syntax, integrity, 118/118 route-level formula/method vectors, boundary inventory, input validation and conversion checks.
 - `FINAL_COMPLETION_REPORT.md` — final status, verified evidence and remaining external/review requirements.
