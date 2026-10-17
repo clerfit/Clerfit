@@ -8,8 +8,8 @@ A static HTML/CSS/JavaScript health, fitness, measurement and everyday-calculato
 2. Open `index.html` in a modern browser.
 3. Use the left-edge three-line menu to open the sidebar; it starts closed.
 4. Use the magnifying-glass control inside the sidebar to search calculators.
-5. Home and Contact Us are available as floating links on calculator pages.
-6. Use the sidebar's Display units setting to switch between Metric and Imperial for recognized unit selectors. The preference persists in the browser.
+5. Home and Contact Us links appear in normal page flow on calculator pages; they are not floating overlays.
+6. Use each calculator's own unit selector where available. Unit choices are scoped to the calculator and are not saved as a site-wide browser preference.
 
 For a local server, run `python -m http.server 8000` from this folder and open `http://localhost:8000`.
 
@@ -31,7 +31,7 @@ For a local server, run `python -m http.server 8000` from this folder and open `
 - `html/` — individual calculator pages.
 - `images/` — local SVG illustrations and visual guides.
 - `scripts/generate-sitemap.js` — verifies the central registry and creates a domain-aware XML sitemap, canonical tags and robots sitemap entry; it preserves GitHub Pages project paths such as `/Clerfit`.
-- `.github/workflows/pages.yml` — automated GitHub Pages build/test/deploy workflow for the existing project URL.
+- `.github/workflows/formula-regression.yml`, `.github/workflows/browser-smoke.yml` and `.github/workflows/verify-production.yml` — formula/domain regression, all-route browser smoke and live production checks. The published Pages source must still be checked against the expected commit.
 - `scripts/verify-production.js` — post-deployment route, sitemap, robots and HTTPS smoke test.
 - `SOURCES_AND_METHODS.md`, `FORMULA_REFERENCE_AUDIT.md` and `CALCULATOR_VERIFICATION_MATRIX.csv` — formula/method summaries, references, route-level known-answer status and documented limitations.
 - `FIELD_VALIDATION_AUDIT.csv` and `INPUT_BOUNDARY_VERIFIED.csv` — inventory of 238 static numeric fields and verified structural min/max/step constraints; exhaustive semantic edge cases remain a release gate.
