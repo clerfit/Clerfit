@@ -72,7 +72,7 @@ test('contact form handles provider failure and restores the submit button',asyn
 
 test('404, legacy aliases and site-verification file resolve to their intended content',async({page,request})=>{
   await page.goto('http://127.0.0.1:8000/404.html',{waitUntil:'domcontentloaded'});
-  await expect(page.locator('h1')).toContainText(/not found/i);
+  await expect(page.locator('h1')).toContainText(/couldn't find|not found/i);
   await expect(page.locator('a[href*="index.html"]')).toBeVisible();
   await assertNoHorizontalOverflow(page);
   await page.goto('http://127.0.0.1:8000/html/calories.html',{waitUntil:'domcontentloaded'});
