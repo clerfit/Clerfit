@@ -3,7 +3,8 @@
 **Refreshed:** 2026-10-17  
 **Repository:** https://github.com/clerfit/Clerfit  
 **Audit work product:** COMPLETE for the source inventory, known automated evidence and prioritized findings  
-**Formal release/acceptance sign-off:** OPEN — do not treat the audit work product as production certification.
+**Automated source-level sign-off:** PASS on tested implementation snapshot `486f6c6613b5611d2bd365b1cc21e0e7fba743a3`.  
+**Manual/owner/expert release acceptance:** OPEN for the explicitly listed non-automated obligations; this is not a clinical or regulatory certification.
 
 ## Scope and inventory
 
