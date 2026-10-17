@@ -54,21 +54,38 @@
 </style>
 <script defer>
 function calculateLeanMass() {
-  let weight = parseFloat(document.getElementById('weight').value);
+  const result = document.getElementById('result');
+  const formula = document.getElementById('formula');
+  const rawWeight = Number(document.getElementById('weight').value);
   const unit = document.getElementById('weightUnit').value;
-  if (!weight || weight <=0) { alert("Enter valid weight"); return; }
-  if(unit==='lb') weight *= 0.453592;
+  const fat = Number(document.getElementById('fat').value);
 
-  let fat = parseFloat(document.getElementById('fat').value);
-  if(!Number.isFinite(fat) || fat<0 || fat>100) { alert("Enter valid body fat %"); return; }
+  result.textContent = '';
+  formula.textContent = '';
+  if (!Number.isFinite(rawWeight) || !Number.isFinite(fat) || rawWeight <= 0 || fat < 0 || fat > 100) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a positive weight and a body-fat percentage from 0 to 100.</p>';
+    return;
+  }
+  let weight = rawWeight;
+  if (unit === 'lb' || unit === 'lbs') weight *= 0.45359237;
+  else if (unit !== 'kg') {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose a supported weight unit (kg or lb).</p>';
+    return;
+  }
+  if (!Number.isFinite(weight) || weight < 0.1 || weight > 500) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check the weight value and unit; the converted weight must be from 0.1 to 500 kg.</p>';
+    return;
+  }
 
-  const leanMass = weight * (1 - fat/100);
+  const leanMass = weight * (1 - fat / 100);
   const leanPercent = (leanMass / weight) * 100;
+  if (!Number.isFinite(leanMass) || !Number.isFinite(leanPercent)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">The result could not be calculated from these values.</p>';
+    return;
+  }
 
-  // Display result
-  document.getElementById('result').innerHTML = `Lean Mass: ${leanMass.toFixed(2)} kg (${leanPercent.toFixed(1)}%)`;
-  document.getElementById('formula').innerHTML = `Formula: Weight × (1 - Body Fat %) = ${weight.toFixed(2)} × (1 - ${fat/100}) = ${leanMass.toFixed(2)} kg`;
-
+  result.innerHTML = `Lean Mass: ${leanMass.toFixed(2)} kg (${leanPercent.toFixed(1)}%)`;
+  formula.textContent = `Formula: Weight × (1 − Body Fat %) = ${weight.toFixed(2)} × (1 − ${fat / 100}) = ${leanMass.toFixed(2)} kg`;
   const container = document.querySelector('.bar-container');
   if (container) container.hidden = true;
 }
