@@ -141,7 +141,7 @@ The prompt lists 110 distinct calculator names across 11 categories (numbering s
 | Global metric/imperial unit preference persists | [x] implementation added/improved | `js/unit-system.js` converts recognized units and input bounds; test cases pass. Per-field coverage still needs auditing across all legacy forms. |
 | Advanced calculator inputs expose unit selectors | [x] 24 advanced forms | Added selectors and canonical conversion for measurements, mass and durations where applicable; smoke suite passes. |
 | Temperature, pace, speed, length, mass, energy and time conversion helpers | [x] shared utility | Conversion unit tests pass; calculator-specific integration across every legacy page remains pending. |
-| Field-specific numeric bounds and errors | [~] | Shared validation is unit-aware and fallback maximum reduced; all 238 static numeric fields plus runtime-generated controls still require domain-specific review. |
+| Field-specific numeric bounds and errors | [~] | Shared validation is unit-aware and fallback maximum reduced; all 242 static numeric fields plus runtime-generated controls still require domain-specific review. |
 | Formula explanations and educational sections | [~] | All 118 routes now have a formula/method summary and reference or explicit site-defined-method basis in the audit matrix; a few on-page education sections remain generic and should be reviewed separately. |
 | Face & Aesthetics manual measurement guidance | [~] | Specialist tooltip guidance and advanced metric explanations exist; landmarks/formulas require page-by-page review. |
 | BMI, BMI-for-age, BMI Change and BMI Comparison distinct | [~] | Separate routes exist; all result interpretations and calculations still need independent validation. |
@@ -180,7 +180,7 @@ Status meanings: `[x]` implementation/check verified by available evidence; `[~]
 - [x] Re-ran the regression suite and syntax checks after these changes.
 - [x] Source-inlined Chromium smoke testing exercised the current calculator/utility pages; live-host, real-device and full accessibility QA remain pending.
 - [x] Every one of the 118 routes has a formula/method summary, reference or explicit site-defined-method basis, and a passing known-answer/method regression vector in `FORMULA_REFERENCE_AUDIT.md` and `CALCULATOR_VERIFICATION_MATRIX.csv`.
-- [ ] Exhaustive semantic boundary combinations for all 238 static numeric fields plus runtime-generated controls remain open; structural min/max/step checks pass, but not every domain-specific extreme has been independently certified.
+- [ ] Exhaustive semantic boundary combinations for all 242 static numeric fields plus runtime-generated controls remain open; structural min/max/step checks pass, but not every domain-specific extreme has been independently certified.
 
 
 ## Added release requirements (2026-10-15)
@@ -224,7 +224,7 @@ The existing `html/mets.html` METs calculator was previously outside the central
 - [x] Re-ran `node tests/verify.js`, JavaScript syntax checks and the sitemap registry check; all passed.
 - [x] Route-level formula/method test coverage for all 118 registered calculators is complete; see `FORMULA_REFERENCE_AUDIT.md`.
 - [ ] Exhaustive edge-case boundary certification, real-device accessibility QA, and production parity remain open.
-- [ ] Domain-specific semantic review for all 238 static numeric fields plus runtime-generated controls remains open; static bounds and accessible names are not proof of scientifically appropriate ranges.
+- [ ] Domain-specific semantic review for all 242 static numeric fields plus runtime-generated controls remains open; static bounds and accessible names are not proof of scientifically appropriate ranges.
 - [ ] Live Formspree delivery and production-host verification remain blocked until the project is deployed and the endpoint is tested with consent.
 - [ ] Full real-device and screen-reader accessibility QA remains open.
 - [x] Replaced the heart-rate maximum estimate with the Tanaka adult equation, linked the primary study, and prevented adult prediction for users under 18.
