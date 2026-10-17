@@ -50,6 +50,14 @@ The live homepage was reachable during this pass and advertised 118 calculators 
 - **Still open:** Fresh full visual/browser/performance/network verification of the current commit. The browser environment used in this session blocks navigation, so live end-to-end interaction results cannot be asserted here.
 - **Still open:** Independent domain review is needed where formulas or thresholds materially affect health decisions. This project audit is not clinical, regulatory or professional engineering certification.
 
+## New audit artifacts and automated acceptance coverage
+
+Added `PHASE_1_CALCULATOR_INVENTORY.csv`, `PHASE_1_SIGNOFF_REGISTER.csv`, and `PHASE_1_FINDINGS_REGISTER.csv` with per-route mapping, historical evidence, prioritized issues and blockers. `PHASE_1_ROUTE_REGISTER_NOTES.md` identifies the provenance of those route-level records and explicitly cautions that branch-local PASS evidence is not the same as a fresh sign-off for the newest main SHA.
+
+Restored build/staging parity scripts and added a single source-check workflow that can run the formula suite, per-page regressions, staging/URL checks, 118-route Playwright interactions and all-page axe checks. This closes a prior automation/integration gap, but a workflow file being committed is not itself proof that its run passed. The latest run must be checked in GitHub Actions before releasing the source.
+
+The source fixes in this pass also include a keyboard focus/link contrast patch and a page-chrome accessibility enhancement that restores semantic main landmarks on legacy pages and supplies names for otherwise unnamed controls and links.
+
 ## Exit gate
 
 The audit work product is complete and prioritized. Formal Phase One acceptance remains **NOT APPROVED / OPEN** until current-revision browser tests, field-by-field semantic-bound review, comprehensive accessibility checks, production parity and real contact delivery have evidence or an explicit, accepted owner disposition. This is an evidence gate, not a statement that the current implementation is unusable.
