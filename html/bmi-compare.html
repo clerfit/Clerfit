@@ -247,91 +247,58 @@
   }
 
   function compareBMI() {
-    const hA = Number(document.getElementById("heightA").value.trim());
-    const wA = Number(document.getElementById("weightA").value.trim());
-
-    const hB = Number(document.getElementById("heightB").value.trim());
-    const wB = Number(document.getElementById("weightB").value.trim());
-
+    const out = document.getElementById("bmiCompareResult");
+    const raw = ["heightA", "weightA", "heightB", "weightB"].map(id => {
+      const el = document.getElementById(id);
+      return el.value.trim() === "" ? NaN : Number(el.value);
+    });
+    const [hA, wA, hB, wB] = raw;
     const hUnitA = document.getElementById("heightUnitA").value;
     const wUnitA = document.getElementById("weightUnitA").value;
-
     const hUnitB = document.getElementById("heightUnitB").value;
     const wUnitB = document.getElementById("weightUnitB").value;
 
-    const out = document.getElementById("bmiCompareResult");
-
-    // Validation
-    if (!hA || !wA || !hB || !wB) {
-      out.innerHTML =
-        "Please enter height and weight for both people.";
+    out.textContent = "";
+    if (!raw.every(Number.isFinite) || raw.some(value => value <= 0)) {
+      out.innerHTML = '<p class="cf-validation-message" role="alert">Enter positive numeric height and weight values for both people.</p>';
       return;
     }
 
-    if (
-      hA <= 0 || wA <= 0 ||
-      hB <= 0 || wB <= 0
-    ) {
-      out.innerHTML =
-        "Height and weight must be greater than zero.";
+    const validHeightUnits = ["cm", "m", "ft", "in", "inch"];
+    const validWeightUnits = ["kg", "g", "lb", "lbs", "oz"];
+    if (![hUnitA, hUnitB].every(unit => validHeightUnits.includes(unit)) ||
+        ![wUnitA, wUnitB].every(unit => validWeightUnits.includes(unit))) {
+      out.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported height and weight units for both people.</p>';
       return;
     }
 
-    // Convert units
     const mA = convertHeightToMeters(hA, hUnitA);
     const kgA = convertWeightToKg(wA, wUnitA);
-
     const mB = convertHeightToMeters(hB, hUnitB);
     const kgB = convertWeightToKg(wB, wUnitB);
-
-    // BMI calculations
-    const bmiA = kgA / (mA * mA);
-    const bmiB = kgB / (mB * mB);
-
-    // Difference
-    const diff = Math.abs(bmiA - bmiB);
-
-    // Categories
-    const catA = bmiCategory(bmiA);
-    const catB = bmiCategory(bmiB);
-
-    // Comparison message
-    let higher;
-
-    if (bmiA > bmiB) {
-      higher = "Person A has the higher BMI.";
-    } else if (bmiB > bmiA) {
-      higher = "Person B has the higher BMI.";
-    } else {
-      higher = "Both BMIs are equal.";
+    if (![mA, kgA, mB, kgB].every(Number.isFinite) ||
+        mA < 0.5 || mA > 2.74 || mB < 0.5 || mB > 2.74 ||
+        kgA < 2 || kgA > 500 || kgB < 2 || kgB > 500) {
+      out.innerHTML = '<p class="cf-validation-message" role="alert">Check converted measurements. Each height must be 0.5–2.74 m and each weight 2–500 kg.</p>';
+      return;
     }
 
-    // Clean formatting
-    const shownA = parseFloat(bmiA.toFixed(1));
-    const shownB = parseFloat(bmiB.toFixed(1));
-    const shownDiff = parseFloat(diff.toFixed(1));
+    const bmiA = kgA / (mA * mA);
+    const bmiB = kgB / (mB * mB);
+    const diff = Math.abs(bmiA - bmiB);
+    if (![bmiA, bmiB, diff].every(Number.isFinite)) {
+      out.innerHTML = '<p class="cf-validation-message" role="alert">A valid comparison could not be calculated from these values.</p>';
+      return;
+    }
 
-    out.innerHTML = `
-      <b>Person A:</b>
-      BMI <b>${shownA}</b> (${catA})
-      <br>
+    const catA = bmiCategory(bmiA);
+    const catB = bmiCategory(bmiB);
+    const higher = bmiA > bmiB ? "Person A has the higher BMI." : bmiB > bmiA ? "Person B has the higher BMI." : "Both BMIs are equal.";
+    const shownA = Number(bmiA.toFixed(1));
+    const shownB = Number(bmiB.toFixed(1));
+    const shownDiff = Number(diff.toFixed(1));
 
-      <b>Person B:</b>
-      BMI <b>${shownB}</b> (${catB})
-      <br><br>
-
-      <b>Difference:</b>
-      <b>${shownDiff}</b> BMI points
-      <br>
-
-      <i>${higher}</i>
-
-      <br><br>
-
-      <small>
-        BMI is a general health indicator and not a complete medical diagnosis.
-      </small>
-    `;
+    out.innerHTML = `<b>Person A:</b> BMI <b>${shownA}</b> (${catA})<br><b>Person B:</b> BMI <b>${shownB}</b> (${catB})<br><br><b>Difference:</b> <b>${shownDiff}</b> BMI points<br><i>${higher}</i><br><br><small>BMI is a general health indicator and not a complete medical diagnosis. Interpretation for people under 20 requires age- and sex-specific BMI-for-age charts; this comparison does not apply pediatric categories.</small>`;
   }
 </script>
 
