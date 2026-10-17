@@ -74,31 +74,45 @@ table th {
 </style>
 <script>
 function calculatePI() {
-  // Get weight
-  let weight = parseFloat(document.getElementById("weight").value);
+  const result = document.getElementById("result");
+  const formula = document.getElementById("formula");
+  let weight = Number(document.getElementById("weight").value);
   const weightUnit = document.getElementById("weightUnit").value;
-  if(weightUnit === "lb") weight = weight * 0.453592; // lb to kg
-
-  // Get height
-  let height = parseFloat(document.getElementById("height").value);
+  let height = Number(document.getElementById("height").value);
   const heightUnit = document.getElementById("heightUnit").value;
-  if(heightUnit === "cm") height = height / 100; // cm to m
-  if(heightUnit === "inch") height = height * 0.0254; // inch to m
-  if(heightUnit === "ft") height = height * 0.3048; // ft to m
 
-  // Ponderal Index formula: PI = weight / height^3
-  const PI = +(weight / (height*height*height)).toFixed(2);
+  if (!Number.isFinite(weight) || weight <= 0 || !Number.isFinite(height) || height <= 0) {
+    result.textContent = "Enter valid positive weight and height values before calculating.";
+    formula.textContent = "";
+    return;
+  }
 
-  document.getElementById("result").innerHTML =
-    `<strong>Ponderal Index:</strong> ${PI}`;
+  if (weightUnit === "lb") weight *= 0.45359237;
+  if (heightUnit === "cm") height /= 100;
+  else if (heightUnit === "inch") height *= 0.0254;
+  else if (heightUnit === "ft") height *= 0.3048;
+  // The selected unit values are converted exactly once to canonical kg and m.
+  if (!Number.isFinite(weight) || weight < 1 || weight > 500 ||
+      !Number.isFinite(height) || height < 0.5 || height > 2.5) {
+    result.textContent = "Enter a weight between 1 and 500 kg and a height between 50 and 250 cm equivalent.";
+    formula.textContent = "";
+    return;
+  }
 
-  // Formula
-  document.getElementById("formula").innerHTML =
-    `Formula: PI = Weight (kg) / Height (m)^3 = ${weight} / (${height.toFixed(2)})^3 = ${PI}`;
+  // Ponderal Index = mass (kg) / height (m)^3. No universal health category is implied.
+  const PI = weight / (height ** 3);
+  if (!Number.isFinite(PI)) {
+    result.textContent = "These values cannot produce a finite ponderal index. Check the selected units.";
+    formula.textContent = "";
+    return;
+  }
+  const shown = PI.toFixed(2);
+  result.innerHTML = `<strong>Ponderal Index:</strong> ${shown}`;
+  formula.textContent = `Formula: PI = Weight (kg) ÷ Height (m)³ = ${weight.toFixed(3)} ÷ (${height.toFixed(4)})³ = ${shown}`;
 
   const barContainer = document.querySelector('.bar-container');
   if (barContainer) barContainer.hidden = true;
-  document.getElementById("result").innerHTML += `<p class="cf-note">Ponderal Index is a descriptive height-adjusted mass index. These values are not assigned universal underweight/normal/overweight/obesity categories by this calculator.</p>`;
+  result.innerHTML += `<p class="cf-note">Ponderal Index is a descriptive height-adjusted mass index. These values are not assigned universal underweight/normal/overweight/obesity categories by this calculator.</p>`;
 }
 </script>
 
