@@ -174,31 +174,47 @@ function convertHeightToMeters(value, unit){
 }
 
 function calculateBMIChange(){
-  const currentWeight = parseFloat(document.getElementById("currentWeightBMI").value);
-  const goalWeight = parseFloat(document.getElementById("goalWeightBMI").value);
+  const result = document.getElementById("bmiResult");
+  const currentWeight = Number(document.getElementById("currentWeightBMI").value);
+  const goalWeight = Number(document.getElementById("goalWeightBMI").value);
   const weightUnit = document.getElementById("weightUnitBMI").value;
-  const height = parseFloat(document.getElementById("heightBMI").value);
+  const height = Number(document.getElementById("heightBMI").value);
   const heightUnit = document.getElementById("heightUnitBMI").value;
 
-  if(!Number.isFinite(currentWeight) || currentWeight <= 0 || !Number.isFinite(goalWeight) || goalWeight <= 0 || !Number.isFinite(height) || height <= 0){
-    alert("Enter positive, valid current weight, goal weight and height values.");
+  result.textContent = "";
+  if (![currentWeight, goalWeight, height].every(Number.isFinite) ||
+      currentWeight <= 0 || goalWeight <= 0 || height <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter positive current weight, goal weight and height values.</p>';
     return;
   }
 
-  const weightKgCurrent = convertWeightToKg(currentWeight, weightUnit);
-  const weightKgGoal = convertWeightToKg(goalWeight, weightUnit);
-  const heightMeters = convertHeightToMeters(height, heightUnit);
+  const weightFactors = { kg: 1, lb: 0.45359237, lbs: 0.45359237 };
+  const heightFactors = { cm: 0.01, m: 1, in: 0.0254, inch: 0.0254, ft: 0.3048 };
+  const normalizedWeightUnit = String(weightUnit).toLowerCase();
+  const normalizedHeightUnit = String(heightUnit).toLowerCase();
+  if (!(normalizedWeightUnit in weightFactors) || !(normalizedHeightUnit in heightFactors)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported weight and height units.</p>';
+    return;
+  }
+  const weightKgCurrent = currentWeight * weightFactors[normalizedWeightUnit];
+  const weightKgGoal = goalWeight * weightFactors[normalizedWeightUnit];
+  const heightMeters = height * heightFactors[normalizedHeightUnit];
+  if (![weightKgCurrent, weightKgGoal, heightMeters].every(Number.isFinite) ||
+      weightKgCurrent < 2 || weightKgCurrent > 500 || weightKgGoal < 2 || weightKgGoal > 500 ||
+      heightMeters < 0.5 || heightMeters > 2.74) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check the measurements. Converted weights must be 2–500 kg and height 0.5–2.74 m.</p>';
+    return;
+  }
 
   const currentBMI = weightKgCurrent / (heightMeters * heightMeters);
   const goalBMI = weightKgGoal / (heightMeters * heightMeters);
   const bmiChange = goalBMI - currentBMI;
+  if (![currentBMI, goalBMI, bmiChange].every(Number.isFinite)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">The BMI change could not be calculated from these values.</p>';
+    return;
+  }
 
-  document.getElementById("bmiResult").innerHTML = `
-    <b>Current BMI:</b> ${currentBMI.toFixed(2)}<br>
-    <b>Goal BMI:</b> ${goalBMI.toFixed(2)}<br>
-    <b>BMI Change (goal − current):</b> ${bmiChange.toFixed(2)}<br>
-    <span class="cf-note">BMI is a screening measure. Interpretation depends on age and context; this tool does not diagnose health status.</span>
-  `;
+  result.innerHTML = `<b>Current BMI:</b> ${currentBMI.toFixed(2)}<br><b>Goal BMI:</b> ${goalBMI.toFixed(2)}<br><b>BMI Change (goal − current):</b> ${bmiChange.toFixed(2)}<br><span class="cf-note">BMI is a screening measure. Interpretation depends on age and context; this tool does not diagnose health status.</span>`;
 }
 
 </script>
