@@ -258,6 +258,41 @@ async function runRoute(browser, route) {
         }
       };
     });
+    // Keyboard regression on every registered calculator page: menu opens on Enter,
+    // Escape closes it, aria state is restored, and focus returns to the trigger.
+    const keyboardTrigger = page.locator('.cf-menu-toggle').first();
+    if (!(await keyboardTrigger.count())) throw new Error('Keyboard navigation menu trigger is missing.');
+    await keyboardTrigger.focus();
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(100);
+    const menuOpenState = await page.evaluate(() => {
+      const button = document.querySelector('.cf-menu-toggle');
+      const side = document.querySelector('.sidebar');
+      return {
+        expanded: button && button.getAttribute('aria-expanded') === 'true',
+        open: !!side && side.classList.contains('cf-open'),
+        exposed: !!side && side.getAttribute('aria-hidden') === 'false',
+        closeButtonFocused: !!side && side.contains(document.activeElement)
+      };
+    });
+    if (!menuOpenState.expanded || !menuOpenState.open || !menuOpenState.exposed || !menuOpenState.closeButtonFocused) {
+      throw new Error('Keyboard Enter did not open and focus the calculator menu: ' + JSON.stringify(menuOpenState));
+    }
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(60);
+    const menuCloseState = await page.evaluate(() => {
+      const button = document.querySelector('.cf-menu-toggle');
+      const side = document.querySelector('.sidebar');
+      return {
+        expanded: !!button && button.getAttribute('aria-expanded') === 'true',
+        open: !!side && side.classList.contains('cf-open'),
+        hidden: !!side && side.getAttribute('aria-hidden') === 'true',
+        focusReturned: document.activeElement === button
+      };
+    });
+    if (menuCloseState.expanded || menuCloseState.open || !menuCloseState.hidden || !menuCloseState.focusReturned) {
+      throw new Error('Keyboard Escape did not close the calculator menu and restore focus: ' + JSON.stringify(menuCloseState));
+    }
     bodyOverflow = await page.evaluate(()=>document.documentElement.scrollWidth > window.innerWidth + 1);
     loaded=true;
   } catch (error) {
