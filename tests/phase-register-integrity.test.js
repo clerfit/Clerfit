@@ -82,10 +82,10 @@ for (const field of ['file', 'id', 'min', 'max', 'step']) {
 }
 const fieldAuditData = new Map(fieldAuditRows.slice(1).map(row => [row[fieldAuditHeader.indexOf('file')] + '|' + row[fieldAuditHeader.indexOf('id')], row]));
 const verifiedBoundsData = new Map(verifiedBoundsRows.slice(1).map(row => [row[verifiedBoundsHeader.indexOf('file')] + '|' + row[verifiedBoundsHeader.indexOf('id')], row]));
-assert.equal(fieldAuditRows.length - 1, 238, 'field validation audit must contain 238 static numeric fields');
-assert.equal(verifiedBoundsRows.length - 1, 238, 'verified boundary inventory must contain 238 static numeric fields');
-assert.equal(fieldAuditData.size, 238, 'field audit must not duplicate file/id records');
-assert.equal(verifiedBoundsData.size, 238, 'boundary inventory must not duplicate file/id records');
+assert.equal(fieldAuditRows.length - 1, 238, 'field validation audit must contain 242 static numeric fields');
+assert.equal(verifiedBoundsRows.length - 1, 238, 'verified boundary inventory must contain 242 static numeric fields');
+assert.equal(fieldAuditData.size, 242, 'field audit must not duplicate file/id records');
+assert.equal(verifiedBoundsData.size, 242, 'boundary inventory must not duplicate file/id records');
 let sourceNumericFieldCount = 0;
 for (const file of fs.readdirSync(path.join(root, 'html')).filter(name => name.toLowerCase().endsWith('.html'))) {
   const relative = 'html/' + file;
@@ -107,7 +107,7 @@ for (const file of fs.readdirSync(path.join(root, 'html')).filter(name => name.t
     }
   }
 }
-assert.equal(sourceNumericFieldCount, 238, 'static HTML numeric input count must match field inventories');
+assert.equal(sourceNumericFieldCount, 242, 'static HTML numeric input count must match field inventories');
 
 const sitemapText = read('sitemap.xml');
 const sitemapUrls = [...sitemapText.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(match => match[1].trim());
