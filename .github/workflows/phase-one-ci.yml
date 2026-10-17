@@ -19,6 +19,12 @@ on:
       - 'sitemap.xml'
       - 'robots.txt'
       - '.github/workflows/phase-one-ci.yml'
+      - 'PHASE_*.md'
+      - 'PHASE_*.csv'
+      - 'RELEASE_PROGRESS.md'
+      - 'INPUT_BOUNDARY_*.csv'
+      - 'FIELD_VALIDATION_AUDIT.csv'
+      - 'NUMERIC_BOUNDARY_BROWSER_AUDIT.json'
   pull_request:
     branches: [main]
     paths:
@@ -37,6 +43,12 @@ on:
       - 'sitemap.xml'
       - 'robots.txt'
       - '.github/workflows/phase-one-ci.yml'
+      - 'PHASE_*.md'
+      - 'PHASE_*.csv'
+      - 'RELEASE_PROGRESS.md'
+      - 'INPUT_BOUNDARY_*.csv'
+      - 'FIELD_VALIDATION_AUDIT.csv'
+      - 'NUMERIC_BOUNDARY_BROWSER_AUDIT.json'
   workflow_dispatch:
 
 permissions:
