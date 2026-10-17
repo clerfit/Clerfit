@@ -1061,3 +1061,17 @@ body .cf-table-scroll td:before {
     outline: 2px solid LinkText !important;
   }
 }
+
+
+/* Phase 2 responsive hardening: keep the homepage header and hero inside narrow viewports. */
+@media (max-width: 380px) {
+  body:has(.cf-home) { overflow-x: clip; }
+  .cf-home { width: 100%; min-width: 0; padding-left: 12px !important; padding-right: 12px !important; }
+  .cf-home-top { min-width: 0; flex-wrap: wrap; align-items: flex-start; gap: 10px; }
+  .cf-wordmark { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+  .cf-top-actions { min-width: 0; width: 100%; max-width: 100%; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+  .cf-top-tag { display: none; }
+  .cf-home-hero, .cf-home-hero > *, .cf-hero-content, .cf-hero-art { min-width: 0; max-width: 100%; }
+  .cf-home-hero { padding: 18px !important; }
+  .cf-hero-stats { flex-wrap: wrap; gap: 8px; }
+}

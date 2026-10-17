@@ -41,7 +41,7 @@
     const homeLink = nav.querySelector('a[href*="index.html"], a[href="./"], a[href="../"]');
     const contactLink = nav.querySelector('a[href*="contact.html"]');
     if (homeLink) homeLink.classList.add("cf-page-home");
-    if (contactLink) contactLink.classList.add("cf-page-contact");
+    if (contactLink) { contactLink.classList.add("cf-page-contact"); contactLink.setAttribute("aria-label", "Contact Us at ClerFit"); }
     placeInHeader(nav);
     ensureAccessibleLandmarksAndLinks();
   };
