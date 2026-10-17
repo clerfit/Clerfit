@@ -9,53 +9,92 @@
   <meta charset="UTF-8">
   <title>ClerFit – Waist-to-Height Ratio Calculator</title>
   <meta name="description" content="Use the ClerFit Waist-to-Height Ratio Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
-
-
-<meta charset="UTF-8">
-  <!-- Google tag (gtag.js) -->
-
-
-  <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+<link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
   <script>
-
-    // ===== Unit Conversion =====
     function convertToCm(value, unit) {
-      switch(unit) {
+      switch (String(unit).toLowerCase()) {
+        case "cm": return value;
         case "m": return value * 100;
         case "in": return value * 2.54;
         case "ft": return value * 30.48;
-        default: return value;
+        default: return NaN;
       }
     }
-
-    // WHtR is reported descriptively; no universal risk category is assigned.
+    function clearWHtROutput() {
+      const result = document.getElementById("result");
+      const formula = document.getElementById("formula");
+      if (result) result.textContent = "";
+      if (formula) formula.textContent = "";
+    }
+    function syncWHtRBounds() {
+      const ranges = {
+        waist: { cm: [20,250], m: [0.2,2.5], in: [7.87401575,98.42519685], ft: [0.65616798,8.20209974] },
+        height: { cm: [50,250], m: [0.5,2.5], in: [19.68503937,98.42519685], ft: [1.64041995,8.20209974] }
+      };
+      for (const id of ["waist","height"]) {
+        const field = document.getElementById(id);
+        const unit = document.getElementById(id + "Unit").value;
+        field.min = String(ranges[id][unit][0]);
+        field.max = String(ranges[id][unit][1]);
+      }
+    }
     function moveIndicatorWHtR() {
       const container = document.querySelector(".bar-container");
       if (container) container.hidden = true;
     }
-
     function calculateWHtR() {
-      const waistVal = Number(document.getElementById("waist").value);
+      const waistText = document.getElementById("waist").value.trim();
+      const heightText = document.getElementById("height").value.trim();
+      const waistVal = waistText === "" ? NaN : Number(waistText);
+      const heightVal = heightText === "" ? NaN : Number(heightText);
       const waistUnit = document.getElementById("waistUnit").value;
-      const heightVal = Number(document.getElementById("height").value);
       const heightUnit = document.getElementById("heightUnit").value;
       const result = document.getElementById("result");
+      const formula = document.getElementById("formula");
+      clearWHtROutput();
       if (!Number.isFinite(waistVal) || !Number.isFinite(heightVal) || waistVal <= 0 || heightVal <= 0) {
-        result.textContent = "Enter positive, valid waist and height values.";
+        result.innerHTML = '<p class="cf-validation-message" role="alert">Enter valid positive waist and height measurements.</p>';
         return;
       }
       const waistCm = convertToCm(waistVal, waistUnit);
       const heightCm = convertToCm(heightVal, heightUnit);
-      if (!Number.isFinite(waistCm) || !Number.isFinite(heightCm) || waistCm < 20 || waistCm > 250 || heightCm < 50 || heightCm > 250) {
-        result.textContent = "Check the selected units and measurements.";
+      if (!Number.isFinite(waistCm) || !Number.isFinite(heightCm)) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported units for waist and height.</p>';
+        return;
+      }
+      if (waistCm < 20 || waistCm > 250 || heightCm < 50 || heightCm > 250) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">Check that waist is 20–250 cm and height is 50–250 cm after unit conversion.</p>';
         return;
       }
       const ratio = waistCm / heightCm;
-      result.innerHTML = `Waist-to-height ratio: <strong>${ratio.toFixed(3)}</strong><p class="cf-note">A common adult rule of thumb is to keep waist circumference below half of height. This is not a diagnosis and should not be applied automatically to children or teenagers.</p>`;
-      document.getElementById("formula").textContent = `Formula: waist circumference (${waistCm.toFixed(1)} cm) ÷ height (${heightCm.toFixed(1)} cm) = ${ratio.toFixed(3)}.`;
+      if (!Number.isFinite(ratio) || ratio <= 0) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">The ratio could not be calculated from these measurements.</p>';
+        return;
+      }
+      result.innerHTML = `<strong>Waist-to-height ratio: ${ratio.toFixed(3)}</strong><p class="cf-note">A common adult rule of thumb is to keep waist circumference below half of height. This is not a diagnosis and should not be applied automatically to children or teenagers.</p>`;
+      formula.textContent = `Formula: waist circumference (${waistCm.toFixed(1)} cm) ÷ height (${heightCm.toFixed(1)} cm) = ${ratio.toFixed(3)}.`;
       moveIndicatorWHtR();
     }
-
+    function resetWHtR() {
+      for (const [id,value] of Object.entries({waist:"",waistUnit:"cm",height:"",heightUnit:"cm"})) {
+        const field = document.getElementById(id);
+        field.value = value;
+        field.removeAttribute("aria-invalid");
+      }
+      document.querySelectorAll(".clerfit-input-error").forEach(node => node.remove());
+      clearWHtROutput();
+      syncWHtRBounds();
+      document.getElementById("waist").focus();
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      syncWHtRBounds();
+      ["waistUnit","heightUnit"].forEach(id => {
+        document.getElementById(id).addEventListener("change", () => {
+          if (typeof queueMicrotask === "function") queueMicrotask(syncWHtRBounds);
+          else Promise.resolve().then(syncWHtRBounds);
+        });
+      });
+    }, { once: true });
   </script>
 
   <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/wht.html">
@@ -126,9 +165,9 @@
     <div class="row">
       <div class="col">
         <label for="waist">Waist Circumference</label>
-        <input type="number" id="waist" placeholder="Enter waist" min="0.1" max="300" step="any" aria-label="Enter waist">
+        <input type="number" id="waist" placeholder="Enter waist" min="20" max="250" step="any" oninput="clearWHtROutput()">
         <label for="waistUnit">Unit</label>
-        <select id="waistUnit" aria-label="Waist unit">
+        <select id="waistUnit" aria-label="Waist unit" onchange="clearWHtROutput()">
           <option value="cm" selected>cm</option>
           <option value="m">m</option>
           <option value="in">in</option>
@@ -138,9 +177,9 @@
 
       <div class="col">
         <label for="height">Height</label>
-        <input type="number" id="height" placeholder="Enter height" min="30" max="300" step="any" aria-label="Enter height">
+        <input type="number" id="height" placeholder="Enter height" min="50" max="250" step="any" oninput="clearWHtROutput()">
         <label for="heightUnit">Unit</label>
-        <select id="heightUnit" aria-label="Height unit">
+        <select id="heightUnit" aria-label="Height unit" onchange="clearWHtROutput()">
           <option value="cm" selected>cm</option>
           <option value="m">m</option>
           <option value="in">in</option>
@@ -149,20 +188,17 @@
       </div>
     </div>
 
-    <button class="calculate-btn" onclick="calculateWHtR()">Calculate WHtR</button>
+    <div class="cf-form-actions"><button class="calculate-btn" type="button" onclick="calculateWHtR()">Calculate WHtR</button><button class="cf-reset-btn" type="button" onclick="resetWHtR()">Reset</button></div>
 
-    <div class="result" id="result"></div>
+    <div class="result" id="result" role="status" aria-live="polite" aria-atomic="true"></div>
 
-    <div class="bar-container">
+    <div class="bar-container" hidden aria-hidden="true">
       <div class="bar">
         <div class="indicator" id="indicator"></div>
       </div>
-      <small>
-        Blue: Underfat | Green: Healthy | Orange: Overweight Risk | Red: High Risk
-      </small>
-    </div>
+</div>
 
-    <div id="formula" style="margin-top:15px;"></div>
+    <div id="formula" class="result" style="margin-top:15px;" aria-live="polite" aria-atomic="true"></div>
 
     <p class="cf-warning">WHtR is a screening ratio, not a diagnosis. Thresholds and interpretation depend on age, population and clinical context. The common “waist less than half your height” rule is an adult rule of thumb, not a universal category system.</p>
   </div>
@@ -184,7 +220,7 @@
     </ul>
 
     <h2>Health Guideline</h2>
-    <p><strong>Keep your waist circumference less than half your height.</strong></p>
+    <p><strong>For adults, waist circumference below half of height is a commonly used rule of thumb, not a diagnosis or a universal category system.</strong></p>
   </div>
 
 </div>
