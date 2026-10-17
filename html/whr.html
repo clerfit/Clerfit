@@ -225,8 +225,9 @@ function calculateWHR() {
       default: return NaN;
     }
   };
-  const waistM = toMetres(rawWaist, waistUnit);
-  const hipM = toMetres(rawHip, hipUnit);
+  // Normalize floating-point conversion noise so exact supported endpoints remain valid.
+  const waistM = Math.round(toMetres(rawWaist, waistUnit) * 1e12) / 1e12;
+  const hipM = Math.round(toMetres(rawHip, hipUnit) * 1e12) / 1e12;
   if (![waistM, hipM].every(value => Number.isFinite(value) && value > 0)) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported units for both measurements.</p>';
     return;

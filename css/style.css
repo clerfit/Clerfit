@@ -649,7 +649,7 @@ body{overflow-x:hidden}
 body{background:linear-gradient(135deg,#f4f8fc 0%,#edf5f7 55%,#f6f8fc 100%);color:var(--cf-ink)}
 .cf-home-hero{background:radial-gradient(circle at 88% 15%,#1d9d9260,transparent 30%),linear-gradient(125deg,#10243a 0%,#183c58 58%,#126d70 100%)!important;box-shadow:0 20px 50px #17324b22;border:1px solid #ffffff14}
 .cf-eyebrow{color:#a8f0df!important}.cf-home-hero h1 span{color:#81e4d2!important}
-.cf-home .cf-kicker{color:#0f8f83!important}
+.cf-home .cf-kicker{color:#08766e!important}
 .cf-category-card,.cf-feature-card,.cf-directory-card{border-color:#dce7ef!important;box-shadow:0 5px 18px #16324b08!important}
 .cf-category-card:hover,.cf-feature-card:hover,.cf-directory-card:hover{border-color:#83d7c8!important;box-shadow:0 12px 26px #0f766e16!important}
 .cf-category-symbol,.cf-directory-icon{background:#e0f7f2!important;color:#087f75!important}
@@ -1075,3 +1075,5 @@ body .cf-table-scroll td:before {
   .cf-home-hero { padding: 18px !important; }
   .cf-hero-stats { flex-wrap: wrap; gap: 8px; }
 }
+
+@media (max-width: 380px) { .cf-home-hero { overflow: hidden !important; } .cf-hero-art { overflow: hidden; } }
