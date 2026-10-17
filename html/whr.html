@@ -229,7 +229,11 @@ function calculateWHR() {
   // exact displayed endpoints due to floating-point metre conversion noise.
   const waistCm = toCentimetres(rawWaist, waistUnit);
   const hipCm = toCentimetres(rawHip, hipUnit);
-  if (![waistCm, hipCm].every(value => Number.isFinite(value) && value >= 20 - 1e-7 && value <= 300 + 1e-7)) {
+  if (![waistCm, hipCm].every(Number.isFinite)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported units for both measurements.</p>';
+    return;
+  }
+  if (![waistCm, hipCm].every(value => value >= 20 - 1e-7 && value <= 300 + 1e-7)) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">Check that both circumference measurements are plausible (at least 20 cm and no more than 300 cm after conversion).</p>';
     return;
   }
