@@ -63,7 +63,7 @@
     }
     if(!document.querySelector('.clerfit-page-header')){
       const header=document.createElement('header'); header.className='clerfit-page-header';
-      header.innerHTML=`<a class="clerfit-page-logo" href="${home}" aria-label="ClerFit Health & Performance home"><img src="${logo}" alt="ClerFit logo"><span><strong>ClerFit</strong><small>HEALTH &amp; PERFORMANCE</small></span></a>`;
+      header.innerHTML=`<a class="clerfit-page-logo" href="${home}" aria-label="ClerFit Health & Performance home"><img src="${logo}" alt="ClerFit logo"><span><strong>ClerFit</strong> <small>HEALTH &amp; PERFORMANCE</small></span></a>`;
       // insertBefore requires a direct child; a nested breadcrumb is not a valid reference node.
       const first=Array.from(main.children).find(el=>el.classList&&el.classList.contains('cf-breadcrumb'))||main.firstElementChild;
       if(first) main.insertBefore(header,first); else main.prepend(header);
