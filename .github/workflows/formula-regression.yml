@@ -88,4 +88,4 @@ jobs:
           cat /tmp/clerfit-http.log
           exit 1
       - name: Test BMI page interactions, responsive layout and accessibility
-        run: npx playwright test tests/bmi-page.browser.spec.js tests/bodyfat-page.browser.spec.js tests/leanmass-page.browser.spec.js tests/fatmass-page.browser.spec.js tests/ffmi-page.browser.spec.js tests/bsa-page.browser.spec.js tests/whr-page.browser.spec.js tests/wht-page.browser.spec.js tests/waist-height-risk.browser.spec.js tests/all-calculator-pages.browser.spec.js --workers=4 --global-timeout=300000 --reporter=list
+        run: npx playwright test tests/bmi-page.browser.spec.js tests/bodyfat-page.browser.spec.js tests/leanmass-page.browser.spec.js tests/fatmass-page.browser.spec.js tests/ffmi-page.browser.spec.js tests/bsa-page.browser.spec.js tests/whr-page.browser.spec.js tests/wht-page.browser.spec.js tests/waist-height-risk.browser.spec.js tests/all-calculator-pages.browser.spec.js tests/public-pages.browser.spec.js --workers=4 --global-timeout=300000 --reporter=list
