@@ -228,4 +228,148 @@ engineContext.calculateVO2();
 assert.match(engineOutput('result'), /42\.4 ml\/kg\/min/);
 checks++;
 
+
+/* Regression checks for the R3 hardening fixes. These checks inspect the exact
+   deployed page source and run the page's inline function against minimal DOM stubs. */
+function runPageFunction(file, functionName, values, resultIds) {
+  const html = read('html/' + file);
+  const match = html.match(/<script(?:\\s[^>]*)?>([\\s\\S]*?)<\\/script>/i);
+  assert.ok(match, file + ' has an inline calculator script');
+  const elements = new Map();
+  const makeEl = id => {
+    if (!elements.has(id)) elements.set(id, {
+      id, value: '', textContent: '', innerHTML: '', hidden: false, style: {},
+      parentElement: null, title: '',
+      removeAttribute(name) { if (name === 'title') this.title = ''; }
+    });
+    return elements.get(id);
+  };
+  Object.entries(values).forEach(([id, value]) => { makeEl(id).value = String(value); });
+  resultIds.forEach(makeEl);
+  const document = {
+    getElementById: makeEl,
+    querySelector: selector => selector === '.bar-container' ? makeEl('__bar') : null
+  };
+  const context = vm.createContext({ document, console, Number, Math, alert: () => {} });
+  vm.runInContext(match[1], context, { filename: 'html/' + file, timeout: 3000 });
+  assert.equal(typeof context[functionName], 'function', file + ' exports ' + functionName);
+  context[functionName]();
+  return { context, elements, output: id => makeEl(id).textContent + makeEl(id).innerHTML };
+}
+
+// Empty and impossible inputs must never leave non-finite outputs.
+let pageTest = runPageFunction('rfm.html', 'calculateRFM', {
+  gender: 'male', height: '', heightUnit: 'cm', waist: '', waistUnit: 'cm'
+}, ['result']);
+assert.match(pageTest.output('result'), /valid height and waist/i);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('absi.html', 'calculateABSI', {
+  waist: 85, waistUnit: 'nonsense', height: 175, heightUnit: 'cm', weight: 70
+}, ['result']);
+assert.match(pageTest.output('result'), /supported length units/i);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('whr.html', 'calculateWHR', {
+  waist: 85, waistUnit: 'mystery', hip: 100, hipUnit: 'cm'
+}, ['result', 'formula']);
+assert.match(pageTest.output('result'), /supported units/i);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('BMI.html', 'calculateBMI', {
+  weight: 1000000, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 30, gender: 'male'
+}, ['result', 'indicator']);
+assert.match(pageTest.output('result'), /Check the measurements and units/i);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('BMI.html', 'calculateBMI', {
+  weight: 70, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 16, gender: 'male'
+}, ['result', 'indicator']);
+assert.match(pageTest.output('result'), /Age-specific interpretation required/i);
+assert.doesNotMatch(pageTest.output('result'), /Normal|Underweight|Overweight|Obese/);
+checks++;
+
+pageTest = runPageFunction('fatmass.html', 'calculateFatMass', {
+  weight: 80, weightUnit: 'kg', fat: 15
+}, ['result', 'formula', 'indicator']);
+assert.match(pageTest.output('result'), /12\\.00 kg/);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('leanmass.html', 'calculateLeanMass', {
+  weight: 80, weightUnit: 'kg', fat: 15
+}, ['result', 'formula']);
+assert.match(pageTest.output('result'), /68\\.00 kg/);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('ffmi.html', 'calculateFFMI', {
+  height: 70.8661417323, heightUnit: 'inch', weight: 80, weightUnit: 'kg', fat: 15
+}, ['result']);
+assert.match(pageTest.output('result'), /FFMI: 20\\.99/);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('1rm.html', 'calculate1RM', {
+  liftWeight: 100, weightUnit1RM: 'kg', reps: 5, formula: 'epley'
+}, ['oneRMResult']);
+assert.match(pageTest.output('oneRMResult'), /Estimated 1RM:[\\s\\S]*116\\.67 kg/);
+assert.doesNotMatch(pageTest.output('oneRMResult'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('bmi-change.html', 'calculateBMIChange', {
+  currentWeightBMI: 70, goalWeightBMI: 75, weightUnitBMI: 'kg', heightBMI: 175, heightUnitBMI: 'cm'
+}, ['bmiResult']);
+assert.match(pageTest.output('bmiResult'), /Current BMI:[\\s\\S]*Goal BMI:/);
+assert.doesNotMatch(pageTest.output('bmiResult'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('bmi-compare.html', 'compareBMI', {
+  heightA: 175, weightA: 70, heightUnitA: 'cm', weightUnitA: 'kg',
+  heightB: 168, weightB: 65, heightUnitB: 'cm', weightUnitB: 'kg'
+}, ['bmiCompareResult']);
+assert.match(pageTest.output('bmiCompareResult'), /Person A:[\\s\\S]*Person B:/);
+assert.doesNotMatch(pageTest.output('bmiCompareResult'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('bsa.html', 'calculateBSA', {
+  weight: 70, weightUnit: 'kg', height: 175, heightUnit: 'cm'
+}, ['result', 'formula', 'indicator']);
+assert.match(pageTest.output('result'), /BSA:[\\s\\S]*m²/);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('goal-timeline.html', 'calculateGoalTimeline', {
+  currentWeight: 80, goalWeight: 75, weightUnitTimeline: 'kg', tdeeTimeline: 2500, intakeTimeline: 2000
+}, ['timelineResult']);
+assert.match(pageTest.output('timelineResult'), /Estimated time/);
+assert.match(pageTest.output('timelineResult'), /Approximate energy-balance estimate only/);
+assert.doesNotMatch(pageTest.output('timelineResult'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('weight-gain-rate.html', 'calculateWeightGainRate2', {
+  tdeeGain2: 2000, intakeGain2: 2500, unitGain2: 'kg'
+}, ['gainResult2']);
+assert.match(pageTest.output('gainResult2'), /Estimated Weekly Change/);
+assert.match(pageTest.output('gainResult2'), /not a personalized prediction/);
+checks++;
+
+pageTest = runPageFunction('weight-loss-rate.html', 'calculateWeightLossRate', {
+  tdeeRate: 2500, intakeRate: 1800, unitRate: 'kg'
+}, ['rateResult']);
+assert.match(pageTest.output('rateResult'), /Estimated Weekly Change/);
+assert.match(pageTest.output('rateResult'), /Static calorie-to-mass estimate only/);
+checks++;
+
+pageTest = runPageFunction('weight-stability.html', 'calculateWeightStability', {
+  initialWeight: 70, currentWeight: 72, weightUnit: 'kg', days: 30
+}, ['weightStabilityResult']);
+assert.match(pageTest.output('weightStabilityResult'), /Gaining Weight/);
+assert.match(pageTest.output('weightStabilityResult'), /water and measurement variation/);
+checks++;
+
 console.log('PASS: ' + checks + ' known-answer/domain assertions across generated calculators, CDC BMI-for-age, legacy formulas, and unit conversions.');
