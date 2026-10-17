@@ -91,33 +91,44 @@ table th {
 </style>
 <script>
 function calculateFFMI() {
-  let height = parseFloat(document.getElementById("height").value);
-  let heightUnit = document.getElementById("heightUnit").value;
-  if(heightUnit === "cm") height = height / 100;
-  else if(heightUnit === "inch") height = height * 0.0254;
-  else if(heightUnit === "ft") height = height * 0.3048;
+  const result = document.getElementById("result");
+  const rawHeight = Number(document.getElementById("height").value);
+  const heightUnit = document.getElementById("heightUnit").value;
+  const rawWeight = Number(document.getElementById("weight").value);
+  const weightUnit = document.getElementById("weightUnit").value;
+  const fat = Number(document.getElementById("fat").value);
 
-  let weight = parseFloat(document.getElementById("weight").value);
-  let weightUnit = document.getElementById("weightUnit").value;
-  if(weightUnit === "lb") weight = weight * 0.453592;
-
-  let fat = parseFloat(document.getElementById("fat").value);
-
-  if(!Number.isFinite(height) || !Number.isFinite(weight) || !Number.isFinite(fat) || height <= 0 || weight <= 0 || fat < 0 || fat > 100 || height < 0.5 || height > 2.5 || weight > 500) {
-    document.getElementById("result").textContent = "Enter a valid height (0.5–2.5 m), weight (positive and at most 500 kg), and body-fat percentage from 0–100.";
+  result.textContent = "";
+  if (![rawHeight, rawWeight, fat].every(Number.isFinite) || rawHeight <= 0 || rawWeight <= 0 || fat < 0 || fat > 100) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a positive height and weight and a body-fat percentage from 0 to 100.</p>';
     return;
   }
 
-  let leanMass = weight * (1 - fat / 100);
-  let ffmi = leanMass / (height * height);
-  let fatPercent = fat.toFixed(1);
+  const heightFactors = { m: 1, meter: 1, meters: 1, cm: 0.01, in: 0.0254, inch: 0.0254, inches: 0.0254, ft: 0.3048, foot: 0.3048, feet: 0.3048 };
+  const weightFactors = { kg: 1, lb: 0.45359237, lbs: 0.45359237 };
+  const normalizedHeightUnit = String(heightUnit).toLowerCase();
+  const normalizedWeightUnit = String(weightUnit).toLowerCase();
+  if (!(normalizedHeightUnit in heightFactors) || !(normalizedWeightUnit in weightFactors)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported height and weight units.</p>';
+    return;
+  }
+  const height = rawHeight * heightFactors[normalizedHeightUnit];
+  const weight = rawWeight * weightFactors[normalizedWeightUnit];
+  if (![height, weight].every(Number.isFinite) || height < 0.5 || height > 2.5 || weight < 0.1 || weight > 500) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check converted measurements. Supported ranges are 0.5–2.5 m for height and 0.1–500 kg for weight.</p>';
+    return;
+  }
 
-  document.getElementById("result").innerHTML =
-    `Lean Mass: ${leanMass.toFixed(2)} kg (${(leanMass/weight*100).toFixed(1)}%)<br>FFMI: ${ffmi.toFixed(2)}`;
+  const leanMass = weight * (1 - fat / 100);
+  const ffmi = leanMass / (height * height);
+  if (![leanMass, ffmi].every(Number.isFinite)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">The result could not be calculated from these values.</p>';
+    return;
+  }
 
+  result.innerHTML = `Lean Mass: ${leanMass.toFixed(2)} kg (${(leanMass / weight * 100).toFixed(1)}%)<br>FFMI: ${ffmi.toFixed(2)}<p class="cf-note">FFMI is a calculated index, not a diagnosis. There is no universal low/average/athletic/elite category valid across sex, age, training history and populations.</p>`;
   const barContainer = document.querySelector('.bar-container');
   if (barContainer) barContainer.hidden = true;
-  document.getElementById("result").innerHTML += `<p class="cf-note">FFMI is a calculated index, not a diagnosis. There is no universal low/average/athletic/elite category valid across sex, age, training history and populations.</p>`;
 }
 </script>
 
