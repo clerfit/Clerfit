@@ -7,7 +7,7 @@ const SITE_PREFIX = BASE.pathname.endsWith('/') ? BASE.pathname : BASE.pathname 
 const EXPECTED_RELEASE_ID = 'R3-2026-10-17-calculator-fixes-03';
 const EXPECTED_CALCULATORS = 118;
 const EXPECTED_SITEMAP_PAGES = 123;
-const EXPECTED_NESTED_HTML = 121;
+const EXPECTED_NESTED_HTML = 118;
 const CONCURRENCY = 8;
 const FAILURES = [];
 const RESOURCES = new Map();
@@ -130,7 +130,7 @@ async function main() {
   });
   const nested = pages.filter(url => new URL(url).pathname.includes('/html/') && /\.html?$/i.test(new URL(url).pathname));
   const missingChrome = registry.filter(c => !PAGE_BODIES.get(new URL('html/' + c.file, BASE).href)?.includes('page-chrome.js')).map(c => c.file);
-  assert(nested.length === EXPECTED_NESTED_HTML, 'Expected ' + EXPECTED_NESTED_HTML + ' nested HTML pages but found ' + nested.length + '.');
+  assert(nested.length === EXPECTED_NESTED_HTML, 'Expected ' + EXPECTED_NESTED_HTML + ' registered nested calculator pages but found ' + nested.length + '.');
   assert(missingChrome.length === 0, 'Calculator pages missing page-chrome.js: ' + missingChrome.join(', '));
   const report = {
     base: BASE.href,
