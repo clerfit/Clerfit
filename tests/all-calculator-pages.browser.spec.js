@@ -10,6 +10,7 @@ if (routes.length !== 118) throw new Error('Expected 118 registered calculator p
 
 for (const routeInfo of routes) {
   test('registered calculator page: '+routeInfo.title+' ('+routeInfo.file+')', async ({page}) => {
+    test.setTimeout(15000);
     await page.setViewportSize({width:390,height:844});
     const pageErrors=[]; const localFailures=[];
     page.on('pageerror',e=>pageErrors.push(e.message));
