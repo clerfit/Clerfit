@@ -30,7 +30,7 @@ The updated source and generated production build pass the available local autom
 - This is an assistant-performed code-level desk audit, not a licensed clinical/engineering certification or peer-reviewed independent sign-off.
 - Static input bounds are structurally checked; exhaustive semantic boundary combinations for every field are not claimed.
 - The latest browser navigation attempt was blocked by the execution environment. Earlier browser QA reports are retained as historical evidence, not represented as a fresh run after the latest CSS changes.
-- Live deployment and real contact delivery are left to the owner as requested. Live weak-network measurements, production network/storage/header inspection, full manual keyboard/screen-reader checks and physical-device testing are not claimed complete.
+- Live deployment parity, release marker, 123 sitemap pages, 123 fetched HTML pages and 158 same-site references were checked successfully by the current-main production verifier. Real contact delivery, live weak-network measurements, manual keyboard/screen-reader checks, physical-device testing and independent expert review are still not claimed complete.
 - GitHub Pages does not apply Netlify `_headers`; server response headers such as HSTS and X-Frame-Options require a host/CDN supporting custom headers. The current CSP allows inline scripts because the legacy pages still contain inline code.
 
 
