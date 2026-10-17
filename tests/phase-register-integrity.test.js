@@ -90,8 +90,8 @@ let sourceNumericFieldCount = 0;
 for (const file of fs.readdirSync(path.join(root, 'html')).filter(name => name.toLowerCase().endsWith('.html'))) {
   const relative = 'html/' + file;
   // Script-generated input markup belongs to runtime-generated controls, not the static inventory.
-  const staticMarkup = read(relative).replace(/<script\\b[\\s\\S]*?<\\/script\\s*>/gi, '').replace(/<style\\b[\\s\\S]*?<\\/style\\s*>/gi, '');
-  for (const match of staticMarkup.matchAll(/<input\\b[^>]*>/gi)) {
+  const staticMarkup = read(relative).replace(/<script\b[\s\S]*?<\/script\s*>/gi, '').replace(/<style\b[\s\S]*?<\/style\s*>/gi, '');
+  for (const match of staticMarkup.matchAll(/<input\b[^>]*>/gi)) {
     const attributes = parseTagAttributes(match[0]);
     if ((attributes.type || '').toLowerCase() !== 'number') continue;
     sourceNumericFieldCount++;
