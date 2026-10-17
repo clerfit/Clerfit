@@ -87,7 +87,7 @@
 <p class="cf-note">This calculator reports the ratio only; the selected reference group does not change the calculation or add a risk classification.</p>
 
 <label for="waist">Waist</label>
-<input id="waist" type="number" min="10" max="300" step="any" aria-label="Waist circumference" oninput="clearWHROutput()">
+<input id="waist" type="number" min="20" max="300" step="any" aria-label="Waist circumference" oninput="clearWHROutput()">
 <select id="waistUnit" aria-label="Waist unit" onchange="clearWHROutput()">
   <option value="cm">cm</option>
   <option value="m">m</option>
@@ -96,7 +96,7 @@
 </select>
 
 <label for="hip">Hip</label>
-<input id="hip" type="number" min="10" max="300" step="any" aria-label="Hip circumference" oninput="clearWHROutput()">
+<input id="hip" type="number" min="20" max="300" step="any" aria-label="Hip circumference" oninput="clearWHROutput()">
 <select id="hipUnit" aria-label="Hip unit" onchange="clearWHROutput()">
   <option value="cm">cm</option>
   <option value="m">m</option>
@@ -144,10 +144,10 @@ function clearWHROutput() {
 
 function syncWHRBounds() {
   const ranges = {
-    cm: [10, 300],
-    m: [0.1, 3],
-    inch: [3.93701, 118.1102],
-    ft: [0.328084, 9.84251]
+    cm: [20, 300],
+    m: [0.2, 3],
+    inch: [7.874016, 118.1102],
+    ft: [0.656168, 9.84251]
   };
   for (const [fieldId, unitId] of [['waist', 'waistUnit'], ['hip', 'hipUnit']]) {
     const field = document.getElementById(fieldId);
@@ -231,8 +231,8 @@ function calculateWHR() {
     result.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported units for both measurements.</p>';
     return;
   }
-  if (waistM < 0.1 || waistM > 3 || hipM < 0.1 || hipM > 3) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">Check that both circumference measurements are plausible.</p>';
+  if (waistM < 0.2 || waistM > 3 || hipM < 0.2 || hipM > 3) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check that both circumference measurements are plausible (at least 20 cm and no more than 300 cm after conversion).</p>';
     return;
   }
 
