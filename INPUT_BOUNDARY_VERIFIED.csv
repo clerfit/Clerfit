@@ -1,239 +1,239 @@
 file,id,label,min,max,step
-"1rm.html","liftWeight","Weight Lifted","0.1","500","any"
-"1rm.html","reps","Repetitions","1","15","1"
-"BMI.html","weight","Weight","0.1","500","any"
-"BMI.html","height","Height","30","300","any"
-"BMI.html","age","Age","1","120","1"
-"absi.html","waist","Waist Circumference","0.1","500","any"
-"absi.html","height","Height","0.1","500","any"
-"absi.html","weight","Weight (kg)","0.1","500","any"
-"activity-time.html","duration","Duration","0","10080","any"
-"activity-time.html","weightActivity","Your Weight","0.1","500","any"
-"bmi-change.html","currentWeightBMI","Current Weight","0.1","500","any"
-"bmi-change.html","goalWeightBMI","Goal Weight","0.1","500","any"
-"bmi-change.html","heightBMI","Height","30","300","any"
-"bmi-compare.html","heightA","Person A — Height","1","300","0.1"
-"bmi-compare.html","weightA","Person A — Weight","1","500","0.1"
-"bmi-compare.html","heightB","Person B — Height","1","300","0.1"
-"bmi-compare.html","weightB","Person B — Weight","1","500","0.1"
-"bmr.html","age","Age","1","120","1"
-"bmr.html","height","Height","30","300","any"
-"bmr.html","weight","Weight","0.1","500","any"
-"bodyfat.html","bf-height","Height","0.1","300","any"
-"bodyfat.html","bf-waist","Waist","0.1","300","any"
-"bodyfat.html","bf-neck","Neck","0.1","300","any"
-"bodyfat.html","bf-hip","Hip (females only)","0.1","300","any"
-"bsa.html","weight","Weight","0.1","500","any"
-"bsa.html","height","Height","30","300","any"
-"cadence.html","cadenceSteps","Number of Steps","0","200000","1"
-"cadence.html","cadenceTime","Time","0","10080","any"
-"calories-kg.html","weight","Weight","0.1","500","any"
-"calories-kg.html","height","Height","30","300","any"
-"calories-kg.html","age","Age","1","120","1"
-"carbs.html","weight","Weight","0.1","500","any"
-"carbs.html","height","Height","30","300","any"
-"carbs.html","age","Age (10+ years)","1","120","1"
-"cardio-calories.html","bodyWeight","Body Weight","0.1","500","any"
-"cardio-calories.html","duration","Duration","0","50000","any"
-"circumference-track.html","waistInit","Initial Waist","0.1","300","any"
-"circumference-track.html","waistCurrent","Current Waist","0.1","300","any"
-"circumference-track.html","hipInit","Initial Hip","0.1","300","any"
-"circumference-track.html","hipCurrent","Current Hip","0.1","300","any"
-"circumference-track.html","chestInit","Initial Chest","0.1","300","any"
-"circumference-track.html","chestCurrent","Current Chest","0.1","300","any"
-"circumference-track.html","armInit","Initial Arm","0.1","300","any"
-"circumference-track.html","armCurrent","Current Arm","0.1","300","any"
-"circumference-track.html","thighInit","Initial Thigh","0.1","300","any"
-"circumference-track.html","thighCurrent","Current Thigh","0.1","300","any"
-"circumference-track.html","calfInit","Initial Calf","0.1","300","any"
-"circumference-track.html","calfCurrent","Current Calf","0.1","300","any"
-"cold-exposure.html","tempC","Air Temperature (°C)","-100","70","any"
-"cold-exposure.html","windSpeed","Wind Speed","0","1000","any"
-"cold-exposure.html","duration","Exposure Time","0","10080","any"
-"cooper-test.html","cooperDistance","Distance Covered in 12 Minutes","0","10000","any"
-"daily-energy.html","weight","Weight","0.1","500","any"
-"daily-energy.html","height","Height","30","300","any"
-"daily-energy.html","age","Age","1","120","1"
-"deficit.html","weight","Weight","0.1","500","any"
-"deficit.html","height","Height","30","300","any"
-"deficit.html","age","Age","1","120","1"
-"difference.html","diffA","First value","-1000000","1000000","0.01"
-"difference.html","diffB","Second value","-1000000","1000000","0.01"
-"distance-convert.html","distanceValue","Enter distance","0","1000000","any"
-"distance-time.html","dtDistance","Distance i Total distance traveled. Can be entered in kilometers or miles.","0","100000","any"
-"distance-time.html","dtHours","Hours","0","1000","any"
-"distance-time.html","dtMinutes","Minutes","0","59","any"
-"distance-time.html","dtSeconds","Seconds","0","59","any"
-"distance-time.html","dtSpeed","Speed i Average speed of travel. Can be entered in km/h or mi/h.","0","1000","any"
-"endurance-time.html","enduranceDistance","Distance","0","100000","any"
-"endurance-time.html","endurancePace","Pace","0","1000","any"
-"energy-balance.html","weight","Weight","0.1","500","any"
-"energy-balance.html","height","Height","30","300","any"
-"energy-balance.html","age","Age","1","120","1"
-"energy-balance.html","intake","Daily Calorie Intake","0","20000","1"
-"face-length.html","totalLength","Total Face Length","0.1","300","0.01"
-"face-length.html","lowerLength","Lower Face Length","0.1","300","0.01"
-"face-shape.html","faceLength","Face Length","0.1","300","any"
-"face-shape.html","forehead","Forehead Width","0.1","300","any"
-"face-shape.html","cheekbones","Cheekbone Width","0.1","300","any"
-"face-shape.html","jawline","Jawline Width","0.1","300","any"
-"fat.html","weight","Weight","0.1","500","any"
-"fat.html","height","Height","30","300","any"
-"fat.html","age","Age (10+ years)","1","120","1"
-"fatmass.html","weight","Weight","0.1","500","any"
-"fatmass.html","fat","Body Fat (%)","0","100","any"
-"ffmi.html","height","Height","30","300","any"
-"ffmi.html","weight","Weight","0.1","500","any"
-"ffmi.html","fat","Body Fat (%)","0","100","any"
-"fiber.html","age","Age (years)","1","120","1"
-"fiber.html","weight","Weight","0.1","500","any"
-"fiber.html","height","Height","30","300","any"
-"fiber.html","calories","Daily Calories (optional)","0","50000","any"
-"goal-timeline.html","currentWeight","Current Weight","0.1","500","any"
-"goal-timeline.html","goalWeight","Goal Weight","0.1","500","any"
-"goal-timeline.html","tdeeTimeline","Your TDEE (Daily Calories Burned)","0","50000","any"
-"goal-timeline.html","intakeTimeline","Your Daily Calorie Intake","0","50000","any"
-"healthrisk.html","age","Age (years)","1","120","1"
-"healthrisk.html","weight","Weight (kg)","0.1","500","any"
-"healthrisk.html","height","Height (cm)","30","300","any"
-"heartrate.html","age","Age (years)","1","120","1"
-"heartrate.html","rhr","Resting Heart Rate (optional, default 70 bpm)","1","120","1"
-"heat-exposure.html","tempC","Air Temperature (°C)","-100","70","any"
-"heat-exposure.html","humidity","Relative Humidity (%)","0","100","any"
-"heat-exposure.html","duration","Exposure Time","0","10080","any"
-"height-convert.html","heightValue","Enter height","0","300","any"
-"hip-change.html","initialHip","Initial Hip","0.1","300","any"
-"hip-change.html","currentHip","Current Hip","0.1","300","any"
-"hydration-loss.html","weightWL","Body Weight","0.1","500","any"
-"hydration-loss.html","duration","Exercise Duration","0","10080","any"
-"idealweight.html","iw-height","Height","0.1","500","any"
-"leanmass.html","weight","Weight","0","100","any"
-"leanmass.html","fat","Body Fat (%)","0","100","any"
-"length.html","lengthValue","Enter Length","0","1000000","any"
-"macro-split.html","weight","Weight","0","100","any"
-"macro-split.html","height","Height","30","300","any"
-"macro-split.html","age","Age","1","120","1"
-"maintenance.html","weight","Weight","0.1","500","any"
-"maintenance.html","height","Height","30","300","any"
-"maintenance.html","age","Age","1","120","1"
-"meal-split.html","totalCalories","Total Daily Calories","0","50000","any"
-"metabolic-age.html","weight","Weight","1","120","1"
-"metabolic-age.html","height","Height","1","120","1"
-"metabolic-age.html","age","Age","1","120","1"
-"mets.html","weight","Weight","0.1","500","any"
-"mets.html","met","Activity MET value","0.1","500","any"
-"mets.html","duration","Duration (minutes)","0.1","500","any"
-"monthly-weight.html","tdeeMonthly","Your TDEE (Daily Calories Burned)","0","20000","any"
-"monthly-weight.html","intakeMonthly","Your Daily Calorie Intake","0","20000","any"
-"monthly-weight.html","days","Days in Month","0.1","500","any"
-"pal.html","age","Age","1","120","1"
-"percentage.html","value1","Value 1","-1000000","1000000","any"
-"percentage.html","value2","Value 2","-1000000","1000000","any"
-"performance-score.html","workOutput","Work Output i Total mechanical work done during exercise in Joules. Include all reps and weights lifted.","0.1","500","any"
-"performance-score.html","squatWeight","Squat Weight i Maximum squat weight lifted. Used to auto-calculate your Strength Score relative to body weight.","0.1","500","any"
-"performance-score.html","bodyWeight","Body Weight i Your current body weight. Used to calculate the Strength Score.","0.1","500","any"
-"ponderal.html","weight","Weight","0.1","500","any"
-"ponderal.html","height","Height","30","300","any"
-"potassium.html","age","Age (years)","1","120","1"
-"protein.html","weight","Weight","0.1","500","any"
-"pullup-index.html","pu-count","Number of Pull-Ups i Enter the maximum number of consecutive pull-ups you can perform with proper form.","0","1000","1"
-"pullup-index.html","pu-body","Body Weight","0.1","500","any"
-"pushup-index.html","pu-count","Number of Push-Ups i Enter the maximum number of push-ups you can perform in one set with correct form.","0","1000","1"
-"pushup-index.html","pu-body","Body Weight","0.1","500","any"
-"ratio.html","ratioA","First Ratio Value","0","1000000","any"
-"ratio.html","ratioB","Second Ratio Value","0","1000000","any"
-"relative-strength.html","oneRM","One-Rep Max (1RM)","0.1","500","any"
-"relative-strength.html","bodyWeight","Body Weight","0.1","500","any"
-"rfm.html","height","Height","30","300","any"
-"rfm.html","waist","Waist","0.1","300","any"
-"rmr.html","weight","Weight","0.1","500","any"
-"rmr.html","height","Height","30","300","any"
-"rmr.html","age","Age","1","120","1"
-"running-pace.html","runDistance","Distance i Total distance you ran. Can be entered in kilometers or miles.","0","100000","any"
-"running-pace.html","hours","Hours","0","1000","any"
-"running-pace.html","minutes","Minutes","0","1000","any"
-"running-pace.html","seconds","Seconds","0","1000","any"
-"sedentary.html","sedentary","Sedentary Duration","0","10080","any"
-"sedentary.html","active","Active Duration","0","10080","any"
-"sedentary.html","srIntensity","Intensity of Active Period (1–10)","1","10","any"
-"sleep-consistency.html","bed1","Day 1 Sleep (hours)","0","24","any"
-"sleep-consistency.html","bed2","Day 2 Sleep (hours)","0","24","any"
-"sleep-consistency.html","bed3","Day 3 Sleep (hours)","0","24","any"
-"sleep-consistency.html","bed4","Day 4 Sleep (hours)","0","24","any"
-"sleep-consistency.html","bed5","Day 5 Sleep (hours)","0","24","any"
-"sleep-consistency.html","bed6","Day 6 Sleep (hours)","0","24","any"
-"sleep-consistency.html","bed7","Day 7 Sleep (hours)","0","24","any"
-"sleep-duration.html","sleepHours","Sleep Duration (hours) i Enter your average nightly sleep. Recommendations depend mainly on age and individual circumstances.","0","24","0.1"
-"sodium.html","age","Age (years)","1","120","1"
-"somatotype.html","height","Height","100","250","any"
-"somatotype.html","weight","Weight","20","300","any"
-"somatotype.html","triceps","Triceps Skinfold (mm)","1","60","any"
-"somatotype.html","subscapular","Subscapular Skinfold (mm)","1","60","any"
-"somatotype.html","supraspinale","Supraspinale Skinfold (mm)","1","60","any"
-"somatotype.html","medialCalf","Medial Calf Skinfold (mm)","1","60","any"
-"somatotype.html","biepicondylarHumerus","Biepicondylar Humerus (cm)","3","15","any"
-"somatotype.html","biepicondylarFemur","Biepicondylar Femur (cm)","3","15","any"
-"somatotype.html","armGirth","Arm Girth (Flexed & Tensed) (cm)","15","80","any"
-"somatotype.html","calfGirth","Calf Girth (cm)","15","80","any"
-"speed-weight.html","speed","Speed","0.1","500","any"
-"speed-weight.html","bodyWeight","Body Weight","0.1","500","any"
-"squat-ratio.html","squatWeight","Squat Weight","0.1","500","any"
-"squat-ratio.html","bodyWeight","Body Weight","0.1","500","any"
-"step-length.html","distanceCovered","Distance Covered","0","1000000","any"
-"step-length.html","stepsTaken","Number of Steps","0","200000","1"
-"steps-calories.html","steps","Number of Steps","0","200000","1"
-"steps-calories.html","stepLength","Step Length","0.1","300","any"
-"steps-calories.html","weight","Your Weight","0.1","500","any"
-"steps-distance.html","steps","Number of Steps","0","200000","1"
-"steps-distance.html","stepLength","Step Length","0.1","300","any"
-"strength-weight.html","sw-lifted","Weight Lifted i Enter the maximum weight you can lift for the chosen exercise (e.g., bench press, squat) with proper form.","0.1","500","any"
-"strength-weight.html","sw-body","Body Weight","0.1","500","any"
-"stride-length.html","strideDistance","Distance Covered","0","1000000","any"
-"stride-length.html","stridesTaken","Number of Strides","0","1000","1"
-"sunlight.html","uvIndex","UV Index","0","30","any"
-"sunlight.html","duration","Exposure Time","0","10080","any"
-"surplus.html","weight","Weight","0.1","500","any"
-"surplus.html","height","Height","30","300","any"
-"surplus.html","age","Age","1","120","1"
-"tdee.html","weight","Weight","1","120","1"
-"tdee.html","height","Height","1","120","1"
-"tdee.html","age","Age (years)","1","120","1"
-"time-convert.html","timeValue","Enter time","0","10000","any"
-"training-rest.html","trainingTime","Training Duration i Enter total training time per session (in hours by default).","0","10080","any"
-"training-rest.html","restTime","Rest Duration i Enter total rest or recovery time between sessions (in hours by default).","0","10080","any"
-"training-volume.html","tv-weight","Weight Lifted","0.1","500","any"
-"training-volume.html","tv-reps","Reps per Set","0","1000","1"
-"training-volume.html","tv-sets","Number of Sets","0","1000","1"
-"unit.html","amount","Value","-1000000","1000000","any"
-"vo2max.html","distance","Distance","0","10000","any"
-"waist-change.html","initialWaist","Initial Waist","0.1","300","any"
-"waist-change.html","currentWaist","Current Waist","0.1","300","any"
-"walking-speed.html","walkDistance","Distance i Total distance you walked. Can be entered in kilometers or miles.","0","100000","any"
-"walking-speed.html","walkHours","Hours","0","1000","any"
-"walking-speed.html","walkMinutes","Minutes","0","1000","any"
-"walking-speed.html","walkSeconds","Seconds","0","1000","any"
-"water.html","weight","Weight","0.1","500","any"
-"weekly-load.html","wl-weight","Weight Lifted","0.1","500","any"
-"weekly-load.html","wl-reps","Reps per Set","0","1000","1"
-"weekly-load.html","wl-sets","Number of Sets","0","1000","1"
-"weekly-load.html","wl-sessions","Sessions per Week","0","70","1"
-"weekly-weight.html","tdee","Your TDEE (Daily Calories Burned)","0","20000","any"
-"weekly-weight.html","intake","Your Daily Calorie Intake","0","20000","any"
-"weight-convert.html","weightValue","Enter weight","0","500","any"
-"weight-gain-rate.html","tdeeGain2","Your TDEE (Daily Calories Burned)","0","20000","any"
-"weight-gain-rate.html","intakeGain2","Your Daily Calorie Intake","0","20000","any"
-"weight-loss-rate.html","tdeeRate","Your TDEE (Daily Calories Burned)","0","20000","any"
-"weight-loss-rate.html","intakeRate","Your Daily Calorie Intake","0","20000","any"
-"weight-stability.html","initialWeight","Initial Weight","0.1","500","any"
-"weight-stability.html","currentWeight","Current Weight","0.1","500","any"
-"weight-stability.html","days","Number of Days","0.1","500","any"
-"whr.html","waist","Waist","0.1","300","any"
-"whr.html","hip","Hip","0.1","300","any"
-"wht.html","waist","Waist Circumference","0.1","300","any"
-"wht.html","height","Height","30","300","any"
-"work-output.html","liftWeight","Weight Lifted i Total weight lifted per repetition. Include body weight if part of the movement. Enter in kg or lbs; conversion is automatic.","0.1","500","any"
-"work-output.html","distance","Distance Moved i Vertical distance the weight or your body moves per repetition. Enter in meters or feet; conversion is automatic.","0.1","500","any"
-"work-output.html","reps","Number of Reps","0","1000","1"
-"work-rest.html","work","Work Duration","0","10080","any"
-"work-rest.html","rest","Rest Duration","0","10080","any"
-"work-rest.html","intensity","Intensity (1–10)","1","10","any"
+1rm.html,liftWeight,Weight Lifted,0.1,500,any
+1rm.html,reps,Repetitions,1,15,1
+BMI.html,weight,Weight,0.1,500,any
+BMI.html,height,Height,30,300,any
+BMI.html,age,Age,1,120,1
+absi.html,waist,Waist Circumference,0.1,500,any
+absi.html,height,Height,0.1,500,any
+absi.html,weight,Weight (kg),0.1,500,any
+activity-time.html,duration,Duration,0,10080,any
+activity-time.html,weightActivity,Your Weight,0.1,500,any
+bmi-change.html,currentWeightBMI,Current Weight,0.1,500,any
+bmi-change.html,goalWeightBMI,Goal Weight,0.1,500,any
+bmi-change.html,heightBMI,Height,30,300,any
+bmi-compare.html,heightA,Person A — Height,1,300,0.1
+bmi-compare.html,weightA,Person A — Weight,1,500,0.1
+bmi-compare.html,heightB,Person B — Height,1,300,0.1
+bmi-compare.html,weightB,Person B — Weight,1,500,0.1
+bmr.html,age,Age,1,120,1
+bmr.html,height,Height,30,300,any
+bmr.html,weight,Weight,0.1,500,any
+bodyfat.html,bf-height,Height,0.1,300,any
+bodyfat.html,bf-waist,Waist,0.1,300,any
+bodyfat.html,bf-neck,Neck,0.1,300,any
+bodyfat.html,bf-hip,Hip (females only),0.1,300,any
+bsa.html,weight,Weight,0.1,500,any
+bsa.html,height,Height,30,300,any
+cadence.html,cadenceSteps,Number of Steps,0,200000,1
+cadence.html,cadenceTime,Time,0,10080,any
+calories-kg.html,weight,Weight,0.1,500,any
+calories-kg.html,height,Height,30,300,any
+calories-kg.html,age,Age,1,120,1
+carbs.html,weight,Weight,0.1,500,any
+carbs.html,height,Height,30,300,any
+carbs.html,age,Age (10+ years),1,120,1
+cardio-calories.html,bodyWeight,Body Weight,0.1,500,any
+cardio-calories.html,duration,Duration,0,50000,any
+circumference-track.html,waistInit,Initial Waist,0.1,300,any
+circumference-track.html,waistCurrent,Current Waist,0.1,300,any
+circumference-track.html,hipInit,Initial Hip,0.1,300,any
+circumference-track.html,hipCurrent,Current Hip,0.1,300,any
+circumference-track.html,chestInit,Initial Chest,0.1,300,any
+circumference-track.html,chestCurrent,Current Chest,0.1,300,any
+circumference-track.html,armInit,Initial Arm,0.1,300,any
+circumference-track.html,armCurrent,Current Arm,0.1,300,any
+circumference-track.html,thighInit,Initial Thigh,0.1,300,any
+circumference-track.html,thighCurrent,Current Thigh,0.1,300,any
+circumference-track.html,calfInit,Initial Calf,0.1,300,any
+circumference-track.html,calfCurrent,Current Calf,0.1,300,any
+cold-exposure.html,tempC,Air Temperature (°C),-100,70,any
+cold-exposure.html,windSpeed,Wind Speed,0,1000,any
+cold-exposure.html,duration,Exposure Time,0,10080,any
+cooper-test.html,cooperDistance,Distance Covered in 12 Minutes,0,10000,any
+daily-energy.html,weight,Weight,0.1,500,any
+daily-energy.html,height,Height,30,300,any
+daily-energy.html,age,Age,1,120,1
+deficit.html,weight,Weight,0.1,500,any
+deficit.html,height,Height,30,300,any
+deficit.html,age,Age,1,120,1
+difference.html,diffA,First value,-1000000,1000000,0.01
+difference.html,diffB,Second value,-1000000,1000000,0.01
+distance-convert.html,distanceValue,Enter distance,0,1000000,any
+distance-time.html,dtDistance,Distance i Total distance traveled. Can be entered in kilometers or miles.,0,100000,any
+distance-time.html,dtHours,Hours,0,1000,any
+distance-time.html,dtMinutes,Minutes,0,59,any
+distance-time.html,dtSeconds,Seconds,0,59,any
+distance-time.html,dtSpeed,Speed i Average speed of travel. Can be entered in km/h or mi/h.,0,1000,any
+endurance-time.html,enduranceDistance,Distance,0,100000,any
+endurance-time.html,endurancePace,Pace,0,1000,any
+energy-balance.html,weight,Weight,0.1,500,any
+energy-balance.html,height,Height,30,300,any
+energy-balance.html,age,Age,1,120,1
+energy-balance.html,intake,Daily Calorie Intake,0,20000,1
+face-length.html,totalLength,Total Face Length,0.1,300,0.01
+face-length.html,lowerLength,Lower Face Length,0.1,300,0.01
+face-shape.html,faceLength,Face Length,0.1,300,any
+face-shape.html,forehead,Forehead Width,0.1,300,any
+face-shape.html,cheekbones,Cheekbone Width,0.1,300,any
+face-shape.html,jawline,Jawline Width,0.1,300,any
+fat.html,weight,Weight,0.1,500,any
+fat.html,height,Height,30,300,any
+fat.html,age,Age (10+ years),1,120,1
+fatmass.html,weight,Weight,0.1,500,any
+fatmass.html,fat,Body Fat (%),0,100,any
+ffmi.html,height,Height,30,300,any
+ffmi.html,weight,Weight,0.1,500,any
+ffmi.html,fat,Body Fat (%),0,100,any
+fiber.html,age,Age (years),1,120,1
+fiber.html,weight,Weight,0.1,500,any
+fiber.html,height,Height,30,300,any
+fiber.html,calories,Daily Calories (optional),0,50000,any
+goal-timeline.html,currentWeight,Current Weight,0.1,500,any
+goal-timeline.html,goalWeight,Goal Weight,0.1,500,any
+goal-timeline.html,tdeeTimeline,Your TDEE (Daily Calories Burned),0,50000,any
+goal-timeline.html,intakeTimeline,Your Daily Calorie Intake,0,50000,any
+healthrisk.html,age,Age (years),1,120,1
+healthrisk.html,weight,Weight (kg),0.1,500,any
+healthrisk.html,height,Height (cm),30,300,any
+heartrate.html,age,Age (years),1,120,1
+heartrate.html,rhr,"Resting Heart Rate (optional, default 70 bpm)",1,120,1
+heat-exposure.html,tempC,Air Temperature (°C),-100,70,any
+heat-exposure.html,humidity,Relative Humidity (%),0,100,any
+heat-exposure.html,duration,Exposure Time,0,10080,any
+height-convert.html,heightValue,Enter height,0,300,any
+hip-change.html,initialHip,Initial Hip,0.1,300,any
+hip-change.html,currentHip,Current Hip,0.1,300,any
+hydration-loss.html,weightWL,Body Weight,0.1,500,any
+hydration-loss.html,duration,Exercise Duration,0,10080,any
+idealweight.html,iw-height,Height,0.1,500,any
+leanmass.html,weight,Weight,0,100,any
+leanmass.html,fat,Body Fat (%),0,100,any
+length.html,lengthValue,Enter Length,0,1000000,any
+macro-split.html,weight,Weight,0,100,any
+macro-split.html,height,Height,30,300,any
+macro-split.html,age,Age,1,120,1
+maintenance.html,weight,Weight,0.1,500,any
+maintenance.html,height,Height,30,300,any
+maintenance.html,age,Age,1,120,1
+meal-split.html,totalCalories,Total Daily Calories,0,50000,any
+metabolic-age.html,weight,Weight,1,120,1
+metabolic-age.html,height,Height,1,120,1
+metabolic-age.html,age,Age,1,120,1
+mets.html,weight,Weight,0.1,500,any
+mets.html,met,Activity MET value,0.1,500,any
+mets.html,duration,Duration (minutes),0.1,500,any
+monthly-weight.html,tdeeMonthly,Your TDEE (Daily Calories Burned),0,20000,any
+monthly-weight.html,intakeMonthly,Your Daily Calorie Intake,0,20000,any
+monthly-weight.html,days,Days in Month,0.1,500,any
+pal.html,age,Age,1,120,1
+percentage.html,value1,Value 1,-1000000,1000000,any
+percentage.html,value2,Value 2,-1000000,1000000,any
+performance-score.html,workOutput,Work Output i Total mechanical work done during exercise in Joules. Include all reps and weights lifted.,0.1,500,any
+performance-score.html,squatWeight,Squat Weight i Maximum squat weight lifted. Used to auto-calculate your Strength Score relative to body weight.,0.1,500,any
+performance-score.html,bodyWeight,Body Weight i Your current body weight. Used to calculate the Strength Score.,0.1,500,any
+ponderal.html,weight,Weight,0.1,500,any
+ponderal.html,height,Height,30,300,any
+potassium.html,age,Age (years),1,120,1
+protein.html,weight,Weight,0.1,500,any
+pullup-index.html,pu-count,Number of Pull-Ups i Enter the maximum number of consecutive pull-ups you can perform with proper form.,0,1000,1
+pullup-index.html,pu-body,Body Weight,0.1,500,any
+pushup-index.html,pu-count,Number of Push-Ups i Enter the maximum number of push-ups you can perform in one set with correct form.,0,1000,1
+pushup-index.html,pu-body,Body Weight,0.1,500,any
+ratio.html,ratioA,First Ratio Value,0,1000000,any
+ratio.html,ratioB,Second Ratio Value,0,1000000,any
+relative-strength.html,oneRM,One-Rep Max (1RM),0.1,500,any
+relative-strength.html,bodyWeight,Body Weight,0.1,500,any
+rfm.html,height,Height,30,300,any
+rfm.html,waist,Waist,0.1,300,any
+rmr.html,weight,Weight,0.1,500,any
+rmr.html,height,Height,30,300,any
+rmr.html,age,Age,1,120,1
+running-pace.html,runDistance,Distance i Total distance you ran. Can be entered in kilometers or miles.,0,100000,any
+running-pace.html,hours,Hours,0,1000,any
+running-pace.html,minutes,Minutes,0,1000,any
+running-pace.html,seconds,Seconds,0,1000,any
+sedentary.html,sedentary,Sedentary Duration,0,10080,any
+sedentary.html,active,Active Duration,0,10080,any
+sedentary.html,srIntensity,Intensity of Active Period (1–10),1,10,any
+sleep-consistency.html,bed1,Day 1 Sleep (hours),0,24,any
+sleep-consistency.html,bed2,Day 2 Sleep (hours),0,24,any
+sleep-consistency.html,bed3,Day 3 Sleep (hours),0,24,any
+sleep-consistency.html,bed4,Day 4 Sleep (hours),0,24,any
+sleep-consistency.html,bed5,Day 5 Sleep (hours),0,24,any
+sleep-consistency.html,bed6,Day 6 Sleep (hours),0,24,any
+sleep-consistency.html,bed7,Day 7 Sleep (hours),0,24,any
+sleep-duration.html,sleepHours,Sleep Duration (hours) i Enter your average nightly sleep. Recommendations depend mainly on age and individual circumstances.,0,24,0.1
+sodium.html,age,Age (years),1,120,1
+somatotype.html,height,Height,100,250,any
+somatotype.html,weight,Weight,20,300,any
+somatotype.html,triceps,Triceps Skinfold (mm),1,60,any
+somatotype.html,subscapular,Subscapular Skinfold (mm),1,60,any
+somatotype.html,supraspinale,Supraspinale Skinfold (mm),1,60,any
+somatotype.html,medialCalf,Medial Calf Skinfold (mm),1,60,any
+somatotype.html,biepicondylarHumerus,Biepicondylar Humerus (cm),3,15,any
+somatotype.html,biepicondylarFemur,Biepicondylar Femur (cm),3,15,any
+somatotype.html,armGirth,Arm Girth (Flexed & Tensed) (cm),15,80,any
+somatotype.html,calfGirth,Calf Girth (cm),15,80,any
+speed-weight.html,speed,Speed,0.1,500,any
+speed-weight.html,bodyWeight,Body Weight,0.1,500,any
+squat-ratio.html,squatWeight,Squat Weight,0.1,500,any
+squat-ratio.html,bodyWeight,Body Weight,0.1,500,any
+step-length.html,distanceCovered,Distance Covered,0,1000000,any
+step-length.html,stepsTaken,Number of Steps,0,200000,1
+steps-calories.html,steps,Number of Steps,0,200000,1
+steps-calories.html,stepLength,Step Length,0.1,300,any
+steps-calories.html,weight,Your Weight,0.1,500,any
+steps-distance.html,steps,Number of Steps,0,200000,1
+steps-distance.html,stepLength,Step Length,0.1,300,any
+strength-weight.html,sw-lifted,"Weight Lifted i Enter the maximum weight you can lift for the chosen exercise (e.g., bench press, squat) with proper form.",0.1,500,any
+strength-weight.html,sw-body,Body Weight,0.1,500,any
+stride-length.html,strideDistance,Distance Covered,0,1000000,any
+stride-length.html,stridesTaken,Number of Strides,0,1000,1
+sunlight.html,uvIndex,UV Index,0,30,any
+sunlight.html,duration,Exposure Time,0,10080,any
+surplus.html,weight,Weight,0.1,500,any
+surplus.html,height,Height,30,300,any
+surplus.html,age,Age,1,120,1
+tdee.html,weight,Weight,1,120,1
+tdee.html,height,Height,1,120,1
+tdee.html,age,Age (years),1,120,1
+time-convert.html,timeValue,Enter time,0,10000,any
+training-rest.html,trainingTime,Training Duration i Enter total training time per session (in hours by default).,0,10080,any
+training-rest.html,restTime,Rest Duration i Enter total rest or recovery time between sessions (in hours by default).,0,10080,any
+training-volume.html,tv-weight,Weight Lifted,0.1,500,any
+training-volume.html,tv-reps,Reps per Set,0,1000,1
+training-volume.html,tv-sets,Number of Sets,0,1000,1
+unit.html,amount,Value,-1000000,1000000,any
+vo2max.html,distance,Distance,0,10000,any
+waist-change.html,initialWaist,Initial Waist,0.1,300,any
+waist-change.html,currentWaist,Current Waist,0.1,300,any
+walking-speed.html,walkDistance,Distance i Total distance you walked. Can be entered in kilometers or miles.,0,100000,any
+walking-speed.html,walkHours,Hours,0,1000,any
+walking-speed.html,walkMinutes,Minutes,0,1000,any
+walking-speed.html,walkSeconds,Seconds,0,1000,any
+water.html,weight,Weight,0.1,500,any
+weekly-load.html,wl-weight,Weight Lifted,0.1,500,any
+weekly-load.html,wl-reps,Reps per Set,0,1000,1
+weekly-load.html,wl-sets,Number of Sets,0,1000,1
+weekly-load.html,wl-sessions,Sessions per Week,0,70,1
+weekly-weight.html,tdee,Your TDEE (Daily Calories Burned),0,20000,any
+weekly-weight.html,intake,Your Daily Calorie Intake,0,20000,any
+weight-convert.html,weightValue,Enter weight,0,500,any
+weight-gain-rate.html,tdeeGain2,Your TDEE (Daily Calories Burned),0,20000,any
+weight-gain-rate.html,intakeGain2,Your Daily Calorie Intake,0,20000,any
+weight-loss-rate.html,tdeeRate,Your TDEE (Daily Calories Burned),0,20000,any
+weight-loss-rate.html,intakeRate,Your Daily Calorie Intake,0,20000,any
+weight-stability.html,initialWeight,Initial Weight,0.1,500,any
+weight-stability.html,currentWeight,Current Weight,0.1,500,any
+weight-stability.html,days,Number of Days,0.1,500,any
+whr.html,waist,Waist,0.1,300,any
+whr.html,hip,Hip,0.1,300,any
+wht.html,waist,Waist Circumference,0.1,300,any
+wht.html,height,Height,30,300,any
+work-output.html,liftWeight,Weight Lifted i Total weight lifted per repetition. Include body weight if part of the movement. Enter in kg or lbs; conversion is automatic.,0.1,500,any
+work-output.html,distance,Distance Moved i Vertical distance the weight or your body moves per repetition. Enter in meters or feet; conversion is automatic.,0.1,500,any
+work-output.html,reps,Number of Reps,0,1000,1
+work-rest.html,work,Work Duration,0,10080,any
+work-rest.html,rest,Rest Duration,0,10080,any
+work-rest.html,intensity,Intensity (1–10),1,10,any
