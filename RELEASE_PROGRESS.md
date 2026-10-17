@@ -1,6 +1,6 @@
 # ClerFit R3 — Release Progress
 
-Current `main` source: `1869d9e29f6bf73091007ce44a0e40cf62dac442`
+Current verification basis: latest completed full Phase 1/2 gate `39061691909` on `481fe233daf5ff8c3110419cdd974b379b4672b2`; subsequent commits are report-only updates to audit/sign-off documents, not calculator runtime code or tests.
 
 ## Latest completed work
 
@@ -35,7 +35,7 @@ Earlier failure history is retained in GitHub Actions. The failed WHR check was 
 
 ## Remaining gates — still not 100% complete
 
-1. **Semantic input-boundary audit:** the inventory covers 238 numeric fields, but only the specific cases above have dedicated semantic regression assertions. Each remaining field needs formula-aware min/max, zero, negative, extreme, unit-conversion and cross-field checks where applicable. HTML attributes alone are not proof of semantic validity.
+1. **Semantic input-boundary audit:** the current inventory covers 242 numeric fields, but only the specific cases above have dedicated semantic regression assertions. Each remaining field needs formula-aware min/max, zero, negative, extreme, unit-conversion and cross-field checks where applicable. HTML attributes alone are not proof of semantic validity.
 2. **Exact design parity:** `ClerFit_R3_NEW_UI_COMPLETE.zip` is not present in the repository tree or current verified workspace. Exact page-by-page comparison against that reference archive is therefore not yet possible.
 3. **Scientific/formula review:** the current known-answer tests and code-level review are not independent external clinical or subject-matter expert certification. Population-specific equations and labels need authoritative source review where applicable.
 4. **Accessibility and real devices:** full keyboard-only and screen-reader walkthroughs, and physical phone/tablet checks, remain unverified. Automated mobile viewport checks do not replace physical-device testing.
@@ -44,7 +44,7 @@ Earlier failure history is retained in GitHub Actions. The failed WHR check was 
 
 ## Next work sequence
 
-1. Continue formula-aware semantic boundary coverage from the 238-field inventory, prioritizing inputs whose HTML limits permit zero/extreme values or whose units can silently mismatch.
+1. Continue formula-aware semantic boundary coverage from the 242-field inventory, prioritizing inputs whose HTML limits permit zero/extreme values or whose units can silently mismatch.
 2. Audit shared-engine/page-level handler overlap so deferred shared scripts cannot override stricter page validation without a regression test.
 3. Inspect the exact R3 ZIP when available and compare the homepage and all calculator pages, including responsive layout and Home/Contact placement.
 4. Complete owner/expert-gated accessibility, physical-device and real contact-delivery checks.
@@ -92,12 +92,12 @@ A fresh static audit of all 127 HTML documents in that available archive also pa
 
 ### Current gate status
 
-These are concrete source and QA-harness changes, not a claim that all final gates have already passed. CI for the newest exact main SHA must finish and all failed tests must be repaired; full semantic-boundary rationale across 238 static fields and generated inputs, physical-device and manual screen-reader acceptance, exact deployed-source parity, and real contact delivery remain unclosed until their evidence is recorded.
+These are concrete source and QA-harness changes, not a claim that all final gates have already passed. CI for the newest exact main SHA must finish and all failed tests must be repaired; full semantic-boundary rationale across 242 static fields and generated inputs, physical-device and manual screen-reader acceptance, exact deployed-source parity, and real contact delivery remain unclosed until their evidence is recorded.
 
 
 ## Final Phase 1 / Phase 2 verification snapshot — 2026-10-17
 
-**Verified main SHA:** `486f6c6613b5611d2bd365b1cc21e0e7fba743a3`  
+**Historical verified main SHA at this snapshot:** `486f6c6613b5611d2bd365b1cc21e0e7fba743a3`  
 **Production release marker:** `R3-2026-10-17-phase12-a11y-v1`
 
 ### Green current-source evidence
@@ -113,6 +113,17 @@ These are concrete source and QA-harness changes, not a claim that all final gat
 
 - **Phase 1 audit and automated source-level gate: PASS / completed.** Route inventory, prioritized findings, route sign-off baseline, static HTML/source review and fresh current-HEAD CI evidence are recorded.
 - **Phase 2 calculator implementation and automated gate: PASS / completed.** The 118-route build, eight focused calculator remediations/tests, staging parity, full-route browser interactions and 124-page automated accessibility run all pass on the verified source SHA.
-- **Not mislabeled as complete:** all 238 static numeric fields have structural bounds recorded, but the domain-specific rationale and zero/negative/extreme/cross-field boundary tests are not exhaustive for every field and runtime-generated control. Manual keyboard/screen-reader and physical phone/tablet acceptance, real consented contact-form receipt, expert domain review where relevant, performance under weak networks, and exact byte-level comparison with the inaccessible newest `ClerFit_R3_NEW_UI_COMPLETE.zip` remain owner/expert checks. GitHub Pages also does not apply Netlify custom response headers automatically.
+- **Not mislabeled as complete:** all 242 static numeric fields have structural bounds recorded, but the domain-specific rationale and zero/negative/extreme/cross-field boundary tests are not exhaustive for every field and runtime-generated control. Manual keyboard/screen-reader and physical phone/tablet acceptance, real consented contact-form receipt, expert domain review where relevant, performance under weak networks, and exact byte-level comparison with the inaccessible newest `ClerFit_R3_NEW_UI_COMPLETE.zip` remain owner/expert checks. GitHub Pages also does not apply Netlify custom response headers automatically.
 
 This snapshot supersedes earlier entries in this log that said a fresh browser run, exact-source CI result or production parity had not yet been confirmed. Those gates have now passed on the SHA shown above; the listed manual/external obligations remain open by evidence, not by lack of an automated run.
+
+
+## Final disposition — 2026-10-18 (latest)
+
+**Phase 1 audit work and Phase 2 calculator engineering / automated verification are complete.** The latest completed full workflow [39061691909](https://github.com/clerfit/Clerfit/actions/runs/39061691909) passed on `481fe233daf5ff8c3110419cdd974b379b4672b2`. It covered source syntax and calculator regressions, validation accessibility, consistency of the current 242-field inventories with source markup, all eight targeted page suites, contact form mocked tests, unit conversion, sitemap/build/staging parity, the 118-route browser interaction/semantic-boundary run, and the 124-page axe scan. The follow-on changes in the release log and final report are documentation-only; the calculator source and tests were not changed.
+
+**Production checks that have passed:** a live verifier reported 118 registered calculators, 123 sitemap pages, 123 HTML pages fetched and 158 same-site references checked, with zero failures; the repeat live 118-route smoke test also passed. GitHub Pages deployment succeeded for the latest documentation revision.
+
+**Overall owner/expert release acceptance is still OPEN** because several non-automatable or unavailable-evidence items cannot honestly be self-certified: (1) the exact `ClerFit_R3_NEW_UI_COMPLETE.zip` was not available, so byte/page-level parity cannot be proven; (2) complete formula-aware domain boundary rationale for all 242 static inputs and runtime-generated fields is not done; (3) manual keyboard/screen-reader and physical-device acceptance has not been performed; (4) a real consented contact submission and inbox receipt are unconfirmed; (5) the exact PageSpeed URL reported as 404 was not supplied, although the registered sitemap and links pass; (6) fresh throttled-network performance and actual host response-header checks remain open; and (7) independent subject-matter review is not represented as clinical certification. GitHub Pages does not automatically apply Netlify `_headers`.
+
+**Phase 3 readiness:** the engineering and automated gates for Phases 1 and 2 have passed, and Phase 3 work can begin with these release-acceptance items carried forward as explicit risks/tasks. Do not describe ClerFit as fully owner/expert-certified until those evidence-based gates are closed.
