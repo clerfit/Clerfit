@@ -289,7 +289,7 @@ async function main() {
         await p.getByRole('button',{name:/calculate result/i}).click();
         const resultText=await p.locator('#advanced-output').innerText();
         if(!/percentile/i.test(resultText)||!/CDC reference sex/i.test(resultText)) throw new Error('BMI-for-age unit-converted form did not render a CDC percentile result.');
-        regressionChecks.push('BMI-for-age generated form: weight/height unit selectors convert input values and still calculate');
+        targeted.push('BMI-for-age generated form: weight/height unit selectors convert input values and still calculate');
       } finally { await p.close(); }
     }
     const report={
