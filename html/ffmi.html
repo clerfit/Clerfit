@@ -207,7 +207,7 @@ function calculateFFMI() {
     return;
   }
 
-  result.innerHTML = `Lean Mass: ${leanMass.toFixed(2)} kg (${(leanMass / weight * 100).toFixed(1)}%)<br>FFMI: <b>${ffmi.toFixed(2)}</b><p class="cf-note">FFMI is a calculated index, not a diagnosis. There is no universal low/average/athletic/elite category valid across sex, age, training history and populations.</p>`;
+  result.innerHTML = `Lean Mass: ${leanMass.toFixed(2)} kg (${(leanMass / weight * 100).toFixed(1)}%)<br>FFMI: ${ffmi.toFixed(2)}<p class="cf-note">FFMI is a calculated index, not a diagnosis. There is no universal low/average/athletic/elite category valid across sex, age, training history and populations.</p>`;
   formula.textContent = `Formula: Lean mass = weight × (1 − body-fat fraction) = ${weight.toFixed(2)} × (1 − ${fat / 100}) = ${leanMass.toFixed(2)} kg; FFMI = lean mass ÷ height² = ${leanMass.toFixed(2)} ÷ ${height.toFixed(4)}² = ${ffmi.toFixed(2)}.`;
   const barContainer = document.querySelector('.bar-container');
   if (barContainer) barContainer.hidden = true;
