@@ -94,6 +94,11 @@ for (const row of boundsRows.slice(1)) {
 }
 
 const source = new Map();
+function compactText(value) {
+  return value.replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/\s+/g, ' ').trim();
+}
 for (const file of listHtml('html')) {
   let markup = read(path.posix.join('html', file));
   // Ignore markup stored inside scripts: those are runtime-generated controls.
@@ -106,24 +111,59 @@ for (const file of listHtml('html')) {
     assert.ok(id, 'Every static numeric input must have an id: html/' + file + ' ' + match[0]);
     const key = 'html/' + file + '|' + id;
     assert.ok(!source.has(key), 'Duplicate static numeric input id in one page: ' + key);
+    let label = '';
+    for (const labelMatch of markup.matchAll(/<label\b([^>]*)>([\s\S]*?)<\/label\s*>/gi)) {
+      const labelAttrs = parseTagAttributes('<label ' + labelMatch[1] + '>');
+      if (labelAttrs.for === id) { label = compactText(labelMatch[2]); break; }
+    }
+    let unitSelector = 'not-detected';
+    for (const selectMatch of markup.matchAll(/<select\b[^>]*>/gi)) {
+      const selectAttrs = parseTagAttributes(selectMatch[0]);
+      if (selectAttrs['data-unit-for'] === id) { unitSelector = 'yes'; break; }
+    }
     source.set(key, {
+      file: 'html/' + file,
+      id,
+      name: attributes.name || '',
+      label: label || attributes['aria-label'] || attributes.placeholder || id,
+      required: Object.hasOwn(attributes, 'required') ? 'yes' : 'no',
+      unitSelector,
       min: attrValue(attributes, 'min'),
       max: attrValue(attributes, 'max'),
       step: attrValue(attributes, 'step')
     });
   }
 }
-assert.equal(source.size, 238, 'Expected 238 static numeric inputs, found ' + source.size + '; source-only: ' + [...source.keys()].filter(key => !auditMap.has(key)).join(', ') + '; CSV-only: ' + [...auditMap.keys()].filter(key => !source.has(key)).join(', '));
-assert.equal(auditMap.size, source.size, 'Audit row count must match static numeric inputs');
-assert.equal(boundsMap.size, source.size, 'Boundary inventory row count must match static numeric inputs');
-for (const [key, sourceBounds] of source) {
-  const audit = auditMap.get(key);
-  const boundary = boundsMap.get(key);
-  assert.ok(audit, 'FIELD_VALIDATION_AUDIT.csv missing ' + key);
-  assert.ok(boundary, 'INPUT_BOUNDARY_VERIFIED.csv missing ' + key);
+assert.equal(source.size, 242, 'Expected 242 static numeric inputs, found ' + source.size + '; source-only: ' + [...source.keys()].filter(key => !auditMap.has(key)).join(', ') + '; CSV-only: ' + [...auditMap.keys()].filter(key => !source.has(key)).join(', '));
+for (const [key, field] of source) {
+  let audit = auditMap.get(key);
+  let boundary = boundsMap.get(key);
+  if (!audit || !boundary) {
+    assert.equal(MODE, '--write', 'Missing source field rows for ' + key + '; run with --write to create them.');
+    if (!audit) {
+      audit = Array(auditHeader.length).fill('');
+      audit[ah.file] = field.file;
+      audit[ah.id] = field.id;
+      audit[ah.name] = field.name;
+      audit[ah.label_or_accessible_name] = field.label;
+      audit[ah.required] = field.required;
+      audit[ah.unit_selector_in_same_field] = field.unitSelector;
+      audit[ah.constraint_consistency] = 'STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE';
+      auditRows.push(audit);
+      auditMap.set(key, audit);
+    }
+    if (!boundary) {
+      boundary = Array(boundsHeader.length).fill('');
+      boundary[bh.file] = field.file.replace(/^html\//, '');
+      boundary[bh.id] = field.id;
+      boundary[bh.label] = field.label;
+      boundsRows.push(boundary);
+      boundsMap.set(key, boundary);
+    }
+  }
   for (const name of ['min', 'max', 'step']) {
-    audit[ah[name]] = sourceBounds[name];
-    boundary[bh[name]] = sourceBounds[name];
+    audit[ah[name]] = field[name];
+    boundary[bh[name]] = field[name];
   }
   // Don't mistake the presence of syntactically valid HTML bounds for semantic validation.
   const statusIndex = ah.constraint_consistency;
@@ -138,6 +178,8 @@ for (const [key, sourceBounds] of source) {
       : 'STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE';
   }
 }
+assert.equal(auditMap.size, source.size, 'Audit row count must match static numeric inputs');
+assert.equal(boundsMap.size, source.size, 'Boundary inventory row count must match static numeric inputs');
 
 const newAudit = stringifyCsv(auditRows);
 const newBounds = stringifyCsv(boundsRows);
