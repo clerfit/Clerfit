@@ -6,8 +6,14 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 const html = fs.readFileSync('contact.html', 'utf8');
-const legacyContactHtml = fs.readFileSync('html/contact.html', 'utf8');
-assert.match(legacyContactHtml, /<meta\s+name="robots"\s+content="noindex,follow"/i, 'legacy contact redirect must stay out of search results');
+for (const file of ['html/contact.html', 'html/calories.html', 'html/pace.html']) {
+  const legacyHtml = fs.readFileSync(file, 'utf8');
+  assert.match(
+    legacyHtml,
+    /<meta\s+name="robots"\s+content="noindex,follow"/i,
+    'legacy redirect must stay out of search results: ' + file
+  );
+}
 const script = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)]
   .map(match => match[1])
   .find(body => body.includes("form.addEventListener('submit'"));
