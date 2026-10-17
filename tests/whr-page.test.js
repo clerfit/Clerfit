@@ -192,7 +192,7 @@ runCase('page exposes labels, live regions, unit constraints and correct metadat
   assert.match(page, /id="formula" class="result" aria-live="polite" aria-atomic="true"/);
   assert.match(page, /onclick="resetWHR\(\)"/);
   assert.match(page, /onchange="clearWHROutput\(\)"/);
-  assert.match(page, /not used for the calculation/i);
+  assert.match(page, /does not change the calculation/i);
   assert.equal((page.match(/<meta charset=/gi) || []).length, 1);
   assert.doesNotMatch(page, /gtag|googletagmanager|google-analytics/i);
   assert.equal((page.match(/<script src="\.\.\/js\/navigation\.js"/g) || []).length, 1);
