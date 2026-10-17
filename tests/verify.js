@@ -306,6 +306,55 @@ assert.match(pageTest.output('result'), /RFM value outside the supported 0–100
 assert.doesNotMatch(pageTest.output('result'), /RFM estimate:/);
 checks++;
 
+// Known-answer and semantic boundaries for the Mifflin-based calorie tools.
+pageTest = runPageFunction('maintenance.html', 'calculateMaintenance', {
+  weight: 70, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 30, gender: 'male', activity: 1.55
+}, ['result', 'formula']);
+assert.match(pageTest.output('result'), /2556 calories\/day/);
+checks++;
+pageTest = runPageFunction('maintenance.html', 'calculateMaintenance', {
+  weight: 70, weightUnit: 'kg', height: 30, heightUnit: 'cm', age: 30, gender: 'male', activity: 1.55
+}, ['result', 'formula']);
+assert.match(pageTest.output('result'), /height 100–250 cm/i);
+assert.doesNotMatch(pageTest.output('result'), /Maintenance Calories \(TDEE\) are/);
+checks++;
+
+pageTest = runPageFunction('deficit.html', 'calculateDeficit', {
+  weight: 70, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 30, gender: 'male', activity: 1.55, deficit: 500
+}, ['result', 'details']);
+assert.match(pageTest.output('result'), /2056 kcal\/day/);
+checks++;
+pageTest = runPageFunction('deficit.html', 'calculateDeficit', {
+  weight: 70, weightUnit: 'kg', height: 175, heightUnit: 'bogus', age: 30, gender: 'male', activity: 1.55, deficit: 500
+}, ['result', 'details']);
+assert.match(pageTest.output('result'), /Check units and measurements/i);
+assert.doesNotMatch(pageTest.output('result'), /Target Calories for Fat Loss:/);
+checks++;
+
+pageTest = runPageFunction('surplus.html', 'calculateSurplus', {
+  weight: 70, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 30, gender: 'male', activity: 1.55, surplus: 250
+}, ['result', 'details']);
+assert.match(pageTest.output('result'), /2806 kcal\/day/);
+checks++;
+pageTest = runPageFunction('surplus.html', 'calculateSurplus', {
+  weight: 70, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 17, gender: 'male', activity: 1.55, surplus: 250
+}, ['result', 'details']);
+assert.match(pageTest.output('result'), /age 18–120/i);
+assert.doesNotMatch(pageTest.output('result'), /Target Calories for Weight Gain:/);
+checks++;
+
+pageTest = runPageFunction('calories-kg.html', 'calculateCaloriesPerKg', {
+  weight: 70, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 30, gender: 'male', activity: 1.55
+}, ['result', 'details']);
+assert.match(pageTest.output('result'), /36\.5 kcal\/kg\/day/);
+checks++;
+pageTest = runPageFunction('calories-kg.html', 'calculateCaloriesPerKg', {
+  weight: 0.1, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 30, gender: 'male', activity: 1.55
+}, ['result', 'details']);
+assert.match(pageTest.output('result'), /weight must be 2–500 kg/i);
+assert.doesNotMatch(pageTest.output('result'), /Calories per kg:/);
+checks++;
+
 pageTest = runPageFunction('absi.html', 'calculateABSI', {
   waist: 85, waistUnit: 'nonsense', height: 175, heightUnit: 'cm', weight: 70
 }, ['result']);
