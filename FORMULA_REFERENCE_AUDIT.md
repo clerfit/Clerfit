@@ -181,3 +181,8 @@ SITE_URL=https://clerfit.github.io/Clerfit node scripts/verify-staging.js
 ```
 
 Local checks cannot prove live message delivery, real-device behaviour or that the deployed website matches this archive; those require production access and physical-device QA.
+
+
+## Current inventory addendum — 2026-10-18
+
+The initial audit-time count of 238 fields above is historical. The current main-branch source and both checked CSV inventories contain **242 static numeric input fields**, and the phase-register integrity test enforces a one-to-one match with source HTML. Current full verification passed on run [39061691909](https://github.com/clerfit/Clerfit/actions/runs/39061691909), including formula/method regressions, source/inventory consistency, all 118 route interactions, and the 124-page automated accessibility scan. The four-field increase does not change the meaning of route-level vector coverage: it still does not certify every domain-specific input combination. Human/external release gates remain open.
