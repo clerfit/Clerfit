@@ -69,7 +69,7 @@
     let max = rule ? rule.max : 1e12;
     const unit = unitFor(el);
     if (/(weight|mass|bodyweight|leanmass|fatmass|load|liftweight)/.test(text)) {
-      if (/lb|lbs|pound/.test(unit)) { min = 0.2; max = 1100; }
+      if (/lb|lbs|pound/.test(unit)) { min = 0.2; max = 1103; } // allows page-specific limits through 500 kg
       else if (/oz/.test(unit)) { min = 1; max = 17600; }
     }
     if (/(height|stature|waist|hip|neck|chest|circumference|facelength|forehead|cheekbone|jawline)/.test(text)) {
