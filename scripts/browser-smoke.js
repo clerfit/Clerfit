@@ -181,13 +181,22 @@ async function runRoute(browser, route) {
       const header = main ? main.querySelector(':scope > .header, :scope > header, .header') : null;
       const position = getComputedStyle(nav).position;
       const appearsBeforeHeader = !!header && Boolean(nav.compareDocumentPosition(header) & 4);
+      const describe = el => el ? (el.tagName.toLowerCase() + (el.id ? '#'+el.id : '') + (typeof el.className === 'string' && el.className.trim() ? '.'+el.className.trim().replace(/\\s+/g,'.') : '')) : null;
       return {
         present: nav.getClientRects().length > 0,
         nearTop: !!main && !!header && main.contains(nav) && appearsBeforeHeader,
         staticFlow: position !== 'fixed' && position !== 'sticky',
         homeLink: !!nav.querySelector('a[href*="index.html"], a[href="../"], a[href="./"]'),
         contactLink: !!nav.querySelector('a[href*="contact.html"]'),
-        insideMain: !!main && main.contains(nav)
+        insideMain: !!main && main.contains(nav),
+        debug: {
+          nav: describe(nav), navParent: describe(nav.parentElement), main: describe(main),
+          header: describe(header), headerParent: describe(header && header.parentElement),
+          appearsBeforeHeader, navIndexInParent: nav.parentElement ? Array.from(nav.parentElement.children).indexOf(nav) : -1,
+          headerIndexInParent: header && header.parentElement ? Array.from(header.parentElement.children).indexOf(header) : -1,
+          firstMainChildren: main ? Array.from(main.children).slice(0,5).map(describe) : [],
+          pageChromeScripts: Array.from(document.scripts).filter(s => s.src.includes('page-chrome.js')).map(s => s.src)
+        }
       };
     });
     bodyOverflow = await page.evaluate(()=>document.documentElement.scrollWidth > window.innerWidth + 1);
