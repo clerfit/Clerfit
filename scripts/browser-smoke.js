@@ -277,7 +277,12 @@ async function targetedCalculatorBoundaries(browser) {
   async function exercise({file, fn, fields, resultId, caseName, expect, mustNotMatch}) {
     const p = await browser.newPage({ viewport: { width: 390, height: 844 } });
     try {
-      await p.goto(new URL('html/' + file + '?browserSmoke=calculator-boundaries', BASE).href, { waitUntil: 'load' });
+      // Request a fresh static HTML representation so the live check can detect stale CDN copies.
+      await p.setExtraHTTPHeaders({ 'Cache-Control': 'no-cache, no-store', 'Pragma': 'no-cache' });
+      const pageUrl = new URL('html/' + file, BASE);
+      pageUrl.searchParams.set('browserSmoke', 'calculator-boundaries');
+      pageUrl.searchParams.set('releaseProbe', 'r3-semantic-2026-10-17-v2');
+      await p.goto(pageUrl.href, { waitUntil: 'load' });
       await p.evaluate(({fields}) => {
         for (const [id, value] of Object.entries(fields)) {
           const el = document.getElementById(id);
