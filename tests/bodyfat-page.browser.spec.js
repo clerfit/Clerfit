@@ -85,10 +85,13 @@ test('Body Fat Percentage works end-to-end on mobile', async ({ page }) => {
   await expect(page.locator('#bf-result')).toBeEmpty();
   await expect(page.locator('#bf-formula')).toBeEmpty();
   await expect(page.locator('#bf-height')).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(page.locator('#bf-height-unit')).toBeFocused();
+  const focusOutline = await page.locator('#bf-height-unit').evaluate(el => getComputedStyle(el).outlineWidth);
+  expect(parseFloat(focusOutline), 'Keyboard focus indicator should be visible').toBeGreaterThanOrEqual(3);
 
   await expect(page.getByRole('link', { name: /Go to ClerFit home/i })).toBeVisible();
   await expect(page.getByRole('link', { name: /Contact Us at ClerFit/i })).toBeVisible();
-  await page.keyboard.press('Tab');
   const dimensions = await page.evaluate(() => ({
     viewport: document.documentElement.clientWidth,
     document: document.documentElement.scrollWidth
