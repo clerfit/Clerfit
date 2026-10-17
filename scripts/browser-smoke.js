@@ -142,6 +142,7 @@ async function runRoute(browser, route) {
   page.on('pageerror', err=>pageErrors.push(err.message || String(err)));
   page.on('console', msg=>{ if(msg.type()==='error') consoleErrors.push(msg.text()); });
   let loaded=false, inputCount=0, clicked=false, bodyOverflow=false, outputsBefore=[], outputsAfter=[];
+  let navState={present:false,nearTop:false,staticFlow:false,homeLink:false,contactLink:false,insideMain:false};
   try {
     const response = await page.goto(url, {waitUntil:'domcontentloaded',timeout:20000});
     if (!response || !response.ok()) throw new Error('page HTTP status ' + (response ? response.status() : 'no response'));
@@ -173,6 +174,22 @@ async function runRoute(browser, route) {
       await page.locator('#amount').dispatchEvent('input').catch(()=>{});
     }
     outputsAfter = await outputSnapshot(page);
+    navState = await page.evaluate(() => {
+      const nav = document.querySelector('.cf-page-actions, .clerfit-fixed-actions, .cf-floating-links, .top-right-buttons');
+      const main = document.querySelector('main.main, main, .main');
+      if (!nav) return {present:false,nearTop:false,staticFlow:false,homeLink:false,contactLink:false,insideMain:false};
+      const nr = nav.getBoundingClientRect();
+      const mr = main ? main.getBoundingClientRect() : {top:0};
+      const position = getComputedStyle(nav).position;
+      return {
+        present: nav.getClientRects().length > 0,
+        nearTop: !!main && nr.top >= mr.top - 2 && nr.top <= mr.top + 180,
+        staticFlow: position !== 'fixed' && position !== 'sticky',
+        homeLink: !!nav.querySelector('a[href*="index.html"], a[href="../"], a[href="./"]'),
+        contactLink: !!nav.querySelector('a[href*="contact.html"]'),
+        insideMain: !!main && main.contains(nav)
+      };
+    });
     bodyOverflow = await page.evaluate(()=>document.documentElement.scrollWidth > window.innerWidth + 1);
     loaded=true;
   } catch (error) {
@@ -180,11 +197,15 @@ async function runRoute(browser, route) {
   } finally {
     await page.close().catch(()=>{});
   }
-  const row={file:pageName,url,loaded,inputCount,actionClicked:clicked,bodyOverflow,pageErrors,consoleErrors,outputs:outputsAfter.length,outputSample:outputsAfter.map(x=>x.text).join(' | ').slice(0,260)};
+  const row={file:pageName,url,loaded,inputCount,actionClicked:clicked,bodyOverflow,navState,pageErrors,consoleErrors,outputs:outputsAfter.length,outputSample:outputsAfter.map(x=>x.text).join(' | ').slice(0,260)};
   if (!loaded) failures.push(pageName + ' failed to load/execute: ' + pageErrors.join(' | '));
   if (inputCount===0) failures.push(pageName + ' has no visible interactive input.');
   if (!clicked && !/unit\.html$/i.test(pageName)) failures.push(pageName + ' has no actionable Calculate/Convert control.');
   if (bodyOverflow) failures.push(pageName + ' overflows the 390px mobile viewport.');
+  if (!navState.present) failures.push(pageName + ' is missing visible Home/Contact quick navigation.');
+  if (!navState.nearTop || !navState.insideMain) failures.push(pageName + ' Home/Contact navigation is not positioned at the top of the main page content.');
+  if (!navState.staticFlow) failures.push(pageName + ' Home/Contact navigation overlaps the page as a fixed/sticky overlay.');
+  if (!navState.homeLink || !navState.contactLink) failures.push(pageName + ' Home/Contact navigation is missing a working Home or Contact Us link.');
   if (pageErrors.length) failures.push(pageName + ' JavaScript/page errors: ' + pageErrors.join(' | '));
   if (consoleErrors.length) failures.push(pageName + ' console errors: ' + consoleErrors.join(' | '));
   return row;
@@ -308,6 +329,7 @@ async function main() {
       routeCount:registry.length, routesLoaded:routeResults.filter(r=>r.loaded).length,
       actionsClicked:routeResults.filter(r=>r.actionClicked).length,
       mobileOverflow:routeResults.filter(r=>r.bodyOverflow).map(r=>r.file),
+      navigationFailures:routeResults.filter(r=>!r.navState.present || !r.navState.nearTop || !r.navState.staticFlow || !r.navState.homeLink || !r.navState.contactLink || !r.navState.insideMain).map(r=>({file:r.file,navState:r.navState})),
       pageErrors:routeResults.filter(r=>r.pageErrors.length).map(r=>({file:r.file,errors:r.pageErrors})),
       consoleErrors:routeResults.filter(r=>r.consoleErrors.length).map(r=>({file:r.file,errors:r.consoleErrors})),
       noVisibleInput:routeResults.filter(r=>!r.inputCount).map(r=>r.file),
