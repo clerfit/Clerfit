@@ -69,8 +69,8 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   await expect(page.locator('#hip')).toHaveAttribute('max', '300');
   await page.locator('#waist').fill('301');
   await page.getByRole('button', { name: 'Calculate' }).click();
-  await expect(page.locator('#result')).toBeEmpty();
-  await expect(page.locator('.clerfit-input-error').first()).toBeVisible();
+  await expect(page.locator('#result')).toContainText('both circumference measurements are plausible');
+  await expect(page.locator('#result [role="alert"]')).toBeVisible();
   await expect(page.locator('#result')).not.toContainText('WHR:');
 
   // Clear the previous validation state before checking the independent boundary cases.
