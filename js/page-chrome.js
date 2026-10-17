@@ -35,6 +35,13 @@
       nav.innerHTML = '<a class="cf-page-home" href="' + home + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5.5 9v11h13V9M9 20v-6h6v6"/></svg><span>Home</span></a>' +
         '<a class="cf-page-contact" href="' + contact + '"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span>Contact Us</span></a>';
     }
+    // Normalize legacy navigation containers so the same styling, tests and accessibility hooks work everywhere.
+    nav.classList.add("cf-page-actions");
+    nav.setAttribute("aria-label", nav.getAttribute("aria-label") || "Quick navigation");
+    const homeLink = nav.querySelector('a[href*="index.html"], a[href="./"], a[href="../"]');
+    const contactLink = nav.querySelector('a[href*="contact.html"]');
+    if (homeLink) homeLink.classList.add("cf-page-home");
+    if (contactLink) contactLink.classList.add("cf-page-contact");
     placeInHeader(nav);
     ensureAccessibleLandmarksAndLinks();
   };
@@ -46,6 +53,20 @@
       const content = document.querySelector(".main") || document.querySelector("#content");
       if (content) content.setAttribute("role", "main");
     }
+    document.querySelectorAll('input:not([type="hidden"]), select, textarea, button').forEach((control) => {
+      const hasName = Boolean(
+        control.getAttribute("aria-label")?.trim() ||
+        control.getAttribute("aria-labelledby")?.trim() ||
+        control.getAttribute("title")?.trim() ||
+        (control.labels && [...control.labels].some((label) => label.textContent.trim())) ||
+        (control.matches("button") && control.textContent?.replace(/\\s+/g, " ").trim()) ||
+        (control.matches('input[type="button"], input[type="submit"], input[type="reset"]') && (control.value || "").trim())
+      );
+      if (hasName) return;
+      const raw = control.id || control.name || control.getAttribute("placeholder") || control.getAttribute("data-label") || "";
+      const label = raw.replace(/([a-z0-9])([A-Z])/g, "$1 $2").replace(/[-_]+/g, " ").replace(/\\s+/g, " ").trim();
+      if (label) control.setAttribute("aria-label", label.charAt(0).toUpperCase() + label.slice(1));
+    });
     document.querySelectorAll("a").forEach((anchor) => {
       const hasName = Boolean(
         anchor.getAttribute("aria-label")?.trim() ||
