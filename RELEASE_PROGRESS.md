@@ -1,52 +1,46 @@
-# ClerFit R3 — Release Progress Update
+# ClerFit R3 — Release Progress
 
-Current main under active correction: `5f7d3fc9d6ceb15b396d6ce3abdae47551cd034b`
+Last source revision inspected: `c16ab2692ecf2d36da8771e70302bc9012f74239` (main)
 
-## Implemented corrections on main
+## Current source corrections
 
-- `7dcf8c87` — RFM input validation prevents NaN/Infinity output.
-- `82223fba` — ABSI validates inputs, supported length units, plausible canonical measurements, and finite math.
-- `37888e3` — WHR validates both measurements and units, clears stale output, and rejects unsupported conversions.
-- `44be4a5` — BMI validates age, supported units, plausible converted measurements, and stale result handling; adult categories remain restricted to ages 20+.
-- `c95942a` — Fat Mass uses exact pound conversion and validates/clears output.
-- `82a2f5e` — Lean Mass uses exact pound conversion, validates/clears output, and rejects unsupported units.
-- `4d4093f` — FFMI explicitly validates units, conversion ranges, and calculation results.
-- `8bc8970` — One-Rep Max validates repetitions, load units/range, selected equation, and finite output.
-- `22c064d` — BMI Change normalizes input units, checks plausible converted measurements and clears stale output.
-- `5f7d3fc` — BMI Compare validates both people’s unit/value combinations and guards pediatric interpretation.
+The recent main-branch changes harden these legacy calculators against missing inputs, unsupported units, stale outputs and non-finite results, with explicit estimate caveats where appropriate:
 
-## Verified releases (exact SHA only)
+- RFM: rejects missing/invalid height and waist before showing a body-fat estimate.
+- ABSI: validates supported length units, canonical measurement ranges and finite formula output.
+- WHR: validates both circumference measurements and units, clears old output, and does not assign unsupported universal risk labels.
+- Adult BMI: validates sex, age, supported units and canonical ranges; ages below 20 receive an age-specific interpretation warning instead of adult BMI classes.
+- Fat Mass and Lean Mass: exact lb-to-kg conversion, supported-unit validation and stale-output clearing.
+- FFMI: supported-unit conversions, plausibility checks and finite-result guard; no universal category claimed.
+- One-Rep Max: validates repetitions, load, units and selected equation; retains the four existing equations and uncertainty caveat.
+- BMI Change and BMI Compare: explicit unit checks, canonical-range validation and finite-result guards.
+- BSA: validates converted values and supported units before applying the Mosteller equation.
+- Goal Timeline and weight gain/loss estimates: validates values/units and explains that static calorie-to-mass models are approximate, not individualized predictions.
+- Weight Stability: validates units, weights and duration; notes that water/measurement variation affects scale-weight change.
 
-- `7dcf8c87`: Pages deployment, production verification, and 118-route browser smoke passed.
-  - Pages: https://github.com/clerfit/Clerfit/actions/runs/39014960504
-  - Production: https://github.com/clerfit/Clerfit/actions/runs/39014960537
-  - Browser smoke: https://github.com/clerfit/Clerfit/actions/runs/39014960531
-- `82223fba`: production verifier and 118-route browser smoke passed; Pages run was superseded by the next commit.
-  - Production: https://github.com/clerfit/Clerfit/actions/runs/39015089878
-  - Browser smoke: https://github.com/clerfit/Clerfit/actions/runs/39015089834
-- `37888e3`: Pages deployment, production verifier, and 118-route browser smoke passed.
-  - Pages: https://github.com/clerfit/Clerfit/actions/runs/39015117758
-  - Production: https://github.com/clerfit/Clerfit/actions/runs/39015118055
-  - Browser smoke: https://github.com/clerfit/Clerfit/actions/runs/39015118054
-- `82a2f5e`: Pages deployment, production verifier, and 118-route browser smoke passed.
-  - Pages: https://github.com/clerfit/Clerfit/actions/runs/39015214739
-  - Production: https://github.com/clerfit/Clerfit/actions/runs/39015214447
-  - Browser smoke: https://github.com/clerfit/Clerfit/actions/runs/39015214515
-- `22c064d`: production verifier passed; Pages/browser checks were superseded when the next commit landed.
-  - Production: https://github.com/clerfit/Clerfit/actions/runs/39015300115
+A new set of targeted regression checks was added to the existing `tests/verify.js`, including known-answer and invalid-input checks across the corrected calculators.
 
-## Current-release checks
+## Verified against exact revisions
 
-The newest code revision is `5f7d3fc9d6ceb15b396d6ce3abdae47551cd034b`. Its Pages deployment, production verifier, and browser smoke are queued/pending or in progress; their outcomes are not yet claimed as PASS.
+### Current `main` at `c16ab2692ecf2d36da8771e70302bc9012f74239`
 
-## Remaining gates (not complete)
+- **Formula regression checks: PASS** — 71 known-answer/domain assertions; every JavaScript file in `js/`, `scripts/`, and `tests/` passed `node --check`.
+  - Run: https://github.com/clerfit/Clerfit/actions/runs/39015644470
+- **GitHub Pages build and deployment: PASS**
+  - Run: https://github.com/clerfit/Clerfit/actions/runs/39015644387
+- The latest 118-route browser smoke and separate production verification have not yet been rerun on this exact test-harness commit. A successful browser smoke and production verifier exist for the immediately preceding calculator-code revision `216cd6fe0d7a115e7873e9fed720dc611af87132`, but that evidence is not substituted for fresh checks on current `main`.
+  - Browser smoke: https://github.com/clerfit/Clerfit/actions/runs/39015503437
+  - Production verifier: https://github.com/clerfit/Clerfit/actions/runs/39015503440
 
-- The exact reference archive `ClerFit_R3_NEW_UI_COMPLETE.zip` has not been confirmed accessible in this working context; page-by-page visual replication remains unverified.
-- Full semantic boundary audit for every field. HTML min/max/step declarations and one known-answer vector per route do not certify every user-input combination.
-- Full independent formula-source validation and qualified subject-matter review for calculators where required. Code-level desk reviews do not equal external scientific certification.
-- Keyboard-only and screen-reader walkthrough of all controls, physical-device QA, real contact-message delivery, live network/header review and throttled performance checks remain open.
-- After the latest changes, rerun the full release suite against the exact current SHA and live site before declaring production completion.
+## Remaining release gates — not complete
+
+- The exact reference `ClerFit_R3_NEW_UI_COMPLETE.zip` is not confirmed accessible in the current working context. Pixel-level, per-page R3 visual parity remains unverified until that exact archive can be inspected.
+- The route-level known-answer checks and 238-field static boundary inventory do not equal exhaustive semantic testing of every numeric input and unit combination.
+- `SCIENTIFIC_REVIEW_REGISTER.csv` and `INDEPENDENT_FORMULA_REVIEW.md` are code-level desk reviews, not an independent clinician/subject-matter expert certification.
+- Complete keyboard-only and assistive-technology walkthroughs, physical phone/tablet testing, throttled performance testing, and production network/security-header inspection remain unverified.
+- The contact-form unit test does not establish a new live message was successfully delivered; live Formspree delivery needs a consented end-to-end test.
+- BMI Compare has no age/sex input fields. Adult BMI categories are not valid for interpreting minors; this route should be reviewed to avoid displaying adult category labels without enough demographic context.
 
 ## Release rule
 
-Do not claim 100% completion while any material known defect or required verification remains open. Separate code implementation, route tests, semantic boundary coverage, science review, design parity and deployed-site evidence.
+Do not claim 100% completion until remaining required evidence is collected, failures are fixed, and route, calculator, UI and live-deployment checks have been rerun against the exact release revision.
