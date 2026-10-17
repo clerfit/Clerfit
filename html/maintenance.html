@@ -163,58 +163,58 @@
 <script>
 // ===== Unit Conversion =====
 function convertWeightToKg(value, unit) {
-  if (unit === "lbs") return value * 0.45359237;
-  return value;
+  switch (String(unit).toLowerCase()) {
+    case "kg": return value;
+    case "lbs": return value * 0.45359237;
+    default: return NaN;
+  }
 }
 
 function convertHeightToCm(value, unit) {
-  switch(unit) {
+  switch (String(unit).toLowerCase()) {
     case "cm": return value;
     case "m": return value * 100;
     case "in": return value * 2.54;
     case "ft": return value * 30.48;
-    default: return value;
+    default: return NaN;
   }
 }
 
 // ===== Maintenance Calories Calculation =====
 function calculateMaintenance() {
-  const weightVal = parseFloat(document.getElementById("weight").value);
+  const weightVal = Number(document.getElementById("weight").value);
   const weightUnit = document.getElementById("weightUnit").value;
-  const heightVal = parseFloat(document.getElementById("height").value);
+  const heightVal = Number(document.getElementById("height").value);
   const heightUnit = document.getElementById("heightUnit").value;
-  const age = parseInt(document.getElementById("age").value);
+  const age = Number(document.getElementById("age").value);
   const gender = document.getElementById("gender").value;
-  const activityFactor = parseFloat(document.getElementById("activity").value);
+  const activityFactor = Number(document.getElementById("activity").value);
+  const result = document.getElementById("result");
+  const formula = document.getElementById("formula");
+  result.textContent = "";
+  formula.textContent = "";
 
-  if (!weightVal || !heightVal || !age || !gender) {
-    alert("Please enter all required fields.");
+  if (![weightVal, heightVal, age, activityFactor].every(Number.isFinite) ||
+      weightVal <= 0 || heightVal <= 0 || !Number.isInteger(age) || age < 18 || age > 120 ||
+      !["male", "female"].includes(gender) || ![1.2, 1.375, 1.55, 1.725, 1.9].includes(activityFactor)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter positive measurements, an integer age from 18 to 120, a supported sex/reference group, and a listed activity level.</p>';
     return;
   }
-
   const weightKg = convertWeightToKg(weightVal, weightUnit);
   const heightCm = convertHeightToCm(heightVal, heightUnit);
-
-  let rmr;
-
-  // Mifflin–St Jeor Formula
-  if (gender === "male") {
-    rmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5;
-  } else {
-    rmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) - 161;
+  if (!Number.isFinite(weightKg) || !Number.isFinite(heightCm) ||
+      weightKg < 2 || weightKg > 500 || heightCm < 100 || heightCm > 250) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check units and measurements. Converted weight must be 2–500 kg and height 100–250 cm.</p>';
+    return;
   }
-
+  const rmr = 10 * weightKg + 6.25 * heightCm - 5 * age + (gender === "male" ? 5 : -161);
   const maintenanceCalories = rmr * activityFactor;
-
-  document.getElementById("result").innerHTML =
-    `Your Maintenance Calories (TDEE) are <b>${maintenanceCalories.toFixed(0)} calories/day</b>.`;
-
-  document.getElementById("formula").innerHTML =
-    `<b>How it was calculated:</b><br>
-     Step 1: RMR calculated using Mifflin–St Jeor equation.<br>
-     Step 2: RMR × Activity Factor.<br>
-     <br>
-     Maintenance Calories = RMR × Activity Level`;
+  if (!Number.isFinite(maintenanceCalories) || maintenanceCalories <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">A valid maintenance-calorie estimate could not be calculated from these inputs.</p>';
+    return;
+  }
+  result.innerHTML = `Your Maintenance Calories (TDEE) are <b>${maintenanceCalories.toFixed(0)} calories/day</b>.`;
+  formula.innerHTML = `<b>How it was calculated:</b><br>Step 1: Resting metabolic rate estimated using Mifflin–St Jeor.<br>Step 2: RMR × Activity Factor.<br>Maintenance Calories = RMR × Activity Level<p class="cf-note">Adult equation estimate only; actual energy needs vary and this is not a personalized prescription.</p>`;
 }
 </script>
 
