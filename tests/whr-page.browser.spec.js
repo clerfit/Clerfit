@@ -82,7 +82,7 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   await expect(page.locator('#waistUnit')).toHaveValue('cm');
   await expect(page.locator('#hipUnit')).toHaveValue('cm');
   await expect(page.locator('#waist')).toHaveAttribute('min', '20');
-  await expect(page.locator('#hip')).toHaveAttribute('min', '10');
+  await expect(page.locator('#hip')).toHaveAttribute('min', '20');
 
   // A 10cm circumference is rejected as implausibly small; 20cm and 300cm are domain endpoints.
   await page.locator('#waist').fill('10');
@@ -112,7 +112,7 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   await expect(page.locator('#gender')).toHaveValue('male');
   await expect(page.locator('#waistUnit')).toHaveValue('cm');
   await expect(page.locator('#hipUnit')).toHaveValue('cm');
-  await expect(page.locator('#waist')).toHaveAttribute('min', '10');
+  await expect(page.locator('#waist')).toHaveAttribute('min', '20');
   await expect(page.locator('#waist')).toHaveAttribute('max', '300');
   await expect(page.locator('#result')).toBeEmpty();
   await expect(page.locator('#formula')).toBeEmpty();
