@@ -1028,3 +1028,8 @@ body .info-tooltip,body .tooltip-circle,body .info-box{flex-shrink:0!important}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body *{transition:none!important;animation:none!important}}
 
 /* ClerFit R3 live calculator UI — production stylesheet release marker; R3-2026-10-17-calculator-fixes-05 */
+
+
+/* WCAG 2.1 AA: category captions need 4.5:1 contrast on their light card background. */
+.cf-category-card .cf-category-copy small,
+button[data-category] .cf-category-copy small { color: #4b5563 !important; }
