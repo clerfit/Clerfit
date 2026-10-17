@@ -46,9 +46,8 @@ test('FFMI calculator works end-to-end on mobile', async ({ page }) => {
   await expect(page.locator('#result')).toBeEmpty();
   await expect(page.locator('#ffmi-formula')).toBeEmpty();
   await page.getByRole('button', { name: 'Calculate' }).click();
-  await expect(page.locator('#result')).toBeEmpty();
-  await expect(page.locator('.clerfit-input-error').first()).toBeVisible();
-  await expect(page.locator('#fat')).toHaveAttribute('aria-invalid', 'true');
+  await expect(page.locator('#result')).toContainText('Enter a positive height and weight and a body-fat percentage from 0 to 100');
+  await expect(page.locator('#result [role="alert"]')).toBeVisible();
 
   // Endpoints 0% and 100% are mathematically valid; out-of-domain values must be blocked.
   await page.locator('#fat').fill('0');
