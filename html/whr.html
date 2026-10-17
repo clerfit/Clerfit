@@ -11,8 +11,7 @@
 <title>ClerFit – WHR</title>
   <meta name="description" content="Use the ClerFit WHR to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
 
-<meta charset="UTF-8">
-  <!-- Google tag (gtag.js) -->
+<!-- Legacy analytics are not loaded on this calculator. -->
 
 <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <script src="../js/engine.js" defer></script>
@@ -80,15 +79,16 @@
 <div class="card">
 <h2>Waist–Hip Ratio (WHR) Calculator</h2>
 
-<label for="gender">Gender</label>
-<select id="gender" aria-label="Sex / reference group">
+<label for="gender">Sex / reference group</label>
+<select id="gender" aria-label="Sex / reference group (ratio is not sex-classified)" onchange="clearWHROutput()">
   <option value="male">Male</option>
   <option value="female">Female</option>
 </select>
+<p class="cf-note">This calculator reports the ratio only; the selected reference group does not change the calculation or add a risk classification.</p>
 
 <label for="waist">Waist</label>
-<input id="waist" type="number" min="0.1" max="300" step="any">
-<select id="waistUnit" aria-label="Waist unit">
+<input id="waist" type="number" min="20" max="300" step="any" aria-label="Waist circumference" oninput="clearWHROutput()">
+<select id="waistUnit" aria-label="Waist unit" onchange="clearWHROutput()">
   <option value="cm">cm</option>
   <option value="m">m</option>
   <option value="inch">inch</option>
@@ -96,20 +96,23 @@
 </select>
 
 <label for="hip">Hip</label>
-<input id="hip" type="number" min="0.1" max="300" step="any">
-<select id="hipUnit" aria-label="Hip unit">
+<input id="hip" type="number" min="20" max="300" step="any" aria-label="Hip circumference" oninput="clearWHROutput()">
+<select id="hipUnit" aria-label="Hip unit" onchange="clearWHROutput()">
   <option value="cm">cm</option>
   <option value="m">m</option>
   <option value="inch">inch</option>
   <option value="ft">ft</option>
 </select>
 
-<button class="calculate-btn" onclick="calculateWHR()">Calculate</button>
+<div class="cf-form-actions">
+  <button class="calculate-btn" type="button" onclick="calculateWHR()">Calculate</button>
+  <button class="cf-reset-btn" type="button" onclick="resetWHR()">Reset</button>
+</div>
 
-<div id="result" class="result"></div>
-<div id="formula" class="result"></div>
+<div id="result" class="result" role="status" aria-live="polite" aria-atomic="true"></div>
+<div id="formula" class="result" aria-live="polite" aria-atomic="true"></div>
 
-<div class="bar-container">
+<div class="bar-container" hidden>
   <div class="bar">
     <div class="indicator" id="indicator"></div>
     <div class="indicator-label" id="indicatorLabel"></div>
@@ -132,55 +135,117 @@
 </div>
 
 <script>
+function clearWHROutput() {
+  const result = document.getElementById('result');
+  const formula = document.getElementById('formula');
+  if (result) result.textContent = '';
+  if (formula) formula.textContent = '';
+}
+
+function syncWHRBounds() {
+  const ranges = {
+    cm: [20, 300],
+    m: [0.2, 3],
+    inch: [7.874016, 118.1102],
+    ft: [0.656168, 9.84251]
+  };
+  for (const [fieldId, unitId] of [['waist', 'waistUnit'], ['hip', 'hipUnit']]) {
+    const field = document.getElementById(fieldId);
+    const unit = document.getElementById(unitId).value;
+    const range = ranges[unit];
+    if (range) {
+      field.min = String(range[0]);
+      field.max = String(range[1]);
+    }
+  }
+}
+
+function resetWHR() {
+  const defaults = {
+    gender: 'male',
+    waist: '', waistUnit: 'cm',
+    hip: '', hipUnit: 'cm'
+  };
+  Object.entries(defaults).forEach(([id, value]) => {
+    const field = document.getElementById(id);
+    if (!field) return;
+    field.value = value;
+    field.removeAttribute('aria-invalid');
+    // Keep the shared unit converter's previous-unit cache synchronized with Reset.
+    if (field.matches && field.matches('select') && field.dataset) {
+      field.dataset.clerfitPreviousUnit = value;
+    }
+  });
+  document.querySelectorAll('.clerfit-input-error').forEach(node => node.remove());
+  clearWHROutput();
+  syncWHRBounds();
+  const waist = document.getElementById('waist');
+  if (waist) waist.focus();
+}
+
+if (typeof document !== 'undefined' && document.addEventListener) {
+  document.addEventListener('DOMContentLoaded', () => {
+    syncWHRBounds();
+    ['waistUnit', 'hipUnit'].forEach(id => {
+      const select = document.getElementById(id);
+      select.addEventListener('change', () => {
+        if (typeof queueMicrotask === 'function') queueMicrotask(syncWHRBounds);
+        else Promise.resolve().then(syncWHRBounds);
+      });
+    });
+  }, { once: true });
+}
+
 function calculateWHR() {
   const result = document.getElementById('result');
   const formula = document.getElementById('formula');
-  const rawWaist = Number(document.getElementById('waist').value);
-  const rawHip = Number(document.getElementById('hip').value);
+  const waistText = document.getElementById('waist').value.trim();
+  const hipText = document.getElementById('hip').value.trim();
+  const rawWaist = waistText === '' ? NaN : Number(waistText);
+  const rawHip = hipText === '' ? NaN : Number(hipText);
   const waistUnit = document.getElementById('waistUnit').value;
   const hipUnit = document.getElementById('hipUnit').value;
 
-  result.textContent = '';
-  formula.textContent = '';
+  clearWHROutput();
   if (!Number.isFinite(rawWaist) || !Number.isFinite(rawHip) || rawWaist <= 0 || rawHip <= 0) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">Enter valid positive waist and hip measurements.</p>';
     return;
   }
 
-  const toMetres = (value, unit) => {
+  const toCentimetres = (value, unit) => {
     switch (String(unit).toLowerCase()) {
-      case 'cm': return value / 100;
-      case 'm': return value;
+      case 'cm': return value;
+      case 'm': return value * 100;
       case 'in':
       case 'inch':
-      case 'inches': return value * 0.0254;
+      case 'inches': return value * 2.54;
       case 'ft':
       case 'foot':
-      case 'feet': return value * 0.3048;
+      case 'feet': return value * 30.48;
       default: return NaN;
     }
   };
-  const waistM = toMetres(rawWaist, waistUnit);
-  const hipM = toMetres(rawHip, hipUnit);
-  if (![waistM, hipM].every(value => Number.isFinite(value) && value > 0)) {
+  // Validate in the page's canonical centimetre domain. This avoids rejecting
+  // exact displayed endpoints due to floating-point metre conversion noise.
+  const waistCm = toCentimetres(rawWaist, waistUnit);
+  const hipCm = toCentimetres(rawHip, hipUnit);
+  if (![waistCm, hipCm].every(Number.isFinite)) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported units for both measurements.</p>';
     return;
   }
-  if (waistM < 0.1 || waistM > 3 || hipM < 0.1 || hipM > 3) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">Check that both circumference measurements are plausible.</p>';
+  if (![waistCm, hipCm].every(value => value >= 20 - 1e-7 && value <= 300 + 1e-7)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check that both circumference measurements are plausible (at least 20 cm and no more than 300 cm after conversion).</p>';
     return;
   }
 
-  const waist = waistM / 0.01;
-  const hip = hipM / 0.01;
-  const ratio = waist / hip;
+  const ratio = waistCm / hipCm;
   if (!Number.isFinite(ratio)) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">The result could not be calculated from these measurements.</p>';
     return;
   }
   const whr = ratio.toFixed(2);
   result.innerHTML = `<strong>WHR: ${whr}</strong><p class="cf-note">Screening ratio only. This calculator does not assign a universal risk category or diagnose a condition.</p>`;
-  formula.textContent = `Formula: Waist ÷ Hip = ${waist.toFixed(1)} ÷ ${hip.toFixed(1)} = ${whr}`;
+  formula.textContent = `Formula: Waist ÷ Hip = ${waistCm.toFixed(1)} ÷ ${hipCm.toFixed(1)} = ${whr}`;
   const barContainer = document.querySelector('.bar-container');
   if (barContainer) barContainer.hidden = true;
 }
