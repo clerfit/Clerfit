@@ -91,6 +91,21 @@ Completed on the audit branch and tested in GitHub Actions run #70:
 
 **Not claimed:** Live HTTP status and deployment parity remain open for this route as for the other audited pages.
 
+### Page 4 — Fat Mass (`html/fatmass.html`) — source-local sign-off achieved
+
+Completed on the audit branch and tested in GitHub Actions run #83:
+
+- Fixed the empty body-fat field being silently converted to zero, which could incorrectly produce a zero fat-mass result instead of a validation message.
+- Added unit-dependent weight limits for kg/lb and a reset button that restores kg defaults, clears validation/output and returns focus to Weight.
+- Made result and formula announcements accessible via live regions and cleared stale output whenever inputs/units change or calculation starts.
+- Removed a duplicate character-encoding declaration and stale empty analytics marker.
+- Added VM-based known-answer/domain tests for 70 kg at 20% fat (14 kg), equivalent pounds conversion, 0% and 100% endpoints, blank weight/fat inputs, unsupported units, converted 0.1–500 kg limits, reset and metadata/scripts.
+- Added Chromium tests covering calculation, units and limits, blank/invalid field handling, endpoints, reset/focus, keyboard focus visibility, Home/Contact links, 320 px no-overflow, local asset/runtime failures and Axe.
+
+**Result:** GitHub Actions run #83 passed the full known-answer/domain suite, BMI/Body Fat/Lean Body Mass/Fat Mass page-specific Node suites, JavaScript syntax checks, and combined Chromium/Axe tests. Axe reported zero violations for the local Fat Mass test build.
+
+**Not claimed:** Live HTTP status and deployment/ZIP parity remain open. These four pages have local source sign-off; none is claimed as verified on the production deployment yet.
+
 ## Evidence-based findings
 
 ### P1 — Release archive parity is unverified
@@ -143,7 +158,7 @@ These are deliberately marked open; a source patch is not proof that Lighthouse,
 
 ## Phase 1 exit criteria
 
-Phase 1 is complete only when the exact source archive, repository, and live release are reconciled; every registered calculator and public page has an evidence-backed status; PageSpeed issues have been reproduced or explicitly disproven; fixes have been re-tested; and the sign-off register has no unresolved release-blocking rows. BMI, Body Fat Percentage and Lean Body Mass have passed source-local CI/browser checks, but the site-wide phase is **not signed off** because 115 other calculator pages and the remaining public routes still need the same page-by-page treatment, and archive parity/live-host checks remain open.
+Phase 1 is complete only when the exact source archive, repository, and live release are reconciled; every registered calculator and public page has an evidence-backed status; PageSpeed issues have been reproduced or explicitly disproven; fixes have been re-tested; and the sign-off register has no unresolved release-blocking rows. BMI, Body Fat Percentage, Lean Body Mass and Fat Mass have passed source-local CI/browser checks, but the site-wide phase is **not signed off** because 114 other calculator pages and the remaining public routes still need the same page-by-page treatment, and archive parity/live-host checks remain open.
 
 ## Safety of changes
 
