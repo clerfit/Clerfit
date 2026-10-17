@@ -1,0 +1,107 @@
+name: ClerFit Phase One Verification
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clerfit-phase-one-verification
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Regression, staging, browser and accessibility checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in js/*.js scripts/*.js tests/*.js; do
+            test -f "$file"
+            node --check "$file"
+          done
+
+      - name: Run calculator regression suite
+        run: node tests/verify.js
+
+      - name: Run mocked contact form tests
+        run: node tests/contact-form.test.js
+
+      - name: Run unit conversion property tests
+        run: node tests/unit-conversion-property.test.js
+
+      - name: Build the production staging directory
+        env:
+          SITE_URL: https://clerfit.github.io/Clerfit
+        run: node scripts/build-site.js
+
+      - name: Verify staged routes, sitemap, canonicals and assets
+        env:
+          SITE_URL: https://clerfit.github.io/Clerfit
+        run: node scripts/verify-staging.js
+
+      - name: Install browser test dependencies
+        run: |
+          npm install --no-save --package-lock=false playwright axe-core
+          npx playwright install --with-deps chromium
+
+      - name: Run all-route browser interaction smoke tests
+        env:
+          CLERFIT_BROWSER_REPORT: browser-smoke-report.json
+          CLERFIT_ALLOW_LOCAL_STAGING: '1'
+          CLERFIT_SITEMAP_BASE: https://clerfit.github.io/Clerfit/
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 --directory dist >/tmp/clerfit-static-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173/ >/dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:4173/ >/dev/null
+          node scripts/browser-smoke.js http://127.0.0.1:4173/
+
+      - name: Run all-page axe accessibility smoke tests
+        env:
+          CLERFIT_ACCESSIBILITY_REPORT: accessibility-smoke-report.json
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4174 --directory dist >/tmp/clerfit-a11y-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4174/ >/dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:4174/ >/dev/null
+          node scripts/accessibility-smoke.js http://127.0.0.1:4174/
+
+      - name: Upload fresh verification reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clerfit-phase-one-verification
+          path: |
+            browser-smoke-report.json
+            accessibility-smoke-report.json
+          if-no-files-found: ignore
+          retention-days: 14

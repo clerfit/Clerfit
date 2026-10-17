@@ -1,7 +1,7 @@
 # ClerFit Phase One — Audit Register and Sign-off Gate
 
 **Audit snapshot:** 2026-10-17  
-**Repository reviewed:** `clerfit/Clerfit`, default branch `main`  
+**Repository reviewed:** `clerfit/Clerfit`, base branch `main`; remediation branch `phase-one-completion-2026-10-17`  
 **Decision:** **Phase One remains OPEN.** The repository contains substantial audit evidence, but that evidence does not support a full Phase One sign-off yet. This register distinguishes verified evidence from historical smoke tests and unresolved checks; it must not be interpreted as a production certification.
 
 ## 1. Scope and inventory
@@ -76,3 +76,14 @@ For each route, complete one page before moving to the next:
 - [ ] Final reviewer sign-off.
 
 **Current sign-off: NOT APPROVED / OPEN.** This is deliberate: the available reports show substantial progress, but claiming Phase One complete while the unchecked items above remain would be inaccurate. Phase One should close only after the remaining audit checks are performed and evidenced. Fixing implementation defects belongs to the remediation phase, but discovering and registering those defects is required before Phase One can be signed off.
+
+
+## 6. Phase One implementation work performed on the remediation branch
+
+- Corrected the literal escaped-newline defect in the Contact Us consent CSS.
+- Updated README instructions to reflect real navigation/unit behavior and replaced references to a missing Pages deployment workflow with the actual verification-only workflow.
+- Restored deterministic mocked contact-form tests and unit-conversion property tests.
+- Added a reproducible static production build and staging integrity verifier for route inventory, generated sitemap/canonicals/robots data, local HTML/CSS links and publication exclusions.
+- Added an axe-core scan for all staged HTML documents and a CI workflow that runs syntax checks, the existing calculator regression suite, staging checks, Playwright route interactions and accessibility scanning.
+
+The new CI workflow is intended to supply fresh evidence. Source files and test scripts are not counted as passing tests until the pull-request workflow is green. Full production certification still requires verification against the actually deployed release, consented test-message delivery and physical-device/manual assistive-technology checks; none is fabricated or inferred from local code inspection.

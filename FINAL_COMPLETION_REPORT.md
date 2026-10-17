@@ -51,3 +51,8 @@ The source and production build pass the available local automated checks, and t
 ## Follow-up pass — 16 October 2026
 
 The follow-up found and corrected two additional calculator consistency issues: BMI Change had a stale formula description and displayed adult BMI category assumptions without collecting age; One-Rep Max accepted excessive repetitions, advertised universal accuracy grades, and always displayed kg regardless of selected unit. Code, tests, formula matrix, scientific register and numeric-boundary CSVs were updated. `SCIENTIFIC_AUDIT_CHANGELOG.md` records the corrections. Browser-level rendering remains unverified because Chromium did not return before timeout in this environment.
+
+
+## Phase One verification-pipeline remediation (2026-10-17)
+
+The follow-up found release documentation pointing to scripts/workflows absent from the repository's main branch. A remediation branch restores tests/contact-form.test.js and tests/unit-conversion-property.test.js; adds scripts/build-site.js, scripts/verify-staging.js, scripts/accessibility-smoke.js; fixes the Contact Us consent CSS escape typo; corrects README/Deployment Guide statements; and adds .github/workflows/phase-one-ci.yml. The new workflow verifies source changes but does not deploy production. Fresh passing status must come from that workflow's check result for its exact commit, not from the previously recorded 2026-10-16 local report.

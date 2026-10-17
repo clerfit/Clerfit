@@ -258,6 +258,41 @@ async function runRoute(browser, route) {
         }
       };
     });
+    // Keyboard regression on every registered calculator page: menu opens on Enter,
+    // Escape closes it, aria state is restored, and focus returns to the trigger.
+    const keyboardTrigger = page.locator('.cf-menu-toggle').first();
+    if (!(await keyboardTrigger.count())) throw new Error('Keyboard navigation menu trigger is missing.');
+    await keyboardTrigger.focus();
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(100);
+    const menuOpenState = await page.evaluate(() => {
+      const button = document.querySelector('.cf-menu-toggle');
+      const side = document.querySelector('.sidebar');
+      return {
+        expanded: button && button.getAttribute('aria-expanded') === 'true',
+        open: !!side && side.classList.contains('cf-open'),
+        exposed: !!side && side.getAttribute('aria-hidden') === 'false',
+        closeButtonFocused: !!side && side.contains(document.activeElement)
+      };
+    });
+    if (!menuOpenState.expanded || !menuOpenState.open || !menuOpenState.exposed || !menuOpenState.closeButtonFocused) {
+      throw new Error('Keyboard Enter did not open and focus the calculator menu: ' + JSON.stringify(menuOpenState));
+    }
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(60);
+    const menuCloseState = await page.evaluate(() => {
+      const button = document.querySelector('.cf-menu-toggle');
+      const side = document.querySelector('.sidebar');
+      return {
+        expanded: !!button && button.getAttribute('aria-expanded') === 'true',
+        open: !!side && side.classList.contains('cf-open'),
+        hidden: !!side && side.getAttribute('aria-hidden') === 'true',
+        focusReturned: document.activeElement === button
+      };
+    });
+    if (menuCloseState.expanded || menuCloseState.open || !menuCloseState.hidden || !menuCloseState.focusReturned) {
+      throw new Error('Keyboard Escape did not close the calculator menu and restore focus: ' + JSON.stringify(menuCloseState));
+    }
     bodyOverflow = await page.evaluate(()=>document.documentElement.scrollWidth > window.innerWidth + 1);
     loaded=true;
   } catch (error) {
@@ -496,6 +531,9 @@ async function targetedUnits(browser) {
 }
 
 async function waitForDeployedRelease() {
+  // CI tests the staged static build on localhost. Production-only release-marker
+  // polling is skipped there; route/asset interactions still use the local origin.
+  if (process.env.CLERFIT_ALLOW_LOCAL_STAGING === '1') return;
   const target = new URL('index.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
   let lastStatus = 'no response';
   for (let attempt = 1; attempt <= 30; attempt++) {
@@ -522,7 +560,12 @@ async function main() {
   const registry=JSON.parse(registryMatch[1]);
   if(registry.length!==EXPECTED_ROUTES) throw new Error('Expected '+EXPECTED_ROUTES+' calculator routes, found '+registry.length);
   const sitemap=new Set([...sitemapText.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(m=>m[1].trim()));
-  const missing=registry.filter(r=>!sitemap.has(new URL('html/'+encodeURI(r.file),BASE).href));
+  // A staging build intentionally retains production canonical URLs. Compare its
+  // sitemap with that canonical base while visiting calculator pages on localhost.
+  const sitemapBase = process.env.CLERFIT_SITEMAP_BASE
+    ? new URL(process.env.CLERFIT_SITEMAP_BASE.endsWith('/') ? process.env.CLERFIT_SITEMAP_BASE : process.env.CLERFIT_SITEMAP_BASE + '/')
+    : BASE;
+  const missing=registry.filter(r=>!sitemap.has(new URL('html/'+encodeURI(r.file),sitemapBase).href));
   if(missing.length) throw new Error('Registered calculator routes missing from sitemap: '+missing.map(x=>x.file).join(', '));
   const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
   try {

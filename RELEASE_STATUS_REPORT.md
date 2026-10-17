@@ -33,3 +33,8 @@ Report date: 2026-10-16
 - Exhaustive semantic range/boundary checks across all inputs and qualified external scientific review where a specialist judgment is needed.
 
 The formula review classifies custom face/posture/fatigue/recovery/performance indices as descriptive where no universal standard exists. A known-answer test is not proof of universal scientific validity. See `FINAL_COMPLETION_REPORT.md` and `PERFORMANCE_SECURITY_AUDIT.md`.
+
+
+## Verification reproducibility correction (2026-10-17)
+
+The repository-level review found several commands previously cited above had no corresponding files on main: tests/contact-form.test.js, tests/unit-conversion-property.test.js, scripts/build-site.js, scripts/verify-staging.js and .github/workflows/pages.yml. Their stated functionality is being restored on the Phase One remediation branch, including an actual verification-only CI workflow. Do not rely on the dated local PASS statements above as evidence that the newly added pipeline passes; use the exact pull-request check result. This pipeline does not publish the live site.

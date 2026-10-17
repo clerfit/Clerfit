@@ -8,8 +8,8 @@ A static HTML/CSS/JavaScript health, fitness, measurement and everyday-calculato
 2. Open `index.html` in a modern browser.
 3. Use the left-edge three-line menu to open the sidebar; it starts closed.
 4. Use the magnifying-glass control inside the sidebar to search calculators.
-5. Home and Contact Us are available as floating links on calculator pages.
-6. Use the sidebar's Display units setting to switch between Metric and Imperial for recognized unit selectors. The preference persists in the browser.
+5. Home and Contact Us appear right-aligned in the shared page header in normal document flow; they do not float over calculator fields.
+6. Supported unit selectors convert values within the calculator when you change units. The site does not save a global unit preference in browser storage.
 
 For a local server, run `python -m http.server 8000` from this folder and open `http://localhost:8000`.
 
@@ -31,7 +31,11 @@ For a local server, run `python -m http.server 8000` from this folder and open `
 - `html/` — individual calculator pages.
 - `images/` — local SVG illustrations and visual guides.
 - `scripts/generate-sitemap.js` — verifies the central registry and creates a domain-aware XML sitemap, canonical tags and robots sitemap entry; it preserves GitHub Pages project paths such as `/Clerfit`.
-- `.github/workflows/pages.yml` — automated GitHub Pages build/test/deploy workflow for the existing project URL.
+- `.github/workflows/phase-one-ci.yml` — pull-request and main-branch CI for regression tests, production staging integrity, all-route Playwright smoke tests, and all-page axe accessibility scans. This workflow verifies changes; it does not publish automatically.
+- `scripts/build-site.js` — reproducible production staging build into `dist/`, including domain-aware canonical and sitemap generation.
+- `scripts/verify-staging.js` — offline checks for all registered routes, required assets, canonicals, sitemap/robots consistency, and local HTML/CSS links.
+- `scripts/browser-smoke.js` — Playwright route, interaction, mobile overflow, navigation, runtime and targeted semantic-boundary smoke checks.
+- `scripts/accessibility-smoke.js` — axe-core scan of every staged HTML page, with critical/serious violations and uncaught errors gating CI.
 - `scripts/verify-production.js` — post-deployment route, sitemap, robots and HTTPS smoke test.
 - `SOURCES_AND_METHODS.md`, `FORMULA_REFERENCE_AUDIT.md` and `CALCULATOR_VERIFICATION_MATRIX.csv` — formula/method summaries, references, route-level known-answer status and documented limitations.
 - `FIELD_VALIDATION_AUDIT.csv` and `INPUT_BOUNDARY_VERIFIED.csv` — inventory of 238 static numeric fields and verified structural min/max/step constraints; exhaustive semantic edge cases remain a release gate.
@@ -51,9 +55,16 @@ For a local server, run `python -m http.server 8000` from this folder and open `
 for f in js/*.js scripts/*.js tests/*.js; do node --check "$f"; done
 node tests/verify.js
 node tests/contact-form.test.js
+node tests/unit-conversion-property.test.js
 node scripts/generate-sitemap.js --check
 SITE_URL=https://clerfit.github.io/Clerfit node scripts/build-site.js
 SITE_URL=https://clerfit.github.io/Clerfit node scripts/verify-staging.js
+npm install --no-save --package-lock=false playwright axe-core
+npx playwright install --with-deps chromium
+python3 -m http.server 4173 --directory dist
+# From a second terminal while the local server is running:
+CLERFIT_BROWSER_REPORT=browser-smoke-report.json node scripts/browser-smoke.js http://127.0.0.1:4173/
+CLERFIT_ACCESSIBILITY_REPORT=accessibility-smoke-report.json node scripts/accessibility-smoke.js http://127.0.0.1:4173/
 ```
 
 ## Important release limitations

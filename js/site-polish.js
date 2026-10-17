@@ -58,12 +58,12 @@
     // Persistent, accessible top-right navigation on every interactive content page.
     if(!document.querySelector('.clerfit-fixed-actions')){
       const actions=document.createElement('nav'); actions.className='clerfit-fixed-actions'; actions.setAttribute('aria-label','Quick navigation');
-      actions.innerHTML=`<a class="clerfit-fixed-home" href="${home}" aria-label="Go to ClerFit home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5.5 9v11h13V9M9 20v-6h6v6"/></svg><span>Home</span></a><a class="clerfit-fixed-contact" href="${contact}" aria-label="Contact ClerFit"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span>Contact Us</span></a>`;
+      actions.innerHTML=`<a class="clerfit-fixed-home" href="${home}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5.5 9v11h13V9M9 20v-6h6v6"/></svg><span>Home</span></a><a class="clerfit-fixed-contact" href="${contact}"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span>Contact Us</span></a>`;
       document.body.appendChild(actions);
     }
     if(!document.querySelector('.clerfit-page-header')){
       const header=document.createElement('header'); header.className='clerfit-page-header';
-      header.innerHTML=`<a class="clerfit-page-logo" href="${home}" aria-label="ClerFit Health and Performance home"><img src="${logo}" alt="ClerFit logo"><span><strong>ClerFit</strong><small>HEALTH &amp; PERFORMANCE</small></span></a>`;
+      header.innerHTML=`<a class="clerfit-page-logo" href="${home}"><img src="${logo}" alt="ClerFit logo"><span><strong>ClerFit</strong><small>HEALTH &amp; PERFORMANCE</small></span></a>`;
       // insertBefore requires a direct child; a nested breadcrumb is not a valid reference node.
       const first=Array.from(main.children).find(el=>el.classList&&el.classList.contains('cf-breadcrumb'))||main.firstElementChild;
       if(first) main.insertBefore(header,first); else main.prepend(header);
