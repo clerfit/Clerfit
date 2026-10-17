@@ -237,6 +237,40 @@ async function approx(locator, expected, label, tolerance=.15) {
   const actual=Number(await locator.inputValue());
   if (!Number.isFinite(actual) || Math.abs(actual-expected)>tolerance) throw new Error(label+' conversion mismatch; expected '+expected+', got '+await locator.inputValue());
 }
+async function targetedSemanticBoundaries(browser) {
+  const checks = [];
+  const p = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  try {
+    await p.goto(new URL('html/BMI.html?browserSmoke=semantic-boundaries', BASE).href, { waitUntil: 'load' });
+    const run = async ({weight, height, age = 30, expectInvalid, caseName}) => {
+      await p.locator('#weight').fill(String(weight));
+      await p.locator('#height').fill(String(height));
+      await p.locator('#age').fill(String(age));
+      await p.locator('#weightUnit').selectOption('kg');
+      await p.locator('#heightUnit').selectOption('cm');
+      await p.locator('#gender').selectOption('male');
+      await p.locator('button.calculate-btn:not(.cf-reset-btn):visible').first().click();
+      await p.waitForTimeout(50);
+      const out = await p.locator('#result').innerText();
+      if (expectInvalid) {
+        if (!/valid|check the measurements|plausible/i.test(out)) throw new Error('BMI semantic boundary accepted ' + caseName + ': ' + out);
+        if (/\b(?:NaN|Infinity|undefined)\b/i.test(out)) throw new Error('BMI semantic boundary emitted non-finite output for ' + caseName);
+      } else if (!/BMI:\s*\d/.test(out) || /Age-specific interpretation required/i.test(out)) {
+        throw new Error('BMI valid reference case did not calculate: ' + caseName + ' — ' + out);
+      }
+      checks.push('BMI semantic boundary: ' + caseName + ' passed');
+    };
+    await run({weight: 0, height: 175, expectInvalid: true, caseName: 'zero weight'});
+    await run({weight: 0.1, height: 175, expectInvalid: true, caseName: 'minimum HTML weight'});
+    await run({weight: 70, height: 30, expectInvalid: true, caseName: 'minimum HTML height'});
+    await run({weight: 1000000, height: 175, expectInvalid: true, caseName: 'extreme weight'});
+    await run({weight: 70, height: 175, expectInvalid: false, caseName: 'valid adult reference'});
+    return checks;
+  } finally {
+    await p.close().catch(() => {});
+  }
+}
+
 async function targetedUnits(browser) {
   const report=[];
   {
@@ -340,6 +374,9 @@ async function main() {
     let targeted=[];
     try { targeted=await targetedUnits(browser); }
     catch(error){ failures.push('Targeted unit conversion test failed: '+(error && error.message || error)); }
+    let semanticBoundaries=[];
+    try { semanticBoundaries=await targetedSemanticBoundaries(browser); }
+    catch(error){ failures.push('Targeted semantic-boundary test failed: '+(error && error.message || error)); }
     const bmi=routeResults.find(r=>r.file==='bmi-for-age.html');
     const bmiResult=!!(bmi && /percentile/i.test(bmi.outputSample) && /CDC reference sex/i.test(bmi.outputSample));
     assert(bmiResult,'BMI-for-age did not render an age/sex-specific CDC percentile result in the browser smoke pass.');
@@ -373,7 +410,7 @@ async function main() {
       noVisibleInput:routeResults.filter(r=>!r.inputCount).map(r=>r.file),
       noAction:routeResults.filter(r=>!r.actionClicked&&!/unit\.html$/i.test(r.file)).map(r=>r.file),
       routesWithoutResultText:routeResults.filter(r=>!r.outputs).map(r=>r.file),
-      targetedUnitChecks:targeted, failures, routes:routeResults
+      targetedUnitChecks:targeted, targetedSemanticBoundaryChecks:semanticBoundaries, failures, routes:routeResults
     };
     fs.writeFileSync(REPORT_PATH,JSON.stringify(report,null,2)+'\n');
     if(process.env.GITHUB_STEP_SUMMARY){
@@ -388,9 +425,11 @@ async function main() {
         '- Page errors: '+report.pageErrors.length,
         '- Console errors: '+report.consoleErrors.length,
         '- Targeted unit checks: '+targeted.length,
+        '- Targeted semantic-boundary checks: '+semanticBoundaries.length,
         '- Failures: '+failures.length,
         '',
         ...targeted.map(x=>'- '+x),
+        ...semanticBoundaries.map(x=>'- '+x),
         ...failures.map(x=>'- **FAIL:** '+x)
       ].join('\n');
       fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary+'\n');
