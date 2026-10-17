@@ -8,7 +8,7 @@ const BASE = new URL(process.argv[2] || process.env.CLERFIT_LIVE_BASE || 'https:
 const REPORT_PATH = process.env.CLERFIT_BROWSER_REPORT || 'live-browser-smoke-report.json';
 const EXPECTED_ROUTES = 118;
 const WORKERS = 4;
-const EXPECTED_RELEASE_ID = 'R3-2026-10-17-calculator-fixes-05';
+const EXPECTED_RELEASE_ID = 'R3-2026-10-17-nav-v2';
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const failures = [];
 const rows = [];
