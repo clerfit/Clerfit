@@ -12,8 +12,7 @@
 
 
 
-<meta charset="UTF-8">
-  <!-- Google tag (gtag.js) -->
+<!-- Legacy analytics are not loaded on this calculator. -->
 
 
 
@@ -22,15 +21,21 @@
   <script>
     // ===== Unit conversion helpers =====
     function convertWeightToKg(value, unit) {
-      if (unit === "lbs") return value * 0.453592;
+      if (unit === "lb" || unit === "lbs") return value * 0.45359237;
       return value;
     }
 
     function convertHeightToCm(value, unit) {
-      switch(unit) {
-        case "m": return value * 100;
-        case "in": return value * 2.54;
-        case "ft": return value * 30.48;
+      switch(String(unit).toLowerCase()) {
+        case "m":
+        case "meter":
+        case "meters": return value * 100;
+        case "in":
+        case "inch":
+        case "inches": return value * 2.54;
+        case "ft":
+        case "foot":
+        case "feet": return value * 30.48;
         default: return value;
       }
     }
@@ -43,17 +48,86 @@
       if (container) container.hidden = true;
     }
 
+    function clearBSAOutput() {
+      const result = document.getElementById("result");
+      const formula = document.getElementById("formula");
+      if (result) result.textContent = "";
+      if (formula) formula.textContent = "";
+    }
+
+    function syncBSABounds() {
+      const weight = document.getElementById("weight");
+      const weightUnit = String(document.getElementById("weightUnit").value).toLowerCase();
+      const weightRanges = {
+        kg: [1, 500],
+        lb: [2.20462262, 1102.31],
+        lbs: [2.20462262, 1102.31]
+      };
+      const wr = weightRanges[weightUnit];
+      if (wr) {
+        weight.min = String(wr[0]);
+        weight.max = String(wr[1]);
+      }
+
+      const height = document.getElementById("height");
+      const heightUnit = String(document.getElementById("heightUnit").value).toLowerCase();
+      const heightRanges = {
+        cm: [50, 250],
+        m: [0.5, 2.5],
+        in: [19.685, 98.4252],
+        inch: [19.685, 98.4252],
+        ft: [1.6404, 8.2021],
+        foot: [1.6404, 8.2021]
+      };
+      const hr = heightRanges[heightUnit];
+      if (hr) {
+        height.min = String(hr[0]);
+        height.max = String(hr[1]);
+      }
+    }
+
+    function resetBSA() {
+      const defaults = { weight: "", weightUnit: "kg", height: "", heightUnit: "cm" };
+      Object.entries(defaults).forEach(([id, value]) => {
+        const field = document.getElementById(id);
+        if (!field) return;
+        field.value = value;
+        field.removeAttribute("aria-invalid");
+      });
+      document.querySelectorAll(".clerfit-input-error").forEach(node => node.remove());
+      clearBSAOutput();
+      syncBSABounds();
+      const weight = document.getElementById("weight");
+      if (weight) weight.focus();
+    }
+
+    if (typeof document !== "undefined" && document.addEventListener) {
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!document.getElementById("weight") || !document.getElementById("height")) return;
+        syncBSABounds();
+        ["weightUnit", "heightUnit"].forEach(id => {
+          const select = document.getElementById(id);
+          if (!select) return;
+          select.addEventListener("change", () => {
+            if (typeof queueMicrotask === "function") queueMicrotask(syncBSABounds);
+            else Promise.resolve().then(syncBSABounds);
+          });
+        });
+      }, { once: true });
+    }
+
     // ===== BSA Calculation (Mosteller Formula) =====
     function calculateBSA() {
       const result = document.getElementById("result");
       const formula = document.getElementById("formula");
-      const weightVal = Number(document.getElementById("weight").value);
+      const weightText = document.getElementById("weight").value.trim();
+      const weightVal = weightText === "" ? NaN : Number(weightText);
       const weightUnit = document.getElementById("weightUnit").value;
-      const heightVal = Number(document.getElementById("height").value);
+      const heightText = document.getElementById("height").value.trim();
+      const heightVal = heightText === "" ? NaN : Number(heightText);
       const heightUnit = document.getElementById("heightUnit").value;
 
-      result.textContent = "";
-      formula.textContent = "";
+      clearBSAOutput();
       if (![weightVal, heightVal].every(Number.isFinite) || weightVal <= 0 || heightVal <= 0) {
         result.innerHTML = '<p class="cf-validation-message" role="alert">Enter positive, valid weight and height values.</p>';
         return;
@@ -155,9 +229,9 @@
     <div class="row">
       <div class="col">
         <label for="weight">Weight</label>
-        <input type="number" id="weight" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+        <input type="number" id="weight" placeholder="Enter weight" min="1" max="500" step="any" aria-label="Enter weight" oninput="clearBSAOutput()">
         <label for="weightUnit">Unit</label>
-        <select id="weightUnit" aria-label="Weight unit">
+        <select id="weightUnit" aria-label="Weight unit" onchange="clearBSAOutput()">
           <option value="kg" selected>kg</option>
           <option value="lbs">lbs</option>
         </select>
@@ -165,9 +239,9 @@
 
       <div class="col">
         <label for="height">Height</label>
-        <input type="number" id="height" placeholder="Enter height" min="30" max="300" step="any" aria-label="Enter height">
+        <input type="number" id="height" placeholder="Enter height" min="50" max="250" step="any" aria-label="Enter height" oninput="clearBSAOutput()">
         <label for="heightUnit">Unit</label>
-        <select id="heightUnit" aria-label="Height unit">
+        <select id="heightUnit" aria-label="Height unit" onchange="clearBSAOutput()">
           <option value="cm" selected>cm</option>
           <option value="m">m</option>
           <option value="in">in</option>
@@ -176,15 +250,18 @@
       </div>
     </div>
 
-    <button class="calculate-btn" onclick="calculateBSA()">Calculate BSA</button>
+    <div class="cf-form-actions">
+      <button class="calculate-btn" type="button" onclick="calculateBSA()">Calculate BSA</button>
+      <button class="cf-reset-btn" type="button" onclick="resetBSA()">Reset</button>
+    </div>
 
-    <div class="result" id="result"></div>
+    <div class="result" id="result" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <div class="bar-container" hidden>
       <div class="bar"><div class="indicator" id="indicator"></div></div>
     </div>
 
-    <div id="formula" style="margin-top:15px;"></div>
+    <div id="formula" style="margin-top:15px;" aria-live="polite" aria-atomic="true"></div>
 
     <p class="cf-warning">BSA is a size estimate and has no universal low, normal or high health classification. Clinical dosing must follow the specific medication's approved protocol and a qualified clinician's instructions; do not use this calculator to determine a drug dose.</p>
   </div>
