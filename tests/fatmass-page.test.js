@@ -110,7 +110,7 @@ runCase('empty body-fat value is not silently treated as zero', () => {
   set({ fat: '' });
   context.calculateFatMass();
   assert.match(out(), /Enter a positive weight and a body-fat percentage from 0 to 100/);
-  assert.doesNotMatch(out(), /Fat Mass: <b>0\.00 kg/);
+  assert.doesNotMatch(out(), /Fat Mass: 0\.00 kg/);
 });
 runCase('empty or non-positive weight is rejected', () => {
   clean();
