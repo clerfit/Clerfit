@@ -3,7 +3,8 @@
 **Refreshed:** 2026-10-17  
 **Scope:** Complete the requested calculator inventory, preserve working pages, fill missing implementations and verify calculations/validation/interactions.  
 **Implementation status:** The 118-route calculator inventory is present, key calculator handlers have targeted remediation and regression tests are in the main branch, and end-to-end source verification has been added.  
-**Formal Phase Two acceptance:** OPEN until the current revision clears the remaining verification gates below.
+**Engineering implementation and automated QA gate:** PASS on tested implementation snapshot `486f6c6613b5611d2bd365b1cc21e0e7fba743a3`.  
+**Manual/owner/expert release acceptance:** OPEN only for the non-automated obligations listed below; do not infer clinical certification.
 
 ## Inventory and implementation
 
