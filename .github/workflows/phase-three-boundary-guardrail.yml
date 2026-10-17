@@ -16,6 +16,10 @@ on:
       - 'FIELD_VALIDATION_AUDIT.csv'
       - 'INPUT_BOUNDARY_VERIFIED.csv'
       - 'tests/phase-three-boundary-structure.test.js'
+      - 'tests/phase-three-runtime-fields.test.js'
+      - 'tests/phase-three-generated-unit-bounds.test.js'
+      - 'js/advanced-calculators.js'
+      - 'js/unit-system.js'
       - '.github/workflows/phase-three-boundary-guardrail.yml'
   workflow_dispatch:
 
