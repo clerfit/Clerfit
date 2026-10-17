@@ -73,6 +73,12 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   await expect(page.locator('.clerfit-input-error').first()).toBeVisible();
   await expect(page.locator('#result')).not.toContainText('WHR:');
 
+  // Clear the previous validation state before checking the independent boundary cases.
+  // This keeps the boundary assertion focused on the calculator's domain, not the prior invalid-input state.
+  await page.getByRole('button', { name: 'Reset' }).click();
+  await page.locator('#waistUnit').selectOption('cm');
+  await page.locator('#hipUnit').selectOption('cm');
+
   // Boundary measurements at 10cm and 300cm are accepted.
   await page.locator('#waist').fill('10');
   await page.locator('#hip').fill('10');
