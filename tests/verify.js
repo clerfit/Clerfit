@@ -99,4 +99,115 @@ assert.ok(Number.isNaN(units.convert(Infinity, 'kg', 'lb')), 'non-finite values 
 assert.ok(Math.abs(units.convert(units.convert(70, 'kg', 'lb'), 'lb', 'kg') - 70) < 1e-9, 'mass conversion round-trip');
 checks += 7;
 
-console.log('PASS: ' + checks + ' known-answer/domain assertions across 24 generated calculators, CDC BMI-for-age reference vectors, and unit conversions.');
+// Legacy-engine known-answer regressions. These call the actual production functions
+// with a minimal DOM stub, including unit variants used by the older HTML pages.
+const engineElements = new Map();
+const engineDocument = {
+  getElementById(id) {
+    if (!engineElements.has(id)) {
+      engineElements.set(id, {
+        id, value: '', innerHTML: '', textContent: '', style: {}, hidden: false,
+        parentElement: { hidden: false },
+        querySelector: () => null
+      });
+    }
+    return engineElements.get(id);
+  },
+  querySelectorAll: () => []
+};
+const engineContext = vm.createContext({ document: engineDocument, alert: () => {}, console });
+vm.runInContext(read('js/engine.js'), engineContext, { filename: 'js/engine.js', timeout: 3000 });
+// The legacy RFM page provides its own visual indicator helper; it is not part of the math.
+engineContext.moveIndicator = () => {};
+const setEngine = (id, value) => { engineDocument.getElementById(id).value = String(value); };
+const engineOutput = id => engineDocument.getElementById(id).innerHTML || engineDocument.getElementById(id).textContent;
+
+// Known-answer: BMI with pounds/inches and BMI-for-age-safe adult presentation.
+Object.entries({
+  weight: 154.3235835, weightUnit: 'lbs',
+  height: 68.8976377953, heightUnit: 'in',
+  age: 25, gender: 'male'
+}).forEach(([id, value]) => setEngine(id, value));
+engineContext.calculateBMI();
+assert.match(engineOutput('result'), /BMI: <b>22\.9<\/b>.*Normal/);
+checks++;
+
+// Known-answer: Mifflin–St Jeor; the selected units are converted before the equation.
+Object.entries({
+  weight: 154.3235835, weightUnit: 'lbs',
+  height: 68.8976377953, heightUnit: 'inch',
+  age: 25, gender: 'male'
+}).forEach(([id, value]) => setEngine(id, value));
+engineContext.calculateBMR();
+assert.match(engineOutput('result'), /1674 kcal\/day/);
+checks++;
+
+// Known-answer: US Navy male equation with canonical centimetre inputs.
+Object.entries({
+  'bf-gender': 'male', 'bf-height': 180, 'bf-height-unit': 'cm',
+  'bf-waist': 85, 'bf-waist-unit': 'cm', 'bf-neck': 38, 'bf-neck-unit': 'cm',
+  'bf-hip': 100, 'bf-hip-unit': 'cm'
+}).forEach(([id, value]) => setEngine(id, value));
+engineContext.calculateBodyFat();
+assert.match(engineOutput('bf-result'), /16\.2%/);
+checks++;
+
+// Known-answer: Devine ideal-body-weight estimate for a 180 cm male.
+Object.entries({
+  'iw-gender': 'male', 'iw-height': 180, 'iw-height-unit': 'cm', 'iw-weight-unit': 'kg'
+}).forEach(([id, value]) => setEngine(id, value));
+engineContext.calculateIdealWeight();
+assert.match(engineOutput('iw-result'), /75\.1 kg/);
+checks++;
+
+// Known-answer: energy multiplier, protein target, and baseline fluid estimate.
+Object.entries({ 'cal-bmr': 1600, 'cal-bmr-unit': 'kcal', 'cal-activity': 1.55 }).forEach(([id, value]) => setEngine(id, value));
+engineContext.calculateCalories();
+assert.match(engineOutput('cal-result'), /2480\.0 kcal/);
+checks++;
+Object.entries({ weight: 70, weightUnit: 'kg', level: 1.6 }).forEach(([id, value]) => setEngine(id, value));
+engineContext.calculateProtein();
+assert.match(engineOutput('result'), /112\.0 g\/day/);
+checks++;
+setEngine('weight', 70); setEngine('weightUnit', 'kg');
+engineContext.calculateWater();
+assert.match(engineOutput('result'), /2450 ml\/day/);
+checks++;
+
+// Known-answer: Navy-derived unit aliases previously failed because some pages use "inch".
+assert.equal(engineContext.toCm(1, 'inch'), 2.54);
+assert.equal(engineContext.toCm(1, 'inches'), 2.54);
+assert.equal(engineContext.toCm(1, 'foot'), 30.48);
+assert.equal(engineContext.toCm(1, 'feet'), 30.48);
+checks += 4;
+Object.entries({
+  weight: 80, weightUnit: 'kg', height: 70.8661417323, heightUnit: 'inch', fat: 15
+}).forEach(([id, value]) => setEngine(id, value));
+engineContext.calculateFFMI();
+assert.match(engineOutput('result'), /FFMI: <b>20\.99<\/b>/);
+checks++;
+Object.entries({
+  height: 70.8661417323, heightUnit: 'inch', waist: 33.4645669291, waistUnit: 'inch', gender: 'male'
+}).forEach(([id, value]) => setEngine(id, value));
+engineContext.calculateRFM();
+assert.match(engineOutput('result'), /RFM: <b>21\.65%<\/b>/);
+checks++;
+
+// Known-answer: waist/hip, lean mass, fat mass, and 12-minute Cooper estimate.
+Object.entries({ gender: 'male', waist: 85, waistUnit: 'cm', hip: 100, hipUnit: 'cm' })
+  .forEach(([id, value]) => setEngine(id, value));
+engineContext.calculateWHR();
+assert.match(engineOutput('result'), /WHR: 0\.85/);
+checks++;
+Object.entries({ weight: 80, weightUnit: 'kg', fat: 15 }).forEach(([id, value]) => setEngine(id, value));
+engineContext.calculateLeanMass();
+assert.match(engineOutput('result'), /68\.00 kg/);
+engineContext.calculateFatMass();
+assert.match(engineOutput('result'), /12\.00 kg/);
+checks += 2;
+setEngine('distance', 2400);
+engineContext.calculateVO2();
+assert.match(engineOutput('result'), /42\.4 ml\/kg\/min/);
+checks++;
+
+console.log('PASS: ' + checks + ' known-answer/domain assertions across generated calculators, CDC BMI-for-age, legacy formulas, and unit conversions.');
