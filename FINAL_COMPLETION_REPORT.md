@@ -30,22 +30,23 @@ The assistant performed a route-by-route code-level desk review using the formul
 
 This is not a licensed clinical, engineering, peer-reviewed or regulatory certification. The register explicitly records that limitation rather than falsely signing as an independent credentialed reviewer.
 
-## Owner tasks intentionally left open
+## Owner/expert tasks intentionally left open
 
-- Publish the package to the production host and verify the exact live version, domain, HTTPS, canonical URLs and deployed assets.
-- Send a real consented contact-form message and confirm delivery.
-- Perform physical phone/tablet/laptop checks.
+- Send a real, consented contact-form submission and verify actual inbox receipt; current form tests mock the remote service.
+- Perform physical phone/tablet/laptop checks and manual keyboard-only/screen-reader acceptance.
+- Arrange independent expert review for formulas/thresholds that materially inform health decisions.
+- Review weak-network performance and hosting response-header configuration. GitHub Pages does not apply Netlify `_headers` automatically.
 
 ## Remaining external/interactive evidence not available in this environment
 
-- Fresh browser-based visual verification of all pages was blocked by the execution environment's local browser navigation policy. Historical browser QA reports are retained but are not treated as fresh evidence for the latest CSS edits.
+- Current-main fresh verification now passed: 118-route Playwright interaction smoke, 124-page axe accessibility audit, source/staging parity, formula/domain regressions and a live production verifier on SHA `486f6c6613b5611d2bd365b1cc21e0e7fba743a3`. These current results supersede the earlier browser-blocked status.
 - Live weak-network performance measurements and production network/storage/header inspection require the deployed site and real browser/network access.
 - GitHub Pages does not apply Netlify `_headers`; HSTS and X-Frame-Options require a host/CDN supporting custom response headers. Inline legacy scripts also require `'unsafe-inline'` in the current CSP; stronger CSP needs script refactoring or hashes.
 - Manual keyboard-only and screen-reader checks are not certified as complete; physical-device acceptance remains with the owner as requested.
 
 ## Final verdict
 
-The source and production build pass the available local automated checks, and the package includes a scientific desk-review register and audit reports. The product is a locally verified release candidate. It is **not honestly labelled 100% production-certified** until deployment, real contact delivery, fresh interactive accessibility/performance checks and external scientific review where needed have evidence.
+**Phase 1 audit and Phase 2 engineering/automated verification are complete for current main SHA `486f6c6613b5611d2bd365b1cc21e0e7fba743a3`.** The current source is deployed; formula/regression, source/staging, 118-route browser interaction, 124-page axe scan and live production checks passed. It is **not honestly labelled 100% owner/expert-certified** until every field in the 238-input inventory has a defensible semantic boundary assessment, a real consented contact message is confirmed delivered, physical-device/manual accessibility and performance review are completed, relevant expert review is recorded, and the exact newest UI archive parity can be established.
 
 
 ## Follow-up pass — 16 October 2026
