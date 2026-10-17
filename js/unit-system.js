@@ -33,14 +33,28 @@
   // Some calculators share one unit selector across multiple inputs or use it only for output formatting.
   // Explicit page associations avoid converting a random neighboring number field.
   const PAGE_UNIT_ASSOCIATIONS = {
+    '1rm.html': { weightUnit1RM: ['liftWeight'] },
+    'absi.html': { waistUnit: ['waist'], heightUnit: ['height'] },
     'bmi-change.html': { weightUnitBMI: ['currentWeightBMI', 'goalWeightBMI'], heightUnitBMI: ['heightBMI'] },
-    'goal-timeline.html': { weightUnitTimeline: ['currentWeight', 'goalWeight'] },
-    'weight-stability.html': { weightUnit: ['initialWeight', 'currentWeight'] },
-    'hip-change.html': { hipUnit: ['initialHip', 'currentHip'] },
-    'waist-change.html': { waistUnit: ['initialWaist', 'currentWaist'] },
+    'bmi-compare.html': { heightUnitA: ['heightA'], weightUnitA: ['weightA'], heightUnitB: ['heightB'], weightUnitB: ['weightB'] },
+    'bodyfat.html': { 'bf-height-unit': ['bf-height'], 'bf-waist-unit': ['bf-waist'], 'bf-neck-unit': ['bf-neck'], 'bf-hip-unit': ['bf-hip'] },
     'circumference-track.html': { circUnit: ['waistInit','waistCurrent','hipInit','hipCurrent','chestInit','chestCurrent','armInit','armCurrent','thighInit','thighCurrent','calfInit','calfCurrent'] },
+    'face-length.html': { totalUnit: ['totalLength'], lowerUnit: ['lowerLength'] },
+    'face-shape.html': { faceLengthUnit: ['faceLength'], foreheadUnit: ['forehead'], cheekbonesUnit: ['cheekbones'], jawlineUnit: ['jawline'] },
+    'goal-timeline.html': { weightUnitTimeline: ['currentWeight', 'goalWeight'] },
+    'hip-change.html': { hipUnit: ['initialHip', 'currentHip'] },
+    'idealweight.html': { 'iw-height-unit': ['iw-height'] },
+    'leanmass.html': { weightUnit: ['weight'] },
+    'mets.html': { weightUnit: ['weight'] },
+    'performance-score.html': { squatUnit: ['squatWeight'], bodyUnit: ['bodyWeight'] },
     'relative-strength.html': { unitRelative: ['oneRM', 'bodyWeight'] },
-    'idealweight.html': { 'iw-height-unit': ['iw-height'] }
+    'somatotype.html': { heightUnit: ['height'], weightUnit: ['weight'] },
+    'steps-calories.html': { unit: ['stepLength'], weightUnit: ['weight'] },
+    'steps-distance.html': { unit: ['stepLength'] },
+    'tdee.html': { weightUnit: ['weight'], heightUnit: ['height'] },
+    'waist-change.html': { waistUnit: ['initialWaist', 'currentWaist'] },
+    'weight-stability.html': { weightUnit: ['initialWeight', 'currentWeight'] },
+    'whr.html': { waistUnit: ['waist'], hipUnit: ['hip'] }
   };
   const PAGE_OUTPUT_ONLY_UNITS = {
     'fiber.html': ['unit'],
