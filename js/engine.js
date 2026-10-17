@@ -392,7 +392,7 @@ function calculateWHR() {
     result.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported units for both measurements.</p>';
     return;
   }
-  if (waistM < 0.1 || waistM > 3 || hipM < 0.1 || hipM > 3) {
+  if (waistM < 0.2 || waistM > 2.5 || hipM < 0.2 || hipM > 2.5) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">Check that both circumference measurements are plausible.</p>';
     return;
   }
@@ -408,7 +408,7 @@ function calculateWHR() {
   const whr = ratio.toFixed(2);
   result.innerHTML = `<strong>WHR: ${whr}</strong><p class="cf-note">Screening ratio only. This calculator does not assign a universal risk category or diagnose a condition.</p>`;
   formula.textContent = `Formula: Waist ÷ Hip = ${waist.toFixed(1)} ÷ ${hip.toFixed(1)} = ${whr}`;
-  const barContainer = document.querySelector('.bar-container');
+  const barContainer = typeof document.querySelector === 'function' ? document.querySelector('.bar-container') : null;
   if (barContainer) barContainer.hidden = true;
   const indicator = document.getElementById('indicator');
   if (indicator && indicator.parentElement) indicator.parentElement.hidden = true;
