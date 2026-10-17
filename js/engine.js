@@ -7,11 +7,26 @@ function toKg(v, u) {
 }
 
 function toCm(v, u) {
-  switch (u) {
-    case "m": return v * 100;
-    case "in": return v * 2.54;
-    case "ft": return v * 30.48;
-    default: return v;
+  // Accept every unit token used by the individual legacy pages. Several pages
+  // use "inch" while others use "in"; treating "inch" as centimetres produced
+  // incorrect FFMI/RFM results after a user changed the unit selector.
+  switch (String(u || "").trim().toLowerCase()) {
+    case "m":
+    case "meter":
+    case "meters":
+    case "metre":
+    case "metres":
+      return v * 100;
+    case "in":
+    case "inch":
+    case "inches":
+      return v * 2.54;
+    case "ft":
+    case "foot":
+    case "feet":
+      return v * 30.48;
+    default:
+      return v;
   }
 }
 
