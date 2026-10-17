@@ -36,11 +36,11 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   // Unit selectors convert the current physical values and keep consistent input ranges.
   await page.locator('#waistUnit').selectOption('inch');
   await expect.poll(async () => Number(await page.locator('#waist').inputValue())).toBeCloseTo(31.4961, 3);
-  await expect(page.locator('#waist')).toHaveAttribute('min', '3.93701');
+  await expect(page.locator('#waist')).toHaveAttribute('min', '7.874016');
   await expect(page.locator('#waist')).toHaveAttribute('max', '118.1102');
   await page.locator('#hipUnit').selectOption('inch');
   await expect.poll(async () => Number(await page.locator('#hip').inputValue())).toBeCloseTo(39.3701, 3);
-  await expect(page.locator('#hip')).toHaveAttribute('min', '3.93701');
+  await expect(page.locator('#hip')).toHaveAttribute('min', '7.874016');
   await expect(page.locator('#hip')).toHaveAttribute('max', '118.1102');
   await page.getByRole('button', { name: 'Calculate' }).click();
   await expect(page.locator('#result')).toContainText('WHR: 0.80');
