@@ -65,7 +65,7 @@ assert.deepEqual([...routeFiles].sort(), [...inventoryFiles].sort(), 'registry a
 
 function parseTagAttributes(tag) {
   const attributes = {};
-  for (const match of tag.matchAll(/([^\\s=/>]+)(?:\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+)))?/g)) {
+  for (const match of tag.matchAll(/([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?/g)) {
     attributes[match[1].toLowerCase()] = match[2] ?? match[3] ?? match[4] ?? '';
   }
   return attributes;
