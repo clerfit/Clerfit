@@ -75,6 +75,21 @@ jobs:
       - name: Run per-input validation accessibility regression
         run: node tests/input-validation-accessibility.test.js
 
+      - name: Run page-specific calculator regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          for test_file in \
+            tests/bmi-page.test.js \
+            tests/bodyfat-page.test.js \
+            tests/bsa-page.test.js \
+            tests/fatmass-page.test.js \
+            tests/ffmi-page.test.js \
+            tests/leanmass-page.test.js \
+            tests/whr-page.test.js; do
+            node "$test_file"
+          done
+
       - name: Run mocked contact form tests
         run: node tests/contact-form.test.js
 
