@@ -93,3 +93,26 @@ A fresh static audit of all 127 HTML documents in that available archive also pa
 ### Current gate status
 
 These are concrete source and QA-harness changes, not a claim that all final gates have already passed. CI for the newest exact main SHA must finish and all failed tests must be repaired; full semantic-boundary rationale across 238 static fields and generated inputs, physical-device and manual screen-reader acceptance, exact deployed-source parity, and real contact delivery remain unclosed until their evidence is recorded.
+
+
+## Final Phase 1 / Phase 2 verification snapshot — 2026-10-17
+
+**Verified main SHA:** `486f6c6613b5611d2bd365b1cc21e0e7fba743a3`  
+**Production release marker:** `R3-2026-10-17-phase12-a11y-v1`
+
+### Green current-source evidence
+
+- [Full Phase 1/2 CI workflow](https://github.com/clerfit/Clerfit/actions/runs/39051218959): **PASS**. Every step completed successfully, including syntax, known-answer/domain regressions, phase register integrity, input-validation accessibility test, all eight page-specific calculator test files, mocked contact form, unit-conversion property tests, sitemap, production staging build and parity, 118-route browser interaction/semantic-boundary smoke, and all-page axe accessibility audit.
+- [Live 118-route calculator interaction smoke](https://github.com/clerfit/Clerfit/actions/runs/39051218947): **PASS**.
+- [Live production verifier](https://github.com/clerfit/Clerfit/actions/runs/39051218943): **PASS**, release marker matched; 118 calculators, 123 sitemap pages, 123 fetched HTML pages and 158 same-site references checked, zero failures.
+- [GitHub Pages build/deployment](https://github.com/clerfit/Clerfit/actions/runs/39051219223): **PASS**.
+- The final axe artifact reports 124 user-facing HTML documents scanned and zero scan/accessibility failures. It also validates 118 registered routes, registry-to-file consistency and unique sitemap entries.
+- Formula/regression evidence includes 100 known-answer/domain assertions plus the per-input accessibility regression and page-specific suites: BMI 10, Body Fat 11, BSA 11, Fat Mass 11, FFMI 13, Lean Mass 12, WHR 11 and WHtR 8.
+
+### Final disposition
+
+- **Phase 1 audit and automated source-level gate: PASS / completed.** Route inventory, prioritized findings, route sign-off baseline, static HTML/source review and fresh current-HEAD CI evidence are recorded.
+- **Phase 2 calculator implementation and automated gate: PASS / completed.** The 118-route build, eight focused calculator remediations/tests, staging parity, full-route browser interactions and 124-page automated accessibility run all pass on the verified source SHA.
+- **Not mislabeled as complete:** all 238 static numeric fields have structural bounds recorded, but the domain-specific rationale and zero/negative/extreme/cross-field boundary tests are not exhaustive for every field and runtime-generated control. Manual keyboard/screen-reader and physical phone/tablet acceptance, real consented contact-form receipt, expert domain review where relevant, performance under weak networks, and exact byte-level comparison with the inaccessible newest `ClerFit_R3_NEW_UI_COMPLETE.zip` remain owner/expert checks. GitHub Pages also does not apply Netlify custom response headers automatically.
+
+This snapshot supersedes earlier entries in this log that said a fresh browser run, exact-source CI result or production parity had not yet been confirmed. Those gates have now passed on the SHA shown above; the listed manual/external obligations remain open by evidence, not by lack of an automated run.
