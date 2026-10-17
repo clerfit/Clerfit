@@ -340,8 +340,8 @@ function calculateBodyFat() {
     formula.innerHTML = "US Navy female equation (measurements converted to inches): 163.205 × log10(Waist + Hip − Neck) − 97.684 × log10(Height) − 78.387";
   }
 
-  if (!Number.isFinite(bf)) {
-    result.textContent = "These measurements cannot produce a valid body-fat estimate. Check the inputs.";
+  if (!Number.isFinite(bf) || bf < 0 || bf > 100) {
+    result.textContent = "These measurements do not produce a physically valid body-fat percentage (0–100%). Check the measurements, units and measurement technique.";
     formula.textContent = "";
     return;
   }
