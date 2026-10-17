@@ -52,7 +52,7 @@ assert.equal(input.getAttribute('aria-invalid'), 'true', 'invalid state is expos
 const firstError = input.parentElement.errors[0];
 assert.ok(firstError && firstError.id, 'validation message has a unique DOM id');
 assert.equal(firstError.getAttribute('role'), 'alert', 'validation message is announced');
-assert.deepEqual(input.getAttribute('aria-describedby').split(/\\s+/).sort(), ['weight-help', firstError.id].sort(), 'input points to both its existing help text and error message');
+assert.deepEqual(input.getAttribute('aria-describedby').split(/\s+/).sort(), ['weight-help', firstError.id].sort(), 'input points to both its existing help text and error message');
 
 input.value = '70';
 assert.equal(validation.validate(input, true), true, 'valid replacement input is accepted');
@@ -69,8 +69,8 @@ assert.equal(sharedParent.errors.length, 2, 'sibling fields receive separate err
 const leftError = left.__clerfitInputErrorNode;
 const rightError = right.__clerfitInputErrorNode;
 assert.notEqual(leftError.id, rightError.id, 'generated error message ids are unique');
-assert.deepEqual(left.getAttribute('aria-describedby').split(/\\s+/).sort(), ['left-help', leftError.id].sort());
-assert.deepEqual(right.getAttribute('aria-describedby').split(/\\s+/).sort(), ['right-help', rightError.id].sort());
+assert.deepEqual(left.getAttribute('aria-describedby').split(/\s+/).sort(), ['left-help', leftError.id].sort());
+assert.deepEqual(right.getAttribute('aria-describedby').split(/\s+/).sort(), ['right-help', rightError.id].sort());
 left.value = '70';
 assert.equal(validation.validate(left, true), true, 'one valid field clears only its own error');
 assert.equal(sharedParent.errors.length, 1, 'clearing one field leaves sibling error visible');
