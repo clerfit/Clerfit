@@ -7,7 +7,7 @@ Scope: 118 registered calculator routes, their documented methods, formula imple
 
 - 118/118 registered routes have a passing known-answer or method-specific regression vector in `tests/verify.js`.
 - The implementation was cross-checked against the formula/method matrix and the sources recorded in `SOURCES_AND_METHODS.md`; route-specific notes and classifications are in `SCIENTIFIC_REVIEW_REGISTER.csv`.
-- 238 static numeric inputs have explicit HTML `min`, `max`, and `step` constraints and are inventoried in `INPUT_BOUNDARY_VERIFIED.csv`. A few inputs are created dynamically at runtime and are covered only where interaction tests exercise them.
+- 242 static numeric inputs have explicit HTML `min`, `max`, and `step` constraints and are inventoried in `INPUT_BOUNDARY_VERIFIED.csv`. A few inputs are created dynamically at runtime and are covered only where interaction tests exercise them.
 - Unit conversion property tests cover known answers, round trips, incompatible dimensions, and non-finite values.
 - Adult BMI categories are not applied to minors; the pediatric BMI route does not invent percentiles. The Metabolic Age route does not fabricate a metabolic-age score. Raw ABSI and custom face/posture/fatigue/recovery indices do not receive unsupported universal risk or quality tiers.
 - MET calorie estimates use the documented MET convention; heat index and wind chill are presented as environmental indices, not guaranteed safe exposure times.
