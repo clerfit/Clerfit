@@ -2,8 +2,8 @@
 
 **Refreshed:** 2026-10-18  
 **Repository:** `clerfit/Clerfit`, branch `main`  
-**Latest automated source revision verified:** `3e4676016bd5ef472395a6131f238b524c11e0b5`  
-**Latest full Phase 1/2 verification run:** [39058859109](https://github.com/clerfit/Clerfit/actions/runs/39058859109) — **PASS**  
+**Latest automated source revision verified:** `b9c46e4ed52c6c5f0c97d0361ad4bfa6ec49135c`  
+**Latest full Phase 1/2 verification run:** [39061447566](https://github.com/clerfit/Clerfit/actions/runs/39061447566) — **PASS**  
 **Decision:** Calculator engineering and automated QA gates pass. Overall release acceptance remains **OPEN** because human/external evidence is still required; this document does not claim clinical certification.
 
 ## Implemented and automatically verified
@@ -27,4 +27,4 @@
 
 ## Sign-off rule
 
-**Phase Two engineering implementation: PASS. Automated Phase 1/2 gate on SHA `3e4676016bd5ef472395a6131f238b524c11e0b5`: PASS. Overall Phase 1/2 release sign-off: OPEN.** Do not begin Phase Three as if release acceptance is complete until the owner-dependent gates above are either completed with evidence or explicitly accepted as documented limitations.
+**Phase Two engineering implementation: PASS. Automated Phase 1/2 gate on SHA `b9c46e4ed52c6c5f0c97d0361ad4bfa6ec49135c`: PASS. Overall Phase 1/2 release sign-off: OPEN.** Do not begin Phase Three as if release acceptance is complete until the owner-dependent gates above are either completed with evidence or explicitly accepted as documented limitations.
