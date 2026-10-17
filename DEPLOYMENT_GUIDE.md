@@ -1,33 +1,44 @@
 # ClerFit — Deployment and final verification
 
-## Included deployment paths
+## Current verification workflow
 
-### GitHub Pages (existing project URL)
+The repository includes .github/workflows/phase-one-ci.yml. Pull requests targeting main, pushes to main, and manual workflow dispatch run:
 
-The repository has previously been published at `https://clerfit.github.io/Clerfit/`. The workflow at `.github/workflows/pages.yml` is configured to:
+1. JavaScript syntax checks and the calculator regression suite.
+2. Mocked contact-form success/failure/recovery tests and unit-conversion property tests.
+3. A production staging build that preserves the GitHub Pages project path when SITE_URL=https://clerfit.github.io/Clerfit.
+4. Offline route, sitemap, canonical, robots and local asset-integrity checks.
+5. Playwright interaction and responsive smoke checks across the 118 registered calculator routes.
+6. An axe-core accessibility smoke scan across every HTML page in the staging directory, with critical/serious violations and uncaught errors failing CI.
+7. Upload of fresh browser/accessibility reports as workflow artifacts, including on failure when a report has been produced.
 
-1. Run JavaScript syntax checks, the regression suite, route registry checks, the sitemap path test and contact-form mocked success/failure tests.
-2. Stage the production website into `dist/`, generate canonical URLs and `sitemap.xml`, and preserve the `/Clerfit` project-site path.
-3. Deploy the project through GitHub Pages when changes are pushed to `main` or `master`, or when the workflow is manually dispatched.
+This CI workflow verifies proposed website changes. It does not itself deploy to GitHub Pages and does not prove the live site is running the tested build. Check the actual repository's Pages settings and chosen publishing workflow before enabling deployment. Never assume a push has published successfully without inspecting the Pages deployment and the live site.
 
-For the workflow to run, the files must be pushed to the repository and GitHub repository settings must have **Pages → Build and deployment → Source: GitHub Actions**. This archive cannot change repository settings or push commits because no repository write credential is available in this environment.
+## Build locally
 
-### Netlify
+Install Node.js 22 or later. Use the source directory as the working directory:
 
-`netlify.toml` runs `node scripts/build-site.js` and publishes `dist/`, so audit reports and test source files are not part of the public website. Netlify provides the configured `_headers` rules. On Netlify, the `URL` environment variable is used automatically; for another host set `SITE_URL` to the exact canonical site base URL.
+    for f in js/*.js scripts/*.js tests/*.js; do node --check "$f"; done
+    node tests/verify.js
+    node tests/contact-form.test.js
+    node tests/unit-conversion-property.test.js
+    SITE_URL=https://clerfit.github.io/Clerfit node scripts/build-site.js
+    SITE_URL=https://clerfit.github.io/Clerfit node scripts/verify-staging.js
 
-## After the first deployment
+The build recreates dist/ and excludes development reports/tests from the published site. To run the browser checks locally, install the test dependencies and Chromium, start a static server rooted at dist/, then run scripts/browser-smoke.js and scripts/accessibility-smoke.js against that local server URL.
 
-Run:
+## Verify the deployed website
 
-```bash
-node scripts/verify-production.js https://clerfit.github.io/Clerfit/
-```
+After an authorized deployment has completed, run:
 
-Replace the URL if using another host. The script checks the homepage, contact page, sitemap, robots file, 404 page and all 118 registered calculator routes, and writes `PRODUCTION_SMOKE_REPORT.json`.
+    node scripts/verify-production.js https://clerfit.github.io/Clerfit/
 
-The live contact form should be tested with a consented message. The local suite mocks successful and failed Formspree responses, but cannot establish that Formspree has authorized the endpoint or that the message reaches the intended inbox.
+Replace the URL if another host is selected. The script checks the homepage, contact page, sitemap, robots rules, not-found page and all 118 registered calculator routes and writes a production smoke report.
 
-## Why production is not marked verified inside this archive
+Review the response headers separately. GitHub Pages does not apply Netlify's _headers rules; headers such as HSTS and X-Frame-Options need support from the selected host or CDN. The current legacy pages also contain inline JavaScript, which means their current Content Security Policy permits inline scripts; a stricter policy requires script refactoring or carefully generated hashes.
 
-This environment has no repository write credential, no configured hosting account credential and no ability to resolve the public host from the local shell. Therefore it cannot publish the files or honestly report the new production version as live. The GitHub Pages workflow automates deployment after the archive is integrated into the repository and the Pages source is enabled.
+## Contact form and manual accessibility
+
+The mocked contact tests verify frontend success/error/reset behavior but cannot establish Formspree authorization or inbox delivery. With the owner's consent, send a harmless live test message and confirm receipt at the intended inbox; do not submit private health information.
+
+Automated axe-core reports are a useful blocker-finding layer, not proof of full WCAG conformance. Complete keyboard-only and physical-device checks, including TalkBack/VoiceOver/NVDA where applicable, focus/escape behavior, reduced-motion and text zoom, viewport orientation, contrast in dynamic states, and contact delivery. Record evidence against the exact deployed release. Do not label an untested external or manual check as passed.
