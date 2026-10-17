@@ -70,7 +70,7 @@ test('BMI calculator works end-to-end on phone-sized viewport', async ({ page })
   await page.getByRole('button', { name: 'Calculate BMI' }).click();
   await expect(page.locator('#result')).toBeEmpty();
   await expect(page.locator('.clerfit-input-error')).toBeVisible();
-  await expect(page.locator('.clerfit-input-error')).toContainText('between 4.41 and 1100');
+  await expect(page.locator('.clerfit-input-error')).toContainText('between 4.41 and 1102.31');
 
   // Reset clears results/errors, restores defaults and places focus at the first input.
   await page.getByRole('button', { name: 'Reset' }).click();
