@@ -187,7 +187,7 @@ function clearBodyFatOutput() {
     indicator.style.left = "0%";
     indicator.style.backgroundColor = "";
     indicator.innerHTML = "";
-    indicator.removeAttribute("title");
+    if (typeof indicator.removeAttribute === "function") indicator.removeAttribute("title");
   }
 }
 
