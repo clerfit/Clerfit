@@ -46,7 +46,7 @@ if (key === 'bmi-for-age') {
   if (weight) { weight.min = '4.535'; weight.max = '453.592'; weight.step = 'any'; }
   if (height) { height.min = '30.48'; height.max = '274.32'; height.step = 'any'; }
   if (age) { age.min = '2'; age.max = '19'; age.step = '1'; }
-  if (ageMonths) { age.min = '0'; ageMonths.max = '11'; ageMonths.step = '1'; }
+  if (ageMonths) { ageMonths.min = '0'; ageMonths.max = '11'; ageMonths.step = '1'; }
   if (sex) sex.required = true;
 }
 })();
