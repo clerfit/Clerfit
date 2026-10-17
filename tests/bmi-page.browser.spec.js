@@ -67,23 +67,29 @@ test('BMI calculator works end-to-end on phone-sized viewport', async ({ page })
   await expect(page.locator('#result')).toBeEmpty();
   await expect(page.locator('#weight')).toBeFocused();
 
-  // Check narrow layout and collect browser/runtime failures.
+  // Keyboard focus must be visible, and the page must reflow down to a narrow phone viewport.
+  await page.keyboard.press('Tab');
+  await expect(page.locator('#weightUnit')).toBeFocused();
+  const focusOutline = await page.locator('#weightUnit').evaluate(el => getComputedStyle(el).outlineWidth);
+  expect(parseFloat(focusOutline), 'Keyboard focus indicator should be visible').toBeGreaterThanOrEqual(3);
+  await expect(page.getByRole('link', { name: /Go to ClerFit home/i })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Contact Us at ClerFit/i })).toBeVisible();
+  await page.setViewportSize({ width: 320, height: 844 });
   const dimensions = await page.evaluate(() => ({
     viewport: document.documentElement.clientWidth,
     document: document.documentElement.scrollWidth
   }));
-  expect(dimensions.document, 'Page should not overflow horizontally on a 390px viewport').toBeLessThanOrEqual(dimensions.viewport);
+  expect(dimensions.document, 'Page should not overflow horizontally on a 320px viewport').toBeLessThanOrEqual(dimensions.viewport);
   expect(pageErrors, 'No uncaught browser errors').toEqual([]);
   expect(localFailures, 'All local page assets should load successfully').toEqual([]);
 });
 
-test('BMI calculator has no serious or critical automated accessibility violations', async ({ page }) => {
+test('BMI calculator has no automated axe accessibility violations', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('http://127.0.0.1:8000/html/BMI.html', { waitUntil: 'networkidle' });
   const results = await new AxeBuilder({ page }).analyze();
-  const blocking = results.violations.filter(v => ['serious', 'critical'].includes(v.impact));
   expect(
-    blocking.map(v => ({ id: v.id, impact: v.impact, description: v.description, nodes: v.nodes.map(n => n.target) })),
-    'Serious/critical accessibility violations'
+    results.violations.map(v => ({ id: v.id, impact: v.impact, description: v.description, nodes: v.nodes.map(n => n.target) })),
+    'Automated accessibility violations'
   ).toEqual([]);
 });
