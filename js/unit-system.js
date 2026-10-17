@@ -1,5 +1,5 @@
 /* ClerFit per-calculator unit conversion only. No global preference and no browser storage. */
-/* R3 unit association release: R3-2026-10-17-calculator-fixes-04 */
+/* R3 unit association release: R3-2026-10-17-calculator-fixes-05 */
 (function () {
   'use strict';
   const ALIASES = {
