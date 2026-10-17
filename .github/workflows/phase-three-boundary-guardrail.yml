@@ -35,3 +35,5 @@ jobs:
         run: node tests/phase-three-boundary-structure.test.js
       - name: Audit generated advanced-calculator fields and semantic bounds
         run: node tests/phase-three-runtime-fields.test.js
+      - name: Verify generated numeric bounds follow display-unit changes
+        run: node tests/phase-three-generated-unit-bounds.test.js
