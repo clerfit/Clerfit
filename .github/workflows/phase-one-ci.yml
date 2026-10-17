@@ -71,6 +71,8 @@ jobs:
 
       - name: Run calculator known-answer and domain regressions
         run: node tests/verify.js
+      - name: Check phase inventory, sign-off and sitemap integrity
+        run: node tests/phase-register-integrity.test.js
 
       - name: Run per-input validation accessibility regression
         run: node tests/input-validation-accessibility.test.js
@@ -86,7 +88,8 @@ jobs:
             tests/fatmass-page.test.js \
             tests/ffmi-page.test.js \
             tests/leanmass-page.test.js \
-            tests/whr-page.test.js; do
+            tests/whr-page.test.js \
+            tests/wht-page.test.js; do
             node "$test_file"
           done
 
