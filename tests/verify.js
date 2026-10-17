@@ -297,35 +297,35 @@ checks++;
 pageTest = runPageFunction('fatmass.html', 'calculateFatMass', {
   weight: 80, weightUnit: 'kg', fat: 15
 }, ['result', 'formula', 'indicator']);
-assert.match(pageTest.output('result'), /12\\.00 kg/);
+assert.match(pageTest.output('result'), /12\.00 kg/);
 assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
 checks++;
 
 pageTest = runPageFunction('leanmass.html', 'calculateLeanMass', {
   weight: 80, weightUnit: 'kg', fat: 15
 }, ['result', 'formula']);
-assert.match(pageTest.output('result'), /68\\.00 kg/);
+assert.match(pageTest.output('result'), /68\.00 kg/);
 assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
 checks++;
 
 pageTest = runPageFunction('ffmi.html', 'calculateFFMI', {
   height: 70.8661417323, heightUnit: 'inch', weight: 80, weightUnit: 'kg', fat: 15
 }, ['result']);
-assert.match(pageTest.output('result'), /FFMI: 20\\.99/);
+assert.match(pageTest.output('result'), /FFMI: 20\.99/);
 assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
 checks++;
 
 pageTest = runPageFunction('1rm.html', 'calculate1RM', {
   liftWeight: 100, weightUnit1RM: 'kg', reps: 5, formula: 'epley'
 }, ['oneRMResult']);
-assert.match(pageTest.output('oneRMResult'), /Estimated 1RM:[\\s\\S]*116\\.67 kg/);
+assert.match(pageTest.output('oneRMResult'), /Estimated 1RM:[\s\S]*116\.67 kg/);
 assert.doesNotMatch(pageTest.output('oneRMResult'), /NaN|Infinity/);
 checks++;
 
 pageTest = runPageFunction('bmi-change.html', 'calculateBMIChange', {
   currentWeightBMI: 70, goalWeightBMI: 75, weightUnitBMI: 'kg', heightBMI: 175, heightUnitBMI: 'cm'
 }, ['bmiResult']);
-assert.match(pageTest.output('bmiResult'), /Current BMI:[\\s\\S]*Goal BMI:/);
+assert.match(pageTest.output('bmiResult'), /Current BMI:[\s\S]*Goal BMI:/);
 assert.doesNotMatch(pageTest.output('bmiResult'), /NaN|Infinity/);
 checks++;
 
@@ -333,14 +333,14 @@ pageTest = runPageFunction('bmi-compare.html', 'compareBMI', {
   heightA: 175, weightA: 70, heightUnitA: 'cm', weightUnitA: 'kg',
   heightB: 168, weightB: 65, heightUnitB: 'cm', weightUnitB: 'kg'
 }, ['bmiCompareResult']);
-assert.match(pageTest.output('bmiCompareResult'), /Person A:[\\s\\S]*Person B:/);
+assert.match(pageTest.output('bmiCompareResult'), /Person A:[\s\S]*Person B:/);
 assert.doesNotMatch(pageTest.output('bmiCompareResult'), /NaN|Infinity/);
 checks++;
 
 pageTest = runPageFunction('bsa.html', 'calculateBSA', {
   weight: 70, weightUnit: 'kg', height: 175, heightUnit: 'cm'
 }, ['result', 'formula', 'indicator']);
-assert.match(pageTest.output('result'), /BSA:[\\s\\S]*m²/);
+assert.match(pageTest.output('result'), /BSA:[\s\S]*m²/);
 assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
 checks++;
 
