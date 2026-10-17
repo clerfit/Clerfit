@@ -1,0 +1,145 @@
+name: ClerFit Phase 1 and Phase 2 Verification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - '404.html'
+      - 'contact.html'
+      - 'privacy.html'
+      - 'terms-of-use.html'
+      - 'educational-disclaimer.html'
+      - 'html/**'
+      - 'css/**'
+      - 'js/**'
+      - 'images/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'sitemap.xml'
+      - 'robots.txt'
+      - '.github/workflows/phase-one-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - '404.html'
+      - 'contact.html'
+      - 'privacy.html'
+      - 'terms-of-use.html'
+      - 'educational-disclaimer.html'
+      - 'html/**'
+      - 'css/**'
+      - 'js/**'
+      - 'images/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'sitemap.xml'
+      - 'robots.txt'
+      - '.github/workflows/phase-one-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clerfit-phase-one-two-verification
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Regression, staging, browser and accessibility checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check every project JavaScript file
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in js/*.js scripts/*.js tests/*.js; do
+            test -f "$file"
+            node --check "$file"
+          done
+
+      - name: Run calculator known-answer and domain regressions
+        run: node tests/verify.js
+
+      - name: Run per-input validation accessibility regression
+        run: node tests/input-validation-accessibility.test.js
+
+      - name: Run mocked contact form tests
+        run: node tests/contact-form.test.js
+
+      - name: Run unit conversion property tests
+        run: node tests/unit-conversion-property.test.js
+
+      - name: Verify calculator registry and sitemap
+        run: node scripts/generate-sitemap.js --check
+
+      - name: Build production staging directory
+        env:
+          SITE_URL: https://clerfit.github.io/Clerfit
+        run: node scripts/build-site.js
+
+      - name: Verify staged routes, canonicals, sitemap and local assets
+        env:
+          SITE_URL: https://clerfit.github.io/Clerfit
+        run: node scripts/verify-staging.js
+
+      - name: Install browser test dependencies
+        run: |
+          npm install --no-save --package-lock=false playwright axe-core
+          npx playwright install --with-deps chromium
+
+      - name: Run 118-route interaction and semantic-boundary smoke tests
+        env:
+          CLERFIT_BROWSER_REPORT: browser-smoke-report.json
+          CLERFIT_ALLOW_LOCAL_STAGING: '1'
+          CLERFIT_SITEMAP_BASE: https://clerfit.github.io/Clerfit/
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 --directory dist >/tmp/clerfit-static-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173/ >/dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:4173/ >/dev/null
+          node scripts/browser-smoke-staging.js http://127.0.0.1:4173/
+
+      - name: Run all-page axe accessibility smoke tests
+        env:
+          CLERFIT_ACCESSIBILITY_REPORT: accessibility-smoke-report.json
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4174 --directory dist >/tmp/clerfit-a11y-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4174/ >/dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:4174/ >/dev/null
+          node scripts/accessibility-smoke.js http://127.0.0.1:4174/
+
+      - name: Upload browser and accessibility reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clerfit-phase-one-two-verification
+          path: |
+            browser-smoke-report.json
+            accessibility-smoke-report.json
+          if-no-files-found: ignore
+          retention-days: 14
