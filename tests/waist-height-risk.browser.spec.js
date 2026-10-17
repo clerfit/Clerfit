@@ -17,15 +17,20 @@ test('Waist-to-height risk validates inputs and respects adolescent interpretati
   await expect(page.locator('#advanced-output')).toContainText('age is under 18');
   await expect(page.locator('#advanced-formula')).toContainText('Waist circumference ÷ height');
   await page.locator('#advanced-fields input').nth(0).fill('0');
-  await page.getByRole('button',{name:'Calculate result'}).click();
-  await expect(page.locator('#advanced-output')).toContainText(/greater than zero|positive waist/i);
-  await page.getByRole('button',{name:'Reset'}).click();
+  // Shared validation blocks invalid activation; editing the field must clear the previously displayed answer.
   await expect(page.locator('#advanced-output')).toBeEmpty();
+  await expect(page.locator('#advanced-formula')).toContainText('Submit the form');
+  await page.getByRole('button',{name:'Calculate result'}).click();
+  await expect(page.locator('#advanced-fields input').nth(0)).toHaveAttribute('aria-invalid','true');
+  await expect(page.locator('#advanced-output')).toBeEmpty();
+  await page.getByRole('button',{name:'Reset'}).click();
   await page.locator('#advanced-fields input').nth(0).fill('80');
   await page.locator('#advanced-fields input').nth(1).fill('180');
   await page.locator('#advanced-fields input').nth(2).fill('121');
+  await expect(page.locator('#advanced-output')).toBeEmpty();
   await page.getByRole('button',{name:'Calculate result'}).click();
-  await expect(page.locator('#advanced-output')).toContainText(/valid age|age/i);
+  await expect(page.locator('#advanced-fields input').nth(2)).toHaveAttribute('aria-invalid','true');
+  await expect(page.locator('#advanced-output')).toBeEmpty();
   await page.getByRole('button',{name:'Reset'}).click();
   await page.keyboard.press('Tab');
   const widths=await page.evaluate(()=>({viewport:document.documentElement.clientWidth,document:document.documentElement.scrollWidth}));
