@@ -36,7 +36,7 @@ The following types of metrics are defined by their explicitly displayed arithme
 
 ## Full route-level formula audit update (2026-10-15)
 
-`FORMULA_REFERENCE_AUDIT.md` and `CALCULATOR_VERIFICATION_MATRIX.csv` record all 118 routes, their formula/method summaries, route-specific known-answer or method-specific test status, and reference basis. The regression suite now contains a route-level vector for each registered calculator. All 238 static numeric inputs plus runtime-generated controls have min/max/step and are inventoried in `INPUT_BOUNDARY_VERIFIED.csv`. Route-level known-answer coverage is not the same as exhaustive semantic boundary testing or production certification.
+`FORMULA_REFERENCE_AUDIT.md` and `CALCULATOR_VERIFICATION_MATRIX.csv` record all 118 routes, their formula/method summaries, route-specific known-answer or method-specific test status, and reference basis. The regression suite now contains a route-level vector for each registered calculator. All 242 static numeric inputs plus runtime-generated controls have min/max/step and are inventoried in `INPUT_BOUNDARY_VERIFIED.csv`. Route-level known-answer coverage is not the same as exhaustive semantic boundary testing or production certification.
 
 
 ## MET equation consistency correction (2026-10-15)
