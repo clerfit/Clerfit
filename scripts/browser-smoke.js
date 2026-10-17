@@ -249,7 +249,8 @@ async function targetedSemanticBoundaries(browser) {
       await p.locator('#weightUnit').selectOption('kg');
       await p.locator('#heightUnit').selectOption('cm');
       await p.locator('#gender').selectOption('male');
-      await p.locator('button.calculate-btn:not(.cf-reset-btn):visible').first().click();
+      // Call the handler directly so native min/max bubbles do not mask the calculator's own semantic validation.
+      await p.evaluate(() => calculateBMI());
       await p.waitForTimeout(50);
       const out = await p.locator('#result').innerText();
       if (expectInvalid) {
