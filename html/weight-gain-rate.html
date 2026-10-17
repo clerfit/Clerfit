@@ -116,40 +116,37 @@
 
 <script>
 function calculateWeightGainRate2(){
-
-  const tdee = parseFloat(document.getElementById("tdeeGain2").value);
-  const intake = parseFloat(document.getElementById("intakeGain2").value);
+  const result = document.getElementById("gainResult2");
+  const tdee = Number(document.getElementById("tdeeGain2").value);
+  const intake = Number(document.getElementById("intakeGain2").value);
   const unit = document.getElementById("unitGain2").value;
+  result.textContent = "";
 
-  if(!tdee || !intake){
-    alert("Please enter both TDEE and intake.");
+  if (![tdee, intake].every(Number.isFinite) || tdee < 0 || intake < 0 || tdee > 50000 || intake > 50000) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter non-negative TDEE and intake values up to 50,000 kcal/day.</p>';
     return;
   }
-
+  if (!["kg", "lbs"].includes(unit)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose kg or lb as the preferred weight unit.</p>';
+    return;
+  }
   const dailySurplus = intake - tdee;
-
-  if(dailySurplus <= 0){
-    document.getElementById("gainResult2").innerHTML =
-      "<b>No calorie surplus detected. You are not in weight gain mode.</b>";
+  if (dailySurplus <= 0) {
+    result.innerHTML = '<p class="cf-note">No calorie surplus is entered, so this model does not estimate weight gain.</p>';
     return;
   }
 
-  let weeklyGain;
-  let monthlyGain;
-
-  if(unit === "kg"){
-    weeklyGain = (dailySurplus * 7) / 7700;
-    monthlyGain = (dailySurplus * 30) / 7700;
-  } else {
-    weeklyGain = (dailySurplus * 7) / 3500;
-    monthlyGain = (dailySurplus * 30) / 3500;
+  const unitFactor = unit === "kg" ? 1 : 0.45359237;
+  const weeklyGainKg = (dailySurplus * 7) / 7700;
+  const monthlyGainKg = (dailySurplus * 30) / 7700;
+  const weeklyGain = weeklyGainKg / unitFactor;
+  const monthlyGain = monthlyGainKg / unitFactor;
+  if (![weeklyGain, monthlyGain].every(Number.isFinite)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">A result could not be calculated from these values.</p>';
+    return;
   }
 
-  document.getElementById("gainResult2").innerHTML = `
-    <b>Daily Calorie Surplus:</b> ${dailySurplus.toFixed(2)} kcal<br>
-    <b>Expected Weekly Gain:</b> ${weeklyGain.toFixed(2)} ${unit}<br>
-    <b>Expected Monthly Gain:</b> ${monthlyGain.toFixed(2)} ${unit}
-  `;
+  result.innerHTML = `<b>Daily Calorie Surplus:</b> ${dailySurplus.toFixed(0)} kcal<br><b>Estimated Weekly Change:</b> ${weeklyGain.toFixed(2)} ${unit}<br><b>Estimated 30-day Change:</b> ${monthlyGain.toFixed(2)} ${unit}<p class="cf-note">Static calorie-to-mass estimate only. Actual weight change is dynamic and can differ due to metabolic adaptation, water shifts, composition, and adherence; this is not a personalized prediction.</p>`;
 }
 </script>
 
