@@ -50,6 +50,20 @@
       indicator.title = range.label;
     }
 
+    // Clear stale results as soon as an input changes, even when the shared validator
+    // blocks the Calculate click before calculateBMI() can run.
+    function clearBMIResult() {
+      const result = document.getElementById("result");
+      if (result) result.textContent = "";
+      const indicator = document.getElementById("indicator");
+      if (indicator) {
+        indicator.style.left = "0%";
+        indicator.style.backgroundColor = "";
+        indicator.innerHTML = "";
+        indicator.removeAttribute("title");
+      }
+    }
+
     // Keep input bounds aligned with the selected unit and the converted domain.
     function syncBMIBounds() {
       const weight = document.getElementById("weight");
@@ -101,15 +115,8 @@
       const age = Number(ageEl.value);
       const gender = document.getElementById("gender").value;
 
-      // Remove an old answer before validating a new submission.
-      result.textContent = "";
-      const indicator = document.getElementById("indicator");
-      if (indicator) {
-        indicator.style.left = "0%";
-        indicator.style.backgroundColor = "";
-        indicator.innerHTML = "";
-        indicator.removeAttribute("title");
-      }
+      // Remove any old answer before validating a new submission.
+      clearBMIResult();
       const validWeightUnit = ["kg", "lb", "lbs"].includes(weightUnit);
       const validHeightUnit = ["cm", "m", "in", "inch", "ft"].includes(heightUnit);
       if (![weightVal, heightVal, age].every(Number.isFinite) ||
@@ -220,9 +227,9 @@
     <div class="row">
       <div class="col">
         <label for="weight">Weight</label>
-        <input type="number" id="weight" placeholder="Enter weight" min="2" max="500" step="any" aria-label="Enter weight">
+        <input type="number" id="weight" placeholder="Enter weight" min="2" max="500" step="any" aria-label="Enter weight" oninput="clearBMIResult()">
         <label for="weightUnit">Unit</label>
-        <select id="weightUnit" aria-label="Weight unit" onchange="syncBMIBounds()">
+        <select id="weightUnit" aria-label="Weight unit" onchange="clearBMIResult(); syncBMIBounds()">
           <option value="kg" selected>kg</option>
           <option value="lbs">lbs</option>
         </select>
@@ -230,9 +237,9 @@
 
       <div class="col">
         <label for="height">Height</label>
-        <input type="number" id="height" placeholder="Enter height" min="50" max="274" step="any" aria-label="Enter height">
+        <input type="number" id="height" placeholder="Enter height" min="50" max="274" step="any" aria-label="Enter height" oninput="clearBMIResult()">
         <label for="heightUnit">Unit</label>
-        <select id="heightUnit" aria-label="Height unit" onchange="syncBMIBounds()">
+        <select id="heightUnit" aria-label="Height unit" onchange="clearBMIResult(); syncBMIBounds()">
           <option value="cm" selected>cm</option>
           <option value="m">m</option>
           <option value="in">in</option>
@@ -242,9 +249,9 @@
 
       <div class="col">
         <label for="age">Age</label>
-        <input type="number" id="age" placeholder="Enter age" min="2" max="120" step="1" aria-label="Enter age">
+        <input type="number" id="age" placeholder="Enter age" min="2" max="120" step="1" aria-label="Enter age" oninput="clearBMIResult()">
         <label for="gender">Gender</label>
-        <select id="gender" aria-label="Sex / reference group">
+        <select id="gender" aria-label="Sex / reference group" onchange="clearBMIResult()">
           <option value="" selected disabled>Select</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
