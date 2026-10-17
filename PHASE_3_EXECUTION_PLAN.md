@@ -8,14 +8,19 @@ Phase 3 is a defect-remediation and release-acceptance phase, not a re-run of Ph
 
 ## Workstreams
 
-1. **Input-domain integrity (active):** distinguish structural HTML bounds from formula-aware semantic validation. Add a small focused CI guardrail to catch malformed/non-finite min/max/step values, duplicate/missing field records, and inventory drift. Passing it does not mean the field domains are semantically approved.
-2. **Formula-aware review (active, incomplete):** review fields in risk order (unit conversions, logarithmic equations, ratios/division, ages/populations, duration and count inputs, generated runtime inputs). For each field, record rationale and test minimum, maximum, zero, negative, extreme, and cross-field combinations where applicable. Do not change bounds without equation and intended-use evidence.
+1. **Input-domain integrity (structural gate passed):** a focused CI guardrail now catches malformed/non-finite min/max/step values, duplicate/missing field records, and inventory drift across the 242 static numeric fields. Passing it does not mean the field domains are semantically approved.
+2. **Formula-aware review (active, incomplete):** the dynamically generated advanced-calculator field metadata is now audited for explicit finite bounds, labels/units, unique IDs, and valid ratio references. A reproduced unit-selector defect was fixed: generated input min/max constraints now follow the selected display unit. Continue field-by-field formula review in risk order (unit conversions, logarithmic equations, ratios/division, ages/populations, duration/count inputs, and other generated runtime inputs). Record rationale and test minimum, maximum, zero, negative, extreme, and cross-field combinations where applicable. Do not change base-unit bounds without equation and intended-use evidence.
 3. **Release evidence (open):** track exact ZIP parity, manual/device accessibility, real contact delivery, exact PageSpeed URL reproduction, weak-network/performance and production headers, independent expert review, and exact-SHA release verification in `PHASE_3_EXECUTION_REGISTER.csv`.
 4. **Fix policy:** only alter runtime code when a reproducible defect and expected behavior are established. Add a regression test with each runtime fix. Avoid blanket changes to calculators or input limits.
 
-## First implementation
+## Completed engineering workstreams
 
-Added `tests/phase-three-boundary-structure.test.js` and `.github/workflows/phase-three-boundary-guardrail.yml`. The test checks all 242 current static numeric fields for finite bounds, min less than max, valid step, duplicate keys, exact cross-inventory coverage and matching values. It explicitly reports that semantic review remains incomplete.
+- Added `tests/phase-three-boundary-structure.test.js` and `.github/workflows/phase-three-boundary-guardrail.yml`. The test checks all 242 current static numeric fields for finite bounds, min less than max, valid step, duplicate keys, exact cross-inventory coverage and matching values.
+- Added `tests/phase-three-runtime-fields.test.js` to audit generated advanced-calculator fields, semantic-bound metadata and ratio references.
+- Fixed generated unit-aware native input constraints in `js/advanced-calculators.js`; `tests/phase-three-generated-unit-bounds.test.js` protects conversions across supported display units.
+- Focused guardrail and formula regression workflows passed. Full Phase 1/2 CI, including 118-route browser smoke and all-page axe scan, passed on the PR candidate SHA before merge. Main-branch verification/deployment for the latest merge SHA must be checked separately.
+
+These are structural and regression gates; they do not certify that every selected range is scientifically appropriate.
 
 ## Exit criteria
 
