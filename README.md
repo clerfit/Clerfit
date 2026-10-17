@@ -8,8 +8,8 @@ A static HTML/CSS/JavaScript health, fitness, measurement and everyday-calculato
 2. Open `index.html` in a modern browser.
 3. Use the left-edge three-line menu to open the sidebar; it starts closed.
 4. Use the magnifying-glass control inside the sidebar to search calculators.
-5. Home and Contact Us are available as floating links on calculator pages.
-6. Use the sidebar's Display units setting to switch between Metric and Imperial for recognized unit selectors. The preference persists in the browser.
+5. Home and Contact Us appear in the shared page header in normal document flow; they do not float over calculator fields.
+6. Supported unit selectors convert values within the calculator when you change units. The site does not save a global unit preference in browser storage.
 
 For a local server, run `python -m http.server 8000` from this folder and open `http://localhost:8000`.
 
