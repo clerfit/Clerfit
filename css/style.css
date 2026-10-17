@@ -1075,3 +1075,9 @@ body .cf-table-scroll td:before {
   .cf-hero-stats { flex-wrap: wrap; gap: 8px; }
   .cf-hero-art { overflow: hidden; }
 }
+
+
+/* Follow-up axe contrast fixes: all compact directory descriptors meet normal-text contrast. */
+.cf-home .cf-directory-head .cf-kicker { color: #0b665f !important; }
+.cf-home #cf-directory-count { color: #4b5563 !important; }
+.cf-home .cf-directory-copy small { color: #4b5563 !important; }
