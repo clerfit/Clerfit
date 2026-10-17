@@ -223,7 +223,7 @@ These are deliberately marked open; a source patch is not proof that Lighthouse,
 
 ## Phase 1 exit criteria
 
-Phase 1 is complete only when the exact source archive, repository, and live release are reconciled; every registered calculator and public page has an evidence-backed status; PageSpeed issues have been reproduced or explicitly disproven; fixes have been re-tested; and the sign-off register has no unresolved release-blocking rows. BMI, Body Fat Percentage, Lean Body Mass, Fat Mass, FFMI and BSA have passed source-local CI/browser checks, but the site-wide phase is **not signed off** because 112 other calculator pages and the remaining public routes still need the same page-by-page treatment, and archive parity/live-host checks remain open.
+Phase 1 is complete only when the exact source archive, repository, and live release are reconciled; every registered calculator and public page has an evidence-backed status; PageSpeed issues have been reproduced or explicitly disproven; fixes have been re-tested; and the sign-off register has no unresolved release-blocking rows. BMI, Body Fat Percentage, Lean Body Mass, Fat Mass, FFMI, BSA and WHtR have passed source-local CI/browser checks. WHR is being remediated and is not signed off yet. Phase One remains **open** because 111 of 118 calculator routes still need focused formula/interaction/accessibility sign-off beyond the route-shell sweep, and archive parity/live-host checks remain open.
 
 ## Safety of changes
 
