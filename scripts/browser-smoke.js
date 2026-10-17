@@ -148,6 +148,18 @@ async function runRoute(browser, route) {
     if (!response || !response.ok()) throw new Error('page HTTP status ' + (response ? response.status() : 'no response'));
     await page.waitForLoadState('load',{timeout:10000}).catch(()=>{});
     await page.waitForTimeout(120);
+    // Test the untouched form first. Empty submission must never produce NaN,
+    // Infinity, or undefined in a result panel; then run the normal populated test.
+    const emptyAction = await chooseAction(page);
+    if (emptyAction) {
+      await emptyAction.click({timeout:7000}).catch(error => {
+        throw new Error('blank-form action click failed: ' + error.message);
+      });
+      await page.waitForTimeout(80);
+      const emptyOutputs = await outputSnapshot(page);
+      const invalidEmpty = emptyOutputs.filter(x => /\b(?:NaN|Infinity|undefined)\b/i.test(x.text));
+      if (invalidEmpty.length) failures.push(pageName + ' emits non-finite output with blank/default inputs: ' + invalidEmpty.map(x=>x.id+': '+x.text.slice(0,120)).join(' | '));
+    }
     await fillPageInputs(page,pageName);
     // Dynamically generated BMI-for-age fields have a CDC-supported numeric domain;
     // explicitly set values after units and controls are present to guard against
@@ -271,6 +283,21 @@ async function targetedUnits(browser) {
     await approx(p.locator('#bf-waist'),80,'Body Fat waist field preserved',.001);
     await approx(p.locator('#bf-neck'),38,'Body Fat neck field preserved',.001);
     report.push('Body Fat independent unit selector: only intended input converted'); await p.close();
+  }
+  {
+    const p=await browser.newPage({viewport:{width:390,height:844}});
+    await p.goto(new URL('html/ponderal.html?browserSmoke=targeted',BASE).href,{waitUntil:'load'});
+    await p.locator('#weight').fill('80'); await p.locator('#height').fill('180');
+    await p.locator('#weightUnit').selectOption('kg'); await p.locator('#heightUnit').selectOption('cm');
+    await p.locator('button[onclick*="calculatePI"]').click(); await sleep(100);
+    if (!/13\.72/.test(await p.locator('#result').innerText())) throw new Error('Ponderal Index did not match 80 kg / 1.8 m³ = 13.72.');
+    await p.locator('#weightUnit').selectOption('lb'); await p.locator('#heightUnit').selectOption('inch'); await sleep(100);
+    await approx(p.locator('#weight'),176.36981,'Ponderal weight kg-to-lb',.03);
+    await approx(p.locator('#height'),70.86614,'Ponderal height cm-to-inch',.02);
+    await p.locator('button[onclick*="calculatePI"]').click(); await sleep(100);
+    if (!/13\.72/.test(await p.locator('#result').innerText())) throw new Error('Ponderal Index changed after equivalent unit conversion.');
+    report.push('Ponderal Index: known-answer formula and kg/cm-to-lb/in equivalence');
+    await p.close();
   }
   return report;
 }
