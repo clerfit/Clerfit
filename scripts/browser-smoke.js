@@ -496,6 +496,9 @@ async function targetedUnits(browser) {
 }
 
 async function waitForDeployedRelease() {
+  // CI tests the staged static build on localhost. Production-only release-marker
+  // polling is skipped there; route/asset interactions still use the local origin.
+  if (process.env.CLERFIT_ALLOW_LOCAL_STAGING === '1') return;
   const target = new URL('index.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
   let lastStatus = 'no response';
   for (let attempt = 1; attempt <= 30; attempt++) {
@@ -522,7 +525,12 @@ async function main() {
   const registry=JSON.parse(registryMatch[1]);
   if(registry.length!==EXPECTED_ROUTES) throw new Error('Expected '+EXPECTED_ROUTES+' calculator routes, found '+registry.length);
   const sitemap=new Set([...sitemapText.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(m=>m[1].trim()));
-  const missing=registry.filter(r=>!sitemap.has(new URL('html/'+encodeURI(r.file),BASE).href));
+  // A staging build intentionally retains production canonical URLs. Compare its
+  // sitemap with that canonical base while visiting calculator pages on localhost.
+  const sitemapBase = process.env.CLERFIT_SITEMAP_BASE
+    ? new URL(process.env.CLERFIT_SITEMAP_BASE.endsWith('/') ? process.env.CLERFIT_SITEMAP_BASE : process.env.CLERFIT_SITEMAP_BASE + '/')
+    : BASE;
+  const missing=registry.filter(r=>!sitemap.has(new URL('html/'+encodeURI(r.file),sitemapBase).href));
   if(missing.length) throw new Error('Registered calculator routes missing from sitemap: '+missing.map(x=>x.file).join(', '));
   const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
   try {
