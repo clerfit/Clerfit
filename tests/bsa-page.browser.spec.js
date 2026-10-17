@@ -69,8 +69,8 @@ test('BSA calculator works end-to-end on mobile', async ({ page }) => {
   // Values past the permitted domains must not keep an old result.
   await page.locator('#weight').fill('500.1');
   await page.getByRole('button', { name: 'Calculate BSA' }).click();
-  await expect(page.locator('#result')).toContainText('Check units and values');
-  await expect(page.locator('#result [role="alert"]')).toBeVisible();
+  await expect(page.locator('#result')).toBeEmpty();
+  await expect(page.locator('.clerfit-input-error').first()).toBeVisible();
   await expect(page.locator('#result')).not.toContainText('BSA:');
 
   await page.getByRole('button', { name: 'Reset' }).click();
