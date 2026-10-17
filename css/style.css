@@ -1028,3 +1028,50 @@ body .info-tooltip,body .tooltip-circle,body .info-box{flex-shrink:0!important}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body *{transition:none!important;animation:none!important}}
 
 /* ClerFit R3 live calculator UI — production stylesheet release marker; R3-2026-10-17-calculator-fixes-05 */
+
+
+/* Phase 1 accessibility remediation: preserve link distinguishability and visible keyboard focus. */
+body a {
+  text-decoration-line: underline;
+  text-decoration-thickness: .08em;
+  text-underline-offset: .16em;
+}
+body a:focus-visible,
+body button:focus-visible,
+body input:focus-visible,
+body select:focus-visible,
+body textarea:focus-visible,
+body summary:focus-visible {
+  outline: 3px solid #0b63ce !important;
+  outline-offset: 3px !important;
+}
+body .cf-breadcrumb {
+  color: #4b5b72 !important;
+}
+body .cf-table-scroll td:before {
+  color: #42536b !important;
+}
+@media (forced-colors: active) {
+  body a:focus-visible,
+  body button:focus-visible,
+  body input:focus-visible,
+  body select:focus-visible,
+  body textarea:focus-visible,
+  body summary:focus-visible {
+    outline: 2px solid LinkText !important;
+  }
+}
+
+/* Phase 2 responsive hardening for the homepage at narrow phone widths. */
+@media (max-width: 380px) {
+  body:has(.cf-home) { overflow-x: clip; }
+  .cf-home { width: 100%; min-width: 0; padding-left: 12px !important; padding-right: 12px !important; }
+  .cf-home-top { min-width: 0; flex-wrap: wrap; align-items: flex-start; gap: 10px; }
+  .cf-wordmark { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+  .cf-top-actions { min-width: 0; width: 100%; max-width: 100%; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+  .cf-top-tag { display: none; }
+  .cf-home-hero, .cf-home-hero > *, .cf-hero-content, .cf-hero-art { min-width: 0; max-width: 100%; }
+  .cf-home-hero { padding: 18px !important; overflow: hidden !important; }
+  .cf-hero-stats { flex-wrap: wrap; gap: 8px; }
+  .cf-hero-art { overflow: hidden; }
+}
