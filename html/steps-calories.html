@@ -163,7 +163,7 @@ input, select{
   <div class="row">
     <div class="col">
       <label for="steps">Number of Steps</label>
-      <input type="number" id="steps" placeholder="Enter steps" min="0" max="200000" step="1" aria-label="Enter steps">
+      <input type="number" id="steps" placeholder="Enter steps" min="0" max="100000" step="1" aria-label="Enter steps">
     </div>
 
     <div class="col">
@@ -198,41 +198,45 @@ input, select{
 
   <script>
     function stepsToCaloriesBest() {
-      const steps = parseFloat(document.getElementById("steps").value);
-      const stepLength = parseFloat(document.getElementById("stepLength").value);
+      const result = document.getElementById("calorieResult");
+      result.textContent = "";
+      const steps = Number(document.getElementById("steps").value);
+      const stepLength = Number(document.getElementById("stepLength").value);
       const unit = document.getElementById("unit").value;
-      const weight = parseFloat(document.getElementById("weight").value);
+      const weight = Number(document.getElementById("weight").value);
       const weightUnit = document.getElementById("weightUnit").value;
-
-      if (!Number.isFinite(steps) || steps < 0 || !Number.isFinite(stepLength) || stepLength <= 0 || !Number.isFinite(weight) || weight <= 0) {
-        alert("Enter a non-negative step count, positive step length, and positive body weight.");
+      if (![steps, stepLength, weight].every(Number.isFinite) || !Number.isInteger(steps) || steps < 0 || steps > 100000 ||
+          stepLength <= 0 || weight <= 0 || !["cm", "m", "in", "ft"].includes(unit) || !["kg", "lbs"].includes(weightUnit)) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">Enter 0–100000 whole steps, positive step length and weight, and supported units.</p>';
         return;
       }
-
-      // Convert step length to meters
       let stepM;
       switch(unit) {
         case "cm": stepM = stepLength / 100; break;
         case "m": stepM = stepLength; break;
         case "in": stepM = stepLength * 0.0254; break;
         case "ft": stepM = stepLength * 0.3048; break;
-        default: stepM = stepLength / 100;
+        default: stepM = NaN;
       }
-
-      // Convert weight to kg if in lbs
-      let weightKg = weightUnit === "lbs" ? weight * 0.453592 : weight;
-
-      // Distance in km
-      const distanceKm = (steps * stepM) / 1000;
-
-      // Calories burned (best-practice, user-friendly formula)
+      const weightKg = weightUnit === "lbs" ? weight * 0.45359237 : weight;
+      if (!Number.isFinite(stepM) || !Number.isFinite(weightKg) ||
+          stepM < 0.2 || stepM > 1.5 || weightKg < 2 || weightKg > 500) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">Converted step length must be 20–150 cm and body weight 2–500 kg.</p>';
+        return;
+      }
+      const distanceKm = steps * stepM / 1000;
+      if (!Number.isFinite(distanceKm) || distanceKm > 100) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">The estimated daily distance exceeds 100 km. Check the step count and length.</p>';
+        return;
+      }
       const calories = distanceKm * weightKg * 0.64;
-
-      document.getElementById("calorieResult").innerHTML =
-        `Distance: <b>${distanceKm.toFixed(2)} km</b><br>
-         Estimated Calories Burned: <b>${calories.toFixed(2)} kcal</b>`;
+      if (!Number.isFinite(calories) || calories < 0) {
+        result.innerHTML = '<p class="cf-validation-message" role="alert">A finite calorie estimate could not be calculated from these values.</p>';
+        return;
+      }
+      result.innerHTML = `Distance: <b>${distanceKm.toFixed(2)} km</b><br>Estimated Calories Burned: <b>${calories.toFixed(2)} kcal</b><p class="cf-note">Step-based calorie expenditure is approximate, not a measured energy value.</p>`;
     }
-  </script>
+</script>
 </div>
 
 

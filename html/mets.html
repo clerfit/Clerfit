@@ -21,29 +21,34 @@
 <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <script defer>
 function calculateMETs() {
-    let weight = parseFloat(document.getElementById('weight').value);
+    const result = document.getElementById('result');
+    const formula = document.getElementById('formula');
+    result.textContent = '';
+    formula.textContent = '';
+    let weight = Number(document.getElementById('weight').value);
     const weightUnit = document.getElementById('weightUnit').value;
-    const met = parseFloat(document.getElementById('met').value);
-    const duration = parseFloat(document.getElementById('duration').value);
-
-    if (!weight || !met || !duration) {
-        alert("Please fill all fields");
-        return;
+    const met = Number(document.getElementById('met').value);
+    const duration = Number(document.getElementById('duration').value);
+    if (![weight, met, duration].every(Number.isFinite) || weight <= 0 || met < 1 || met > 25 || duration <= 0 ||
+        !['kg', 'lb'].includes(weightUnit)) {
+      result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a supported weight unit, weight, MET value from 1 to 25, and positive duration.</p>';
+      return;
     }
-
-    // Convert weight to kg if lb
-    if (weightUnit === 'lb') weight = weight * 0.453592;
-
-    // Calories burned formula: Calories = MET × 3.5 × weight(kg)/200 × duration(min)
-    const calories = (met * 3.5 * weight / 200 * duration).toFixed(2);
-
-    document.getElementById('result').innerHTML = `Calories burned: <strong>${calories} kcal</strong>`;
-    document.getElementById('formula').innerHTML = `Formula: MET × 3.5 × weight(kg)/200 × duration(min) = ${met} × 3.5 × ${weight.toFixed(2)}/200 × ${duration} = ${calories} kcal`;
-
-    // Update bar indicator (based on MET value, 1–20 scale)
+    if (weightUnit === 'lb') weight *= 0.45359237;
+    if (!Number.isFinite(weight) || weight < 2 || weight > 500 || duration > 1440) {
+      result.innerHTML = '<p class="cf-validation-message" role="alert">Converted weight must be 2–500 kg and duration must be 1–1440 minutes.</p>';
+      return;
+    }
+    const calories = met * 3.5 * weight / 200 * duration;
+    if (!Number.isFinite(calories) || calories <= 0) {
+      result.innerHTML = '<p class="cf-validation-message" role="alert">A finite calorie estimate could not be calculated from these values.</p>';
+      return;
+    }
+    const rounded = calories.toFixed(2);
+    result.innerHTML = `Calories burned: <strong>${rounded} kcal</strong><p class="cf-note">MET-based estimate only; actual energy expenditure varies.</p>`;
+    formula.innerHTML = `Formula: MET × 3.5 × weight(kg)/200 × duration(min) = ${met} × 3.5 × ${weight.toFixed(2)}/200 × ${duration} = ${rounded} kcal`;
     const indicator = document.getElementById('indicator');
-    const pos = Math.min(Math.max((met-1)/(20-1)*100,0),100); // 1 to 20 MET scale
-    indicator.style.left = pos + '%';
+    if (indicator && indicator.style) indicator.style.left = Math.min(Math.max((met - 1) / 24 * 100, 0), 100) + '%';
 }
 </script>
 

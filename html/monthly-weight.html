@@ -145,43 +145,37 @@
 
 <script>
 function calculateMonthlyChange(){
-  const tdee = parseFloat(document.getElementById("tdeeMonthly").value);
-  const intake = parseFloat(document.getElementById("intakeMonthly").value);
+  const result = document.getElementById("monthlyResult");
+  result.textContent = "";
+  const tdee = Number(document.getElementById("tdeeMonthly").value);
+  const intake = Number(document.getElementById("intakeMonthly").value);
   const unit = document.getElementById("unitMonthly").value;
-  const days = parseFloat(document.getElementById("days").value);
-
-  if(!Number.isFinite(tdee) || tdee <= 0 || !Number.isFinite(intake) || intake <= 0 ||
-     !Number.isInteger(days) || days < 28 || days > 31){
-    document.getElementById("monthlyResult").innerHTML =
-      '<span role="alert">Enter positive TDEE and daily intake values, plus an integer month length from 28 to 31 days.</span>';
+  const days = Number(document.getElementById("days").value);
+  if(![tdee, intake, days].every(Number.isFinite) || !Number.isInteger(days) || days < 28 || days > 31 ||
+     !["kg", "lbs"].includes(unit)){
+    result.innerHTML = '<span class="cf-validation-message" role="alert">Enter supported positive TDEE and intake values, a supported weight unit, and an integer month length from 28 to 31 days.</span>';
     return;
   }
-
+  if(tdee < 500 || tdee > 10000 || intake < 500 || intake > 10000){
+    result.innerHTML = '<span class="cf-validation-message" role="alert">TDEE and intake must each be 500–10000 kcal/day for this estimate.</span>';
+    return;
+  }
   const dailyDifference = intake - tdee;
+  if(Math.abs(dailyDifference) > 2500){
+    result.innerHTML = '<span class="cf-validation-message" role="alert">The daily calorie difference must be within ±2500 kcal/day for this simplified monthly estimate.</span>';
+    return;
+  }
   const monthlyCalories = dailyDifference * days;
-
-  let weightChange;
-
-  if(unit === "kg"){
-    weightChange = monthlyCalories / 7700;
-  } else {
-    weightChange = monthlyCalories / 3500;
+  const weightChange = monthlyCalories / (unit === "kg" ? 7700 : 3500);
+  if(!Number.isFinite(monthlyCalories) || !Number.isFinite(weightChange)){
+    result.innerHTML = '<span class="cf-validation-message" role="alert">A finite monthly estimate could not be calculated.</span>';
+    return;
   }
-
   let resultText;
-
-  if(weightChange > 0){
-    resultText = `Expected Monthly Weight Gain: ${weightChange.toFixed(2)} ${unit}`;
-  } else if(weightChange < 0){
-    resultText = `Expected Monthly Weight Loss: ${Math.abs(weightChange).toFixed(2)} ${unit}`;
-  } else {
-    resultText = `No expected weight change.`;
-  }
-
-  document.getElementById("monthlyResult").innerHTML = `
-    <b>Monthly Calorie Difference:</b> ${monthlyCalories.toFixed(0)} kcal<br>
-    <b>${resultText}</b>
-  `;
+  if(weightChange > 0) resultText = `Expected Monthly Weight Gain: ${weightChange.toFixed(2)} ${unit}`;
+  else if(weightChange < 0) resultText = `Expected Monthly Weight Loss: ${Math.abs(weightChange).toFixed(2)} ${unit}`;
+  else resultText = "No expected weight change.";
+  result.innerHTML = `<b>Monthly Calorie Difference:</b> ${monthlyCalories.toFixed(0)} kcal<br><b>${resultText}</b><p class="cf-note">Simplified static energy-balance estimate only; actual weight change is dynamic and this is not a personalized prediction.</p>`;
 }
 </script>
 

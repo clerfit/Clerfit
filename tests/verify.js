@@ -355,6 +355,61 @@ assert.match(pageTest.output('result'), /weight must be 2–500 kg/i);
 assert.doesNotMatch(pageTest.output('result'), /Calories per kg:/);
 checks++;
 
+// Face measurements, cardio expenditure, monthly estimates and steps use semantic limits.
+pageTest = runPageFunction('face-shape.html', 'calculateFaceShape', {
+  faceLength: 0.1, faceLengthUnit: 'cm', forehead: 13, foreheadUnit: 'cm',
+  cheekbones: 15, cheekbonesUnit: 'cm', jawline: 12, jawlineUnit: 'cm'
+}, ['result']);
+assert.match(pageTest.output('result'), /Face length must be 8–40 cm/i);
+assert.doesNotMatch(pageTest.output('result'), /Dominant Face Shape:/);
+checks++;
+pageTest = runPageFunction('face-shape.html', 'calculateFaceShape', {
+  faceLength: 18, faceLengthUnit: 'cm', forehead: 13, foreheadUnit: 'cm',
+  cheekbones: 15, cheekbonesUnit: 'cm', jawline: 12, jawlineUnit: 'cm'
+}, ['result']);
+assert.match(pageTest.output('result'), /Dominant Face Shape:/);
+assert.match(pageTest.output('result'), /heuristic relative similarity scores/i);
+checks++;
+
+pageTest = runPageFunction('cardio-calories.html', 'calculateCalories', {
+  bodyWeight: 70, weightUnit: 'kg', activityMET: 3.5, duration: 60, durationUnit: 'minutes'
+}, ['caloriesResult']);
+assert.match(pageTest.output('caloriesResult'), /257\.25/);
+checks++;
+pageTest = runPageFunction('cardio-calories.html', 'calculateCalories', {
+  bodyWeight: 70, weightUnit: 'kg', activityMET: 3.5, duration: 50000, durationUnit: 'minutes'
+}, ['caloriesResult']);
+assert.match(pageTest.output('caloriesResult'), /duration must not exceed 1440 minutes/i);
+assert.doesNotMatch(pageTest.output('caloriesResult'), /Estimated Calories Burned:/);
+checks++;
+
+pageTest = runPageFunction('mets.html', 'calculateMETs', {
+  weight: 70, weightUnit: 'kg', met: 500, duration: 30
+}, ['result', 'formula']);
+assert.match(pageTest.output('result'), /MET value from 1 to 25/i);
+assert.doesNotMatch(pageTest.output('result'), /Calories burned:/);
+checks++;
+
+pageTest = runPageFunction('monthly-weight.html', 'calculateMonthlyChange', {
+  tdeeMonthly: 20000, intakeMonthly: 500, unitMonthly: 'kg', days: 30
+}, ['monthlyResult']);
+assert.match(pageTest.output('monthlyResult'), /TDEE and intake must each be 500–10000 kcal\/day/i);
+assert.doesNotMatch(pageTest.output('monthlyResult'), /Expected Monthly Weight Loss: 324/);
+checks++;
+
+pageTest = runPageFunction('steps-calories.html', 'stepsToCaloriesBest', {
+  steps: 1000, stepLength: 70, unit: 'cm', weight: 70, weightUnit: 'kg'
+}, ['calorieResult']);
+assert.match(pageTest.output('calorieResult'), /Distance: <b>0\.70 km<\/b>/);
+assert.match(pageTest.output('calorieResult'), /31\.36 kcal/);
+checks++;
+pageTest = runPageFunction('steps-calories.html', 'stepsToCaloriesBest', {
+  steps: 1000, stepLength: 300, unit: 'cm', weight: 70, weightUnit: 'kg'
+}, ['calorieResult']);
+assert.match(pageTest.output('calorieResult'), /step length must be 20–150 cm/i);
+assert.doesNotMatch(pageTest.output('calorieResult'), /Distance:/);
+checks++;
+
 pageTest = runPageFunction('absi.html', 'calculateABSI', {
   waist: 85, waistUnit: 'nonsense', height: 175, heightUnit: 'cm', weight: 70
 }, ['result']);

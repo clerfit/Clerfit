@@ -217,34 +217,48 @@ metSearch.addEventListener('input', function() {
 
 
 function convertToKg(weight, unit) {
-  return unit === 'lbs' ? weight * 0.453592 : weight;
+  switch (String(unit).toLowerCase()) {
+    case 'kg': return weight;
+    case 'lbs': return weight * 0.45359237;
+    default: return NaN;
+  }
 }
 
 function convertDuration(value, unit) {
-  if (unit === 'hours') return value * 60;
-  if (unit === 'seconds') return value / 60;
-  return value; // minutes
+  switch (String(unit).toLowerCase()) {
+    case 'minutes': return value;
+    case 'hours': return value * 60;
+    case 'seconds': return value / 60;
+    default: return NaN;
+  }
 }
 
 function calculateCalories() {
-  const weight = parseFloat(document.getElementById('bodyWeight').value);
+  const result = document.getElementById('caloriesResult');
+  result.textContent = '';
+  const weight = Number(document.getElementById('bodyWeight').value);
   const weightUnit = document.getElementById('weightUnit').value;
-  const met = parseFloat(activityMET.value);
-  const durationVal = parseFloat(document.getElementById('duration').value);
+  const met = Number(document.getElementById('activityMET').value);
+  const durationVal = Number(document.getElementById('duration').value);
   const durationUnit = document.getElementById('durationUnit').value;
-
-  if (!Number.isFinite(weight) || weight <= 0 || !Number.isFinite(met) || met <= 0 || !Number.isFinite(durationVal) || durationVal < 0) {
-    alert("Enter positive body weight and MET values, and a non-negative duration.");
+  if (![weight, met, durationVal].every(Number.isFinite) || weight <= 0 || met < 1 || met > 25 || durationVal < 0 ||
+      !['kg', 'lbs'].includes(weightUnit) || !['minutes', 'hours', 'seconds'].includes(durationUnit)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter supported weight units, a MET value from 1 to 25, and a non-negative duration with a supported unit.</p>';
     return;
   }
-
   const weightKg = convertToKg(weight, weightUnit);
   const durationMin = convertDuration(durationVal, durationUnit);
-
+  if (!Number.isFinite(weightKg) || !Number.isFinite(durationMin) ||
+      weightKg < 2 || weightKg > 500 || durationMin < 0 || durationMin > 1440) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check units and values. Converted weight must be 2–500 kg and duration must not exceed 1440 minutes.</p>';
+    return;
+  }
   const calories = met * 3.5 * weightKg * durationMin / 200;
-
-  document.getElementById('caloriesResult').innerHTML =
-    `Estimated Calories Burned: <b>${calories.toFixed(2)}</b> kcal<br><small>Estimate: MET × 3.5 × body mass (kg) × duration (minutes) ÷ 200. Individual energy expenditure varies.</small>`;
+  if (!Number.isFinite(calories) || calories < 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">A finite calorie estimate could not be calculated from these values.</p>';
+    return;
+  }
+  result.innerHTML = `Estimated Calories Burned: <b>${calories.toFixed(2)}</b> kcal<br><small>Estimate: MET × 3.5 × body mass (kg) × duration (minutes) ÷ 200. Individual energy expenditure varies; this is not a measured result.</small>`;
 }
 </script>
 

@@ -13,69 +13,69 @@
 
 <script>
 function toCm(value, unit) {
-  if (unit === "in") return value * 2.54;
-  return value;
+  switch (String(unit).toLowerCase()) {
+    case "cm": return value;
+    case "in": return value * 2.54;
+    default: return NaN;
+  }
 }
 
 function calculateFaceShape() {
-  const flInput = document.getElementById("faceLength").value;
-  const fhInput = document.getElementById("forehead").value;
-  const cbInput = document.getElementById("cheekbones").value;
-  const jwInput = document.getElementById("jawline").value;
-
-  if (flInput === "" || fhInput === "" || cbInput === "" || jwInput === "") {
-    alert("Please enter all measurements.");
+  const result = document.getElementById("result");
+  result.textContent = "";
+  const raw = {
+    faceLength: Number(document.getElementById("faceLength").value),
+    forehead: Number(document.getElementById("forehead").value),
+    cheekbones: Number(document.getElementById("cheekbones").value),
+    jawline: Number(document.getElementById("jawline").value)
+  };
+  const units = {
+    faceLength: document.getElementById("faceLengthUnit").value,
+    forehead: document.getElementById("foreheadUnit").value,
+    cheekbones: document.getElementById("cheekbonesUnit").value,
+    jawline: document.getElementById("jawlineUnit").value
+  };
+  if (!Object.values(raw).every(Number.isFinite) || Object.values(raw).some(value => value <= 0)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter four positive face measurements.</p>';
     return;
   }
-
-  const faceLength = toCm(parseFloat(flInput),
-    document.getElementById("faceLengthUnit").value);
-  const forehead = toCm(parseFloat(fhInput),
-    document.getElementById("foreheadUnit").value);
-  const cheekbones = toCm(parseFloat(cbInput),
-    document.getElementById("cheekbonesUnit").value);
-  const jawline = toCm(parseFloat(jwInput),
-    document.getElementById("jawlineUnit").value);
-
-  // Basic ratios
-  const widest = Math.max(forehead, cheekbones, jawline);
-  const lengthRatio = faceLength / widest;
-
-  // Scores for each shape
-  let scores = {
-    Oval: Math.max(0, 1 - Math.abs(lengthRatio - 1.4)) + Math.max(0, 1 - Math.abs(cheekbones - forehead) / 10),
-    Round: Math.max(0, 1 - Math.abs(lengthRatio - 1)) + Math.max(0, 1 - Math.abs(forehead - jawline) / 10),
-    Square: Math.max(0, 1 - Math.abs(lengthRatio - 1)) + Math.max(0, 1 - Math.abs(jawline - cheekbones) / 5),
-    Heart: Math.max(0, (forehead - jawline) / 10) + Math.max(0, 1 - Math.abs(lengthRatio - 1.3)),
-    Diamond: Math.max(0, (cheekbones - forehead) / 10) + Math.max(0, (cheekbones - jawline) / 10),
+  const cm = Object.fromEntries(Object.keys(raw).map(key => [key, toCm(raw[key], units[key])]));
+  if (!Object.values(cm).every(Number.isFinite)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported units (cm or inches) for every measurement.</p>';
+    return;
+  }
+  if (cm.faceLength < 8 || cm.faceLength > 40 ||
+      cm.forehead < 5 || cm.forehead > 30 ||
+      cm.cheekbones < 5 || cm.cheekbones > 35 ||
+      cm.jawline < 4 || cm.jawline > 30) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">After unit conversion, face length must be 8–40 cm, forehead width 5–30 cm, cheekbone width 5–35 cm, and jawline width 4–30 cm.</p>';
+    return;
+  }
+  const widest = Math.max(cm.forehead, cm.cheekbones, cm.jawline);
+  const lengthRatio = cm.faceLength / widest;
+  if (!Number.isFinite(lengthRatio) || lengthRatio < 0.7 || lengthRatio > 3) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">The face-length-to-width ratio is outside the supported range. Recheck the measurements and units.</p>';
+    return;
+  }
+  const scores = {
+    Oval: Math.max(0, 1 - Math.abs(lengthRatio - 1.4)) + Math.max(0, 1 - Math.abs(cm.cheekbones - cm.forehead) / 10),
+    Round: Math.max(0, 1 - Math.abs(lengthRatio - 1)) + Math.max(0, 1 - Math.abs(cm.forehead - cm.jawline) / 10),
+    Square: Math.max(0, 1 - Math.abs(lengthRatio - 1)) + Math.max(0, 1 - Math.abs(cm.jawline - cm.cheekbones) / 5),
+    Heart: Math.max(0, (cm.forehead - cm.jawline) / 10) + Math.max(0, 1 - Math.abs(lengthRatio - 1.3)),
+    Diamond: Math.max(0, (cm.cheekbones - cm.forehead) / 10) + Math.max(0, (cm.cheekbones - cm.jawline) / 10),
     Oblong: Math.max(0, lengthRatio - 1.5)
   };
-
-  // Normalize to percentages
-  let total = Object.values(scores).reduce((a, b) => a + b, 0);
-  if (total === 0) {
-    document.getElementById("result").innerHTML = "Unable to determine face shape.";
+  const total = Object.values(scores).reduce((sum, score) => sum + score, 0);
+  if (!Number.isFinite(total) || total <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Unable to determine a useful shape similarity score from these measurements.</p>';
     return;
   }
-
-  let percentages = {};
-  Object.keys(scores).forEach(shape => {
-    percentages[shape] = (scores[shape] / total) * 100;
-  });
-
-  // Find dominant shape
-  let dominantShape = Object.keys(percentages).reduce((a, b) =>
-    percentages[a] > percentages[b] ? a : b
-  );
-  let dominantPercent = percentages[dominantShape].toFixed(1);
-
-  // Build output
-  let output = `<b>Dominant Face Shape:</b> ${dominantShape} — ${dominantPercent}%<br><br>`;
-  Object.keys(percentages).forEach(shape => {
-    output += `${shape} – ${percentages[shape].toFixed(1)}%<br>`;
-  });
-
-  document.getElementById("result").innerHTML = output;
+  const percentages = Object.fromEntries(Object.keys(scores).map(shape => [shape, scores[shape] / total * 100]));
+  const dominantShape = Object.keys(percentages).reduce((a, b) => percentages[a] > percentages[b] ? a : b);
+  let output = `<b>Dominant Face Shape:</b> ${dominantShape} — ${percentages[dominantShape].toFixed(1)}%<br><br>`;
+  Object.keys(percentages).forEach(shape => { output += `${shape} – ${percentages[shape].toFixed(1)}%<br>`; });
+  output += '<p class="cf-note">Heuristic relative similarity scores only. These percentages are not calibrated probabilities, a diagnosis, or an objective beauty rating.</p>';
+  result.innerHTML = output;
 }
 </script>
 
