@@ -53,11 +53,11 @@ test('Fat Mass calculator works end-to-end on mobile', async ({ page }) => {
   await page.locator('#fat').fill('100.1');
   await page.getByRole('button', { name: 'Calculate' }).click();
   await expect(page.locator('#result')).toBeEmpty();
-  await expect(page.locator('.clerfit-input-error')).toBeVisible();
+  await expect(page.locator('.clerfit-input-error').first()).toBeVisible();
   await page.locator('#weight').fill('0.05');
   await page.getByRole('button', { name: 'Calculate' }).click();
   await expect(page.locator('#result')).toBeEmpty();
-  await expect(page.locator('.clerfit-input-error')).toBeVisible();
+  await expect(page.locator('.clerfit-input-error').first()).toBeVisible();
 
   await page.getByRole('button', { name: 'Reset' }).click();
   await expect(page.locator('#weight')).toHaveValue('');
