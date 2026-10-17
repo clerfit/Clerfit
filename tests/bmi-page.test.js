@@ -180,7 +180,7 @@ runCase('reset clears values, validation errors and indicator state', () => {
 });
 runCase('markup includes reset, a live results region, and unit-bound handlers', () => {
   assert.match(page, /id="result" role="status" aria-live="polite" aria-atomic="true"/);
-  assert.match(page, /onclick="resetBMI()"/);
+  assert.match(page, /onclick="resetBMI\\(\\)"/);
   assert.match(page, /id="weightUnit"[^>]*onchange="syncBMIBounds()"/);
   assert.match(page, /id="heightUnit"[^>]*onchange="syncBMIBounds()"/);
   assert.match(page, /id="age"[^>]*min="2"[^>]*max="120"/);
