@@ -21,42 +21,61 @@
 <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <script defer>
 function calculateABSI() {
-  // Get inputs
-  const waist = parseFloat(document.getElementById('waist').value);
+  const result = document.getElementById('result');
+  const waist = Number(document.getElementById('waist').value);
   const waistUnit = document.getElementById('waistUnit').value;
-  const height = parseFloat(document.getElementById('height').value);
+  const height = Number(document.getElementById('height').value);
   const heightUnit = document.getElementById('heightUnit').value;
-  const weight = parseFloat(document.getElementById('weight').value);
-  
-  if (!waist || !height || !weight) {
-    alert("Please enter all values");
+  const weight = Number(document.getElementById('weight').value);
+
+  // Empty inputs convert to zero with Number(); validate the original fields first.
+  result.textContent = '';
+  if ([waist, height, weight].some(value => !Number.isFinite(value) || value <= 0)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter valid positive waist, height, and weight values before calculating.</p>';
     return;
   }
 
-  // Convert units to meters
-  let waistM = waist;
-  if (waistUnit === 'cm') waistM = waist / 100;
-  else if (waistUnit === 'inch') waistM = waist * 0.0254;
+  const toMetres = (value, unit) => {
+    switch (String(unit).toLowerCase()) {
+      case 'm': return value;
+      case 'cm': return value / 100;
+      case 'in':
+      case 'inch':
+      case 'inches': return value * 0.0254;
+      case 'ft':
+      case 'feet':
+      case 'foot': return value * 0.3048;
+      default: return NaN;
+    }
+  };
+  const waistM = toMetres(waist, waistUnit);
+  const heightM = toMetres(height, heightUnit);
+  if (![waistM, heightM].every(value => Number.isFinite(value) && value > 0)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported length units and check the measurement values.</p>';
+    return;
+  }
 
-  let heightM = height;
-  if (heightUnit === 'cm') heightM = height / 100;
-  else if (heightUnit === 'inch') heightM = height * 0.0254;
-  else if (heightUnit === 'ft') heightM = height * 0.3048;
+  // Guard semantic plausibility in canonical units, independent of selected units.
+  if (heightM < 0.5 || heightM > 2.74 || waistM < 0.2 || waistM > 3.0 || weight < 2 || weight > 500) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check that height, waist, and weight are plausible for the person being measured.</p>';
+    return;
+  }
 
-  // BMI
   const bmi = weight / (heightM * heightM);
+  if (!Number.isFinite(bmi) || bmi <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">These values cannot produce a valid BMI-based calculation.</p>';
+    return;
+  }
+  const absi = waistM / (Math.pow(bmi, 2 / 3) * Math.pow(heightM, 0.5));
+  if (!Number.isFinite(absi)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">The result could not be calculated from these measurements.</p>';
+    return;
+  }
 
-  // ABSI formula
-  const absi = waistM / (Math.pow(bmi, 2/3) * Math.pow(heightM, 0.5));
   const absiRounded = absi.toFixed(3);
-
-  // ABSI is a statistical index. Absolute values alone do not support a
-  // universal risk category; published interpretation uses reference data
-  // (including age/sex-specific standardization) and population context.
-  document.getElementById('result').innerHTML =
-    `ABSI: <strong>${absiRounded}</strong><p class="cf-note">Raw ABSI only. No low/average/high risk label is assigned because interpretation requires an appropriate reference population and standardized score.</p>`;
+  result.innerHTML = `ABSI: <strong>${absiRounded}</strong><p class="cf-note">Raw ABSI only. No low/average/high risk label is assigned because interpretation requires an appropriate reference population and standardized score.</p>`;
   const indicator = document.getElementById('indicator');
-  if (indicator) indicator.parentElement.hidden = true;
+  if (indicator && indicator.parentElement) indicator.parentElement.hidden = true;
 }
 </script>
 
