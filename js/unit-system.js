@@ -29,9 +29,34 @@
   const norm = value => String(value || '').trim().toLowerCase().replace(/[()[\]{}]/g, '').replace(/\s+/g, ' ');
   function unit(value) { return ALIASES[norm(value)] || null; }
   function options(select) { return Array.from(select.options || []).map(o => ({ value: o.value, label: o.textContent || '' })); }
+  const PAGE = String((window.location && window.location.pathname) || '').split('/').pop().toLowerCase();
+  // Some calculators share one unit selector across multiple inputs or use it only for output formatting.
+  // Explicit page associations avoid converting a random neighboring number field.
+  const PAGE_UNIT_ASSOCIATIONS = {
+    'bmi-change.html': { weightUnitBMI: ['currentWeightBMI', 'goalWeightBMI'], heightUnitBMI: ['heightBMI'] },
+    'goal-timeline.html': { weightUnitTimeline: ['currentWeight', 'goalWeight'] },
+    'weight-stability.html': { weightUnit: ['initialWeight', 'currentWeight'] },
+    'hip-change.html': { hipUnit: ['initialHip', 'currentHip'] },
+    'waist-change.html': { waistUnit: ['initialWaist', 'currentWaist'] },
+    'circumference-track.html': { circUnit: ['waistInit','waistCurrent','hipInit','hipCurrent','chestInit','chestCurrent','armInit','armCurrent','thighInit','thighCurrent','calfInit','calfCurrent'] },
+    'relative-strength.html': { unitRelative: ['oneRM', 'bodyWeight'] },
+    'idealweight.html': { 'iw-height-unit': ['iw-height'] }
+  };
+  const PAGE_OUTPUT_ONLY_UNITS = {
+    'fiber.html': ['unit'],
+    'monthly-weight.html': ['unitMonthly'],
+    'weekly-weight.html': ['unit'],
+    'weight-gain-rate.html': ['unitGain2'],
+    'weight-loss-rate.html': ['unitRate'],
+    'idealweight.html': ['iw-weight-unit']
+  };
+  function isOutputOnly(select) {
+    return !!(select && ((select.dataset && select.dataset.unitRole === 'output') ||
+      (PAGE_OUTPUT_ONLY_UNITS[PAGE] || []).includes(select.id || '')));
+  }
   function classify(select) {
     // The standalone converter owns its dimension/from/to selectors; the global preference must not override them.
-    if (select && (/^(?:dimension|from|to)$/i.test(select.id || '') || /^(?:from|to).+unit$/i.test(select.id || ''))) return null;
+    if (select && (isOutputOnly(select) || /^(?:dimension|from|to)$/i.test(select.id || '') || /^(?:from|to).*(?:unit)$/i.test(select.id || ''))) return null;
     const opts = options(select), vals = opts.map(o => norm(o.value));
     if (vals.length < 2) return null;
     const units = vals.map(unit);
@@ -92,39 +117,58 @@
       if (Number.isFinite(converted)) input.setAttribute(attr, String(Number(converted.toFixed(8))));
     });
   }
+  function findInputs(select) {
+    // Explicit data-unit-for associations override the page map and support generated controls.
+    const explicit = select && select.dataset ? String(select.dataset.unitFor || '').trim() : '';
+    const mapped = explicit ? explicit.split(',').map(id => id.trim()).filter(Boolean)
+      : ((PAGE_UNIT_ASSOCIATIONS[PAGE] || {})[select && select.id] || []);
+    if (mapped.length) {
+      return mapped.map(id => document.getElementById(id))
+        .filter(el => el && el.matches('input[type="number"]') && !el.disabled && !el.readOnly);
+    }
+    if (isOutputOnly(select)) return [];
+    const input = findInput(select);
+    return input ? [input] : [];
+  }
   function setUnit(select, next, convertValue) {
     const prev = select.value;
     if (prev === next || !Array.from(select.options).some(o => o.value === next)) return;
-    const input = findInput(select);
-    if (convertValue) convertConstraints(input, prev, next);
-    if (convertValue && input && input.value.trim() !== '') {
+    const inputs = findInputs(select);
+    if (convertValue) inputs.forEach(input => convertConstraints(input, prev, next));
+    if (convertValue) inputs.forEach(input => {
+      if (input.value.trim() === '') return;
       const oldValue = Number(input.value), result = convert(oldValue, prev, next);
       if (Number.isFinite(result)) {
         const decimals = Math.max(2, (String(input.step || '').includes('.') ? String(input.step).split('.')[1].length : 0));
         input.value = String(Number(result.toFixed(Math.min(decimals + 2, 8))));
         input.dispatchEvent(new Event('input', { bubbles: true }));
       }
-    }
+    });
     select.value = next;
     select.dataset.clerfitPreviousUnit = next;
     select.dispatchEvent(new Event('change', { bubbles: true }));
   }
   function wireSelect(select) {
     if (!select || !select.matches('select') || !classify(select) || select.dataset.clerfitUnitWired) return;
+    const inputs = findInputs(select);
+    // No target means this selector is an output preference or a separate converter;
+    // never guess an unrelated input from a whole row/card.
+    if (!inputs.length) return;
     select.dataset.clerfitUnitWired = 'true';
     select.dataset.clerfitPreviousUnit = select.value;
     select.addEventListener('change', () => {
       const prev = select.dataset.clerfitPreviousUnit || select.value, next = select.value;
       if (prev !== next) {
-        const input = findInput(select);
-        convertConstraints(input, prev, next);
-        if (input && input.value.trim() !== '') {
+        const currentInputs = findInputs(select);
+        currentInputs.forEach(input => convertConstraints(input, prev, next));
+        currentInputs.forEach(input => {
+          if (input.value.trim() === '') return;
           const result = convert(Number(input.value), prev, next);
           if (Number.isFinite(result)) {
             input.value = String(Number(result.toFixed(8)));
             input.dispatchEvent(new Event('input', { bubbles: true }));
           }
-        }
+        });
         select.dataset.clerfitPreviousUnit = next;
       }
     }, true);
@@ -144,6 +188,6 @@
       observer.observe(document.documentElement, { childList: true, subtree: true });
     }
   }
-  window.ClerFitUnits = { convert, classify };
+  window.ClerFitUnits = { convert, classify, findInputs };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true }); else init();
 })();

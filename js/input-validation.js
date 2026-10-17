@@ -134,11 +134,13 @@
     return parent || document;
   }
   function isStandaloneConverterInput(el) {
-    if (!el || !/^(?:weightValue|distanceValue)$/i.test(el.id || '')) return false;
+    if (!el || !/^(?:amount|heightValue|timeValue|distanceValue|weightValue)$/i.test(el.id || '')) return false;
     const panel = el.closest('.card, .calculator-card, .cf-calculator-card, main, .main') || el.parentElement;
-    return !!panel && Array.from(panel.querySelectorAll('select')).some(select =>
-      /^(?:from|to)(?:weight|distance)unit$/i.test(select.id || '')
-    );
+    if (!panel) return false;
+    const selects = Array.from(panel.querySelectorAll('select'));
+    const hasFrom = selects.some(select => /^(?:from|from.*unit)$/i.test(select.id || ''));
+    const hasTo = selects.some(select => /^(?:to|to.*unit)$/i.test(select.id || ''));
+    return hasFrom && hasTo;
   }
   document.addEventListener('input', e => { if (e.target.matches('input[type="number"]') && e.target.getAttribute('aria-invalid') === 'true') validate(e.target, true); });
   document.addEventListener('blur', e => { if (e.target.matches('input[type="number"]') && e.target.value !== '') validate(e.target, true); }, true);
