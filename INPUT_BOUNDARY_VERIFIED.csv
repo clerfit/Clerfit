@@ -1,9 +1,9 @@
 file,id,label,min,max,step
 1rm.html,liftWeight,Weight Lifted,0.1,500,any
 1rm.html,reps,Repetitions,1,15,1
-BMI.html,weight,Weight,0.1,500,any
-BMI.html,height,Height,30,300,any
-BMI.html,age,Age,1,120,1
+BMI.html,weight,Weight,2,500,any
+BMI.html,height,Height,50,274,any
+BMI.html,age,Age,2,120,1
 absi.html,waist,Waist Circumference,0.1,500,any
 absi.html,height,Height,0.1,500,any
 absi.html,weight,Weight (kg),0.1,500,any
@@ -19,12 +19,12 @@ bmi-compare.html,weightB,Person B — Weight,1,500,0.1
 bmr.html,age,Age,1,120,1
 bmr.html,height,Height,30,300,any
 bmr.html,weight,Weight,0.1,500,any
-bodyfat.html,bf-height,Height,0.1,300,any
-bodyfat.html,bf-waist,Waist,0.1,300,any
-bodyfat.html,bf-neck,Neck,0.1,300,any
-bodyfat.html,bf-hip,Hip (females only),0.1,300,any
-bsa.html,weight,Weight,0.1,500,any
-bsa.html,height,Height,30,300,any
+bodyfat.html,bf-height,Height,100,250,any
+bodyfat.html,bf-waist,Waist,20,250,any
+bodyfat.html,bf-neck,Neck,15,80,any
+bodyfat.html,bf-hip,Hip (females only),20,250,any
+bsa.html,weight,Weight,1,500,any
+bsa.html,height,Height,50,250,any
 cadence.html,cadenceSteps,Number of Steps,0,200000,1
 cadence.html,cadenceTime,Time,0,10080,any
 calories-kg.html,weight,Weight,0.1,500,any
@@ -82,7 +82,7 @@ fat.html,height,Height,30,300,any
 fat.html,age,Age (10+ years),1,120,1
 fatmass.html,weight,Weight,0.1,500,any
 fatmass.html,fat,Body Fat (%),0,100,any
-ffmi.html,height,Height,30,300,any
+ffmi.html,height,Height,50,250,any
 ffmi.html,weight,Weight,0.1,500,any
 ffmi.html,fat,Body Fat (%),0,100,any
 fiber.html,age,Age (years),1,120,1
@@ -107,7 +107,7 @@ hip-change.html,currentHip,Current Hip,0.1,300,any
 hydration-loss.html,weightWL,Body Weight,0.1,500,any
 hydration-loss.html,duration,Exercise Duration,0,10080,any
 idealweight.html,iw-height,Height,0.1,500,any
-leanmass.html,weight,Weight,0,100,any
+leanmass.html,weight,Weight,0.1,500,any
 leanmass.html,fat,Body Fat (%),0,100,any
 length.html,lengthValue,Enter Length,0,1000000,any
 macro-split.html,weight,Weight,0,100,any
@@ -227,10 +227,10 @@ weight-loss-rate.html,intakeRate,Your Daily Calorie Intake,0,20000,any
 weight-stability.html,initialWeight,Initial Weight,0.1,500,any
 weight-stability.html,currentWeight,Current Weight,0.1,500,any
 weight-stability.html,days,Number of Days,0.1,500,any
-whr.html,waist,Waist,0.1,300,any
-whr.html,hip,Hip,0.1,300,any
-wht.html,waist,Waist Circumference,0.1,300,any
-wht.html,height,Height,30,300,any
+whr.html,waist,Waist,20,300,any
+whr.html,hip,Hip,20,300,any
+wht.html,waist,Waist Circumference,20,250,any
+wht.html,height,Height,50,250,any
 work-output.html,liftWeight,Weight Lifted i Total weight lifted per repetition. Include body weight if part of the movement. Enter in kg or lbs; conversion is automatic.,0.1,500,any
 work-output.html,distance,Distance Moved i Vertical distance the weight or your body moves per repetition. Enter in meters or feet; conversion is automatic.,0.1,500,any
 work-output.html,reps,Number of Reps,0,1000,1
