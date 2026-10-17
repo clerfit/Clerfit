@@ -4,7 +4,7 @@ Audit branch: `phase-1-complete-project-audit`
 Baseline branch inspected: `main`  
 Repository: https://github.com/clerfit/Clerfit  
 Audit date: 2026-10-17  
-Scope: repository tree, central calculator registry, sitemap, existing SEO report, performance/security report, and existing release-status evidence.
+Scope: repository tree, central calculator registry, sitemap, existing SEO/performance/security/release reports, supplied PageSpeed screenshots, shared accessibility code, documentation consistency, and a 123-page sign-off register.
 
 ## Executive status
 
@@ -61,29 +61,35 @@ Existing reports describe passing local route/formula-method smoke tests and ear
 
 ## Phase 1 work completed in this pass
 
-1. Inspected the current repository tree and confirmed the central registry file.
-2. Parsed all 118 registry entries and compared each target file against the repository tree.
-3. Checked registry slug/file duplicates and found none in the current registry.
-4. Compared registered calculator routes against sitemap URLs and checked sitemap URL uniqueness.
-5. Read existing SEO, performance/security, and release-status evidence and extracted their stated limitations.
-6. Created a route-by-route CSV inventory so later phases can track each calculator with evidence rather than relying on aggregate counts.
-7. Recorded the major unresolved parity, deployment, contact-delivery, SEO, and verification risks below.
+1. Inspected the repository tree and central calculator registry.
+2. Confirmed 118/118 calculator target files exist in the repository tree; no duplicate registry slugs or case-insensitive filenames were found.
+3. Compared the 118 calculator routes to sitemap mappings; sitemap has 123 unique URLs.
+4. Read existing SEO, performance/security, accessibility and release-status reports and preserved their explicit test limitations.
+5. Reviewed all supplied PageSpeed screenshots. Recorded the reported mobile scores: Performance 100, Accessibility 55, Best Practices 92, SEO 82. Findings shown include insufficient text contrast, links distinguished by color alone, links without discernible names, missing main landmark, and a failed HTTP 404 status.
+6. Added a **123-page sign-off register** at `PHASE_1_SIGNOFF_REGISTER.csv`. It records per-page verification state instead of treating route presence as proof of working behavior.
+7. Implemented a shared runtime fallback in `js/page-chrome.js`: legacy `.main` containers receive a main landmark if none exists, and unnamed anchors receive a fallback accessible name derived from their destination or identifying class/ID.
+8. Added visible link underlines, keyboard focus indicators, a forced-colors focus fallback, and darker text for table row labels/breadcrumbs in `css/style.css`.
+9. Corrected stale README instructions that incorrectly described Home/Contact links as floating and global unit preference as persistent.
+10. Kept the changes on the separate audit branch; production/main has not been changed or deployed.
 
-## Remaining Phase 1 tasks
+## Phase 1 exit blockers and next verification actions
 
-- [ ] Obtain and inspect the latest release ZIP; compute archive inventory and checksums.
-- [ ] Compare ZIP paths and hashes against repository and generated deployment output.
-- [ ] Reproduce PageSpeed findings against the exact production URL, including the reported 404, console errors, accessibility score/contrast, link names, and image sizing.
-- [ ] Run production route and asset HTTP checks; distinguish expected aliases/404 behavior from broken links.
-- [ ] Build a page-by-page interaction inventory covering all 118 calculators, shared navigation, home/contact controls, forms, units, result rendering, reset, keyboard access and responsive behavior.
-- [ ] Re-run available tests from the exact inspected source and record commands/results for this audit revision.
-- [ ] Finish classification of each finding as complete, correction needed, partial, missing, duplicate, or externally/medically validated.
-- [ ] Publish a final Phase 1 sign-off only after the ZIP and live-site evidence are available.
+These are deliberately marked open; a source patch is not proof that Lighthouse, a real browser, or the deployed host now passes.
+
+- [ ] **Release ZIP:** The current turn's mounted uploads contain the PageSpeed screenshots but not the named `ClerFit_R3_COMPLETE_PRODUCT.zip`. Archive hashes and ZIP-to-repository parity cannot be established without the actual archive.
+- [ ] **Production:** Direct live-site inspection was not accessible from the available web inspection path in this run. Verify exact public URLs, response codes, redirects, assets, console errors and headers using a live HTTP/browser environment.
+- [ ] **PageSpeed:** Re-run the exact same production URL on mobile and desktop. The screenshot's 404 may refer to a URL/path error; it must not be assumed to be fixed by the source edits.
+- [ ] **Interaction testing:** The 123-page sign-off register marks interactions, validation, results, reset/unit behavior, keyboard operation and mobile layout as not yet run in this environment. Exercise every calculator, not just the home page or a sample.
+- [ ] **Accessibility:** Re-run Lighthouse/axe and manual keyboard checks after deployment. Verify each contrast pair, each previously unnamed link, main landmark, labels/errors, focus order, zoom/reflow and reduced-motion behavior. Runtime fallback patches are not yet browser-verified.
+- [ ] **Calculator correctness:** Existing reports say 118 routes have regression vectors and that a scientific review register exists; those are prior evidence, not a fresh rerun. Execute all tests from the exact source revision and reconcile the per-calculator scientific register.
+- [ ] **Contact delivery:** Mocked tests do not prove live Formspree delivery. Confirm an authorized test submission reaches the intended inbox.
+- [ ] **Privacy/security/hosting:** Confirm the actual host and response headers. GitHub Pages does not enforce `netlify.toml` or `_headers` rules merely because they exist in the repository.
+- [ ] **Sign-off:** Reclassify each row of `PHASE_1_SIGNOFF_REGISTER.csv` only after evidence is collected. Do not convert an untested or blocked row to PASS.
 
 ## Phase 1 exit criteria
 
-Phase 1 is complete only when the exact source archive, repository, and live release are reconciled; every registered calculator and public page has an evidence-backed status; PageSpeed issues have been reproduced or explicitly disproven; and all known defects have a prioritized remediation entry. No live deployment change is made by this audit branch.
+Phase 1 is complete only when the exact source archive, repository, and live release are reconciled; every registered calculator and public page has an evidence-backed status; PageSpeed issues have been reproduced or explicitly disproven; fixes have been re-tested; and the sign-off register has no unresolved release-blocking rows. This branch currently contains source-level remediation and the evidence register, but is **not signed off** because archive parity, browser regression, and live-host checks remain unverified.
 
 ## Safety of changes
 
-This branch adds audit documentation only. It does not modify production calculator code, formulas, styling, routes, or deployment configuration.
+This branch includes targeted shared accessibility and documentation changes, plus audit artifacts. It does not alter calculator formulas or deploy to production. All new runtime behavior must be regression-tested before merge.
