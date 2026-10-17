@@ -60,6 +60,19 @@
       return { min, max, label: 'Input value' };
     }
     const text = fieldText(el);
+    const unit = unitFor(el);
+    // The Body Fat calculator has a finite converted domain that differs by
+    // field; do not apply generic 1-foot/1-inch minima to neck/circumference inputs.
+    const bodyFatRanges = {
+      "bf-height": { cm: [100, 250], m: [1, 2.5], inch: [39.3701, 98.4252], ft: [3.2809, 8.2021] },
+      "bf-waist": { cm: [20, 250], inch: [7.8741, 98.4252], ft: [0.6562, 8.2021] },
+      "bf-neck": { cm: [15, 80], inch: [5.9056, 31.4961], ft: [0.4922, 2.6247] },
+      "bf-hip": { cm: [20, 250], inch: [7.8741, 98.4252], ft: [0.6562, 8.2021] }
+    };
+    const pageRange = bodyFatRanges[el.id] && bodyFatRanges[el.id][unit];
+    if (pageRange) {
+      return { min: pageRange[0], max: pageRange[1], label: "Measurement" };
+    }
     const rule = rules.find(r => r.re.test(text));
     if (rule && rule.skip) return null;
     // Unclassified numeric inputs must defer to their explicit HTML bounds.
@@ -67,7 +80,6 @@
     // signed differences, percentages and generic unit-converter values.
     let min = rule ? rule.min : -1e12;
     let max = rule ? rule.max : 1e12;
-    const unit = unitFor(el);
     if (/(weight|mass|bodyweight|leanmass|fatmass|load|liftweight)/.test(text)) {
       if (/lb|lbs|pound/.test(unit)) { min = 0.2; max = 1103; } // allows page-specific limits through 500 kg
       else if (/oz/.test(unit)) { min = 1; max = 17600; }
