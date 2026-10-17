@@ -17,7 +17,7 @@
   <script>
     // ===== Unit conversion helpers =====
     function convertWeightToKg(value, unit) {
-      if (unit === "lbs") return value * 0.453592;
+      if (unit === "lbs") return value * 0.45359237;
       return value;
     }
 
@@ -68,9 +68,9 @@
     function syncBMIBounds() {
       const weight = document.getElementById("weight");
       const height = document.getElementById("height");
-      const weightBounds = { kg: [2, 500], lbs: [4.41, 1100] }[document.getElementById("weightUnit").value] || [2, 500];
+      const weightBounds = { kg: [2, 500], lbs: [4.41, 1102.31] }[document.getElementById("weightUnit").value] || [2, 500];
       const heightBounds = {
-        cm: [50, 274], m: [0.5, 2.74], in: [19.69, 107.87], ft: [1.64, 8.99]
+        cm: [50, 274], m: [0.5, 2.74], in: [19.69, 107.87], ft: [1.641, 8.989]
       }[document.getElementById("heightUnit").value] || [50, 274];
       weight.min = String(weightBounds[0]);
       weight.max = String(weightBounds[1]);
