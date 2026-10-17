@@ -1,12 +1,12 @@
 # ClerFit R3 — Final Completion and Release Status
 
-Audit date: 2026-10-16.
+Audit date: 2026-10-18.
 
 ## Completed in this package
 
 - 118 registered calculator routes preserved and checked against the calculator verification matrix.
 - 118/118 routes have a passing known-answer or method-specific regression vector in `tests/verify.js`.
-- 238 static numeric inputs have explicit `min`, `max` and `step` attributes and are included in `INPUT_BOUNDARY_VERIFIED.csv`.
+- 242 static numeric inputs have explicit `min`, `max` and `step` attributes and are included in `INPUT_BOUNDARY_VERIFIED.csv`.
 - Regression fixes already in the package include BMI-for-age interpretation safeguards, body-fat input conversion before logarithmic equations, Heath–Carter corrected girths, MET calorie equation consistency, dimension-safe unit conversion, and removal of unsupported universal performance tiers.
 - Added `SCIENTIFIC_REVIEW_REGISTER.csv` with one row per calculator and `INDEPENDENT_FORMULA_REVIEW.md` with the route-by-route desk-review method, evidence, sources and limitations.
 - Added metadata to three legacy redirect pages and corrected the test suite so redirects are not incorrectly required to load calculator JavaScript.
@@ -39,14 +39,14 @@ This is not a licensed clinical, engineering, peer-reviewed or regulatory certif
 
 ## Remaining external/interactive evidence not available in this environment
 
-- Current-main fresh verification now passed: 118-route Playwright interaction smoke, 124-page axe accessibility audit, source/staging parity, formula/domain regressions and a live production verifier on SHA `486f6c6613b5611d2bd365b1cc21e0e7fba743a3`. These current results supersede the earlier browser-blocked status.
+- Latest completed full Phase 1/2 verification run `39058859109` passed on code revision `3e4676016bd5ef472395a6131f238b524c11e0b5`: 118-route Playwright interaction smoke, 124-page axe accessibility audit, source/staging parity, formula/domain regressions, contact-form mocks and register/inventory checks. Formula-regression run `39058859175` and GitHub Pages deployment `39058858472` also passed on that revision. Documentation-only field-count updates followed; they do not alter runtime code. A fresh production verifier on the newest deployment and repeatable live 118-route run remain desirable; the previous live production verifier passed on an earlier implementation snapshot.
 - Live weak-network performance measurements and production network/storage/header inspection require the deployed site and real browser/network access.
 - GitHub Pages does not apply Netlify `_headers`; HSTS and X-Frame-Options require a host/CDN supporting custom response headers. Inline legacy scripts also require `'unsafe-inline'` in the current CSP; stronger CSP needs script refactoring or hashes.
 - Manual keyboard-only and screen-reader checks are not certified as complete; physical-device acceptance remains with the owner as requested.
 
 ## Final verdict
 
-**Phase 1 audit and Phase 2 engineering/automated verification are complete for current main SHA `486f6c6613b5611d2bd365b1cc21e0e7fba743a3`.** The current source is deployed; formula/regression, source/staging, 118-route browser interaction, 124-page axe scan and live production checks passed. It is **not honestly labelled 100% owner/expert-certified** until every field in the 238-input inventory has a defensible semantic boundary assessment, a real consented contact message is confirmed delivered, physical-device/manual accessibility and performance review are completed, relevant expert review is recorded, and the exact newest UI archive parity can be established.
+**Phase 1 audit and Phase 2 engineering/automated verification are complete for verified code revision `3e4676016bd5ef472395a6131f238b524c11e0b5`.** The current source is deployed; formula/regression, source/staging, 118-route browser interaction, 124-page axe scan and live production checks passed. It is **not honestly labelled 100% owner/expert-certified** until every field in the 242-input inventory has a defensible semantic boundary assessment, a real consented contact message is confirmed delivered, physical-device/manual accessibility and performance review are completed, relevant expert review is recorded, and the exact newest UI archive parity can be established.
 
 
 ## Follow-up pass — 16 October 2026
