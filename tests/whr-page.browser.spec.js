@@ -1,3 +1,4 @@
+/* Phase 2 regression: keep exact upper endpoints valid across mixed units. */
 const { test, expect } = require('@playwright/test');
 const AxeBuilder = require('@axe-core/playwright').default;
 
