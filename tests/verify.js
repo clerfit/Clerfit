@@ -233,7 +233,9 @@ checks++;
    deployed page source and run the page's inline function against minimal DOM stubs. */
 function runPageFunction(file, functionName, values, resultIds) {
   const html = read('html/' + file);
-  const match = html.match(/<script(?:\\s[^>]*)?>([\\s\\S]*?)<\\/script>/i);
+  const scriptBodies = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(match => match[1]);
+  const script = scriptBodies.find(source => source.includes('function ' + functionName));
+  assert.ok(script, file + ' has an inline script defining ' + functionName);
   assert.ok(match, file + ' has an inline calculator script');
   const elements = new Map();
   const makeEl = id => {
@@ -250,8 +252,8 @@ function runPageFunction(file, functionName, values, resultIds) {
     getElementById: makeEl,
     querySelector: selector => selector === '.bar-container' ? makeEl('__bar') : null
   };
-  const context = vm.createContext({ document, console, Number, Math, alert: () => {} });
-  vm.runInContext(match[1], context, { filename: 'html/' + file, timeout: 3000 });
+  const context = vm.createContext({ document, console, Number, Math, alert: () => {}, window: {}, updateFormulaInfo: () => {}, moveIndicatorBSA: () => {}, moveIndicatorBMI: () => {} });
+  vm.runInContext(script, context, { filename: 'html/' + file, timeout: 3000 });
   assert.equal(typeof context[functionName], 'function', file + ' exports ' + functionName);
   context[functionName]();
   return { context, elements, output: id => makeEl(id).textContent + makeEl(id).innerHTML };
