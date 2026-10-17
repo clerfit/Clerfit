@@ -16,6 +16,10 @@ on:
       - 'html/**'
       - '.github/workflows/formula-regression.yml'
 
+concurrency:
+  group: clerfit-phase-one-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
