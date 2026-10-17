@@ -25,10 +25,10 @@ function listHtml(directory, prefix = '') {
 }
 
 function metaRefresh(html) {
-  const tag = html.match(/<meta\\b[^>]*http-equiv\\s*=\\s*(['"])refresh\\1[^>]*>/i);
+  const tag = html.match(/<meta\b[^>]*http-equiv\s*=\s*(['"])refresh\1[^>]*>/i);
   if (!tag) return null;
-  const content = tag[0].match(/\\bcontent\\s*=\\s*(['"])(.*?)\\1/i);
-  const target = content && content[2].match(/^\\s*\\d+\\s*;\\s*url\\s*=\\s*['"]?([^'"]+?)['"]?\\s*$/i);
+  const content = tag[0].match(/\bcontent\s*=\s*(['"])(.*?)\1/i);
+  const target = content && content[2].match(/^\s*\d+\s*;\s*url\s*=\s*['"]?([^'"]+?)['"]?\s*$/i);
   return { isRefresh: true, target: target ? target[1].trim() : null };
 }
 
@@ -40,8 +40,8 @@ function classifyDocuments(discovered) {
     const html = fs.readFileSync(path.join(ROOT, file), 'utf8');
     // Google Search Console requires this exact plain-text token. It is an endpoint,
     // not a rendered UI page, and must not be wrapped in HTML to satisfy axe-core.
-    if (/^google[a-z0-9]+\\.html$/i.test(path.posix.basename(file)) &&
-        /^\\s*google-site-verification:\\s*google[a-z0-9]+\\.html\\s*$/i.test(html)) {
+    if (/^google[a-z0-9]+\.html$/i.test(path.posix.basename(file)) &&
+        /^\s*google-site-verification:\s*google[a-z0-9]+\.html\s*$/i.test(html)) {
       excludedNonUiResources.push({
         file,
         reason: 'Exact Google Search Console verification token; not a user-facing UI document.'
@@ -62,7 +62,7 @@ function classifyDocuments(discovered) {
           failures.push({ file, kind: 'redirect', detail: 'Redirect target is outside the staged site: ' + targetUrl.href });
           continue;
         }
-        const relative = decodeURIComponent(targetUrl.pathname.slice(BASE.pathname.length)).replace(/^\\/+/, '');
+        const relative = decodeURIComponent(targetUrl.pathname.slice(BASE.pathname.length)).replace(/^\/+/, '');
         const targetPath = path.resolve(ROOT, relative || 'index.html');
         if (!(targetPath.startsWith(ROOT + path.sep) || targetPath === path.join(ROOT, 'index.html')) ||
             !fs.existsSync(targetPath) || fs.statSync(targetPath).isDirectory()) {
