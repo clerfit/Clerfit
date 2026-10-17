@@ -127,54 +127,57 @@
 
 <script>
 function calculateGoalTimeline(){
-
-  const currentWeight = parseFloat(document.getElementById("currentWeight").value);
-  const goalWeight = parseFloat(document.getElementById("goalWeight").value);
+  const result = document.getElementById("timelineResult");
+  const currentWeight = Number(document.getElementById("currentWeight").value);
+  const goalWeight = Number(document.getElementById("goalWeight").value);
   const unit = document.getElementById("weightUnitTimeline").value;
-  const tdee = parseFloat(document.getElementById("tdeeTimeline").value);
-  const intake = parseFloat(document.getElementById("intakeTimeline").value);
+  const tdee = Number(document.getElementById("tdeeTimeline").value);
+  const intake = Number(document.getElementById("intakeTimeline").value);
 
-  if(!currentWeight || !goalWeight || !tdee || !intake){
-    alert("Please fill all inputs.");
+  result.textContent = "";
+  if (![currentWeight, goalWeight, tdee, intake].every(Number.isFinite) ||
+      currentWeight <= 0 || goalWeight <= 0 || tdee < 0 || intake < 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter positive current and goal weights and non-negative daily calorie values.</p>';
+    return;
+  }
+  if (!["kg", "lbs"].includes(unit)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose kg or lb as the weight unit.</p>';
+    return;
+  }
+  const kgFactor = unit === "kg" ? 1 : 0.45359237;
+  const currentKg = currentWeight * kgFactor;
+  const goalKg = goalWeight * kgFactor;
+  if (![currentKg, goalKg].every(Number.isFinite) || currentKg < 2 || currentKg > 500 || goalKg < 2 || goalKg > 500 ||
+      tdee > 50000 || intake > 50000) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check values. Converted weights must be 2–500 kg; daily calorie values must not exceed 50,000 kcal.</p>';
     return;
   }
 
-  const weightDifference = goalWeight - currentWeight;
+  const weightDifferenceKg = goalKg - currentKg;
   const dailyDifference = intake - tdee;
-
-  if(dailyDifference === 0){
-    document.getElementById("timelineResult").innerHTML =
-      "<b>No calorie difference detected. Progress will not occur.</b>";
+  if (Math.abs(weightDifferenceKg) < 1e-9) {
+    result.innerHTML = '<p class="cf-note">Current weight and goal weight are equal; no weight change is needed.</p>';
+    return;
+  }
+  if (dailyDifference === 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">No calorie difference is entered, so this simple model cannot estimate a timeline.</p>';
+    return;
+  }
+  if ((weightDifferenceKg > 0 && dailyDifference <= 0) || (weightDifferenceKg < 0 && dailyDifference >= 0)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">The entered calorie balance does not match the direction of your weight goal.</p>';
     return;
   }
 
-  // Ensure direction matches goal
-  if((weightDifference > 0 && dailyDifference <= 0) ||
-     (weightDifference < 0 && dailyDifference >= 0)){
-    document.getElementById("timelineResult").innerHTML =
-      "<b>Your calorie intake does not match your weight goal direction.</b>";
-    return;
-  }
-
-  let totalCaloriesNeeded;
-
-  if(unit === "kg"){
-    totalCaloriesNeeded = Math.abs(weightDifference) * 7700;
-  } else {
-    totalCaloriesNeeded = Math.abs(weightDifference) * 3500;
-  }
-
+  // Heuristic energy-balance estimate only; real weight change is dynamic and is not linear over time.
+  const totalCaloriesNeeded = Math.abs(weightDifferenceKg) * 7700;
   const daysNeeded = totalCaloriesNeeded / Math.abs(dailyDifference);
   const weeksNeeded = daysNeeded / 7;
   const monthsNeeded = daysNeeded / 30;
-
-  document.getElementById("timelineResult").innerHTML = `
-    <b>Total Calories Required:</b> ${totalCaloriesNeeded.toFixed(2)} kcal<br>
-    <b>Estimated Time:</b><br>
-    ${daysNeeded.toFixed(2)} days<br>
-    ${weeksNeeded.toFixed(2)} weeks<br>
-    ${monthsNeeded.toFixed(2)} months
-  `;
+  if (![totalCaloriesNeeded, daysNeeded, weeksNeeded, monthsNeeded].every(Number.isFinite)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">The timeline could not be estimated from these values.</p>';
+    return;
+  }
+  result.innerHTML = `<b>Estimated energy difference:</b> ${totalCaloriesNeeded.toFixed(0)} kcal<br><b>Estimated time:</b> ${daysNeeded.toFixed(1)} days (${weeksNeeded.toFixed(1)} weeks; ${monthsNeeded.toFixed(1)} 30-day months)<p class="cf-note">Approximate energy-balance estimate only. Body weight changes dynamically; metabolic adaptation, water shifts, adherence, and health context can make actual progress differ substantially.</p>`;
 }
 </script>
 
