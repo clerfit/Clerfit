@@ -13,7 +13,7 @@ The updated source and generated production build pass the available local autom
 - Added metadata to legacy redirect pages and corrected route/input-count assertions that were stale.
 - Mobile tables now get accessible header labels and stack into row cards at narrow widths.
 - Progress/range indicator visuals are hidden to comply with the explicit no-dynamic-progress UI requirement.
-- The floating Home/Contact foreground controls are disabled in the final active CSS; standard navigation and footer links remain.
+- Home and Contact Us are injected into the shared page header and remain in normal document flow (right-aligned rather than floating over calculator content).
 - Privacy notice, Terms of Use and Educational Disclaimer are included.
 
 ## Latest local verification
@@ -40,3 +40,8 @@ The updated source and generated production build pass the available local autom
 - Restricted One-Rep Max predictions to 1–15 integer repetitions, added handler validation, aligned output units with selected kg/lb, and removed unsupported universal accuracy labels.
 - Synchronized static numeric-input CSVs with current source constraints and corrected the stale Ponderal Index row in the formula reference audit.
 - Added `SCIENTIFIC_AUDIT_CHANGELOG.md` and new regression assertions.
+
+
+## Phase One repository-level remediation (2026-10-17)
+
+The Phase One completion branch restores the missing contact-form mock test, unit-conversion property test, reproducible production staging build, and staging-integrity verifier; adds an all-HTML axe-core smoke scanner; and introduces `.github/workflows/phase-one-ci.yml` to run syntax/regression, staging, 118-route browser interaction, and accessibility checks on pull requests and main-branch pushes. These checks are not reported as passing until the workflow result for the relevant commit is available. The CI workflow does not publish the site. Production parity, a consented real contact message, and physical-device/manual assistive-technology review remain environment/owner verification conditions, not claimed successes.
