@@ -120,7 +120,12 @@ vm.runInContext(read('js/engine.js'), engineContext, { filename: 'js/engine.js',
 // The legacy RFM page provides its own visual indicator helper; it is not part of the math.
 engineContext.moveIndicator = () => {};
 const setEngine = (id, value) => { engineDocument.getElementById(id).value = String(value); };
-const engineOutput = id => engineDocument.getElementById(id).innerHTML || engineDocument.getElementById(id).textContent;
+const resetEngineOutputs = (...ids) => ids.forEach(id => {
+  const el = engineDocument.getElementById(id);
+  el.innerHTML = '';
+  el.textContent = '';
+});
+const engineOutput = id => engineDocument.getElementById(id).textContent || engineDocument.getElementById(id).innerHTML;
 
 // Known-answer: BMI with pounds/inches and BMI-for-age-safe adult presentation.
 Object.entries({
@@ -128,6 +133,7 @@ Object.entries({
   height: 68.8976377953, heightUnit: 'in',
   age: 25, gender: 'male'
 }).forEach(([id, value]) => setEngine(id, value));
+resetEngineOutputs('result');
 engineContext.calculateBMI();
 assert.match(engineOutput('result'), /BMI: <b>22\.9<\/b>.*Normal/);
 checks++;
@@ -138,6 +144,7 @@ Object.entries({
   height: 68.8976377953, heightUnit: 'inch',
   age: 25, gender: 'male'
 }).forEach(([id, value]) => setEngine(id, value));
+resetEngineOutputs('result', 'formula');
 engineContext.calculateBMR();
 assert.match(engineOutput('result'), /1674 kcal\/day/);
 checks++;
@@ -148,6 +155,7 @@ Object.entries({
   'bf-waist': 85, 'bf-waist-unit': 'cm', 'bf-neck': 38, 'bf-neck-unit': 'cm',
   'bf-hip': 100, 'bf-hip-unit': 'cm'
 }).forEach(([id, value]) => setEngine(id, value));
+resetEngineOutputs('bf-result', 'bf-formula');
 engineContext.calculateBodyFat();
 assert.match(engineOutput('bf-result'), /16\.2%/);
 checks++;
@@ -156,20 +164,24 @@ checks++;
 Object.entries({
   'iw-gender': 'male', 'iw-height': 180, 'iw-height-unit': 'cm', 'iw-weight-unit': 'kg'
 }).forEach(([id, value]) => setEngine(id, value));
+resetEngineOutputs('iw-result', 'iw-formula');
 engineContext.calculateIdealWeight();
 assert.match(engineOutput('iw-result'), /75\.1 kg/);
 checks++;
 
 // Known-answer: energy multiplier, protein target, and baseline fluid estimate.
 Object.entries({ 'cal-bmr': 1600, 'cal-bmr-unit': 'kcal', 'cal-activity': 1.55 }).forEach(([id, value]) => setEngine(id, value));
+resetEngineOutputs('cal-result', 'cal-formula');
 engineContext.calculateCalories();
 assert.match(engineOutput('cal-result'), /2480\.0 kcal/);
 checks++;
 Object.entries({ weight: 70, weightUnit: 'kg', level: 1.6 }).forEach(([id, value]) => setEngine(id, value));
+resetEngineOutputs('result');
 engineContext.calculateProtein();
 assert.match(engineOutput('result'), /112\.0 g\/day/);
 checks++;
 setEngine('weight', 70); setEngine('weightUnit', 'kg');
+resetEngineOutputs('result');
 engineContext.calculateWater();
 assert.match(engineOutput('result'), /2450 ml\/day/);
 checks++;
@@ -183,12 +195,14 @@ checks += 4;
 Object.entries({
   weight: 80, weightUnit: 'kg', height: 70.8661417323, heightUnit: 'inch', fat: 15
 }).forEach(([id, value]) => setEngine(id, value));
+resetEngineOutputs('result');
 engineContext.calculateFFMI();
 assert.match(engineOutput('result'), /FFMI: <b>20\.99<\/b>/);
 checks++;
 Object.entries({
   height: 70.8661417323, heightUnit: 'inch', waist: 33.4645669291, waistUnit: 'inch', gender: 'male'
 }).forEach(([id, value]) => setEngine(id, value));
+resetEngineOutputs('result');
 engineContext.calculateRFM();
 assert.match(engineOutput('result'), /RFM: <b>21\.65%<\/b>/);
 checks++;
@@ -196,16 +210,20 @@ checks++;
 // Known-answer: waist/hip, lean mass, fat mass, and 12-minute Cooper estimate.
 Object.entries({ gender: 'male', waist: 85, waistUnit: 'cm', hip: 100, hipUnit: 'cm' })
   .forEach(([id, value]) => setEngine(id, value));
+resetEngineOutputs('result', 'formula');
 engineContext.calculateWHR();
 assert.match(engineOutput('result'), /WHR: 0\.85/);
 checks++;
 Object.entries({ weight: 80, weightUnit: 'kg', fat: 15 }).forEach(([id, value]) => setEngine(id, value));
+resetEngineOutputs('result');
 engineContext.calculateLeanMass();
 assert.match(engineOutput('result'), /68\.00 kg/);
+resetEngineOutputs('result');
 engineContext.calculateFatMass();
 assert.match(engineOutput('result'), /12\.00 kg/);
 checks += 2;
 setEngine('distance', 2400);
+resetEngineOutputs('result');
 engineContext.calculateVO2();
 assert.match(engineOutput('result'), /42\.4 ml\/kg\/min/);
 checks++;
