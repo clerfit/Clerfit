@@ -170,61 +170,63 @@
 <script>
 // ===== Unit Conversion =====
 function convertWeightToKg(value, unit) {
-  if (unit === "lbs") return value * 0.45359237;
-  return value;
+  switch (String(unit).toLowerCase()) {
+    case "kg": return value;
+    case "lbs": return value * 0.45359237;
+    default: return NaN;
+  }
 }
 
 function convertHeightToCm(value, unit) {
-  switch(unit) {
+  switch (String(unit).toLowerCase()) {
     case "cm": return value;
     case "m": return value * 100;
     case "in": return value * 2.54;
     case "ft": return value * 30.48;
-    default: return value;
+    default: return NaN;
   }
 }
 
 // ===== Calorie Deficit Calculation =====
 function calculateDeficit() {
-  const weightVal = parseFloat(document.getElementById("weight").value);
+  const weightVal = Number(document.getElementById("weight").value);
   const weightUnit = document.getElementById("weightUnit").value;
-  const heightVal = parseFloat(document.getElementById("height").value);
+  const heightVal = Number(document.getElementById("height").value);
   const heightUnit = document.getElementById("heightUnit").value;
-  const age = parseInt(document.getElementById("age").value);
+  const age = Number(document.getElementById("age").value);
   const gender = document.getElementById("gender").value;
-  const activityFactor = parseFloat(document.getElementById("activity").value);
-  const deficitAmount = parseFloat(document.getElementById("deficit").value);
+  const activityFactor = Number(document.getElementById("activity").value);
+  const deficitAmount = Number(document.getElementById("deficit").value);
+  const result = document.getElementById("result");
+  const details = document.getElementById("details");
+  result.textContent = "";
+  details.textContent = "";
 
-  if (!weightVal || !heightVal || !age || !gender) {
-    alert("Please enter all required fields.");
+  if (![weightVal, heightVal, age, activityFactor, deficitAmount].every(Number.isFinite) ||
+      weightVal <= 0 || heightVal <= 0 || !Number.isInteger(age) || age < 18 || age > 120 ||
+      !["male", "female"].includes(gender) || ![1.2, 1.375, 1.55, 1.725, 1.9].includes(activityFactor) ||
+      ![250, 500, 750, 1000].includes(deficitAmount)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter supported measurements, age 18–120, sex/reference group, activity level, and deficit option.</p>';
     return;
   }
-
   const weightKg = convertWeightToKg(weightVal, weightUnit);
   const heightCm = convertHeightToCm(heightVal, heightUnit);
-
-  let rmr;
-
-  // Mifflin–St Jeor Equation
-  if (gender === "male") {
-    rmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5;
-  } else {
-    rmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) - 161;
+  if (!Number.isFinite(weightKg) || !Number.isFinite(heightCm) ||
+      weightKg < 2 || weightKg > 500 || heightCm < 100 || heightCm > 250) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check units and measurements. Converted weight must be 2–500 kg and height 100–250 cm.</p>';
+    return;
   }
-
+  const rmr = 10 * weightKg + 6.25 * heightCm - 5 * age + (gender === "male" ? 5 : -161);
   const maintenanceCalories = rmr * activityFactor;
   const targetCalories = maintenanceCalories - deficitAmount;
-
-  // Estimated fat loss per week (approx 7700 kcal = 1 kg fat)
-  const weeklyLoss = (deficitAmount * 7) / 7700;
-
-  document.getElementById("result").innerHTML =
-    `Your Target Calories for Fat Loss: <b>${targetCalories.toFixed(0)} kcal/day</b>`;
-
-  document.getElementById("details").innerHTML =
-    `Maintenance Calories: ${maintenanceCalories.toFixed(0)} kcal/day<br>
-     Selected Deficit: ${deficitAmount} kcal/day<br>
-     Estimated Fat Loss: ~${weeklyLoss.toFixed(2)} kg per week`;
+  const weeklyLoss = deficitAmount * 7 / 7700;
+  if (![maintenanceCalories, targetCalories, weeklyLoss].every(Number.isFinite) ||
+      maintenanceCalories <= 0 || targetCalories <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">This deficit would produce a non-positive daily calorie target. Review the inputs and selected deficit.</p>';
+    return;
+  }
+  result.innerHTML = `Your Target Calories for Fat Loss: <b>${targetCalories.toFixed(0)} kcal/day</b>`;
+  details.innerHTML = `Maintenance Calories: ${maintenanceCalories.toFixed(0)} kcal/day<br>Selected Deficit: ${deficitAmount} kcal/day<br>Approximate energy-balance estimate: ~${weeklyLoss.toFixed(2)} kg per week<p class="cf-note">This is a simplified estimate, not a personalized weight-loss prediction or medical plan. Actual weight change is dynamic.</p>`;
 }
 </script>
 
