@@ -9,7 +9,7 @@ Report date: 2026-10-16
 ## Completed locally
 
 - 118 registered calculator routes are present; each has a passing known-answer or method-specific regression vector.
-- 238 static numeric inputs declare `min`, `max` and `step`; the generated boundary inventory is `INPUT_BOUNDARY_VERIFIED.csv`.
+- 242 static numeric inputs declare `min`, `max` and `step`; the generated boundary inventory is `INPUT_BOUNDARY_VERIFIED.csv`.
 - `SCIENTIFIC_REVIEW_REGISTER.csv` contains a row for every route, with method, classification, source basis, regression status and limitations.
 - `INDEPENDENT_FORMULA_REVIEW.md` documents the route-by-route desk review, source families, interpretation guardrails and scientific limitations.
 - `node tests/verify.js`, `node tests/contact-form.test.js`, `node tests/unit-conversion-property.test.js`, sitemap check and production build pass.
