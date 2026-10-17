@@ -98,12 +98,14 @@
   }
   let errorIdSequence = 0;
   function errorNode(el) {
-    let node = el.parentElement && el.parentElement.querySelector(':scope > .clerfit-input-error');
+    // One error node per input; parent-only queries can reuse a sibling field's message.
+    let node = el.__clerfitInputErrorNode || null;
     if (!node) {
       node = document.createElement('small');
       node.className = 'clerfit-input-error';
       node.setAttribute('role', 'alert');
       node.id = 'clerfit-input-error-' + (++errorIdSequence);
+      el.__clerfitInputErrorNode = node;
       if (el.insertAdjacentElement) el.insertAdjacentElement('afterend', node); else el.parentNode.appendChild(node);
     }
     // Explicitly associate the inline message with its input for screen readers.
@@ -115,12 +117,13 @@
   }
   function clearError(el) {
     el.removeAttribute('aria-invalid');
-    const node = el.parentElement && el.parentElement.querySelector(':scope > .clerfit-input-error');
+    const node = el.__clerfitInputErrorNode || null;
     if (node) {
       const describedBy = (el.getAttribute('aria-describedby') || '').split(/\\s+/).filter(id => id && id !== node.id);
       if (describedBy.length) el.setAttribute('aria-describedby', describedBy.join(' '));
       else el.removeAttribute('aria-describedby');
       node.remove();
+      delete el.__clerfitInputErrorNode;
     }
   }
   function validate(el, show) {
