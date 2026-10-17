@@ -1,6 +1,13 @@
 # ClerFit Scientific Audit Changelog
 
-Date: 2026-10-16
+Date: 2026-10-18
+
+## Follow-up verification and inventory — 2026-10-18
+
+- Reconciled the current input inventory at 242 static numeric controls; older references to 238 represent the earlier inventory snapshot.
+- The latest full Phase 1/2 CI run [39061691909](https://github.com/clerfit/Clerfit/actions/runs/39061691909) passed the calculator regressions, inventory integrity, staging parity, 118-route browser smoke and 124-page axe scan.
+- Fixed the contact-consent CSS escape defect, added regression protection for that selector, and added `noindex,follow` to the legacy Contact redirect with a test guard.
+- These checks establish code/automation consistency, not a real contact delivery or independent clinical certification.
 
 ## Findings corrected in this pass
 
@@ -10,7 +17,7 @@ Date: 2026-10-16
 4. One-Rep Max advertised unsupported universal accuracy grades. These were removed, and the result notes uncertainty varies by exercise, protocol and person.
 5. One-Rep Max returned kg even when the user selected pounds. Output now follows the selected weight unit.
 6. Formula matrix and scientific register rows were updated to match the BMI Change, One-Rep Max and Ponderal Index implementation/methods.
-7. Static input boundary CSVs were regenerated from the current calculator HTML and synchronized to source constraints (238 static numeric controls).
+7. Static input boundary CSVs were regenerated from the current calculator HTML and synchronized to source constraints (242 static numeric controls in the current inventory; the initial 238 count is historical).
 
 ## Fresh local checks
 
