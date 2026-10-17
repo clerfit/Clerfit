@@ -113,7 +113,7 @@ for (const file of listHtml('html')) {
     });
   }
 }
-assert.equal(source.size, 238, 'Expected 238 static numeric inputs, found ' + source.size);
+assert.equal(source.size, 238, 'Expected 238 static numeric inputs, found ' + source.size + '; source-only: ' + [...source.keys()].filter(key => !auditMap.has(key)).join(', ') + '; CSV-only: ' + [...auditMap.keys()].filter(key => !source.has(key)).join(', '));
 assert.equal(auditMap.size, source.size, 'Audit row count must match static numeric inputs');
 assert.equal(boundsMap.size, source.size, 'Boundary inventory row count must match static numeric inputs');
 for (const [key, sourceBounds] of source) {
