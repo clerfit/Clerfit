@@ -46,10 +46,10 @@ test('WHR calculator works end-to-end on mobile', async ({ page }) => {
   await expect(page.locator('#result')).toContainText('WHR: 0.80');
 
   await page.locator('#waistUnit').selectOption('m');
-  await expect(page.locator('#waist')).toHaveAttribute('min', '0.1');
+  await expect(page.locator('#waist')).toHaveAttribute('min', '0.2');
   await expect(page.locator('#waist')).toHaveAttribute('max', '3');
   await page.locator('#hipUnit').selectOption('ft');
-  await expect(page.locator('#hip')).toHaveAttribute('min', '0.328084');
+  await expect(page.locator('#hip')).toHaveAttribute('min', '0.656168');
   await expect(page.locator('#hip')).toHaveAttribute('max', '9.84251');
 
   // Missing input shows an accessible error rather than producing a ratio.
