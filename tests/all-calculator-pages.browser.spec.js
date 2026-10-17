@@ -21,8 +21,8 @@ for (const routeInfo of routes) {
     });
     const response=await page.goto('http://127.0.0.1:8000/'+routeInfo.file,{waitUntil:'domcontentloaded'});
     expect(response && response.status(), 'page should load successfully').toBe(200);
-    await expect(page.locator('h1').first()).toBeVisible({timeout:8000});
-    await expect(page.locator('main, [role="main"]').first()).toBeVisible({timeout:8000});
+    await expect(page.locator('h1').first()).toBeVisible({timeout:3000});
+    await expect(page.locator('main, [role="main"]').first()).toBeVisible({timeout:3000});
     await expect(page.locator('.cf-page-actions .cf-page-home')).toHaveAttribute('href',/index\.html/,{timeout:8000});
     await expect(page.locator('.cf-page-actions .cf-page-contact')).toHaveAttribute('href',/contact\.html/);
     const controls=await page.locator('input:not([type="hidden"]),select,textarea,button').evaluateAll(nodes=>nodes.filter(el=>!el.disabled&&!el.closest('[hidden]')&&el.getClientRects().length).filter(el=>{
