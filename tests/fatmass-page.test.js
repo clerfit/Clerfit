@@ -143,7 +143,7 @@ runCase('converted weight domain accepts bounds and rejects values beyond 500kg'
   clean();
   set({ weight: 0.1, fat: 20 });
   context.calculateFatMass();
-  assert.match(out(), /Fat Mass: <b>0\.02 kg/);
+  assert.match(out(), /Fat Mass: 0\.02 kg/);
   clean();
   set({ weight: 501 });
   context.calculateFatMass();
@@ -152,7 +152,7 @@ runCase('converted weight domain accepts bounds and rejects values beyond 500kg'
   set({ weight: 1102.31, weightUnit: 'lb' });
   context.syncFatMassBounds();
   context.calculateFatMass();
-  assert.match(out(), /Fat Mass: <b>100\.00 kg/);
+  assert.match(out(), /Fat Mass: 100\.00 kg/);
 });
 runCase('reset clears values/errors/results and focuses weight', () => {
   clean();
