@@ -47,7 +47,7 @@ for (const field of required) {
 assert.equal(audit.rows.length, 242, 'expected 242 static numeric field audit rows');
 assert.equal(boundary.rows.length, 242, 'expected 242 static numeric boundary rows');
 
-const keyOf = row => row.file.replace(/^html\\//, '') + '|' + row.id;
+const keyOf = row => row.file.replace(/^html\//, '') + '|' + row.id;
 const auditByKey = new Map(audit.rows.map(row => [keyOf(row), row]));
 const boundaryByKey = new Map(boundary.rows.map(row => [keyOf(row), row]));
 assert.equal(auditByKey.size, audit.rows.length, 'field audit has duplicate file/id keys');
