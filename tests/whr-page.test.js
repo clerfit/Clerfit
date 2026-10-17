@@ -97,30 +97,30 @@ runCase('equivalent inch values produce the same ratio and bounds', () => {
   context.syncWHRBounds();
   context.calculateWHR();
   assert.match(out(), /WHR: 0\.80/);
-  assert.equal(ids.waist.min, '3.93701');
+  assert.equal(ids.waist.min, '7.874016');
   assert.equal(ids.waist.max, '118.1102');
-  assert.equal(ids.hip.min, '3.93701');
+  assert.equal(ids.hip.min, '7.874016');
   assert.equal(ids.hip.max, '118.1102');
 });
 runCase('metres and feet values convert consistently', () => {
   clean();
   set({ waist: 0.8, waistUnit: 'm', hip: 1, hipUnit: 'm' });
   context.syncWHRBounds();
-  assert.equal(ids.waist.min, '0.1');
+  assert.equal(ids.waist.min, '0.2');
   assert.equal(ids.waist.max, '3');
   context.calculateWHR();
   assert.match(out(), /WHR: 0\.80/);
   clean();
   set({ waist: 2.624671916, waistUnit: 'ft', hip: 3.280839895, hipUnit: 'ft' });
   context.syncWHRBounds();
-  assert.equal(ids.waist.min, '0.328084');
+  assert.equal(ids.waist.min, '0.656168');
   assert.equal(ids.waist.max, '9.84251');
   context.calculateWHR();
   assert.match(out(), /WHR: 0\.80/);
 });
 runCase('lower and upper plausible measurement endpoints are accepted', () => {
   clean();
-  set({ waist: 10, hip: 10 });
+  set({ waist: 20, hip: 20 });
   context.calculateWHR();
   assert.match(out(), /WHR: 1\.00/);
   clean();
@@ -137,8 +137,8 @@ runCase('empty or non-positive measurements are explicitly rejected', () => {
     assert.equal(out('formula'), '');
   }
 });
-runCase('measurements outside the 0.1–3m physical input domain are rejected', () => {
-  for (const values of [{ waist: 9.9 }, { hip: 300.1 }]) {
+runCase('measurements outside the 0.2–3m physical input domain are rejected', () => {
+  for (const values of [{ waist: 19.9 }, { hip: 300.1 }]) {
     clean();
     set(values);
     context.calculateWHR();
@@ -174,7 +174,7 @@ runCase('reset clears inputs and errors, restores defaults and focuses waist', (
   assert.equal(out('formula'), '');
   assert.equal(error.removed, true);
   assert.equal(ids.waist.focused, true);
-  assert.equal(ids.waist.min, '10');
+  assert.equal(ids.waist.min, '20');
   assert.equal(ids.waist.max, '300');
 });
 runCase('editing inputs clears the previous result and formula', () => {
