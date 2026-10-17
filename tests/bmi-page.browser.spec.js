@@ -37,11 +37,19 @@ test('BMI calculator works end-to-end on phone-sized viewport', async ({ page })
 
   // Imperial weight and inches height should produce the same rounded result.
   await page.locator('#weightUnit').selectOption('lbs');
+  await expect(page.locator('#weight')).toHaveAttribute('min', '4.41');
+  await expect(page.locator('#weight')).toHaveAttribute('max', '1102.31');
   await page.locator('#weight').fill('154.3236');
   await page.locator('#heightUnit').selectOption('in');
+  await expect(page.locator('#height')).toHaveAttribute('min', '19.69');
+  await expect(page.locator('#height')).toHaveAttribute('max', '107.87');
   await page.locator('#height').fill('68.8976378');
   await page.getByRole('button', { name: 'Calculate BMI' }).click();
   await expect(page.locator('#result')).toContainText('22.9');
+
+  await page.locator('#heightUnit').selectOption('ft');
+  await expect(page.locator('#height')).toHaveAttribute('min', '1.641');
+  await expect(page.locator('#height')).toHaveAttribute('max', '8.989');
 
   // Converted upper domain edge: 1102.31 lb is just under 500 kg.
   await page.locator('#weight').fill('1102.31');
