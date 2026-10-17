@@ -29,6 +29,16 @@ function clampToInput(value, info) {
 }
 function preferredValue(info, pageName) {
   const s = [info.id, info.name, info.placeholder, info.aria, info.label].join(' ').toLowerCase();
+  // Page-specific realistic values avoid mistaking a test-fixture value for a calculator defect.
+  if (pageName === 'vo2max.html' && /distance/.test(s)) return 2400;
+  if (pageName === 'heartrate.html' && /rhr|resting heart rate/.test(s)) return 70;
+  if (pageName === 'weekly-training-count.html' && /sessions/.test(s)) return 5;
+  if (pageName === 'goal-timeline.html') {
+    if (/currentweight/.test(s)) return 80;
+    if (/goalweight/.test(s)) return 70;
+    if (/tdee/.test(s)) return 2500;
+    if (/intake/.test(s)) return 2000;
+  }
   if (pageName === 'bmi-for-age.html') {
     if (/age.?months|additional.*months/.test(s)) return 6;
     if (/\bage\b|completed years/.test(s)) return 9;
@@ -148,6 +158,7 @@ async function runRoute(browser, route) {
       await page.locator('#ageMonths').fill('6');
       await page.locator('#sex').selectOption('female');
     }
+    if (pageName === 'average.html') await page.locator('#avgNumbers').fill('10, 20, 30');
     inputCount = await page.locator('input:visible,select:visible,textarea:visible').count();
     outputsBefore = await outputSnapshot(page);
     const action = await chooseAction(page);
