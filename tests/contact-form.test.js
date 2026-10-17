@@ -7,7 +7,7 @@ const vm = require('node:vm');
 
 const html = fs.readFileSync('contact.html', 'utf8');
 const legacyContactHtml = fs.readFileSync('html/contact.html', 'utf8');
-assert.match(legacyContactHtml, /<meta\\s+name="robots"\\s+content="noindex,follow"/i, 'legacy contact redirect must stay out of search results');
+assert.match(legacyContactHtml, /<meta\s+name="robots"\s+content="noindex,follow"/i, 'legacy contact redirect must stay out of search results');
 const script = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)]
   .map(match => match[1])
   .find(body => body.includes("form.addEventListener('submit'"));
