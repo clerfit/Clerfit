@@ -45,7 +45,8 @@ const ids = {
   weightUnit: new Element('kg'),
   fat: new Element('20'),
   result: new Element(),
-  formula: new Element()
+  formula: new Element(),
+  indicator: new Element()
 };
 const errors = [];
 const document = {
