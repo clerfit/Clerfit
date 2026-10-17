@@ -36,6 +36,27 @@ Scope: repository tree, central calculator registry, sitemap, existing SEO/perfo
 
 Full route-by-route presence and sitemap mapping: `PHASE_1_CALCULATOR_INVENTORY.csv`.
 
+## Page-by-page remediation status
+
+### Page 1 — BMI Calculator (`html/BMI.html`) — source-local sign-off achieved
+
+Completed on the audit branch and tested in GitHub Actions run #45:
+
+- Fixed input limits to match the selected weight and height units, including kg/lb and cm/m/in/ft.
+- Used the exact pound-to-kilogram conversion factor consistently and covered the converted 500 kg boundary with a focused test.
+- Added reset behavior that clears inputs, validation errors, output and indicator, restores metric defaults, and returns focus to Weight.
+- Cleared stale BMI output whenever relevant values/units change. This fixes the case where shared validation intercepts an invalid Calculate click and the older answer could otherwise remain visible.
+- Matched the age input bounds to the calculator's actual 2–120 year domain and preserved the special age-specific interpretation message for ages 2–19 rather than assigning adult categories.
+- Added an accessible result announcement region, formula text and table column-header scopes.
+- Added a VM-based behavioral test and Chromium/Playwright checks for metric and imperial known answers, supported-unit bounds, pediatric interpretation, invalid values, reset, focus, no horizontal overflow at 320 px, clean local asset/runtime results, and Axe accessibility.
+- Updated the generated Home/Contact link labels to match their visible content after Axe identified label-content mismatches.
+
+**Result:** GitHub Actions run #45 reports both `formula-regression` and `bmi-browser` jobs successful. The Axe scan reports zero violations for this local test build.
+
+**Not claimed:** This is not yet production/live sign-off. The deployed BMI URL returned “not accessible via this tool” from the web inspection path, which is not an HTTP status result; a direct live HTTP response, PageSpeed rerun and the current release-ZIP comparison still need evidence.
+
+The per-page register now records these distinctions instead of marking BMI “not run.”
+
 ## Evidence-based findings
 
 ### P1 — Release archive parity is unverified
@@ -88,7 +109,7 @@ These are deliberately marked open; a source patch is not proof that Lighthouse,
 
 ## Phase 1 exit criteria
 
-Phase 1 is complete only when the exact source archive, repository, and live release are reconciled; every registered calculator and public page has an evidence-backed status; PageSpeed issues have been reproduced or explicitly disproven; fixes have been re-tested; and the sign-off register has no unresolved release-blocking rows. This branch currently contains source-level remediation and the evidence register, but is **not signed off** because archive parity, browser regression, and live-host checks remain unverified.
+Phase 1 is complete only when the exact source archive, repository, and live release are reconciled; every registered calculator and public page has an evidence-backed status; PageSpeed issues have been reproduced or explicitly disproven; fixes have been re-tested; and the sign-off register has no unresolved release-blocking rows. BMI has passed source-local CI/browser checks, but the site-wide phase is **not signed off** because 117 other calculator pages and the remaining public routes still need the same page-by-page treatment, and archive parity/live-host checks remain open.
 
 ## Safety of changes
 
