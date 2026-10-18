@@ -148,7 +148,7 @@ rfm.html,height,Height,30,300,any
 rfm.html,waist,Waist,0.1,300,any
 rmr.html,weight,Weight,0.1,500,any
 rmr.html,height,Height,30,300,any
-rmr.html,age,Age,1,120,1
+rmr.html,age,Age,18,120,1
 running-pace.html,runDistance,Distance i Total distance you ran. Can be entered in kilometers or miles.,0,100000,any
 running-pace.html,hours,Hours,0,1000,any
 running-pace.html,minutes,Minutes,0,1000,any
