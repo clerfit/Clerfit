@@ -1,0 +1,103 @@
+name: ClerFit Phase 6 Release Candidate Package
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'PHASE_6_EXECUTION_PLAN.md'
+      - 'index.html'
+      - '404.html'
+      - 'contact.html'
+      - 'privacy.html'
+      - 'terms-of-use.html'
+      - 'educational-disclaimer.html'
+      - 'html/**'
+      - 'css/**'
+      - 'js/**'
+      - 'images/**'
+      - 'scripts/build-site.js'
+      - 'scripts/generate-sitemap.js'
+      - 'scripts/verify-staging.js'
+      - 'sitemap.xml'
+      - 'robots.txt'
+      - 'site.webmanifest'
+      - '.github/workflows/phase-six-package.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clerfit-phase-six-package
+  cancel-in-progress: false
+
+jobs:
+  package-candidate:
+    name: Build, validate and package candidate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact candidate commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build and verify production staging
+        env:
+          SITE_URL: https://clerfit.github.io/Clerfit
+        run: node scripts/build-site.js
+
+      - name: Verify required deployable files and all calculator routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in index.html 404.html contact.html privacy.html terms-of-use.html educational-disclaimer.html sitemap.xml robots.txt site.webmanifest css/style.css js/navigation.js; do
+            test -s "dist/$file" || { echo "Missing or empty required file: dist/$file"; exit 1; }
+          done
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const source = fs.readFileSync('js/navigation.js', 'utf8');
+          const match = source.match(/const CALCULATORS\s*=\s*(\[[\s\S]*?\]);\s*\nconst path/);
+          if (!match) throw new Error('Could not parse central calculator registry');
+          const routes = JSON.parse(match[1]);
+          if (routes.length !== 118) throw new Error(`Expected 118 routes; found ${routes.length}`);
+          for (const route of routes) {
+            const file = path.join('dist', 'html', route.file);
+            if (!fs.statSync(file).isFile()) throw new Error(`Packaged route missing: ${file}`);
+          }
+          const sitemap = fs.readFileSync('dist/sitemap.xml', 'utf8');
+          for (const route of routes) {
+            const url = `https://clerfit.github.io/Clerfit/html/${route.file}`;
+            if (!sitemap.includes(`<loc>${url}</loc>`)) throw new Error(`Route absent from sitemap: ${url}`);
+          }
+          console.log('PASS: all 118 registered calculator routes exist in the candidate and appear in the sitemap.');
+          NODE
+
+      - name: Package deployable site with exact source metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release-candidate
+          cp -a dist/. release-candidate/
+          printf 'source_sha=%s\nsource_ref=%s\n' "$GITHUB_SHA" "$GITHUB_REF" > release-candidate/RELEASE_CANDIDATE_METADATA.txt
+          zip -qr ClerFit-R3-candidate.zip release-candidate
+          unzip -t ClerFit-R3-candidate.zip
+          sha256sum ClerFit-R3-candidate.zip | tee ClerFit-R3-candidate.zip.sha256
+          printf 'source_sha=%s\n' "$GITHUB_SHA" > ClerFit-R3-candidate.source-sha.txt
+
+      - name: Upload candidate package and verification metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: clerfit-r3-candidate-${{ github.sha }}
+          path: |
+            ClerFit-R3-candidate.zip
+            ClerFit-R3-candidate.zip.sha256
+            ClerFit-R3-candidate.source-sha.txt
+          if-no-files-found: error
+          retention-days: 30
