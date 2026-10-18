@@ -53,8 +53,8 @@
     const sexText = sexCode === 1 ? "male" : "female";
     const details = "Age: " + ageText + "; CDC reference sex: " + sexText + ". Estimated BMI-for-age percentile: " + percentile.toFixed(1) + "th (z-score " + z.toFixed(2) + "). This is a growth-chart screening result, not a diagnosis. Interpret it with a qualified clinician and the child’s growth history. <a href=\"https://www.cdc.gov/bmi/child-teen-calculator/\" target=\"_blank\" rel=\"noopener noreferrer\">CDC Child and Teen BMI guidance</a>.";
     return {
-      primary: bmi.toFixed(1) + " kg/m²",
-      label: "BMI-for-age",
+      primary: bmi.toFixed(1) + " kg/m² · " + percentile.toFixed(1) + "th percentile",
+      label: "BMI and age-specific percentile",
       details,
       formula: "BMI = weight (kg) ÷ height (m)². For BMI ≤ the age- and sex-specific 95th percentile: z = ((BMI/M)^L − 1)/(L×S), with ln(BMI/M)/S when L=0. Above the 95th percentile, the CDC extended method uses z = 1.64485 + ln(BMI/P95)/sigma; percentile = 100×Φ(z)."
     };
