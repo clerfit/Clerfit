@@ -257,12 +257,12 @@ const runTDEE = values => {
   return Object.fromEntries(['result','formula','validationMessage'].map(id => [id, tdeeElements.get(id).textContent || tdeeElements.get(id).innerHTML]));
 };
 const tdeeKnownAnswer = runTDEE({});
-assert.match(tdeeKnownAnswer.result, /2556 kcal\\/day/);
-assert.match(tdeeKnownAnswer.formula, /1649 × 1\\.55 = 2556/);
+assert.ok(tdeeKnownAnswer.result.includes('2556 kcal/day'));
+assert.ok(tdeeKnownAnswer.formula.includes('1649 × 1.55 = 2556'));
 assert.equal(tdeeKnownAnswer.validationMessage, '');
 checks++;
 const tdeeImperial = runTDEE({ weight: 154.3235835, weightUnit: 'lb', height: 68.8976378, heightUnit: 'inch' });
-assert.match(tdeeImperial.result, /2556 kcal\\/day/);
+assert.ok(tdeeImperial.result.includes('2556 kcal/day'));
 assert.equal(tdeeImperial.validationMessage, '');
 checks++;
 for (const [name, values] of [
