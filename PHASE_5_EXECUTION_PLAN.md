@@ -58,3 +58,14 @@ Turn the remaining release-readiness evidence into actionable, auditable closure
 - Phase 4 PR #33 adds non-diagnostic interpretation boundary regressions for waist, waist-to-height and waist-to-hip context. Formula regression passed; the full Phase 1/2 run was cancelled by workflow concurrency and must be rerun after the current verification run completes.
 - Current main's exact-SHA production/live route and security-header evidence has not yet been recorded after the latest merges. Older live audit results in the Phase 3 register are not post-merge verification.
 - Owner-required items remain open: exact reference ZIP parity, manual/device accessibility, consented real contact delivery, exact PageSpeed 404 URL, hosting/header control and independent qualified review.
+
+
+## Execution log — exact main revision `799bcce2232a69c5923ef3e98bc696831fc3ae32` (2026-10-18, latest run)
+
+- **Deployment build: PASS** — [Pages build/deployment run 39115533834](https://github.com/clerfit/Clerfit/actions/runs/39115533834).
+- **Live production verifier: PASS** — [run 39115534388](https://github.com/clerfit/Clerfit/actions/runs/39115534388).
+- **Live performance/header audit workflow: PASS** — [run 39115534382](https://github.com/clerfit/Clerfit/actions/runs/39115534382). This is a passing automated audit, not a claim that GitHub Pages can set arbitrary response headers; see the hosting caveat above.
+- **Live calculator interaction smoke: first attempt FAILED on a single transient HTTP 503 for `html/bmi-change.html`** — 117/118 routes loaded, 117 primary actions clicked, zero mobile overflows. The failure also produced derivative “missing input/action/navigation” assertions because the route returned 503; these are not independently proven page defects. A rerun of the failed job has been queued to distinguish transient host/CDN availability from a reproducible broken route: [run 39115534348](https://github.com/clerfit/Clerfit/actions/runs/39115534348).
+- **PAL input-domain fix is on main** at this revision. Its dedicated browser tests are being preserved in the open PAL PR; do not call that dedicated suite passed until its exact current revision checks complete.
+- Phase 1/2 full exact-main verification was interrupted by workflow concurrency on the first attempt; a new run was triggered on the subsequent candidate. Keep the exact-SHA gate open until it finishes.
+- **Still owner/external-dependent:** exact reference ZIP parity, manual device/keyboard/screen-reader acceptance, real consented contact submission and inbox confirmation, the exact PageSpeed 404 URL, control of production response headers beyond GitHub Pages capabilities, and independent qualified review of health-related formulas.
