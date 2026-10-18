@@ -73,14 +73,14 @@ checks += 7;
 const female = window.ClerFitBMIForAge.calculate({
   weight: 33.125, height: 125, age: 9, ageMonths: 6, sex: 'female'
 });
-assert.equal(female.primary, '21.2 kg/m²');
+assert.equal(female.primary, '21.2 kg/m² · 92.2th percentile');
 assert.ok(female.details.includes('92.2th'));
 assert.ok(female.details.includes('CDC reference sex: female'));
 checks++;
 const male = window.ClerFitBMIForAge.calculate({
   weight: 24.9165, height: 105, age: 4, ageMonths: 2, sex: 'male'
 });
-assert.equal(male.primary, '22.6 kg/m²');
+assert.equal(male.primary, '22.6 kg/m² · 95.9th percentile');
 assert.ok(male.details.includes('95.9th'));
 assert.ok(male.details.includes('CDC reference sex: male'));
 checks++;
