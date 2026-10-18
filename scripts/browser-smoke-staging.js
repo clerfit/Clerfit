@@ -401,6 +401,11 @@ async function targetedCalculatorBoundaries(browser) {
   await exercise({file:'water.html',fn:'calculateWater',fields:{weight:1000000,weightUnit:'kg',activity:1.2},resultId:'result',caseName:'extreme water weight rejected',expect:/between 2 and 500 kg/i});
   await exercise({file:'water.html',fn:'calculateWater',fields:{weight:70,weightUnit:'stone',activity:1.2},resultId:'result',caseName:'unsupported water unit rejected',expect:/supported body weight/i});
   await exercise({file:'water.html',fn:'calculateWater',fields:{weight:70,weightUnit:'kg',activity:99},resultId:'result',caseName:'unsupported water activity factor rejected',expect:/listed activity level/i});
+  await exercise({file:'metabolic-age.html',fn:'calculateMetabolicAge',fields:{weight:70,weightUnit:'kg',height:175,heightUnit:'cm',age:30,gender:'male'},resultId:'result',caseName:'adult resting-energy reference calculates without assigning metabolic age',expect:/Estimated resting metabolic rate:\s*1649 kcal\/day/i});
+  await exercise({file:'metabolic-age.html',fn:'calculateMetabolicAge',fields:{weight:70,weightUnit:'kg',height:175,heightUnit:'cm',age:19,gender:'male'},resultId:'result',caseName:'under-20 metabolic-age input rejected',expect:/integer adult age from 20 to 120/i});
+  await exercise({file:'metabolic-age.html',fn:'calculateMetabolicAge',fields:{weight:70,weightUnit:'kg',height:175,heightUnit:'cm',age:30.5,gender:'male'},resultId:'result',caseName:'fractional metabolic-age input rejected',expect:/integer adult age from 20 to 120/i});
+  await exercise({file:'metabolic-age.html',fn:'calculateMetabolicAge',fields:{weight:1000000,weightUnit:'kg',height:175,heightUnit:'cm',age:30,gender:'male'},resultId:'result',caseName:'extreme metabolic-age weight rejected',expect:/Converted weight must be 2–500 kg/i});
+  await exercise({file:'metabolic-age.html',fn:'calculateMetabolicAge',fields:{weight:70,weightUnit:'stone',height:175,heightUnit:'cm',age:30,gender:'male'},resultId:'result',caseName:'unsupported metabolic-age unit rejected',expect:/supported units/i});
   await exercise({file:'carbs.html',fn:'calculateCarbs',fields:{weight:70,weightUnit:'kg',height:175,heightUnit:'cm',age:30,gender:'male',activity:1.55,carbPercent:50},resultId:'result',caseName:'adult carbohydrate known-answer calculates',expect:/Estimated Carbohydrates:\s*319 grams\/day/i});
   await exercise({file:'carbs.html',fn:'calculateCarbs',fields:{weight:70,weightUnit:'kg',height:175,heightUnit:'cm',age:17,gender:'male',activity:1.55,carbPercent:50},resultId:'result',caseName:'teen carbohydrate uses supported Schofield path',expect:/Estimated Carbohydrates:\s*367 grams\/day/i});
   await exercise({file:'carbs.html',fn:'calculateCarbs',fields:{weight:70,weightUnit:'kg',height:175,heightUnit:'cm',age:9,gender:'male',activity:1.55,carbPercent:50},resultId:'result',caseName:'under-10 carbohydrate age rejected',expect:/integer age from 10 to 120/i});
@@ -602,6 +607,22 @@ async function targetedUnits(browser) {
     await p.locator('#weight').fill('70'); await p.locator('#height').fill('175'); await p.evaluate(()=>calculateFat());
     if(!/71 grams\/day/.test(await p.locator('#result').innerText())) throw new Error('Fat metric reference case should match imperial output.');
     report.push('Fat: unit-specific bounds and kg/lb + cm/in equivalence');
+    await p.close();
+  }
+  {
+    const p=await browser.newPage({viewport:{width:390,height:844}});
+    await p.goto(new URL('html/metabolic-age.html?browserSmoke=metabolic-age-unit-bounds',BASE).href,{waitUntil:'load'});
+    await p.locator('#weightUnit').selectOption('lbs');
+    await p.locator('#heightUnit').selectOption('in');
+    if(await p.locator('#weight').getAttribute('min')!=='4.4093'||await p.locator('#weight').getAttribute('max')!=='1102.3113') throw new Error('Metabolic-age lb bounds must preserve 2–500 kg.');
+    if(await p.locator('#height').getAttribute('min')!=='39.3701'||await p.locator('#height').getAttribute('max')!=='98.4251') throw new Error('Metabolic-age inch bounds must preserve 100–250 cm.');
+    await p.locator('#weight').fill('154.3235835'); await p.locator('#height').fill('68.8976378');
+    await p.locator('#age').fill('30'); await p.locator('#gender').selectOption('male'); await p.evaluate(()=>calculateMetabolicAge());
+    if(!/1649 kcal\/day/.test(await p.locator('#result').innerText())) throw new Error('Metabolic-age customary-unit RMR reference should be 1649 kcal/day.');
+    await p.locator('#weightUnit').selectOption('kg'); await p.locator('#heightUnit').selectOption('cm');
+    await p.locator('#weight').fill('70'); await p.locator('#height').fill('175'); await p.evaluate(()=>calculateMetabolicAge());
+    if(!/1649 kcal\/day/.test(await p.locator('#result').innerText())) throw new Error('Metabolic-age metric RMR reference should match customary units.');
+    report.push('Metabolic age: adult RMR known-answer, unit-specific bounds and kg/lb + cm/in equivalence');
     await p.close();
   }
   return report;

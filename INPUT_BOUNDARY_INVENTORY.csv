@@ -117,8 +117,8 @@ maintenance.html,weight,Weight,0.1,500,any,bounds present; semantic/range bounda
 maintenance.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
 maintenance.html,age,Age,18,120,1,adult equation: age 18–120 integer; runtime validation required; other semantic boundaries still under review
 meal-split.html,totalCalories,Total Daily Calories,0,50000,any,bounds present; semantic/range boundary review required
-metabolic-age.html,weight,Weight,1,120,1,bounds present; semantic/range boundary review required
-metabolic-age.html,height,Height,1,120,1,bounds present; semantic/range boundary review required
+metabolic-age.html,weight,Weight,2,500,1,weight 2–500 kg and height 100–250 cm after unit conversion; runtime bounds adjust by unit; age integer 20–120; further semantic review required
+metabolic-age.html,height,Height,100,250,1,weight 2–500 kg and height 100–250 cm after unit conversion; runtime bounds adjust by unit; age integer 20–120; further semantic review required
 metabolic-age.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
 mets.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
 mets.html,met,Activity MET value,0.1,500,any,bounds present; semantic/range boundary review required

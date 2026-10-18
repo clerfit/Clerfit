@@ -117,8 +117,8 @@ maintenance.html,weight,Weight,0.1,500,any
 maintenance.html,height,Height,30,300,any
 maintenance.html,age,Age,18,120,1
 meal-split.html,totalCalories,Total Daily Calories,0,50000,any
-metabolic-age.html,weight,Weight,0.1,500,any
-metabolic-age.html,height,Height,30,300,any
+metabolic-age.html,weight,Weight,2,500,any
+metabolic-age.html,height,Height,100,250,any
 metabolic-age.html,age,Age,20,120,1
 mets.html,weight,Weight,0.1,500,any
 mets.html,met,Activity MET value,0.1,500,any
