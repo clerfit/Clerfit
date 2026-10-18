@@ -73,6 +73,9 @@ function checkReference(ref, fromFile) {
 }
 for (const file of htmlFiles) {
   const html = read(file);
+  assert.match(html, /<html\\b[^>]*\\blang=["'][^"']+["']/i, file + ' HTML documents must declare a language');
+  assert.match(html, /<title\\b[^>]*>\\s*[^<]+\\s*<\\/title>/i, file + ' must have a non-empty title');
+  assert.match(html, /<meta\\b[^>]*name=["']description["']/i, file + ' must have a meta description');
   for (const match of html.matchAll(/\b(?:href|src|poster|action)\s*=\s*(["'])(.*?)\1/gi)) {
     checkReference(match[2], file);
   }
