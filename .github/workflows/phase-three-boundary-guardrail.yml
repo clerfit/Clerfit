@@ -41,3 +41,5 @@ jobs:
         run: node tests/phase-three-runtime-fields.test.js
       - name: Verify generated numeric bounds follow display-unit changes
         run: node tests/phase-three-generated-unit-bounds.test.js
+      - name: Exercise generated field semantic boundaries
+        run: node tests/phase-three-semantic-boundaries.test.js
