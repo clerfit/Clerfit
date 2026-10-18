@@ -284,11 +284,37 @@ for (const [name, values] of [
 }
 setTDEE({ weightUnit: 'lb', heightUnit: 'inch' });
 tdeeContext.updateTDEEUnitBounds();
-assert.equal(tdeeElements.get('weight').min, '44.0924');
+assert.equal(tdeeElements.get('weight').min, '44.0925');
 assert.equal(tdeeElements.get('weight').max, '1102.3113');
 assert.equal(tdeeElements.get('height').min, '39.3701');
-assert.equal(tdeeElements.get('height').max, '98.4252');
-checks++;
+assert.equal(tdeeElements.get('height').max, '98.4251');
+const tdeeImperialLower = runTDEE({
+  weight: tdeeElements.get('weight').min, weightUnit: 'lb',
+  height: tdeeElements.get('height').min, heightUnit: 'inch'
+});
+assert.equal(tdeeImperialLower.validationMessage, '', 'Displayed imperial minimums must pass canonical validation.');
+assert.ok(tdeeImperialLower.result.includes('kcal/day'));
+const tdeeImperialUpper = runTDEE({
+  weight: tdeeElements.get('weight').max, weightUnit: 'lb',
+  height: tdeeElements.get('height').max, heightUnit: 'inch'
+});
+assert.equal(tdeeImperialUpper.validationMessage, '', 'Displayed imperial maximums must pass canonical validation.');
+assert.ok(tdeeImperialUpper.result.includes('kcal/day'));
+setTDEE({ weightUnit: 'lb', heightUnit: 'ft' });
+tdeeContext.updateTDEEUnitBounds();
+assert.equal(tdeeElements.get('height').min, '3.2809');
+assert.equal(tdeeElements.get('height').max, '8.202');
+const tdeeFeetLower = runTDEE({
+  weight: 70, weightUnit: 'kg',
+  height: tdeeElements.get('height').min, heightUnit: 'ft'
+});
+assert.equal(tdeeFeetLower.validationMessage, '', 'Displayed feet minimum must pass canonical validation.');
+const tdeeFeetUpper = runTDEE({
+  weight: 70, weightUnit: 'kg',
+  height: tdeeElements.get('height').max, heightUnit: 'ft'
+});
+assert.equal(tdeeFeetUpper.validationMessage, '', 'Displayed feet maximum must pass canonical validation.');
+checks += 5;
 
 
 // Known-answer: US Navy male equation with canonical centimetre inputs.
