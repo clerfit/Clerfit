@@ -70,6 +70,29 @@ assert.throws(() => validateAdvanced('forward-head-index', {offset:150,height:50
 assert.equal(validateAdvanced('jaw-width-ratio', {jaw:100,face:150}).jaw, 100);
 checks += 7;
 
+// Phase 4: anthropometric screening outputs must not invent guideline categories.
+// NICE NG246 provides adult waist-to-height ratio context, but the calculator intentionally
+// reports the ratio and avoids applying adult thresholds to children/teens automatically.
+const teenWaistHeight = defs['waist-height-risk'].calculate({ waist: 80, height: 170, age: 17 });
+assert.equal(teenWaistHeight.primary, '0.471');
+assert.match(teenWaistHeight.details, /age is under 18, adult cutoffs are not applied/i);
+assert.doesNotMatch(teenWaistHeight.details, /healthy central adiposity|high central adiposity/i);
+checks++;
+
+const adultWaistHeight = defs['waist-height-risk'].calculate({ waist: 80, height: 170, age: 30 });
+assert.equal(adultWaistHeight.primary, '0.471');
+assert.match(adultWaistHeight.details, /adult screening indicator, not a diagnosis/i);
+assert.doesNotMatch(adultWaistHeight.primary, /healthy|increased|high risk/i);
+checks++;
+
+const waistContext = defs['waist-risk'].calculate({ waist: 80, age: 30, sex: 'female' });
+assert.match(waistContext.details, /No universal risk classification is shown/i);
+assert.doesNotMatch(waistContext.details, /low risk|high risk|normal waist/i);
+checks++;
+
+assert.throws(() => defs['hip-risk'].calculate({ waist: 80, hip: 0, sex: 'female' }), /greater than zero/i);
+checks++;
+
 const female = window.ClerFitBMIForAge.calculate({
   weight: 33.125, height: 125, age: 9, ageMonths: 6, sex: 'female'
 });
