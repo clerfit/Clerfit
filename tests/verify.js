@@ -234,15 +234,18 @@ checks++;
  
 // TDEE legacy page: known answer, unit equivalence, semantic bounds, stale-output clearing and invalid-value handling.
 const tdeeHtml = read('html/tdee.html');
-const tdeeScriptMatch = tdeeHtml.match(/<script defer>\\s*([\\s\\S]*?function updateTDEEUnitBounds\\([\\s\\S]*?)<\\/script>/);
-assert.ok(tdeeScriptMatch, 'TDEE calculator script must be available for deterministic tests.');
+const tdeeScriptStart = tdeeHtml.indexOf('<script defer>');
+const tdeeScriptEnd = tdeeHtml.indexOf('</script>', tdeeScriptStart);
+assert.ok(tdeeScriptStart >= 0 && tdeeScriptEnd > tdeeScriptStart, 'TDEE calculator script must be available for deterministic tests.');
+const tdeeScript = tdeeHtml.slice(tdeeScriptStart + '<script defer>'.length, tdeeScriptEnd);
+assert.match(tdeeScript, /function updateTDEEUnitBounds/);
 const tdeeElements = new Map();
 for (const id of ['weight','weightUnit','height','heightUnit','age','gender','activity','result','formula','validationMessage','indicator']) {
   tdeeElements.set(id, { value: '', min: '', max: '', textContent: '', innerHTML: '', style: { left: '' } });
 }
 const tdeeDocument = { getElementById: id => tdeeElements.get(id) || null };
 const tdeeContext = vm.createContext({ document: tdeeDocument, console });
-vm.runInContext(tdeeScriptMatch[1], tdeeContext, { filename: 'html/tdee.html#calculator', timeout: 3000 });
+vm.runInContext(tdeeScript, tdeeContext, { filename: 'html/tdee.html#calculator', timeout: 3000 });
 const setTDEE = values => Object.entries(values).forEach(([id, value]) => { tdeeElements.get(id).value = String(value); });
 const runTDEE = values => {
   setTDEE({ weight: 70, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 30, gender: 'male', activity: 1.55, ...values });
