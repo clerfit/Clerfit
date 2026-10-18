@@ -96,8 +96,8 @@ goal-timeline.html,intakeTimeline,Your Daily Calorie Intake,0,50000,any
 healthrisk.html,age,Age (years),1,120,1
 healthrisk.html,weight,Weight (kg),0.1,500,any
 healthrisk.html,height,Height (cm),30,300,any
-heartrate.html,age,Age (years),1,120,1
-heartrate.html,rhr,"Resting Heart Rate (optional, default 70 bpm)",1,120,1
+heartrate.html,age,Age (years),18,120,1
+heartrate.html,rhr,"Resting Heart Rate (optional, default 70 bpm)",20,120,1
 heat-exposure.html,tempC,Air Temperature (°C),-100,70,any
 heat-exposure.html,humidity,Relative Humidity (%),0,100,any
 heat-exposure.html,duration,Exposure Time,0,10080,any
