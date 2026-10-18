@@ -428,20 +428,78 @@ function calculateCalories() {
    PROTEIN
 ================================================= */
 function calculateProtein() {
-  const w = getValUnit("weight", "weightUnit", "weight");
-  const f = getVal("level");
+  const weightInput = document.getElementById("weight");
+  const unitInput = document.getElementById("weightUnit");
+  const factorInput = document.getElementById("level");
+  const result = document.getElementById("result");
+  const formula = document.getElementById("formula");
+  const weightRaw = weightInput ? weightInput.value : "";
+  const weightValue = Number(weightRaw);
+  const unit = unitInput ? unitInput.value : "";
+  const factor = factorInput ? Number(factorInput.value) : NaN;
+  if (result) result.textContent = "";
+  if (formula) formula.textContent = "";
 
-  if (!Number.isFinite(w) || w <= 0 || w > 500 || !Number.isFinite(f) || f < 0.8 || f > 2.5) {
-    document.getElementById("result").textContent = "Enter a valid body weight and protein factor (0.8–2.5 g/kg).";
+  if (weightRaw.trim() === "" || !Number.isFinite(weightValue) ||
+      !["kg", "lb"].includes(unit) || ![0.8, 1.2, 1.6, 2.0].includes(factor)) {
+    if (result) result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a supported weight, choose kg or lb, and select a listed activity/training level.</p>';
     return;
   }
-
-  document.getElementById("result").textContent = `Estimated protein target: ${(w * f).toFixed(1)} g/day`;
+  const weightKg = unit === "lb" ? weightValue * 0.45359237 : weightValue;
+  if (!Number.isFinite(weightKg) || weightKg < 2 || weightKg > 500) {
+    if (result) result.innerHTML = '<p class="cf-validation-message" role="alert">Converted body weight must be between 2 and 500 kg.</p>';
+    return;
+  }
+  const protein = weightKg * factor;
+  if (!Number.isFinite(protein) || protein <= 0) {
+    if (result) result.innerHTML = '<p class="cf-validation-message" role="alert">A valid protein estimate could not be calculated from these inputs.</p>';
+    return;
+  }
+  if (result) result.innerHTML = `Estimated Protein Intake: <b>${protein.toFixed(2)} g/day</b>`;
+  if (formula) formula.innerHTML = `Formula: Body weight (${weightKg.toFixed(2)} kg) × Activity Factor (${factor}) = ${protein.toFixed(2)} g/day
+    <p class="cf-note">This factor-based estimate is educational and is not an individualized nutrition prescription.</p>`;
 }
 
-/* =================================================
-   WATER
-================================================= */
+function calculateWater() {
+  const weightInput = document.getElementById("weight");
+  const unitInput = document.getElementById("weightUnit");
+  const activityInput = document.getElementById("activity");
+  const result = document.getElementById("result");
+  const formula = document.getElementById("formula");
+  const indicator = document.getElementById("indicator");
+  const weightRaw = weightInput ? weightInput.value : "";
+  const weightValue = Number(weightRaw);
+  const unit = unitInput ? unitInput.value : "";
+  const activity = activityInput ? Number(activityInput.value) : NaN;
+  if (result) result.textContent = "";
+  if (formula) formula.textContent = "";
+  if (indicator) indicator.style.left = "0%";
+
+  if (weightRaw.trim() === "" || !Number.isFinite(weightValue) ||
+      !["kg", "lb"].includes(unit) || ![1.0, 1.2, 1.4, 1.6, 1.8].includes(activity)) {
+    if (result) result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a supported body weight, choose kg or lb, and select a listed activity level.</p>';
+    return;
+  }
+  const weightKg = unit === "lb" ? weightValue * 0.45359237 : weightValue;
+  if (!Number.isFinite(weightKg) || weightKg < 2 || weightKg > 500) {
+    if (result) result.innerHTML = '<p class="cf-validation-message" role="alert">Converted body weight must be between 2 and 500 kg.</p>';
+    return;
+  }
+  const waterMl = weightKg * 35 * activity;
+  const waterL = waterMl / 1000;
+  if (!Number.isFinite(waterMl) || !Number.isFinite(waterL) || waterL <= 0) {
+    if (result) result.innerHTML = '<p class="cf-validation-message" role="alert">A finite water-intake estimate could not be calculated from these inputs.</p>';
+    return;
+  }
+  if (result) result.innerHTML = `<strong>Estimated Daily Water Intake: ${waterL.toFixed(2)} L</strong>`;
+  if (formula) formula.innerHTML = `Formula: ${weightKg.toFixed(1)} kg × 35 ml × Activity Factor (${activity}) = ${waterMl.toFixed(0)} ml = ${waterL.toFixed(2)} L
+    <p class="cf-note">This is a rough educational estimate, not a personalized prescription. Hydration needs vary with climate, exercise, diet and health; follow clinician guidance where applicable.</p>`;
+  if (indicator) {
+    const percent = Math.max(0, Math.min(100, ((waterL - 1.5) / (4.0 - 1.5)) * 100));
+    indicator.style.left = percent + "%";
+  }
+}
+
 function calculateWater() {
   const w = getValUnit("weight", "weightUnit", "weight");
 
