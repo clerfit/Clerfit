@@ -115,8 +115,8 @@
     <h2>Daily Water Intake Calculator</h2>
 
     <label for="weight">Weight</label>
-    <input id="weight" type="number" placeholder="Enter your weight" min="0.1" max="500" step="any" aria-label="Enter your weight">
-    <select id="weightUnit" aria-label="Weight unit">
+    <input id="weight" type="number" placeholder="Enter your weight" min="2" max="500" step="any" aria-label="Enter your weight">
+    <select id="weightUnit" aria-label="Weight unit" onchange="updateWaterWeightBounds()">
       <option value="kg" selected>kg</option>
       <option value="lb">lb</option>
     </select>
@@ -183,31 +183,59 @@
 </div>
 
 <script>
-function calculateWater() {
-  let weight = parseFloat(document.getElementById('weight').value);
-  if(!weight || weight <= 0){ alert("Enter a valid weight"); return; }
-
+function updateWaterWeightBounds() {
+  const input = document.getElementById('weight');
   const unit = document.getElementById('weightUnit').value;
-  if(unit === 'lb') weight = weight * 0.453592;
+  if (unit === 'lb') {
+    input.min = '4.4093';
+    input.max = '1102.3113';
+  } else {
+    input.min = '2';
+    input.max = '500';
+  }
+}
 
-  const activitySelect = document.getElementById('activity');
-  const activity = parseFloat(activitySelect.options[activitySelect.selectedIndex].value);
-
-  // Calculate recommended water (ml)
-  const waterMl = weight * 35 * activity;
-  const waterL = (waterMl / 1000).toFixed(2);
-
-  document.getElementById('result').innerHTML = `<strong>Recommended Daily Water Intake: ${waterL} L</strong>`;
-  document.getElementById('formula').innerHTML = `Formula: Weight × 35 ml × Activity Factor = ${weight.toFixed(1)} × 35 × ${activity} = ${waterMl.toFixed(0)} ml = ${waterL} L`;
-
-  // Bar setup
+function calculateWater() {
+  const weightRaw = document.getElementById('weight').value;
+  const weightValue = Number(weightRaw);
+  const unit = document.getElementById('weightUnit').value;
+  const activity = Number(document.getElementById('activity').value);
+  const result = document.getElementById('result');
+  const formula = document.getElementById('formula');
   const indicator = document.getElementById('indicator');
-  const minL = 1.5; // Below this is low
-  const maxL = 4.0; // Above this is high
-  let percent = ((waterL - minL) / (maxL - minL)) * 100;
-  percent = Math.max(0, Math.min(100, percent)); // Clamp 0-100%
+  result.textContent = '';
+  formula.textContent = '';
+  indicator.style.left = '0%';
+
+  if (weightRaw.trim() === '' || !Number.isFinite(weightValue) ||
+      !['kg', 'lb'].includes(unit) || ![1.0, 1.2, 1.4, 1.6, 1.8].includes(activity)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a supported body weight, choose kg or lb, and select a listed activity level.</p>';
+    return;
+  }
+
+  const weightKg = unit === 'lb' ? weightValue * 0.45359237 : weightValue;
+  if (!Number.isFinite(weightKg) || weightKg < 2 || weightKg > 500) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Converted body weight must be between 2 and 500 kg.</p>';
+    return;
+  }
+
+  const waterMl = weightKg * 35 * activity;
+  const waterL = waterMl / 1000;
+  if (!Number.isFinite(waterMl) || !Number.isFinite(waterL) || waterL <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">A finite water-intake estimate could not be calculated from these inputs.</p>';
+    return;
+  }
+
+  result.innerHTML = `<strong>Estimated Daily Water Intake: ${waterL.toFixed(2)} L</strong>`;
+  formula.innerHTML = `Formula: ${weightKg.toFixed(1)} kg × 35 ml × Activity Factor (${activity}) = ${waterMl.toFixed(0)} ml = ${waterL.toFixed(2)} L
+    <p class="cf-note">This is a rough educational estimate, not a personalized prescription. Hydration needs vary with climate, exercise, diet and health; follow clinician guidance where applicable.</p>`;
+
+  const minL = 1.5;
+  const maxL = 4.0;
+  const percent = Math.max(0, Math.min(100, ((waterL - minL) / (maxL - minL)) * 100));
   indicator.style.left = percent + '%';
 }
+updateWaterWeightBounds();
 </script>
 
 
