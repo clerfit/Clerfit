@@ -530,4 +530,18 @@ assert.match(pageTest.output('weightStabilityResult'), /Gaining Weight/);
 assert.match(pageTest.output('weightStabilityResult'), /water and measurement variation/);
 checks++;
 
+// Phase 4 regression: invalid list tokens must not be silently omitted.
+pageTest = runPageFunction('average.html', 'calculateAverage', {
+  avgNumbers: '10,not-a-number,20'
+}, ['avgResult']);
+assert.match(pageTest.output('avgResult'), /only valid finite numbers/i);
+assert.doesNotMatch(pageTest.output('avgResult'), /Average:.*15/);
+checks++;
+
+pageTest = runPageFunction('average.html', 'calculateAverage', {
+  avgNumbers: '10,20,30'
+}, ['avgResult']);
+assert.match(pageTest.output('avgResult'), /Average:.*20/);
+checks++;
+
 console.log('PASS: ' + checks + ' known-answer/domain assertions across generated calculators, CDC BMI-for-age, legacy formulas, and unit conversions.');
