@@ -84,6 +84,9 @@ jobs:
       - name: Verify custom 404 path-base handling and metadata
         run: node tests/404-base-path.test.js
 
+      - name: Verify Google Search favicon eligibility assets
+        run: node tests/seo-favicon.test.js
+
       - name: Verify shared navigation logo paths and intrinsic dimensions
         run: node tests/brand-asset-path.test.js
 
