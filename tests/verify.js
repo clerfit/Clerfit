@@ -39,7 +39,7 @@ const vectors = [
   ['weekly-training-count', { sessions: 5, minutes: 45 }, '5 sessions/week'],
   ['recovery-time', { end: '2026-10-17T08:00', next: '2026-10-17T12:00' }, '4 hours'],
   ['fatigue-index', { fatigue: 6, soreness: 4, stress: 5, sleep: 8 }, '39 / 100'],
-  ['bmi-for-age', { weight: 33.125, height: 125, age: 9, ageMonths: 6, sex: 'female' }, '21.2 kg/m²'],
+  ['bmi-for-age', { weight: 33.125, height: 125, age: 9, ageMonths: 6, sex: 'female' }, '21.2 kg/m² · 92.2th percentile'],
   ['waist-risk', { waist: 80, age: 30, sex: 'female' }, '80 cm'],
   ['hip-risk', { waist: 80, hip: 100, sex: 'male' }, '0.800'],
   ['waist-height-risk', { waist: 80, height: 170, age: 30 }, '0.471'],
