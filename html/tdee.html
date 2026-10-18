@@ -25,16 +25,18 @@ function updateTDEEUnitBounds() {
   const weight = document.getElementById('weight');
   const height = document.getElementById('height');
 
+  // Round converted-unit bounds inward so every value accepted by the native
+  // min/max controls also survives the canonical kg/cm runtime validation.
   const weightBounds = weightUnit === 'kg'
     ? { min: 20, max: 500 }
     : weightUnit === 'lb'
-      ? { min: 44.0924, max: 1102.3113 }
+      ? { min: 44.0925, max: 1102.3113 }
       : null;
   const heightBounds = {
     cm: { min: 100, max: 250 },
     m: { min: 1, max: 2.5 },
-    inch: { min: 39.3701, max: 98.4252 },
-    ft: { min: 3.28084, max: 8.2021 }
+    inch: { min: 39.3701, max: 98.4251 },
+    ft: { min: 3.2809, max: 8.2020 }
   }[heightUnit];
 
   if (weightBounds) {
