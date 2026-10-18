@@ -30,9 +30,9 @@ cadence.html,cadenceTime,Time,0,10080,any,bounds present; semantic/range boundar
 calories-kg.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
 calories-kg.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
 calories-kg.html,age,Age,18,120,1,adult equation: age 18–120 integer; runtime validation required; other semantic boundaries still under review
-carbs.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
-carbs.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
-carbs.html,age,Age (10+ years),1,120,1,bounds present; semantic/range boundary review required
+carbs.html,weight,Weight,2,500,any,"weight 2–500 kg, height 100–250 cm after unit conversion; integer age 10–120; runtime validates units, factors and macro percentages; further semantic review required"
+carbs.html,height,Height,100,250,any,"weight 2–500 kg, height 100–250 cm after unit conversion; integer age 10–120; runtime validates units, factors and macro percentages; further semantic review required"
+carbs.html,age,Age (10+ years),10,120,1,"weight 2–500 kg, height 100–250 cm after unit conversion; integer age 10–120; runtime validates units, factors and macro percentages; further semantic review required"
 cardio-calories.html,bodyWeight,Body Weight,0.1,500,any,bounds present; semantic/range boundary review required
 cardio-calories.html,duration,Duration,0,50000,any,bounds present; semantic/range boundary review required
 circumference-track.html,waistInit,Initial Waist,0.1,300,any,bounds present; semantic/range boundary review required
@@ -77,9 +77,9 @@ face-shape.html,faceLength,Face Length,0.1,300,any,bounds present; semantic/rang
 face-shape.html,forehead,Forehead Width,0.1,300,any,bounds present; semantic/range boundary review required
 face-shape.html,cheekbones,Cheekbone Width,0.1,300,any,bounds present; semantic/range boundary review required
 face-shape.html,jawline,Jawline Width,0.1,300,any,bounds present; semantic/range boundary review required
-fat.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
-fat.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
-fat.html,age,Age (10+ years),1,120,1,bounds present; semantic/range boundary review required
+fat.html,weight,Weight,2,500,any,"weight 2–500 kg, height 100–250 cm after unit conversion; integer age 10–120; runtime validates units, factors and macro percentages; further semantic review required"
+fat.html,height,Height,100,250,any,"weight 2–500 kg, height 100–250 cm after unit conversion; integer age 10–120; runtime validates units, factors and macro percentages; further semantic review required"
+fat.html,age,Age (10+ years),10,120,1,"weight 2–500 kg, height 100–250 cm after unit conversion; integer age 10–120; runtime validates units, factors and macro percentages; further semantic review required"
 fatmass.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
 fatmass.html,fat,Body Fat (%),0,100,any,bounds present; semantic/range boundary review required
 ffmi.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
