@@ -1,6 +1,6 @@
 # ClerFit Phase 4 — Formula Evidence and Validation Coverage
 
-Status: STARTED — engineering work can proceed; Phase 3 overall release acceptance remains OPEN.
+Status: IN PROGRESS — recent regression batches merged and PR-head CI passed; full Phase 4 exit criteria and Phase 3 external acceptance remain OPEN.
 
 Baseline: `main` includes Phase 4 merges through `ff67c9d139a171f1cbddca10f5ffc37f6e9ce886` (2026-10-18). Re-run all relevant checks against the exact candidate SHA after source/test changes.
 
