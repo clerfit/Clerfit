@@ -226,6 +226,37 @@ assert.match(engineOutput('bf-result'), /measurements.*plausible/i);
 assert.doesNotMatch(engineOutput('bf-result'), /NaN|Infinity/);
 checks++;
 
+// Known-answer: US Navy female equation; independently evaluated from the published
+// logarithmic identity after converting every length from cm to inches.
+Object.entries({
+  'bf-gender': 'female', 'bf-height': 165, 'bf-height-unit': 'cm',
+  'bf-waist': 75, 'bf-waist-unit': 'cm', 'bf-neck': 32, 'bf-neck-unit': 'cm',
+  'bf-hip': 95, 'bf-hip-unit': 'cm'
+}).forEach(([id, value]) => setEngine(id, value));
+resetEngineOutputs('bf-result', 'bf-formula');
+engineContext.calculateBodyFat();
+assert.match(engineOutput('bf-result'), /27\.7%/);
+assert.match(engineOutput('bf-formula'), /US Navy female equation/);
+assert.doesNotMatch(engineOutput('bf-result'), /NaN|Infinity/);
+checks++;
+
+// Log-domain and domain guards: waist must exceed neck; female hip must be plausible.
+setEngine('bf-waist', 30);
+setEngine('bf-neck', 35);
+resetEngineOutputs('bf-result', 'bf-formula');
+engineContext.calculateBodyFat();
+assert.match(engineOutput('bf-result'), /waist must exceed neck/i);
+assert.doesNotMatch(engineOutput('bf-result'), /NaN|Infinity/);
+checks++;
+setEngine('bf-waist', 75);
+setEngine('bf-neck', 32);
+setEngine('bf-hip', 0);
+resetEngineOutputs('bf-result', 'bf-formula');
+engineContext.calculateBodyFat();
+assert.match(engineOutput('bf-result'), /valid hip measurement is required/i);
+assert.doesNotMatch(engineOutput('bf-result'), /NaN|Infinity/);
+checks++;
+
 // Known-answer: Devine ideal-body-weight estimate for a 180 cm male.
 Object.entries({
   'iw-gender': 'male', 'iw-height': 180, 'iw-height-unit': 'cm', 'iw-weight-unit': 'kg'
