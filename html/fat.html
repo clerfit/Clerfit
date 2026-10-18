@@ -89,9 +89,9 @@
   <div class="row">
     <div class="col">
       <label for="weight">Weight</label>
-      <input type="number" id="weight" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+      <input type="number" id="weight" placeholder="Enter weight" min="2" max="500" step="any" aria-label="Enter weight">
       <label for="weightUnit">Unit</label>
-      <select id="weightUnit" aria-label="Weight unit">
+      <select id="weightUnit" aria-label="Weight unit" onchange="updateMacroWeightBounds()">
         <option value="kg" selected>kg</option>
         <option value="lbs">lbs</option>
       </select>
@@ -99,9 +99,9 @@
 
     <div class="col">
       <label for="height">Height</label>
-      <input type="number" id="height" placeholder="Enter height" min="30" max="300" step="any" aria-label="Enter height">
+      <input type="number" id="height" placeholder="Enter height" min="100" max="250" step="any" aria-label="Enter height">
       <label for="heightUnit">Unit</label>
-      <select id="heightUnit" aria-label="Height unit">
+      <select id="heightUnit" aria-label="Height unit" onchange="updateMacroHeightBounds()">
         <option value="cm" selected>cm</option>
         <option value="m">m</option>
         <option value="in">in</option>
@@ -111,7 +111,7 @@
 
     <div class="col">
       <label for="age">Age (10+ years)</label>
-      <input type="number" id="age" placeholder="Enter age" min="1" max="120" step="1" aria-label="Enter age">
+      <input type="number" id="age" placeholder="Enter age" min="10" max="120" step="1" aria-label="Enter age">
 
       <label for="gender">Gender</label>
       <select id="gender" aria-label="Sex / reference group">
@@ -188,63 +188,91 @@ function convertHeightToCm(value, unit) {
   }
 }
 
+function updateMacroWeightBounds() {
+  const input = document.getElementById("weight");
+  if (document.getElementById("weightUnit").value === "lbs") {
+    input.min = "4.4093";
+    input.max = "1102.3113";
+  } else {
+    input.min = "2";
+    input.max = "500";
+  }
+}
+function updateMacroHeightBounds() {
+  const input = document.getElementById("height");
+  const unit = document.getElementById("heightUnit").value;
+  const bounds = {
+    cm: ["100", "250"],
+    m: ["1", "2.5"],
+    in: ["39.3701", "98.4251"],
+    ft: ["3.2809", "8.202"]
+  };
+  [input.min, input.max] = bounds[unit] || bounds.cm;
+}
+
 function calculateFat() {
-
-  const weightVal = parseFloat(document.getElementById("weight").value);
-  const heightVal = parseFloat(document.getElementById("height").value);
-  const age = parseInt(document.getElementById("age").value);
+  const weightRaw = document.getElementById("weight").value;
+  const heightRaw = document.getElementById("height").value;
+  const ageRaw = document.getElementById("age").value;
+  const weightVal = Number(weightRaw);
+  const heightVal = Number(heightRaw);
+  const age = Number(ageRaw);
+  const weightUnit = document.getElementById("weightUnit").value;
+  const heightUnit = document.getElementById("heightUnit").value;
   const gender = document.getElementById("gender").value;
-  const activityFactor = parseFloat(document.getElementById("activity").value);
-  const fatPercent = parseFloat(document.getElementById("fatPercent").value);
+  const activityFactor = Number(document.getElementById("activity").value);
+  const macroPercent = Number(document.getElementById("fatPercent").value);
+  const result = document.getElementById("result");
+  const details = document.getElementById("details");
+  result.textContent = "";
+  details.textContent = "";
 
-  if (!weightVal || !heightVal || !age || !gender) {
-    alert("Please enter all required fields.");
+  const validUnits = ["kg", "lbs"].includes(weightUnit) && ["cm", "m", "in", "ft"].includes(heightUnit);
+  const validFactors = [1.2, 1.375, 1.55, 1.725, 1.9].includes(activityFactor);
+  const validPercentages = [20, 25, 30, 35].includes(macroPercent);
+  if (weightRaw.trim() === "" || heightRaw.trim() === "" || ageRaw.trim() === "" ||
+      ![weightVal, heightVal, age, activityFactor, macroPercent].every(Number.isFinite) ||
+      !Number.isInteger(age) || age < 10 || age > 120 ||
+      !["male", "female"].includes(gender) || !validUnits || !validFactors || !validPercentages) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter valid measurements, an integer age from 10 to 120, and choose supported units, sex/reference group, activity level and macro percentage.</p>';
     return;
   }
 
-  if (age < 10) {
-    alert("Calculator supports ages 10 and above.");
+  const weightKg = convertWeightToKg(weightVal, weightUnit);
+  const heightCm = convertHeightToCm(heightVal, heightUnit);
+  if (![weightKg, heightCm].every(Number.isFinite) ||
+      weightKg < 2 || weightKg > 500 || heightCm < 100 || heightCm > 250) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Converted weight must be 2–500 kg and height 100–250 cm. Check the selected units.</p>';
     return;
   }
-
-  const weightKg = convertWeightToKg(weightVal, document.getElementById("weightUnit").value);
-  const heightCm = convertHeightToCm(heightVal, document.getElementById("heightUnit").value);
 
   let rmr;
-
-  // Teenagers (10–17)
-  if (age >= 10 && age < 18) {
-    if (gender === "male") {
-      rmr = 17.686 * weightKg + 658.2;
-    } else {
-      rmr = 13.384 * weightKg + 692.6;
-    }
+  if (age < 18) {
+    // Schofield weight-based resting-energy estimate for ages 10–17.
+    rmr = gender === "male" ? 17.686 * weightKg + 658.2 : 13.384 * weightKg + 692.6;
+  } else {
+    // Mifflin–St Jeor adult resting-energy estimate.
+    rmr = 10 * weightKg + 6.25 * heightCm - 5 * age + (gender === "male" ? 5 : -161);
   }
-  // Adults (18+)
-  else {
-    if (gender === "male") {
-      rmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5;
-    } else {
-      rmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) - 161;
-    }
-  }
-
   const totalCalories = rmr * activityFactor;
+  const macroCalories = totalCalories * (macroPercent / 100);
+  const macroGrams = macroCalories / 9;
+  const gramsPerKg = macroGrams / weightKg;
+  if (![rmr, totalCalories, macroCalories, macroGrams, gramsPerKg].every(Number.isFinite) ||
+      rmr <= 0 || totalCalories <= 0 || macroGrams < 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">A finite macro estimate could not be calculated from these inputs.</p>';
+    return;
+  }
 
-  // Fat calculation (1g fat = 9 kcal)
-  const fatCalories = totalCalories * (fatPercent / 100);
-  const fatGrams = fatCalories / 9;
-  const fatPerKg = fatGrams / weightKg;
-
-  document.getElementById("result").innerHTML =
-    `Recommended Fat Intake: <b>${fatGrams.toFixed(0)} grams/day</b>`;
-
-  document.getElementById("details").innerHTML =
-    `Total Daily Energy: ${totalCalories.toFixed(0)} kcal/day<br>
-     Fat Percentage: ${fatPercent}%<br>
-     Calories from Fat: ${fatCalories.toFixed(0)} kcal/day<br>
-     Fat per kg body weight: ${fatPerKg.toFixed(2)} g/kg/day`;
+  result.innerHTML = `Estimated Fat: <b>${macroGrams.toFixed(0)} grams/day</b>`;
+  details.innerHTML = `Estimated Daily Energy: ${totalCalories.toFixed(0)} kcal/day<br>
+     Fat Percentage: ${macroPercent}%<br>
+     Calories from Fat: ${macroCalories.toFixed(0)} kcal/day<br>
+     Fat per kg body weight: ${gramsPerKg.toFixed(2)} g/kg/day
+     <p class="cf-note">This is a formula-based estimate, not an individualized nutrition prescription. Adolescent energy needs and appropriate macro targets can vary substantially.</p>`;
 }
+updateMacroWeightBounds();
+updateMacroHeightBounds();
 </script>
 
 
