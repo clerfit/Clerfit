@@ -14,6 +14,12 @@ assert.ok(
   'Shared page brand must resolve the logo relative to root vs calculator pages and declare intrinsic dimensions.'
 );
 
+const homepage = fs.readFileSync('index.html', 'utf8');
+assert.match(homepage, /<img\\b[^>]*class=["']cf-real-logo["'][^>]*width=["']1024["'][^>]*height=["']1024["']/i,
+  'Homepage logo must declare its actual intrinsic dimensions.');
+assert.match(homepage, /<img\\b[^>]*class=["']cf-real-footer-logo["'][^>]*width=["']1024["'][^>]*height=["']1024["']/i,
+  'Footer logo must declare its actual intrinsic dimensions.');
+
 function logoReference(isCalculatorPage) {
   return (isCalculatorPage ? '../' : '') + 'logo.jpeg';
 }
