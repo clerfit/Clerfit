@@ -396,6 +396,11 @@ async function targetedCalculatorBoundaries(browser) {
   await exercise({file:'rmr.html',fn:'calculateRMR',fields:{weight:70,weightUnit:'kg',height:175,heightUnit:'cm',age:17,gender:'male'},resultId:'result',caseName:'under-18 age rejected for adult RMR equation',expect:/age from 18 to 120/i});
   await exercise({file:'rmr.html',fn:'calculateRMR',fields:{weight:70,weightUnit:'kg',height:175,heightUnit:'bogus',age:30,gender:'male'},resultId:'result',caseName:'unsupported RMR height unit rejected',expect:/Choose supported weight and height units/i});
   await exercise({file:'rmr.html',fn:'calculateRMR',fields:{weight:1000000,weightUnit:'kg',height:175,heightUnit:'cm',age:30,gender:'male'},resultId:'result',caseName:'extreme RMR weight rejected',expect:/Converted weight must be 2–500 kg/i});
+  await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:70,weightUnit:'kg',level:1.2},resultId:'result',caseName:'valid protein estimate calculates',expect:/Estimated Protein Intake:\s*<b>84\.00 g\/day/i});
+  await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:'',weightUnit:'kg',level:1.2},resultId:'result',caseName:'blank protein weight rejected',expect:/supported weight/i});
+  await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:1000000,weightUnit:'kg',level:1.2},resultId:'result',caseName:'extreme protein weight rejected',expect:/between 2 and 500 kg/i});
+  await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:70,weightUnit:'stone',level:1.2},resultId:'result',caseName:'unsupported protein weight unit rejected',expect:/supported weight/i});
+  await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:70,weightUnit:'kg',level:99},resultId:'result',caseName:'unsupported protein activity factor rejected',expect:/listed activity\/training level/i});
   await exercise({file:'bmr.html',fn:'calculateBMR',fields:{weight:70,weightUnit:'kg',height:175,heightUnit:'bogus',age:30,gender:'male'},resultId:'result',caseName:'unsupported BMR height unit rejected',expect:/Choose supported weight and height units/i});
   await exercise({file:'bodyfat.html',fn:'calculateBodyFat',fields:{'bf-gender':'male','bf-height':180,'bf-height-unit':'cm','bf-waist':85,'bf-waist-unit':'bogus','bf-neck':38,'bf-neck-unit':'cm','bf-hip':100,'bf-hip-unit':'cm'},resultId:'bf-result',caseName:'unsupported body-fat waist unit rejected',expect:/measurements.*plausible/i});
   await exercise({file:'idealweight.html',fn:'calculateIdealWeight',fields:{'iw-gender':'male','iw-height':180,'iw-height-unit':'bogus','iw-weight-unit':'kg'},resultId:'iw-result',caseName:'unsupported ideal-weight height unit rejected',expect:/Choose supported height and output-weight units/i});
@@ -503,6 +508,23 @@ async function targetedUnits(browser) {
     await p.locator('button[onclick*="calculatePI"]').click(); await sleep(100);
     if (!/13\.72/.test(await p.locator('#result').innerText())) throw new Error('Ponderal Index changed after equivalent unit conversion.');
     report.push('Ponderal Index: known-answer formula and kg/cm-to-lb/in equivalence');
+    await p.close();
+  }
+  {
+    const p=await browser.newPage({viewport:{width:390,height:844}});
+    await p.goto(new URL('html/protein.html?browserSmoke=protein-unit-bounds',BASE).href,{waitUntil:'load'});
+    await p.locator('#weightUnit').selectOption('lb');
+    if(await p.locator('#weight').getAttribute('min')!=='4.4093'||await p.locator('#weight').getAttribute('max')!=='1102.3113') throw new Error('Protein lb bounds must convert inward to the supported 2–500 kg range.');
+    await p.locator('#weight').fill('154.3235835');
+    await p.locator('#level').selectOption('1.2');
+    await p.evaluate(()=>calculateProtein());
+    if(!/84\.00 g\/day/.test(await p.locator('#result').innerText())) throw new Error('Protein lb conversion did not match 70 kg × 1.2 = 84 g/day.');
+    await p.locator('#weightUnit').selectOption('kg');
+    if(await p.locator('#weight').getAttribute('min')!=='2'||await p.locator('#weight').getAttribute('max')!=='500') throw new Error('Protein kg bounds must be 2–500 kg.');
+    await p.locator('#weight').fill('70');
+    await p.evaluate(()=>calculateProtein());
+    if(!/84\.00 g\/day/.test(await p.locator('#result').innerText())) throw new Error('Protein kg reference case did not match 70 kg × 1.2 = 84 g/day.');
+    report.push('Protein Intake: valid result, unit-specific inward bounds, and kg/lb equivalence');
     await p.close();
   }
   return report;
