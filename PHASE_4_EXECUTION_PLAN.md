@@ -2,7 +2,7 @@
 
 Status: IN PROGRESS — recent regression batches merged and PR-head CI passed; full Phase 4 exit criteria and Phase 3 external acceptance remain OPEN.
 
-Baseline: `main` includes Phase 4 regression merges through `2e810ff64db327510f2af7c53d3fe023d247f74e` (2026-10-18), including the unit-conversion and body-fat logarithmic-domain test batches. Re-run all relevant checks against the exact candidate SHA after source/test changes.
+Baseline: `main` includes Phase 4 regression merges through `421de95517531dec0af868d9f76c908daa4f22fe` (2026-10-18), including unit-conversion, body-fat logarithmic-domain, and Mosteller BSA test batches. Re-run all relevant checks against the exact candidate SHA after source/test changes.
 
 ## Why Phase 4 starts before Phase 3 acceptance closes
 
@@ -52,3 +52,10 @@ Reduce formula and input-validation uncertainty across the 118 calculator routes
 - Phase 1/2 verification passed on PR head: https://github.com/clerfit/Clerfit/actions/runs/39105766258
 - Added a female US Navy body-fat known-answer vector and invalid-domain cases for waist/neck ordering and required hip input.
 - These are software regression results, not independent validation of the underlying empirical equation. Phase 4 remains open for route-wide source traceability, semantic-boundary rationale, exact-candidate deployment evidence, and the independently qualified review required for health-related interpretation.
+
+
+## Most recent merged regression batch
+
+PR #30 added a Mosteller body-surface-area reference vector (70 kg, 175 cm → 1.84 m²), unit-equivalence coverage for metric and customary inputs, and invalid zero-weight/unsupported-unit cases. Formula regression and the full Phase 1/2 workflow passed on the exact PR head before squash. Merge commit: `421de95517531dec0af868d9f76c908daa4f22fe`.
+
+PR #31 added `PHASE_4_ROUTE_SOURCE_GAP_REGISTER.csv` to preserve the 41 route-level generic-reference gaps discovered during the audit. PR #32 is now improving the matrix itself; it must pass the full workflow before merge.
