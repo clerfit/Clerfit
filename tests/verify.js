@@ -138,6 +138,21 @@ assert.ok(Number.isNaN(units.convert(Infinity, 'kg', 'lb')), 'non-finite values 
 assert.ok(Math.abs(units.convert(units.convert(70, 'kg', 'lb'), 'lb', 'kg') - 70) < 1e-9, 'mass conversion round-trip');
 checks += 7;
 
+// Additional dimensional, alias, and round-trip coverage for the shared unit engine.
+assert.ok(Math.abs(units.convert(1, 'km', 'm') - 1000) < 1e-10, 'km to m');
+assert.ok(Math.abs(units.convert(1, 'mile', 'km') - 1.609344) < 1e-10, 'mile to km');
+assert.ok(Math.abs(units.convert(1, 'liter', 'ml') - 1000) < 1e-10, 'liter to ml');
+assert.ok(Math.abs(units.convert(1, 'gal', 'l') - 3.785411784) < 1e-9, 'gallon to liter');
+assert.ok(Math.abs(units.convert(32, 'Fahrenheit', 'Celsius')) < 1e-10, 'Fahrenheit to Celsius');
+assert.ok(Math.abs(units.convert(100, 'Celsius', 'Fahrenheit') - 212) < 1e-10, 'Celsius to Fahrenheit');
+assert.ok(Math.abs(units.convert(10, 'km/h', 'm/s') - (10 / 3.6)) < 1e-10, 'speed conversion');
+assert.ok(Math.abs(units.convert(1, 'min_per_km', 'min_per_mile') - 1.609344) < 1e-10, 'pace conversion');
+assert.ok(Math.abs(units.convert(units.convert(12.5, 'ft', 'cm'), 'cm', 'ft') - 12.5) < 1e-10, 'length round-trip');
+assert.ok(Math.abs(units.convert(units.convert(2.75, 'l', 'gal'), 'gal', 'l') - 2.75) < 1e-10, 'volume round-trip');
+assert.ok(Number.isNaN(units.convert(1, 'unknown-unit', 'kg')), 'unknown unit rejected');
+assert.ok(Number.isNaN(units.convert(NaN, 'kg', 'lb')), 'NaN rejected');
+checks += 12;
+
 // Legacy-engine known-answer regressions. These call the actual production functions
 // with a minimal DOM stub, including unit variants used by the older HTML pages.
 const engineElements = new Map();
