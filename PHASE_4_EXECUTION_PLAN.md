@@ -59,3 +59,11 @@ Reduce formula and input-validation uncertainty across the 118 calculator routes
 PR #30 added a Mosteller body-surface-area reference vector (70 kg, 175 cm → 1.84 m²), unit-equivalence coverage for metric and customary inputs, and invalid zero-weight/unsupported-unit cases. Formula regression and the full Phase 1/2 workflow passed on the exact PR head before squash. Merge commit: `421de95517531dec0af868d9f76c908daa4f22fe`.
 
 PR #31 added `PHASE_4_ROUTE_SOURCE_GAP_REGISTER.csv` to preserve the 41 route-level generic-reference gaps discovered during the audit. PR #32 is now improving the matrix itself; it must pass the full workflow before merge.
+
+
+## Route-level reference cleanup (2026-10-18)
+
+- The audit found 41 route rows with a generic reference placeholder. PR #31 adds `PHASE_4_ROUTE_SOURCE_GAP_REGISTER.csv` as a snapshot of those gaps and their closure actions.
+- PR #32 replaces those 41 generic matrix references with route-specific mathematical-basis notes, relevant existing source-family references, or explicit unresolved-source statements. It attaches official/primary source links for Heath–Carter somatotype (DOI 10.1002/ajpa.1330270108), FAO/WHO/UNU PAL guidance, WHO UV-index guidance, CDC BMI context, and NICE central-adiposity guidance.
+- A reference being attached is not the same as implementation parity. Risk thresholds and specialized formulas still require route-by-route comparison, appropriate boundary vectors, and external qualified review where relevant.
+- PR #30 added Mosteller BSA known-answer, unit-equivalence, zero-weight and unsupported-unit regressions; formula and Phase 1/2 workflows passed on its PR head before squash.
