@@ -148,7 +148,7 @@ rfm.html,height,Height,30,300,any,bounds present; semantic/range boundary review
 rfm.html,waist,Waist,0.1,300,any,bounds present; semantic/range boundary review required
 rmr.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
 rmr.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
-rmr.html,age,Age,1,120,1,bounds present; semantic/range boundary review required
+rmr.html,age,Age,18,120,1,adult equation: age 18–120 integer; runtime validation required; other semantic boundaries still under review
 running-pace.html,runDistance,DistanceiTotal distance you ran. Can be entered in kilometers or miles.,0,100000,any,bounds present; semantic/range boundary review required
 running-pace.html,hours,,0,1000,any,bounds present; semantic/range boundary review required
 running-pace.html,minutes,,0,1000,any,bounds present; semantic/range boundary review required
