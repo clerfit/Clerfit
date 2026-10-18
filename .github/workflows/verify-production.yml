@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - '404.html'
       - 'index.html'
       - 'contact.html'
       - 'html/**'
