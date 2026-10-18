@@ -112,7 +112,7 @@
 
     <div class="col">
       <label for="age">Age</label>
-      <input type="number" id="age" placeholder="Enter age" min="1" max="120" step="1" aria-label="Enter age">
+      <input type="number" id="age" placeholder="Enter age" min="18" max="120" step="1" aria-label="Enter age">
       <label for="gender">Gender</label>
       <select id="gender" aria-label="Sex / reference group">
         <option value="" selected disabled>Select</option>
@@ -171,37 +171,48 @@ function convertHeightToCm(value, unit) {
 
 // ===== RMR Calculation (Mifflin–St Jeor Equation) =====
 function calculateRMR() {
-  const weightVal = parseFloat(document.getElementById("weight").value);
+  const weightVal = Number(document.getElementById("weight").value);
   const weightUnit = document.getElementById("weightUnit").value;
-  const heightVal = parseFloat(document.getElementById("height").value);
+  const heightVal = Number(document.getElementById("height").value);
   const heightUnit = document.getElementById("heightUnit").value;
-  const age = parseInt(document.getElementById("age").value);
+  const age = Number(document.getElementById("age").value);
   const gender = document.getElementById("gender").value;
+  const result = document.getElementById("result");
+  const formula = document.getElementById("formula");
+  result.textContent = "";
+  formula.textContent = "";
 
-  if (!weightVal || !heightVal || !age || !gender) {
-    alert("Please enter weight, height, age, and select gender.");
+  if (![weightVal, heightVal, age].every(Number.isFinite) ||
+      weightVal <= 0 || !Number.isInteger(age) || age < 18 || age > 120 ||
+      !["male", "female"].includes(gender)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter positive measurements, an integer age from 18 to 120, and a supported sex/reference group.</p>';
+    return;
+  }
+  if (!["kg", "lbs"].includes(weightUnit) || !["cm", "m", "in", "ft"].includes(heightUnit)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose supported weight and height units.</p>';
     return;
   }
 
   const weightKg = convertWeightToKg(weightVal, weightUnit);
   const heightCm = convertHeightToCm(heightVal, heightUnit);
-
-  let rmr;
-
-  // Accurate Mifflin–St Jeor formula
-  if (gender === "male") {
-    rmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5;
-  } else {
-    rmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) - 161;
+  if (![weightKg, heightCm].every(Number.isFinite) ||
+      weightKg < 2 || weightKg > 500 || heightCm < 100 || heightCm > 250) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check the measurements and units. Converted weight must be 2–500 kg and height 100–250 cm.</p>';
+    return;
   }
 
-  document.getElementById("result").innerHTML =
-    `Your Resting Metabolic Rate (RMR) is <b>${rmr.toFixed(0)} calories/day</b>.`;
+  const rmr = 10 * weightKg + 6.25 * heightCm - 5 * age +
+    (gender === "male" ? 5 : -161);
+  if (!Number.isFinite(rmr) || rmr <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">A finite resting-energy estimate could not be calculated from these inputs.</p>';
+    return;
+  }
 
-  document.getElementById("formula").innerHTML =
-    `<b>Formula Used (Mifflin–St Jeor):</b><br>
+  result.innerHTML = `Your Resting Metabolic Rate (RMR) is <b>${rmr.toFixed(0)} calories/day</b>.`;
+  formula.innerHTML = `<b>Formula Used (Mifflin–St Jeor):</b><br>
      Male: (10 × weight in kg) + (6.25 × height in cm) − (5 × age) + 5<br>
-     Female: (10 × weight in kg) + (6.25 × height in cm) − (5 × age) − 161`;
+     Female: (10 × weight in kg) + (6.25 × height in cm) − (5 × age) − 161
+     <p class="cf-note">Mifflin–St Jeor is an adult resting-energy estimate, not a direct metabolic measurement.</p>`;
 }
 </script>
 

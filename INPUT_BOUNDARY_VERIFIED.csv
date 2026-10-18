@@ -16,7 +16,7 @@ bmi-compare.html,heightA,Person A — Height,30,300,0.1
 bmi-compare.html,weightA,Person A — Weight,1,500,0.1
 bmi-compare.html,heightB,Person B — Height,30,300,0.1
 bmi-compare.html,weightB,Person B — Weight,1,500,0.1
-bmr.html,age,Age,1,120,1
+bmr.html,age,Age,18,120,1
 bmr.html,height,Height,30,300,any
 bmr.html,weight,Weight,0.1,500,any
 bodyfat.html,bf-height,Height,100,250,any
@@ -29,7 +29,7 @@ cadence.html,cadenceSteps,Number of Steps,0,200000,1
 cadence.html,cadenceTime,Time,0,10080,any
 calories-kg.html,weight,Weight,0.1,500,any
 calories-kg.html,height,Height,30,300,any
-calories-kg.html,age,Age,1,120,1
+calories-kg.html,age,Age,18,120,1
 carbs.html,weight,Weight,0.1,500,any
 carbs.html,height,Height,30,300,any
 carbs.html,age,Age (10+ years),1,120,1
@@ -53,10 +53,10 @@ cold-exposure.html,duration,Exposure Time,0,10080,any
 cooper-test.html,cooperDistance,Distance Covered in 12 Minutes,0,10000,any
 daily-energy.html,weight,Weight,0.1,500,any
 daily-energy.html,height,Height,30,300,any
-daily-energy.html,age,Age,1,120,1
+daily-energy.html,age,Age,18,120,1
 deficit.html,weight,Weight,0.1,500,any
 deficit.html,height,Height,30,300,any
-deficit.html,age,Age,1,120,1
+deficit.html,age,Age,18,120,1
 difference.html,diffA,First value,-1000000,1000000,0.01
 difference.html,diffB,Second value,-1000000,1000000,0.01
 distance-convert.html,distanceValue,Enter distance,0,1000000000000,any
@@ -69,7 +69,7 @@ endurance-time.html,enduranceDistance,Distance,0,100000,any
 endurance-time.html,endurancePace,Pace,0,1000,any
 energy-balance.html,weight,Weight,0.1,500,any
 energy-balance.html,height,Height,30,300,any
-energy-balance.html,age,Age,1,120,1
+energy-balance.html,age,Age,18,120,1
 energy-balance.html,intake,Daily Calorie Intake,0,20000,1
 face-length.html,totalLength,Total Face Length,0.1,300,0.01
 face-length.html,lowerLength,Lower Face Length,0.1,300,0.01
@@ -115,7 +115,7 @@ macro-split.html,height,Height,30,300,any
 macro-split.html,age,Age,18,120,1
 maintenance.html,weight,Weight,0.1,500,any
 maintenance.html,height,Height,30,300,any
-maintenance.html,age,Age,1,120,1
+maintenance.html,age,Age,18,120,1
 meal-split.html,totalCalories,Total Daily Calories,0,50000,any
 metabolic-age.html,weight,Weight,0.1,500,any
 metabolic-age.html,height,Height,30,300,any
@@ -148,7 +148,7 @@ rfm.html,height,Height,30,300,any
 rfm.html,waist,Waist,0.1,300,any
 rmr.html,weight,Weight,0.1,500,any
 rmr.html,height,Height,30,300,any
-rmr.html,age,Age,1,120,1
+rmr.html,age,Age,18,120,1
 running-pace.html,runDistance,Distance i Total distance you ran. Can be entered in kilometers or miles.,0,100000,any
 running-pace.html,hours,Hours,0,1000,any
 running-pace.html,minutes,Minutes,0,1000,any
@@ -194,7 +194,7 @@ sunlight.html,uvIndex,UV Index,0,30,any
 sunlight.html,duration,Exposure Time,0,10080,any
 surplus.html,weight,Weight,0.1,500,any
 surplus.html,height,Height,30,300,any
-surplus.html,age,Age,1,120,1
+surplus.html,age,Age,18,120,1
 tdee.html,weight,Weight,20,500,any
 tdee.html,height,Height,100,250,any
 tdee.html,age,Age (years),18,120,1

@@ -111,7 +111,7 @@
 
     <div class="col">
       <label for="age">Age</label>
-      <input type="number" id="age" placeholder="Enter age" min="1" max="120" step="1" aria-label="Enter age">
+      <input type="number" id="age" placeholder="Enter age" min="18" max="120" step="1" aria-label="Enter age">
 
       <label for="gender">Gender</label>
       <select id="gender" aria-label="Sex / reference group">
@@ -179,41 +179,50 @@ function convertHeightToCm(value, unit) {
 
 // ===== Daily Energy Needs Calculation =====
 function calculateDailyEnergy() {
-  const weightVal = parseFloat(document.getElementById("weight").value);
+  const weightVal = Number(document.getElementById("weight").value);
   const weightUnit = document.getElementById("weightUnit").value;
-  const heightVal = parseFloat(document.getElementById("height").value);
+  const heightVal = Number(document.getElementById("height").value);
   const heightUnit = document.getElementById("heightUnit").value;
-  const age = parseInt(document.getElementById("age").value);
+  const age = Number(document.getElementById("age").value);
   const gender = document.getElementById("gender").value;
-  const activityFactor = parseFloat(document.getElementById("activity").value);
+  const activityFactor = Number(document.getElementById("activity").value);
+  const result = document.getElementById("result");
+  const details = document.getElementById("details");
+  result.textContent = "";
+  details.textContent = "";
 
-  if (!weightVal || !heightVal || !age || !gender) {
-    alert("Please enter all required fields.");
+  const validUnits = ["kg", "lbs"].includes(weightUnit) &&
+    ["cm", "m", "in", "ft"].includes(heightUnit);
+  if (![weightVal, heightVal, age, activityFactor].every(Number.isFinite) ||
+      weightVal <= 0 || !Number.isInteger(age) || age < 18 || age > 120 ||
+      !["male", "female"].includes(gender) ||
+      ![1.2, 1.375, 1.55, 1.725, 1.9].includes(activityFactor) || !validUnits) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter valid measurements, age 18–120, a supported sex/reference group, activity level, and units.</p>';
     return;
   }
 
   const weightKg = convertWeightToKg(weightVal, weightUnit);
   const heightCm = convertHeightToCm(heightVal, heightUnit);
-
-  let rmr;
-
-  // Mifflin–St Jeor Equation
-  if (gender === "male") {
-    rmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5;
-  } else {
-    rmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) - 161;
+  if (!Number.isFinite(weightKg) || !Number.isFinite(heightCm) ||
+      weightKg < 2 || weightKg > 500 || heightCm < 100 || heightCm > 250) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Check units and measurements. Converted weight must be 2–500 kg and height 100–250 cm.</p>';
+    return;
   }
 
+  const rmr = 10 * weightKg + 6.25 * heightCm - 5 * age +
+    (gender === "male" ? 5 : -161);
   const totalEnergy = rmr * activityFactor;
   const activityCalories = totalEnergy - rmr;
+  if (![rmr, totalEnergy, activityCalories].every(Number.isFinite) || rmr <= 0 || totalEnergy <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">A finite daily energy estimate could not be calculated from these inputs.</p>';
+    return;
+  }
 
-  document.getElementById("result").innerHTML =
-    `Your Daily Energy Need: <b>${totalEnergy.toFixed(0)} kcal/day</b>`;
-
-  document.getElementById("details").innerHTML =
-    `Resting Metabolic Rate (RMR): ${rmr.toFixed(0)} kcal/day<br>
+  result.innerHTML = `Your Daily Energy Need: <b>${totalEnergy.toFixed(0)} kcal/day</b>`;
+  details.innerHTML = `Resting Metabolic Rate (RMR): ${rmr.toFixed(0)} kcal/day<br>
      Calories from Activity: ${activityCalories.toFixed(0)} kcal/day<br>
-     Total Daily Energy Expenditure (TDEE): ${totalEnergy.toFixed(0)} kcal/day`;
+     Total Daily Energy Expenditure (TDEE): ${totalEnergy.toFixed(0)} kcal/day
+     <p class="cf-note">Mifflin–St Jeor is an adult resting-energy estimate; activity factors are assumptions, not measurements.</p>`;
 }
 </script>
 

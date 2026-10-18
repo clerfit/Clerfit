@@ -123,9 +123,9 @@ function calculateBMR() {
   result.textContent = "";
   formula.textContent = "";
   if (![weight, height, age].every(Number.isFinite) || weight <= 0 || height <= 0 ||
-      !Number.isInteger(age) || age < 1 || age > 120 ||
+      !Number.isInteger(age) || age < 18 || age > 120 ||
       !["male", "female"].includes(gender)) {
-    result.textContent = "Enter valid positive weight and height values, an integer age from 1 to 120, and a supported sex/reference group.";
+    result.textContent = "Enter valid positive weight and height values, an integer age from 18 to 120, and a supported sex/reference group.";
     return;
   }
   const weightFactors = { kg: 1, lbs: 0.45359237 };
