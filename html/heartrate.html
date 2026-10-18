@@ -75,20 +75,31 @@ table th {
 </style>
 <script>
 function calculateHeartRate() {
-  const age = parseInt(document.getElementById("age").value);
-  let rhr = parseInt(document.getElementById("rhr").value);
-  if (!rhr || rhr <= 0) rhr = 70; // default if empty
+  const ageRaw = document.getElementById("age").value;
+  const rhrRaw = document.getElementById("rhr").value;
+  const age = Number(ageRaw);
+  const rhr = Number(rhrRaw);
+  const activityFactor = Number(document.getElementById("activity").value);
+  const result = document.getElementById("result");
+  const formula = document.getElementById("formula");
+  const indicator = document.getElementById("indicator");
+  const indicatorLabel = document.getElementById("indicatorLabel");
+  result.textContent = "";
+  formula.textContent = "";
+  indicator.style.left = "0%";
+  indicatorLabel.textContent = "";
 
-  const activityFactor = parseFloat(document.getElementById("activity").value);
-
-  if (!Number.isFinite(age) || age < 18 || age > 120) {
-    document.getElementById("result").textContent = "This adult age-prediction equation is intended for ages 18 and older. For younger athletes, use youth-specific guidance from a qualified professional.";
-    document.getElementById("formula").textContent = "No adult maximum-heart-rate estimate is calculated for ages under 18.";
+  if (ageRaw.trim() === "" || !Number.isInteger(age) || age < 18 || age > 120) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter an integer adult age from 18 to 120.</p>';
+    formula.textContent = "The Tanaka maximum-heart-rate equation is an adult estimate; it is not intended for children or younger teens.";
     return;
   }
-  if (!Number.isFinite(activityFactor) || activityFactor < 0 || activityFactor > 1) {
-    document.getElementById("result").textContent = "Choose a valid target-intensity factor between 0 and 1.";
-    document.getElementById("formula").textContent = "";
+  if (rhrRaw.trim() === "" || !Number.isInteger(rhr) || rhr < 20 || rhr > 120) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a resting heart rate from 20 to 120 bpm as a whole number. If your resting rate is unusually low or high, seek qualified medical guidance.</p>';
+    return;
+  }
+  if (![0.5, 0.6, 0.7, 0.8, 0.9].includes(activityFactor)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose one of the listed target-intensity levels.</p>';
     return;
   }
 
@@ -96,24 +107,23 @@ function calculateHeartRate() {
   const maxHR = 208 - 0.7 * age;
   const targetHR = Math.round(rhr + activityFactor * (maxHR - rhr));
   const percentMHR = Math.round((targetHR / maxHR) * 100);
+  if (![maxHR, targetHR, percentMHR].every(Number.isFinite) || maxHR <= 0 ||
+      targetHR < 0 || targetHR > maxHR || percentMHR < 0 || percentMHR > 100) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">A valid target-heart-rate estimate could not be calculated from these inputs.</p>';
+    return;
+  }
 
-  document.getElementById("result").innerHTML =
-    `<strong>Target Heart Rate:</strong> ${targetHR} bpm (${percentMHR}% of Max HR)`;
-
-  // Gradient bar
-  const bar = document.getElementById("bar");
-  const indicator = document.getElementById("indicator");
+  result.innerHTML = `<strong>Estimated Target Heart Rate:</strong> ${targetHR} bpm (${percentMHR}% of estimated Max HR)`;
   const leftPercent = (targetHR / maxHR) * 100;
   indicator.style.left = leftPercent + "%";
-  document.getElementById("indicatorLabel").innerText = targetHR + " bpm";
-
-  // Formula display
-  document.getElementById("formula").innerHTML =
+  indicatorLabel.innerText = targetHR + " bpm";
+  formula.innerHTML =
     `Formula: Target HR = RHR + Activity Factor × (MHR − RHR)<br>
      MHR estimate = 208 − (0.7 × Age) = ${maxHR.toFixed(1)} bpm (<a href="https://pubmed.ncbi.nlm.nih.gov/11153730/" target="_blank" rel="noopener noreferrer">Tanaka et al., 2001</a>)<br>
      RHR = ${rhr}<br>
      Activity Factor = ${activityFactor}<br>
-     Target HR = ${rhr} + ${activityFactor} × (${maxHR} − ${rhr}) = ${targetHR} bpm`;
+     Target HR = ${rhr} + ${activityFactor} × (${maxHR} − ${rhr}) = ${targetHR} bpm
+     <p class="cf-note">Maximum and target heart rates are population-based estimates with substantial individual variation, not a medical clearance or a guarantee of safe exercise intensity.</p>`;
 }
 </script>
 
@@ -182,10 +192,10 @@ function calculateHeartRate() {
     <h2>Heart Rate Calculator</h2>
 
     <label for="age">Age (years)</label>
-    <input id="age" type="number" min="1" max="120" step="1">
+    <input id="age" type="number" min="18" max="120" step="1">
 
     <label for="rhr">Resting Heart Rate (optional, default 70 bpm)</label>
-    <input id="rhr" type="number" min="1" max="120" step="1">
+    <input id="rhr" type="number" min="20" max="120" step="1">
 
     <label for="activity">Activity Level</label>
     <select id="activity" aria-label="Activity level">

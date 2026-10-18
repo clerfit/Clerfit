@@ -96,8 +96,8 @@ html/goal-timeline.html,intakeTimeline,,Your Daily Calorie Intake,0,50000,any,no
 html/healthrisk.html,age,,Age (years),1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/healthrisk.html,weight,,Weight (kg),0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/healthrisk.html,height,,Height (cm),30,300,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/heartrate.html,age,,Age (years),1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/heartrate.html,rhr,,"Resting Heart Rate (optional, default 70 bpm)",1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/heartrate.html,age,,Age (years),18,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/heartrate.html,rhr,,"Resting Heart Rate (optional, default 70 bpm)",20,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/heat-exposure.html,tempC,,Air Temperature (°C),-100,70,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/heat-exposure.html,humidity,,Relative Humidity (%),0,100,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/heat-exposure.html,duration,,Exposure Time,0,10080,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE

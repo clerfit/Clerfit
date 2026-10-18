@@ -96,8 +96,8 @@ goal-timeline.html,intakeTimeline,Your Daily Calorie Intake,0,50000,any,bounds p
 healthrisk.html,age,Age (years),1,120,1,bounds present; semantic/range boundary review required
 healthrisk.html,weight,Weight (kg),0.1,500,any,bounds present; semantic/range boundary review required
 healthrisk.html,height,Height (cm),30,300,any,bounds present; semantic/range boundary review required
-heartrate.html,age,Age (years),1,120,1,bounds present; semantic/range boundary review required
-heartrate.html,rhr,"Resting Heart Rate (optional, default 70 bpm)",1,120,1,bounds present; semantic/range boundary review required
+heartrate.html,age,Age (years),18,120,1,age is integer 18–120; resting heart rate is integer 20–120 bpm; intensity must be a listed option; additional semantic review remains
+heartrate.html,rhr,"Resting Heart Rate (optional, default 70 bpm)",20,120,1,age is integer 18–120; resting heart rate is integer 20–120 bpm; intensity must be a listed option; additional semantic review remains
 heat-exposure.html,tempC,Air Temperature (°C),-100,70,any,bounds present; semantic/range boundary review required
 heat-exposure.html,humidity,Relative Humidity (%),0,100,any,bounds present; semantic/range boundary review required
 heat-exposure.html,duration,Exposure Time,0,10080,any,bounds present; semantic/range boundary review required
