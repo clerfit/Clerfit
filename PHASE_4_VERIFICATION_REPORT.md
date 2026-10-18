@@ -5,7 +5,8 @@ Updated: 2026-10-18
 ## Candidate and merged code
 
 - Tested PR head: `7c5d52aa84cedf6c85cb525b073c3779e4c51fb2`
-- Merge commit: `b4634e3d082859799a635aa53516b138b8475fe6`
+- First fix-batch merge commit: `b4634e3d082859799a635aa53516b138b8475fe6`
+- BMI-for-age boundary-test merge commit: `ea5b9f4ccfe394faee2b14e110d9489ff2d78792`
 - Change set: PR #24 — https://github.com/clerfit/Clerfit/pull/24
 - This is an engineering regression report, not a claim of independent scientific or clinical validation.
 
@@ -32,6 +33,10 @@ The current Phase 4 candidate's `CALCULATOR_VERIFICATION_MATRIX.csv` and `SCIENT
 
 This confirms inventory alignment and the existence of a vector per route. It does **not** prove every vector was independently checked against an authoritative primary source, nor that all domain-specific edge cases are covered.
 
+## Additional risk-prioritized boundary coverage
+
+A second merged Phase 4 batch adds 15 assertions for the CDC BMI-for-age module: exact supported endpoint cases for weight, height and age; just-outside endpoint rejection; zero/negative and non-finite weight/height; invalid age/month values; and unsupported sex selection. The test-only PR head `2ece8e106f0906d62d98f2ccf86bea39f4c32dc8` passed both the formula regression workflow [run 39105223029](https://github.com/clerfit/Clerfit/actions/runs/39105223029) and Phase 1/2 verification [run 39105222954](https://github.com/clerfit/Clerfit/actions/runs/39105222954). The batch was merged as `ea5b9f4ccfe394faee2b14e110d9489ff2d78792`.
+
 ## Fixes included in the merged batch
 
 1. Average calculator rejects malformed/non-finite list entries instead of silently omitting them.
@@ -42,7 +47,7 @@ Each change has regression coverage in `tests/verify.js`.
 
 ## Remaining verification and acceptance gates
 
-- Phase 4 remains **IN PROGRESS**: risk-prioritized, formula-specific semantic boundary vectors and authoritative source traceability still need to be expanded beyond the existing per-route known-answer vectors.
+- Phase 4 remains **IN PROGRESS**: risk-prioritized, formula-specific semantic boundary vectors and authoritative source traceability still need to be expanded beyond the existing per-route known-answer vectors. The new BMI-for-age assertions improve one high-risk route's software input-domain coverage, but do not certify the CDC reference table or clinical interpretation.
 - Post-merge workflow/deployment on the merge SHA has not yet been independently confirmed in this report; the passing runs above are on the exact PR head (same source tree before squash).
 - Live deployment/content verification is not established by these CI results alone.
 - Phase 3 issue #6 remains OPEN for the exact required reference ZIP, manual keyboard/screen-reader/zoom/contrast and physical-device checks, consented real contact submission and inbox receipt, exact PageSpeed 404 URL reproduction, production security-header/hosting remediation, and independent qualified formula review.
