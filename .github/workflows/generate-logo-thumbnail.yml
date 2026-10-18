@@ -1,0 +1,35 @@
+name: Generate small logo derivative for visual review
+
+on:
+  push:
+    branches: [work/generate-logo-thumbnail]
+    paths:
+      - 'scripts/optimize-logo-assets.py'
+      - '.github/workflows/generate-logo-thumbnail.yml'
+      - 'logo.jpeg'
+
+permissions:
+  contents: read
+
+jobs:
+  thumbnail:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate exact-source logo derivative
+        run: |
+          python -m pip install --disable-pip-version-check Pillow
+          python scripts/optimize-logo-assets.py
+          cp logo.jpeg /tmp/logo-source.jpeg
+          mkdir -p artifacts
+          cp logo-small.webp artifacts/
+          cp logo.jpeg artifacts/logo-source.jpeg
+      - name: Upload preview assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: clerfit-logo-derivative-preview
+          path: artifacts/
+          retention-days: 7
