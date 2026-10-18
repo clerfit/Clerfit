@@ -188,7 +188,8 @@ function calculateEnergyBalance() {
   const age = Number(document.getElementById("age").value);
   const gender = document.getElementById("gender").value;
   const activityFactor = Number(document.getElementById("activity").value);
-  const intake = Number(document.getElementById("intake").value);
+  const intakeRaw = document.getElementById("intake").value;
+  const intake = Number(intakeRaw);
   const result = document.getElementById("result");
   const details = document.getElementById("details");
   result.textContent = "";
@@ -198,7 +199,7 @@ function calculateEnergyBalance() {
     ["cm", "m", "in", "ft"].includes(heightUnit);
   if (![weightVal, heightVal, age, activityFactor, intake].every(Number.isFinite) ||
       weightVal <= 0 || !Number.isInteger(age) || age < 18 || age > 120 ||
-      intake < 0 || intake > 20000 ||
+      intakeRaw.trim() === "" || intake < 0 || intake > 20000 ||
       !["male", "female"].includes(gender) ||
       ![1.2, 1.375, 1.55, 1.725, 1.9].includes(activityFactor) || !validUnits) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">Enter valid measurements, age 18–120, daily intake from 0 to 20,000 kcal, a supported sex/reference group, activity level, and units.</p>';
