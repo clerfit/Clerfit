@@ -29,3 +29,12 @@ Date: 2026-10-18
 ## Remaining limits
 
 These are source-code and desk-review findings, not a claim of external clinical certification. A browser process was attempted in this environment but did not return before the command timeout. No live site was contacted for real form delivery or deployed response-header inspection in this pass.
+
+
+## TDEE legacy calculator hardening — 2026-10-18
+
+- Reproduced an input-validation defect in `html/tdee.html`: negative/implausible measurements, fractional ages, unsupported units/activity values and non-finite calculations were not explicitly rejected; an invalid recalculation could leave a stale result visible.
+- Added adult-equation bounds (20–500 kg, 100–250 cm, integer age 18–120), unit-aware native min/max constraints for kg/lb and cm/m/in/ft, supported-option checks, finite/positive-result guards, and accessible inline validation that clears stale results.
+- Added known-answer, unit-equivalence, invalid-input and unit-bound tests in `tests/verify.js`. Synchronized both structural input-boundary CSVs with the updated markup.
+- Exact candidate `2dcf1e521b336e0e9b16bab34d97b4d3cb0fee74`: Phase 1/2 regression + 118-route interaction/semantic-boundary smoke + all-page axe scan PASS ([run 39112560427](https://github.com/clerfit/Clerfit/actions/runs/39112560427)); live calculator browser smoke PASS ([run 39112560499](https://github.com/clerfit/Clerfit/actions/runs/39112560499)); live performance/header audit PASS ([run 39112560504](https://github.com/clerfit/Clerfit/actions/runs/39112560504)); Pages deployment PASS ([run 39112560012](https://github.com/clerfit/Clerfit/actions/runs/39112560012)). Production verifier was updated to assert the new TDEE constraints and passed on the following verification revision.
+- This is a code-level boundary and regression correction, not independent scientific certification of the Mifflin–St Jeor equation or activity multipliers.
