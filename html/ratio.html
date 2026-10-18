@@ -249,26 +249,40 @@
       return;
     }
 
-    // Decimal-to-Integer Scaling (The Accuracy Fix)
+    // Scale decimals only while the integer representation remains safe.
+    // Never round a tiny non-zero value to zero and report a false simplified ratio.
     let tempA = a;
     let tempB = b;
+    let canSimplify = true;
     while (!Number.isInteger(tempA) || !Number.isInteger(tempB)) {
-      tempA = parseFloat((tempA * 10).toFixed(10));
-      tempB = parseFloat((tempB * 10).toFixed(10));
-      // Safety break to prevent infinite loops on irrational-like floats
-      if (tempA > 1e12 || tempB > 1e12) break; 
+      const nextA = tempA * 10;
+      const nextB = tempB * 10;
+      if (!Number.isFinite(nextA) || !Number.isFinite(nextB) ||
+          Math.abs(nextA) > Number.MAX_SAFE_INTEGER || Math.abs(nextB) > Number.MAX_SAFE_INTEGER) {
+        canSimplify = false;
+        break;
+      }
+      tempA = nextA;
+      tempB = nextB;
     }
 
-    const commonDivisor = gcd(Math.round(tempA), Math.round(tempB));
-    const simplifiedA = Math.round(tempA) / commonDivisor;
-    const simplifiedB = Math.round(tempB) / commonDivisor;
+    let simplifiedRatio;
+    if (canSimplify) {
+      const integerA = Math.round(tempA);
+      const integerB = Math.round(tempB);
+      const commonDivisor = gcd(integerA, integerB);
+      if (commonDivisor > 0) simplifiedRatio = (integerA / commonDivisor) + ' : ' + (integerB / commonDivisor);
+      else canSimplify = false;
+    }
+    if (!canSimplify) simplifiedRatio = 'Not safely reducible at this precision';
 
-    const decimalRatio = parseFloat((a / b).toFixed(4));
-    const percentage = parseFloat(((a / b) * 100).toFixed(2));
+    // Significant-digit formatting avoids turning valid small ratios into a misleading zero.
+    const decimalRatio = Number((a / b).toPrecision(8));
+    const percentage = Number(((a / b) * 100).toPrecision(8));
 
     out.innerHTML = `
       <b>Original Ratio:</b> ${a} : ${b}<br><br>
-      <b>Simplified Ratio:</b> ${simplifiedA} : ${simplifiedB}<br><br>
+      <b>Simplified Ratio:</b> ${simplifiedRatio}<br><br>
       <b>Decimal Form:</b> ${decimalRatio}<br><br>
       <b>Percentage Form:</b> ${percentage}%
     `;
