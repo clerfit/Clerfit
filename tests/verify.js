@@ -430,12 +430,13 @@ checks++;
 Object.entries({ weight: 70, weightUnit: 'kg', level: 1.6 }).forEach(([id, value]) => setEngine(id, value));
 resetEngineOutputs('result');
 engineContext.calculateProtein();
-assert.match(engineOutput('result'), /112\.0 g\/day/);
+assert.match(engineOutput('result'), /112\.00 g\/day/);
 checks++;
-setEngine('weight', 70); setEngine('weightUnit', 'kg');
-resetEngineOutputs('result');
+setEngine('weight', 70); setEngine('weightUnit', 'kg'); setEngine('activity', 1.0);
+resetEngineOutputs('result', 'formula');
 engineContext.calculateWater();
-assert.match(engineOutput('result'), /2450 ml\/day/);
+assert.match(engineOutput('result'), /2\.45 L/);
+assert.match(engineOutput('formula'), /2450 ml/);
 checks++;
 
 // Known-answer: Navy-derived unit aliases previously failed because some pages use "inch".

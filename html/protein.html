@@ -90,10 +90,10 @@
     <label for="weight">Weight</label>
     <div class="row">
       <div class="col">
-        <input id="weight" type="number" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+        <input id="weight" type="number" placeholder="Enter weight" min="2" max="500" step="any" aria-label="Enter weight">
       </div>
       <div class="col">
-        <select id="weightUnit" aria-label="Weight unit">
+        <select id="weightUnit" aria-label="Weight unit" onchange="updateProteinWeightBounds()">
           <option value="kg" selected>kg</option>
           <option value="lb">lb</option>
         </select>
@@ -158,18 +158,21 @@
 
 <script>
 // Convert weight to kg for calculation
-function calculateProtein() {
-  let weight = Number(document.getElementById('weight').value);
-  let unit = document.getElementById('weightUnit').value;
-  let level = Number(document.getElementById('level').value);
-
-  if(unit === 'lb') weight = weight / 2.20462; // convert lb -> kg
-
-  let protein = (weight * level).toFixed(2); // grams per day
-
-  document.getElementById('result').innerHTML = `Recommended Protein Intake: <b>${protein} g/day</b>`;
-  document.getElementById('formula').innerHTML = `Formula: Weight (kg) × Activity Factor (${level})`;
+function updateProteinWeightBounds() {
+  const input = document.getElementById('weight');
+  const unit = document.getElementById('weightUnit').value;
+  if (unit === 'lb') {
+    // Round inward so accepted visible limits stay within 2–500 kg after conversion.
+    input.min = '4.4093';
+    input.max = '1102.3113';
+  } else {
+    input.min = '2';
+    input.max = '500';
+  }
 }
+
+
+updateProteinWeightBounds();
 </script>
 
 

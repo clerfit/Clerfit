@@ -16,6 +16,7 @@
 
 
 <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
+<script src="../js/engine.js" defer></script>
 <style>
 .bar-container {
   margin-top: 20px;
@@ -115,8 +116,8 @@
     <h2>Daily Water Intake Calculator</h2>
 
     <label for="weight">Weight</label>
-    <input id="weight" type="number" placeholder="Enter your weight" min="0.1" max="500" step="any" aria-label="Enter your weight">
-    <select id="weightUnit" aria-label="Weight unit">
+    <input id="weight" type="number" placeholder="Enter your weight" min="2" max="500" step="any" aria-label="Enter your weight">
+    <select id="weightUnit" aria-label="Weight unit" onchange="updateWaterWeightBounds()">
       <option value="kg" selected>kg</option>
       <option value="lb">lb</option>
     </select>
@@ -183,31 +184,20 @@
 </div>
 
 <script>
-function calculateWater() {
-  let weight = parseFloat(document.getElementById('weight').value);
-  if(!weight || weight <= 0){ alert("Enter a valid weight"); return; }
-
+function updateWaterWeightBounds() {
+  const input = document.getElementById('weight');
   const unit = document.getElementById('weightUnit').value;
-  if(unit === 'lb') weight = weight * 0.453592;
-
-  const activitySelect = document.getElementById('activity');
-  const activity = parseFloat(activitySelect.options[activitySelect.selectedIndex].value);
-
-  // Calculate recommended water (ml)
-  const waterMl = weight * 35 * activity;
-  const waterL = (waterMl / 1000).toFixed(2);
-
-  document.getElementById('result').innerHTML = `<strong>Recommended Daily Water Intake: ${waterL} L</strong>`;
-  document.getElementById('formula').innerHTML = `Formula: Weight × 35 ml × Activity Factor = ${weight.toFixed(1)} × 35 × ${activity} = ${waterMl.toFixed(0)} ml = ${waterL} L`;
-
-  // Bar setup
-  const indicator = document.getElementById('indicator');
-  const minL = 1.5; // Below this is low
-  const maxL = 4.0; // Above this is high
-  let percent = ((waterL - minL) / (maxL - minL)) * 100;
-  percent = Math.max(0, Math.min(100, percent)); // Clamp 0-100%
-  indicator.style.left = percent + '%';
+  if (unit === 'lb') {
+    input.min = '4.4093';
+    input.max = '1102.3113';
+  } else {
+    input.min = '2';
+    input.max = '500';
+  }
 }
+
+
+updateWaterWeightBounds();
 </script>
 
 
