@@ -127,9 +127,9 @@ async function main() {
     });
     const probeBody = await probeResponse.text();
     assert(probeResponse.status === 404, 'Deep-path 404 probe should return HTTP 404, received ' + probeResponse.status + '.');
-    assert(/<html\\b[^>]*\\blang=["'][^"']+["']/i.test(probeBody), 'Deep-path 404 response is missing its HTML language declaration.');
-    assert(/<meta\\b[^>]*name=["']description["']/i.test(probeBody), 'Deep-path 404 response is missing its meta description.');
-    assert(/<meta\\b[^>]*name=["']robots["'][^>]*content=["']noindex, follow["']/i.test(probeBody), 'Deep-path 404 response is missing its noindex directive.');
+    assert(/<html\b[^>]*\blang=["'][^"']+["']/i.test(probeBody), 'Deep-path 404 response is missing its HTML language declaration.');
+    assert(/<meta\b[^>]*name=["']description["']/i.test(probeBody), 'Deep-path 404 response is missing its meta description.');
+    assert(/<meta\b[^>]*name=["']robots["'][^>]*content=["']noindex, follow["']/i.test(probeBody), 'Deep-path 404 response is missing its noindex directive.');
     assert(probeBody.includes("const marker = '/Clerfit/'"), 'Deployed 404 response is missing the deep-path site-root resolver.');
     regressionChecks.push('deep-path 404 response status, metadata, and site-root resolver');
   } catch (error) {
