@@ -30,9 +30,9 @@ cadence.html,cadenceTime,Time,0,10080,any
 calories-kg.html,weight,Weight,0.1,500,any
 calories-kg.html,height,Height,30,300,any
 calories-kg.html,age,Age,18,120,1
-carbs.html,weight,Weight,0.1,500,any
-carbs.html,height,Height,30,300,any
-carbs.html,age,Age (10+ years),1,120,1
+carbs.html,weight,Weight,2,500,any
+carbs.html,height,Height,100,250,any
+carbs.html,age,Age (10+ years),10,120,1
 cardio-calories.html,bodyWeight,Body Weight,0.1,500,any
 cardio-calories.html,duration,Duration,0,50000,any
 circumference-track.html,waistInit,Initial Waist,0.1,300,any
@@ -77,9 +77,9 @@ face-shape.html,faceLength,Face Length,0.1,300,any
 face-shape.html,forehead,Forehead Width,0.1,300,any
 face-shape.html,cheekbones,Cheekbone Width,0.1,300,any
 face-shape.html,jawline,Jawline Width,0.1,300,any
-fat.html,weight,Weight,0.1,500,any
-fat.html,height,Height,30,300,any
-fat.html,age,Age (10+ years),1,120,1
+fat.html,weight,Weight,2,500,any
+fat.html,height,Height,100,250,any
+fat.html,age,Age (10+ years),10,120,1
 fatmass.html,weight,Weight,0.1,500,any
 fatmass.html,fat,Body Fat (%),0,100,any
 ffmi.html,height,Height,50,250,any
