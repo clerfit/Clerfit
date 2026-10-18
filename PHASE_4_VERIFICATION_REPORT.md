@@ -84,3 +84,17 @@ Phase 4 remains **IN PROGRESS**. The regression batches improve software behavio
 ## Phase 4 disposition after latest batch
 
 The current focused engineering batch is merged and its formula and Phase 1/2 workflows passed. **Phase 4 as a whole is still IN PROGRESS**, because its original exit criteria require expanded authoritative-source traceability and semantic-boundary rationale across the route inventory, plus exact final-SHA and production evidence. Independent qualified review and owner-only Phase 3 release acceptance items remain separate gates. No scientific/clinical certification is implied.
+
+
+## Latest Phase 4 continuation (2026-10-18)
+
+- PR #28 merged unit-conversion domain regressions at `ff67c9d139a171f1cbddca10f5ffc37f6e9ce886`; formula and Phase 1/2 workflows passed on PR head.
+- PR #29 merged body-fat logarithmic-domain regressions at `2e810ff64db327510f2af7c53d3fe023d247f74e`; formula and Phase 1/2 workflows passed on PR head: https://github.com/clerfit/Clerfit/actions/runs/39105766265 and https://github.com/clerfit/Clerfit/actions/runs/39105766258.
+- PR #30 merged Mosteller BSA known-answer, unit-equivalence, zero-weight and unsupported-unit regressions at `421de95517531dec0af868d9f76c908daa4f22fe`; formula regression passed https://github.com/clerfit/Clerfit/actions/runs/39106108097 and Phase 1/2 verification passed https://github.com/clerfit/Clerfit/actions/runs/39106108077. Both were PR-head checks before squash.
+- PR #31 merged `PHASE_4_ROUTE_SOURCE_GAP_REGISTER.csv`, recording the 41 routes that had generic reference placeholders.
+- PR #32 is in progress: it replaces those generic references with route-specific mathematical basis/source notes or explicit unresolved source gaps, and updates this plan. Its Phase 1/2 workflow is running; do not merge until it completes successfully.
+- PR #33 is in progress: it tests that waist/waist-to-height context calculators do not invent universal risk categories or apply adult cutoffs automatically to teens. Its formula regression passed; its Phase 1/2 workflow is pending.
+
+## Current status
+
+Phase 4 remains **IN PROGRESS** until PR #32 and #33 finish their required CI and the remaining formula/source comparison, semantic-boundary rationale, exact-candidate verification and release evidence are assessed. The route source register is a gap tracker, not a closure certificate. Independent qualified review is not claimed.
