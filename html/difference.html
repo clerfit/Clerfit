@@ -118,7 +118,7 @@
       const signedDiff = a - b;
       const meanMagnitude = (Math.abs(a) + Math.abs(b)) / 2;
       const percentDiff = meanMagnitude === 0 ? null : (absoluteDiff / meanMagnitude) * 100;
-      const format = value => value.toFixed(4).replace(/\\.?0+$/, '');
+      const format = value => value.toFixed(4).replace(/\.?0+$/, '');
       const percentText = percentDiff === null
         ? 'undefined (both values are zero)'
         : percentDiff.toFixed(2) + '%';
