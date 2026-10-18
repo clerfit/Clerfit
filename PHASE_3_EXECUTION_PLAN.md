@@ -17,6 +17,8 @@ Phase 3 is a defect-remediation and release-acceptance phase, not a re-run of Ph
 
 - Added `tests/phase-three-boundary-structure.test.js` and `.github/workflows/phase-three-boundary-guardrail.yml`. The test checks all 242 current static numeric fields for finite bounds, min less than max, valid step, duplicate keys, exact cross-inventory coverage and matching values.
 - Added `tests/phase-three-runtime-fields.test.js` to audit generated advanced-calculator fields, semantic-bound metadata and ratio references.
+- Added `tests/phase-three-semantic-boundaries.test.js` to execute the real generated-field validator and verify rejection just below and above every declared numeric field range. The Phase 3 guardrail and full Phase 1/2 CI passed on PR #11 before merge.
+- A separate ratio precision defect was reproduced and fixed in PR #12: unsafe decimal scaling no longer produces a false `0 : 1` simplified ratio, and significant-digit output preserves very small non-zero ratios. Formula regression and full browser/accessibility CI passed on the candidate SHA; exact post-merge main verification is running.
 - Fixed generated unit-aware native input constraints in `js/advanced-calculators.js`; `tests/phase-three-generated-unit-bounds.test.js` protects conversions across supported display units.
 - Focused guardrail and formula regression workflows passed. Full Phase 1/2 CI, including 118-route browser smoke and all-page axe scan, passed on the PR candidate SHA before merge. Main-branch verification/deployment for the latest merge SHA must be checked separately.
 
