@@ -26,7 +26,8 @@
   // Add a shared, non-duplicated footer to legacy calculator pages.
   // Pages that already define their own footer keep it unchanged.
   function ensureSiteFooter() {
-    if (document.querySelector("footer")) return;
+    const existingFooter = document.querySelector("footer");
+    if (existingFooter) { existingFooter.classList.add("cf-footer"); return; }
     const main = document.querySelector("main.main, main, .main");
     if (!main) return;
     const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
