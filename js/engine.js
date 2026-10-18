@@ -500,17 +500,6 @@ function calculateWater() {
   }
 }
 
-function calculateWater() {
-  const w = getValUnit("weight", "weightUnit", "weight");
-
-  if (!Number.isFinite(w) || w <= 0 || w > 500) {
-    document.getElementById("result").textContent = "Enter a valid body weight.";
-    return;
-  }
-
-  document.getElementById("result").textContent = `Approximate baseline fluid estimate: ${(w * 35).toFixed(0)} ml/day. Individual needs vary with activity, climate and health.`;
-}
-
 /* =================================================
    WAIST HIP RATIO
 ================================================= */
