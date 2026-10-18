@@ -241,6 +241,9 @@ assert.doesNotMatch(engineOutput('bf-result'), /NaN|Infinity/);
 checks++;
 
 // Log-domain and domain guards: waist must exceed neck; female hip must be plausible.
+setEngine('bf-waist-unit', 'cm');
+setEngine('bf-neck-unit', 'cm');
+setEngine('bf-hip-unit', 'cm');
 setEngine('bf-waist', 30);
 setEngine('bf-neck', 35);
 resetEngineOutputs('bf-result', 'bf-formula');
