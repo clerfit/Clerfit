@@ -316,6 +316,44 @@ const tdeeFeetUpper = runTDEE({
 assert.equal(tdeeFeetUpper.validationMessage, '', 'Displayed feet maximum must pass canonical validation.');
 checks += 5;
 
+// Complete TDEE semantic-domain edges across metric and customary units.
+// These are software-domain tests, not evidence that the empirical estimate is clinically accurate.
+setTDEE({ weightUnit: 'kg', heightUnit: 'm' });
+tdeeContext.updateTDEEUnitBounds();
+assert.equal(tdeeElements.get('height').min, '1');
+assert.equal(tdeeElements.get('height').max, '2.5');
+for (const [label, height] of [['meter minimum', 1], ['meter maximum', 2.5]]) {
+  const edge = runTDEE({ weight: 70, weightUnit: 'kg', height, heightUnit: 'm', age: 30 });
+  assert.equal(edge.validationMessage, '', label + ' must pass canonical validation.');
+  assert.ok(edge.result.includes('kcal/day'), label + ' should produce a finite result.');
+}
+for (const [label, values] of [
+  ['weight just below minimum', { weight: 19.999, weightUnit: 'kg' }],
+  ['weight just above maximum', { weight: 500.001, weightUnit: 'kg' }],
+  ['height just below minimum', { height: 99.999, heightUnit: 'cm' }],
+  ['height just above maximum', { height: 250.001, heightUnit: 'cm' }],
+  ['age just above maximum', { age: 121 }],
+]) {
+  const edge = runTDEE(values);
+  assert.ok(edge.validationMessage, label + ' must be rejected.');
+  assert.equal(edge.result, '', label + ' must not leave a stale result.');
+  assert.equal(edge.formula, '', label + ' must not leave a stale formula.');
+  assert.doesNotMatch(JSON.stringify(edge), /NaN|Infinity/);
+  checks++;
+}
+for (const [label, values] of [
+  ['minimum supported age', { age: 18, weight: 70, height: 170 }],
+  ['maximum supported age', { age: 120, weight: 70, height: 170 }],
+  ['minimum canonical measurements', { age: 18, weight: 20, height: 100 }],
+  ['maximum canonical measurements', { age: 18, weight: 500, height: 250 }],
+]) {
+  const edge = runTDEE(values);
+  assert.equal(edge.validationMessage, '', label + ' is inside the declared supported domain.');
+  assert.ok(edge.result.includes('kcal/day'));
+  assert.doesNotMatch(JSON.stringify(edge), /NaN|Infinity/);
+  checks++;
+}
+
 
 // Known-answer: US Navy male equation with canonical centimetre inputs.
 Object.entries({
