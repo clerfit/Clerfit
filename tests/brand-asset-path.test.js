@@ -6,6 +6,10 @@ const fs = require('node:fs');
 
 const navigation = fs.readFileSync('js/navigation.js', 'utf8');
 assert.ok(
+  navigation.includes("if(main && !document.querySelector('.cf-page-brand') && !document.querySelector('.cf-home-top'))"),
+  'The already-branded homepage must not receive the calculator-page brand element.'
+);
+assert.ok(
   navigation.includes(`brand.innerHTML='<img src="'+(inHtml?'../':'')+'logo.jpeg" alt="" width="1024" height="1024"><span>ClerFit</span>';`),
   'Shared page brand must resolve the logo relative to root vs calculator pages and declare intrinsic dimensions.'
 );
