@@ -2,7 +2,7 @@
 
 Status: IN PROGRESS — recent regression batches merged and PR-head CI passed; full Phase 4 exit criteria and Phase 3 external acceptance remain OPEN.
 
-Baseline: `main` includes Phase 4 merges through `ff67c9d139a171f1cbddca10f5ffc37f6e9ce886` (2026-10-18). Re-run all relevant checks against the exact candidate SHA after source/test changes.
+Baseline: `main` includes Phase 4 regression merges through `2e810ff64db327510f2af7c53d3fe023d247f74e` (2026-10-18), including the unit-conversion and body-fat logarithmic-domain test batches. Re-run all relevant checks against the exact candidate SHA after source/test changes.
 
 ## Why Phase 4 starts before Phase 3 acceptance closes
 
@@ -42,3 +42,13 @@ Reduce formula and input-validation uncertainty across the 118 calculator routes
 2. Add source-linked, independently calculated test vectors for a small batch; preserve current behavior unless tests expose a documented defect.
 3. Run focused tests plus full formula regression and exact-SHA workflows.
 4. Update the relevant register entries with concrete evidence and remaining limitations.
+
+
+## Latest continuation — risk-prioritized logarithmic-domain tests (2026-10-18)
+
+- Merged PR #29: https://github.com/clerfit/Clerfit/pull/29
+- Merge commit: `2e810ff64db327510f2af7c53d3fe023d247f74e`
+- Formula regression passed on PR head: https://github.com/clerfit/Clerfit/actions/runs/39105766265
+- Phase 1/2 verification passed on PR head: https://github.com/clerfit/Clerfit/actions/runs/39105766258
+- Added a female US Navy body-fat known-answer vector and invalid-domain cases for waist/neck ordering and required hip input.
+- These are software regression results, not independent validation of the underlying empirical equation. Phase 4 remains open for route-wide source traceability, semantic-boundary rationale, exact-candidate deployment evidence, and the independently qualified review required for health-related interpretation.
