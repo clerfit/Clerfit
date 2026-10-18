@@ -34,6 +34,15 @@ for (const file of routeFiles) assert.ok(exists(path.join('html', file)), 'missi
 
 const sitemap = read('sitemap.xml');
 const locations = [...sitemap.matchAll(/<loc>([\s\S]*?)<\/loc>/gi)].map(match => decodeXml(match[1].trim()));
+assert.ok(sitemap.trim().startsWith('<?xml'), 'sitemap must begin with an XML declaration');
+assert.match(sitemap, /<urlset\s+xmlns=["']http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9["']/, 'sitemap must declare the standard sitemap XML namespace');
+assert.ok(/<\/urlset>\s*$/.test(sitemap), 'sitemap must end with a closing urlset element');
+assert.ok(locations.every(url => {
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === 'https:' && parsed.origin === base.origin && parsed.pathname.startsWith(basePath);
+  } catch { return false; }
+}), 'every sitemap URL must be valid HTTPS under the configured project-site path');
 assert.equal(locations.length, 123, 'sitemap must include 5 main URLs plus 118 registered calculators');
 assert.equal(new Set(locations).size, locations.length, 'sitemap URLs must be unique');
 assert.ok(locations.includes(baseWithoutTrailingSlash + '/'), 'sitemap must include the home page');
