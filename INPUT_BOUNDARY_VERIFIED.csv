@@ -135,7 +135,7 @@ performance-score.html,bodyWeight,Body Weight i Your current body weight. Used t
 ponderal.html,weight,Weight,0.1,500,any
 ponderal.html,height,Height,30,300,any
 potassium.html,age,Age (years),1,120,1
-protein.html,weight,Weight,0.1,500,any
+protein.html,weight,Weight,2,500,any
 pullup-index.html,pu-count,Number of Pull-Ups i Enter the maximum number of consecutive pull-ups you can perform with proper form.,0,1000,1
 pullup-index.html,pu-body,Body Weight,0.1,500,any
 pushup-index.html,pu-count,Number of Push-Ups i Enter the maximum number of push-ups you can perform in one set with correct form.,0,1000,1
