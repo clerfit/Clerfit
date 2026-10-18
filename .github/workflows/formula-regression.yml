@@ -30,6 +30,8 @@ jobs:
           node-version: '22'
       - name: Run known-answer and domain regressions
         run: node tests/verify.js
+      - name: Verify ratio decimal precision and denominator edge cases
+        run: node tests/ratio-decimal-precision.test.js
       - name: Verify field-bound inventories match static source markup
         run: node scripts/sync-input-boundaries.js --check
       - name: Check phase inventory, sign-off and sitemap integrity
