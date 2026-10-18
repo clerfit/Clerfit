@@ -54,3 +54,15 @@ Mobile Lighthouse with simulated throttling reported Performance **89**, Accessi
 Live response headers included HSTS (`max-age=31556952`). The following server response headers were absent: `Content-Security-Policy`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, and `Permissions-Policy`. The repository's Netlify `_headers` file is not applied by GitHub Pages. This remains blocked pending a hosting/CDN configuration that can set the needed headers.
 
 The exact PageSpeed-reported URL remains unknown; the checked high-priority routes returned 200 but that does not prove the unprovided URL is fixed. Exact ZIP parity, human physical-device/manual assistive-technology checks, actual contact inbox receipt, and independent qualified subject-matter review remain open.
+
+
+## Current-main verification — 2026-10-18
+
+The current main revision `e224f84c6edbd7d1c4ba16f8eed19c0cab9c0382` has now passed all three latest automated workflows:
+- [Phase 1/2 regression, browser and automated accessibility verification](https://github.com/clerfit/Clerfit/actions/runs/39102373606)
+- [Phase 3 live performance and response-header audit](https://github.com/clerfit/Clerfit/actions/runs/39102373598)
+- [GitHub Pages deployment](https://github.com/clerfit/Clerfit/actions/runs/39102373489)
+
+The live performance/header audit completed successfully on this exact SHA. The combined header-remediation gate remains blocked: GitHub Pages does not apply the repository's Netlify `_headers` file and the live host lacks the five previously recorded response headers. These are hosting limitations, not a failed Lighthouse workflow.
+
+Full release acceptance remains OPEN. The remaining gates require evidence or access not present in this session: exact named reference ZIP bytes for parity (a separate release-transfer payload exists but is not proof that it is the exact requested ZIP), the exact PageSpeed 404 URL, human manual/device acceptance, real contact inbox receipt, independent qualified scientific/clinical review, and a supported hosting/CDN configuration. These cannot be substituted by automated tests or self-attestation.
