@@ -396,6 +396,11 @@ async function targetedCalculatorBoundaries(browser) {
   await exercise({file:'rmr.html',fn:'calculateRMR',fields:{weight:70,weightUnit:'kg',height:175,heightUnit:'cm',age:17,gender:'male'},resultId:'result',caseName:'under-18 age rejected for adult RMR equation',expect:/age from 18 to 120/i});
   await exercise({file:'rmr.html',fn:'calculateRMR',fields:{weight:70,weightUnit:'kg',height:175,heightUnit:'bogus',age:30,gender:'male'},resultId:'result',caseName:'unsupported RMR height unit rejected',expect:/Choose supported weight and height units/i});
   await exercise({file:'rmr.html',fn:'calculateRMR',fields:{weight:1000000,weightUnit:'kg',height:175,heightUnit:'cm',age:30,gender:'male'},resultId:'result',caseName:'extreme RMR weight rejected',expect:/Converted weight must be 2–500 kg/i});
+  await exercise({file:'water.html',fn:'calculateWater',fields:{weight:70,weightUnit:'kg',activity:1.2},resultId:'result',caseName:'valid water estimate calculates',expect:/Estimated Daily Water Intake:\s*2\.94 L/i});
+  await exercise({file:'water.html',fn:'calculateWater',fields:{weight:'',weightUnit:'kg',activity:1.2},resultId:'result',caseName:'blank water weight rejected',expect:/supported body weight/i});
+  await exercise({file:'water.html',fn:'calculateWater',fields:{weight:1000000,weightUnit:'kg',activity:1.2},resultId:'result',caseName:'extreme water weight rejected',expect:/between 2 and 500 kg/i});
+  await exercise({file:'water.html',fn:'calculateWater',fields:{weight:70,weightUnit:'stone',activity:1.2},resultId:'result',caseName:'unsupported water unit rejected',expect:/supported body weight/i});
+  await exercise({file:'water.html',fn:'calculateWater',fields:{weight:70,weightUnit:'kg',activity:99},resultId:'result',caseName:'unsupported water activity factor rejected',expect:/listed activity level/i});
   await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:70,weightUnit:'kg',level:1.2},resultId:'result',caseName:'valid protein estimate calculates',expect:/Estimated Protein Intake:\s*84\.00 g\/day/i});
   await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:'',weightUnit:'kg',level:1.2},resultId:'result',caseName:'blank protein weight rejected',expect:/supported weight/i});
   await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:1000000,weightUnit:'kg',level:1.2},resultId:'result',caseName:'extreme protein weight rejected',expect:/between 2 and 500 kg/i});
@@ -525,6 +530,23 @@ async function targetedUnits(browser) {
     await p.evaluate(()=>calculateProtein());
     if(!/84\.00 g\/day/.test(await p.locator('#result').innerText())) throw new Error('Protein kg reference case did not match 70 kg × 1.2 = 84 g/day.');
     report.push('Protein Intake: valid result, unit-specific inward bounds, and kg/lb equivalence');
+    await p.close();
+  }
+  {
+    const p=await browser.newPage({viewport:{width:390,height:844}});
+    await p.goto(new URL('html/water.html?browserSmoke=water-unit-bounds',BASE).href,{waitUntil:'load'});
+    await p.locator('#weightUnit').selectOption('lb');
+    if(await p.locator('#weight').getAttribute('min')!=='4.4093'||await p.locator('#weight').getAttribute('max')!=='1102.3113') throw new Error('Water lb bounds must convert inward to the supported 2–500 kg range.');
+    await p.locator('#weight').fill('154.3235835');
+    await p.locator('#activity').selectOption('1.2');
+    await p.evaluate(()=>calculateWater());
+    if(!/2\.94 L/.test(await p.locator('#result').innerText())) throw new Error('Water lb conversion did not match 70 kg × 35 ml × 1.2 = 2.94 L.');
+    await p.locator('#weightUnit').selectOption('kg');
+    if(await p.locator('#weight').getAttribute('min')!=='2'||await p.locator('#weight').getAttribute('max')!=='500') throw new Error('Water kg bounds must be 2–500 kg.');
+    await p.locator('#weight').fill('70');
+    await p.evaluate(()=>calculateWater());
+    if(!/2\.94 L/.test(await p.locator('#result').innerText())) throw new Error('Water kg reference case did not match 70 kg × 35 ml × 1.2 = 2.94 L.');
+    report.push('Water Intake: valid result, unit-specific inward bounds, and kg/lb equivalence');
     await p.close();
   }
   return report;
