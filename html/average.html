@@ -181,20 +181,18 @@ function calculateAverage() {
     .split(/[\s,]+/)
     .filter(Boolean);
 
-  // Convert to numbers
-
-  const nums =
-    parts
-    .map(v => Number(v))
-    .filter(n => Number.isFinite(n));
-
-  // Validation
+  // Convert to numbers without silently discarding invalid tokens.
+  // Filtering invalid values would produce a plausible but incorrect average.
+  const nums = parts.map(v => Number(v));
 
   if (nums.length === 0) {
+    resultBox.innerHTML = "No valid numbers found.";
+    return;
+  }
 
+  if (nums.some(n => !Number.isFinite(n))) {
     resultBox.innerHTML =
-      "No valid numbers found.";
-
+      "Please enter only valid finite numbers separated by commas or spaces.";
     return;
   }
 
