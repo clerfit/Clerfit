@@ -53,3 +53,19 @@ Each change has regression coverage in `tests/verify.js`.
 - Phase 3 issue #6 remains OPEN for the exact required reference ZIP, manual keyboard/screen-reader/zoom/contrast and physical-device checks, consented real contact submission and inbox receipt, exact PageSpeed 404 URL reproduction, production security-header/hosting remediation, and independent qualified formula review.
 - Mocked contact-form tests are not proof of live delivery. Automated accessibility scans are not a substitute for assistive-technology or physical-device acceptance.
 - Do not mark Phase 4 or overall release acceptance complete until its remaining evidence is added and all relevant checks pass on the exact final candidate SHA.
+
+
+## Additional unit-conversion regression batch
+
+- PR #28 merged: https://github.com/clerfit/Clerfit/pull/28
+- Tested PR head: `954572d5d53a9726adb5e041c0b2f29faea17b1e`
+- Merge commit: `ff67c9d139a171f1cbddca10f5ffc37f6e9ce886`
+- Formula regression: PASS — https://github.com/clerfit/Clerfit/actions/runs/39105516310
+- Phase 1/2 verification: PASS — https://github.com/clerfit/Clerfit/actions/runs/39105516304
+- The full Phase 1/2 workflow completed JavaScript checks, known-answer/domain regressions, input-bound inventory, sitemap/registry checks, page-specific tests, mocked contact tests, unit-conversion property tests, staging build/parity, 118-route interaction/semantic-boundary smoke tests, and all-page axe accessibility smoke tests.
+- Added 12 unit-conversion assertions for distance, volume, temperature, speed, pace, round trips, unknown units, and non-finite input rejection. Existing property tests already cover additional conversions; this batch expands coverage in the primary calculator regression suite.
+- These workflows passed on the exact PR head before squash. Post-merge verification and live production confirmation on the merge SHA remain to be recorded.
+
+## Current disposition
+
+Phase 4 remains **IN PROGRESS**. The regression batches improve software behavior and coverage, but do not finish formula-by-formula authoritative-source traceability or exhaustive semantic boundary rationale across all routes and 238 static fields/runtime-generated controls. Phase 3 external acceptance gates remain open in issue #6. No independent scientific/clinical review or full release acceptance is claimed.
