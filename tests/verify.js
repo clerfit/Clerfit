@@ -530,4 +530,64 @@ assert.match(pageTest.output('weightStabilityResult'), /Gaining Weight/);
 assert.match(pageTest.output('weightStabilityResult'), /water and measurement variation/);
 checks++;
 
+// Phase 4 regression: invalid list tokens must not be silently omitted.
+pageTest = runPageFunction('average.html', 'calculateAverage', {
+  avgNumbers: '10,not-a-number,20'
+}, ['avgResult']);
+assert.match(pageTest.output('avgResult'), /only valid finite numbers/i);
+assert.doesNotMatch(pageTest.output('avgResult'), /Average:.*15/);
+checks++;
+
+pageTest = runPageFunction('average.html', 'calculateAverage', {
+  avgNumbers: '10,20,30'
+}, ['avgResult']);
+assert.match(pageTest.output('avgResult'), /Average:.*20/);
+checks++;
+
+// Phase 4 regression: percentage inputs must be finite, complete numbers and use a valid mode.
+pageTest = runPageFunction('percentage.html', 'calculatePercentage', {
+  percentType: 'basic', value1: '12abc', value2: '20'
+}, ['percentageResult']);
+assert.match(pageTest.output('percentageResult'), /valid finite numerical values/i);
+assert.doesNotMatch(pageTest.output('percentageResult'), /60\.00%/);
+checks++;
+
+pageTest = runPageFunction('percentage.html', 'calculatePercentage', {
+  percentType: 'basic', value1: '10', value2: '0'
+}, ['percentageResult']);
+assert.match(pageTest.output('percentageResult'), /Division by zero/i);
+checks++;
+
+pageTest = runPageFunction('percentage.html', 'calculatePercentage', {
+  percentType: 'basic', value1: '25', value2: '100'
+}, ['percentageResult']);
+assert.match(pageTest.output('percentageResult'), /25 is <strong>25\.00%<\/strong> of 100/);
+checks++;
+
+pageTest = runPageFunction('percentage.html', 'calculatePercentage', {
+  percentType: 'unknown', value1: '25', value2: '100'
+}, ['percentageResult']);
+assert.match(pageTest.output('percentageResult'), /valid percentage calculation/i);
+checks++;
+
+// Phase 4 regression: percent difference is undefined when both magnitudes are zero.
+pageTest = runPageFunction('difference.html', 'calculateDifference', {
+  diffA: '0', diffB: '0'
+}, ['diffResult']);
+assert.match(pageTest.output('diffResult'), /undefined \(both values are zero\)/i);
+assert.doesNotMatch(pageTest.output('diffResult'), /Percent difference: <b>0\.00%/);
+checks++;
+
+pageTest = runPageFunction('difference.html', 'calculateDifference', {
+  diffA: '10', diffB: '20'
+}, ['diffResult']);
+assert.match(pageTest.output('diffResult'), /Percent difference: <b>66\.67%/);
+checks++;
+
+pageTest = runPageFunction('difference.html', 'calculateDifference', {
+  diffA: '10abc', diffB: '20'
+}, ['diffResult']);
+assert.match(pageTest.output('diffResult'), /valid finite numerical values/i);
+checks++;
+
 console.log('PASS: ' + checks + ' known-answer/domain assertions across generated calculators, CDC BMI-for-age, legacy formulas, and unit conversions.');
