@@ -1,6 +1,6 @@
 # ClerFit Phase 3 — Execution Plan and Current Gate
 
-Baseline: current `main` at `fb2bf43d12f54ec1c01c52086e3a5b30f255a486` (2026-10-18).
+Baseline: current `main` at `47502598968104e609424e420dee38d5e78e5e9b` (2026-10-18).
 
 ## Purpose
 
@@ -20,7 +20,8 @@ Phase 3 is a defect-remediation and release-acceptance phase, not a re-run of Ph
 - Added `tests/phase-three-semantic-boundaries.test.js` to execute the real generated-field validator and verify rejection just below and above every declared numeric field range. The Phase 3 guardrail and full Phase 1/2 CI passed on PR #11 before merge.
 - A separate ratio precision defect was reproduced and fixed in PR #12: unsafe decimal scaling no longer produces a false `0 : 1` simplified ratio, and significant-digit output preserves very small non-zero ratios. Formula regression and full browser/accessibility CI passed on the candidate SHA; exact post-merge main verification is running.
 - Fixed generated unit-aware native input constraints in `js/advanced-calculators.js`; `tests/phase-three-generated-unit-bounds.test.js` protects conversions across supported display units.
-- Focused guardrail and formula regression workflows passed. Full Phase 1/2 CI, including 118-route browser smoke and all-page axe scan, passed on the PR candidate SHA before merge. Main-branch verification/deployment for the latest merge SHA must be checked separately.
+- Focused guardrail and formula regression workflows passed. Full Phase 1/2 CI, including 118-route browser smoke and all-page axe scan, passed on the PR candidate SHA before merge.
+- **Exact current-main engineering gate passed:** full Phase 1/2 verification [run 39099712134](https://github.com/clerfit/Clerfit/actions/runs/39099712134) and GitHub Pages deployment [run 39099711870](https://github.com/clerfit/Clerfit/actions/runs/39099711870) both passed on main SHA `47502598968104e609424e420dee38d5e78e5e9b`.
 
 These are structural and regression gates; they do not certify that every selected range is scientifically appropriate.
 
@@ -30,4 +31,4 @@ These are structural and regression gates; they do not certify that every select
 - Formula/domain tests, all-route browser smoke, staging parity and accessibility automation pass on exact candidate SHA.
 - Every static and generated numeric field has a reasoned semantic-domain record or an explicitly justified exception.
 - Owner/expert gates in the register are evidenced, not inferred from CI.
-- Deployment and live production verification refer to the exact release SHA.
+- Deployment and automated verification refer to the exact release SHA. Live production verification should be repeated on that SHA if the release process requires a separate live-site verifier.
