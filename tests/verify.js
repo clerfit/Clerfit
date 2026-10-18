@@ -530,4 +530,24 @@ assert.match(pageTest.output('weightStabilityResult'), /Gaining Weight/);
 assert.match(pageTest.output('weightStabilityResult'), /water and measurement variation/);
 checks++;
 
+// Phase 4 regression: percent difference is undefined when both magnitudes are zero.
+pageTest = runPageFunction('difference.html', 'calculateDifference', {
+  diffA: '0', diffB: '0'
+}, ['diffResult']);
+assert.match(pageTest.output('diffResult'), /undefined \(both values are zero\)/i);
+assert.doesNotMatch(pageTest.output('diffResult'), /Percent difference: <b>0\.00%/);
+checks++;
+
+pageTest = runPageFunction('difference.html', 'calculateDifference', {
+  diffA: '10', diffB: '20'
+}, ['diffResult']);
+assert.match(pageTest.output('diffResult'), /Percent difference: <b>66\.67%/);
+checks++;
+
+pageTest = runPageFunction('difference.html', 'calculateDifference', {
+  diffA: '10abc', diffB: '20'
+}, ['diffResult']);
+assert.match(pageTest.output('diffResult'), /valid finite numerical values/i);
+checks++;
+
 console.log('PASS: ' + checks + ' known-answer/domain assertions across generated calculators, CDC BMI-for-age, legacy formulas, and unit conversions.');
