@@ -179,89 +179,49 @@
 <script>
 
 function calculatePercentage() {
+  const type = document.getElementById("percentType").value;
+  const raw1 = document.getElementById("value1").value.trim();
+  const raw2 = document.getElementById("value2").value.trim();
+  const value1 = Number(raw1);
+  const value2 = Number(raw2);
+  const resultBox = document.getElementById("percentageResult");
 
-  const type =
-    document.getElementById("percentType").value;
-
-  const value1 = parseFloat(
-    document.getElementById("value1").value
-  );
-
-  const value2 = parseFloat(
-    document.getElementById("value2").value
-  );
-
-  const resultBox =
-    document.getElementById("percentageResult");
-
-  // Validation
-
-  if (
-    isNaN(value1) ||
-    isNaN(value2)
-  ) {
-
-    resultBox.innerHTML =
-      "Please enter valid numerical values.";
-
+  if (!raw1 || !raw2 || !Number.isFinite(value1) || !Number.isFinite(value2)) {
+    resultBox.textContent = "Please enter two valid finite numerical values.";
     return;
   }
 
-  // Prevent division by zero
-
-  if (
-    (type === "basic" && value2 === 0) ||
-    ((type === "increase" || type === "decrease") && value1 === 0)
-  ) {
-
-    resultBox.innerHTML =
-      "Division by zero is not allowed.";
-
+  if (!["basic", "increase", "decrease"].includes(type)) {
+    resultBox.textContent = "Choose a valid percentage calculation.";
     return;
   }
 
-  let result = 0;
-  let text = "";
+  if ((type === "basic" && value2 === 0) ||
+      ((type === "increase" || type === "decrease") && value1 === 0)) {
+    resultBox.textContent = "Division by zero is not allowed.";
+    return;
+  }
 
-  // What percentage is X of Y
+  let result;
+  let text;
 
   if (type === "basic") {
-
-    result =
-      (value1 / value2) * 100;
-
-    text =
-      `${value1} is <strong>${result.toFixed(2)}%</strong> of ${value2}`;
-
+    result = (value1 / value2) * 100;
+    text = `${value1} is <strong>${result.toFixed(2)}%</strong> of ${value2}`;
+  } else if (type === "increase") {
+    result = ((value2 - value1) / value1) * 100;
+    text = `Percentage Increase: <strong>${result.toFixed(2)}%</strong>`;
+  } else {
+    result = ((value1 - value2) / value1) * 100;
+    text = `Percentage Decrease: <strong>${result.toFixed(2)}%</strong>`;
   }
 
-  // Percentage Increase
-
-  else if (type === "increase") {
-
-    result =
-      ((value2 - value1) / value1) * 100;
-
-    text =
-      `Percentage Increase: <strong>${result.toFixed(2)}%</strong>`;
-
+  if (!Number.isFinite(result)) {
+    resultBox.textContent = "The result is outside the supported numeric range.";
+    return;
   }
-
-  // Percentage Decrease
-
-  else if (type === "decrease") {
-
-    result =
-      ((value1 - value2) / value1) * 100;
-
-    text =
-      `Percentage Decrease: <strong>${result.toFixed(2)}%</strong>`;
-
-  }
-
   resultBox.innerHTML = text;
 }
-
 </script>
 
 
