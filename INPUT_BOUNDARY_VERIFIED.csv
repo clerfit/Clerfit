@@ -212,7 +212,7 @@ walking-speed.html,walkDistance,Distance i Total distance you walked. Can be ent
 walking-speed.html,walkHours,Hours,0,1000,any
 walking-speed.html,walkMinutes,Minutes,0,1000,any
 walking-speed.html,walkSeconds,Seconds,0,1000,any
-water.html,weight,Weight,0.1,500,any
+water.html,weight,Weight,2,500,any
 weekly-load.html,wl-weight,Weight Lifted,0.1,500,any
 weekly-load.html,wl-reps,Reps per Set,0,1000,1
 weekly-load.html,wl-sets,Number of Sets,0,1000,1
