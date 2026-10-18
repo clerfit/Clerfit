@@ -5,7 +5,7 @@
   for (const link of document.querySelectorAll('link[rel~="stylesheet"][href*="css/style.css"]')) {
     try {
       const fresh = new URL(link.href, document.baseURI);
-      fresh.searchParams.set("v", "20261017-phase12-a11y-v1");
+      fresh.searchParams.set("v", "20261018-phase3-layout-footer-v1");
       if (link.href !== fresh.href) link.href = fresh.href;
     } catch (_) {}
   }
@@ -23,7 +23,42 @@
     if (nav.parentNode !== main || nav !== main.firstElementChild) main.insertBefore(nav, main.firstElementChild);
   };
 
+  // Add a shared, non-duplicated footer to legacy calculator pages.
+  // Pages that already define their own footer keep it unchanged.
+  function ensureSiteFooter() {
+    if (document.querySelector("footer")) return;
+    const main = document.querySelector("main.main, main, .main");
+    if (!main) return;
+    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
+    const home = new URL("index.html", root).href;
+    const contact = new URL("contact.html", root).href;
+    const footer = document.createElement("footer");
+    footer.className = "cf-footer";
+    footer.innerHTML =
+      '<div class="cf-footer-main">' +
+        '<a class="cf-footer-brand" href="' + home + '"><span>ClerFit</span></a>' +
+        '<p>Clear tools for better-informed everyday decisions.</p>' +
+        '<nav class="cf-footer-links" aria-label="Footer navigation">' +
+          '<a href="' + home + '#all-calculators">Explore calculators</a>' +
+          '<a href="' + contact + '">Contact</a>' +
+        '</nav>' +
+      '</div>' +
+      '<div class="cf-footer-bottom">' +
+        '<span>© <span class="cf-footer-year"></span> ClerFit. Educational estimates, not medical diagnoses.</span>' +
+        '<a href="#top" class="cf-back-top">Back to top ↑</a>' +
+      '</div>';
+    const year = footer.querySelector(".cf-footer-year");
+    if (year) year.textContent = String(new Date().getFullYear());
+    const backTop = footer.querySelector(".cf-back-top");
+    if (backTop) backTop.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    });
+    main.appendChild(footer);
+  }
+
   const init = () => {
+    ensureSiteFooter();
     const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
     let nav = document.querySelector(selector);
     if (!nav) {
