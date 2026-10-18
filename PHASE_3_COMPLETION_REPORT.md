@@ -43,3 +43,14 @@ The final runtime candidate `19ad5a62dca7d786f23e3de282af66dea9ccc900` passed th
 This is not a claim of full completion. Remaining blockers are: (1) exact `ClerFit_R3_NEW_UI_COMPLETE.zip` is absent from the repository tree and verified workspace; (2) the exact PageSpeed-reported failing URL has not been provided; (3) physical-device/manual keyboard, screen-reader and zoom checks cannot be honestly attested by automated CI; (4) actual contact delivery needs a permitted real submission and inbox confirmation; (5) external scientific/clinical review must be performed by an independent qualified reviewer; (6) weak-network timings and actual HTTP response headers require external network/browser measurements and hosting/CDN control. GitHub Pages does not apply the repository's Netlify `_headers` configuration.
 
 No acceptance status has been fabricated for those items. The automated accessibility scan is complete, but it is distinct from manual assistive-technology acceptance. The code-level formula desk audit is documented in `INDEPENDENT_FORMULA_REVIEW.md`, which explicitly does not claim external clinical certification.
+
+
+## Live performance and HTTP-header evidence — 2026-10-18
+
+The new live audit workflow passed on main SHA `2a2a71093049604f86616f43ac9863f044ccff24`: [run 39102299865](https://github.com/clerfit/Clerfit/actions/runs/39102299865). It confirmed HTTP 200 for the homepage, sitemap, robots.txt, BMI, BMI-for-age, BMI-change and contact routes.
+
+Mobile Lighthouse with simulated throttling reported Performance **89**, Accessibility **100**, Best Practices **96**, SEO **100**; FCP **1.1 s**, LCP **1.7 s**, Speed Index **2.3 s**, Total Blocking Time **450 ms**, CLS **0**, and Time to Interactive **1.9 s**. These are one automated run under simulated conditions, not a guarantee of all devices or network conditions.
+
+Live response headers included HSTS (`max-age=31556952`). The following server response headers were absent: `Content-Security-Policy`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, and `Permissions-Policy`. The repository's Netlify `_headers` file is not applied by GitHub Pages. This remains blocked pending a hosting/CDN configuration that can set the needed headers.
+
+The exact PageSpeed-reported URL remains unknown; the checked high-priority routes returned 200 but that does not prove the unprovided URL is fixed. Exact ZIP parity, human physical-device/manual assistive-technology checks, actual contact inbox receipt, and independent qualified subject-matter review remain open.
