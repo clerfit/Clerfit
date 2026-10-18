@@ -231,6 +231,62 @@ engineContext.calculateBMR();
 assert.match(engineOutput('result'), /Choose supported weight and height units/);
 assert.doesNotMatch(engineOutput('result'), /BMR Result:/);
 checks++;
+ 
+// TDEE legacy page: known answer, unit equivalence, semantic bounds, stale-output clearing and invalid-value handling.
+const tdeeHtml = read('html/tdee.html');
+const tdeeScriptMatch = tdeeHtml.match(/<script defer>\\s*([\\s\\S]*?function updateTDEEUnitBounds\\([\\s\\S]*?)<\\/script>/);
+assert.ok(tdeeScriptMatch, 'TDEE calculator script must be available for deterministic tests.');
+const tdeeElements = new Map();
+for (const id of ['weight','weightUnit','height','heightUnit','age','gender','activity','result','formula','validationMessage','indicator']) {
+  tdeeElements.set(id, { value: '', min: '', max: '', textContent: '', innerHTML: '', style: { left: '' } });
+}
+const tdeeDocument = { getElementById: id => tdeeElements.get(id) || null };
+const tdeeContext = vm.createContext({ document: tdeeDocument, console });
+vm.runInContext(tdeeScriptMatch[1], tdeeContext, { filename: 'html/tdee.html#calculator', timeout: 3000 });
+const setTDEE = values => Object.entries(values).forEach(([id, value]) => { tdeeElements.get(id).value = String(value); });
+const runTDEE = values => {
+  setTDEE({ weight: 70, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 30, gender: 'male', activity: 1.55, ...values });
+  for (const id of ['result','formula','validationMessage']) {
+    tdeeElements.get(id).textContent = '';
+    tdeeElements.get(id).innerHTML = '';
+  }
+  tdeeContext.calculateTDEE();
+  return Object.fromEntries(['result','formula','validationMessage'].map(id => [id, tdeeElements.get(id).textContent || tdeeElements.get(id).innerHTML]));
+};
+const tdeeKnownAnswer = runTDEE({});
+assert.match(tdeeKnownAnswer.result, /2556 kcal\\/day/);
+assert.match(tdeeKnownAnswer.formula, /1649 × 1\\.55 = 2556/);
+assert.equal(tdeeKnownAnswer.validationMessage, '');
+checks++;
+const tdeeImperial = runTDEE({ weight: 154.3235835, weightUnit: 'lb', height: 68.8976378, heightUnit: 'inch' });
+assert.match(tdeeImperial.result, /2556 kcal\\/day/);
+assert.equal(tdeeImperial.validationMessage, '');
+checks++;
+for (const [name, values] of [
+  ['negative weight', { weight: -5 }],
+  ['implausibly short height', { height: 80 }],
+  ['underage input', { age: 17 }],
+  ['fractional age', { age: 30.5 }],
+  ['unsupported weight unit', { weightUnit: 'stone' }],
+  ['unsupported height unit', { heightUnit: 'yard' }],
+  ['unsupported activity factor', { activity: 9 }],
+  ['malformed weight', { weight: 'not-a-number' }]
+]) {
+  const invalid = runTDEE(values);
+  assert.ok(invalid.validationMessage, 'TDEE must explain invalid ' + name);
+  assert.equal(invalid.result, '', 'TDEE must not leave a result for invalid ' + name);
+  assert.equal(invalid.formula, '', 'TDEE must not leave a formula for invalid ' + name);
+  assert.doesNotMatch(JSON.stringify(invalid), /NaN|Infinity/);
+  checks++;
+}
+setTDEE({ weightUnit: 'lb', heightUnit: 'inch' });
+tdeeContext.updateTDEEUnitBounds();
+assert.equal(tdeeElements.get('weight').min, '44.0924');
+assert.equal(tdeeElements.get('weight').max, '1102.3113');
+assert.equal(tdeeElements.get('height').min, '39.3701');
+assert.equal(tdeeElements.get('height').max, '98.4252');
+checks++;
+
 
 // Known-answer: US Navy male equation with canonical centimetre inputs.
 Object.entries({

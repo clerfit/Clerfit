@@ -19,51 +19,101 @@
 
 <link rel="stylesheet" href="../css/style.css?v=20261017-new-ui">
 <script defer>
-function calculateTDEE() {
-  const weight = parseFloat(document.getElementById('weight').value);
+function updateTDEEUnitBounds() {
   const weightUnit = document.getElementById('weightUnit').value;
-  const height = parseFloat(document.getElementById('height').value);
   const heightUnit = document.getElementById('heightUnit').value;
-  const age = parseFloat(document.getElementById('age').value);
-  const gender = document.getElementById('gender').value;
-  const activity = parseFloat(document.getElementById('activity').value);
+  const weight = document.getElementById('weight');
+  const height = document.getElementById('height');
 
-  if (!weight || !height || !age) {
-    alert("Please enter all values");
+  const weightBounds = weightUnit === 'kg'
+    ? { min: 20, max: 500 }
+    : weightUnit === 'lb'
+      ? { min: 44.0924, max: 1102.3113 }
+      : null;
+  const heightBounds = {
+    cm: { min: 100, max: 250 },
+    m: { min: 1, max: 2.5 },
+    inch: { min: 39.3701, max: 98.4252 },
+    ft: { min: 3.28084, max: 8.2021 }
+  }[heightUnit];
+
+  if (weightBounds) {
+    weight.min = String(weightBounds.min);
+    weight.max = String(weightBounds.max);
+  }
+  if (heightBounds) {
+    height.min = String(heightBounds.min);
+    height.max = String(heightBounds.max);
+  }
+}
+
+function calculateTDEE() {
+  const weightInput = Number(document.getElementById('weight').value);
+  const weightUnit = document.getElementById('weightUnit').value;
+  const heightInput = Number(document.getElementById('height').value);
+  const heightUnit = document.getElementById('heightUnit').value;
+  const age = Number(document.getElementById('age').value);
+  const gender = document.getElementById('gender').value;
+  const activity = Number(document.getElementById('activity').value);
+  const result = document.getElementById('result');
+  const formula = document.getElementById('formula');
+  const validationMessage = document.getElementById('validationMessage');
+  const indicator = document.getElementById('indicator');
+
+  result.textContent = '';
+  formula.textContent = '';
+  validationMessage.textContent = '';
+
+  if (!Number.isFinite(weightInput) || !Number.isFinite(heightInput) ||
+      !Number.isFinite(age) || !Number.isFinite(activity)) {
+    validationMessage.textContent = 'Enter valid numeric values for every field.';
+    return;
+  }
+  if (!['kg', 'lb'].includes(weightUnit) ||
+      !['cm', 'm', 'inch', 'ft'].includes(heightUnit)) {
+    validationMessage.textContent = 'Choose supported weight and height units.';
+    return;
+  }
+  if (!['male', 'female'].includes(gender)) {
+    validationMessage.textContent = 'Choose a supported sex/reference option.';
+    return;
+  }
+  if (![1.2, 1.375, 1.55, 1.725, 1.9].includes(activity)) {
+    validationMessage.textContent = 'Choose a supported activity level.';
+    return;
+  }
+  if (!Number.isInteger(age) || age < 18 || age > 120) {
+    validationMessage.textContent = 'Age must be a whole number from 18 to 120 years for this adult equation.';
     return;
   }
 
-  // Convert weight to kg
-  let w = weight;
-  if (weightUnit === 'lb') w = weight * 0.453592;
+  const weightKg = weightUnit === 'lb' ? weightInput * 0.45359237 : weightInput;
+  const heightCm = heightUnit === 'm' ? heightInput * 100
+    : heightUnit === 'inch' ? heightInput * 2.54
+      : heightUnit === 'ft' ? heightInput * 30.48 : heightInput;
 
-  // Convert height to cm
-  let h = height;
-  if (heightUnit === 'm') h = height * 100;
-  else if (heightUnit === 'inch') h = height * 2.54;
-  else if (heightUnit === 'ft') h = height * 30.48;
-
-  // BMR calculation (Mifflin-St Jeor)
-  let bmr = 0;
-  if (gender === 'male') {
-    bmr = 10 * w + 6.25 * h - 5 * age + 5;
-  } else {
-    bmr = 10 * w + 6.25 * h - 5 * age - 161;
+  if (weightKg < 20 || weightKg > 500) {
+    validationMessage.textContent = 'Weight must convert to a value from 20 to 500 kg.';
+    return;
+  }
+  if (heightCm < 100 || heightCm > 250) {
+    validationMessage.textContent = 'Height must convert to a value from 100 to 250 cm.';
+    return;
   }
 
-  // TDEE
+  const bmr = 10 * weightKg + 6.25 * heightCm - 5 * age + (gender === 'male' ? 5 : -161);
   const tdee = Math.round(bmr * activity);
+  if (!Number.isFinite(bmr) || bmr <= 0 || !Number.isFinite(tdee) || tdee <= 0) {
+    validationMessage.textContent = 'These values do not produce a valid positive energy estimate. Check your measurements.';
+    return;
+  }
 
-  // Show result
-  document.getElementById('result').innerHTML = `Your TDEE: <strong>${tdee} kcal/day</strong>`;
-
-  // Show formula
-  document.getElementById('formula').innerHTML = `Formula: BMR × Activity Factor = ${Math.round(bmr)} × ${activity} = ${tdee} kcal/day`;
-
-  // Update bar (activity level indicator)
-  const indicator = document.getElementById('indicator');
+  result.innerHTML = `Your TDEE: <strong>${tdee} kcal/day</strong>`;
+  formula.textContent = `Formula: BMR × Activity Factor = ${Math.round(bmr)} × ${activity} = ${tdee} kcal/day`;
   indicator.style.left = ((activity - 1.2) / (1.9 - 1.2) * 100) + '%';
 }
+
+updateTDEEUnitBounds();
 </script>
 
   <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/tdee.html">
@@ -129,15 +179,15 @@ function calculateTDEE() {
 <h2>TDEE Calculator</h2>
 
 <label for="weight">Weight</label>
-<input id="weight" type="number" min="0.1" max="500" step="any">
-<select id="weightUnit" aria-label="Weight unit">
+<input id="weight" type="number" min="20" max="500" step="any">
+<select id="weightUnit" aria-label="Weight unit" onchange="updateTDEEUnitBounds()">
 <option value="kg" selected>kg</option>
 <option value="lb">lb</option>
 </select>
 
 <label for="height">Height</label>
-<input id="height" type="number" min="30" max="300" step="any">
-<select id="heightUnit" aria-label="Height unit">
+<input id="height" type="number" min="100" max="250" step="any">
+<select id="heightUnit" aria-label="Height unit" onchange="updateTDEEUnitBounds()">
 <option value="cm" selected>cm</option>
 <option value="m">m</option>
 <option value="inch">inch</option>
@@ -164,7 +214,8 @@ function calculateTDEE() {
 
 <button class="calculate-btn" onclick="calculateTDEE()">Calculate</button>
 
-<div id="result" class="result"></div>
+<div id="validationMessage" class="cf-validation-message" role="alert" aria-live="assertive"></div>
+<div id="result" class="result" aria-live="polite"></div>
 <div id="formula"></div>
 
 <div class="bar-container">
