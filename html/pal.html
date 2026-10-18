@@ -173,28 +173,40 @@
 
 <script>
 function calculatePAL() {
-  const age = parseInt(document.getElementById("age").value);
+  const ageRaw = document.getElementById("age").value;
+  const age = Number(ageRaw);
   const gender = document.getElementById("gender").value;
   const activity = document.getElementById("activity").value;
+  const result = document.getElementById("result");
+  result.textContent = "";
 
-  if (!age || !gender || !activity) {
-    alert("Please enter age, select gender, and activity level.");
+  if (ageRaw.trim() === "" || !Number.isInteger(age) || age < 1 || age > 120) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter an integer age from 1 to 120.</p>';
+    return;
+  }
+  if (!["male", "female"].includes(gender)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose a supported sex/reference group.</p>';
     return;
   }
 
-  let palValue;
-  switch(activity) {
-    case "sedentary": palValue = 1.2; break;
-    case "light": palValue = 1.375; break;
-    case "moderate": palValue = 1.55; break;
-    case "active": palValue = 1.725; break;
-    case "veryactive": palValue = 1.9; break;
-    case "extraactive": palValue = 2.0; break;
+  const factors = {
+    sedentary: 1.2,
+    light: 1.375,
+    moderate: 1.55,
+    active: 1.725,
+    veryactive: 1.9,
+    extraactive: 2.0
+  };
+  const palValue = factors[activity];
+  if (!Number.isFinite(palValue)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose a listed activity level.</p>';
+    return;
   }
 
-  document.getElementById("result").innerHTML =
-    `Age: <b>${age}</b>, Gender: <b>${gender}</b><br>` +
-    `Physical Activity Level (PAL): <b>${palValue.toFixed(2)}</b>`;
+  result.innerHTML =
+    `Age: <b>${age}</b>, Sex/reference group: <b>${gender}</b><br>
+     Physical Activity Level (PAL): <b>${palValue.toFixed(2)}</b>
+     <p class="cf-note">PAL is the multiplier associated with the selected activity category; it is not a measurement of your actual daily energy expenditure.</p>`;
 }
 </script>
 
