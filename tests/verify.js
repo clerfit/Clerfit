@@ -530,4 +530,30 @@ assert.match(pageTest.output('weightStabilityResult'), /Gaining Weight/);
 assert.match(pageTest.output('weightStabilityResult'), /water and measurement variation/);
 checks++;
 
+// Phase 4 regression: percentage inputs must be finite, complete numbers and use a valid mode.
+pageTest = runPageFunction('percentage.html', 'calculatePercentage', {
+  percentType: 'basic', value1: '12abc', value2: '20'
+}, ['percentageResult']);
+assert.match(pageTest.output('percentageResult'), /valid finite numerical values/i);
+assert.doesNotMatch(pageTest.output('percentageResult'), /60\.00%/);
+checks++;
+
+pageTest = runPageFunction('percentage.html', 'calculatePercentage', {
+  percentType: 'basic', value1: '10', value2: '0'
+}, ['percentageResult']);
+assert.match(pageTest.output('percentageResult'), /Division by zero/i);
+checks++;
+
+pageTest = runPageFunction('percentage.html', 'calculatePercentage', {
+  percentType: 'basic', value1: '25', value2: '100'
+}, ['percentageResult']);
+assert.match(pageTest.output('percentageResult'), /25 is <strong>25\.00%<\/strong> of 100/);
+checks++;
+
+pageTest = runPageFunction('percentage.html', 'calculatePercentage', {
+  percentType: 'unknown', value1: '25', value2: '100'
+}, ['percentageResult']);
+assert.match(pageTest.output('percentageResult'), /valid percentage calculation/i);
+checks++;
+
 console.log('PASS: ' + checks + ' known-answer/domain assertions across generated calculators, CDC BMI-for-age, legacy formulas, and unit conversions.');
