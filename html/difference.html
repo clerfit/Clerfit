@@ -103,22 +103,30 @@
 
   <script>
     function calculateDifference() {
-      const a = parseFloat(document.getElementById('diffA').value);
-      const b = parseFloat(document.getElementById('diffB').value);
+      const rawA = document.getElementById('diffA').value.trim();
+      const rawB = document.getElementById('diffB').value.trim();
+      const a = Number(rawA);
+      const b = Number(rawB);
+      const out = document.getElementById('diffResult');
 
-      if (isNaN(a) || isNaN(b)) {
-        alert('Please enter both values.');
+      if (!rawA || !rawB || !Number.isFinite(a) || !Number.isFinite(b)) {
+        out.textContent = 'Please enter two valid finite numerical values.';
         return;
       }
 
       const absoluteDiff = Math.abs(a - b);
       const signedDiff = a - b;
-      const percentDiff = ((absoluteDiff / ((Math.abs(a) + Math.abs(b)) / 2)) * 100);
+      const meanMagnitude = (Math.abs(a) + Math.abs(b)) / 2;
+      const percentDiff = meanMagnitude === 0 ? null : (absoluteDiff / meanMagnitude) * 100;
+      const format = value => value.toFixed(4).replace(/\.?0+$/, '');
+      const percentText = percentDiff === null
+        ? 'undefined (both values are zero)'
+        : percentDiff.toFixed(2) + '%';
 
-      document.getElementById('diffResult').innerHTML =
-        `Absolute difference: <b>${absoluteDiff.toFixed(4).replace(/\.?0+$/, '')}</b><br>` +
-        `Signed difference (First - Second): <b>${signedDiff.toFixed(4).replace(/\.?0+$/, '')}</b><br>` +
-        `Percent difference: <b>${isFinite(percentDiff) ? percentDiff.toFixed(2) : '0.00'}%</b>`;
+      out.innerHTML =
+        `Absolute difference: <b>${format(absoluteDiff)}</b><br>` +
+        `Signed difference (First - Second): <b>${format(signedDiff)}</b><br>` +
+        `Percent difference: <b>${percentText}</b>`;
     }
   </script>
 </div>
