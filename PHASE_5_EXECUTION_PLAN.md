@@ -2,7 +2,7 @@
 
 Status: STARTED (parallel work may proceed; does not waive Phase 4 or Phase 3 gates).
 
-Baseline: `main` after Phase 4 regression merge `2e810ff64db327510f2af7c53d3fe023d247f74e` (2026-10-18). Re-run applicable checks against the exact candidate SHA before release.
+Baseline: `main` after Phase 4 Mosteller BSA regression merge `421de95517531dec0af868d9f76c908daa4f22fe` (2026-10-18). Re-run applicable checks against the exact candidate SHA before release.
 
 ## Purpose
 
@@ -49,3 +49,12 @@ Turn the remaining release-readiness evidence into actionable, auditable closure
 2. Run one exact-main candidate verification after the current merge and record its SHA.
 3. Update the release register with evidence and owner blockers rather than rerunning already-passed historical checks.
 4. Continue Phase 4 source/boundary review alongside production-readiness preparation.
+
+
+## Execution log — 2026-10-18
+
+- Phase 4 PR #30 added reference-derived Mosteller BSA and input-domain tests; formula regression and Phase 1/2 verification passed on the PR head before squash.
+- Phase 4 PR #31 added a source-gap snapshot covering 41 route rows; PR #34 is the cleanly rebased continuation to replace generic reference placeholders and consolidate official/primary sources. It must pass the full workflow before merge.
+- Phase 4 PR #33 adds non-diagnostic interpretation boundary regressions for waist, waist-to-height and waist-to-hip context. Formula regression passed; the full Phase 1/2 run was cancelled by workflow concurrency and must be rerun after the current verification run completes.
+- Current main's exact-SHA production/live route and security-header evidence has not yet been recorded after the latest merges. Older live audit results in the Phase 3 register are not post-merge verification.
+- Owner-required items remain open: exact reference ZIP parity, manual/device accessibility, consented real contact delivery, exact PageSpeed 404 URL, hosting/header control and independent qualified review.
