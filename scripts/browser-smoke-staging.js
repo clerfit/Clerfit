@@ -568,6 +568,42 @@ async function targetedUnits(browser) {
     report.push('Water Intake: valid result, unit-specific inward bounds, and kg/lb equivalence');
     await p.close();
   }
+  {
+    const p=await browser.newPage({viewport:{width:390,height:844}});
+    await p.goto(new URL('html/carbs.html?browserSmoke=carbs-unit-bounds',BASE).href,{waitUntil:'load'});
+    await p.locator('#weightUnit').selectOption('lbs');
+    await p.locator('#heightUnit').selectOption('in');
+    if(await p.locator('#weight').getAttribute('min')!=='4.4093'||await p.locator('#weight').getAttribute('max')!=='1102.3113') throw new Error('Carbohydrate lb bounds must preserve 2–500 kg after conversion.');
+    if(await p.locator('#height').getAttribute('min')!=='39.3701'||await p.locator('#height').getAttribute('max')!=='98.4251') throw new Error('Carbohydrate inch bounds must preserve 100–250 cm after conversion.');
+    await p.locator('#weight').fill('154.3235835'); await p.locator('#height').fill('68.8976378');
+    await p.locator('#age').fill('30'); await p.locator('#gender').selectOption('male');
+    await p.locator('#activity').selectOption('1.55'); await p.locator('#carbPercent').selectOption('50');
+    await p.evaluate(()=>calculateCarbs());
+    if(!/319 grams\/day/.test(await p.locator('#result').innerText())) throw new Error('Carbohydrate lb/in reference case should return 319 grams/day.');
+    await p.locator('#weightUnit').selectOption('kg'); await p.locator('#heightUnit').selectOption('cm');
+    if(await p.locator('#weight').getAttribute('min')!=='2'||await p.locator('#height').getAttribute('min')!=='100') throw new Error('Carbohydrate metric bounds must match canonical limits.');
+    await p.locator('#weight').fill('70'); await p.locator('#height').fill('175'); await p.evaluate(()=>calculateCarbs());
+    if(!/319 grams\/day/.test(await p.locator('#result').innerText())) throw new Error('Carbohydrate metric reference case should match imperial output.');
+    report.push('Carbohydrates: unit-specific bounds and kg/lb + cm/in equivalence');
+    await p.close();
+  }
+  {
+    const p=await browser.newPage({viewport:{width:390,height:844}});
+    await p.goto(new URL('html/fat.html?browserSmoke=fat-unit-bounds',BASE).href,{waitUntil:'load'});
+    await p.locator('#weightUnit').selectOption('lbs');
+    await p.locator('#heightUnit').selectOption('in');
+    if(await p.locator('#weight').getAttribute('min')!=='4.4093'||await p.locator('#height').getAttribute('min')!=='39.3701') throw new Error('Fat calculator customary bounds must preserve canonical weight and height limits.');
+    await p.locator('#weight').fill('154.3235835'); await p.locator('#height').fill('68.8976378');
+    await p.locator('#age').fill('30'); await p.locator('#gender').selectOption('male');
+    await p.locator('#activity').selectOption('1.55'); await p.locator('#fatPercent').selectOption('25');
+    await p.evaluate(()=>calculateFat());
+    if(!/71 grams\/day/.test(await p.locator('#result').innerText())) throw new Error('Fat lb/in reference case should return 71 grams/day.');
+    await p.locator('#weightUnit').selectOption('kg'); await p.locator('#heightUnit').selectOption('cm');
+    await p.locator('#weight').fill('70'); await p.locator('#height').fill('175'); await p.evaluate(()=>calculateFat());
+    if(!/71 grams\/day/.test(await p.locator('#result').innerText())) throw new Error('Fat metric reference case should match imperial output.');
+    report.push('Fat: unit-specific bounds and kg/lb + cm/in equivalence');
+    await p.close();
+  }
   return report;
 }
 
