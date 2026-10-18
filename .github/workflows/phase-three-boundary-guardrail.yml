@@ -8,7 +8,10 @@ on:
       - 'INPUT_BOUNDARY_VERIFIED.csv'
       - 'tests/phase-three-boundary-structure.test.js'
       - 'tests/phase-three-runtime-fields.test.js'
+      - 'tests/phase-three-layout-footer.test.js'
       - 'js/advanced-calculators.js'
+      - 'js/page-chrome.js'
+      - 'css/style.css'
       - '.github/workflows/phase-three-boundary-guardrail.yml'
   pull_request:
     branches: [main]
@@ -20,6 +23,9 @@ on:
       - 'tests/phase-three-generated-unit-bounds.test.js'
       - 'js/advanced-calculators.js'
       - 'js/unit-system.js'
+      - 'js/page-chrome.js'
+      - 'css/style.css'
+      - 'tests/phase-three-layout-footer.test.js'
       - '.github/workflows/phase-three-boundary-guardrail.yml'
   workflow_dispatch:
 
@@ -43,3 +49,6 @@ jobs:
         run: node tests/phase-three-generated-unit-bounds.test.js
       - name: Exercise generated field semantic boundaries
         run: node tests/phase-three-semantic-boundaries.test.js
+      - name: Verify shared footer and responsive numeric input layout
+        run: node tests/phase-three-layout-footer.test.js
+
