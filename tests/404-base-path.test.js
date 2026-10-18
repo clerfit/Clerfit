@@ -9,11 +9,11 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 const html = fs.readFileSync('404.html', 'utf8');
-assert.match(html, /<html\\b[^>]*\\blang=["']en["']/i, '404 page must declare its document language');
-assert.match(html, /<meta\\b[^>]*name=["']description["']/i, '404 page must have a meta description');
-assert.match(html, /<meta\\b[^>]*name=["']robots["'][^>]*content=["']noindex, follow["']/i, '404 page should not be indexed');
+assert.match(html, /<html\b[^>]*\blang=["']en["']/i, '404 page must declare its document language');
+assert.match(html, /<meta\b[^>]*name=["']description["']/i, '404 page must have a meta description');
+assert.match(html, /<meta\b[^>]*name=["']robots["'][^>]*content=["']noindex, follow["']/i, '404 page should not be indexed');
 
-const inlineScripts = [...html.matchAll(/<script(?:\\s[^>]*)?>([\\s\\S]*?)<\\/script>/gi)].map(m => m[1]);
+const inlineScripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(m => m[1]);
 const resolver = inlineScripts.find(script => script.includes("const marker = '/Clerfit/'"));
 assert.ok(resolver, '404 page must have a site-root resolver before asset links');
 
