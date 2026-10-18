@@ -85,6 +85,34 @@ assert.ok(male.details.includes('95.9th'));
 assert.ok(male.details.includes('CDC reference sex: male'));
 checks++;
 
+// BMI-for-age: validate the documented CDC reference-supported input domain.
+// Source/method: js/bmi-for-age.js cites CDC/NCHS Extended BMI-for-age Growth Charts.
+// These tests check supported input boundaries and reject just-outside/non-finite values;
+// they do not independently certify the growth-chart table or clinical interpretation.
+const bmiAgeBase = { weight: 33.125, height: 125, age: 9, ageMonths: 6, sex: 'female' };
+const bmiAgeMinimum = window.ClerFitBMIForAge.calculate({
+  ...bmiAgeBase, weight: 4.535, height: 30.48, age: 2, ageMonths: 0, sex: 'male'
+});
+assert.match(bmiAgeMinimum.primary, /^\d+\.\d kg\/m² · \d+\.\dth percentile$/);
+const bmiAgeMaximum = window.ClerFitBMIForAge.calculate({
+  ...bmiAgeBase, weight: 453.592, height: 274.32, age: 19, ageMonths: 11, sex: 'female'
+});
+assert.match(bmiAgeMaximum.primary, /^\d+\.\d kg\/m² · \d+\.\dth percentile$/);
+assert.throws(() => window.ClerFitBMIForAge.calculate({ ...bmiAgeBase, weight: 4.534 }), /Weight must be between/);
+assert.throws(() => window.ClerFitBMIForAge.calculate({ ...bmiAgeBase, weight: 453.593 }), /Weight must be between/);
+assert.throws(() => window.ClerFitBMIForAge.calculate({ ...bmiAgeBase, height: 30.479 }), /Height must be between/);
+assert.throws(() => window.ClerFitBMIForAge.calculate({ ...bmiAgeBase, height: 274.321 }), /Height must be between/);
+assert.throws(() => window.ClerFitBMIForAge.calculate({ ...bmiAgeBase, weight: Infinity }), /Weight must be between/);
+assert.throws(() => window.ClerFitBMIForAge.calculate({ ...bmiAgeBase, height: NaN }), /Height must be between/);
+assert.throws(() => window.ClerFitBMIForAge.calculate({ ...bmiAgeBase, weight: 0 }), /Weight must be between/);
+assert.throws(() => window.ClerFitBMIForAge.calculate({ ...bmiAgeBase, weight: -1 }), /Weight must be between/);
+assert.throws(() => window.ClerFitBMIForAge.calculate({ ...bmiAgeBase, age: 1 }), /Age must be between 2 and 19/);
+assert.throws(() => window.ClerFitBMIForAge.calculate({ ...bmiAgeBase, age: 20 }), /Age must be between 2 and 19/);
+assert.throws(() => window.ClerFitBMIForAge.calculate({ ...bmiAgeBase, ageMonths: -1 }), /Additional age must be between 0 and 11/);
+assert.throws(() => window.ClerFitBMIForAge.calculate({ ...bmiAgeBase, ageMonths: 12 }), /Additional age must be between 0 and 11/);
+assert.throws(() => window.ClerFitBMIForAge.calculate({ ...bmiAgeBase, sex: 'other' }), /Choose Male or Female/);
+checks += 15;
+
 assert.throws(() => defs['facial-thirds'].calculate({ upper: 50, middle: -1, lower: 70 }), /greater than zero/);
 assert.throws(() => defs['weekly-training-count'].calculate({ sessions: 2.5, minutes: 45 }), /whole-number session count/);
 assert.throws(() => defs['sit-stand-ratio'].calculate({ reps: 2.5, time: 30 }), /whole number/);
