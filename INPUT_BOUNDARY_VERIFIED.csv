@@ -195,8 +195,8 @@ sunlight.html,duration,Exposure Time,0,10080,any
 surplus.html,weight,Weight,0.1,500,any
 surplus.html,height,Height,30,300,any
 surplus.html,age,Age,1,120,1
-tdee.html,weight,Weight,0.1,500,any
-tdee.html,height,Height,30,300,any
+tdee.html,weight,Weight,20,500,any
+tdee.html,height,Height,100,250,any
 tdee.html,age,Age (years),18,120,1
 time-convert.html,timeValue,Enter time,0,1000000000000,any
 training-rest.html,trainingTime,Training Duration i Enter total training time per session (in hours by default).,0,10080,any
