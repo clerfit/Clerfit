@@ -81,6 +81,9 @@ jobs:
             node --check "$file"
           done
 
+      - name: Verify custom 404 path-base handling and metadata
+        run: node tests/404-base-path.test.js
+
       - name: Run calculator known-answer and domain regressions
         run: node tests/verify.js
       - name: Verify field-bound inventories match static source markup
