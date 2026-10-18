@@ -2,7 +2,7 @@
   'use strict';
   const path=location.pathname;
   const root=path.includes('/html/')?'../': './';
-  const home=root+'index.html', contact=root+'contact.html', logo=root+'logo.jpeg';
+  const home=root+'index.html', contact=root+'contact.html', logo=root+'logo-small.webp';
   const facePage=/face|facial|jaw|chin|nose|mouth|eye-spacing|lower-face/i.test(path);
   const svgHome='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5.5 9v11h13V9M9 20v-6h6v6"/></svg>';
   const svgMail='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>';
