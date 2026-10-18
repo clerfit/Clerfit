@@ -135,7 +135,7 @@ performance-score.html,bodyWeight,Body WeightiYour current body weight. Used to 
 ponderal.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
 ponderal.html,height,Height,30,300,any,bounds present; semantic/range boundary review required
 potassium.html,age,Age (years),1,120,1,bounds present; semantic/range boundary review required
-protein.html,weight,Weight,0.1,500,any,bounds present; semantic/range boundary review required
+protein.html,weight,Weight,2,500,any,canonical weight range 2–500 kg; unit-specific bounds are adjusted in runtime; other semantic boundary review required
 pullup-index.html,pu-count,Number of Pull-UpsiEnter the maximum number of consecutive pull-ups you can perform with proper form.,0,1000,1,bounds present; semantic/range boundary review required
 pullup-index.html,pu-body,Body Weight,0.1,500,any,bounds present; semantic/range boundary review required
 pushup-index.html,pu-count,Number of Push-UpsiEnter the maximum number of push-ups you can perform in one set with correct form.,0,1000,1,bounds present; semantic/range boundary review required
