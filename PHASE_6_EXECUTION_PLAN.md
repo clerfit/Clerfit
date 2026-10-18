@@ -43,3 +43,12 @@ Create a reproducible production-site ZIP from the exact tested main revision, v
 - Latest runtime revision before this phase: c5586e427684d793b10ec01099f9e24fc84a5c66; its Pages deployment, live production verification, 118-route interaction smoke, Phase 1/2 verification, Phase 3 boundary guardrail and performance/header audit workflows passed.
 - A subsequent documentation-only Phase 5 evidence commit a9189af83712eea35e8177d4b42486aac27f1430 has its own deployment and Phase 1/2 workflows running; do not record those as passed until they finish.
 - Phase 5 and final release acceptance remain open for the owner/expert/hosting dependencies listed above.
+
+
+## Execution log — candidate packaging run 39116688149 (2026-10-18)
+
+- **Candidate build and staging validation: PASS** on exact source SHA `ea437f2b8b10e4ec9dc821d4dc477e40030e1aa2`.
+- **Required-file and route validation: PASS** — all 118 registered calculator routes were found in the staged package and matched sitemap entries.
+- **ZIP integrity: PASS** — `unzip -t` succeeded for the generated candidate archive.
+- **Artifact uploaded: PASS** — [Phase 6 packaging run](https://github.com/clerfit/Clerfit/actions/runs/39116688149). Artifact: `clerfit-r3-candidate-ea437f2b8b10e4ec9dc821d4dc477e40030e1aa2`, size 1,280,304 bytes, artifact digest `sha256:115c66dfd3408a34a72fbad24077cc3b243c50f5646af20e285ee2343931f68a`, retained until 2026-11-17. The artifact contains the candidate ZIP, ZIP checksum file, and source-SHA file.
+- This is a **release candidate**, not a final release or proof of exact reference-archive parity. Phase 5/overall acceptance blockers remain open as enumerated above.
