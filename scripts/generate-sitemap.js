@@ -22,6 +22,7 @@ try {
 }
 
 const uniqueFiles = [...new Set(calculators.map(item => item.file))];
+const nonCanonicalLegacyAliases = new Set(['calories.html', 'contact.html', 'pace.html']);
 const missing = uniqueFiles.filter(file => !fs.existsSync(path.join(root, 'html', file)));
 if (missing.length) {
   console.error(`Sitemap generation stopped: missing registered calculator files: ${missing.join(', ')}`);
@@ -62,9 +63,9 @@ const canonicalFiles = [
   { file: path.join(root, 'privacy.html'), url: `${base}/privacy.html` },
   { file: path.join(root, 'terms-of-use.html'), url: `${base}/terms-of-use.html` },
   { file: path.join(root, 'educational-disclaimer.html'), url: `${base}/educational-disclaimer.html` },
-  ...fs.readdirSync(path.join(root, 'html')).filter(file => file.toLowerCase().endsWith('.html')).map(file => ({
+  ...uniqueFiles.map(file => ({
     file: path.join(root, 'html', file),
-    url: aliasCanonical[file] || (uniqueFiles.includes(file) ? `${base}/html/${encodeURI(file)}` : `${base}/html/${encodeURI(file)}`)
+    url: `${base}/html/${encodeURI(file)}`
   }))
 ];
 for (const entry of canonicalFiles) {
