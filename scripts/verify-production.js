@@ -116,6 +116,27 @@ async function main() {
   assert(css.body.includes('ClerFit R3 live calculator UI'), 'Live stylesheet missing the R3 calculator UI marker.');
   const regressionChecks = [];
 
+  // Exercise the deployed custom 404 at a deep nested path, where relative URLs
+  // otherwise resolve beneath the missing directory. This makes no user-data requests.
+  const missingProbeUrl = new URL('__clerfit-404-probe__/nested/missing.html', BASE).href;
+  try {
+    const probeResponse = await fetch(missingProbeUrl, {
+      redirect: 'follow',
+      headers: { 'user-agent': 'ClerFit-Production-Verifier/1.0', accept: 'text/html,*/*' },
+      signal: AbortSignal.timeout(15000)
+    });
+    const probeBody = await probeResponse.text();
+    assert(probeResponse.status === 404, 'Deep-path 404 probe should return HTTP 404, received ' + probeResponse.status + '.');
+    assert(/<html\b[^>]*\blang=["'][^"']+["']/i.test(probeBody), 'Deep-path 404 response is missing its HTML language declaration.');
+    assert(/<meta\b[^>]*name=["']description["']/i.test(probeBody), 'Deep-path 404 response is missing its meta description.');
+    assert(/<meta\b[^>]*name=["']robots["'][^>]*content=["']noindex, follow["']/i.test(probeBody), 'Deep-path 404 response is missing its noindex directive.');
+    assert(probeBody.includes("const marker = '/Clerfit/'"), 'Deployed 404 response is missing the deep-path site-root resolver.');
+    regressionChecks.push('deep-path 404 response status, metadata, and site-root resolver');
+  } catch (error) {
+    FAILURES.push('Deep-path custom 404 probe failed: ' + (error && error.message ? error.message : String(error)));
+  }
+
+
   // Advanced calculator calculation stays synchronous so submit handlers and
   // test callers see results immediately; it also avoids a race in result panels.
   assert(!/form\.addEventListener\('submit',\s*async\s/.test(advanced.body), 'Advanced calculator submit handler must calculate synchronously.');

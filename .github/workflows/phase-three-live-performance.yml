@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/phase-three-live-performance.yml"
+      - '404.html'
+      - 'scripts/verify-production.js'
+      - 'tests/404-base-path.test.js'
       - "PHASE_3_EXECUTION_REGISTER.csv"
       - "PHASE_3_EXECUTION_PLAN.md"
       - "PHASE_3_COMPLETION_REPORT.md"
