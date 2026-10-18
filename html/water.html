@@ -195,46 +195,7 @@ function updateWaterWeightBounds() {
   }
 }
 
-function calculateWater() {
-  const weightRaw = document.getElementById('weight').value;
-  const weightValue = Number(weightRaw);
-  const unit = document.getElementById('weightUnit').value;
-  const activity = Number(document.getElementById('activity').value);
-  const result = document.getElementById('result');
-  const formula = document.getElementById('formula');
-  const indicator = document.getElementById('indicator');
-  result.textContent = '';
-  formula.textContent = '';
-  indicator.style.left = '0%';
 
-  if (weightRaw.trim() === '' || !Number.isFinite(weightValue) ||
-      !['kg', 'lb'].includes(unit) || ![1.0, 1.2, 1.4, 1.6, 1.8].includes(activity)) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a supported body weight, choose kg or lb, and select a listed activity level.</p>';
-    return;
-  }
-
-  const weightKg = unit === 'lb' ? weightValue * 0.45359237 : weightValue;
-  if (!Number.isFinite(weightKg) || weightKg < 2 || weightKg > 500) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">Converted body weight must be between 2 and 500 kg.</p>';
-    return;
-  }
-
-  const waterMl = weightKg * 35 * activity;
-  const waterL = waterMl / 1000;
-  if (!Number.isFinite(waterMl) || !Number.isFinite(waterL) || waterL <= 0) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">A finite water-intake estimate could not be calculated from these inputs.</p>';
-    return;
-  }
-
-  result.innerHTML = `<strong>Estimated Daily Water Intake: ${waterL.toFixed(2)} L</strong>`;
-  formula.innerHTML = `Formula: ${weightKg.toFixed(1)} kg × 35 ml × Activity Factor (${activity}) = ${waterMl.toFixed(0)} ml = ${waterL.toFixed(2)} L
-    <p class="cf-note">This is a rough educational estimate, not a personalized prescription. Hydration needs vary with climate, exercise, diet and health; follow clinician guidance where applicable.</p>`;
-
-  const minL = 1.5;
-  const maxL = 4.0;
-  const percent = Math.max(0, Math.min(100, ((waterL - minL) / (maxL - minL)) * 100));
-  indicator.style.left = percent + '%';
-}
 updateWaterWeightBounds();
 </script>
 
