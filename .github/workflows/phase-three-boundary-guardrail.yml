@@ -8,7 +8,10 @@ on:
       - 'INPUT_BOUNDARY_VERIFIED.csv'
       - 'tests/phase-three-boundary-structure.test.js'
       - 'tests/phase-three-runtime-fields.test.js'
+      - 'tests/phase-three-layout-footer.test.js'
       - 'js/advanced-calculators.js'
+      - 'js/page-chrome.js'
+      - 'css/style.css'
       - '.github/workflows/phase-three-boundary-guardrail.yml'
   pull_request:
     branches: [main]
