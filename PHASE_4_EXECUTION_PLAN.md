@@ -2,7 +2,7 @@
 
 Status: STARTED — engineering work can proceed; Phase 3 overall release acceptance remains OPEN.
 
-Baseline: `main` at `86563f5cef6932b816ee221d22976670272ab840` (2026-10-18). Re-run all relevant checks against the exact candidate SHA after source/test changes.
+Baseline: `main` includes Phase 4 merges through `ff67c9d139a171f1cbddca10f5ffc37f6e9ce886` (2026-10-18). Re-run all relevant checks against the exact candidate SHA after source/test changes.
 
 ## Why Phase 4 starts before Phase 3 acceptance closes
 
