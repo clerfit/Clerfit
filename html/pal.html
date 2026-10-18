@@ -190,7 +190,7 @@ function calculatePAL() {
   };
   if (!ageRaw.trim() || !Number.isFinite(age) || !Number.isInteger(age) ||
       age < 1 || age > 120 ||
-      !["male", "female", "other"].includes(gender) ||
+      !["male", "female"].includes(gender) ||
       !Object.prototype.hasOwnProperty.call(factors, activity)) {
     if (result) result.innerHTML = '<p class="cf-validation-message" role="alert">Enter an integer age from 1 to 120, choose a supported reference group, and select a listed activity level.</p>';
     return;
