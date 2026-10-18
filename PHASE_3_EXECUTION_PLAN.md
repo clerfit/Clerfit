@@ -31,3 +31,13 @@ These are structural and regression gates; they do not certify that every select
 - Every static and generated numeric field has a reasoned semantic-domain record or an explicitly justified exception.
 - Owner/expert gates in the register are evidenced, not inferred from CI.
 - Deployment and live production verification refer to the exact release SHA.
+
+
+## Latest continuation — shared layout and footer remediation (2026-10-18)
+
+- Merged the mobile UI/BMI-for-age correction PR after its formula-regression and full Phase 1/2 verification workflows passed on the candidate SHA. This addresses the supplied mobile layout findings: horizontal wordmark/logo, higher hero contrast, usable numeric/unit control layout, and visible age-specific BMI percentile in the primary result.
+- Added a shared-footer fallback in `js/page-chrome.js`. It creates the consistent ClerFit footer only when a page does not already have one, preserves existing page footers, derives Home/Contact URLs correctly for root and `html/` pages, and avoids duplicating footer/navigation markup.
+- Improved generated numeric input/unit-selector column proportions at desktop and narrow phone widths, with tabular number styling and a compact-screen fallback. Updated the shared stylesheet cache key to prevent stale mobile CSS.
+- Added `tests/phase-three-layout-footer.test.js` and wired it into the Phase 3 guardrail workflow. It checks footer de-duplication, root-relative link resolution, numeric input sizing rules, and that every calculator HTML page loads the shared page-chrome script.
+- These source changes are **pending CI and exact-candidate browser verification**; no claim is made yet that the new footer/layout regression test or the final deployed candidate has passed.
+- Remaining external acceptance gates are unchanged: exact requested ZIP parity, field-by-field scientific domain rationale/expert review, physical-device/manual assistive-technology acceptance, live contact receipt, exact PageSpeed 404 URL, and weak-network/production response-header evidence.
