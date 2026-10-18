@@ -89,7 +89,7 @@ const urls = [
   ...uniqueFiles.map(file => ({ loc: `${base}/html/${encodeURI(file)}`, priority: '0.7' }))
 ];
 const xmlEscape = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
-const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(item => `  <url><loc>${xmlEscape(item.loc)}</loc><changefreq>monthly</changefreq><priority>${item.priority}</priority></url>`).join('\n')}\n</urlset>\n`;
+const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(item => `  <url>\n    <loc>${xmlEscape(item.loc)}</loc>\n  </url>`).join('\n')}\n</urlset>\n`;
 fs.writeFileSync(path.join(root, 'sitemap.xml'), xml);
 
 const robotsPath = path.join(root, 'robots.txt');
