@@ -83,3 +83,15 @@ Turn the remaining release-readiness evidence into actionable, auditable closure
 - PAL input validation and its educational definition are now on main. A zero-age PAL regression was added. The target-heart-rate input validation fix is also on main at this candidate and its Phase 3 boundary guardrail passed.
 - **Open remediation:** [PR #44](https://github.com/clerfit/Clerfit/pull/44) addresses carbohydrate/fat intake calculator age truncation, invalid activity/unit/macro domains, converted-measurement validation, stale results and accessible inline errors. It remains unmerged and is not counted as shipped in this candidate.
 - **Phase 5 remains open for release acceptance**, not for lack of these automated results but because the following require unavailable owner evidence or authorization: exact `ClerFit_R3_NEW_UI_COMPLETE.zip` parity; manual keyboard/screen-reader/zoom and physical-device acceptance; a consented real contact submission plus destination inbox confirmation; exact PageSpeed 404 URL; supported host/CDN configuration for missing response headers; and independent qualified review of health-related formula interpretation. Do not mark these passed by inference.
+
+
+## Execution log — post-merge main revision `c5586e427684d793b10ec01099f9e24fc84a5c66` (2026-10-18)
+
+- **PR #44 merged:** carbohydrate/fat intake calculator validation at merge commit `8651dec88262fd72929fb43b4a4560e90f77d59a`. Exact PR-head verification passed: [run 39115876086](https://github.com/clerfit/Clerfit/actions/runs/39115876086).
+- **Post-merge main deployment: PASS** — [Pages build/deployment run 39116334347](https://github.com/clerfit/Clerfit/actions/runs/39116334347).
+- **Post-merge live production verification: PASS** — [run 39116334559](https://github.com/clerfit/Clerfit/actions/runs/39116334559).
+- **Post-merge 118-route live calculator interaction smoke: PASS** — [run 39116334537](https://github.com/clerfit/Clerfit/actions/runs/39116334537).
+- **Post-merge Phase 1/2 exact-main verification: PASS** — [run 39116334558](https://github.com/clerfit/Clerfit/actions/runs/39116334558).
+- **Post-merge Phase 3 boundary guardrail: PASS** — [run 39116334529](https://github.com/clerfit/Clerfit/actions/runs/39116334529).
+- **Post-merge live performance/header workflow: PASS as an audit workflow** — [run 39116334568](https://github.com/clerfit/Clerfit/actions/runs/39116334568). Workflow success does not mean all headers are present; previously observed missing CSP, X-Content-Type-Options, X-Frame-Options, Referrer-Policy and Permissions-Policy remain a host/CDN decision.
+- **Phase 5 acceptance remains OPEN.** Still owner/external dependent: exact `ClerFit_R3_NEW_UI_COMPLETE.zip` parity; manual keyboard/screen-reader/zoom and physical-device acceptance; consented real contact submission with inbox receipt; exact PageSpeed 404 URL; authorized supported hosting/CDN configuration for missing response headers; independent qualified review of health-related formulas; and formula-aware semantic review of the complete 242-field/runtime inventory. No owner-dependent gate is marked passed by inference.
