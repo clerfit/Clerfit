@@ -578,6 +578,33 @@ assert.match(pageTest.output('result'), /BSA:[\s\S]*m²/);
 assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
 checks++;
 
+// Phase 4: Mosteller BSA reference vector and semantic domain guards.
+// Source: Mosteller 1987, DOI/PubMed 3657876.  sqrt(175*70/3600) = 1.8446... m².
+assert.match(pageTest.output('result'), /BSA: <b>1\.84 m²<\/b>/);
+assert.match(pageTest.output('formula'), /Mosteller formula/);
+checks++;
+
+pageTest = runPageFunction('bsa.html', 'calculateBSA', {
+  weight: 0, weightUnit: 'kg', height: 175, heightUnit: 'cm'
+}, ['result', 'formula', 'indicator']);
+assert.match(pageTest.output('result'), /positive, valid weight and height/i);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('bsa.html', 'calculateBSA', {
+  weight: 70, weightUnit: 'stone', height: 175, heightUnit: 'cm'
+}, ['result', 'formula', 'indicator']);
+assert.match(pageTest.output('result'), /Choose supported weight and height units/i);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
+checks++;
+
+pageTest = runPageFunction('bsa.html', 'calculateBSA', {
+  weight: 154.3235835, weightUnit: 'lbs', height: 68.8976378, heightUnit: 'inch'
+}, ['result', 'formula', 'indicator']);
+assert.match(pageTest.output('result'), /BSA: <b>1\.84 m²<\/b>/);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
+checks++;
+
 pageTest = runPageFunction('goal-timeline.html', 'calculateGoalTimeline', {
   currentWeight: 80, goalWeight: 75, weightUnitTimeline: 'kg', tdeeTimeline: 2500, intakeTimeline: 2000
 }, ['timelineResult']);
