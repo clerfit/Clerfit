@@ -89,9 +89,9 @@
   <div class="row">
     <div class="col">
       <label for="weight">Weight</label>
-      <input type="number" id="weight" placeholder="Enter weight" min="0.1" max="500" step="any" aria-label="Enter weight">
+      <input type="number" id="weight" placeholder="Enter weight" min="2" max="500" step="any" aria-label="Enter weight">
       <label for="weightUnit">Unit</label>
-      <select id="weightUnit" aria-label="Weight unit">
+      <select id="weightUnit" aria-label="Weight unit" onchange="updateMetabolicWeightBounds()">
         <option value="kg" selected>kg</option>
         <option value="lbs">lbs</option>
       </select>
@@ -99,9 +99,9 @@
 
     <div class="col">
       <label for="height">Height</label>
-      <input type="number" id="height" placeholder="Enter height" min="30" max="300" step="any" aria-label="Enter height">
+      <input type="number" id="height" placeholder="Enter height" min="100" max="250" step="any" aria-label="Enter height">
       <label for="heightUnit">Unit</label>
-      <select id="heightUnit" aria-label="Height unit">
+      <select id="heightUnit" aria-label="Height unit" onchange="updateMetabolicHeightBounds()">
         <option value="cm" selected>cm</option>
         <option value="m">m</option>
         <option value="in">in</option>
@@ -167,35 +167,67 @@ function convertHeightToCm(value, unit) {
 }
 
 // ===== Metabolic Age Calculation =====
-function calculateMetabolicAge() {
-  const weightVal = parseFloat(document.getElementById("weight").value);
-  const weightUnit = document.getElementById("weightUnit").value;
-  const heightVal = parseFloat(document.getElementById("height").value);
-  const heightUnit = document.getElementById("heightUnit").value;
-  const age = parseInt(document.getElementById("age").value);
-  const gender = document.getElementById("gender").value;
+function updateMetabolicWeightBounds() {
+  const input = document.getElementById("weight");
+  if (document.getElementById("weightUnit").value === "lbs") {
+    input.min = "4.4093"; input.max = "1102.3113";
+  } else {
+    input.min = "2"; input.max = "500";
+  }
+}
+function updateMetabolicHeightBounds() {
+  const input = document.getElementById("height");
+  const unit = document.getElementById("heightUnit").value;
+  const bounds = {cm:["100","250"],m:["1","2.5"],in:["39.3701","98.4251"],ft:["3.2809","8.202"]};
+  [input.min,input.max] = bounds[unit] || bounds.cm;
+}
 
-  if (!weightVal || !heightVal || !age || !gender) {
-    alert("Please enter all required fields.");
+function calculateMetabolicAge() {
+  const weightRaw = document.getElementById("weight").value;
+  const heightRaw = document.getElementById("height").value;
+  const ageRaw = document.getElementById("age").value;
+  const weightVal = Number(weightRaw);
+  const heightVal = Number(heightRaw);
+  const age = Number(ageRaw);
+  const weightUnit = document.getElementById("weightUnit").value;
+  const heightUnit = document.getElementById("heightUnit").value;
+  const gender = document.getElementById("gender").value;
+  const result = document.getElementById("result");
+  const details = document.getElementById("details");
+  result.textContent = "";
+  details.textContent = "";
+
+  if (weightRaw.trim() === "" || heightRaw.trim() === "" || ageRaw.trim() === "" ||
+      ![weightVal,heightVal,age].every(Number.isFinite) || !Number.isInteger(age) ||
+      age < 20 || age > 120 || !["male","female"].includes(gender) ||
+      !["kg","lbs"].includes(weightUnit) || !["cm","m","in","ft"].includes(heightUnit)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter valid measurements, an integer adult age from 20 to 120, a supported sex/reference group, and supported units.</p>';
     return;
   }
 
   const weightKg = convertWeightToKg(weightVal, weightUnit);
   const heightCm = convertHeightToCm(heightVal, heightUnit);
-
-  if (!Number.isFinite(weightKg) || !Number.isFinite(heightCm) || weightKg <= 0 || heightCm <= 0 || age < 20 || age > 120) {
-    document.getElementById("result").innerHTML = "<strong>Metabolic age not calculated.</strong> The available equation is not a validated metabolic-age method; this page can only estimate resting energy expenditure for adults aged 20 and older.";
-    document.getElementById("details").textContent = "No metabolic-age score is assigned because comparing one person's RMR with sparse population averages does not establish a validated biological or metabolic age.";
+  if (![weightKg,heightCm].every(Number.isFinite) ||
+      weightKg < 2 || weightKg > 500 || heightCm < 100 || heightCm > 250) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Converted weight must be 2–500 kg and height 100–250 cm. Check the selected units.</p>';
     return;
   }
 
-  // Mifflin–St Jeor estimates resting energy expenditure; it does not calculate a validated metabolic age.
+  // Mifflin–St Jeor estimates adult resting energy expenditure; it does not validate a metabolic-age score.
   const rmr = gender === "male"
-    ? (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5
-    : (10 * weightKg) + (6.25 * heightCm) - (5 * age) - 161;
-  document.getElementById("result").innerHTML = `Estimated resting metabolic rate: <b>${Math.round(rmr)} kcal/day</b>`;
-  document.getElementById("details").innerHTML = `Mifflin–St Jeor resting-energy estimate: ${Math.round(rmr)} kcal/day.<br>Metabolic age is not reported: this equation does not validate an individual metabolic-age score. <a href="https://pubmed.ncbi.nlm.nih.gov/2305711/" target="_blank" rel="noopener noreferrer">Read the Mifflin–St Jeor study</a>.`;
+    ? 10 * weightKg + 6.25 * heightCm - 5 * age + 5
+    : 10 * weightKg + 6.25 * heightCm - 5 * age - 161;
+  if (!Number.isFinite(rmr) || rmr <= 0) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">A finite resting-energy estimate could not be calculated from these inputs.</p>';
+    return;
+  }
+  result.innerHTML = `Estimated resting metabolic rate: <b>${Math.round(rmr)} kcal/day</b>`;
+  details.innerHTML = `Mifflin–St Jeor resting-energy estimate: ${Math.round(rmr)} kcal/day.<br>
+    Metabolic age is not reported: this equation does not validate an individual metabolic-age score.
+    <a href="https://pubmed.ncbi.nlm.nih.gov/2305711/" target="_blank" rel="noopener noreferrer">Read the Mifflin–St Jeor study</a>.`;
 }
+updateMetabolicWeightBounds();
+updateMetabolicHeightBounds();
 </script>
 
 
