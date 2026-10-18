@@ -1081,3 +1081,88 @@ body .cf-table-scroll td:before {
 .cf-home .cf-directory-head .cf-kicker { color: #0b665f !important; }
 .cf-home #cf-directory-count { color: #4b5563 !important; }
 .cf-home .cf-directory-copy small { color: #4b5563 !important; }
+
+
+/* Phase 3 mobile polish: prevent wordmark wrapping, improve hero contrast,
+   and give generated value/unit controls usable widths on narrow screens. */
+.cf-home .cf-wordmark {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex: 0 1 auto !important;
+  min-width: max-content !important;
+  max-width: 100% !important;
+  overflow-wrap: normal !important;
+}
+.cf-home .cf-wordmark > span {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  white-space: nowrap !important;
+  overflow-wrap: normal !important;
+  line-height: 1.1 !important;
+}
+.cf-home .cf-wordmark > span small {
+  display: block !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  overflow-wrap: normal !important;
+  font-size: clamp(.55rem, 2.2vw, .72rem) !important;
+  letter-spacing: .08em !important;
+  line-height: 1.25 !important;
+}
+.cf-home .cf-real-logo {
+  flex: 0 0 44px !important;
+  width: 44px !important;
+  height: 44px !important;
+  object-fit: contain !important;
+}
+.cf-home .cf-home-top {
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  gap: 10px !important;
+}
+.cf-home .cf-top-actions {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+.cf-home .cf-top-tag { display: none !important; }
+.cf-home .cf-home-hero h1 {
+  color: #f8fbff !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,.12) !important;
+}
+.cf-home .cf-home-hero h1 span {
+  color: #91f2df !important;
+}
+.cf-home .cf-home-hero p {
+  color: #e2edf8 !important;
+}
+body .cf-advanced-input-row {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(105px, .9fr) !important;
+  align-items: stretch !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+body .cf-advanced-input-row > input[type="number"] {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  text-align: left !important;
+  padding: 12px 14px !important;
+}
+body .cf-advanced-input-row > select {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+body .cf-advanced-input-row > input[type="number"]:only-child {
+  grid-column: 1 / -1 !important;
+}
+@media (max-width: 380px) {
+  .cf-home .cf-wordmark { gap: 8px !important; }
+  .cf-home .cf-real-logo { flex-basis: 36px !important; width: 36px !important; height: 36px !important; }
+  .cf-home .cf-wordmark > span small { white-space: normal !important; max-width: 170px !important; }
+  body .cf-advanced-input-row { grid-template-columns: minmax(0, 1fr) minmax(92px, .85fr) !important; gap: 7px !important; }
+}

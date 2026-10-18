@@ -131,8 +131,8 @@ async function main() {
     if (typeof calculate === 'function') {
       const female = calculate({weight:33.125,height:125,age:9,ageMonths:6,sex:'female'});
       const male = calculate({weight:24.9165,height:105,age:4,ageMonths:2,sex:'male'});
-      assert(female.primary === '21.2 kg/m²' && female.details.includes('92.2th'), 'BMI-for-age female known-answer vector did not match the expected CDC percentile.');
-      assert(male.primary === '22.6 kg/m²' && male.details.includes('95.9th'), 'BMI-for-age male known-answer vector did not match the expected CDC percentile.');
+      assert(female.primary === '21.2 kg/m² · 92.2th percentile' && female.details.includes('92.2th'), 'BMI-for-age female known-answer vector did not match the expected CDC percentile.');
+      assert(male.primary === '22.6 kg/m² · 95.9th percentile' && male.details.includes('95.9th'), 'BMI-for-age male known-answer vector did not match the expected CDC percentile.');
       let missingSexRejected = false;
       try { calculate({weight:33.125,height:125,age:9,ageMonths:6,sex:'not-specified'}); } catch { missingSexRejected = true; }
       assert(missingSexRejected, 'BMI-for-age must require the sex-specific growth-chart reference.');

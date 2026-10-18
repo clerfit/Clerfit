@@ -39,7 +39,7 @@ const vectors = [
   ['weekly-training-count', { sessions: 5, minutes: 45 }, '5 sessions/week'],
   ['recovery-time', { end: '2026-10-17T08:00', next: '2026-10-17T12:00' }, '4 hours'],
   ['fatigue-index', { fatigue: 6, soreness: 4, stress: 5, sleep: 8 }, '39 / 100'],
-  ['bmi-for-age', { weight: 33.125, height: 125, age: 9, ageMonths: 6, sex: 'female' }, '21.2 kg/m²'],
+  ['bmi-for-age', { weight: 33.125, height: 125, age: 9, ageMonths: 6, sex: 'female' }, '21.2 kg/m² · 92.2th percentile'],
   ['waist-risk', { waist: 80, age: 30, sex: 'female' }, '80 cm'],
   ['hip-risk', { waist: 80, hip: 100, sex: 'male' }, '0.800'],
   ['waist-height-risk', { waist: 80, height: 170, age: 30 }, '0.471'],
@@ -73,14 +73,14 @@ checks += 7;
 const female = window.ClerFitBMIForAge.calculate({
   weight: 33.125, height: 125, age: 9, ageMonths: 6, sex: 'female'
 });
-assert.equal(female.primary, '21.2 kg/m²');
+assert.equal(female.primary, '21.2 kg/m² · 92.2th percentile');
 assert.ok(female.details.includes('92.2th'));
 assert.ok(female.details.includes('CDC reference sex: female'));
 checks++;
 const male = window.ClerFitBMIForAge.calculate({
   weight: 24.9165, height: 105, age: 4, ageMonths: 2, sex: 'male'
 });
-assert.equal(male.primary, '22.6 kg/m²');
+assert.equal(male.primary, '22.6 kg/m² · 95.9th percentile');
 assert.ok(male.details.includes('95.9th'));
 assert.ok(male.details.includes('CDC reference sex: male'));
 checks++;
