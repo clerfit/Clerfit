@@ -69,3 +69,18 @@ Each change has regression coverage in `tests/verify.js`.
 ## Current disposition
 
 Phase 4 remains **IN PROGRESS**. The regression batches improve software behavior and coverage, but do not finish formula-by-formula authoritative-source traceability or exhaustive semantic boundary rationale across all routes and 238 static fields/runtime-generated controls. Phase 3 external acceptance gates remain open in issue #6. No independent scientific/clinical review or full release acceptance is claimed.
+
+
+## Additional logarithmic-equation regression batch
+
+- PR #29 merged: https://github.com/clerfit/Clerfit/pull/29
+- Tested revision: `9b6d0926d225c660f1e3ca0005d8f1c72da0d1e0`
+- Merge commit: `2e810ff64db327510f2af7c53d3fe023d247f74e`
+- Formula regression: PASS — https://github.com/clerfit/Clerfit/actions/runs/39105766265
+- Phase 1/2 verification: PASS — https://github.com/clerfit/Clerfit/actions/runs/39105766258
+- Added a female US Navy body-fat known-answer vector and guards for invalid waist/neck ordering and missing female hip measurements. The tests also assert that invalid cases do not produce NaN/Infinity.
+- The workflows passed on the exact PR head before squash. The report does not claim those PR-triggered runs are post-merge runs on the merge SHA.
+
+## Phase 4 disposition after latest batch
+
+The current focused engineering batch is merged and its formula and Phase 1/2 workflows passed. **Phase 4 as a whole is still IN PROGRESS**, because its original exit criteria require expanded authoritative-source traceability and semantic-boundary rationale across the route inventory, plus exact final-SHA and production evidence. Independent qualified review and owner-only Phase 3 release acceptance items remain separate gates. No scientific/clinical certification is implied.
