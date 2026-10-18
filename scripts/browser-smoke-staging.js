@@ -403,6 +403,7 @@ async function targetedCalculatorBoundaries(browser) {
   await exercise({file:'water.html',fn:'calculateWater',fields:{weight:70,weightUnit:'kg',activity:99},resultId:'result',caseName:'unsupported water activity factor rejected',expect:/listed activity level/i});
   await exercise({file:'pal.html',fn:'calculatePAL',fields:{age:30,gender:'male',activity:'moderate'},resultId:'result',caseName:'valid PAL activity factor calculates',expect:/Physical Activity Level \(PAL\):\s*1\.55/i});
   await exercise({file:'pal.html',fn:'calculatePAL',fields:{age:30.5,gender:'male',activity:'moderate'},resultId:'result',caseName:'fractional PAL age rejected',expect:/integer age from 1 to 120/i});
+  await exercise({file:'pal.html',fn:'calculatePAL',fields:{age:0,gender:'male',activity:'moderate'},resultId:'result',caseName:'zero PAL age rejected',expect:/integer age from 1 to 120/i});
   await exercise({file:'pal.html',fn:'calculatePAL',fields:{age:121,gender:'male',activity:'moderate'},resultId:'result',caseName:'out-of-range PAL age rejected',expect:/integer age from 1 to 120/i});
   await exercise({file:'pal.html',fn:'calculatePAL',fields:{age:30,gender:'male',activity:'unsupported'},resultId:'result',caseName:'unsupported PAL activity rejected',expect:/listed activity level/i});
   await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:70,weightUnit:'kg',level:1.2},resultId:'result',caseName:'valid protein estimate calculates',expect:/Estimated Protein Intake:\s*84\.00 g\/day/i});
