@@ -173,27 +173,36 @@
 
 <script>
 function calculatePAL() {
-  const age = parseInt(document.getElementById("age").value);
+  const ageRaw = document.getElementById("age").value;
+  const age = Number(ageRaw);
   const gender = document.getElementById("gender").value;
   const activity = document.getElementById("activity").value;
+  const result = document.getElementById("result");
+  if (result) result.textContent = "";
 
-  if (!age || !gender || !activity) {
-    alert("Please enter age, select gender, and activity level.");
+  const factors = {
+    sedentary: 1.2,
+    light: 1.375,
+    moderate: 1.55,
+    active: 1.725,
+    veryactive: 1.9,
+    extraactive: 2.0
+  };
+  if (!ageRaw.trim() || !Number.isFinite(age) || !Number.isInteger(age) ||
+      age < 1 || age > 120 ||
+      !["male", "female", "other"].includes(gender) ||
+      !Object.prototype.hasOwnProperty.call(factors, activity)) {
+    if (result) result.innerHTML = '<p class="cf-validation-message" role="alert">Enter an integer age from 1 to 120, choose a supported reference group, and select a listed activity level.</p>';
     return;
   }
 
-  let palValue;
-  switch(activity) {
-    case "sedentary": palValue = 1.2; break;
-    case "light": palValue = 1.375; break;
-    case "moderate": palValue = 1.55; break;
-    case "active": palValue = 1.725; break;
-    case "veryactive": palValue = 1.9; break;
-    case "extraactive": palValue = 2.0; break;
+  const palValue = factors[activity];
+  if (!Number.isFinite(palValue)) {
+    if (result) result.innerHTML = '<p class="cf-validation-message" role="alert">A valid PAL estimate could not be calculated from these inputs.</p>';
+    return;
   }
-
-  document.getElementById("result").innerHTML =
-    `Age: <b>${age}</b>, Gender: <b>${gender}</b><br>` +
+  if (result) result.innerHTML =
+    `Age: <b>${age}</b>, Reference group: <b>${gender}</b><br>` +
     `Physical Activity Level (PAL): <b>${palValue.toFixed(2)}</b>`;
 }
 </script>
