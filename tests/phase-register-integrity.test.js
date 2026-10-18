@@ -110,7 +110,16 @@ for (const file of fs.readdirSync(path.join(root, 'html')).filter(name => name.t
 assert.equal(sourceNumericFieldCount, 242, 'static HTML numeric input count must match field inventories');
 
 const sitemapText = read('sitemap.xml');
+assert.ok(sitemapText.trim().startsWith('<?xml'), 'sitemap must begin with an XML declaration');
+assert.match(sitemapText, /<urlset\s+xmlns=["']http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9["']/, 'sitemap must declare the standard sitemap XML namespace');
+assert.ok(/<\/urlset>\s*$/.test(sitemapText), 'sitemap must end with a closing urlset element');
 const sitemapUrls = [...sitemapText.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(match => match[1].trim());
+assert.ok(sitemapUrls.every(url => {
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === 'https:' && parsed.origin === 'https://clerfit.github.io' && parsed.pathname.startsWith('/Clerfit/');
+  } catch { return false; }
+}), 'sitemap URLs must be HTTPS and remain under the ClerFit GitHub Pages project path');
 assert.equal(new Set(sitemapUrls).size, sitemapUrls.length, 'sitemap must not contain duplicate URLs');
 assert.equal(sitemapUrls.length, 123, 'sitemap should include 118 tools and five root routes');
 for (const row of inventory) {
