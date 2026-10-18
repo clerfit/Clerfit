@@ -52,3 +52,11 @@ Reduce formula and input-validation uncertainty across the 118 calculator routes
 - Phase 1/2 verification passed on PR head: https://github.com/clerfit/Clerfit/actions/runs/39105766258
 - Added a female US Navy body-fat known-answer vector and invalid-domain cases for waist/neck ordering and required hip input.
 - These are software regression results, not independent validation of the underlying empirical equation. Phase 4 remains open for route-wide source traceability, semantic-boundary rationale, exact-candidate deployment evidence, and the independently qualified review required for health-related interpretation.
+
+
+## Route-level reference cleanup (2026-10-18)
+
+- The audit found 41 route rows with a generic reference placeholder. PR #31 adds `PHASE_4_ROUTE_SOURCE_GAP_REGISTER.csv` as a snapshot of those gaps and their closure actions.
+- PR #32 replaces those 41 generic matrix references with route-specific mathematical-basis notes, relevant existing source-family references, or explicit unresolved-source statements. It also attaches official/primary source links for Heath–Carter somatotype (DOI 10.1002/ajpa.1330270108), FAO/WHO/UNU PAL guidance, WHO UV-index guidance, CDC BMI context, and NICE central-adiposity guidance.
+- A reference being attached is not the same as implementation parity. Risk thresholds and specialized formulas still require route-by-route comparison, appropriate boundary vectors, and external qualified review where relevant.
+- PR #30 adds Mosteller BSA known-answer, unit-equivalence, zero-weight and unsupported-unit regressions; formula workflow passed on its PR head, while the full Phase 1/2 browser/accessibility workflow was still running at the time of this update.
