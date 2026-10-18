@@ -171,38 +171,7 @@ function updateProteinWeightBounds() {
   }
 }
 
-function calculateProtein() {
-  const weightRaw = document.getElementById('weight').value;
-  const weightValue = Number(weightRaw);
-  const unit = document.getElementById('weightUnit').value;
-  const level = Number(document.getElementById('level').value);
-  const result = document.getElementById('result');
-  const formula = document.getElementById('formula');
-  result.textContent = '';
-  formula.textContent = '';
 
-  if (weightRaw.trim() === '' || !Number.isFinite(weightValue) ||
-      !['kg', 'lb'].includes(unit) || ![0.8, 1.2, 1.6, 2.0].includes(level)) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter a supported weight, choose kg or lb, and select a listed activity/training level.</p>';
-    return;
-  }
-
-  const weightKg = unit === 'lb' ? weightValue * 0.45359237 : weightValue;
-  if (!Number.isFinite(weightKg) || weightKg < 2 || weightKg > 500) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">Converted body weight must be between 2 and 500 kg.</p>';
-    return;
-  }
-
-  const protein = weightKg * level;
-  if (!Number.isFinite(protein) || protein <= 0) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">A valid protein estimate could not be calculated from these inputs.</p>';
-    return;
-  }
-
-  result.innerHTML = `Estimated Protein Intake: <b>${protein.toFixed(2)} g/day</b>`;
-  formula.innerHTML = `Formula: Body weight (${weightKg.toFixed(2)} kg) × Activity Factor (${level}) = ${protein.toFixed(2)} g/day
-    <p class="cf-note">This factor-based estimate is educational and is not an individualized nutrition prescription.</p>`;
-}
 updateProteinWeightBounds();
 </script>
 
