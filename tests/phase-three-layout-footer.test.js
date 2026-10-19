@@ -10,6 +10,19 @@ const chrome = fs.readFileSync(path.join(root, 'js/page-chrome.js'), 'utf8');
 const polish = fs.readFileSync(path.join(root, 'js/site-polish.js'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'css/style.css'), 'utf8');
 
+assert.doesNotMatch(chrome, /fresh\.searchParams\.set\(["']v["']/,
+  'shared page chrome must not rewrite a stylesheet URL after the initial CSS request');
+const publicHtml = [
+  'index.html', '404.html', 'contact.html', 'educational-disclaimer.html', 'privacy.html', 'terms-of-use.html',
+  ...fs.readdirSync(path.join(root, 'html')).filter(name => name.endsWith('.html')).map(name => path.join('html', name))
+].map(file => path.join(root, file)).filter(file => fs.existsSync(file));
+const staleCssUrls = publicHtml.filter(file => {
+  const html = fs.readFileSync(file, 'utf8');
+  return /href=["'][^"']*css\/style\.css(?:\?[^"']*)?["']/i.test(html) &&
+    !/href=["'][^"']*css\/style\.css\?v=20261019-performance-cls-v1["']/i.test(html);
+});
+assert.deepEqual(staleCssUrls, [], 'all static pages using the shared stylesheet must use the same versioned URL');
+
 assert.match(polish, /header:not\(\.clerfit-page-header\):not\(\.cf-legal-heading\)/,
   'legacy shell cleanup must preserve legal content headers and their H1 headings');
 assert.ok(polish.includes('const isLegacyBrand=/clerfit\\s*(?:health\\s*&?\\s*performance|health.*fitness calculators)|all rights reserved/.test(text);'),
