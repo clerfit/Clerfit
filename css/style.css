@@ -1238,7 +1238,7 @@ body .cf-footer-bottom {
    Keep this layer last so it corrects legacy cascade conflicts without replacing calculator logic. */
 :root {
   --cf-control-min-height: 44px;
-  --cf-content-max: 1180px;
+  --cf-content-max: 1600px;
 }
 html { min-width: 320px; }
 body { min-width: 320px; overflow-x: clip; }
