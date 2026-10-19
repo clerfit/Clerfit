@@ -43,12 +43,11 @@
     document.querySelectorAll('main table,.main table').forEach(table=>{
       const rows=Array.from(table.rows||[]);
       const headerRow=rows.find(row=>row.querySelector('th'));
-      if(headerRow){
-        const headers=Array.from(headerRow.cells).map(cell=>(cell.textContent||'').trim());
-        rows.filter(row=>row!==headerRow).forEach(row=>Array.from(row.cells).forEach((cell,index)=>{
-          if(cell.tagName==='TD'&&!cell.hasAttribute('data-label')&&headers[index])cell.setAttribute('data-label',headers[index]);
-        }));
-      }
+      // Keep one canonical header row for every table. Do not copy column names into every
+      // data cell: mobile tables remain semantic tables with horizontally scrollable headers.
+      rows.filter(row=>row!==headerRow).forEach(row=>Array.from(row.cells).forEach(cell=>{
+        if(cell.tagName==='TD')cell.removeAttribute('data-label');
+      }));
       if(!table.parentElement?.classList.contains('cf-table-scroll')){
         const wrapper=document.createElement('div');wrapper.className='cf-table-scroll';
         wrapper.setAttribute('role','region');wrapper.setAttribute('aria-label','Calculator reference table');wrapper.tabIndex=0;
