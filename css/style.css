@@ -1472,3 +1472,71 @@ body .cf-home-top .clerfit-fixed-actions a {
     flex-basis: 14px !important;
   }
 }
+
+
+/* Homepage header overlap fix: keep the brand and navigation in separate rows on narrow screens. */
+body .cf-home .cf-home-top {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  column-gap: 16px !important;
+  row-gap: 12px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+body .cf-home .cf-home-top .cf-wordmark {
+  margin-left: 0 !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  flex-shrink: 1 !important;
+  overflow-wrap: normal !important;
+}
+body .cf-home .cf-home-top .cf-wordmark > span {
+  min-width: 0 !important;
+  white-space: normal !important;
+}
+body .cf-home .cf-home-top .cf-wordmark small {
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+body .cf-home .cf-home-top .cf-top-actions {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+body .cf-home .cf-home-top .clerfit-fixed-actions {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+@media (max-width: 760px) {
+  body .cf-home .cf-home-top {
+    grid-template-columns: minmax(0, 1fr) !important;
+    align-items: start !important;
+  }
+  body .cf-home .cf-home-top .cf-wordmark {
+    grid-column: 1 !important;
+    width: 100% !important;
+  }
+  body .cf-home .cf-home-top .cf-top-actions {
+    grid-column: 1 !important;
+    width: 100% !important;
+    justify-content: flex-end !important;
+  }
+  body .cf-home .cf-home-top .clerfit-fixed-actions {
+    display: flex !important;
+    flex-flow: row nowrap !important;
+    justify-content: flex-end !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+}
+@media (max-width: 360px) {
+  body .cf-home .cf-home-top .cf-wordmark small {
+    font-size: 8px !important;
+    letter-spacing: .07em !important;
+  }
+  body .cf-home .cf-home-top .clerfit-fixed-actions a {
+    padding: 7px 8px !important;
+    font-size: 10px !important;
+  }
+}
