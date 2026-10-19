@@ -1336,7 +1336,19 @@ body img, body svg, body video, body canvas { max-width: 100%; }
   body .clerfit-fixed-actions,
   body .cf-floating-links,
   body .top-right-buttons { padding-inline: 0 !important; }
-  body .cf-table-scroll table { min-width: 520px; }
+  /* Preserve the labelled stacked-row table layout on phones; do not reintroduce a wide table. */
+  body .cf-table-scroll table {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  body .cf-table-scroll table tbody,
+  body .cf-table-scroll table tr,
+  body .cf-table-scroll table td {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
 }
 @media (max-width: 420px) {
   body .main, body main.main { padding-inline: 12px !important; }
