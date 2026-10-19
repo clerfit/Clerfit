@@ -10,10 +10,12 @@
     const main=document.querySelector('main.main')||document.querySelector('main')||document.body;
     // Remove only legacy site-shell elements. Preserve semantic headers/footers used by calculator content.
     document.querySelectorAll('.top-right-buttons,.top-buttons,.cf-image-lightbox').forEach(el=>el.remove());
-    document.querySelectorAll('header:not(.clerfit-page-header),footer:not(.clerfit-page-footer)').forEach(el=>{
+    // Keep semantic content headers intact. The legal-page heading contains "ClerFit" in its eyebrow,
+    // but it is real page content and must not be removed by legacy-shell cleanup.
+    document.querySelectorAll('header:not(.clerfit-page-header):not(.cf-legal-heading),footer:not(.clerfit-page-footer)').forEach(el=>{
       const text=(el.textContent||'').toLowerCase();
       const isOutsideMain=!main.contains(el);
-      const isLegacyBrand=/clerfit|health\s*&?\s*performance|health.*fitness calculators|all rights reserved/.test(text);
+      const isLegacyBrand=/clerfit\s*(?:health\s*&?\s*performance|health.*fitness calculators)|all rights reserved/.test(text);
       const isKnownShell=el.matches('.site-header,#site-header,.site-footer,#site-footer,.top-header,.page-header,.page-footer');
       if(isOutsideMain||isLegacyBrand||isKnownShell)el.remove();
     });

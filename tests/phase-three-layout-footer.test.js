@@ -7,13 +7,20 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const chrome = fs.readFileSync(path.join(root, 'js/page-chrome.js'), 'utf8');
+const polish = fs.readFileSync(path.join(root, 'js/site-polish.js'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'css/style.css'), 'utf8');
 
+assert.match(polish, /header:not\(\.clerfit-page-header\):not\(\.cf-legal-heading\)/,
+  'legacy shell cleanup must preserve legal content headers and their H1 headings');
+assert.ok(polish.includes('const isLegacyBrand=/clerfit\\s*(?:health\\s*&?\\s*performance|health.*fitness calculators)|all rights reserved/.test(text);'),
+  'legacy header cleanup must target known branding instead of deleting every header that mentions ClerFit');
 assert.match(chrome, /function ensureSiteFooter\(\)/, 'shared page chrome must define footer injection');
 assert.match(chrome, /const existingFooter = document\.querySelector\("footer"\);[\s\S]*?existingFooter\.classList\.add\("cf-footer"\)/, 'existing footers must receive shared styling without duplication');
 assert.match(chrome, /new URL\("index\.html", root\)/, 'footer home link must respect root versus html/ paths');
 assert.match(chrome, /new URL\("contact\.html", root\)/, 'footer contact link must respect root versus html/ paths');
 assert.match(chrome, /main\.appendChild\(footer\)/, 'shared footer must be attached to calculator content');
+assert.match(css, /Preserve the labelled stacked-row table layout on phones[\s\S]*?min-width:\s*0 !important;/,
+  'mobile reference tables must not be forced wider than the viewport');
 assert.match(css, /\.cf-advanced-input-row[\s\S]*?grid-template-columns:\s*minmax\(0,\s*1\.35fr\)\s+minmax\(100px,\s*\.85fr\)/,
   'generated numeric inputs must receive more width than unit selectors');
 assert.match(css, /@media \(max-width: 430px\)[\s\S]*?\.cf-advanced-input-row[\s\S]*?grid-template-columns:\s*minmax\(0,\s*1\.2fr\)\s+minmax\(88px,\s*\.8fr\)/,
