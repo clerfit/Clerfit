@@ -38,22 +38,37 @@
     const crumb=document.querySelector('.cf-breadcrumb');
     const finalTitle=main.querySelector('h1');
     if(crumb&&finalTitle){crumb.innerHTML=`<a href="${home}">Home</a> / ${finalTitle.textContent.trim().replace(/[&<>]/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[ch]))}`;}
-    // Make tables understandable on narrow screens: keep native table semantics,
-    // label each data cell from its header, and use compact stacked rows on phones.
-    document.querySelectorAll('main table,.main table').forEach(table=>{
-      const rows=Array.from(table.rows||[]);
-      const headerRow=rows.find(row=>row.querySelector('th'));
-      // Keep one canonical header row for every table. Do not copy column names into every
-      // data cell: mobile tables remain semantic tables with horizontally scrollable headers.
-      rows.filter(row=>row!==headerRow).forEach(row=>Array.from(row.cells).forEach(cell=>{
-        if(cell.tagName==='TD')cell.removeAttribute('data-label');
-      }));
-      if(!table.parentElement?.classList.contains('cf-table-scroll')){
-        const wrapper=document.createElement('div');wrapper.className='cf-table-scroll';
-        wrapper.setAttribute('role','region');wrapper.setAttribute('aria-label','Calculator reference table');wrapper.tabIndex=0;
-        table.parentNode.insertBefore(wrapper,table);wrapper.appendChild(table);
-      }
-    });
+    // Normalize every table, including tables created after initial page load by a calculator.
+    // Keep native table semantics and a single header row; never duplicate column names into TDs.
+    function normalizeTables(scope){
+      const tables=[];
+      if(scope&&scope.nodeType===1&&scope.matches&&scope.matches('table'))tables.push(scope);
+      if(scope&&scope.querySelectorAll)tables.push(...scope.querySelectorAll('table'));
+      tables.forEach(table=>{
+        Array.from(table.rows||[]).forEach(row=>Array.from(row.cells||[]).forEach(cell=>{
+          if(cell.tagName==='TD')cell.removeAttribute('data-label');
+        }));
+        if(table.parentElement?.classList.contains('cf-table-scroll'))return;
+        const wrapper=document.createElement('div');
+        wrapper.className='cf-table-scroll';
+        wrapper.setAttribute('role','region');
+        wrapper.setAttribute('aria-label','Calculator table; scroll horizontally to view all columns');
+        wrapper.tabIndex=0;
+        table.parentNode.insertBefore(wrapper,table);
+        wrapper.appendChild(table);
+      });
+    }
+    normalizeTables(document);
+    // Some calculator result tables are inserted only after the user submits a form.
+    // Observe new content so the same table behavior applies to all calculators and results.
+    if(typeof MutationObserver==='function'&&main){
+      const tableObserver=new MutationObserver(records=>{
+        records.forEach(record=>record.addedNodes.forEach(node=>{
+          if(node.nodeType===1)normalizeTables(node);
+        }));
+      });
+      tableObserver.observe(main,{childList:true,subtree:true});
+    }
     const oldBrand=document.querySelector('.cf-page-brand'); if(oldBrand) oldBrand.remove();
     if(document.body&&!document.body.id)document.body.id='top';
     // Persistent, accessible top-right navigation on every interactive content page.
