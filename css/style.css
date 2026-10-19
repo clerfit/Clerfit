@@ -1233,3 +1233,121 @@ body .cf-footer-bottom {
 @media (max-width: 340px) {
   body .cf-advanced-input-row { grid-template-columns: minmax(0, 1fr) 84px !important; }
 }
+
+/* ClerFit R3 correction pass — responsive shell, compact help controls, and input sizing.
+   Keep this layer last so it corrects legacy cascade conflicts without replacing calculator logic. */
+:root {
+  --cf-control-min-height: 44px;
+  --cf-content-max: 1180px;
+}
+html { min-width: 320px; }
+body { min-width: 320px; overflow-x: clip; }
+body .main,
+body main.main {
+  width: 100% !important;
+  max-width: var(--cf-content-max) !important;
+  min-width: 0 !important;
+  margin-inline: auto !important;
+}
+body .main > *,
+body main.main > * { min-width: 0; }
+body .row {
+  align-items: start;
+  min-width: 0;
+}
+body .col { min-width: 0; max-width: 100%; }
+body input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+body select,
+body textarea {
+  min-width: 0;
+  max-width: 100%;
+}
+body .cf-advanced-input-row {
+  grid-template-columns: minmax(0, 1fr) minmax(82px, .8fr) !important;
+}
+body .cf-advanced-input-row > * { min-width: 0 !important; }
+body .cf-form-actions { align-items: center; }
+body .cf-form-actions button { min-height: var(--cf-control-min-height); }
+body .cf-page-actions,
+body .clerfit-fixed-actions,
+body .cf-floating-links,
+body .top-right-buttons {
+  position: static !important;
+  inset: auto !important;
+  z-index: auto !important;
+  width: 100%;
+  max-width: 900px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+body .cf-page-actions a,
+body .clerfit-fixed-actions a,
+body .cf-floating-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  text-decoration: none;
+}
+body .info-tooltip,
+body .tooltip-circle,
+body [data-tooltip].info-tooltip {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  padding: 0;
+  margin-inline-start: 4px;
+  border: 0;
+  border-radius: 50%;
+  background: #52657d;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 750;
+  line-height: 1;
+  vertical-align: middle;
+  cursor: help;
+}
+body .info-tooltip .tooltip-text,
+body .tooltip-circle .tooltip-text {
+  width: min(240px, calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
+  overflow-wrap: anywhere;
+}
+body .info-tooltip:focus-visible,
+body .tooltip-circle:focus-visible { outline: 3px solid #0b63ce; outline-offset: 3px; }
+body .cf-table-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+body .cf-table-scroll table { min-width: 0; }
+body img, body svg, body video, body canvas { max-width: 100%; }
+@media (max-width: 768px) {
+  body .main, body main.main { padding: 70px 14px 28px !important; }
+  body .row { grid-template-columns: minmax(0, 1fr) !important; }
+  body .col { width: 100%; flex: 1 1 100%; }
+  body .cf-form-actions { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body .cf-form-actions button { width: 100% !important; }
+  body .cf-page-actions,
+  body .clerfit-fixed-actions,
+  body .cf-floating-links,
+  body .top-right-buttons { padding-inline: 0 !important; }
+  body .cf-table-scroll table { min-width: 520px; }
+}
+@media (max-width: 420px) {
+  body .main, body main.main { padding-inline: 12px !important; }
+  body .cf-form-actions { grid-template-columns: minmax(0, 1fr); }
+  body .cf-advanced-input-row { grid-template-columns: minmax(0, 1fr) 82px !important; gap: 6px !important; }
+  body .cf-advanced-input-row input,
+  body .cf-advanced-input-row select { padding-inline: 8px !important; font-size: 16px !important; }
+  body .cf-page-actions a,
+  body .clerfit-fixed-actions a,
+  body .cf-floating-links a { min-height: 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body *, body *::before, body *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
