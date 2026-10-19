@@ -1327,7 +1327,7 @@ body .cf-table-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scro
 body .cf-table-scroll table { min-width: 0; }
 body img, body svg, body video, body canvas { max-width: 100%; }
 @media (max-width: 768px) {
-  body .main, body main.main { padding: 70px 14px 28px !important; }
+  body .main, body main.main { padding: 14px 14px 28px !important; }
   body .row { grid-template-columns: minmax(0, 1fr) !important; }
   body .col { width: 100%; flex: 1 1 100%; }
   body .cf-form-actions { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); }
