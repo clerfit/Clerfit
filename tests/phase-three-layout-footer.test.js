@@ -32,13 +32,13 @@ assert.match(chrome, /const existingFooter = document\.querySelector\("footer"\)
 assert.match(chrome, /new URL\("index\.html", root\)/, 'footer home link must respect root versus html/ paths');
 assert.match(chrome, /new URL\("contact\.html", root\)/, 'footer contact link must respect root versus html/ paths');
 assert.match(chrome, /main\.appendChild\(footer\)/, 'shared footer must be attached to calculator content');
-assert.match(polish, /function normalizeTables\\(scope\\)[\\s\\S]*?normalizeTables\\(document\\)/,
+assert.ok(polish.includes('function normalizeTables(scope)') && polish.includes('normalizeTables(document)'),
   'all existing calculator tables must be normalized on initial load');
-assert.match(polish, /removeAttribute\\('data-label'\\)/,
+assert.ok(polish.includes("removeAttribute('data-label')"),
   'column names must not be copied into data cells');
-assert.match(polish, /new MutationObserver[\\s\\S]*?tableObserver\\.observe\\(main,\\{childList:true,subtree:true\\}\\)/,
+assert.ok(polish.includes('new MutationObserver(records=>') && polish.includes('tableObserver.observe(main,{childList:true,subtree:true})'),
   'tables created dynamically by calculator submissions must receive the same normalization');
-assert.match(polish, /aria-label','Calculator table; scroll horizontally to view all columns/,
+assert.ok(polish.includes("aria-label','Calculator table; scroll horizontally to view all columns"),
   'table scroll regions must have a useful accessible name');
 assert.match(css, /R3 correction: every calculator table keeps one canonical header row[\s\S]*?overflow-x:\s*auto !important;[\s\S]*?td:before[\s\S]*?display:\s*none !important;/,
   'mobile tables must preserve the header row and scroll horizontally without repeated field labels');
