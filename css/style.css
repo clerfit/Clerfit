@@ -1363,3 +1363,112 @@ body img, body svg, body video, body canvas { max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   body *, body *::before, body *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+
+/* R3 correction: every calculator table keeps one canonical header row.
+   On phones, scroll the table horizontally instead of repeating field names in each cell. */
+@media (max-width: 600px) {
+  body .cf-table-scroll {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    border: 1px solid var(--cf-line, #dbe4ef) !important;
+    border-radius: 10px !important;
+  }
+  body .cf-table-scroll table {
+    display: table !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    max-width: none !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+  }
+  body .cf-table-scroll table thead,
+  body .cf-table-scroll table tbody,
+  body .cf-table-scroll table tfoot {
+    display: table-row-group !important;
+    width: auto !important;
+  }
+  body .cf-table-scroll table tr,
+  body .cf-table-scroll table tr:not(:has(th)) {
+    display: table-row !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }
+  body .cf-table-scroll table tr:has(th) {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: normal !important;
+    border: 0 !important;
+  }
+  body .cf-table-scroll table th,
+  body .cf-table-scroll table td {
+    display: table-cell !important;
+    width: auto !important;
+    min-width: 105px !important;
+    max-width: none !important;
+    padding: 9px 10px !important;
+    border: 1px solid #dbe4ef !important;
+    text-align: left !important;
+    vertical-align: top !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+  body .cf-table-scroll table td::before,
+  body .cf-table-scroll table td:before {
+    content: none !important;
+    display: none !important;
+  }
+}
+/* Homepage quick links must remain a single horizontal pair, including on phones. */
+body .cf-home-top .clerfit-fixed-actions {
+  position: static !important;
+  display: inline-flex !important;
+  flex-flow: row nowrap !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 6px !important;
+  width: auto !important;
+  min-width: max-content !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+body .cf-home-top .clerfit-fixed-actions a {
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  min-width: max-content !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+}
+@media (max-width: 600px) {
+  body .cf-home-top .clerfit-fixed-actions { gap: 5px !important; }
+  body .cf-home-top .clerfit-fixed-actions a {
+    gap: 4px !important;
+    min-height: 34px !important;
+    padding: 7px 8px !important;
+    font-size: 11px !important;
+  }
+  body .cf-home-top .clerfit-fixed-actions svg {
+    width: 14px !important;
+    height: 14px !important;
+    flex-basis: 14px !important;
+  }
+}
