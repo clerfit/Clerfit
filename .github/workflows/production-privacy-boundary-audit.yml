@@ -1,0 +1,51 @@
+name: ClerFit Production Privacy and Numeric Boundaries
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/production-privacy-boundary-audit.js'
+      - '.github/workflows/production-privacy-boundary-audit.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/production-privacy-boundary-audit.js'
+      - '.github/workflows/production-privacy-boundary-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clerfit-production-privacy-boundary-audit
+  cancel-in-progress: false
+
+jobs:
+  live-audit:
+    name: Audit live privacy behavior and numeric bounds
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout audit source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright and Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright
+          npx playwright install --with-deps chromium
+      - name: Audit production pages without submitting contact form
+        env:
+          CLERFIT_LIVE_BASE: https://clerfit.github.io/Clerfit/
+          CLERFIT_PRIVACY_REPORT: clerfit-production-privacy-audit.json
+        run: node scripts/production-privacy-boundary-audit.js
+      - name: Upload production audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clerfit-production-privacy-boundary-audit
+          path: clerfit-production-privacy-audit.json
+          if-no-files-found: warn
+          retention-days: 30
