@@ -7,8 +7,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const chrome = fs.readFileSync(path.join(root, 'js/page-chrome.js'), 'utf8');
+const polish = fs.readFileSync(path.join(root, 'js/site-polish.js'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'css/style.css'), 'utf8');
 
+assert.match(polish, /header:not\(\.clerfit-page-header\):not\(\.cf-legal-heading\)/,
+  'legacy shell cleanup must preserve legal content headers and their H1 headings');
+assert.match(polish, /clerfit\\s\*\(\?:health\\s\*&\?\\s\*performance\|health\.\*fitness calculators\)\|all rights reserved/,
+  'legacy header cleanup must target known branding instead of deleting every header that mentions ClerFit');
 assert.match(chrome, /function ensureSiteFooter\(\)/, 'shared page chrome must define footer injection');
 assert.match(chrome, /const existingFooter = document\.querySelector\("footer"\);[\s\S]*?existingFooter\.classList\.add\("cf-footer"\)/, 'existing footers must receive shared styling without duplication');
 assert.match(chrome, /new URL\("index\.html", root\)/, 'footer home link must respect root versus html/ paths');
