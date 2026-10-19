@@ -1,14 +1,7 @@
 /* ClerFit R3 quick navigation: Home and Contact Us at the top-right of each page header, in normal flow. */
 (() => {
   "use strict";
-  // Version-bust the shared stylesheet after a release so mobile clients request current layout rules.
-  for (const link of document.querySelectorAll('link[rel~="stylesheet"][href*="css/style.css"]')) {
-    try {
-      const fresh = new URL(link.href, document.baseURI);
-      fresh.searchParams.set("v", "20261018-phase3-layout-footer-v1");
-      if (link.href !== fresh.href) link.href = fresh.href;
-    } catch (_) {}
-  }
+  // Each HTML document versions its stylesheet URL directly to avoid a second CSS request after first paint.
 
   const selector = ".clerfit-fixed-actions, .top-right-buttons, .cf-floating-links, .cf-page-actions";
   const placeInHeader = (nav) => {
