@@ -32,8 +32,12 @@ assert.match(chrome, /const existingFooter = document\.querySelector\("footer"\)
 assert.match(chrome, /new URL\("index\.html", root\)/, 'footer home link must respect root versus html/ paths');
 assert.match(chrome, /new URL\("contact\.html", root\)/, 'footer contact link must respect root versus html/ paths');
 assert.match(chrome, /main\.appendChild\(footer\)/, 'shared footer must be attached to calculator content');
-assert.match(css, /Preserve the labelled stacked-row table layout on phones[\s\S]*?min-width:\s*0 !important;/,
-  'mobile reference tables must not be forced wider than the viewport');
+assert.match(polish, /Keep one canonical header row for every table[\s\S]*?removeAttribute\('data-label'\)/,
+  'table column names must remain in one canonical header row instead of repeating in every data cell');
+assert.match(css, /R3 correction: every calculator table keeps one canonical header row[\s\S]*?overflow-x:\s*auto !important;[\s\S]*?td:before[\s\S]*?display:\s*none !important;/,
+  'mobile tables must preserve the header row and scroll horizontally without repeated field labels');
+assert.match(css, /Homepage quick links must remain a single horizontal pair[\s\S]*?flex-flow:\s*row nowrap !important;/,
+  'homepage Home and Contact Us links must stay side by side');
 assert.match(css, /\.cf-advanced-input-row[\s\S]*?grid-template-columns:\s*minmax\(0,\s*1\.35fr\)\s+minmax\(100px,\s*\.85fr\)/,
   'generated numeric inputs must receive more width than unit selectors');
 assert.match(css, /@media \(max-width: 430px\)[\s\S]*?\.cf-advanced-input-row[\s\S]*?grid-template-columns:\s*minmax\(0,\s*1\.2fr\)\s+minmax\(88px,\s*\.8fr\)/,
