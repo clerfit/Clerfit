@@ -52,3 +52,8 @@ This is a formula-by-formula code-level desk review by the assistant, not a regu
 ## Still outside this local desk audit
 
 Live deployment and actual contact delivery are left to the owner as requested. Real network/header inspection at the live host, production performance under a throttled connection, and manual keyboard/screen-reader/physical-device acceptance are not claimed as complete. GitHub Pages does not apply Netlify `_headers` configuration; if hosted on GitHub Pages, server response headers such as HSTS and `X-Frame-Options` require a hosting/CDN layer that supports them. Meta CSP is present in the HTML, but it is not a substitute for every response header.
+
+
+## Candidate-branch delta — 2026-10-20
+
+The main-branch audit baseline contained 242 static numeric controls. The proposed scientific/UI audit branch removes the unused numeric age input from `html/pal.html` and now contains 241; the structural field inventories and count-enforcing tests were updated together. The previously recorded 242 count remains accurate for the source snapshot reviewed at the time of the earlier report. Full formula/reference validation and field-specific semantic boundary review remain open.
