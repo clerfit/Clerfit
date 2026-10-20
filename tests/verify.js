@@ -542,6 +542,26 @@ assert.match(pageTest.output('result'), /RFM value outside the supported 0–100
 assert.doesNotMatch(pageTest.output('result'), /RFM estimate:/);
 checks++;
 
+// Formal PAL is not the same as a conventional TDEE activity multiplier.
+pageTest = runPageFunction('pal.html', 'calculatePAL', { activity: 'moderate' }, ['result']);
+assert.match(pageTest.output('result'), /Selected TDEE activity factor: <strong>1\.55<\/strong>/);
+assert.match(pageTest.output('result'), /not measured PAL/i);
+assert.doesNotMatch(pageTest.output('result'), /Physical Activity Level \(PAL\):/);
+checks++;
+
+pageTest = runPageFunction('pal.html', 'calculatePAL', { activity: 'unsupported' }, ['result']);
+assert.match(pageTest.output('result'), /six listed activity patterns/i);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
+checks++;
+
+// Formula display uses the same unrounded BMR as the calculation and notes result rounding.
+pageTest = runPageFunction('tdee.html', 'calculateTDEE', {
+  weight: 70, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 30, gender: 'male', activity: 1.55
+}, ['result', 'formula', 'validationMessage', 'indicator']);
+assert.match(pageTest.output('result'), /2556 kcal\/day/);
+assert.match(pageTest.output('formula'), /1648\.75 × 1\.55 = 2556 kcal\/day \(rounded to the nearest whole kcal\)/);
+checks++;
+
 // Known-answer and semantic boundaries for the Mifflin-based calorie tools.
 pageTest = runPageFunction('maintenance.html', 'calculateMaintenance', {
   weight: 70, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 30, gender: 'male', activity: 1.55
@@ -672,6 +692,27 @@ pageTest = runPageFunction('BMI.html', 'calculateBMI', {
 }, ['result', 'indicator']);
 assert.match(pageTest.output('result'), /Age-specific interpretation required/i);
 assert.doesNotMatch(pageTest.output('result'), /Normal|Underweight|Overweight|Obese/);
+checks++;
+
+pageTest = runPageFunction('BMI.html', 'calculateBMI', {
+  weight: 91.875, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 30, gender: 'male'
+}, ['result', 'indicator']);
+assert.match(pageTest.output('result'), /Obesity class I/);
+assert.match(pageTest.output('indicator'), /Obesity class I/);
+checks++;
+
+pageTest = runPageFunction('BMI.html', 'calculateBMI', {
+  weight: 107.1875, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 30, gender: 'male'
+}, ['result', 'indicator']);
+assert.match(pageTest.output('result'), /Obesity class II/);
+assert.match(pageTest.output('indicator'), /Obesity class II/);
+checks++;
+
+pageTest = runPageFunction('BMI.html', 'calculateBMI', {
+  weight: 122.5, weightUnit: 'kg', height: 175, heightUnit: 'cm', age: 30, gender: 'male'
+}, ['result', 'indicator']);
+assert.match(pageTest.output('result'), /Obesity class III/);
+assert.match(pageTest.output('indicator'), /Obesity class III/);
 checks++;
 
 pageTest = runPageFunction('fatmass.html', 'calculateFatMass', {
