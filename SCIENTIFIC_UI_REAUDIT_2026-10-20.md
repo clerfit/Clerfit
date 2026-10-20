@@ -36,6 +36,14 @@
 
 **Change:** The displayed equation now uses BMR to two decimals and states that the final kcal/day value is rounded to the nearest whole kcal. A known-answer test checks 70 kg, 175 cm, age 30, male reference, and factor 1.55.
 
+### 4. Distinguish the Mifflin–St Jeor REE prediction from directly measured BMR
+
+**Observed:** The BMR page, shared engine, and TDEE formula line used the Mifflin–St Jeor equation while labelling the output as BMR. The original 1990 paper explicitly describes a predictive equation for resting energy expenditure (REE) derived from measured REE in healthy adults aged 19–78; it does not produce an individually measured basal metabolic rate. The prior BMR content also listed fatigue, cold sensitivity, weight gain, and possible thyroid problems as “related health problems” from a high/low calculated value, which was not justified by this estimate alone.
+
+**Basis:** [Mifflin et al., *A new predictive equation for resting energy expenditure in healthy individuals* (1990)](https://pubmed.ncbi.nlm.nih.gov/2305711/) describes REE and reports an adult study population aged 19–78.
+
+**Change:** The BMR page and shared engine now label the result as a predicted REE estimate while retaining “BMR” in the route name for search/URL compatibility. The page explains that REE and BMR are not direct synonyms, discloses the original study population, removes unsupported low/high BMR health-problem claims, and warns that the result is neither TDEE nor a personalized calorie prescription. The TDEE formula now identifies the Mifflin–St Jeor REE estimate and the activity multiplier as assumptions. A regression asserts the REE label and displayed equation.
+
 ## Full requirement status
 
 | Requirement area | Evidence-backed status | Remaining work / limitation |
