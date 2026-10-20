@@ -7,8 +7,8 @@
 <meta name="theme-color" content="#101827">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
-<title>ClerFit – BMR Calculator</title>
-  <meta name="description" content="Use the ClerFit BMR Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<title>ClerFit – BMR / Resting Energy Estimate</title>
+  <meta name="description" content="Estimate resting energy expenditure using the Mifflin–St Jeor equation, often used as a BMR proxy. The result is an estimate, not a measured basal metabolic rate, total daily energy expenditure, diagnosis, or personalized calorie prescription.">
 
 <meta charset="UTF-8">
   <!-- Google tag (gtag.js) -->
@@ -20,13 +20,13 @@
   <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/bmr.html">
   <meta property="og:type" content="website">
 <meta property="og:site_name" content="ClerFit">
-<meta property="og:title" content="ClerFit – BMR Calculator">
-<meta property="og:description" content="Use the ClerFit BMR Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta property="og:title" content="ClerFit – BMR / Resting Energy Estimate">
+<meta property="og:description" content="Estimate resting energy expenditure using the Mifflin–St Jeor equation, often used as a BMR proxy. The result is an estimate, not a measured basal metabolic rate, total daily energy expenditure, diagnosis, or personalized calorie prescription.">
 <meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
 <meta property="og:url" content="https://clerfit.github.io/Clerfit/html/bmr.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ClerFit – BMR Calculator">
-<meta name="twitter:description" content="Use the ClerFit BMR Calculator to explore your inputs, understand the result, and review practical guidance, assumptions and limitations. Free educational calculator for health and performance.">
+<meta name="twitter:title" content="ClerFit – BMR / Resting Energy Estimate">
+<meta name="twitter:description" content="Estimate resting energy expenditure using the Mifflin–St Jeor equation, often used as a BMR proxy. The result is an estimate, not a measured basal metabolic rate, total daily energy expenditure, diagnosis, or personalized calorie prescription.">
 <meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body>
@@ -80,7 +80,7 @@
 
 
   <div class="card">
-    <h2>BMR Calculator</h2>
+    <h2>BMR / Resting Energy Estimate</h2>
 
     <label for="gender">Gender</label>
     <select id="gender" aria-label="Sex / reference group">
@@ -112,43 +112,29 @@
       </div>
     </div>
 
-    <button class="calculate-btn" onclick="calculateBMR()">Calculate BMR</button>
+    <button class="calculate-btn" onclick="calculateBMR()">Calculate resting energy estimate</button>
 
     <div id="result" class="result"></div>
     <div id="formula"></div>
   </div>
 <div class="card">
 
-<h2>BMR (Basal Metabolic Rate)</h2>
-<p>Basal Metabolic Rate (BMR) is the number of calories your body needs at rest to maintain basic physiological functions such as breathing, circulation, and cell production. It represents the minimum energy required to keep the body alive while at rest.</p>
+<h2>What this estimate represents</h2>
+<p>This calculator uses the Mifflin–St Jeor equation, originally developed to predict resting energy expenditure (REE), not a direct measurement of basal metabolic rate (BMR). Consumer tools sometimes use this equation as a BMR estimate, but basal and resting metabolic rate are measured under different conditions and should not be treated as identical.</p>
 
-  <h2>BMR Applications</h2>
+  <h2>Potential uses</h2>
   <ul>
-    <li>Calculates daily calorie needs at rest</li>
-    <li>Helps plan weight loss or weight gain diets</li>
-    <li>Used by nutritionists for meal planning</li>
-    <li>Supports fitness and bodybuilding programs</li>
-    <li>Helps track metabolic health</li>
-    <li>Useful in medical and health assessments</li>
-    <li>Base input for calorie-tracking apps</li>
+    <li>May serve as one starting input to a separate total daily energy expenditure (TDEE) estimate when an activity assumption is stated.</li>
+    <li>Can help explain the difference between resting energy and energy used across a normal day.</li>
+    <li>Is not a total daily calorie target or a personalized nutrition prescription.</li>
   </ul>
 
-  <h2>Related Health Problems</h2>
-
-  <h3>Low BMR</h3>
+  <h2>Limits and health cautions</h2>
   <ul>
-    <li>Easy weight gain</li>
-    <li>Low energy and fatigue</li>
-    <li>Cold sensitivity</li>
-    <li>Possible thyroid issues</li>
-  </ul>
-
-  <h3>High BMR</h3>
-  <ul>
-    <li>Difficulty gaining weight</li>
-    <li>Rapid calorie burn</li>
-    <li>Increased hunger</li>
-    <li>Risk of muscle loss if underfed</li>
+    <li>The original Mifflin–St Jeor study measured resting energy expenditure in healthy adults aged 19–78; the result is a prediction with meaningful error.</li>
+    <li>Prediction uncertainty may be greater for people outside the study population or with conditions not represented in it.</li>
+    <li>This calculator cannot diagnose thyroid disease, fatigue, or a metabolic disorder from a calculated value.</li>
+    <li>When a precise energy requirement is clinically important, seek guidance from a qualified clinician or registered dietitian.</li>
   </ul>
 </div>
 
@@ -161,14 +147,13 @@
 
 <section class="cf-education-card" aria-labelledby="cf-understanding-title">
  <details id="cf-understanding-guide">
-  <summary id="cf-understanding-title">Understand BMR Calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+  <summary id="cf-understanding-title">Understand the resting-energy estimate <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
   <div class="cf-education-content">
-   <figure class="cf-education-visual"><img src="../images/metabolism.svg" alt="Illustration for BMR Calculator" loading="lazy" width="120" height="120"><figcaption>Visual guide for BMR Calculator</figcaption></figure>
-   <div class="cf-education-section"><h3>What is BMR Calculator?</h3><p>BMR Calculator is an estimate of energy use or a calorie target. The result depends on the inputs and method used by this calculator.</p></div>
-   
-   <div class="cf-education-section"><h3>What does the result mean?</h3><p>It is a resting-energy estimate, not the full amount of energy needed across a normal day.</p></div>
-   <div class="cf-education-formula"><strong>Calculation method</strong><code>If using Mifflin–St Jeor: male equation = 10 × mass(kg) + 6.25 × height(cm) − 5 × age + 5; female equation uses −161 instead of +5.</code><p>Different BMR equations can produce different estimates. Confirm the method selected by this page and do not treat BMR as total daily energy expenditure.</p></div>
-   <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Useful as one input when estimating total daily energy needs.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Equation-based results are estimates and can differ from measured metabolic rate; BMR is not the same as TDEE.</p></div></div>
+   <figure class="cf-education-visual"><img src="../images/metabolism.svg" alt="Illustration of resting energy expenditure" loading="lazy" width="120" height="120"><figcaption>Resting energy expenditure estimate</figcaption></figure>
+   <div class="cf-education-section"><h3>What does this calculator estimate?</h3><p>The Mifflin–St Jeor equation predicts resting energy expenditure (REE). It is not a direct measurement of BMR and does not represent the energy used across a full day.</p></div>
+   <div class="cf-education-section"><h3>What does the result mean?</h3><p>It is an approximate resting-energy prediction. A separate activity assumption is needed to estimate total daily energy expenditure (TDEE), and neither number is a personalized calorie prescription.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>Male REE = 10 × mass(kg) + 6.25 × height(cm) − 5 × age + 5. Female REE = 10 × mass(kg) + 6.25 × height(cm) − 5 × age − 161.</code><p>The original Mifflin–St Jeor study measured REE in healthy adults aged 19–78. Formula predictions have error and should not be treated as metabolic measurements.</p></div>
+   <div class="cf-education-columns"><div class="cf-education-section"><h3>Potential use</h3><p>Use as one starting input in a separate TDEE estimate, with the activity-factor assumption made explicit.</p></div><div class="cf-education-section"><h3>Limitations</h3><p>Accuracy varies by person and population. This calculation cannot diagnose thyroid disease, fatigue, or a metabolic disorder.</p></div></div>
    <div class="cf-education-section"><h3>How to use it</h3><p>Read each field label and its unit, enter your measurements or values, check that none are missing or implausible, and activate the calculator button. Review the displayed result, formula and limitations. If comparing results over time, use the same measurement method.</p></div>
    <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
   </div>
