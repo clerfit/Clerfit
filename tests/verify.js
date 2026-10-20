@@ -224,6 +224,8 @@ Object.entries({
 resetEngineOutputs('result', 'formula');
 engineContext.calculateBMR();
 assert.match(engineOutput('result'), /1674 kcal\/day/);
+assert.match(engineOutput('result'), /Estimated resting energy expenditure \(REE\)/);
+assert.match(engineOutput('formula'), /Estimated REE = 1674 kcal\/day/);
 checks++;
 setEngine('heightUnit', 'bogus');
 resetEngineOutputs('result', 'formula');
