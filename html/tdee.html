@@ -111,7 +111,7 @@ function calculateTDEE() {
   }
 
   result.innerHTML = `Your TDEE: <strong>${tdee} kcal/day</strong>`;
-  formula.textContent = `Formula: BMR × Activity Factor = ${Math.round(bmr)} × ${activity} = ${tdee} kcal/day`;
+  formula.textContent = `Formula: BMR estimate × Activity Factor = ${bmr.toFixed(2)} × ${activity} = ${tdee} kcal/day (rounded to the nearest whole kcal)`;
   indicator.style.left = ((activity - 1.2) / (1.9 - 1.2) * 100) + '%';
 }
 
