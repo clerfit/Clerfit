@@ -150,7 +150,7 @@ The 100% figure means every registered route has at least one passing known-answ
 | Heat Exposure | heat-exposure.html | Heat index uses the US National Weather Service heat-index method from air temperature and relative humidity; it is not a safe-exposure-time predictor. | Direct/shared known-answer vector in tests/verify.js; PASS | US National Weather Service heat-index method |
 | Cold Exposure | cold-exposure.html | Wind chill uses the US National Weather Service wind-chill equation from air temperature and wind speed; it does not predict exact frostbite time. | Direct/shared known-answer vector in tests/verify.js; PASS | US National Weather Service wind-chill method |
 | Sunlight Duration | sunlight.html | UV context indicator = UV index × entered duration; it is not a safe-time, vitamin-D or sunburn prediction. | Route-specific known-answer/method vector in tests/verify.js; PASS | See SOURCES_AND_METHODS.md; method/assumptions must be checked per route. |
-| Physical Activity Level | pal.html | Physical Activity Level (PAL) is assigned from the page’s age/sex/activity selection and its displayed lookup table; it is not a measured physiological value. | Route-specific known-answer/method vector in tests/verify.js; PASS | See SOURCES_AND_METHODS.md; method/assumptions must be checked per route. |
+| TDEE Activity Factor | pal.html | Selects an illustrative conventional activity multiplier; this is not formal PAL (24-hour TEE divided by 24-hour BMR) and does not calculate personalized TDEE. | Route-specific known-answer/method vector in tests/verify.js; PASS | FAO/WHO/UNU Human energy requirements: [definition of PAL](https://www.fao.org/4/Y5686E/y5686e05.htm). Fixed factors are labelled as conventions, not measured or individualized values. |
 
 ## Core external references
 
@@ -186,3 +186,8 @@ Local checks cannot prove live message delivery, real-device behaviour or that t
 ## Current inventory addendum — 2026-10-18
 
 The initial audit-time count of 238 fields above is historical. The current main-branch source and both checked CSV inventories contain **242 static numeric input fields**, and the phase-register integrity test enforces a one-to-one match with source HTML. Current full verification passed on run [39061691909](https://github.com/clerfit/Clerfit/actions/runs/39061691909), including formula/method regressions, source/inventory consistency, all 118 route interactions, and the 124-page automated accessibility scan. The four-field increase does not change the meaning of route-level vector coverage: it still does not certify every domain-specific input combination. Human/external release gates remain open.
+
+
+## Scientific/UI re-audit addendum — 2026-10-20
+
+The `main` baseline at `e7ca8b97db5b3683d6df08993c94a268f9473e72` contained 242 static numeric controls. This proposed branch removes the unused numeric age input from `html/pal.html`; its current static inventory is 241. `FIELD_VALIDATION_AUDIT.csv`, `INPUT_BOUNDARY_VERIFIED.csv`, and count-enforcing tests/scripts are synchronized. Historical 238- and 242-field counts above describe earlier snapshots; they are not the current proposed-branch count. This structural removal does not close semantic-boundary or formula-reference review for the remaining fields.
