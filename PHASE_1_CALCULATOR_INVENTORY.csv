@@ -116,4 +116,4 @@ title,category,slug,source_file,file_exists,canonical_sitemap_url,url_in_sitemap
 "Heat Exposure","Lifestyle, Age & Environment","heat-exposure","html/heat-exposure.html","YES","https://clerfit.github.io/Clerfit/html/heat-exposure.html","YES"
 "Cold Exposure","Lifestyle, Age & Environment","cold-exposure","html/cold-exposure.html","YES","https://clerfit.github.io/Clerfit/html/cold-exposure.html","YES"
 "Sunlight Duration","Lifestyle, Age & Environment","sunlight-duration","html/sunlight.html","YES","https://clerfit.github.io/Clerfit/html/sunlight.html","YES"
-"Physical Activity Level","Lifestyle, Age & Environment","physical-activity-level","html/pal.html","YES","https://clerfit.github.io/Clerfit/html/pal.html","YES"
+"TDEE Activity Factor","Lifestyle, Age & Environment","physical-activity-level","html/pal.html","YES","https://clerfit.github.io/Clerfit/html/pal.html","YES"
