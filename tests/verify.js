@@ -258,7 +258,7 @@ const runTDEE = values => {
 };
 const tdeeKnownAnswer = runTDEE({});
 assert.ok(tdeeKnownAnswer.result.includes('2556 kcal/day'));
-assert.ok(tdeeKnownAnswer.formula.includes('1649 × 1.55 = 2556'));
+assert.ok(tdeeKnownAnswer.formula.includes('1648.75 × 1.55 = 2556'));
 assert.equal(tdeeKnownAnswer.validationMessage, '');
 checks++;
 const tdeeImperial = runTDEE({ weight: 154.3235835, weightUnit: 'lb', height: 68.8976378, heightUnit: 'inch' });
