@@ -145,19 +145,19 @@ function calculateBMR() {
   // for children/adolescents requires an age-appropriate equation.
   const bmr = 10 * weight + 6.25 * height - 5 * age + (gender === "male" ? 5 : -161);
   if (!Number.isFinite(bmr) || bmr <= 0) {
-    result.textContent = "A valid BMR estimate could not be calculated from these values.";
+    result.textContent = "A valid resting-energy estimate could not be calculated from these values.";
     return;
   }
   const rounded = bmr.toFixed(0);
-  result.innerHTML = `BMR Result: <b>${rounded} kcal/day</b>`;
+  result.innerHTML = `Estimated resting energy expenditure (REE): <b>${rounded} kcal/day</b>`;
   formula.innerHTML = `
-    <b>Formula (Mifflin–St Jeor)</b><br>
+    <b>Mifflin–St Jeor resting-energy estimate</b><br>
     Weight: ${weight.toFixed(2)} kg<br>
     Height: ${height.toFixed(2)} cm<br>
     Age: ${age} years<br>
     Gender: ${gender}<br><br>
-    BMR = ${rounded} kcal/day
-    <p class="cf-note">Mifflin–St Jeor is an estimate developed for adults; it is not an individualized metabolic measurement.</p>
+    Estimated REE = ${rounded} kcal/day
+    <p class="cf-note">Mifflin–St Jeor predicts resting energy expenditure (REE), not a direct measurement of basal metabolic rate (BMR). The original study involved healthy adults aged 19–78; prediction error is meaningful and may be greater outside that study population. This is not TDEE or a personalized calorie prescription.</p>
   `;
 }
 /* =================================================

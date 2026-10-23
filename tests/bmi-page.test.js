@@ -84,8 +84,8 @@ runCase('known adult BMI and category', () => {
   resetInputs();
   context.calculateBMI();
   assert.match(ids.result.innerHTML, /BMI:\s*<b>22\.9<\/b>/);
-  assert.match(ids.result.innerHTML, /Normal/);
-  assert.equal(ids.indicator.title, 'Normal');
+  assert.match(ids.result.innerHTML, /Healthy weight/);
+  assert.equal(ids.indicator.title, 'Healthy weight');
 });
 runCase('metres unit bounds and equivalent result', () => {
   resetInputs();
@@ -124,7 +124,7 @@ runCase('pediatric ages do not receive adult-category labels', () => {
   context.calculateBMI();
   assert.match(ids.result.innerHTML, /Age-specific interpretation required/);
   assert.match(ids.result.innerHTML, /does not estimate a pediatric percentile/);
-  assert.doesNotMatch(ids.result.innerHTML, /— <b>Normal/);
+  assert.doesNotMatch(ids.result.innerHTML, /— <b>Healthy weight/);
 });
 runCase('missing/zero values clear old output and announce an error', () => {
   resetInputs();

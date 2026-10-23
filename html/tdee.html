@@ -103,15 +103,15 @@ function calculateTDEE() {
     return;
   }
 
-  const bmr = 10 * weightKg + 6.25 * heightCm - 5 * age + (gender === 'male' ? 5 : -161);
-  const tdee = Math.round(bmr * activity);
-  if (!Number.isFinite(bmr) || bmr <= 0 || !Number.isFinite(tdee) || tdee <= 0) {
+  const ree = 10 * weightKg + 6.25 * heightCm - 5 * age + (gender === 'male' ? 5 : -161);
+  const tdee = Math.round(ree * activity);
+  if (!Number.isFinite(ree) || ree <= 0 || !Number.isFinite(tdee) || tdee <= 0) {
     validationMessage.textContent = 'These values do not produce a valid positive energy estimate. Check your measurements.';
     return;
   }
 
   result.innerHTML = `Your TDEE: <strong>${tdee} kcal/day</strong>`;
-  formula.textContent = `Formula: BMR × Activity Factor = ${Math.round(bmr)} × ${activity} = ${tdee} kcal/day`;
+  formula.textContent = `Formula: Mifflin–St Jeor REE estimate × Activity Factor = ${ree.toFixed(2)} × ${activity} = ${tdee} kcal/day (rounded to the nearest whole kcal)`;
   indicator.style.left = ((activity - 1.2) / (1.9 - 1.2) * 100) + '%';
 }
 
@@ -242,36 +242,21 @@ function calculateTDEE() {
   <h2>TDEE (Total Daily Energy Expenditure)</h2>
 
   <h3>Definition</h3>
-  <p>TDEE is the total number of calories a person burns in a day, including all activities and bodily functions. It combines Basal Metabolic Rate (BMR) with calories burned through physical activity, exercise, and digestion.</p>
+  <p>Total daily energy expenditure (TDEE) is the energy used across a typical 24-hour day. This calculator estimates it by multiplying the Mifflin–St Jeor resting energy expenditure (REE) prediction by a selected activity factor. The factor is a simplifying assumption; the output is not a direct measurement or a personalized calorie prescription.</p>
 
-  <h3>Applications</h3>
+  <h3>Potential uses</h3>
   <ul>
-    <li>Determines daily caloric needs for maintaining weight</li>
-    <li>Helps plan weight loss or weight gain programs</li>
-    <li>Supports personalized diet and nutrition planning</li>
-    <li>Used by fitness trainers to optimize training and recovery</li>
-    <li>Monitors energy balance for athletic performance</li>
-    <li>Helps prevent underfeeding or overeating</li>
-    <li>Integrated in health and fitness tracking apps</li>
+    <li>Provides a starting estimate when comparing energy intake and activity over several weeks.</li>
+    <li>Can be used as one input to a nutrition or training plan when assumptions and uncertainty are understood.</li>
+    <li>May support a trend-based review when paired with consistently measured outcomes and appropriate guidance.</li>
   </ul>
 
-  <h3>Related Health Problems</h3>
-
-  <h3>Low TDEE (Below Calorie Needs)</h3>
+  <h3>Interpretation limits</h3>
   <ul>
-    <li>Weight loss or undernutrition if intake is insufficient</li>
-    <li>Fatigue and low energy</li>
-    <li>Muscle loss</li>
-    <li>Nutrient deficiencies</li>
-    <li>Weakened immunity</li>
-  </ul>
-
-  <h3>High TDEE (Above Calorie Needs)</h3>
-  <ul>
-    <li>Potential weight gain if caloric intake exceeds expenditure</li>
-    <li>Increased risk of obesity and related diseases</li>
-    <li>May indicate excessive physical activity without adequate nutrition</li>
-    <li>Risk of nutrient imbalances if diet is not adjusted</li>
+    <li>A calculated TDEE is not a health status, diagnosis, or an exact personal calorie requirement.</li>
+    <li>The activity factor is a conventional assumption and may not reflect a person's job, daily movement, training, or individual metabolism.</li>
+    <li>Intake below or above an estimate does not by itself diagnose undernutrition, obesity, illness, or overtraining.</li>
+    <li>Individual energy needs and weight trends vary; seek qualified clinical or nutrition support when medically important.</li>
   </ul>
 </div>
 
@@ -291,7 +276,7 @@ function calculateTDEE() {
    <div class="cf-education-section"><h3>What is TDEE Calculator?</h3><p>TDEE Calculator is an estimate of energy use or a calorie target. The result depends on the inputs and method used by this calculator.</p></div>
    
    <div class="cf-education-section"><h3>What does the result mean?</h3><p>It provides a starting estimate of daily energy needs, rather than a guaranteed calorie requirement.</p></div>
-   <div class="cf-education-formula"><strong>Calculation method</strong><code>A common estimate is TDEE = estimated BMR × activity factor.</code><p>Activity factors are approximations. Real energy expenditure varies and is best evaluated alongside longer-term trends.</p></div>
+   <div class="cf-education-formula"><strong>Calculation method</strong><code>This calculator estimates TDEE = Mifflin–St Jeor resting energy expenditure (REE) prediction × selected activity factor.</code><p>This is an approximation, not a direct measurement. The original Mifflin–St Jeor study involved healthy adults aged 19–78; prediction error and differences in daily activity should be considered.</p></div>
    <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>Useful for planning and comparing intake with activity over time.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Activity multipliers and equations introduce uncertainty; compare estimates with longer-term trends rather than treating them as exact.</p></div></div>
    <div class="cf-education-section"><h3>How to use it</h3><p>Read each field label and its unit, enter your measurements or values, check that none are missing or implausible, and activate the calculator button. Review the displayed result, formula and limitations. If comparing results over time, use the same measurement method.</p></div>
    <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>

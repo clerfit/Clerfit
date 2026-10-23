@@ -134,7 +134,7 @@ for (const file of listHtml('html')) {
     });
   }
 }
-assert.equal(source.size, 242, 'Expected 242 static numeric inputs, found ' + source.size + '; source-only: ' + [...source.keys()].filter(key => !auditMap.has(key)).join(', ') + '; CSV-only: ' + [...auditMap.keys()].filter(key => !source.has(key)).join(', '));
+assert.equal(source.size, 241, 'Expected 241 static numeric inputs, found ' + source.size + '; source-only: ' + [...source.keys()].filter(key => !auditMap.has(key)).join(', ') + '; CSV-only: ' + [...auditMap.keys()].filter(key => !source.has(key)).join(', '));
 for (const [key, field] of source) {
   let audit = auditMap.get(key);
   let boundary = boundsMap.get(key);
