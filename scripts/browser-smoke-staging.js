@@ -420,11 +420,8 @@ async function targetedCalculatorBoundaries(browser) {
   await exercise({file:'heartrate.html',fn:'calculateHeartRate',fields:{age:30,rhr:'',activity:0.7},resultId:'result',caseName:'missing resting heart rate rejected',expect:/resting heart rate from 20 to 120 bpm/i});
   await exercise({file:'heartrate.html',fn:'calculateHeartRate',fields:{age:30,rhr:150,activity:0.7},resultId:'result',caseName:'extreme resting heart rate rejected',expect:/resting heart rate from 20 to 120 bpm/i});
   await exercise({file:'heartrate.html',fn:'calculateHeartRate',fields:{age:30,rhr:60,activity:0.95},resultId:'result',caseName:'unsupported heart-rate intensity rejected',expect:/listed target-intensity levels/i});
-  await exercise({file:'pal.html',fn:'calculatePAL',fields:{age:30,gender:'male',activity:'moderate'},resultId:'result',caseName:'valid PAL activity factor calculates',expect:/Physical Activity Level \(PAL\):\s*1\.55/i});
-  await exercise({file:'pal.html',fn:'calculatePAL',fields:{age:30.5,gender:'male',activity:'moderate'},resultId:'result',caseName:'fractional PAL age rejected',expect:/integer age from 1 to 120/i});
-  await exercise({file:'pal.html',fn:'calculatePAL',fields:{age:0,gender:'male',activity:'moderate'},resultId:'result',caseName:'zero PAL age rejected',expect:/integer age from 1 to 120/i});
-  await exercise({file:'pal.html',fn:'calculatePAL',fields:{age:121,gender:'male',activity:'moderate'},resultId:'result',caseName:'out-of-range PAL age rejected',expect:/integer age from 1 to 120/i});
-  await exercise({file:'pal.html',fn:'calculatePAL',fields:{age:30,gender:'male',activity:'unsupported'},resultId:'result',caseName:'unsupported PAL activity rejected',expect:/listed activity level/i});
+  await exercise({file:'pal.html',fn:'calculatePAL',fields:{activity:'moderate'},resultId:'result',caseName:'valid TDEE activity factor calculates',expect:/Selected TDEE activity factor:\s*<strong>1\.55<\/strong>/i});
+  await exercise({file:'pal.html',fn:'calculatePAL',fields:{activity:'unsupported'},resultId:'result',caseName:'unsupported TDEE activity pattern rejected',expect:/six listed activity patterns/i});
   await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:70,weightUnit:'kg',level:1.2},resultId:'result',caseName:'valid protein estimate calculates',expect:/Estimated Protein Intake:\s*84\.00 g\/day/i});
   await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:'',weightUnit:'kg',level:1.2},resultId:'result',caseName:'blank protein weight rejected',expect:/supported weight/i});
   await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:1000000,weightUnit:'kg',level:1.2},resultId:'result',caseName:'extreme protein weight rejected',expect:/between 2 and 500 kg/i});
