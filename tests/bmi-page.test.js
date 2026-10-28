@@ -85,7 +85,7 @@ runCase('known adult BMI and category', () => {
   context.calculateBMI();
   assert.match(ids.result.innerHTML, /BMI:\s*<b>22\.9<\/b>/);
   assert.match(ids.result.innerHTML, /Normal/);
-  assert.equal(ids.indicator.title, 'Normal');
+  assert.equal(ids.indicator.title, 'Normal weight');
 });
 runCase('metres unit bounds and equivalent result', () => {
   resetInputs();
