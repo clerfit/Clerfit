@@ -841,4 +841,38 @@ pageTest = runPageFunction('difference.html', 'calculateDifference', {
 assert.match(pageTest.output('diffResult'), /valid finite numerical values/i);
 checks++;
 
+
+// Regression: adult BMI labels and gauge bands distinguish obesity classes I, II and III.
+for (const [bmiValue, expectedCategory] of [
+  [22.9, /Normal weight/],
+  [32, /Obesity class I/],
+  [37, /Obesity class II/],
+  [42, /Obesity class III/]
+]) {
+  Object.entries({
+    weight: bmiValue * (1.75 ** 2), weightUnit: 'kg',
+    height: 175, heightUnit: 'cm', age: 30, gender: 'male'
+  }).forEach(([id, value]) => setEngine(id, value));
+  resetEngineOutputs('result');
+  engineContext.calculateBMI();
+  assert.match(engineOutput('result'), expectedCategory, 'engine BMI category at ' + bmiValue);
+  checks++;
+}
+for (const [bmiValue, expectedCategory] of [
+  [22.9, /Normal weight/],
+  [32, /Obesity class I/],
+  [37, /Obesity class II/],
+  [42, /Obesity class III/]
+]) {
+  pageTest = runPageFunction('BMI.html', 'calculateBMI', {
+    weight: bmiValue * (1.75 ** 2), weightUnit: 'kg',
+    height: 175, heightUnit: 'cm', age: 30, gender: 'male'
+  }, ['result', 'indicator']);
+  assert.match(pageTest.output('result'), expectedCategory, 'BMI page category at ' + bmiValue);
+  checks++;
+}
+assert.match(read('html/BMI.html'), /Obesity class III[\s\S]*≥ 40\.0/);
+assert.doesNotMatch(read('html/BMI.html'), /Obesity II\+/);
+checks++;
+
 console.log('PASS: ' + checks + ' known-answer/domain assertions across generated calculators, CDC BMI-for-age, legacy formulas, and unit conversions.');
