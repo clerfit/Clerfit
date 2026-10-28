@@ -100,7 +100,14 @@ runCase('adult BMI category thresholds and gauge labels are distinct', () => {
     resetInputs();
     ids.weight.value = String(targetBMI * (1.75 ** 2));
     context.calculateBMI();
-    assert.match(ids.result.innerHTML, new RegExp(expected.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\runCase('metres unit bounds and equivalent result', () => {')));
+    assert.ok(ids.result.innerHTML.includes(expected), 'Result should contain category: ' + expected);
+    assert.equal(ids.indicator.title, expected);
+    assert.ok(ids.indicator.innerHTML.includes(expected));
+  }
+  assert.equal(ids.indicator.style.left, '100%');
+});
+
+runCase('metres unit bounds and equivalent result', () => {')));
     assert.equal(ids.indicator.title, expected);
     assert.ok(ids.indicator.innerHTML.includes(expected));
   }
