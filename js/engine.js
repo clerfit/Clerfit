@@ -62,10 +62,11 @@ function calculateBMI() {
   let category = "";
   if (age >= 20) {
     if (bmi < 18.5) category = "Underweight";
-    else if (bmi < 25) category = "Normal";
+    else if (bmi < 25) category = "Normal weight";
     else if (bmi < 30) category = "Overweight";
-    else if (bmi < 35) category = "Obese";
-    else category = "Severe";
+    else if (bmi < 35) category = "Obesity class I";
+    else if (bmi < 40) category = "Obesity class II";
+    else category = "Obesity class III";
     document.getElementById("result").innerHTML = `BMI: <b>${bmi.toFixed(1)}</b> — <b>${category}</b>`;
     moveIndicatorBMI(bmi, age);
   } else {
@@ -95,10 +96,11 @@ function moveIndicatorBMI(bmi, age) {
   // handled separately above and must be interpreted with growth charts.
   const ranges = [
     { label: "Underweight", min: 0, max: 18.5, color: "#3b82f6" },
-    { label: "Healthy-weight range", min: 18.5, max: 25, color: "#22c55e" },
+    { label: "Normal weight", min: 18.5, max: 25, color: "#22c55e" },
     { label: "Overweight", min: 25, max: 30, color: "#eab308" },
     { label: "Obesity class I", min: 30, max: 35, color: "#f97316" },
-    { label: "Obesity class II or higher", min: 35, max: Infinity, color: "#ef4444" }
+    { label: "Obesity class II", min: 35, max: 40, color: "#ef4444" },
+    { label: "Obesity class III", min: 40, max: Infinity, color: "#b91c1c" }
   ];
   const range = ranges.find(r => bmi >= r.min && bmi < r.max) || ranges[ranges.length - 1];
   indicator.style.left = `${Math.min(100, Math.max(0, bmi / 40 * 100))}%`;
