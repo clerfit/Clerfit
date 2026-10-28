@@ -85,7 +85,23 @@ runCase('known adult BMI and category', () => {
   context.calculateBMI();
   assert.match(ids.result.innerHTML, /BMI:\s*<b>22\.9<\/b>/);
   assert.match(ids.result.innerHTML, /Normal/);
-  assert.equal(ids.indicator.title, 'Normal');
+  assert.equal(ids.indicator.title, 'Normal weight');
+});
+runCase('adult obesity classes and gauge labels follow adult BMI cutoffs', () => {
+  for (const [bmiValue, expected] of [
+    [32, 'Obesity class I'],
+    [37, 'Obesity class II'],
+    [42, 'Obesity class III']
+  ]) {
+    resetInputs();
+    ids.weight.value = String(bmiValue * (1.75 ** 2));
+    context.calculateBMI();
+    assert.ok(ids.result.innerHTML.includes(expected), 'result category for BMI ' + bmiValue);
+    assert.equal(ids.indicator.title, expected, 'gauge category for BMI ' + bmiValue);
+  }
+  assert.match(page, /Obesity class II[\s\S]*35\.0 – 39\.9/);
+  assert.match(page, /Obesity class III[\s\S]*≥ 40\.0/);
+  assert.doesNotMatch(page, /Obesity II\+/);
 });
 runCase('metres unit bounds and equivalent result', () => {
   resetInputs();
