@@ -87,6 +87,26 @@ runCase('known adult BMI and category', () => {
   assert.match(ids.result.innerHTML, /Normal/);
   assert.equal(ids.indicator.title, 'Normal weight');
 });
+runCase('adult BMI category thresholds and gauge labels are distinct', () => {
+  const cases = [
+    [18.4, 'Underweight'],
+    [18.5, 'Normal weight'],
+    [25, 'Overweight'],
+    [30, 'Obesity class I'],
+    [35, 'Obesity class II'],
+    [40, 'Obesity class III']
+  ];
+  for (const [targetBMI, expected] of cases) {
+    resetInputs();
+    ids.weight.value = String(targetBMI * (1.75 ** 2));
+    context.calculateBMI();
+    assert.match(ids.result.innerHTML, new RegExp(expected.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\runCase('metres unit bounds and equivalent result', () => {')));
+    assert.equal(ids.indicator.title, expected);
+    assert.ok(ids.indicator.innerHTML.includes(expected));
+  }
+  assert.equal(ids.indicator.style.left, '100%');
+});
+
 runCase('metres unit bounds and equivalent result', () => {
   resetInputs();
   ids.heightUnit.value = 'm';
