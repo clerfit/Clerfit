@@ -1542,8 +1542,7 @@ body .cf-home .cf-home-top .clerfit-fixed-actions {
 }
 
 
-/* Footer refresh: borrow AllRoundCalc's calm, spacious footer layout while
-   keeping ClerFit branding and replacing particle effects with category icons. */
+/* ClerFit footer: keep the footer bar; float small category pictograms freely above it. */
 body .cf-home-section:last-of-type { margin-bottom: 0 !important; }
 body .cf-home .cf-home-section { scroll-margin-top: 18px; }
 body .cf-home .cf-footer {
@@ -1560,37 +1559,52 @@ body .cf-home .cf-footer {
 }
 body .cf-footer-particles { display: none !important; }
 body .cf-footer-category-icons {
-  position: relative;
-  z-index: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: clamp(12px, 3vw, 34px);
-  width: min(100%, 1120px);
-  margin: 0 auto;
-  padding: 24px 0 2px;
+  position: relative !important;
+  display: block !important;
+  width: min(100%, 1120px) !important;
+  height: 92px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
   pointer-events: none;
 }
 body .cf-footer-category-icons span {
-  display: grid;
-  flex: 0 1 42px;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  color: #17877f;
-  background: #e4f5f1;
-  border: 1px solid #d1ebe5;
-  border-radius: 14px;
-  opacity: .78;
+  position: absolute !important;
+  display: block !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: #16877f !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  opacity: .58;
+  animation: cf-footer-icon-drift 5.8s ease-in-out infinite;
+  will-change: transform;
 }
+body .cf-footer-category-icons span:nth-child(1) { left: 3%; top: 27px; }
+body .cf-footer-category-icons span:nth-child(2) { left: 13%; top: 48px; animation-delay: -2s; }
+body .cf-footer-category-icons span:nth-child(3) { left: 23%; top: 17px; animation-delay: -3.1s; }
+body .cf-footer-category-icons span:nth-child(4) { left: 33%; top: 51px; animation-delay: -.9s; }
+body .cf-footer-category-icons span:nth-child(5) { left: 43%; top: 25px; animation-delay: -2.7s; }
+body .cf-footer-category-icons span:nth-child(6) { left: 54%; top: 49px; animation-delay: -1.4s; }
+body .cf-footer-category-icons span:nth-child(7) { left: 64%; top: 16px; animation-delay: -3.7s; }
+body .cf-footer-category-icons span:nth-child(8) { left: 74%; top: 48px; animation-delay: -2.2s; }
+body .cf-footer-category-icons span:nth-child(9) { left: 83%; top: 22px; animation-delay: -.5s; }
+body .cf-footer-category-icons span:nth-child(10) { left: 91%; top: 49px; animation-delay: -3.3s; }
+body .cf-footer-category-icons span:nth-child(11) { left: 48%; top: 5px; animation-delay: -1.8s; }
 body .cf-footer-category-icons svg {
-  width: 21px;
-  height: 21px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.7 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
 }
 body .cf-footer-main {
   display: flex !important;
@@ -1608,18 +1622,31 @@ body .cf-footer-bottom {
   padding: 16px 0 20px !important;
   border-top: 1px solid #e0e9eb !important;
 }
+@keyframes cf-footer-icon-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(3px, -8px, 0); }
+}
 @media (max-width: 700px) {
   body .cf-home .cf-footer { margin-top: 34px !important; padding-inline: 20px !important; }
-  body .cf-footer-category-icons { gap: 9px; padding-top: 20px; flex-wrap: wrap; }
-  body .cf-footer-category-icons span { flex-basis: 34px; width: 34px; height: 34px; border-radius: 11px; }
-  body .cf-footer-category-icons svg { width: 18px; height: 18px; }
+  body .cf-footer-category-icons { height: 78px !important; }
+  body .cf-footer-category-icons span { width: 18px !important; height: 18px !important; }
+  body .cf-footer-category-icons span:nth-child(1) { left: 2%; top: 24px; }
+  body .cf-footer-category-icons span:nth-child(2) { left: 12%; top: 44px; }
+  body .cf-footer-category-icons span:nth-child(3) { left: 22%; top: 13px; }
+  body .cf-footer-category-icons span:nth-child(4) { left: 32%; top: 42px; }
+  body .cf-footer-category-icons span:nth-child(5) { left: 42%; top: 21px; }
+  body .cf-footer-category-icons span:nth-child(6) { left: 52%; top: 45px; }
+  body .cf-footer-category-icons span:nth-child(7) { left: 62%; top: 12px; }
+  body .cf-footer-category-icons span:nth-child(8) { left: 72%; top: 42px; }
+  body .cf-footer-category-icons span:nth-child(9) { left: 82%; top: 21px; }
+  body .cf-footer-category-icons span:nth-child(10) { left: 91%; top: 44px; }
+  body .cf-footer-category-icons span:nth-child(11) { left: 47%; top: 2px; }
   body .cf-footer-main { flex-direction: column !important; gap: 20px !important; padding-top: 20px !important; }
   body .cf-footer-links { gap: 12px 18px !important; }
 }
 @media (prefers-reduced-motion: reduce) {
-  body .cf-footer-category-icons span { transition: none !important; animation: none !important; }
+  body .cf-footer-category-icons span { animation: none !important; will-change: auto; }
 }
-
 
 /* Keep the existing ClerFit card design; only add comfortable gaps between cards. */
 body .cf-category-grid {
