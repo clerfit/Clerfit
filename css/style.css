@@ -1557,62 +1557,40 @@ body .cf-footer {
   background: linear-gradient(118deg, #102b57 0%, #124c70 42%, #087d79 74%, #126c59 100%) !important;
   border-top: 1px solid rgba(112, 226, 218, .34) !important;
 }
-body .cf-footer-particles {
-  position: absolute !important;
-  z-index: -1 !important;
-  inset: 0 !important;
-  display: block !important;
-  pointer-events: none !important;
-  opacity: .64 !important;
-  background-image:
-    radial-gradient(circle at 10% 82%, rgba(115,224,222,.8) 0 1px, transparent 1.8px),
-    radial-gradient(circle at 23% 68%, rgba(139,201,255,.78) 0 1px, transparent 2px),
-    radial-gradient(circle at 38% 90%, rgba(115,224,222,.7) 0 1px, transparent 1.8px),
-    radial-gradient(circle at 52% 72%, rgba(139,201,255,.72) 0 1px, transparent 2px),
-    radial-gradient(circle at 68% 86%, rgba(115,224,222,.72) 0 1px, transparent 1.8px),
-    radial-gradient(circle at 82% 67%, rgba(139,201,255,.76) 0 1px, transparent 2px),
-    radial-gradient(circle at 94% 84%, rgba(115,224,222,.72) 0 1px, transparent 1.8px);
-  background-size: 280px 210px;
-  animation: cf-particle-drift 34s linear infinite;
-}
+body .cf-footer-particles { display: none !important; }
 body .cf-footer-category-icons {
   position: relative !important;
-  display: block !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: space-around !important;
+  gap: 18px !important;
   width: min(100%, 1120px) !important;
-  height: 82px !important;
+  min-height: 54px !important;
   margin: 0 auto !important;
-  padding: 0 !important;
-  pointer-events: none;
+  padding: 18px 0 8px !important;
+  pointer-events: none !important;
 }
 body .cf-footer-category-icons span {
-  position: absolute !important;
+  position: static !important;
   display: block !important;
+  flex: 0 0 22px !important;
   width: 22px !important;
   height: 22px !important;
   min-width: 0 !important;
   min-height: 0 !important;
   padding: 0 !important;
   margin: 0 !important;
-  color: rgba(185, 250, 240, .82) !important;
+  color: rgba(205, 250, 242, .86) !important;
   background: transparent !important;
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  opacity: .8;
-  animation: cf-footer-icon-drift 7.5s ease-in-out infinite;
-  will-change: transform;
+  opacity: .82 !important;
+  animation: none !important;
+  transform: none !important;
+  will-change: auto !important;
 }
-body .cf-footer-category-icons span:nth-child(1) { left: 3%; top: 25px; }
-body .cf-footer-category-icons span:nth-child(2) { left: 13%; top: 44px; animation-delay: -2s; }
-body .cf-footer-category-icons span:nth-child(3) { left: 23%; top: 14px; animation-delay: -3.1s; }
-body .cf-footer-category-icons span:nth-child(4) { left: 33%; top: 43px; animation-delay: -.9s; }
-body .cf-footer-category-icons span:nth-child(5) { left: 43%; top: 23px; animation-delay: -2.7s; }
-body .cf-footer-category-icons span:nth-child(6) { left: 54%; top: 43px; animation-delay: -1.4s; }
-body .cf-footer-category-icons span:nth-child(7) { left: 64%; top: 13px; animation-delay: -3.7s; }
-body .cf-footer-category-icons span:nth-child(8) { left: 74%; top: 43px; animation-delay: -2.2s; }
-body .cf-footer-category-icons span:nth-child(9) { left: 83%; top: 20px; animation-delay: -.5s; }
-body .cf-footer-category-icons span:nth-child(10) { left: 91%; top: 43px; animation-delay: -3.3s; }
-body .cf-footer-category-icons span:nth-child(11) { left: 48%; top: 3px; animation-delay: -1.8s; }
 body .cf-footer-category-icons svg {
   display: block !important;
   width: 100% !important;
@@ -1656,33 +1634,15 @@ body .cf-footer-bottom {
   border-top: 1px solid rgba(225, 249, 255, .22) !important;
   color: #c8e1ec !important;
 }
-@keyframes cf-footer-icon-drift {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(4px, -7px, 0); }
-}
 @media (max-width: 700px) {
   body .cf-footer { margin-top: 30px !important; padding-inline: 16px !important; }
   body .cf-footer-category-icons { height: 70px !important; }
   body .cf-footer-category-icons span { width: 18px !important; height: 18px !important; }
-  body .cf-footer-category-icons span:nth-child(1) { left: 2%; top: 20px; }
-  body .cf-footer-category-icons span:nth-child(2) { left: 12%; top: 40px; }
-  body .cf-footer-category-icons span:nth-child(3) { left: 22%; top: 10px; }
-  body .cf-footer-category-icons span:nth-child(4) { left: 32%; top: 38px; }
-  body .cf-footer-category-icons span:nth-child(5) { left: 42%; top: 19px; }
-  body .cf-footer-category-icons span:nth-child(6) { left: 52%; top: 39px; }
-  body .cf-footer-category-icons span:nth-child(7) { left: 62%; top: 9px; }
-  body .cf-footer-category-icons span:nth-child(8) { left: 72%; top: 38px; }
-  body .cf-footer-category-icons span:nth-child(9) { left: 82%; top: 19px; }
-  body .cf-footer-category-icons span:nth-child(10) { left: 91%; top: 39px; }
-  body .cf-footer-category-icons span:nth-child(11) { left: 47%; top: 1px; }
-  body .cf-footer-main { flex-direction: column !important; gap: 12px !important; padding-top: 16px !important; }
+                        body .cf-footer-main { flex-direction: column !important; gap: 12px !important; padding-top: 16px !important; }
   body .cf-footer-links { justify-content: flex-start !important; gap: 10px 18px !important; }
   body .cf-footer-bottom { justify-content: flex-start !important; }
 }
-@media (prefers-reduced-motion: reduce) {
-  body .cf-footer-category-icons span { animation: none !important; will-change: auto; }
-  body .cf-footer-particles { animation: none !important; }
-}
+@media (prefers-reduced-motion: reduce) { body .cf-footer-category-icons span { animation: none !important; } }
 
 /* Keep the existing ClerFit card design; only add comfortable gaps between cards. */
 body .cf-category-grid {
