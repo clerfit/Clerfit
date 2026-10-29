@@ -1622,17 +1622,11 @@ body .cf-footer-bottom {
 
 
 /* Keep the existing ClerFit card design; only add comfortable gaps between cards. */
-body .cf-category-grid,
-body .cf-feature-grid,
-body .cf-directory-grid {
-  gap: clamp(12px, 1.8vw, 20px) !important;
+body .cf-category-grid {
+  row-gap: clamp(12px, 1.8vw, 20px) !important;
 }
 @media (max-width: 700px) {
-  body .cf-category-grid,
-  body .cf-feature-grid,
-  body .cf-directory-grid {
-    gap: 12px !important;
-  }
+  body .cf-category-grid { row-gap: 12px !important; }
 }
 
 /* Subtle, independent movement for category pictograms in the footer only. */
