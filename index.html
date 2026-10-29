@@ -2,7 +2,36 @@
 <html lang="en"><head>
 <link rel="icon" type="image/png" sizes="48x48" href="./favicon-48.png"><link rel="icon" href="./favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="./app-icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"><link rel="manifest" href="./site.webmanifest">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
-<meta name="referrer" content="strict-origin-when-cross-origin"><meta charset="utf-8"><meta name="clerfit-release" content="R3-2026-10-17-phase12-a11y-v1"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#101827"><title>ClerFit — Health & Fitness Calculators</title><meta name="description" content="Explore practical calculators for body measurements, nutrition, training, recovery and everyday conversions."><link rel="stylesheet" href="css/style.css?v=20261029-category-tiles-grid-hotfix-v3"><script src="js/navigation.js" defer></script>
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta charset="utf-8"><meta name="clerfit-release" content="R3-2026-10-17-phase12-a11y-v1"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#101827"><title>ClerFit — Health & Fitness Calculators</title><meta name="description" content="Explore practical calculators for body measurements, nutrition, training, recovery and everyday conversions."><link rel="stylesheet" href="css/style.css?v=20261029-category-tiles-grid-hotfix-v4">
+<style id="cf-category-grid-layout-hotfix">
+  #browse-categories #cf-category-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    width: 100% !important;
+  }
+  #browse-categories #cf-category-grid > .cf-category-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 148px !important;
+    box-sizing: border-box !important;
+  }
+  @media (max-width: 1100px) {
+    #browse-categories #cf-category-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+  }
+  @media (max-width: 700px) {
+    #browse-categories #cf-category-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 12px !important;
+    }
+    #browse-categories #cf-category-grid > .cf-category-card {
+      min-height: 132px !important;
+    }
+  }
+</style>
+<script src="js/navigation.js" defer></script>
 <script src="js/unit-system.js" defer></script><script src="js/home.js" defer></script>  <link rel="canonical" href="https://clerfit.github.io/Clerfit/">
   <meta property="og:type" content="website">
 <meta property="og:site_name" content="ClerFit">
