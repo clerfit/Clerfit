@@ -546,7 +546,7 @@ checks++;
 
 // Formal PAL is not the same as a conventional TDEE activity multiplier.
 pageTest = runPageFunction('pal.html', 'calculatePAL', { activity: 'moderate' }, ['result']);
-assert.match(pageTest.output('result'), /Selected TDEE activity factor: <strong>1\.55<\/strong>/);
+assert.match(pageTest.output('result'), /Selected TDEE activity factor:\s*1\.55/i);
 assert.match(pageTest.output('result'), /not measured PAL/i);
 assert.doesNotMatch(pageTest.output('result'), /Physical Activity Level \(PAL\):/);
 checks++;
