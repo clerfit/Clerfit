@@ -1684,9 +1684,9 @@ body .cf-category-grid {
 
 /* Footer follow-up: match the homepage hero gradient and make icon drift clearly visible. */
 body .cf-footer {
-  background: radial-gradient(circle at 88% 15%, #1d9d9260, transparent 30%),
-              linear-gradient(125deg, #10243a 0%, #183c58 58%, #126d70 100%) !important;
-  background-color: #10243a !important;
+  background: radial-gradient(circle at 88% 15%, #137c7550, transparent 30%),
+              linear-gradient(125deg, #081626 0%, #10283d 58%, #084b4e 100%) !important;
+  background-color: #081626 !important;
 }
 @keyframes cf-footer-icon-float-v2 {
   0%   { transform: translate3d(0, 7px, 0) rotate(-4deg); }
