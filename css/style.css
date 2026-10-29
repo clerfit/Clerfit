@@ -1701,3 +1701,61 @@ body .cf-footer .cf-footer-category-icons span {
 body .cf-footer .cf-footer-category-icons span:nth-child(2n) { animation-delay: -2.9s !important; }
 body .cf-footer .cf-footer-category-icons span:nth-child(3n) { animation-delay: -1.8s !important; }
 body .cf-footer .cf-footer-category-icons span:nth-child(5n) { animation-delay: -4.1s !important; }
+
+
+/* TEMPORARY PREVIEW: compact tile layout for the homepage "Find your category" section only. */
+body #browse-categories .cf-category-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  align-items: stretch;
+}
+body #browse-categories .cf-category-card {
+  min-height: 148px !important;
+  padding: 16px 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 9px !important;
+  text-align: center !important;
+  border-radius: 15px !important;
+}
+body #browse-categories .cf-category-symbol {
+  width: 42px !important;
+  height: 42px !important;
+  flex: 0 0 42px !important;
+  border-radius: 12px !important;
+}
+body #browse-categories .cf-category-copy {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 4px !important;
+  width: 100% !important;
+}
+body #browse-categories .cf-category-copy strong {
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  overflow-wrap: anywhere;
+}
+body #browse-categories .cf-category-copy small {
+  font-size: 11px !important;
+  line-height: 1.35 !important;
+}
+body #browse-categories .cf-card-arrow { display: none !important; }
+@media (max-width: 1100px) {
+  body #browse-categories .cf-category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+@media (max-width: 700px) {
+  body #browse-categories .cf-category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+  body #browse-categories .cf-category-card {
+    min-height: 132px !important;
+    padding: 13px 10px !important;
+  }
+  body #browse-categories .cf-category-copy strong { font-size: 12px !important; }
+}
