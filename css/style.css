@@ -1540,3 +1540,62 @@ body .cf-home .cf-home-top .clerfit-fixed-actions {
     font-size: 10px !important;
   }
 }
+
+
+/* Release follow-up: isolate the homepage brand from navigation at every viewport.
+   The brand always occupies its own row; actions never share its text line. */
+body.cf-home main.cf-home .cf-home-top {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  align-items: start !important;
+  justify-items: stretch !important;
+  gap: 12px !important;
+  min-width: 0 !important;
+}
+body.cf-home main.cf-home .cf-home-top > .cf-wordmark {
+  grid-row: 1 !important;
+  grid-column: 1 !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+body.cf-home main.cf-home .cf-home-top > .cf-top-actions {
+  grid-row: 2 !important;
+  grid-column: 1 !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+body.cf-home main.cf-home .cf-home-top .cf-top-tag {
+  min-width: 0 !important;
+  white-space: normal !important;
+}
+body.cf-home main.cf-home .cf-home-top .clerfit-fixed-actions {
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+  flex-flow: row nowrap !important;
+  justify-content: flex-end !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin-left: auto !important;
+}
+body.cf-home main.cf-home .cf-home-top .clerfit-fixed-actions a {
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+}
+@media (max-width: 480px) {
+  body.cf-home main.cf-home .cf-home-top > .cf-top-actions {
+    align-items: flex-start !important;
+  }
+  body.cf-home main.cf-home .cf-home-top .cf-top-tag {
+    flex-basis: 100% !important;
+  }
+  body.cf-home main.cf-home .cf-home-top .clerfit-fixed-actions {
+    margin-left: 0 !important;
+  }
+}
