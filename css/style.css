@@ -1203,6 +1203,11 @@ body .cf-footer {
   color: #42536b !important;
   background: transparent !important;
 }
+@keyframes cf-footer-icon-drift {
+  0% { transform: translate3d(-7px, 5px, 0) rotate(-5deg); }
+  50% { transform: translate3d(6px, -8px, 0) rotate(4deg); }
+  100% { transform: translate3d(-3px, 6px, 0) rotate(-2deg); }
+}
 body .cf-footer-main { min-width: 0; }
 body .cf-footer-links {
   display: flex !important;
