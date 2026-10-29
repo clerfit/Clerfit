@@ -1542,7 +1542,7 @@ body .cf-home .cf-home-top .clerfit-fixed-actions {
 }
 
 
-/* ClerFit footer: full-bleed royal blue-to-teal gradient with subtle floating particles. */
+/* ClerFit footer: full-bleed gradient with evenly distributed, gently drifting category icons. */
 body .cf-home-section:last-of-type { margin-bottom: 0 !important; }
 body .cf-home .cf-home-section { scroll-margin-top: 18px; }
 body .cf-footer {
@@ -1563,12 +1563,12 @@ body .cf-footer-category-icons {
   display: flex !important;
   flex-wrap: wrap !important;
   align-items: center !important;
-  justify-content: space-around !important;
-  gap: 18px !important;
+  justify-content: space-evenly !important;
+  gap: 16px clamp(14px, 2.4vw, 30px) !important;
   width: min(100%, 1120px) !important;
-  min-height: 54px !important;
+  min-height: 62px !important;
   margin: 0 auto !important;
-  padding: 18px 0 8px !important;
+  padding: 18px 0 10px !important;
   pointer-events: none !important;
 }
 body .cf-footer-category-icons span {
@@ -1587,9 +1587,8 @@ body .cf-footer-category-icons span {
   border-radius: 0 !important;
   box-shadow: none !important;
   opacity: .82 !important;
-  animation: none !important;
-  transform: none !important;
-  will-change: auto !important;
+  animation: cf-footer-icon-drift 22s ease-in-out infinite alternate !important;
+  will-change: transform;
 }
 body .cf-footer-category-icons svg {
   display: block !important;
@@ -1642,7 +1641,7 @@ body .cf-footer-bottom {
   body .cf-footer-links { justify-content: flex-start !important; gap: 10px 18px !important; }
   body .cf-footer-bottom { justify-content: flex-start !important; }
 }
-@media (prefers-reduced-motion: reduce) { body .cf-footer-category-icons span { animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { body .cf-footer-category-icons span { animation: none !important; will-change: auto; } }
 
 /* Keep the existing ClerFit card design; only add comfortable gaps between cards. */
 body .cf-category-grid {
