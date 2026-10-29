@@ -1540,3 +1540,82 @@ body .cf-home .cf-home-top .clerfit-fixed-actions {
     font-size: 10px !important;
   }
 }
+
+
+/* Footer refresh: borrow AllRoundCalc's calm, spacious footer layout while
+   keeping ClerFit branding and replacing particle effects with category icons. */
+body .cf-home-section:last-of-type { margin-bottom: 0 !important; }
+body .cf-home .cf-home-section { scroll-margin-top: 18px; }
+body .cf-home .cf-footer {
+  position: relative !important;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 42px 0 0 !important;
+  padding: 0 clamp(18px, 4vw, 48px) 0 !important;
+  color: #425b67 !important;
+  background: #f5f9fa !important;
+  border-top: 1px solid #dfeaec !important;
+}
+body .cf-footer-particles { display: none !important; }
+body .cf-footer-category-icons {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: clamp(12px, 3vw, 34px);
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  padding: 24px 0 2px;
+  pointer-events: none;
+}
+body .cf-footer-category-icons span {
+  display: grid;
+  flex: 0 1 42px;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  color: #17877f;
+  background: #e4f5f1;
+  border: 1px solid #d1ebe5;
+  border-radius: 14px;
+  opacity: .78;
+}
+body .cf-footer-category-icons svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+body .cf-footer-main {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 32px !important;
+  width: min(100%, 1120px);
+  margin: 0 auto !important;
+  padding: 20px 0 28px !important;
+}
+body .cf-footer-links { gap: 14px 24px !important; }
+body .cf-footer-bottom {
+  width: min(100%, 1120px);
+  margin: 0 auto !important;
+  padding: 16px 0 20px !important;
+  border-top: 1px solid #e0e9eb !important;
+}
+@media (max-width: 700px) {
+  body .cf-home .cf-footer { margin-top: 34px !important; padding-inline: 20px !important; }
+  body .cf-footer-category-icons { gap: 9px; padding-top: 20px; flex-wrap: wrap; }
+  body .cf-footer-category-icons span { flex-basis: 34px; width: 34px; height: 34px; border-radius: 11px; }
+  body .cf-footer-category-icons svg { width: 18px; height: 18px; }
+  body .cf-footer-main { flex-direction: column !important; gap: 20px !important; padding-top: 20px !important; }
+  body .cf-footer-links { gap: 12px 18px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body .cf-footer-category-icons span { transition: none !important; animation: none !important; }
+}
