@@ -107,13 +107,6 @@ runCase('adult BMI category thresholds and gauge labels are distinct', () => {
   assert.equal(ids.indicator.style.left, '100%');
 });
 
-runCase('metres unit bounds and equivalent result', () => {')));
-    assert.equal(ids.indicator.title, expected);
-    assert.ok(ids.indicator.innerHTML.includes(expected));
-  }
-  assert.equal(ids.indicator.style.left, '100%');
-});
-
 runCase('metres unit bounds and equivalent result', () => {
   resetInputs();
   ids.heightUnit.value = 'm';
