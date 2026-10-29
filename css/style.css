@@ -1557,6 +1557,24 @@ body .cf-footer {
   background: linear-gradient(118deg, #102b57 0%, #124c70 42%, #087d79 74%, #126c59 100%) !important;
   border-top: 1px solid rgba(112, 226, 218, .34) !important;
 }
+body .cf-footer::before,
+body .cf-footer::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -35% -8% !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  border: 1px solid rgba(151, 244, 235, .10) !important;
+  border-radius: 48% 52% 62% 38% / 40% 48% 52% 60% !important;
+  background: radial-gradient(ellipse at 24% 55%, rgba(55, 196, 190, .10), transparent 45%), radial-gradient(ellipse at 80% 38%, rgba(90, 175, 255, .09), transparent 42%) !important;
+  transform: rotate(-9deg) !important;
+}
+body .cf-footer::after {
+  inset: -48% 12% -40% -22% !important;
+  border-color: rgba(145, 220, 255, .08) !important;
+  border-radius: 56% 44% 42% 58% / 48% 60% 40% 52% !important;
+  transform: rotate(13deg) !important;
+}
 body .cf-footer-particles { display: none !important; }
 body .cf-footer-category-icons {
   position: relative !important;
@@ -1587,9 +1605,12 @@ body .cf-footer-category-icons span {
   border-radius: 0 !important;
   box-shadow: none !important;
   opacity: .82 !important;
-  animation: cf-footer-icon-drift 22s ease-in-out infinite alternate !important;
+  animation: cf-footer-icon-drift 12s ease-in-out infinite alternate !important;
   will-change: transform;
 }
+body .cf-footer-category-icons span:nth-child(2n) { animation-delay: -4s !important; }
+body .cf-footer-category-icons span:nth-child(3n) { animation-delay: -7s !important; }
+body .cf-footer-category-icons span:nth-child(5n) { animation-delay: -2s !important; }
 body .cf-footer-category-icons svg {
   display: block !important;
   width: 100% !important;
@@ -1636,7 +1657,7 @@ body .cf-footer-bottom {
 @media (max-width: 700px) {
   body .cf-footer { margin-top: 30px !important; padding-inline: 16px !important; }
   body .cf-footer-category-icons { height: 70px !important; }
-  body .cf-footer-category-icons span { width: 18px !important; height: 18px !important; }
+  body .cf-footer-category-icons span { flex-basis: 18px !important; width: 18px !important; height: 18px !important; }
                         body .cf-footer-main { flex-direction: column !important; gap: 12px !important; padding-top: 16px !important; }
   body .cf-footer-links { justify-content: flex-start !important; gap: 10px 18px !important; }
   body .cf-footer-bottom { justify-content: flex-start !important; }
