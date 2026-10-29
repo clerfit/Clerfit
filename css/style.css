@@ -1542,7 +1542,7 @@ body .cf-home .cf-home-top .clerfit-fixed-actions {
 }
 
 
-/* ClerFit footer-only refresh: clean bar and small, scattered category pictograms. */
+/* ClerFit footer: full-bleed royal blue-to-teal gradient with subtle floating particles. */
 body .cf-home-section:last-of-type { margin-bottom: 0 !important; }
 body .cf-home .cf-home-section { scroll-margin-top: 18px; }
 body .cf-footer {
@@ -1553,11 +1553,28 @@ body .cf-footer {
   max-width: none !important;
   margin: 38px 0 0 !important;
   padding: 0 clamp(16px, 3.4vw, 42px) 0 !important;
-  color: #42536b !important;
-  background: #f5f9fa !important;
-  border-top: 1px solid #dfeaec !important;
+  color: #f1fbff !important;
+  background: linear-gradient(118deg, #102b57 0%, #124c70 42%, #087d79 74%, #126c59 100%) !important;
+  border-top: 1px solid rgba(112, 226, 218, .34) !important;
 }
-body .cf-footer-particles { display: none !important; }
+body .cf-footer-particles {
+  position: absolute !important;
+  z-index: -1 !important;
+  inset: 0 !important;
+  display: block !important;
+  pointer-events: none !important;
+  opacity: .64 !important;
+  background-image:
+    radial-gradient(circle at 10% 82%, rgba(115,224,222,.8) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 23% 68%, rgba(139,201,255,.78) 0 1px, transparent 2px),
+    radial-gradient(circle at 38% 90%, rgba(115,224,222,.7) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 52% 72%, rgba(139,201,255,.72) 0 1px, transparent 2px),
+    radial-gradient(circle at 68% 86%, rgba(115,224,222,.72) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 82% 67%, rgba(139,201,255,.76) 0 1px, transparent 2px),
+    radial-gradient(circle at 94% 84%, rgba(115,224,222,.72) 0 1px, transparent 1.8px);
+  background-size: 280px 210px;
+  animation: cf-particle-drift 34s linear infinite;
+}
 body .cf-footer-category-icons {
   position: relative !important;
   display: block !important;
@@ -1576,13 +1593,13 @@ body .cf-footer-category-icons span {
   min-height: 0 !important;
   padding: 0 !important;
   margin: 0 !important;
-  color: #16877f !important;
+  color: rgba(185, 250, 240, .82) !important;
   background: transparent !important;
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  opacity: .76;
-  animation: cf-footer-icon-drift 5.8s ease-in-out infinite;
+  opacity: .8;
+  animation: cf-footer-icon-drift 7.5s ease-in-out infinite;
   will-change: transform;
 }
 body .cf-footer-category-icons span:nth-child(1) { left: 3%; top: 25px; }
@@ -1614,19 +1631,19 @@ body .cf-footer-main {
   width: min(100%, 1120px);
   margin: 0 auto !important;
   padding: 18px 0 24px !important;
-  color: #42536b !important;
+  color: #f1fbff !important;
 }
 body .cf-footer-brand,
-body .cf-footer-brand span { color: #183746 !important; }
-body .cf-footer-main p { color: #526b78 !important; }
+body .cf-footer-brand span { color: #ffffff !important; }
+body .cf-footer-main p { color: #d2e9f4 !important; }
 body .cf-footer-links { gap: 12px 22px !important; }
 body .cf-footer-links a,
 body .cf-footer-bottom a {
-  color: #245c69 !important;
+  color: #e0f8f5 !important;
   text-decoration: none;
 }
 body .cf-footer-links a:hover,
-body .cf-footer-bottom a:hover { color: #087f75 !important; }
+body .cf-footer-bottom a:hover { color: #ffffff !important; }
 body .cf-footer-bottom {
   display: flex !important;
   flex-wrap: wrap !important;
@@ -1636,12 +1653,12 @@ body .cf-footer-bottom {
   width: min(100%, 1120px);
   margin: 0 auto !important;
   padding: 14px 0 18px !important;
-  border-top: 1px solid #dfe8eb !important;
-  color: #526b78 !important;
+  border-top: 1px solid rgba(225, 249, 255, .22) !important;
+  color: #c8e1ec !important;
 }
 @keyframes cf-footer-icon-drift {
   0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(3px, -7px, 0); }
+  50% { transform: translate3d(4px, -7px, 0); }
 }
 @media (max-width: 700px) {
   body .cf-footer { margin-top: 30px !important; padding-inline: 16px !important; }
@@ -1664,6 +1681,7 @@ body .cf-footer-bottom {
 }
 @media (prefers-reduced-motion: reduce) {
   body .cf-footer-category-icons span { animation: none !important; will-change: auto; }
+  body .cf-footer-particles { animation: none !important; }
 }
 
 /* Keep the existing ClerFit card design; only add comfortable gaps between cards. */
