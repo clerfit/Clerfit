@@ -29,6 +29,19 @@
     const footer = document.createElement("footer");
     footer.className = "cf-footer";
     footer.innerHTML =
+      '<div class="cf-footer-category-icons" aria-hidden="true">' +
+        '<span><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 5v5m4-5v3m4-3v5"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9 10h.01M15 10h.01M9 15c2 2 4 2 6 0"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="m13 2-8 12h6l-1 8 9-13h-6z"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M12 3s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11z"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M3 9v6m4-9v12m10-12v12m4-9v6M7 12h10"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M4 17 10 11l4 3 6-8M14 6h6v6"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5z"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11z"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5zM9 9h6m-6 3h6m-6 3h4"/></svg></span>' +
+      '</div>' +
       '<div class="cf-footer-main">' +
         '<a class="cf-footer-brand" href="' + home + '"><span>ClerFit</span></a>' +
         '<p>Clear tools for better-informed everyday decisions.</p>' +
