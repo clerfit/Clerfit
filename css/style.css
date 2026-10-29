@@ -1672,8 +1672,6 @@ body .cf-footer-bottom {
   body .cf-footer-links { justify-content: flex-start !important; gap: 10px 18px !important; }
   body .cf-footer-bottom { justify-content: flex-start !important; }
 }
-@media (prefers-reduced-motion: reduce) { body .cf-footer-category-icons span { animation: none !important; will-change: auto; } }
-
 /* Keep the existing ClerFit card design; only add comfortable gaps between cards. */
 body .cf-category-grid {
   row-gap: clamp(12px, 1.8vw, 20px) !important;
@@ -1682,3 +1680,24 @@ body .cf-category-grid {
   body .cf-category-grid { row-gap: 12px !important; }
 }
 
+
+
+/* Footer follow-up: match the homepage hero gradient and make icon drift clearly visible. */
+body .cf-footer {
+  background: radial-gradient(circle at 88% 15%, #1d9d9260, transparent 30%),
+              linear-gradient(125deg, #10243a 0%, #183c58 58%, #126d70 100%) !important;
+  background-color: #10243a !important;
+}
+@keyframes cf-footer-icon-float-v2 {
+  0%   { transform: translate3d(0, 7px, 0) rotate(-4deg); }
+  50%  { transform: translate3d(0, -12px, 0) rotate(4deg); }
+  100% { transform: translate3d(0, 5px, 0) rotate(-2deg); }
+}
+body .cf-footer .cf-footer-category-icons span {
+  animation: cf-footer-icon-float-v2 5.8s ease-in-out infinite !important;
+  transform-origin: center;
+  will-change: transform;
+}
+body .cf-footer .cf-footer-category-icons span:nth-child(2n) { animation-delay: -2.9s !important; }
+body .cf-footer .cf-footer-category-icons span:nth-child(3n) { animation-delay: -1.8s !important; }
+body .cf-footer .cf-footer-category-icons span:nth-child(5n) { animation-delay: -4.1s !important; }
