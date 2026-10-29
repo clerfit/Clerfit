@@ -1619,3 +1619,38 @@ body .cf-footer-bottom {
 @media (prefers-reduced-motion: reduce) {
   body .cf-footer-category-icons span { transition: none !important; animation: none !important; }
 }
+
+
+/* Keep the existing ClerFit card design; only add comfortable gaps between cards. */
+body .cf-category-grid,
+body .cf-feature-grid,
+body .cf-directory-grid {
+  gap: clamp(12px, 1.8vw, 20px) !important;
+}
+@media (max-width: 700px) {
+  body .cf-category-grid,
+  body .cf-feature-grid,
+  body .cf-directory-grid {
+    gap: 12px !important;
+  }
+}
+
+/* Subtle, independent movement for category pictograms in the footer only. */
+body .cf-footer-category-icons {
+  min-height: 78px;
+  align-items: center;
+}
+body .cf-footer-category-icons span {
+  animation: cf-footer-icon-drift 5.8s ease-in-out infinite;
+  will-change: transform;
+}
+body .cf-footer-category-icons span:nth-child(2n) { animation-delay: -1.9s; }
+body .cf-footer-category-icons span:nth-child(3n) { animation-delay: -3.4s; }
+body .cf-footer-category-icons span:nth-child(4n) { animation-delay: -0.8s; }
+@keyframes cf-footer-icon-drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body .cf-footer-category-icons span { animation: none !important; will-change: auto; }
+}
