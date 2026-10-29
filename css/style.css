@@ -1672,12 +1672,12 @@ body .cf-footer-bottom {
   body .cf-footer-links { justify-content: flex-start !important; gap: 10px 18px !important; }
   body .cf-footer-bottom { justify-content: flex-start !important; }
 }
-/* Keep the existing ClerFit card design; only add comfortable gaps between cards. */
+/* Give primary category cards enough vertical breathing room without changing their design. */
 body .cf-category-grid {
-  row-gap: clamp(12px, 1.8vw, 20px) !important;
+  row-gap: clamp(20px, 2.2vw, 26px) !important;
 }
 @media (max-width: 700px) {
-  body .cf-category-grid { row-gap: 12px !important; }
+  body .cf-category-grid { row-gap: 18px !important; }
 }
 
 
