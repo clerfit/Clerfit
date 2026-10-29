@@ -29,6 +29,9 @@
     const footer = document.createElement("footer");
     footer.className = "cf-footer";
     footer.innerHTML =
+      '<div class="cf-footer-category-icons" aria-hidden="true">' +
+        '<span>▤</span><span>◉</span><span>ϟ</span><span>♧</span><span>╫</span><span>∿</span><span>↗</span><span>☾</span><span>♡</span><span>◷</span><span>▦</span>' +
+      '</div>' +
       '<div class="cf-footer-main">' +
         '<a class="cf-footer-brand" href="' + home + '"><span>ClerFit</span></a>' +
         '<p>Clear tools for better-informed everyday decisions.</p>' +
