@@ -53,3 +53,16 @@ Calories Burned, Activity Time and METs now use the same estimate: `kcal ≈ MET
 - **BMI Change:** BMI is weight in kilograms divided by height in metres squared (CDC: https://www.cdc.gov/growth-chart-training/hcp/using-bmi/calculating-bmi.html). The signed change is defined by this calculator as goal BMI minus current BMI. Negative values indicate a lower goal BMI. Adult BMI category labels are not shown because the calculator does not collect age; pediatric interpretation requires age- and sex-specific reference percentiles.
 - **One-repetition maximum (1RM):** Epley, Brzycki, Lander and Lombardi equations are empirical predictions, not direct measurements or universally accurate equations. Published comparisons find accuracy depends on exercise and population (e.g., https://pubmed.ncbi.nlm.nih.gov/7500624/ and https://pubmed.ncbi.nlm.nih.gov/31164044/). ClerFit accepts 1–15 repetitions, avoids universal accuracy grades, and displays the estimate in the selected weight unit.
 - **Ponderal/Rohrer Index:** the implementation uses mass in kg divided by height in metres cubed, with units kg/m³; see Measurement Toolkit: https://www.measurement-toolkit.org/anthropometry/anthropometric-indices/ponderal. No universal adult categories are assigned.
+
+## Metabolism & energy calculator batch (2026-11-05)
+
+- Revised Harris–Benedict (Roza & Shizgal, 1984): men = 88.362 + 13.397W + 4.799H − 5.677A; women = 447.593 + 9.247W + 3.098H − 4.330A. W in kg, H in cm, age in years. Adult estimate.
+- Katch–McArdle: BMR = 370 + 21.6 × fat-free mass (kg). Fat-free mass is user supplied or derived only from user-entered body mass and body-fat percentage; body fat is not estimated by ClerFit.
+- Cunningham: RMR = 500 + 22 × fat-free mass (kg). RMR is not presented as interchangeable with BMR.
+- Schofield adult equations (W in kg): men 18–29 = 15.057W + 692.2; 30–59 = 11.472W + 873.1; 60+ = 11.711W + 587.7. Women 18–29 = 14.818W + 486.6; 30–59 = 8.126W + 845.6; 60+ = 9.082W + 658.5. Under-18 inputs are excluded from this adult implementation.
+- Owen: men = 879 + 10.2W; women = 795 + 7.18W (kcal/day), W in kg; adult estimate.
+- Energy availability = (energy intake − exercise energy expenditure) ÷ fat-free mass. No diagnosis or universal safe/unsafe cutoff is assigned.
+- Thermic effect estimate uses broad ranges: protein 20–30%, carbohydrate 5–10%, fat 0–3% of energy. Approximate only.
+- Adaptive thermogenesis page reports observed minus expected maintenance estimates only; a residual difference does not prove adaptive thermogenesis.
+- Calorie cycling, reverse dieting and refeed pages implement transparent user-defined allocation/schedule arithmetic, not validated metabolic interventions or calorie prescriptions.
+- Existing RMR page uses Mifflin–St Jeor; maintenance page uses Mifflin–St Jeor × activity factor; Activity Time/METs pages estimate activity expenditure with MET × 3.5 × kg × minutes ÷ 200. These existing routes cover the corresponding requested items without duplicates.

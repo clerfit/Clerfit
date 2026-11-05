@@ -7,7 +7,7 @@
   const svgHome='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5.5 9v11h13V9M9 20v-6h6v6"/></svg>';
   const svgMail='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>';
   function setup(){
-    const main=document.querySelector('main.main')||document.querySelector('main')||document.body;
+    const main=document.querySelector('main.main')||document.querySelector('main')||document.querySelector('.main')||document.body;
     // Remove only legacy site-shell elements. Preserve semantic headers/footers used by calculator content.
     document.querySelectorAll('.top-right-buttons,.top-buttons,.cf-image-lightbox').forEach(el=>el.remove());
     // Keep semantic content headers intact. The legal-page heading contains "ClerFit" in its eyebrow,
@@ -72,10 +72,13 @@
     const oldBrand=document.querySelector('.cf-page-brand'); if(oldBrand) oldBrand.remove();
     if(document.body&&!document.body.id)document.body.id='top';
     // Persistent, accessible top-right navigation on every interactive content page.
-    if(!document.querySelector('.clerfit-fixed-actions')){
-      const actions=document.createElement('nav'); actions.className='clerfit-fixed-actions'; actions.setAttribute('aria-label','Quick navigation');
-      actions.innerHTML=`<a class="clerfit-fixed-home" href="${home}" aria-label="Go to ClerFit home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5.5 9v11h13V9M9 20v-6h6v6"/></svg><span>Home</span></a><a class="clerfit-fixed-contact" href="${contact}" aria-label="Contact ClerFit"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span>Contact Us</span></a>`;
-      document.body.appendChild(actions);
+    // Reuse the page's existing quick-navigation element. Creating a second
+    // Home/Contact nav here caused the duplicate to be moved into the generated
+    // header while the original remained at the top of .main.
+    if(!document.querySelector('.cf-page-actions,.clerfit-fixed-actions,.cf-floating-links,.top-right-buttons')){
+      const actions=document.createElement('nav'); actions.className='cf-page-actions'; actions.setAttribute('aria-label','Quick navigation');
+      actions.innerHTML=`<a class="cf-page-home" href="${home}" aria-label="Go to ClerFit home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5.5 9v11h13V9M9 20v-6h6v6"/></svg><span>Home</span></a><a class="cf-page-contact" href="${contact}" aria-label="Contact ClerFit"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span>Contact Us</span></a>`;
+      main.insertBefore(actions,main.firstElementChild);
     }
     if(!document.querySelector('.clerfit-page-header')){
       const header=document.createElement('header'); header.className='clerfit-page-header';
@@ -85,9 +88,12 @@
       if(first) main.insertBefore(header,first); else main.prepend(header);
     }
     // Keep quick navigation in the page header's normal layout flow, not as a floating overlay.
-    const sharedHeader=document.querySelector('.clerfit-page-header');
-    const sharedActions=document.querySelector('.clerfit-fixed-actions');
-    if(sharedHeader&&sharedActions&&sharedActions.parentElement!==sharedHeader) sharedHeader.appendChild(sharedActions);
+    // Keep quick navigation as the first normal-flow item in .main.
+    // Do not move it into the generated branding header: that creates layout
+    // inconsistencies and breaks the shared top-of-content placement contract.
+    const sharedActions=document.querySelector('.cf-page-actions,.clerfit-fixed-actions,.cf-floating-links,.top-right-buttons');
+    if(sharedActions&&sharedActions.parentElement!==main) main.insertBefore(sharedActions,main.firstElementChild);
+    else if(sharedActions&&sharedActions!==main.firstElementChild) main.insertBefore(sharedActions,main.firstElementChild);
     if(!document.querySelector('.clerfit-page-footer')){
       const footer=document.createElement('footer'); footer.className='clerfit-page-footer';
       footer.innerHTML=`<div class="clerfit-footer-particles" aria-hidden="true"></div><a class="clerfit-footer-logo" href="${home}"><img src="${logo}" alt=""><span><strong>ClerFit</strong><small>Health &amp; Performance</small></span></a><p>Educational tools for better-informed health and performance decisions. Estimates are not medical diagnoses.</p><nav class="clerfit-legal-links" aria-label="Legal information"><a href="${root}privacy.html">Privacy</a><a href="${root}terms-of-use.html">Terms of Use</a><a href="${root}educational-disclaimer.html">Educational Disclaimer</a></nav><div class="clerfit-footer-bottom"><span>© ${new Date().getFullYear()} ClerFit. All rights reserved where applicable.</span><a href="#top" class="clerfit-back-top">Back to top</a></div>`;

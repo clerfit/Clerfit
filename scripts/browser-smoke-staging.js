@@ -6,7 +6,7 @@ const { chromium } = require('playwright');
 
 const BASE = new URL(process.argv[2] || process.env.CLERFIT_LIVE_BASE || 'https://clerfit.github.io/Clerfit/');
 const REPORT_PATH = process.env.CLERFIT_BROWSER_REPORT || 'browser-smoke-report.json';
-const EXPECTED_ROUTES = 159;
+const EXPECTED_ROUTES = 170;
 const WORKERS = 4;
 const EXPECTED_RELEASE_ID = 'R3-2026-10-17-phase12-a11y-v1';
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -239,7 +239,9 @@ async function runRoute(browser, route) {
       // Redesigned R3 pages use breadcrumb/title instead of legacy .header.
       const topMarker = header || (main && main.querySelector(':scope > .cf-breadcrumb, :scope > .cf-page-title, :scope > h1, .cf-breadcrumb, .cf-page-title, h1'));
       const position = getComputedStyle(nav).position;
-      const appearsBeforeHeader = !!topMarker && Boolean(nav.compareDocumentPosition(topMarker) & 4);
+      const navRect = nav.getBoundingClientRect();
+      const markerRect = topMarker ? topMarker.getBoundingClientRect() : null;
+      const appearsBeforeHeader = !!markerRect && navRect.top <= markerRect.top + 1 && navRect.bottom <= markerRect.bottom;
       const describe = el => el ? (el.tagName.toLowerCase() + (el.id ? '#'+el.id : '') + (typeof el.className === 'string' && el.className.trim() ? '.'+el.className.trim().replace(/\\s+/g,'.') : '')) : null;
       return {
         present: nav.getClientRects().length > 0,
@@ -271,7 +273,7 @@ async function runRoute(browser, route) {
   if (!clicked && !/unit\.html$/i.test(pageName)) failures.push(pageName + ' has no actionable Calculate/Convert control.');
   if (bodyOverflow) failures.push(pageName + ' overflows the 390px mobile viewport.');
   if (!navState.present) failures.push(pageName + ' is missing visible Home/Contact quick navigation.');
-  if (!navState.nearTop || !navState.insideMain) failures.push(pageName + ' Home/Contact navigation is not positioned at the top of the main page content.');
+  if (!navState.nearTop || !navState.insideMain) failures.push(pageName + ' Home/Contact navigation is not positioned at the top of the main page content: ' + JSON.stringify(navState.debug || navState));
   if (!navState.staticFlow) failures.push(pageName + ' Home/Contact navigation overlaps the page as a fixed/sticky overlay.');
   if (!navState.homeLink || !navState.contactLink) failures.push(pageName + ' Home/Contact navigation is missing a working Home or Contact Us link.');
   if (pageErrors.length) failures.push(pageName + ' JavaScript/page errors: ' + pageErrors.join(' | '));

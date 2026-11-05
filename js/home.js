@@ -17,7 +17,19 @@ const ready=()=>{
  const fileUrl=x=>'html/'+encodeURI(x.file); const slugIcon=x=>categoryIcon(x.category);
  const categoryGrid=$('cf-category-grid'), directory=$('cf-directory-grid'), query=$('cf-directory-query'); let activeCategory='';
  const categories=[...new Set(registry.map(x=>x.category))];
- if($('cf-total-count'))$('cf-total-count').textContent=String(registry.length);
+ const totalCount=$('cf-total-count');
+ if(totalCount){
+  const target=registry.length, duration=650, start=performance.now();
+  totalCount.textContent='0+';
+  const animateCount=now=>{
+   const progress=Math.min(1,(now-start)/duration);
+   const eased=1-Math.pow(1-progress,3);
+   totalCount.textContent=`${Math.round(target*eased)}+`;
+   totalCount.setAttribute('aria-label',`${target} calculators available`);
+   if(progress<1)requestAnimationFrame(animateCount);
+  };
+  requestAnimationFrame(animateCount);
+ }
  categoryGrid.innerHTML=categories.map((cat,i)=>{const n=registry.filter(x=>x.category===cat).length;return `<button class="cf-category-card" type="button" data-category="${esc(cat)}"><span class="cf-category-symbol cat-tone-${i%5}">${categoryIcon(cat)}</span><span class="cf-category-copy"><strong>${esc(cat)}</strong><small>${n} calculators available</small></span><span class="cf-card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span></button>`}).join('');
  const popularNames=['BMI Calculator','BMR Calculator','TDEE Calculator','Protein Intake','Running Pace','Unit Converter','One-Rep Max','Water Intake'];
  const popular=popularNames.map(name=>registry.find(x=>x.title.toLowerCase()===name.toLowerCase())).filter(Boolean);
