@@ -33,7 +33,8 @@
   switch(cfg.kind){
    case "measure": result=fmt(num(fields[0].id))+" cm"; note="Recorded measurement only. Compare it only with a reference that uses the same measurement protocol.";break;
    case "bai": {const v=num("hip")/Math.pow(num("height")/100,1.5)-18;result=fmt(v)+" (BAI estimate)";note="BAI = hip circumference (cm) ÷ height (m) raised to 1.5, minus 18. It is not a direct body-fat measurement.";break;}
-   case "relative": case "skeletal": {const p=num("muscle")/num("weight")*100;result=fmt(p)+"% of body mass";note="Calculated from the supplied skeletal-muscle-mass value. This tool does not validate or independently estimate that input.";break;}
+   case "relative": {const p=num("muscle")/num("weight")*100;result=fmt(p)+"% of body mass";note="Calculated from the supplied skeletal-muscle-mass value. This tool does not validate or independently estimate that input.";break;}
+   case "skeletal": {const p=num("muscle")/num("weight")*100,idx=num("muscle")/Math.pow(num("height")/100,2);result=fmt(num("muscle"))+" kg · "+fmt(p)+"% of body mass · SMMI "+fmt(idx)+" kg/m²";note="Derived from the supplied muscle-mass assessment. No independent muscle-mass prediction is performed.";break;}
    case "almi": result=fmt(num("alm")/Math.pow(num("height")/100,2))+" kg/m²";note="ALMI = appendicular lean mass (kg) ÷ height (m)².";break;
    case "fmi": result=fmt(num("fat")/Math.pow(num("height")/100,2))+" kg/m²";note="FMI = fat mass (kg) ÷ height (m)².";break;
    case "ffmi": {const a=(num("weightA")*(1-num("fatA")/100))/Math.pow(num("heightA")/100,2),b=(num("weightB")*(1-num("fatB")/100))/Math.pow(num("heightB")/100,2);result="Person A: "+fmt(a)+" kg/m² · Person B: "+fmt(b)+" kg/m² · Difference: "+fmt(Math.abs(a-b))+" kg/m²";note="FFMI = estimated fat-free mass ÷ height². Body-fat measurement error affects the comparison.";break;}
