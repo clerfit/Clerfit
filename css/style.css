@@ -1779,3 +1779,128 @@ body #browse-categories .cf-category-grid {
     gap: 12px !important;
   }
 }
+
+/* R3 calculator footer parity: same wavy gradient footer and extra breathing room as homepage. */
+/* ClerFit footer: full-bleed gradient with evenly distributed, gently drifting category icons. */
+body .cf-home-section:last-of-type { margin-bottom: 0 !important; }
+body .cf-home .cf-home-section { scroll-margin-top: 18px; }
+body .cf-footer {
+  position: relative !important;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 38px 0 0 !important;
+  padding: 0 clamp(16px, 3.4vw, 42px) 0 !important;
+  color: #f1fbff !important;
+  background: linear-gradient(118deg, #102b57 0%, #124c70 42%, #087d79 74%, #126c59 100%) !important;
+  border-top: 1px solid rgba(112, 226, 218, .34) !important;
+}
+body .cf-footer::before,
+body .cf-footer::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -35% -8% !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  border: 1px solid rgba(151, 244, 235, .10) !important;
+  border-radius: 48% 52% 62% 38% / 40% 48% 52% 60% !important;
+  background: radial-gradient(ellipse at 24% 55%, rgba(55, 196, 190, .10), transparent 45%), radial-gradient(ellipse at 80% 38%, rgba(90, 175, 255, .09), transparent 42%) !important;
+  transform: rotate(-9deg) !important;
+}
+body .cf-footer::after {
+  inset: -48% 12% -40% -22% !important;
+  border-color: rgba(145, 220, 255, .08) !important;
+  border-radius: 56% 44% 42% 58% / 48% 60% 40% 52% !important;
+  transform: rotate(13deg) !important;
+}
+body .cf-footer-particles { display: none !important; }
+body .cf-footer-category-icons {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: space-evenly !important;
+  gap: 16px clamp(14px, 2.4vw, 30px) !important;
+  width: min(100%, 1120px) !important;
+  min-height: 62px !important;
+  margin: 0 auto !important;
+  padding: 18px 0 10px !important;
+  pointer-events: none !important;
+}
+body .cf-footer-category-icons span {
+  position: static !important;
+  display: block !important;
+  flex: 0 0 22px !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: rgba(205, 250, 242, .86) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  opacity: .82 !important;
+  animation: cf-footer-icon-drift 12s ease-in-out infinite alternate !important;
+  will-change: transform;
+}
+body .cf-footer-category-icons span:nth-child(2n) { animation-delay: -4s !important; }
+body .cf-footer-category-icons span:nth-child(3n) { animation-delay: -7s !important; }
+body .cf-footer-category-icons span:nth-child(5n) { animation-delay: -2s !important; }
+body .cf-footer-category-icons svg {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.7 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+body .cf-footer-main {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 24px !important;
+  width: min(100%, 1120px);
+  margin: 0 auto !important;
+  padding: 18px 0 24px !important;
+  color: #f1fbff !important;
+}
+body .cf-footer-brand,
+body .cf-footer-brand span { color: #ffffff !important; }
+body .cf-footer-main p { color: #d2e9f4 !important; }
+body .cf-footer-links { gap: 12px 22px !important; }
+body .cf-footer-links a,
+body .cf-footer-bottom a {
+  color: #e0f8f5 !important;
+  text-decoration: none;
+}
+body .cf-footer-links a:hover,
+body .cf-footer-bottom a:hover { color: #ffffff !important; }
+body .cf-footer-bottom {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px 16px !important;
+  width: min(100%, 1120px);
+  margin: 0 auto !important;
+  padding: 14px 0 18px !important;
+  border-top: 1px solid rgba(225, 249, 255, .22) !important;
+  color: #c8e1ec !important;
+}
+@media (max-width: 700px) {
+  body .cf-footer { margin-top: 30px !important; padding-inline: 16px !important; }
+  body .cf-footer-category-icons { height: 70px !important; }
+  body .cf-footer-category-icons span { flex-basis: 18px !important; width: 18px !important; height: 18px !important; }
+                        body .cf-footer-main { flex-direction: column !important; gap: 12px !important; padding-top: 16px !important; }
+  body .cf-footer-links { justify-content: flex-start !important; gap: 10px 18px !important; }
+  body .cf-footer-bottom { justify-content: flex-start !important; }
+}
