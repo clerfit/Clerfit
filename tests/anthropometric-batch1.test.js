@@ -135,7 +135,7 @@ assert.match(page.html, /cylindrical volume proxy: 1,570\.796 cm³/);
 page = runPage('calf-circumference', {
   calf: (10 * Math.PI) / 2.54, calfUnit: 'in', segmentLength: 10 / 2.54, segmentLengthUnit: 'in'
 }, [
-  { id: 'calf', min: 15 / 2.54, max: 100 / 2.54 },
+  { id: 'calf', min: 10 / 2.54, max: 100 / 2.54 },
   { id: 'segmentLength', min: 5 / 2.54, max: 80 / 2.54, required: false }
 ]);
 assert.match(page.html, /cylindrical volume proxy: 785\.398 cm³/);
