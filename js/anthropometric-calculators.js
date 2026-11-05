@@ -110,10 +110,8 @@
  if (typeof window !== "undefined") window.ClerFitAnthropometric = api;
 
  function showError(out, message, fieldId) {
-  out.innerHTML = '<p class="cf-validation-message" role="alert"></p>';
-  const node = out.querySelector ? out.querySelector(".cf-validation-message") : null;
-  if (node) node.textContent = message;
-  else out.textContent = message;
+  const safeMessage = String(message).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  out.innerHTML = '<p class="cf-validation-message" role="alert">' + safeMessage + '</p>';
   const field = fieldId ? $(fieldId) : null;
   if (field && typeof field.focus === "function") field.focus();
  }
