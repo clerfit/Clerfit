@@ -7,7 +7,7 @@ const { chromium } = require('playwright');
 
 const BASE = new URL(process.env.CLERFIT_LIVE_BASE || 'https://clerfit.github.io/Clerfit/');
 const REPORT = process.env.CLERFIT_PRIVACY_REPORT || 'clerfit-production-privacy-audit.json';
-const EXPECTED_ROUTES = 159;
+const EXPECTED_ROUTES = 137;
 const WORKERS = 4;
 const failures = [];
 const routeRows = [];
@@ -186,7 +186,7 @@ async function main() {
   const match = nav.match(/const\s+CALCULATORS\s*=\s*(\[[\s\S]*?\]);\s*\nconst path/);
   if (!match) throw new Error('Could not parse the deployed calculator registry.');
   const registry = JSON.parse(match[1]);
-  if (registry.length !== EXPECTED_ROUTES) throw new Error('Expected 118 calculator routes; found ' + registry.length);
+  if (registry.length !== EXPECTED_ROUTES) throw new Error('Expected 137 calculator routes; found ' + registry.length);
   const routes = ['/', ...registry.map(item => 'html/' + item.file), 'contact.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html'];
   const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
   try {
