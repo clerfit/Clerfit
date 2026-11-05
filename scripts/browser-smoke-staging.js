@@ -6,7 +6,7 @@ const { chromium } = require('playwright');
 
 const BASE = new URL(process.argv[2] || process.env.CLERFIT_LIVE_BASE || 'https://clerfit.github.io/Clerfit/');
 const REPORT_PATH = process.env.CLERFIT_BROWSER_REPORT || 'browser-smoke-report.json';
-const EXPECTED_ROUTES = 118;
+const EXPECTED_ROUTES = 159;
 const WORKERS = 4;
 const EXPECTED_RELEASE_ID = 'R3-2026-10-17-phase12-a11y-v1';
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));

@@ -28,6 +28,9 @@
   const kind=document.body.dataset.calculator, cfg=definitions[kind], out=$("calc-result");
   if(!cfg||!out)return;
   const fields=[...document.querySelectorAll("[data-field]")];
+  // Legacy measurement pages predate data-field markers; fall back to their visible
+  // numeric form controls so shared calculation logic handles both markup generations.
+  if(!fields.length){const form=$("calc-form");if(form)fields.push(...form.querySelectorAll('input[type="number"]:not([disabled])'));}
   for(const f of fields){const v=Number(f.value),min=Number(f.min),max=Number(f.max);if(f.value.trim()===""||!Number.isFinite(v)||v<min||v>max){out.innerHTML='<p class="cf-validation-message" role="alert">Please enter valid values within the displayed ranges.</p>';f.focus();return;}}
   let result="",note="";
   switch(cfg.kind){
