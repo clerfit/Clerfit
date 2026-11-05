@@ -6,6 +6,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 const source = fs.readFileSync('js/anthropometric-calculators.js', 'utf8');
+const tooltipSource = fs.readFileSync('js/tooltips.js', 'utf8');
 const window = {};
 const document = {
   body: { dataset: { calculator: '' } },
@@ -167,4 +168,7 @@ for (const [file, calculator] of pages) {
   assert.match(html, /id="calc-result"[^>]*aria-live="polite"/, file + ' has an announced result region');
   assert.match(html, /anthropometric-calculators\.js/, file + ' loads the calculation engine');
 }
+assert.match(tooltipSource, /body adiposity index/i, 'BAI has contextual help');
+assert.match(tooltipSource, /mid-upper-arm circumference/i, 'MUAC has contextual help');
+assert.match(tooltipSource, /\.header h1/, 'specialist calculator headings receive contextual help');
 console.log('PASS: Batch 1 anthropometric calculators — formula vectors, unit equivalence, invalid domains, form wiring, reset, and page markup.');
