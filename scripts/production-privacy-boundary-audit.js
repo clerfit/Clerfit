@@ -7,7 +7,7 @@ const { chromium } = require('playwright');
 
 const BASE = new URL(process.env.CLERFIT_LIVE_BASE || 'https://clerfit.github.io/Clerfit/');
 const REPORT = process.env.CLERFIT_PRIVACY_REPORT || 'clerfit-production-privacy-audit.json';
-const EXPECTED_ROUTES = 118;
+const EXPECTED_ROUTES = 159;
 const WORKERS = 4;
 const failures = [];
 const routeRows = [];
