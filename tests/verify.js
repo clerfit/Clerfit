@@ -862,7 +862,7 @@ for(const [id,input,expected] of metabolismVectors){
  assert.ok(result.formula && result.note,id+' formula and limitation disclosure');
  checks++;
 }
-assert.throws(()=>metabolism.calculate('schofield',{weight:60,age:17,sex:'male'}),/supports adults/i);
+assert.throws(()=>metabolism.calculate('schofield',{weight:60,age:17,sex:'male'}),/Age must be between 18 and 120/i);
 assert.throws(()=>metabolism.calculate('energy-availability',{weight:70,intake:2500,exercise:500}),/fat-free mass/i);
 assert.throws(()=>metabolism.calculate('calorie-cycling',{weekly:14000,highDays:7,highShare:40}),/1–6 higher-calorie days/i);
 checks+=3;
