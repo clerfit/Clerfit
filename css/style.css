@@ -1904,3 +1904,29 @@ body .cf-footer-bottom {
   body .cf-footer-links { justify-content: flex-start !important; gap: 10px 18px !important; }
   body .cf-footer-bottom { justify-content: flex-start !important; }
 }
+
+
+/* Footer spacing refinement: give the floating icon row and ClerFit logo more room. */
+body .cf-footer-category-icons {
+  min-height: 78px !important;
+  padding-top: 26px !important;
+  padding-bottom: 12px !important;
+}
+body .cf-footer-main {
+  padding-top: 26px !important;
+}
+@media (max-width: 700px) {
+  body .cf-footer-category-icons {
+    min-height: 78px !important;
+    padding-top: 22px !important;
+    padding-bottom: 12px !important;
+  }
+  body .cf-footer-main {
+    padding-top: 22px !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body .cf-footer-category-icons span {
+    animation: none !important;
+  }
+}
