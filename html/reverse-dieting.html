@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827"><meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
+<title>ClerFit – Reverse Dieting Calculator</title><meta name="description" content="Create a simple user-defined intake-increase schedule without assuming a validated metabolic effect.">
+<link rel="canonical" href="https://clerfit.github.io/Clerfit/html/reverse-dieting.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="ClerFit"><meta property="og:title" content="ClerFit – Reverse Dieting Calculator"><meta property="og:description" content="Create a simple user-defined intake-increase schedule without assuming a validated metabolic effect."><meta property="og:url" content="https://clerfit.github.io/Clerfit/html/reverse-dieting.html">
+<style>.cf-tip{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border:1px solid currentColor;border-radius:50%;font-size:11px;line-height:1;background:transparent;cursor:help;padding:0}.cf-result-panel{margin-top:16px;padding:14px;border:1px solid #94a3b8;border-radius:10px}.cf-note{font-size:.92em;opacity:.88}</style>
+<script src="../js/metabolism-energy-calculators.js" defer></script><script src="../js/navigation.js" defer></script><script src="../js/unit-system.js" defer></script>
+</head><body><div class="sidebar"><h2>ClerFit</h2><button onclick="location.href='../index.html'">Home</button></div>
+<div class="main"><div class="header"><h1>ClerFit</h1><p>Health &amp; Fitness Calculators</p></div>
+<div class="card"><h2>Reverse Dieting Calculator</h2><p>Create a simple user-defined intake-increase schedule without assuming a validated metabolic effect.</p>
+<form id="metabolismForm"><div class="row"><div class="col"><label for="start">Starting daily intake (kcal)</label><input id="start" type="number" min="500" max="10000" step="any" required></div>
+<div class="col"><label for="increment">Weekly increase (kcal/day)</label><input id="increment" type="number" min="0" max="500" step="any" required></div>
+<div class="col"><label for="weeks">Number of weeks</label><input id="weeks" type="number" min="1" max="52" step="1" required></div></div><button class="calculate-btn" type="submit">Calculate</button></form>
+<div id="result" class="cf-result-panel" aria-live="polite" hidden></div>
+<hr style="margin:28px 0"><h3>Method and limitations</h3><p>User-defined weekly increments. The result is an estimate based on the entered values and equation assumptions; it is not a direct metabolic measurement, medical diagnosis or individualized nutrition prescription.</p>
+<p class="cf-note">Check all inputs and units. Historical equations may perform differently across populations. For clinical or sports-nutrition decisions, consult a qualified professional.</p>
+<p><a href="rmr.html">RMR calculator</a> · <a href="maintenance.html">Maintenance calories</a> · <a href="activity-time.html">Activity energy estimate</a></p></div></div>
+<script>
+document.getElementById("metabolismForm").addEventListener("submit",function(event){
+ event.preventDefault();const ids=["start","increment","weeks"];const v={};for(const id of ids){const el=document.getElementById(id);if(el)v[id]=el.value===""?undefined:el.value;}
+ const box=document.getElementById("result");box.hidden=false;
+ try{const r=window.ClerFitMetabolism.calculate("reverse-dieting",v);let detail="";
+ if(r.low!==undefined)detail="<p>Estimated range: <b>"+r.low.toFixed(0)+"–"+r.high.toFixed(0)+" kcal/day</b></p>";
+ if(r.highDays!==undefined)detail="<p>Higher days ("+r.highDays+"): <b>"+r.high.toFixed(0)+" kcal/day each</b><br>Lower days ("+r.lowDays+"): <b>"+r.low.toFixed(0)+" kcal/day each</b></p>";
+ if(r.start!==undefined){detail="<ol>";for(let i=0;i<=r.weeks;i++)detail+="<li>Week "+i+": "+(r.start+i*r.increment).toFixed(0)+" kcal/day</li>";detail+="</ol>";}
+ box.innerHTML="<strong>"+r.label+": "+r.value.toFixed(0)+(r.label==="Energy availability"?" kcal/kg FFM/day":" kcal/day")+"</strong><p><b>Formula:</b> "+r.formula+"</p>"+detail+"<p class='cf-note'>"+r.note+"</p>";
+ }catch(error){box.innerHTML="<p class='cf-validation-message' role='alert'>"+error.message+"</p>";}
+});
+</script></body></html>
