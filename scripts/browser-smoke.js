@@ -258,14 +258,45 @@ async function runRoute(browser, route) {
         }
       };
     });
-    bodyOverflow = await page.evaluate(()=>document.documentElement.scrollWidth > window.innerWidth + 1);
+    // Responsive sweep: run every calculator at common phone, tablet and desktop widths.
+    const responsiveWidths = [{name:'mobile',width:390},{name:'tablet',width:768},{name:'desktop',width:1440}];
+    const responsiveLayout = {};
+    for (const viewport of responsiveWidths) {
+      await page.setViewportSize({width:viewport.width,height:900});
+      await page.waitForTimeout(40);
+      responsiveLayout[viewport.name] = await page.evaluate(() => {
+        const doc = document.documentElement;
+        const body = document.body;
+        const main = document.querySelector('main.main, main, .main');
+        const nav = document.querySelector('.cf-page-actions, .clerfit-fixed-actions, .cf-floating-links, .top-right-buttons');
+        const heading = main && main.querySelector('h1, .cf-page-title, .header');
+        const navRect = nav && nav.getBoundingClientRect();
+        const headingRect = heading && heading.getBoundingClientRect();
+        const overlap = !!(navRect && headingRect && navRect.width && headingRect.width &&
+          navRect.left < headingRect.right && navRect.right > headingRect.left &&
+          navRect.top < headingRect.bottom && navRect.bottom > headingRect.top);
+        return {
+          viewportWidth:window.innerWidth,
+          documentWidth:Math.max(doc.scrollWidth,body ? body.scrollWidth : 0),
+          horizontalOverflow:Math.max(doc.scrollWidth,body ? body.scrollWidth : 0) > window.innerWidth + 1,
+          mainVisible:!!(main && main.getClientRects().length),
+          navigationVisible:!!(nav && nav.getClientRects().length),
+          navigationHeadingOverlap:overlap
+        };
+      });
+      if (responsiveLayout[viewport.name].horizontalOverflow) failures.push(pageName+' horizontal overflow at '+viewport.name+' ('+viewport.width+'px).');
+      if (!responsiveLayout[viewport.name].mainVisible) failures.push(pageName+' main content is not visible at '+viewport.name+' width.');
+      if (!responsiveLayout[viewport.name].navigationVisible) failures.push(pageName+' Home/Contact navigation is not visible at '+viewport.name+' width.');
+      if (responsiveLayout[viewport.name].navigationHeadingOverlap) failures.push(pageName+' navigation overlaps the page heading at '+viewport.name+' width.');
+    }
+    bodyOverflow = responsiveLayout.mobile.horizontalOverflow;
     loaded=true;
   } catch (error) {
     pageErrors.push(String(error && error.message || error));
   } finally {
     await page.close().catch(()=>{});
   }
-  const row={file:pageName,url,loaded,inputCount,actionClicked:clicked,bodyOverflow,navState,pageErrors,consoleErrors,outputs:outputsAfter.length,validationOutputs:outputsAfter.filter(x=>x.validation).map(x=>x.text).slice(0,4),outputSample:outputsAfter.map(x=>x.text).join(' | ').slice(0,260)};
+  const row={file:pageName,url,loaded,inputCount,actionClicked:clicked,bodyOverflow,responsiveLayout,navState,pageErrors,consoleErrors,outputs:outputsAfter.length,validationOutputs:outputsAfter.filter(x=>x.validation).map(x=>x.text).slice(0,4),outputSample:outputsAfter.map(x=>x.text).join(' | ').slice(0,260)};
   if (!loaded) failures.push(pageName + ' failed to load/execute: ' + pageErrors.join(' | '));
   if (inputCount===0) failures.push(pageName + ' has no visible interactive input.');
   if (!clicked && !/unit\.html$/i.test(pageName)) failures.push(pageName + ' has no actionable Calculate/Convert control.');
@@ -569,6 +600,8 @@ async function main() {
       routeCount:registry.length, routesLoaded:routeResults.filter(r=>r.loaded).length,
       actionsClicked:routeResults.filter(r=>r.actionClicked).length,
       mobileOverflow:routeResults.filter(r=>r.bodyOverflow).map(r=>r.file),
+      responsiveOverflow:Object.fromEntries(['mobile','tablet','desktop'].map(device=>[device,routeResults.filter(r=>r.responsiveLayout && r.responsiveLayout[device] && r.responsiveLayout[device].horizontalOverflow).map(r=>r.file)])),
+      responsiveNavigationHeadingOverlap:Object.fromEntries(['mobile','tablet','desktop'].map(device=>[device,routeResults.filter(r=>r.responsiveLayout && r.responsiveLayout[device] && r.responsiveLayout[device].navigationHeadingOverlap).map(r=>r.file)])),
       navigationFailures:routeResults.filter(r=>!r.navState.present || !r.navState.nearTop || !r.navState.staticFlow || !r.navState.homeLink || !r.navState.contactLink || !r.navState.insideMain).map(r=>({file:r.file,navState:r.navState})),
       pageErrors:routeResults.filter(r=>r.pageErrors.length).map(r=>({file:r.file,errors:r.pageErrors})),
       consoleErrors:routeResults.filter(r=>r.consoleErrors.length).map(r=>({file:r.file,errors:r.consoleErrors})),
@@ -586,7 +619,10 @@ async function main() {
         '- Registered calculators: '+report.routeCount,
         '- Routes loaded: '+report.routesLoaded,
         '- Action buttons clicked: '+report.actionsClicked,
-        '- Mobile overflows: '+report.mobileOverflow.length,
+        '- Mobile overflows: '+report.responsiveOverflow.mobile.length,
+        '- Tablet overflows: '+report.responsiveOverflow.tablet.length,
+        '- Desktop overflows: '+report.responsiveOverflow.desktop.length,
+        '- Navigation/heading overlaps: '+Object.values(report.responsiveNavigationHeadingOverlap).reduce((n,items)=>n+items.length,0),
         '- Page errors: '+report.pageErrors.length,
         '- Console errors: '+report.consoleErrors.length,
         '- Targeted unit checks: '+targeted.length,
@@ -603,7 +639,7 @@ async function main() {
       ].join('\n');
       fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary+'\n');
     }
-    console.log(JSON.stringify({status:report.status,routeCount:report.routeCount,routesLoaded:report.routesLoaded,actionsClicked:report.actionsClicked,mobileOverflow:report.mobileOverflow.length,pageErrors:report.pageErrors.length,consoleErrors:report.consoleErrors.length,targetedUnitChecks:targeted.length,failures:report.failures},null,2));
+    console.log(JSON.stringify({status:report.status,routeCount:report.routeCount,routesLoaded:report.routesLoaded,actionsClicked:report.actionsClicked,mobileOverflow:report.responsiveOverflow.mobile.length,tabletOverflow:report.responsiveOverflow.tablet.length,desktopOverflow:report.responsiveOverflow.desktop.length,pageErrors:report.pageErrors.length,consoleErrors:report.consoleErrors.length,targetedUnitChecks:targeted.length,failures:report.failures},null,2));
     if(failures.length)process.exit(1);
   } finally { await browser.close(); }
 }
