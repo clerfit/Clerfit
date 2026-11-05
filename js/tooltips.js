@@ -2,6 +2,14 @@
 (() => {
   const glossary = {
     bmi: 'Body mass index = weight in kilograms ÷ height in metres squared. It is a screening measure, not a direct body-fat measurement.',
+    'body adiposity index': 'Body Adiposity Index (BAI) = hip circumference in centimetres ÷ height in metres to the power 1.5, minus 18. It is an adult population-derived estimate, not a direct body-fat measurement or diagnosis.',
+    bai: 'BAI is an adult population-derived adiposity estimate. Research has reported bias across sex and body-fat levels; do not treat it as a direct measurement or stand-alone health assessment.',
+    muac: 'Mid-upper-arm circumference (MUAC) is measured at the midpoint between the acromion and olecranon. When paired with triceps skinfold, it can support approximate arm-area calculations.',
+    'triceps skinfold': 'Measure a single triceps skinfold at the same arm midpoint used for MUAC, using an appropriate skinfold caliper. Skinfold compressibility affects the derived estimate.',
+    'mid-upper-arm muscle circumference': 'MUAMC = MUAC − π × triceps skinfold after converting both readings to the same unit. It is an anthropometric estimate, not direct muscle mass.',
+    'neck circumference': 'Measure at the stated neck landmark with the tape level and gently in contact with the skin. The calculator derives circle-equivalent geometry only; it does not assign a health-risk category.',
+    'mid-thigh circumference': 'Measure at a consistently defined mid-thigh landmark, with the same side, posture and tape tension. Derived area and volume are geometric approximations, not muscle measurements.',
+    'calf circumference': 'Measure at the largest calf girth using consistent posture and tape tension. Derived area and volume are geometric approximations, not a sarcopenia or nutrition diagnosis.',
     bmr: 'Basal metabolic rate: an estimate of energy used at rest to support essential body functions. It is not your total daily calorie need.',
     rmr: 'Resting metabolic rate: estimated energy used while resting. Methods and formulas differ from BMR.',
     tdee: 'Total daily energy expenditure: estimated energy used across resting metabolism, activity and digestion.',
@@ -69,7 +77,7 @@
   }
   function init() {
     // Keep the interface quiet: add visible help only for unfamiliar/specialist terms.
-    const specialist = /\b(bmi|bmr|rmr|tdee|ffmi|1rm|one[- ]rep max|metabolic age|somatotype|facial thirds|facial balance|absi|rfm|ponderal index|vo2 max|vo2max|met|rpe|cadence|stride length|step length|cooper test|session density|training[- ]rest ratio|load[- ]recovery ratio|fatigue index|waist[- ]to[- ]hip ratio|waist[- ]to[- ]height ratio|body surface area|relative strength|energy balance|work[- ]rest balance|sedentary ratio|uv index|heat exposure|cold exposure|forward head index|sit[- ]stand ratio|water loss replacement|electrolyte|lean body mass|body fat percentage|facial ratio|jaw width ratio|chin height ratio|eye spacing|lower face height)\b/i;
+    const specialist = /\b(bmi|bmr|rmr|tdee|ffmi|1rm|one[- ]rep max|metabolic age|somatotype|facial thirds|facial balance|absi|rfm|ponderal index|vo2 max|vo2max|met|rpe|cadence|stride length|step length|cooper test|session density|training[- ]rest ratio|load[- ]recovery ratio|fatigue index|waist[- ]to[- ]hip ratio|waist[- ]to[- ]height ratio|body surface area|relative strength|energy balance|work[- ]rest balance|sedentary ratio|uv index|heat exposure|cold exposure|forward head index|sit[- ]stand ratio|water loss replacement|electrolyte|lean body mass|body fat percentage|body adiposity index|neck circumference|mid-upper-arm circumference|mid-thigh circumference|calf circumference|triceps skinfold|mid-upper-arm muscle circumference|\\bbai\\b|\\bmuac\\b|facial ratio|jaw width ratio|chin height ratio|eye spacing|lower face height)\b/i;
     const isFaceCalculator = /face|facial|jaw|chin|nose|mouth|eye-spacing|lower-face/i.test(location.pathname);
     document.querySelectorAll('label').forEach(label => {
       // Facial pages use their own shorter landmark-specific help markers from site-polish.js.
