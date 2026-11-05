@@ -122,7 +122,7 @@ assert.equal(page.html, '', 'Reset clears the result');
 page = runPage('muac', { muac: 30, muacUnit: 'cm', tricepsSkinfold: 10, tricepsUnit: 'mm' }, [
   { id: 'muac', min: 5, max: 80 }, { id: 'tricepsSkinfold', min: 1, max: 60 }
 ]);
-assert.match(page.html, /\\(MUAMC\\): 26\\.858 cm/);
+assert.match(page.html, /\(MUAMC\): 26\.858 cm/);
 assert.match(page.html, /fat-area fraction: 19\.847%/);
 
 page = runPage('mid-thigh-circumference', {
