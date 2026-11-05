@@ -239,7 +239,9 @@ async function runRoute(browser, route) {
       // Redesigned R3 pages use breadcrumb/title instead of legacy .header.
       const topMarker = header || (main && main.querySelector(':scope > .cf-breadcrumb, :scope > .cf-page-title, :scope > h1, .cf-breadcrumb, .cf-page-title, h1'));
       const position = getComputedStyle(nav).position;
-      const appearsBeforeHeader = !!topMarker && Boolean(nav.compareDocumentPosition(topMarker) & 4);
+      const navRect = nav.getBoundingClientRect();
+      const markerRect = topMarker ? topMarker.getBoundingClientRect() : null;
+      const appearsBeforeHeader = !!markerRect && navRect.top <= markerRect.top + 1 && navRect.bottom <= markerRect.bottom;
       const describe = el => el ? (el.tagName.toLowerCase() + (el.id ? '#'+el.id : '') + (typeof el.className === 'string' && el.className.trim() ? '.'+el.className.trim().replace(/\\s+/g,'.') : '')) : null;
       return {
         present: nav.getClientRects().length > 0,
