@@ -13,7 +13,7 @@ const css = fs.readFileSync(path.join(root, 'css/style.css'), 'utf8');
 assert.doesNotMatch(chrome, /fresh\.searchParams\.set\(["']v["']/,
   'shared page chrome must not rewrite a stylesheet URL after the initial CSS request');
 const publicHtml = [
-  'index.html', '404.html', 'contact.html', 'educational-disclaimer.html', 'privacy.html', 'terms-of-use.html',
+  '404.html', 'contact.html', 'educational-disclaimer.html', 'privacy.html', 'terms-of-use.html', // index.html is intentionally excluded: homepage must remain untouched.
   ...fs.readdirSync(path.join(root, 'html')).filter(name => name.endsWith('.html')).map(name => path.join('html', name))
 ].map(file => path.join(root, file)).filter(file => fs.existsSync(file));
 const staleCssUrls = publicHtml.filter(file => {
@@ -28,10 +28,12 @@ assert.match(polish, /header:not\(\.clerfit-page-header\):not\(\.cf-legal-headin
 assert.ok(polish.includes('const isLegacyBrand=/clerfit\\s*(?:health\\s*&?\\s*performance|health.*fitness calculators)|all rights reserved/.test(text);'),
   'legacy header cleanup must target known branding instead of deleting every header that mentions ClerFit');
 assert.match(chrome, /function ensureSiteFooter\(\)/, 'shared page chrome must define footer injection');
-assert.match(chrome, /const existingFooter = document\.querySelector\("footer"\);[\s\S]*?existingFooter\.classList\.add\("cf-footer"\)/, 'existing footers must receive shared styling without duplication');
+assert.match(chrome, /const existingFooter = document\.querySelector\("footer"\);[\s\S]*?footer\.innerHTML\s*=/, 'existing calculator footers must be upgraded to the shared homepage structure');
 assert.match(chrome, /new URL\("index\.html", root\)/, 'footer home link must respect root versus html/ paths');
 assert.match(chrome, /new URL\("contact\.html", root\)/, 'footer contact link must respect root versus html/ paths');
-assert.match(chrome, /main\.appendChild\(footer\)/, 'shared footer must be attached to calculator content');
+assert.match(chrome, /if \(!existingFooter\) main\.appendChild\(footer\)/, 'shared footer must be attached only when a page has no existing footer');
+assert.match(chrome, /document\.body\.id === "top"\) return/, 'homepage footer must remain untouched');
+assert.match(chrome, /#all-calculators[\s\S]*#browse-categories[\s\S]*#faq/, 'calculator footer navigation must match homepage destinations');
 assert.ok(polish.includes('function normalizeTables(scope)') && polish.includes('normalizeTables(document)'),
   'all existing calculator tables must be normalized on initial load');
 assert.ok(polish.includes("removeAttribute('data-label')"),
