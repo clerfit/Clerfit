@@ -20,7 +20,29 @@
   // Pages that already define their own footer keep it unchanged.
   function ensureSiteFooter() {
     const existingFooter = document.querySelector("footer");
-    if (existingFooter) { existingFooter.classList.add("cf-footer"); return; }
+    if (existingFooter) {
+      existingFooter.classList.add("cf-footer");
+      // Ensure page-specific footers also receive the shared decorative icon row.
+      if (!existingFooter.querySelector(".cf-footer-category-icons")) {
+        const iconRow = document.createElement("div");
+        iconRow.className = "cf-footer-category-icons";
+        iconRow.setAttribute("aria-hidden", "true");
+        iconRow.innerHTML =
+          '<span><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 6v5m4-5v3m4-3v5"/></svg></span>' +
+          '<span><svg viewBox="0 0 24 24"><path d="M12 3c-4.2 0-7 3.2-7 8 0 5.1 3 9 7 10 4-1 7-4.9 7-10 0-4.8-2.8-8-7-8Z"/><path d="M9 10h.01M15 10h.01M9 15q3 2 6 0"/></svg></span>' +
+          '<span><svg viewBox="0 0 24 24"><path d="m13 2-8 11h6l-1 9 9-13h-6z"/></svg></span>' +
+          '<span><svg viewBox="0 0 24 24"><path d="M12 3s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11Z"/></svg></span>' +
+          '<span><svg viewBox="0 0 24 24"><path d="M3 9v6m4-9v12m10-12v12m4-9v6M7 12h10"/></svg></span>' +
+          '<span><svg viewBox="0 0 24 24"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg></span>' +
+          '<span><svg viewBox="0 0 24 24"><path d="M4 18 10 12l4 3 6-8M14 7h6v6"/></svg></span>' +
+          '<span><svg viewBox="0 0 24 24"><path d="M19 15A8 8 0 0 1 9 5a8 8 0 1 0 10 10Z"/></svg></span>' +
+          '<span><svg viewBox="0 0 24 24"><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2 4.5 4.5 0 0 1 8 2c0 6.5-8 11-8 11Z"/><path d="M12 8v7m-3.5-3.5h7"/></svg></span>' +
+          '<span><svg viewBox="0 0 24 24"><path d="M14 6a5 5 0 0 0-6 6L3 17l4 4 5-5a5 5 0 0 0 6-6l-3 3-4-4z"/></svg></span>' +
+          '<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19m0-14-1.5 1.5m-11 11L5 19"/></svg></span>';
+        existingFooter.insertBefore(iconRow, existingFooter.firstChild);
+      }
+      return;
+    }
     const main = document.querySelector("main.main, main, .main");
     if (!main) return;
     const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
