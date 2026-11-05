@@ -843,7 +843,7 @@ checks++;
 
 
 const metabolism = require('../js/metabolism-energy-calculators.js');
-const vectors = [
+const metabolismVectors = [
  ['harris-benedict',{weight:70,height:175,age:30,sex:'male'},1695.667],
  ['katch-mcardle',{weight:70,bodyFat:15},1655.2],
  ['cunningham',{weight:70,bodyFat:15},1809],
@@ -856,7 +856,7 @@ const vectors = [
  ['reverse-dieting',{start:2000,increment:100,weeks:4},2400],
  ['refeed-calories',{maintenance:2500,factor:1.1},2750]
 ];
-for(const [id,input,expected] of vectors){
+for(const [id,input,expected] of metabolismVectors){
  const result=metabolism.calculate(id,input);
  assert.ok(Math.abs(result.value-expected)<0.02,id+' known-answer result');
  assert.ok(result.formula && result.note,id+' formula and limitation disclosure');
