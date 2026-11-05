@@ -273,7 +273,7 @@ async function runRoute(browser, route) {
   if (!clicked && !/unit\.html$/i.test(pageName)) failures.push(pageName + ' has no actionable Calculate/Convert control.');
   if (bodyOverflow) failures.push(pageName + ' overflows the 390px mobile viewport.');
   if (!navState.present) failures.push(pageName + ' is missing visible Home/Contact quick navigation.');
-  if (!navState.nearTop || !navState.insideMain) failures.push(pageName + ' Home/Contact navigation is not positioned at the top of the main page content.');
+  if (!navState.nearTop || !navState.insideMain) failures.push(pageName + ' Home/Contact navigation is not positioned at the top of the main page content: ' + JSON.stringify(navState.debug || navState));
   if (!navState.staticFlow) failures.push(pageName + ' Home/Contact navigation overlaps the page as a fixed/sticky overlay.');
   if (!navState.homeLink || !navState.contactLink) failures.push(pageName + ' Home/Contact navigation is missing a working Home or Contact Us link.');
   if (pageErrors.length) failures.push(pageName + ' JavaScript/page errors: ' + pageErrors.join(' | '));
