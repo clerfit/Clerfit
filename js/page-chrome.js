@@ -19,22 +19,46 @@
   // Add a shared, non-duplicated footer to legacy calculator pages.
   // Pages that already define their own footer keep it unchanged.
   function ensureSiteFooter() {
-    const existingFooter = document.querySelector("footer");
-    if (existingFooter) { existingFooter.classList.add("cf-footer"); return; }
     const main = document.querySelector("main.main, main, .main");
     if (!main) return;
     const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
     const home = new URL("index.html", root).href;
     const contact = new URL("contact.html", root).href;
-    const footer = document.createElement("footer");
-    footer.className = "cf-footer";
+    const privacy = new URL("privacy.html", root).href;
+    const terms = new URL("terms-of-use.html", root).href;
+    const disclaimer = new URL("educational-disclaimer.html", root).href;
+    const logo = new URL("logo-small.webp", root).href;
+    const existingFooter = document.querySelector("footer");
+    const footer = existingFooter || document.createElement("footer");
+
+    // Leave the homepage's complete footer intact. Legacy calculator pages with
+    // placeholder footers receive the same branded structure and category icons.
+    if (footer.querySelector(".cf-footer-category-icons") && footer.querySelector(".cf-footer-main")) {
+      footer.classList.add("cf-footer");
+      return;
+    }
+    footer.classList.add("cf-footer");
     footer.innerHTML =
-      '<div class="cf-footer-category-icons" aria-hidden="true"><span><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 6v5m4-5v3m4-3v5"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 3c-4.2 0-7 3.2-7 8 0 5.1 3 9 7 10 4-1 7-4.9 7-10 0-4.8-2.8-8-7-8Z"/><path d="M9 10h.01M15 10h.01M9 15q3 2 6 0"/></svg></span><span><svg viewBox="0 0 24 24"><path d="m13 2-8 11h6l-1 9 9-13h-6z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 3s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11Z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M3 9v6m4-9v12m10-12v12m4-9v6M7 12h10"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M4 18 10 12l4 3 6-8M14 7h6v6"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M19 15A8 8 0 0 1 9 5a8 8 0 1 0 10 10Z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2 4.5 4.5 0 0 1 8 2c0 6.5-8 11-8 11Z"/><path d="M12 8v7m-3.5-3.5h7"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M14 6a5 5 0 0 0-6 6L3 17l4 4 5-5a5 5 0 0 0 6-6l-3 3-4-4z"/></svg></span><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19m0-14-1.5 1.5m-11 11L5 19"/></svg></span></div>' +
+      '<div class="cf-footer-category-icons" aria-hidden="true">' +
+        '<span><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 6v5m4-5v3m4-3v5"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M12 3c-4.2 0-7 3.2-7 8 0 5.1 3 9 7 10 4-1 7-4.9 7-10 0-4.8-2.8-8-7-8Z"/><path d="M9 10h.01M15 10h.01M9 15q3 2 6 0"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="m13 2-8 11h6l-1 9 9-13h-6z"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M12 3s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11Z"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M3 9v6m4-9v12m10-12v12m4-9v6M7 12h10"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M4 18 10 12l4 3 6-8M14 7h6v6"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M19 15A8 8 0 0 1 9 5a8 8 0 1 0 10 10Z"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2 4.5 4.5 0 0 1 8 2c0 6.5-8 11-8 11Z"/><path d="M12 8v7m-3.5-3.5h7"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M14 6a5 5 0 0 0-6 6L3 17l4 4 5-5a5 5 0 0 0 6-6l-3 3-4-4z"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19m0-14-1.5 1.5m-11 11L5 19"/></svg></span>' +
+      '</div>' +
       '<div class="cf-footer-main">' +
-        '<a class="cf-footer-brand" href="' + home + '"><span>ClerFit</span></a>' +
+        '<a class="cf-footer-brand" href="' + home + '"><img class="cf-real-footer-logo" src="' + logo + '" alt="" width="128" height="128"><span>ClerFit</span></a>' +
         '<p>Clear tools for better-informed everyday decisions.</p>' +
         '<nav class="cf-footer-links" aria-label="Footer navigation">' +
-          '<a href="' + home + '#all-calculators">Explore calculators</a>' +
+          '<a href="' + privacy + '">Privacy</a>' +
+          '<a href="' + terms + '">Terms of Use</a>' +
+          '<a href="' + disclaimer + '">Educational Disclaimer</a>' +
           '<a href="' + contact + '">Contact</a>' +
         '</nav>' +
       '</div>' +
@@ -49,7 +73,7 @@
       event.preventDefault();
       window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     });
-    main.appendChild(footer);
+    if (!existingFooter) main.appendChild(footer);
   }
 
   const init = () => {
