@@ -88,7 +88,7 @@
       addTip(label, text, hintFor(text, label.control));
     });
     // Specialist metric headings can also get a small help marker; do not add to every button/link.
-    document.querySelectorAll('.result h2,.result h3,.result strong,.metric-label,.result-label').forEach(el => {
+    document.querySelectorAll('.header h1,.result h2,.result h3,.result strong,.metric-label,.result-label').forEach(el => {
       const text = (el.textContent || '').replace(/\s+/g,' ').trim();
       if (text && specialist.test(text) && !el.querySelector('.cf-tip-wrap')) addTip(el, text, hintFor(text));
     });
