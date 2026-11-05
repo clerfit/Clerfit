@@ -19,37 +19,54 @@
   // Add a shared, non-duplicated footer to legacy calculator pages.
   // Pages that already define their own footer keep it unchanged.
   function ensureSiteFooter() {
-    const existingFooter = document.querySelector("footer");
-    if (existingFooter) { existingFooter.classList.add("cf-footer"); return; }
+    // The homepage owns its footer markup and styling. Never modify it here.
+    if (document.body && document.body.id === "top") return;
     const main = document.querySelector("main.main, main, .main");
     if (!main) return;
     const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
     const home = new URL("index.html", root).href;
     const contact = new URL("contact.html", root).href;
-    const footer = document.createElement("footer");
-    footer.className = "cf-footer";
+    const logo = new URL("logo-small.webp", root).href;
+    const existingFooter = document.querySelector("footer");
+    const footer = existingFooter || document.createElement("footer");
+    footer.classList.add("cf-footer");
     footer.innerHTML =
-      '<div class="cf-footer-category-icons" aria-hidden="true"><span><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 6v5m4-5v3m4-3v5"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 3c-4.2 0-7 3.2-7 8 0 5.1 3 9 7 10 4-1 7-4.9 7-10 0-4.8-2.8-8-7-8Z"/><path d="M9 10h.01M15 10h.01M9 15q3 2 6 0"/></svg></span><span><svg viewBox="0 0 24 24"><path d="m13 2-8 11h6l-1 9 9-13h-6z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 3s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11Z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M3 9v6m4-9v12m10-12v12m4-9v6M7 12h10"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M4 18 10 12l4 3 6-8M14 7h6v6"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M19 15A8 8 0 0 1 9 5a8 8 0 1 0 10 10Z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2 4.5 4.5 0 0 1 8 2c0 6.5-8 11-8 11Z"/><path d="M12 8v7m-3.5-3.5h7"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M14 6a5 5 0 0 0-6 6L3 17l4 4 5-5a5 5 0 0 0 6-6l-3 3-4-4z"/></svg></span><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19m0-14-1.5 1.5m-11 11L5 19"/></svg></span></div>' +
+      '<div class="cf-footer-category-icons" aria-hidden="true">' +
+        '<span><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 6v5m4-5v3m4-3v5"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M12 3c-4.2 0-7 3.2-7 8 0 5.1 3 9 7 10 4-1 7-4.9 7-10 0-4.8-2.8-8-7-8Z"/><path d="M9 10h.01M15 10h.01M9 15q3 2 6 0"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="m13 2-8 11h6l-1 9 9-13h-6z"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M12 3s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11Z"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M3 9v6m4-9v12m10-12v12m4-9v6M7 12h10"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M4 18 10 12l4 3 6-8M14 7h6v6"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M19 15A8 8 0 0 1 9 5a8 8 0 1 0 10 10Z"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2 4.5 4.5 0 0 1 8 2c0 6.5-8 11-8 11Z"/><path d="M12 8v7m-3.5-3.5h7"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><path d="M14 6a5 5 0 0 0-6 6L3 17l4 4 5-5a5 5 0 0 0 6-6l-3 3-4-4z"/></svg></span>' +
+        '<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19m0-14-1.5 1.5m-11 11L5 19"/></svg></span>' +
+      '</div>' +
       '<div class="cf-footer-main">' +
-        '<a class="cf-footer-brand" href="' + home + '"><span>ClerFit</span></a>' +
+        '<a class="cf-footer-brand" href="' + home + '"><img class="cf-real-footer-logo" src="' + logo + '" alt="" width="128" height="128"><span>ClerFit</span></a>' +
         '<p>Clear tools for better-informed everyday decisions.</p>' +
-        '<nav class="cf-footer-links" aria-label="Footer navigation">' +
+        '<div class="cf-footer-links">' +
           '<a href="' + home + '#all-calculators">Explore calculators</a>' +
           '<a href="' + contact + '">Contact</a>' +
-        '</nav>' +
+          '<a href="' + home + '#browse-categories">Categories</a>' +
+          '<a href="' + home + '#faq">FAQ</a>' +
+        '</div>' +
       '</div>' +
       '<div class="cf-footer-bottom">' +
-        '<span>© <span class="cf-footer-year"></span> ClerFit. Educational estimates, not medical diagnoses.</span>' +
-        '<a href="#top" class="cf-back-top">Back to top ↑</a>' +
+        '<span>© <span id="cf-year"></span> ClerFit. All rights reserved where applicable.</span>' +
+        '<span>Built for phone, tablet and desktop.</span>' +
+        '<a href="#top" id="cf-back-top">Back to top ↑</a>' +
       '</div>';
-    const year = footer.querySelector(".cf-footer-year");
+    const year = footer.querySelector("#cf-year");
     if (year) year.textContent = String(new Date().getFullYear());
-    const backTop = footer.querySelector(".cf-back-top");
+    const backTop = footer.querySelector("#cf-back-top");
     if (backTop) backTop.addEventListener("click", (event) => {
       event.preventDefault();
       window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     });
-    main.appendChild(footer);
+    if (!existingFooter) main.appendChild(footer);
   }
 
   const init = () => {
