@@ -1795,3 +1795,9 @@ body .cf-footer .cf-footer-category-icons {
     padding-block-end: 14px !important;
   }
 }
+
+/* Accessibility fix: calculator methodology notes must meet WCAG AA normal-text contrast. */
+body .cf-note {
+  color: #52657d !important;
+  opacity: 1 !important;
+}
