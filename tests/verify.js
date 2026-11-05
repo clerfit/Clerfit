@@ -851,7 +851,7 @@ const metabolismVectors = [
  ['owen',{weight:70,sex:'male'},1593],
  ['energy-availability',{weight:70,bodyFat:14,intake:2500,exercise:600},31.561461794],
  ['adaptive-thermogenesis',{predicted:2500,observed:2300},-200],
- ['thermic-effect-food',{protein:150,carbs:250,fat:70},234],
+ ['thermic-effect-food',{protein:150,carbs:250,fat:70},234.45],
  ['calorie-cycling',{weekly:14000,highDays:2,highShare:40},2000],
  ['reverse-dieting',{start:2000,increment:100,weeks:4},2400],
  ['refeed-calories',{maintenance:2500,factor:1.1},2750]
