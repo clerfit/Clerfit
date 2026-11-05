@@ -7,7 +7,7 @@
   const svgHome='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5.5 9v11h13V9M9 20v-6h6v6"/></svg>';
   const svgMail='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>';
   function setup(){
-    const main=document.querySelector('main.main')||document.querySelector('main')||document.body;
+    const main=document.querySelector('main.main')||document.querySelector('main')||document.querySelector('.main')||document.body;
     // Remove only legacy site-shell elements. Preserve semantic headers/footers used by calculator content.
     document.querySelectorAll('.top-right-buttons,.top-buttons,.cf-image-lightbox').forEach(el=>el.remove());
     // Keep semantic content headers intact. The legal-page heading contains "ClerFit" in its eyebrow,
