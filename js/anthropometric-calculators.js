@@ -132,7 +132,8 @@
    const value = Number(raw);
    const min = field.min !== "" && Number.isFinite(Number(field.min)) ? Number(field.min) : null;
    const max = field.max !== "" && Number.isFinite(Number(field.max)) ? Number(field.max) : null;
-   if (!raw || !Number.isFinite(value) || (min !== null && value < min) || (max !== null && value > max)) {
+   const nativeInvalid = !!(field.validity && field.validity.valid === false);
+   if (!raw || !Number.isFinite(value) || (min !== null && value < min) || (max !== null && value > max) || nativeInvalid) {
     showError(out, "Please enter valid values within the displayed ranges.", field.id);
     return;
    }
