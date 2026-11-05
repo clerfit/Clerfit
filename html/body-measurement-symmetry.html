@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<meta name="description" content="Body Measurement Symmetry Calculator. Educational measurement calculator with transparent method and limitations.">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
+<title>ClerFit – Body Measurement Symmetry Calculator</title>
+<link rel="canonical" href="https://clerfit.github.io/Clerfit/html/body-measurement-symmetry.html">
+</head>
+<body data-calculator="body-measurement-symmetry">
+<aside class="sidebar" aria-label="Main navigation"></aside>
+<main class="main">
+<header class="header"><h1>Body Measurement Symmetry Calculator</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
+<section class="card" aria-labelledby="calc-heading">
+<h2 id="calc-heading">Enter your measurements</h2>
+<p class="cf-note">Compare left and right measurements using the absolute difference relative to their mean. This is a descriptive comparison, not a diagnosis of asymmetry.</p>
+<form id="calc-form" novalidate>
+<div class="row">
+<div class="col"><label for="left">Left-side measurement (cm)</label><input id="left" name="left" type="number" min="0.1" max="250" step="any" inputmode="decimal" required aria-label="Left-side measurement"></div>
+<div class="col"><label for="right">Right-side measurement (cm)</label><input id="right" name="right" type="number" min="0.1" max="250" step="any" inputmode="decimal" required aria-label="Right-side measurement"></div>
+</div>
+<div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
+</form>
+<div id="calc-result" class="result" aria-live="polite"></div>
+</section>
+<section class="card">
+<h2>Method and limitations</h2>
+<p>Compare left and right measurements using the absolute difference relative to their mean. This is a descriptive comparison, not a diagnosis of asymmetry.</p>
+<p>Use consistent measurement landmarks, units and conditions when comparing results over time. ClerFit provides educational calculations, not medical diagnosis or personalised treatment advice.</p>
+</section>
+</main>
+<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Enter values within the displayed ranges, select Calculate, and review the method and limitations alongside the result.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+<script src="../js/anthropometric-calculators.js" defer></script>
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js?v=20261017-nav-v4" defer></script>
+</body></html>
