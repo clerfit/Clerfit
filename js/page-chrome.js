@@ -19,24 +19,16 @@
   // Add a shared, non-duplicated footer to legacy calculator pages.
   // Pages that already define their own footer keep it unchanged.
   function ensureSiteFooter() {
+    // The homepage owns its footer markup and styling. Never modify it here.
+    if (document.body && document.body.id === "top") return;
     const main = document.querySelector("main.main, main, .main");
     if (!main) return;
     const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
     const home = new URL("index.html", root).href;
     const contact = new URL("contact.html", root).href;
-    const privacy = new URL("privacy.html", root).href;
-    const terms = new URL("terms-of-use.html", root).href;
-    const disclaimer = new URL("educational-disclaimer.html", root).href;
     const logo = new URL("logo-small.webp", root).href;
     const existingFooter = document.querySelector("footer");
     const footer = existingFooter || document.createElement("footer");
-
-    // Leave the homepage's complete footer intact. Legacy calculator pages with
-    // placeholder footers receive the same branded structure and category icons.
-    if (footer.querySelector(".cf-footer-category-icons") && footer.querySelector(".cf-footer-main")) {
-      footer.classList.add("cf-footer");
-      return;
-    }
     footer.classList.add("cf-footer");
     footer.innerHTML =
       '<div class="cf-footer-category-icons" aria-hidden="true">' +
@@ -55,20 +47,21 @@
       '<div class="cf-footer-main">' +
         '<a class="cf-footer-brand" href="' + home + '"><img class="cf-real-footer-logo" src="' + logo + '" alt="" width="128" height="128"><span>ClerFit</span></a>' +
         '<p>Clear tools for better-informed everyday decisions.</p>' +
-        '<nav class="cf-footer-links" aria-label="Footer navigation">' +
-          '<a href="' + privacy + '">Privacy</a>' +
-          '<a href="' + terms + '">Terms of Use</a>' +
-          '<a href="' + disclaimer + '">Educational Disclaimer</a>' +
+        '<div class="cf-footer-links">' +
+          '<a href="' + home + '#all-calculators">Explore calculators</a>' +
           '<a href="' + contact + '">Contact</a>' +
-        '</nav>' +
+          '<a href="' + home + '#browse-categories">Categories</a>' +
+          '<a href="' + home + '#faq">FAQ</a>' +
+        '</div>' +
       '</div>' +
       '<div class="cf-footer-bottom">' +
-        '<span>© <span class="cf-footer-year"></span> ClerFit. Educational estimates, not medical diagnoses.</span>' +
-        '<a href="#top" class="cf-back-top">Back to top ↑</a>' +
+        '<span>© <span id="cf-year"></span> ClerFit. All rights reserved where applicable.</span>' +
+        '<span>Built for phone, tablet and desktop.</span>' +
+        '<a href="#top" id="cf-back-top">Back to top ↑</a>' +
       '</div>';
-    const year = footer.querySelector(".cf-footer-year");
+    const year = footer.querySelector("#cf-year");
     if (year) year.textContent = String(new Date().getFullYear());
-    const backTop = footer.querySelector(".cf-back-top");
+    const backTop = footer.querySelector("#cf-back-top");
     if (backTop) backTop.addEventListener("click", (event) => {
       event.preventDefault();
       window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
