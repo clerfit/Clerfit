@@ -66,7 +66,7 @@ jobs:
           const match = source.match(/const CALCULATORS\s*=\s*(\[[\s\S]*?\]);\s*\nconst path/);
           if (!match) throw new Error('Could not parse central calculator registry');
           const routes = JSON.parse(match[1]);
-          if (routes.length !== 159) throw new Error(`Expected 159 routes; found ${routes.length}`);
+          if (routes.length !== 170) throw new Error(`Expected 159 routes; found ${routes.length}`);
           for (const route of routes) {
             const file = path.join('dist', 'html', route.file);
             if (!fs.statSync(file).isFile()) throw new Error(`Packaged route missing: ${file}`);
