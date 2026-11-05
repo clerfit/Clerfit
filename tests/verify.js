@@ -849,7 +849,7 @@ const metabolismVectors = [
  ['cunningham',{weight:70,bodyFat:15},1809],
  ['schofield',{weight:70,age:40,sex:'male'},1676.14],
  ['owen',{weight:70,sex:'male'},1593],
- ['energy-availability',{weight:70,bodyFat:14,intake:2500,exercise:600},31.6666666667],
+ ['energy-availability',{weight:70,bodyFat:14,intake:2500,exercise:600},31.561461794],
  ['adaptive-thermogenesis',{predicted:2500,observed:2300},-200],
  ['thermic-effect-food',{protein:150,carbs:250,fat:70},234],
  ['calorie-cycling',{weekly:14000,highDays:2,highShare:40},2000],
