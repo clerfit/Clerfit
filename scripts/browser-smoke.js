@@ -620,7 +620,7 @@ async function main() {
       actionsClicked:routeResults.filter(r=>r.actionClicked).length,
       mobileOverflow:routeResults.filter(r=>r.bodyOverflow).map(r=>r.file),
       responsiveOverflow:Object.fromEntries(['mobile','tablet','desktop'].map(device=>[device,routeResults.filter(r=>r.responsiveLayout && r.responsiveLayout[device] && r.responsiveLayout[device].horizontalOverflow).map(r=>r.file)])),
-      responsiveNavigationHeadingOverlap:Object.fromEntries(['mobile','tablet','desktop'].map(device=>[device,routeResults.filter(r=>r.responsiveLayout && r.responsiveLayout[device] && r.responsiveLayout[device].navigationHeadingOverlap).map(r=>r.file)])),
+      responsiveNavigationHeadingOverlap:Object.fromEntries(['mobile','tablet','desktop'].map(device=>[device,routeResults.filter(r=>r.responsiveLayout && r.responsiveLayout.samples && r.responsiveLayout.samples.some(sample=>sample.viewportWidth>=(device==='mobile'?320:device==='tablet'?601:1025) && sample.viewportWidth<=(device==='mobile'?600:device==='tablet'?1024:2560) && sample.navigationHeadingOverlap)).map(r=>r.file)])),
       navigationFailures:routeResults.filter(r=>!r.navState.present || !r.navState.nearTop || !r.navState.staticFlow || !r.navState.homeLink || !r.navState.contactLink || !r.navState.insideMain).map(r=>({file:r.file,navState:r.navState})),
       pageErrors:routeResults.filter(r=>r.pageErrors.length).map(r=>({file:r.file,errors:r.pageErrors})),
       consoleErrors:routeResults.filter(r=>r.consoleErrors.length).map(r=>({file:r.file,errors:r.consoleErrors})),
