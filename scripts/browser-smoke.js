@@ -174,7 +174,7 @@ async function runRoute(browser, route) {
   const pageErrors=[], consoleErrors=[];
   page.on('pageerror', err=>pageErrors.push(err.message || String(err)));
   page.on('console', msg=>{ if(msg.type()==='error') consoleErrors.push(msg.text()); });
-  let loaded=false, inputCount=0, clicked=false, bodyOverflow=false, outputsBefore=[], outputsAfter=[];
+  let loaded=false, inputCount=0, clicked=false, bodyOverflow=false, outputsBefore=[], outputsAfter=[], responsiveLayout={};
   let navState={present:false,nearTop:false,staticFlow:false,homeLink:false,contactLink:false,insideMain:false};
   try {
     const response = await page.goto(url, {waitUntil:'domcontentloaded',timeout:20000});
@@ -260,7 +260,7 @@ async function runRoute(browser, route) {
     });
     // Responsive sweep: run every calculator at common phone, tablet and desktop widths.
     const responsiveWidths = [{name:'mobile',width:390},{name:'tablet',width:768},{name:'desktop',width:1440}];
-    const responsiveLayout = {};
+    responsiveLayout = {};
     for (const viewport of responsiveWidths) {
       await page.setViewportSize({width:viewport.width,height:900});
       await page.waitForTimeout(40);
