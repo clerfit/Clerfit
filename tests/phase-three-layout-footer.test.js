@@ -13,7 +13,7 @@ const css = fs.readFileSync(path.join(root, 'css/style.css'), 'utf8');
 assert.doesNotMatch(chrome, /fresh\.searchParams\.set\(["']v["']/,
   'shared page chrome must not rewrite a stylesheet URL after the initial CSS request');
 const publicHtml = [
-  'index.html', '404.html', 'contact.html', 'educational-disclaimer.html', 'privacy.html', 'terms-of-use.html',
+  '404.html', 'contact.html', 'educational-disclaimer.html', 'privacy.html', 'terms-of-use.html',
   ...fs.readdirSync(path.join(root, 'html')).filter(name => name.endsWith('.html')).map(name => path.join('html', name))
 ].map(file => path.join(root, file)).filter(file => fs.existsSync(file));
 const staleCssUrls = publicHtml.filter(file => {

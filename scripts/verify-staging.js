@@ -26,7 +26,7 @@ const registryMatch = nav.match(/const CALCULATORS\s*=\s*(\[[\s\S]*?\]);\s*\ncon
 assert.ok(registryMatch, 'central calculator registry must be parseable');
 const calculators = JSON.parse(registryMatch[1]);
 const routeFiles = [...new Set(calculators.map(item => item.file))];
-assert.equal(routeFiles.length, 118, 'the production route inventory must contain 118 unique calculators');
+assert.equal(routeFiles.length, 137, 'the production route inventory must contain 137 unique calculators');
 
 const required = ['index.html', 'contact.html', '404.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html', 'robots.txt', 'sitemap.xml', 'css/style.css', 'js/navigation.js'];
 for (const file of required) assert.ok(exists(file), 'missing required production file: ' + file);
@@ -43,7 +43,7 @@ assert.ok(locations.every(url => {
     return parsed.protocol === 'https:' && parsed.origin === base.origin && parsed.pathname.startsWith(basePath);
   } catch { return false; }
 }), 'every sitemap URL must be valid HTTPS under the configured project-site path');
-assert.equal(locations.length, 123, 'sitemap must include 5 main URLs plus 118 registered calculators');
+assert.equal(locations.length, 142, 'sitemap must include 5 main URLs plus 137 registered calculators');
 assert.equal(new Set(locations).size, locations.length, 'sitemap URLs must be unique');
 assert.ok(locations.includes(baseWithoutTrailingSlash + '/'), 'sitemap must include the home page');
 assert.ok(locations.includes(baseWithoutTrailingSlash + '/contact.html'), 'sitemap must include Contact Us');

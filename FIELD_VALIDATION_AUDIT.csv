@@ -241,3 +241,44 @@ html/bmi-for-age.html,weight,weight,Weight (kg),4.535,453.592,any,yes,yes,STRUCT
 html/bmi-for-age.html,height,height,Height (cm),30.48,274.32,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/bmi-for-age.html,age,age,Age (completed years),2,19,1,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/bmi-for-age.html,ageMonths,ageMonths,Additional completed months,0,11,1,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/neck-circumference.html,neck,,Neck circumference,10,100,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/muac.html,muac,,Mid-upper arm circumference,5,80,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/mid-thigh-circumference.html,thigh,,Mid-thigh circumference,15,120,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/calf-circumference.html,calf,,Calf circumference,10,100,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bai.html,hip,,Hip circumference,30,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bai.html,height,,Height,80,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/relative-muscle-mass.html,muscle,,Skeletal muscle mass (measured),0.1,200,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/relative-muscle-mass.html,weight,,Body weight,2,500,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/skeletal-muscle-mass.html,muscle,,Skeletal muscle mass from assessment,0.1,200,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/skeletal-muscle-mass.html,weight,,Body weight,2,500,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/skeletal-muscle-mass.html,height,,Height,80,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/almi.html,alm,,Appendicular lean mass,1,100,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/almi.html,height,,Height,80,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/fmi.html,fat,,Fat mass,0.1,300,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/fmi.html,height,,Height,80,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ffmi-comparison.html,weightA,,Person A body weight,2,500,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ffmi-comparison.html,fatA,,Person A body-fat percentage,0,75,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ffmi-comparison.html,heightA,,Person A height,80,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ffmi-comparison.html,weightB,,Person B body weight,2,500,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ffmi-comparison.html,fatB,,Person B body-fat percentage,0,75,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/ffmi-comparison.html,heightB,,Person B height,80,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/waist-circumference-reference.html,waist,,Waist circumference,30,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/waist-height-comparison.html,waistA,,Person A waist circumference,30,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/waist-height-comparison.html,heightA,,Person A height,80,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/waist-height-comparison.html,waistB,,Person B waist circumference,30,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/waist-height-comparison.html,heightB,,Person B height,80,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/body-volume.html,mass,,Mass,0.1,500,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/body-volume.html,density,,Density,0.01,2,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/body-density.html,mass,,Mass,0.1,500,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/body-density.html,volume,,Volume,0.01,1000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/anthropometric-z-score.html,value,,Observed measurement,-100000,100000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/anthropometric-z-score.html,mean,,Reference mean,-100000,100000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/anthropometric-z-score.html,sd,,Reference standard deviation,0.000001,100000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/body-measurement-symmetry.html,left,,Left-side measurement,0.1,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/body-measurement-symmetry.html,right,,Right-side measurement,0.1,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/arm-waist-ratio.html,arm,,Arm circumference,5,100,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/arm-waist-ratio.html,waist,,Waist circumference,30,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/leg-height-ratio.html,leg,,Leg length,20,160,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/leg-height-ratio.html,height,,Standing height,80,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sitting-height-ratio.html,sitting,,Sitting height,30,150,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/sitting-height-ratio.html,height,,Standing height,80,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE

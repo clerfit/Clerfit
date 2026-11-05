@@ -10,7 +10,7 @@ assert.ok(fs.existsSync(favicon48Path), 'A stable 48x48 PNG favicon must exist a
 const png = fs.readFileSync(favicon48Path);
 assert.equal(png.readUInt32BE(16), 48, 'favicon-48.png must be exactly 48 pixels wide.');
 assert.equal(png.readUInt32BE(20), 48, 'favicon-48.png must be exactly 48 pixels high.');
-assert.match(homepage, /<link\b(?=[^>]*rel=["']icon["'])(?=[^>]*type=["']image\/png["'])(?=[^>]*sizes=["']48x48["'])(?=[^>]*href=["']\.\/favicon-48\.png["'])[^>]*>/i,
+assert.match(homepage, /<link\b(?=[^>]*rel=["']icon["'])(?=[^>]*type=["']image\/png["'])(?=[^>]*sizes=["']48x48["'])(?=[^>]*href=["'](?:\.\/|https:\/\/clerfit\.github\.io\/Clerfit\/)favicon-48\.png["'])[^>]*>/i,
   'Homepage head must explicitly advertise the stable 48x48 favicon PNG.');
 assert.ok(fs.existsSync('favicon.ico'), 'ICO fallback must be present.');
 assert.ok(fs.existsSync('app-icon-192.png'), '192x192 icon must remain present.');
