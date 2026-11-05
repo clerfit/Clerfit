@@ -108,7 +108,7 @@ function runPage(calculator, values, fieldSpecs) {
   ready();
   assert.equal(typeof handlers.submit, 'function', calculator + ' wires form submission');
   handlers.submit({ preventDefault() {} });
-  return { html: output.innerHTML, reset: () => handlers.reset({}) };
+  return { get html() { return output.innerHTML; }, reset: () => handlers.reset({}) };
 }
 
 let page = runPage('neck-circumference', { neck: 10 * Math.PI, neckUnit: 'cm' }, [
