@@ -241,3 +241,44 @@ bmi-for-age.html,weight,Weight (kg),4.535,453.592,any
 bmi-for-age.html,height,Height (cm),30.48,274.32,any
 bmi-for-age.html,age,Age (completed years),2,19,1
 bmi-for-age.html,ageMonths,Additional completed months,0,11,1
+neck-circumference.html,neck,Neck circumference,10,100,any
+muac.html,muac,Mid-upper arm circumference,5,80,any
+mid-thigh-circumference.html,thigh,Mid-thigh circumference,15,120,any
+calf-circumference.html,calf,Calf circumference,10,100,any
+bai.html,hip,Hip circumference,30,250,any
+bai.html,height,Height,80,250,any
+relative-muscle-mass.html,muscle,Skeletal muscle mass (measured),0.1,200,any
+relative-muscle-mass.html,weight,Body weight,2,500,any
+skeletal-muscle-mass.html,muscle,Skeletal muscle mass from assessment,0.1,200,any
+skeletal-muscle-mass.html,weight,Body weight,2,500,any
+skeletal-muscle-mass.html,height,Height,80,250,any
+almi.html,alm,Appendicular lean mass,1,100,any
+almi.html,height,Height,80,250,any
+fmi.html,fat,Fat mass,0.1,300,any
+fmi.html,height,Height,80,250,any
+ffmi-comparison.html,weightA,Person A body weight,2,500,any
+ffmi-comparison.html,fatA,Person A body-fat percentage,0,75,any
+ffmi-comparison.html,heightA,Person A height,80,250,any
+ffmi-comparison.html,weightB,Person B body weight,2,500,any
+ffmi-comparison.html,fatB,Person B body-fat percentage,0,75,any
+ffmi-comparison.html,heightB,Person B height,80,250,any
+waist-circumference-reference.html,waist,Waist circumference,30,250,any
+waist-height-comparison.html,waistA,Person A waist circumference,30,250,any
+waist-height-comparison.html,heightA,Person A height,80,250,any
+waist-height-comparison.html,waistB,Person B waist circumference,30,250,any
+waist-height-comparison.html,heightB,Person B height,80,250,any
+body-volume.html,mass,Mass,0.1,500,any
+body-volume.html,density,Density,0.01,2,any
+body-density.html,mass,Mass,0.1,500,any
+body-density.html,volume,Volume,0.01,1000,any
+anthropometric-z-score.html,value,Observed measurement,-100000,100000,any
+anthropometric-z-score.html,mean,Reference mean,-100000,100000,any
+anthropometric-z-score.html,sd,Reference standard deviation,0.000001,100000,any
+body-measurement-symmetry.html,left,Left-side measurement,0.1,250,any
+body-measurement-symmetry.html,right,Right-side measurement,0.1,250,any
+arm-waist-ratio.html,arm,Arm circumference,5,100,any
+arm-waist-ratio.html,waist,Waist circumference,30,250,any
+leg-height-ratio.html,leg,Leg length,20,160,any
+leg-height-ratio.html,height,Standing height,80,250,any
+sitting-height-ratio.html,sitting,Sitting height,30,150,any
+sitting-height-ratio.html,height,Standing height,80,250,any
