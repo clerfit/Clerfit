@@ -259,12 +259,16 @@ async function runRoute(browser, route) {
       };
     });
     // Responsive sweep: run every calculator at common phone, tablet and desktop widths.
-    const responsiveWidths = [{name:'mobile',width:390},{name:'tablet',width:768},{name:'desktop',width:1440}];
-    responsiveLayout = {};
-    for (const viewport of responsiveWidths) {
-      await page.setViewportSize({width:viewport.width,height:900});
-      await page.waitForTimeout(40);
-      responsiveLayout[viewport.name] = await page.evaluate(() => {
+    // Sweep a broad CSS viewport range rather than assuming one phone/tablet/desktop size.
+    // Include common device widths and dense samples across the full supported range.
+    const responsiveWidths = Array.from({length:57},(_,i)=>320+i*40);
+    for (const width of [360,375,390,393,412,414,430,480,540,600,640,720,750,768,800,820,834,912,960,1024,1080,1180,1280,1366,1440,1536,1600,1680,1920,2048,2560]) responsiveWidths.push(width);
+    const uniqueWidths = [...new Set(responsiveWidths)].sort((a,b)=>a-b);
+    responsiveLayout = { samples: [], minWidth: uniqueWidths[0], maxWidth: uniqueWidths[uniqueWidths.length-1] };
+    for (const width of uniqueWidths) {
+      await page.setViewportSize({width,height:900});
+      await page.waitForTimeout(12);
+      const layoutSample = await page.evaluate(() => {
         const doc = document.documentElement;
         const body = document.body;
         const main = document.querySelector('main.main, main, .main');
@@ -284,12 +288,27 @@ async function runRoute(browser, route) {
           navigationHeadingOverlap:overlap
         };
       });
-      if (responsiveLayout[viewport.name].horizontalOverflow) failures.push(pageName+' horizontal overflow at '+viewport.name+' ('+viewport.width+'px).');
-      if (!responsiveLayout[viewport.name].mainVisible) failures.push(pageName+' main content is not visible at '+viewport.name+' width.');
-      if (!responsiveLayout[viewport.name].navigationVisible) failures.push(pageName+' Home/Contact navigation is not visible at '+viewport.name+' width.');
-      if (responsiveLayout[viewport.name].navigationHeadingOverlap) failures.push(pageName+' navigation overlaps the page heading at '+viewport.name+' width.');
+      responsiveLayout.samples.push(layoutSample);
+      if (layoutSample.horizontalOverflow) failures.push(pageName+' horizontal overflow at '+width+'px.');
+      if (!layoutSample.mainVisible) failures.push(pageName+' main content is not visible at '+width+'px.');
+      if (!layoutSample.navigationVisible) failures.push(pageName+' Home/Contact navigation is not visible at '+width+'px.');
+      if (layoutSample.navigationHeadingOverlap) failures.push(pageName+' navigation overlaps the page heading at '+width+'px.');
     }
-    bodyOverflow = responsiveLayout.mobile.horizontalOverflow;
+    // Also test landscape phone/tablet aspect ratios.
+    for (const viewport of [{width:844,height:390},{width:915,height:412},{width:1024,height:768}]) {
+      await page.setViewportSize(viewport);
+      const landscape = await page.evaluate(() => ({
+        width:window.innerWidth,
+        overflow:document.documentElement.scrollWidth > window.innerWidth + 1,
+        mainVisible:!!document.querySelector('main.main, main, .main')?.getClientRects().length
+      }));
+      if (landscape.overflow) failures.push(pageName+' horizontal overflow in landscape at '+viewport.width+'px.');
+      if (!landscape.mainVisible) failures.push(pageName+' main content missing in landscape at '+viewport.width+'px.');
+    }
+    responsiveLayout.mobile = responsiveLayout.samples.some(x=>x.viewportWidth<=600 && x.horizontalOverflow);
+    responsiveLayout.tablet = responsiveLayout.samples.some(x=>x.viewportWidth>600 && x.viewportWidth<=1024 && x.horizontalOverflow);
+    responsiveLayout.desktop = responsiveLayout.samples.some(x=>x.viewportWidth>1024 && x.horizontalOverflow);
+    bodyOverflow = responsiveLayout.mobile;
     loaded=true;
   } catch (error) {
     pageErrors.push(String(error && error.message || error));
