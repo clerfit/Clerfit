@@ -1,0 +1,71 @@
+<!--
+  ClerFit R4 calculator page starter.
+  Copy to a new R4 page and replace placeholders only after formula validation.
+  Keep R4 pages on the R4 branch until release approval.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>R4 Calculator Starter | ClerFit</title>
+  <link rel="stylesheet" href="../css/r4-calculator-system.css">
+  <script src="../js/unit-system.js" defer></script>
+  <script src="../js/r4-tooltips.js" defer></script>
+</head>
+<body>
+  <main class="cf-r4">
+    <div class="cf-r4__page">
+      <header class="cf-r4__header">
+        <p class="cf-r4__eyebrow">Calculator category</p>
+        <h1 class="cf-r4__title">Calculator title</h1>
+        <p class="cf-r4__description">Describe what this calculator estimates, who it is intended for and what information is needed.</p>
+      </header>
+
+      <div class="cf-r4__layout">
+        <section class="cf-r4__card" aria-labelledby="cf-r4-input-heading">
+          <h2 class="cf-r4__section-title" id="cf-r4-input-heading">Enter your measurements</h2>
+          <p class="cf-r4__section-help">Use the unit selector beside each measurement. Only show units supported by this calculator.</p>
+
+          <div class="cf-r4__fields">
+            <div class="cf-r4__field">
+              <div class="cf-r4__label-row">
+                <label class="cf-r4__label" for="measurement-one">Measurement one</label>
+                <button class="cf-r4__info" type="button"
+                  aria-label="How to take measurement one"
+                  data-tooltip="Add the verified, calculator-specific measurement landmark and method. Remove this button if no special instruction is needed."></button>
+              </div>
+              <div class="cf-r4__input-with-unit">
+                <input id="measurement-one" type="number" inputmode="decimal" min="0" step="any" autocomplete="off">
+                <select class="cf-r4__unit-select" aria-label="Measurement one unit" data-unit-for="measurement-one">
+                  <option value="cm">cm</option>
+                  <option value="in">in</option>
+                </select>
+              </div>
+              <p class="cf-r4__error" id="measurement-one-error" hidden></p>
+            </div>
+          </div>
+
+          <div class="cf-r4__actions">
+            <button class="cf-r4__button" type="button" disabled>Calculate (connect verified formula)</button>
+            <button class="cf-r4__button cf-r4__button--secondary" type="reset">Reset</button>
+          </div>
+        </section>
+
+        <aside class="cf-r4__card cf-r4__result" aria-live="polite" aria-atomic="true">
+          <p class="cf-r4__result-label">Your result</p>
+          <p class="cf-r4__result-value">—</p>
+          <p class="cf-r4__result-description">Results will appear here after the validated calculation engine is connected.</p>
+        </aside>
+      </div>
+
+      <section class="cf-r4__card cf-r4__stack" aria-labelledby="cf-r4-method-heading" style="margin-top:20px">
+        <h2 class="cf-r4__section-title" id="cf-r4-method-heading">Formula and methodology</h2>
+        <p class="cf-r4__muted">Document the equation, units, intended population, assumptions and source references before enabling calculation.</p>
+        <div class="cf-r4__notice cf-r4__notice--warning">Development template only. Do not publish this page as a working calculator.</div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
