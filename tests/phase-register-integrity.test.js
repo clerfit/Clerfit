@@ -82,8 +82,8 @@ for (const field of ['file', 'id', 'min', 'max', 'step']) {
 }
 const fieldAuditData = new Map(fieldAuditRows.slice(1).map(row => [row[fieldAuditHeader.indexOf('file')] + '|' + row[fieldAuditHeader.indexOf('id')], row]));
 const verifiedBoundsData = new Map(verifiedBoundsRows.slice(1).map(row => [row[verifiedBoundsHeader.indexOf('file')] + '|' + row[verifiedBoundsHeader.indexOf('id')], row]));
-assert.equal(fieldAuditRows.length - 1, 313, 'field validation audit must contain 283 static numeric fields');
-assert.equal(verifiedBoundsRows.length - 1, 313, 'verified boundary inventory must contain 283 static numeric fields');
+assert.equal(fieldAuditRows.length - 1, 313, 'field validation audit must contain 313 static numeric fields');
+assert.equal(verifiedBoundsRows.length - 1, 313, 'verified boundary inventory must contain 313 static numeric fields');
 assert.equal(fieldAuditData.size, 313, 'field audit must not duplicate file/id records');
 assert.equal(verifiedBoundsData.size, 313, 'boundary inventory must not duplicate file/id records');
 let sourceNumericFieldCount = 0;
@@ -107,7 +107,7 @@ for (const file of fs.readdirSync(path.join(root, 'html')).filter(name => name.t
     }
   }
 }
-assert.equal(sourceNumericFieldCount, 283, 'static HTML numeric input count must match field inventories');
+assert.equal(sourceNumericFieldCount, 313, 'static HTML numeric input count must match field inventories');
 
 const sitemapText = read('sitemap.xml');
 assert.ok(sitemapText.trim().startsWith('<?xml'), 'sitemap must begin with an XML declaration');
@@ -141,4 +141,4 @@ assert.match(accessibleTest, /sibling error node is retained/, 'validation acces
 assert.match(read('.github/workflows/phase-one-ci.yml'), /browser-smoke-staging\.js/, 'full workflow must run source-staging interaction tests');
 assert.match(read('.github/workflows/phase-one-ci.yml'), /accessibility-smoke\.js/, 'full workflow must run all-page accessibility checks');
 
-console.log('PASS: 170 routes, 313 source-matched static field bounds, inventory/file parity, unique 142-URL sitemap, per-route sign-off register and release-gate honesty.');
+console.log('PASS: 170 routes, 313 source-matched static field bounds, inventory/file parity, unique 175-URL sitemap, per-route sign-off register and release-gate honesty.');
