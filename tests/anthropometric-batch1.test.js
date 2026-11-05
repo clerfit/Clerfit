@@ -91,6 +91,7 @@ function runPage(calculator, values, fieldSpecs) {
     field.min = String(spec.min == null ? '' : spec.min);
     field.max = String(spec.max == null ? '' : spec.max);
     field.required = spec.required !== false;
+    if (spec.validity) field.validity = spec.validity;
     return field;
   });
   let ready;
@@ -150,6 +151,12 @@ page = runPage('bai', { hip: 100, hipUnit: 'cm', height: 175, heightUnit: 'cm', 
 ]);
 assert.match(page.html, /valid values within the displayed ranges/i);
 assert.doesNotMatch(page.html, /BAI:/);
+page = runPage('bai', { hip: 100, hipUnit: 'cm', height: 175, heightUnit: 'cm', age: 18.5 }, [
+  { id: 'hip', min: 30, max: 250 }, { id: 'height', min: 80, max: 250 },
+  { id: 'age', min: 18, max: 120, validity: { valid: false } }
+]);
+assert.match(page.html, /valid values within the displayed ranges/i);
+assert.doesNotMatch(page.html, /BAI:/, 'step-mismatched adult age must not calculate');
 
 // Every page exposes local unit controls, real derived outputs and shared behavior.
 const pages = [
