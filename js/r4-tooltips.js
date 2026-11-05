@@ -19,6 +19,7 @@
     button.dataset.cfR4TooltipReady = 'true';
     button.setAttribute('aria-expanded', 'false');
     button.setAttribute('aria-haspopup', 'true');
+    button.setAttribute('aria-description', button.dataset.tooltip);
     button.addEventListener('click', event => {
       event.preventDefault();
       const opening = button.getAttribute('aria-expanded') !== 'true';
@@ -35,6 +36,7 @@
 
   function scan(node) {
     if (!node) return;
+    if (node.matches && node.matches(TRIGGER) && node.closest(ROOT)) initButton(node);
     if (node.matches && node.matches(ROOT)) {
       if (node.matches(TRIGGER)) initButton(node);
       node.querySelectorAll(TRIGGER).forEach(initButton);
