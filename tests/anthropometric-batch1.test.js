@@ -69,6 +69,34 @@ assert.throws(() => api.calculateBAI(100, 'cm', 175, 'cm', 17), /adults aged 18�
 assert.throws(() => api.calculateBAI(0, 'cm', 175, 'cm', 30), /positive finite value/i);
 assert.throws(() => api.calculateBAI(250, 'cm', 80, 'cm', 30), /outside 0–100%/);
 
+// Exact lower/upper domain boundaries for every formula input.
+for (const [kind, min, max] of [
+  ['neck-circumference', 10, 100],
+  ['mid-thigh-circumference', 15, 120],
+  ['calf-circumference', 10, 100]
+]) {
+  assert.doesNotThrow(() => api.circleMetrics(kind, min, 'cm'), kind + ' accepts its exact lower circumference bound');
+  assert.doesNotThrow(() => api.circleMetrics(kind, max, 'cm'), kind + ' accepts its exact upper circumference bound');
+  assert.throws(() => api.circleMetrics(kind, min - 0.001, 'cm'), kind + ' rejects below its lower bound');
+  assert.throws(() => api.circleMetrics(kind, max + 0.001, 'cm'), kind + ' rejects above its upper bound');
+}
+assert.doesNotThrow(() => api.muacMetrics(5, 'cm', 1, 'mm'), 'MUAC accepts lower arm and skinfold bounds');
+assert.doesNotThrow(() => api.muacMetrics(80, 'cm', 60, 'mm'), 'MUAC accepts upper arm and skinfold bounds when the relationship is valid');
+assert.throws(() => api.muacMetrics(4.999, 'cm', 1, 'mm'), /between 5 and 80 cm/i);
+assert.throws(() => api.muacMetrics(80.001, 'cm', 1, 'mm'), /between 5 and 80 cm/i);
+assert.throws(() => api.muacMetrics(30, 'cm', 0.99, 'mm'), /between 0\.1 and 6 cm/i);
+assert.throws(() => api.muacMetrics(30, 'cm', 60.001, 'mm'), /between 0\.1 and 6 cm/i);
+assert.doesNotThrow(() => api.calculateBAI(100, 'cm', 175, 'cm', 18), 'BAI accepts age 18');
+assert.doesNotThrow(() => api.calculateBAI(100, 'cm', 175, 'cm', 120), 'BAI accepts age 120');
+assert.throws(() => api.calculateBAI(100, 'cm', 175, 'cm', 17.999), /18–120/i);
+assert.throws(() => api.calculateBAI(100, 'cm', 175, 'cm', 120.001), /18–120/i);
+assert.doesNotThrow(() => api.calculateBAI(30, 'cm', 80, 'cm', 30), 'BAI accepts lower hip and height bounds');
+assert.doesNotThrow(() => api.calculateBAI(250, 'cm', 250, 'cm', 30), 'BAI accepts upper hip and height bounds');
+assert.throws(() => api.calculateBAI(29.999, 'cm', 80, 'cm', 30), /between 30 and 250 cm/i);
+assert.throws(() => api.calculateBAI(250.001, 'cm', 250, 'cm', 30), /between 30 and 250 cm/i);
+assert.throws(() => api.calculateBAI(30, 'cm', 79.999, 'cm', 30), /between 80 and 250 cm/i);
+assert.throws(() => api.calculateBAI(100, 'cm', 250.001, 'cm', 30), /between 80 and 250 cm/i);
+
 // Exercise actual page event wiring, validation, output and reset behavior.
 function runPage(calculator, values, fieldSpecs) {
   const elements = new Map();
