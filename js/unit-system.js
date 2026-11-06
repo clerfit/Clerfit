@@ -199,11 +199,13 @@
   function wireSelect(select) {
     if (!select || !select.matches('select') || !classify(select) || select.dataset.clerfitUnitWired) return;
     const inputs = findInputs(select);
+    inputs.forEach(rememberBounds);
     // No target means this selector is an output preference or a separate converter;
     // never guess an unrelated input from a whole row/card.
     if (!inputs.length) return;
     select.dataset.clerfitUnitWired = 'true';
     select.dataset.clerfitPreviousUnit = select.value;
+    if (select.form) wireFormReset(select.form);
     select.addEventListener('change', () => {
       const prev = select.dataset.clerfitPreviousUnit || select.value, next = select.value;
       if (prev !== next) {
