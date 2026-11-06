@@ -10,6 +10,8 @@ const makeInput = () => {
   const attrs = new Map([['min', '80'], ['max', '250']]);
   return {
     id: 'height', type: 'number', value: '175', disabled: false, readOnly: false,
+    get min() { return attrs.get('min') || ''; },
+    get max() { return attrs.get('max') || ''; },
     dataset: {},
     getAttribute: key => attrs.has(key) ? attrs.get(key) : null,
     setAttribute: (key, value) => attrs.set(key, String(value)),
