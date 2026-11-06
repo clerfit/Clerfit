@@ -110,7 +110,7 @@ function runPage(calculator, values, fieldSpecs) {
         getAttribute(name) { return attrs.has(name) ? attrs.get(name) : null; },
         removeAttribute(name) { attrs.delete(name); },
         hasAttribute(name) { return attrs.has(name); },
-        matches(selector) { return selector === '[data-field]' ? this.dataField === true : selector === 'input[type="number"]' ? this.type === 'number' : false; },
+        matches(selector) { return selector === '[data-field]' ? this.dataField === true : selector === 'input[type="number"]' ? this.type === 'number' : selector === 'select' ? this.type === 'select-one' : false; },
         focus() { this.focused = true; },
         addEventListener(type, callback) { handlers[id + ':' + type] = callback; },
         querySelector() { return null; }
@@ -122,7 +122,11 @@ function runPage(calculator, values, fieldSpecs) {
   form.querySelectorAll = selector => selector === '[aria-invalid="true"]' ? fields.filter(field => field.getAttribute('aria-invalid') === 'true') : [];
   form.addEventListener = (type, callback) => { handlers[type] = callback; };
   const output = make('calc-result');
-  Object.entries(values).forEach(([id, value]) => { make(id).value = String(value); });
+  Object.entries(values).forEach(([id, value]) => {
+    const element = make(id);
+    if (/Unit$/.test(id)) element.type = 'select-one';
+    element.value = String(value);
+  });
   const fields = fieldSpecs.map(spec => {
     const field = make(spec.id);
     field.type = 'number';
