@@ -279,11 +279,8 @@
   });
   form.addEventListener("submit", event => { event.preventDefault(); clearResultFieldErrors(form, output); calculate(); });
   form.addEventListener("reset", () => {
-   const clear = () => {
-    if (output) { output.innerHTML = ""; output.textContent = ""; }
-    clearResultFieldErrors(form, output);
-   };
-   if (typeof requestAnimationFrame === "function") requestAnimationFrame(clear); else Promise.resolve().then(clear);
+   if (output) { output.innerHTML = ""; output.textContent = ""; }
+   clearResultFieldErrors(form, output);
   });
  });
 })();
