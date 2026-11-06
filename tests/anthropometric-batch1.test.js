@@ -223,6 +223,26 @@ for (const [file, calculator] of pages) {
   assert.match(html, /anthropometric-calculators\.js/, file + ' loads the calculation engine');
 }
 
+// Editing any measurement or changing any unit invalidates the displayed result on every Batch 1 page.
+const staleCases = [
+  ['neck-circumference', { neck: 40, neckUnit: 'cm' }, [{ id: 'neck', min: 10, max: 100 }], 'neck', 'neckUnit'],
+  ['muac', { muac: 30, muacUnit: 'cm', tricepsSkinfold: 10, tricepsUnit: 'mm' }, [{ id: 'muac', min: 5, max: 80 }, { id: 'tricepsSkinfold', min: 1, max: 60 }], 'muac', 'muacUnit'],
+  ['mid-thigh-circumference', { thigh: 50, thighUnit: 'cm', segmentLength: '', segmentLengthUnit: 'cm' }, [{ id: 'thigh', min: 15, max: 120 }, { id: 'segmentLength', min: 5, max: 100, required: false }], 'thigh', 'thighUnit'],
+  ['calf-circumference', { calf: 35, calfUnit: 'cm', segmentLength: '', segmentLengthUnit: 'cm' }, [{ id: 'calf', min: 10, max: 100 }, { id: 'segmentLength', min: 5, max: 80, required: false }], 'calf', 'calfUnit'],
+  ['bai', { hip: 100, hipUnit: 'cm', height: 175, heightUnit: 'cm', age: 30 }, [{ id: 'hip', min: 30, max: 250 }, { id: 'height', min: 80, max: 250 }, { id: 'age', min: 18, max: 120 }], 'hip', 'hipUnit']
+];
+for (const [kind, values, specs, inputId, unitId] of staleCases) {
+  const current = runPage(kind, values, specs);
+  assert.notEqual(current.html, '', kind + ' initially calculates');
+  current.field(inputId).value = String(Number(current.field(inputId).value) + 1);
+  current.input(inputId);
+  assert.equal(current.html, '', kind + ' clears stale output after measurement edits');
+  const recalculated = runPage(kind, values, specs);
+  assert.notEqual(recalculated.html, '', kind + ' can calculate again');
+  recalculated.change(unitId);
+  assert.equal(recalculated.html, '', kind + ' clears stale output after unit changes');
+}
+
 // Adversarial UI checks: cross-field MUAC error association, result invalidation and recovery.
 page = runPage('muac', { muac: 5, muacUnit: 'cm', tricepsSkinfold: 60, tricepsUnit: 'mm' }, [
   { id: 'muac', min: 5, max: 80 }, { id: 'tricepsSkinfold', min: 1, max: 60 }
