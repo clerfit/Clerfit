@@ -74,12 +74,20 @@ function runPage(calculator, values, fieldSpecs) {
   const elements = new Map();
   const handlers = {};
   const make = id => {
-    if (!elements.has(id)) elements.set(id, {
-      id, value: '', min: '', max: '', required: false, innerHTML: '', textContent: '',
-      focus() {},
-      addEventListener(type, callback) { handlers[id + ':' + type] = callback; },
-      querySelector() { return null; }
-    });
+    if (!elements.has(id)) {
+      const attrs = new Map();
+      elements.set(id, {
+        id, value: '', min: '', max: '', required: false, innerHTML: '', textContent: '',
+        setAttribute(name, value) { attrs.set(name, String(value)); },
+        getAttribute(name) { return attrs.has(name) ? attrs.get(name) : null; },
+        removeAttribute(name) { attrs.delete(name); },
+        hasAttribute(name) { return attrs.has(name); },
+        matches(selector) { return selector === '[data-field]' ? this.dataField === true : selector === 'input[type="number"]' ? this.type === 'number' : false; },
+        focus() { this.focused = true; },
+        addEventListener(type, callback) { handlers[id + ':' + type] = callback; },
+        querySelector() { return null; }
+      });
+    }
     return elements.get(id);
   };
   const form = make('calc-form');
@@ -88,6 +96,8 @@ function runPage(calculator, values, fieldSpecs) {
   Object.entries(values).forEach(([id, value]) => { make(id).value = String(value); });
   const fields = fieldSpecs.map(spec => {
     const field = make(spec.id);
+    field.type = 'number';
+    field.dataField = true;
     field.min = String(spec.min == null ? '' : spec.min);
     field.max = String(spec.max == null ? '' : spec.max);
     field.required = spec.required !== false;
@@ -98,7 +108,7 @@ function runPage(calculator, values, fieldSpecs) {
   const pageDocument = {
     body: { dataset: { calculator } },
     getElementById: id => elements.get(id) || null,
-    querySelectorAll: selector => selector === '[data-field]' ? fields : [],
+    querySelectorAll: selector => selector === '[data-field]' ? fields : selector === '[aria-invalid="true"]' ? fields.filter(field => field.getAttribute('aria-invalid') === 'true') : [],
     addEventListener: (type, callback) => { if (type === 'DOMContentLoaded') ready = callback; }
   };
   const pageWindow = {};
@@ -110,7 +120,14 @@ function runPage(calculator, values, fieldSpecs) {
   ready();
   assert.equal(typeof handlers.submit, 'function', calculator + ' wires form submission');
   handlers.submit({ preventDefault() {} });
-  return { get html() { return output.innerHTML; }, reset: () => handlers.reset({}) };
+  return {
+    get html() { return output.innerHTML; },
+    output,
+    field: id => make(id),
+    input: id => handlers.input && handlers.input({ target: make(id) }),
+    change: id => handlers.change && handlers.change({ target: make(id) }),
+    reset: () => handlers.reset({})
+  };
 }
 
 let page = runPage('neck-circumference', { neck: 10 * Math.PI, neckUnit: 'cm' }, [
@@ -124,6 +141,7 @@ assert.equal(page.html, '', 'Reset clears the result');
 page = runPage('muac', { muac: 30, muacUnit: 'cm', tricepsSkinfold: 10, tricepsUnit: 'mm' }, [
   { id: 'muac', min: 5, max: 80 }, { id: 'tricepsSkinfold', min: 1, max: 60 }
 ]);
+assert.match(page.html, /Total arm area: 71\.62 cm²/);
 assert.match(page.html, /\(MUAMC\): 26\.858 cm/);
 assert.match(page.html, /fat-area fraction: 19\.847%/);
 
@@ -175,6 +193,35 @@ for (const [file, calculator] of pages) {
   assert.match(html, /id="calc-result"[^>]*aria-live="polite"/, file + ' has an announced result region');
   assert.match(html, /anthropometric-calculators\.js/, file + ' loads the calculation engine');
 }
+
+// Adversarial UI checks: cross-field MUAC error association, result invalidation and recovery.
+page = runPage('muac', { muac: 5, muacUnit: 'cm', tricepsSkinfold: 60, tricepsUnit: 'mm' }, [
+  { id: 'muac', min: 5, max: 80 }, { id: 'tricepsSkinfold', min: 1, max: 60 }
+]);
+assert.match(page.html, /too large for this MUAC/i);
+assert.equal(page.field('muac').getAttribute('aria-invalid'), 'true');
+assert.equal(page.field('tricepsSkinfold').getAttribute('aria-invalid'), 'true');
+assert.match(page.field('tricepsSkinfold').getAttribute('aria-describedby'), /calc-result/);
+assert.equal(page.field('tricepsSkinfold').focused, true, 'MUAC cross-field error focuses the skinfold input');
+page.field('tricepsSkinfold').value = '10';
+page.input('tricepsSkinfold');
+assert.equal(page.html, '', 'Editing a measurement clears stale results');
+assert.equal(page.field('muac').getAttribute('aria-invalid'), null, 'Editing clears cross-field invalid state');
+assert.equal(page.field('tricepsSkinfold').getAttribute('aria-invalid'), null, 'Editing clears cross-field invalid state');
+
+// Each calculator's HTML field boundaries must be present, finite and ordered.
+for (const [file] of pages) {
+  const html = fs.readFileSync('html/' + file, 'utf8');
+  const numericFields = [...html.matchAll(/<input\\b[^>]*type="number"[^>]*>/gi)];
+  assert.ok(numericFields.length > 0, file + ' has numeric calculator inputs');
+  for (const match of numericFields) {
+    const tag = match[0];
+    const min = Number((tag.match(/\\bmin="([^"]+)"/i) || [])[1]);
+    const max = Number((tag.match(/\\bmax="([^"]+)"/i) || [])[1]);
+    assert.ok(Number.isFinite(min) && Number.isFinite(max) && min > 0 && max > min, file + ' has positive, ordered numeric boundaries');
+  }
+}
+
 assert.match(tooltipSource, /body adiposity index/i, 'BAI has contextual help');
 assert.match(tooltipSource, /mid-upper-arm circumference/i, 'MUAC has contextual help');
 assert.match(tooltipSource, /\.header h1/, 'specialist calculator headings receive contextual help');
