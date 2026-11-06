@@ -159,6 +159,15 @@
     const hasTo = selects.some(select => /^(?:to|to.*unit)$/i.test(select.id || ''));
     return hasFrom && hasTo;
   }
+  // Clear cached inline error nodes on reset; removing only the DOM node leaves a
+  // detached reference on the input and breaks the next validation attempt.
+  document.addEventListener('reset', e => {
+    const form = e.target;
+    if (!form || !form.querySelectorAll) return;
+    const clear = () => form.querySelectorAll('input[type="number"]').forEach(clearError);
+    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(clear);
+    else Promise.resolve().then(clear);
+  }, true);
   document.addEventListener('input', e => { if (e.target.matches('input[type="number"]') && e.target.getAttribute('aria-invalid') === 'true') validate(e.target, true); });
   document.addEventListener('blur', e => { if (e.target.matches('input[type="number"]') && e.target.value !== '') validate(e.target, true); }, true);
   document.addEventListener('click', e => {
@@ -181,5 +190,5 @@
     for (const el of visibleNumericInputs(scope)) if (!validate(el, true) && !firstInvalid) firstInvalid = el;
     if (firstInvalid) { e.preventDefault(); firstInvalid.focus(); }
   }, true);
-  window.ClerFitValidation = { bounds, validate, fieldText };
+  window.ClerFitValidation = { bounds, validate, fieldText, clearError };
 })();
