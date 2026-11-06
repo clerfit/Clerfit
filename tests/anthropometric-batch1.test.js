@@ -91,6 +91,7 @@ function runPage(calculator, values, fieldSpecs) {
     return elements.get(id);
   };
   const form = make('calc-form');
+  form.querySelectorAll = selector => selector === '[aria-invalid="true"]' ? fields.filter(field => field.getAttribute('aria-invalid') === 'true') : [];
   form.addEventListener = (type, callback) => { handlers[type] = callback; };
   const output = make('calc-result');
   Object.entries(values).forEach(([id, value]) => { make(id).value = String(value); });
@@ -212,12 +213,12 @@ assert.equal(page.field('tricepsSkinfold').getAttribute('aria-invalid'), null, '
 // Each calculator's HTML field boundaries must be present, finite and ordered.
 for (const [file] of pages) {
   const html = fs.readFileSync('html/' + file, 'utf8');
-  const numericFields = [...html.matchAll(/<input\\b[^>]*type="number"[^>]*>/gi)];
+  const numericFields = [...html.matchAll(/<input\b[^>]*type="number"[^>]*>/gi)];
   assert.ok(numericFields.length > 0, file + ' has numeric calculator inputs');
   for (const match of numericFields) {
     const tag = match[0];
-    const min = Number((tag.match(/\\bmin="([^"]+)"/i) || [])[1]);
-    const max = Number((tag.match(/\\bmax="([^"]+)"/i) || [])[1]);
+    const min = Number((tag.match(/\bmin="([^"]+)"/i) || [])[1]);
+    const max = Number((tag.match(/\bmax="([^"]+)"/i) || [])[1]);
     assert.ok(Number.isFinite(min) && Number.isFinite(max) && min > 0 && max > min, file + ' has positive, ordered numeric boundaries');
   }
 }
