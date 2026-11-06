@@ -68,6 +68,7 @@ close(baiImperial.value, bai.value, 'BAI imperial conversion');
 assert.throws(() => api.calculateBAI(100, 'cm', 175, 'cm', 17), /adults aged 18–120/i);
 assert.throws(() => api.calculateBAI(0, 'cm', 175, 'cm', 30), /positive finite value/i);
 assert.throws(() => api.calculateBAI(250, 'cm', 80, 'cm', 30), /outside 0–100%/);
+assert.throws(() => api.calculateBAI(30, 'cm', 250, 'cm', 30), /outside 0–100%/, 'BAI negative output is rejected by the mathematical plausibility guard');
 
 // Exact lower/upper domain boundaries for every formula input.
 for (const [kind, min, max] of [
