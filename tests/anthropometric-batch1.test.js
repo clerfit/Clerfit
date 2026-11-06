@@ -158,7 +158,7 @@ function runPage(calculator, values, fieldSpecs) {
     output,
     field: id => make(id),
     input: id => handlers.input && handlers.input({ target: make(id) }),
-    change: id => handlers.change && handlers.change({ target: make(id) }),
+    change: id => handlers.change && handlers.change({ target: { id, matches: selector => selector === "select" } }),
     reset: () => handlers.reset({})
   };
 }
