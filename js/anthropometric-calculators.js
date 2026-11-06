@@ -113,7 +113,7 @@
   const outputId = output && output.id;
   if (!outputId || !form) return;
   form.querySelectorAll('[aria-invalid="true"]').forEach(field => {
-   const ids = (field.getAttribute("aria-describedby") || "").split(/\\s+/).filter(Boolean);
+   const ids = (field.getAttribute("aria-describedby") || "").split(/\s+/).filter(Boolean);
    if (!ids.includes(outputId)) return;
    field.removeAttribute("aria-invalid");
    const remaining = ids.filter(id => id !== outputId);
