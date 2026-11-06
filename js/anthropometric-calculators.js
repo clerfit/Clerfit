@@ -109,11 +109,31 @@
  const api = { toCm, circleMetrics, muacMetrics, calculateBAI };
  if (typeof window !== "undefined") window.ClerFitAnthropometric = api;
 
- function showError(out, message, fieldId) {
+ function clearResultFieldErrors(form, output) {
+  const outputId = output && output.id;
+  if (!outputId || !form) return;
+  form.querySelectorAll('[aria-invalid="true"]').forEach(field => {
+   const ids = (field.getAttribute("aria-describedby") || "").split(/\\s+/).filter(Boolean);
+   if (!ids.includes(outputId)) return;
+   field.removeAttribute("aria-invalid");
+   const remaining = ids.filter(id => id !== outputId);
+   if (remaining.length) field.setAttribute("aria-describedby", remaining.join(" "));
+   else field.removeAttribute("aria-describedby");
+  });
+ }
+ function showError(out, message, fieldIds) {
   const safeMessage = String(message).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   out.innerHTML = '<p class="cf-validation-message" role="alert">' + safeMessage + '</p>';
-  const field = fieldId ? $(fieldId) : null;
-  if (field && typeof field.focus === "function") field.focus();
+  const ids = Array.isArray(fieldIds) ? fieldIds : (fieldIds ? [fieldIds] : []);
+  const fields = ids.map(id => $(id)).filter(Boolean);
+  fields.forEach(field => {
+   field.setAttribute("aria-invalid", "true");
+   const describedBy = new Set((field.getAttribute("aria-describedby") || "").split(/\\s+/).filter(Boolean));
+   if (out.id) describedBy.add(out.id);
+   if (describedBy.size) field.setAttribute("aria-describedby", Array.from(describedBy).join(" "));
+  });
+  const focusField = fields[fields.length - 1];
+  if (focusField && typeof focusField.focus === "function") focusField.focus();
  }
 
  function calculate() {
@@ -158,7 +178,7 @@
     }
     case "muac": {
      const data = muacMetrics(num("muac"), $("muacUnit").value, num("tricepsSkinfold"), $("tricepsUnit").value);
-     result = "Mid-upper-arm muscle circumference (MUAMC): " + fmt(data.muscleCircumferenceCm) +
+     result = "Total arm area: " + fmt(data.totalArmAreaCm2) + " cm² · mid-upper-arm muscle circumference (MUAMC): " + fmt(data.muscleCircumferenceCm) +
       " cm · muscle-plus-bone area estimate (MUAMA): " + fmt(data.musclePlusBoneAreaCm2) +
       " cm² · arm fat-area estimate: " + fmt(data.fatAreaCm2) + " cm² · fat-area fraction: " + fmt(data.fatAreaPercent) + "%";
      note = "MUAMC = MUAC − π × triceps skinfold (both lengths converted to cm); MUAMA = MUAMC² ÷ (4π); total arm area = MUAC² ÷ (4π); arm fat area = total arm area − MUAMA. " +
@@ -235,7 +255,9 @@
     }
    }
   } catch (error) {
-   showError(out, error && error.message ? error.message : "Check the measurements and units.", null);
+   const relatedFields = kind === "muac" && /too large for this MUAC|muscle circumference/i.test(error && error.message || "")
+    ? ["muac", "tricepsSkinfold"] : null;
+   showError(out, error && error.message ? error.message : "Check the measurements and units.", relatedFields);
    return;
   }
   out.innerHTML = '<strong class="cf-result-value">' + result + '</strong><p class="cf-note">' + note + '</p>';
@@ -244,10 +266,24 @@
  document.addEventListener("DOMContentLoaded", () => {
   const form = $("calc-form");
   if (!form) return;
-  form.addEventListener("submit", event => { event.preventDefault(); calculate(); });
+  const output = $("calc-result");
+  const invalidateResult = () => {
+   if (output) { output.innerHTML = ""; output.textContent = ""; }
+   clearResultFieldErrors(form, output);
+  };
+  form.addEventListener("input", event => {
+   if (event.target && (event.target.matches("[data-field]") || event.target.matches('input[type="number"]'))) invalidateResult();
+  });
+  form.addEventListener("change", event => {
+   if (event.target && event.target.matches("select")) invalidateResult();
+  });
+  form.addEventListener("submit", event => { event.preventDefault(); clearResultFieldErrors(form, output); calculate(); });
   form.addEventListener("reset", () => {
-   const out = $("calc-result");
-   if (out) { out.innerHTML = ""; out.textContent = ""; }
+   const clear = () => {
+    if (output) { output.innerHTML = ""; output.textContent = ""; }
+    clearResultFieldErrors(form, output);
+   };
+   if (typeof requestAnimationFrame === "function") requestAnimationFrame(clear); else Promise.resolve().then(clear);
   });
  });
 })();
