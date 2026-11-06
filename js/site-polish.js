@@ -114,6 +114,14 @@
       form.dataset.clerfitResetWired='true';
       form.addEventListener('reset',()=>{
         const clear=()=>{
+          form.querySelectorAll('input[type="number"]').forEach(el=>{
+            if(window.ClerFitValidation&&typeof window.ClerFitValidation.clearError==='function') window.ClerFitValidation.clearError(el);
+            else {
+              el.removeAttribute('aria-invalid');
+              const node=el.__clerfitInputErrorNode;
+              if(node){node.remove();delete el.__clerfitInputErrorNode;}
+            }
+          });
           form.querySelectorAll('[aria-invalid="true"]').forEach(el=>el.removeAttribute('aria-invalid'));
           form.querySelectorAll('.clerfit-input-error').forEach(el=>el.remove());
           if(form.id==='advanced-form'){

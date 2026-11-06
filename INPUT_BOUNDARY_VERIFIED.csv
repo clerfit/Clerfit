@@ -282,3 +282,7 @@ leg-height-ratio.html,leg,Leg length,20,160,any
 leg-height-ratio.html,height,Standing height,80,250,any
 sitting-height-ratio.html,sitting,Sitting height,30,150,any
 sitting-height-ratio.html,height,Standing height,80,250,any
+bai.html,age,Age (years),18,120,1
+calf-circumference.html,segmentLength,Optional segment length,5,80,any
+mid-thigh-circumference.html,segmentLength,Optional segment length,5,100,any
+muac.html,tricepsSkinfold,Triceps skinfold thickness,1,60,any

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101827">
-<meta name="description" content="Mid-Upper Arm Circumference (MUAC) Calculator. Educational measurement calculator with transparent method and limitations.">
+<meta name="description" content="Calculate mid-upper-arm muscle circumference and estimated arm areas from MUAC and triceps skinfold.">
 <link rel="icon" href="../favicon.ico" sizes="any">
 <link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
 <title>ClerFit – Mid-Upper Arm Circumference (MUAC) Calculator</title>
@@ -15,11 +15,22 @@
 <main class="main">
 <header class="header"><h1>Mid-Upper Arm Circumference (MUAC) Calculator</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
 <section class="card" aria-labelledby="calc-heading">
-<h2 id="calc-heading">Enter your measurements</h2>
-<p class="cf-note">Record mid-upper arm circumference at the midpoint between the shoulder and elbow landmarks. Interpretation requires the correct age- and population-specific reference.</p>
+<h2 id="calc-heading">Calculate derived arm measurements</h2>
+<p id="calc-help" class="cf-note">Measure MUAC and triceps skinfold on the same arm and side using a consistent anthropometric protocol. Skinfold thickness is a single-site thickness reading, not a doubled value.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="muac">Mid-upper arm circumference (cm)</label><input id="muac" name="muac" type="number" min="5" max="80" step="any" inputmode="decimal" required aria-label="Mid-upper arm circumference"></div>
+<div class="col">
+<label for="muac">Mid-upper-arm circumference (MUAC)</label>
+<input id="muac" name="muac" data-field type="number" min="5" max="80" step="any" inputmode="decimal" required aria-describedby="calc-help">
+<label for="muacUnit">MUAC unit</label>
+<select id="muacUnit" data-unit-for="muac"><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select>
+</div>
+<div class="col">
+<label for="tricepsSkinfold">Triceps skinfold thickness</label>
+<input id="tricepsSkinfold" name="tricepsSkinfold" data-field type="number" min="1" max="60" step="any" inputmode="decimal" required aria-describedby="calc-help">
+<label for="tricepsUnit">Skinfold unit</label>
+<select id="tricepsUnit" data-unit-for="tricepsSkinfold"><option value="mm">Millimetres (mm)</option><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select>
+</div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
@@ -27,11 +38,11 @@
 </section>
 <section class="card">
 <h2>Method and limitations</h2>
-<p>Record mid-upper arm circumference at the midpoint between the shoulder and elbow landmarks. Interpretation requires the correct age- and population-specific reference.</p>
-<p>Use consistent measurement landmarks, units and conditions when comparing results over time. ClerFit provides educational calculations, not medical diagnosis or personalised treatment advice.</p>
+<p>MUAMC = MUAC − π × triceps skinfold, after converting both lengths to the same unit. Total arm area = MUAC² ÷ (4π); MUAMA = MUAMC² ÷ (4π); estimated arm fat area = total arm area − MUAMA.</p>
+<p>The model approximates the arm as concentric circles. Skinfold compressibility, measurement technique and bone size affect accuracy. MUAMA includes the bone area and is not a direct measurement of muscle mass. No age- or sex-based clinical category is assigned.</p>
 </section>
 </main>
-<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Enter values within the displayed ranges, select Calculate, and review the method and limitations alongside the result.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
+<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Measure MUAC at the midpoint between the acromion and olecranon landmarks. Measure triceps skinfold at the corresponding site with an appropriate skinfold caliper, then enter both readings and their units.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
 <script src="../js/navigation.js" defer></script>
 <script src="../js/unit-system.js" defer></script>
 <script src="../js/anthropometric-calculators.js" defer></script>
