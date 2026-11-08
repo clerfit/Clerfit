@@ -77,6 +77,14 @@ const cases = [
     assert.ok((await page.locator('#tricepsSkinfold').getAttribute('aria-describedby')).includes('calc-result'));
     assert.equal(await page.evaluate(() => document.activeElement.id), 'tricepsSkinfold');
 
+    // Editing either related input must clear invalid state while preserving original help text.
+    await page.locator('#tricepsSkinfold').fill('10');
+    assert.equal(await page.locator('#muac').getAttribute('aria-invalid'), null);
+    assert.equal(await page.locator('#tricepsSkinfold').getAttribute('aria-invalid'), null);
+    assert.equal(await page.locator('#muac').getAttribute('aria-describedby'), 'calc-help');
+    assert.equal(await page.locator('#tricepsSkinfold').getAttribute('aria-describedby'), 'calc-help');
+    assert.equal((await page.locator('#calc-result').innerText()).trim(), '');
+
     // Reset must remove cached validation nodes; a subsequent invalid submit must create a visible node.
     await page.locator('#muac').fill('');
     await page.locator('#tricepsSkinfold').fill('10');
