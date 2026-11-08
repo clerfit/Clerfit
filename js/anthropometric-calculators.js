@@ -128,7 +128,7 @@
   const fields = ids.map(id => $(id)).filter(Boolean);
   fields.forEach(field => {
    field.setAttribute("aria-invalid", "true");
-   const describedBy = new Set((field.getAttribute("aria-describedby") || "").split(/\\s+/).filter(Boolean));
+   const describedBy = new Set((field.getAttribute("aria-describedby") || "").split(/\s+/).filter(Boolean));
    if (out.id) describedBy.add(out.id);
    if (describedBy.size) field.setAttribute("aria-describedby", Array.from(describedBy).join(" "));
   });
