@@ -132,6 +132,7 @@ function runPage(calculator, values, fieldSpecs) {
     const field = make(spec.id);
     field.type = 'number';
     field.dataField = true;
+    field.setAttribute('aria-describedby', 'calc-help');
     field.min = String(spec.min == null ? '' : spec.min);
     field.max = String(spec.max == null ? '' : spec.max);
     field.required = spec.required !== false;
@@ -262,6 +263,8 @@ page.input('tricepsSkinfold');
 assert.equal(page.html, '', 'Editing a measurement clears stale results');
 assert.equal(page.field('muac').getAttribute('aria-invalid'), null, 'Editing clears cross-field invalid state');
 assert.equal(page.field('tricepsSkinfold').getAttribute('aria-invalid'), null, 'Editing clears cross-field invalid state');
+assert.equal(page.field('muac').getAttribute('aria-describedby'), 'calc-help', 'Editing preserves original MUAC help association');
+assert.equal(page.field('tricepsSkinfold').getAttribute('aria-describedby'), 'calc-help', 'Editing preserves original skinfold help association');
 
 // Each calculator's HTML field boundaries must be present, finite and ordered.
 for (const [file] of pages) {
