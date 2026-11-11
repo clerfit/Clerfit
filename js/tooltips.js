@@ -86,6 +86,11 @@
     wrap.append(btn,pop); target.appendChild(wrap);
   }
   function init() {
+    // Explicit term markers expose glossary help for specialist abbreviations in explanatory copy.
+    document.querySelectorAll('[data-cf-tip]').forEach(el => {
+      const term = el.getAttribute('data-cf-tip') || el.textContent || '';
+      if (!el.querySelector('.cf-tip-wrap')) addTip(el, term, glossary[norm(term)] || hintFor(term));
+    });
     // Keep the interface quiet: add visible help only for unfamiliar/specialist terms.
     const specialist = /\b(bmi|bmr|rmr|tdee|ffmi|1rm|one[- ]rep max|metabolic age|somatotype|facial thirds|facial balance|absi|rfm|ponderal index|vo2 max|vo2max|met|rpe|cadence|stride length|step length|cooper test|session density|training[- ]rest ratio|load[- ]recovery ratio|fatigue index|waist[- ]to[- ]hip ratio|waist[- ]to[- ]height ratio|body surface area|relative strength|energy balance|work[- ]rest balance|sedentary ratio|uv index|heat exposure|cold exposure|forward head index|sit[- ]stand ratio|water loss replacement|electrolyte|lean body mass|body fat percentage|body adiposity index|appendicular lean mass|fat-free mass|skeletal muscle mass|relative muscle mass|body composition|body-fat percentage|dxa|smmi|almi|fmi|neck circumference|mid-upper-arm circumference|mid-thigh circumference|calf circumference|triceps skinfold|mid-upper-arm muscle circumference|bai|muac|facial ratio|jaw width ratio|chin height ratio|eye spacing|lower face height)\b/i;
     const isFaceCalculator = /face|facial|jaw|chin|nose|mouth|eye-spacing|lower-face/i.test(location.pathname);
