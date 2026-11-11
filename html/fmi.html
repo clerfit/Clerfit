@@ -19,8 +19,8 @@
 <p class="cf-note">FMI is fat mass divided by height squared. It is a descriptive body-composition index, not a diagnosis.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="fat">Fat mass (kg)</label><input id="fat" name="fat" type="number" min="0.1" max="300" step="any" inputmode="decimal" required aria-label="Fat mass"></div>
-<div class="col"><label for="height">Height (cm)</label><input id="height" name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Height"></div>
+<div class="col"><label for="fat">Fat mass</label><input id="fat" data-field name="fat" type="number" min="0.1" max="300" step="any" inputmode="decimal" required aria-label="Fat mass"><label for="fatUnit">Fat mass unit</label><select id="fatUnit" data-unit-for="fat" aria-label="Fat mass unit"><option value="kg" selected>Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
+<div class="col"><label for="height">Height</label><input id="height" data-field name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Height"><label for="heightUnit">Height unit</label><select id="heightUnit" data-unit-for="height" aria-label="Height unit"><option value="cm" selected>Centimetres (cm)</option><option value="in">Inches (in)</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
