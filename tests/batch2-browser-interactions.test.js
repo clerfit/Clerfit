@@ -26,7 +26,7 @@ const cases = [
    assert.match(result,item.expected,item.page+' returns expected canonical calculation');
    assert.doesNotMatch(result,/NaN|Infinity/);
    for(const term of (item.terms||[])) {
-    const marker=page.locator('[data-cf-tip="'+term+'"] .cf-tip-trigger');
+    const marker=page.locator('[data-cf-tip="'+term+'"] .cf-tip-trigger').first();
     await marker.waitFor({state:'visible'});
     await marker.click();
     assert.equal(await marker.getAttribute('aria-expanded'),'true',item.page+' exposes '+term+' tooltip');
