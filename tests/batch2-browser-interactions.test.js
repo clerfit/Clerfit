@@ -30,7 +30,7 @@ const cases = [
     await marker.waitFor({state:'visible'});
     await marker.click();
     assert.equal(await marker.getAttribute('aria-expanded'),'true',item.page+' exposes '+term+' tooltip');
-    await page.locator('body').click({position:{x:5,y:5}});
+    await page.evaluate(()=>document.querySelector('main').dispatchEvent(new MouseEvent('click',{bubbles:true})));
    }
    const tip=page.locator('.cf-tip-trigger').first();
    await tip.waitFor({state:'visible'});
