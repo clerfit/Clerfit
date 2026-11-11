@@ -19,8 +19,8 @@
 <p class="cf-note">ALMI is appendicular lean mass divided by height squared. Use an appendicular lean-mass value from a suitable body-composition assessment; interpretation depends on reference population.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="alm">Appendicular lean mass (kg)</label><input id="alm" name="alm" type="number" min="1" max="100" step="any" inputmode="decimal" required aria-label="Appendicular lean mass"></div>
-<div class="col"><label for="height">Height (cm)</label><input id="height" name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Height"></div>
+<div class="col"><label for="alm">Appendicular lean mass</label><input id="alm" data-field name="alm" type="number" min="1" max="100" step="any" inputmode="decimal" required aria-label="Appendicular lean mass"><label for="almUnit">Appendicular lean mass unit</label><select id="almUnit" data-unit-for="alm" aria-label="Appendicular lean mass unit"><option value="kg" selected>Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
+<div class="col"><label for="height">Height</label><input id="height" data-field name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Height"><label for="heightUnit">Height unit</label><select id="heightUnit" data-unit-for="height" aria-label="Height unit"><option value="cm" selected>Centimetres (cm)</option><option value="in">Inches (in)</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
