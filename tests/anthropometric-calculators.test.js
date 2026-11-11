@@ -32,6 +32,9 @@ const sandbox = { window: {}, document: { addEventListener() {} }, Number, Math,
 vm.runInNewContext(engine, sandbox);
 const calc = sandbox.window.ClerFitAnthropometric;
 assert.equal(calc.bodyCompositionMetrics(30, 60).relativeMuscleMassPercent, 50);
+assert.equal(calc.toKg(66.138678, 'lb'), 30, 'pounds convert to canonical kilograms');
+assert.equal(calc.toHeightCm(70.8661417, 'in'), 180, 'inches convert to canonical centimetres');
+assert.equal(calc.bodyCompositionMetrics(calc.toKg(66.138678, 'lb'), calc.toKg(132.277357, 'lb')).relativeMuscleMassPercent, 50);
 assert.throws(() => calc.bodyCompositionMetrics(61, 60), /cannot exceed total body weight/);
 assert.equal(calc.skeletalMuscleMetrics(30, 60, 180).smmiKgM2, 30 / 3.24);
 assert.equal(calc.heightIndexedMass(20, 200, 'Fat mass').indexKgM2, 5);
