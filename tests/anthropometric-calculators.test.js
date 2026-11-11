@@ -2,6 +2,7 @@
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const vm = require('node:vm');
 const pages = [
 'neck-circumference','muac','mid-thigh-circumference','calf-circumference','bai',
 'relative-muscle-mass','skeletal-muscle-mass','almi','fmi','ffmi-comparison',
@@ -26,3 +27,18 @@ for (const slug of pages) assert.ok(navigation.includes('"'+slug+'"'), 'Navigati
 const sitemap=fs.readFileSync('sitemap.xml','utf8');
 for (const slug of pages) assert.ok(sitemap.includes('/html/'+slug+'.html'), 'Sitemap missing '+slug);
 console.log('Anthropometric calculator page checks passed: '+pages.length+' pages.');
+
+const sandbox = { window: {}, document: { addEventListener() {} }, Number, Math, Object, RangeError };
+vm.runInNewContext(engine, sandbox);
+const calc = sandbox.window.ClerFitAnthropometric;
+assert.equal(calc.bodyCompositionMetrics(30, 60).relativeMuscleMassPercent, 50);
+assert.throws(() => calc.bodyCompositionMetrics(61, 60), /cannot exceed total body weight/);
+assert.equal(calc.skeletalMuscleMetrics(30, 60, 180).smmiKgM2, 30 / 3.24);
+assert.equal(calc.heightIndexedMass(20, 200, 'Fat mass').indexKgM2, 5);
+assert.equal(calc.ffmiMetrics(80, 20, 200).ffmiKgM2, 16);
+assert.equal(calc.compareFFMI(calc.ffmiMetrics(80, 20, 200), calc.ffmiMetrics(80, 10, 200)).higher, 'B');
+assert.throws(() => calc.ffmiMetrics(80, 100, 180), /between 0 and 75/);
+assert.throws(() => calc.heightIndexedMass(0, 180, 'Fat mass'), /positive finite/);
+assert.throws(() => calc.skeletalMuscleMetrics(20, 60, 79), /between 80 and 250/);
+console.log('Batch 2 known-answer and invalid-domain formula checks passed.');
+
