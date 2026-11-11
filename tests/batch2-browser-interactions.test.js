@@ -25,7 +25,14 @@ const cases = [
    const result=await page.locator('#calc-result').innerText();
    assert.match(result,item.expected,item.page+' returns expected canonical calculation');
    assert.doesNotMatch(result,/NaN|Infinity/);
-   for(const term of (item.terms||[])) {\n    const marker=page.locator('[data-cf-tip="'+term+'"] .cf-tip-trigger');\n    await marker.waitFor({state:'visible'});\n    await marker.click();\n    assert.equal(await marker.getAttribute('aria-expanded'),'true',item.page+' exposes '+term+' tooltip');\n    await page.locator('body').click({position:{x:5,y:5}});\n   }\n   const tip=page.locator('.cf-tip-trigger').first();
+   for(const term of (item.terms||[])) {
+    const marker=page.locator('[data-cf-tip="'+term+'"] .cf-tip-trigger');
+    await marker.waitFor({state:'visible'});
+    await marker.click();
+    assert.equal(await marker.getAttribute('aria-expanded'),'true',item.page+' exposes '+term+' tooltip');
+    await page.locator('body').click({position:{x:5,y:5}});
+   }
+   const tip=page.locator('.cf-tip-trigger').first();
    await tip.waitFor({state:'visible'});
    await tip.click();
    assert.equal(await tip.getAttribute('aria-expanded'),'true');
