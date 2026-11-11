@@ -3,8 +3,8 @@ const assert = require('node:assert/strict');
 const { chromium } = require('playwright');
 const base = process.argv[2] || 'http://127.0.0.1:4173/';
 const cases = [
- {page:'relative-muscle-mass.html', fields:{muscle:'30',weight:'60'}, selectors:{muscleUnit:'lb',weightUnit:'lb'}, expected:/50% of body mass/},
- {page:'skeletal-muscle-mass.html', terms:['SMMI','DXA'], fields:{muscle:'30',weight:'60',height:'180'}, selectors:{muscleUnit:'lb',weightUnit:'lb',heightUnit:'in'}, expected:/SMMI 9\.259 kg\/m²/},
+ {page:'relative-muscle-mass.html', terms:['relative muscle mass'], fields:{muscle:'30',weight:'60'}, selectors:{muscleUnit:'lb',weightUnit:'lb'}, expected:/50% of body mass/},
+ {page:'skeletal-muscle-mass.html', terms:['skeletal muscle mass','SMMI','DXA'], fields:{muscle:'30',weight:'60',height:'180'}, selectors:{muscleUnit:'lb',weightUnit:'lb',heightUnit:'in'}, expected:/SMMI 9\.259 kg\/m²/},
  {page:'almi.html', terms:['ALMI','appendicular lean mass'], fields:{alm:'20',height:'200'}, selectors:{almUnit:'lb',heightUnit:'in'}, expected:/5 kg\/m²/},
  {page:'fmi.html', terms:['FMI'], fields:{fat:'20',height:'200'}, selectors:{fatUnit:'lb',heightUnit:'in'}, expected:/5 kg\/m²/},
  {page:'ffmi-comparison.html', terms:['fat-free mass'], fields:{weightA:'80',fatA:'20',heightA:'200',weightB:'80',fatB:'10',heightB:'200'}, selectors:{weightAUnit:'lb',heightAUnit:'in',weightBUnit:'lb',heightBUnit:'in'}, expected:/Person A: 16 kg\/m² · Person B: 18 kg\/m²/}
