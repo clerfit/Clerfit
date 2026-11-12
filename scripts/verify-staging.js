@@ -43,7 +43,7 @@ assert.ok(locations.every(url => {
     return parsed.protocol === 'https:' && parsed.origin === base.origin && parsed.pathname.startsWith(basePath);
   } catch { return false; }
 }), 'every sitemap URL must be valid HTTPS under the configured project-site path');
-assert.equal(locations.length, 164, 'sitemap must include 5 main URLs plus 164 registered calculators');
+assert.equal(locations.length, 169, 'sitemap must include 5 main URLs plus 164 registered calculators');
 assert.equal(new Set(locations).size, locations.length, 'sitemap URLs must be unique');
 assert.ok(locations.includes(baseWithoutTrailingSlash + '/'), 'sitemap must include the home page');
 assert.ok(locations.includes(baseWithoutTrailingSlash + '/contact.html'), 'sitemap must include Contact Us');
