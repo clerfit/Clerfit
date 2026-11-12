@@ -362,11 +362,6 @@
    if (event.target && event.target.matches("select")) invalidateResult();
   });
   form.addEventListener("submit", event => { event.preventDefault(); clearResultFieldErrors(form, output); calculate(); });
-  const resetButton = form.querySelector('button[type="reset"]');
-  if (resetButton && !resetButton.dataset.cfResetWired) {
-   resetButton.dataset.cfResetWired = "true";
-   resetButton.addEventListener("click", event => { event.preventDefault(); form.reset(); });
-  }
   form.addEventListener("reset", () => {
    if (output) { output.innerHTML = ""; output.textContent = ""; }
    clearResultFieldErrors(form, output);
