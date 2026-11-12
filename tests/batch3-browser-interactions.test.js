@@ -28,8 +28,8 @@ const cases = [
    const firstField=Object.keys(item.fields)[0];
    await page.locator('#'+firstField).fill(String(Number(item.fields[firstField])+1));
    assert.equal((await page.locator('#calc-result').innerText()).trim(),'');
-   await page.evaluate(()=>{window.__batch3ResetFired=false;window.__batch3ResetClickFired=false;const f=document.querySelector('#calc-form');const b=f.querySelector('button[type="reset"]');b.addEventListener('click',()=>{window.__batch3ResetClickFired=true;});f.addEventListener('reset',()=>{window.__batch3ResetFired=true;});});
-   await page.locator('#calc-form button[type="reset"]').click();
+   await page.evaluate(()=>{window.__batch3ResetFired=false;window.__batch3ResetClickFired=false;const f=document.querySelector('#calc-form');const b=f.querySelector('input[type="reset"]');b.addEventListener('click',()=>{window.__batch3ResetClickFired=true;});f.addEventListener('reset',()=>{window.__batch3ResetFired=true;});});
+   await page.locator('#calc-form input[type="reset"]').click();
    await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
    const resetDebug=await page.evaluate(()=>({fired:window.__batch3ResetFired,clickFired:window.__batch3ResetClickFired,buttonWired:document.querySelector('#calc-form button[type="reset"]').dataset.cfResetWired,formWired:document.querySelector('#calc-form').dataset.clerfitUnitResetWired,buttonForm:document.querySelector('#calc-form button[type="reset"]').form?.id,buttonType:document.querySelector('#calc-form button[type="reset"]').type}));
    console.log('Batch 3 reset diagnostics '+item.page+': '+JSON.stringify(resetDebug));
