@@ -13,18 +13,18 @@
 <body data-calculator="ffmi-comparison">
 <aside class="sidebar" aria-label="Main navigation"></aside>
 <main class="main">
-<header class="header"><h1>Fat-Free Mass Index Comparison</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
+<header class="header"><h1><span data-cf-tip="fat-free mass">Fat-Free Mass</span> Index Comparison</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
 <section class="card" aria-labelledby="calc-heading">
 <h2 id="calc-heading">Enter your measurements</h2>
-<p class="cf-note">Compare FFMI for two sets of measurements using the same calculation method. FFMI is descriptive and does not independently assess health or athletic ability.</p>
+<p class="cf-note">Compare <span data-cf-tip="fat-free mass">fat-free mass</span> index (FFMI) for two sets of measurements using the same calculation method. FFMI is descriptive and does not independently assess health or athletic ability.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="weightA">Person A — body weight (kg)</label><input id="weightA" name="weightA" type="number" min="2" max="500" step="any" inputmode="decimal" required aria-label="Person A — body weight"></div>
-<div class="col"><label for="fatA">Person A — body-fat percentage (%)</label><input id="fatA" name="fatA" type="number" min="0" max="75" step="any" inputmode="decimal" required aria-label="Person A — body-fat percentage"></div>
-<div class="col"><label for="heightA">Person A — height (cm)</label><input id="heightA" name="heightA" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Person A — height"></div>
-<div class="col"><label for="weightB">Person B — body weight (kg)</label><input id="weightB" name="weightB" type="number" min="2" max="500" step="any" inputmode="decimal" required aria-label="Person B — body weight"></div>
-<div class="col"><label for="fatB">Person B — body-fat percentage (%)</label><input id="fatB" name="fatB" type="number" min="0" max="75" step="any" inputmode="decimal" required aria-label="Person B — body-fat percentage"></div>
-<div class="col"><label for="heightB">Person B — height (cm)</label><input id="heightB" name="heightB" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Person B — height"></div>
+<div class="col"><label for="weightA">Person A body weight</label><input id="weightA" data-field name="weightA" type="number" min="2" max="500" step="any" inputmode="decimal" required aria-label="Person A — body weight"><label for="weightAUnit">Person A body weight unit</label><select id="weightAUnit" data-unit-for="weightA" aria-label="Person A body weight unit"><option value="kg" selected>Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
+<div class="col"><label for="fatA">Person A — body-fat percentage (%)</label><input id="fatA" data-field name="fatA" type="number" min="0" max="75" step="any" inputmode="decimal" required aria-label="Person A — body-fat percentage"></div>
+<div class="col"><label for="heightA">Person A height</label><input id="heightA" data-field name="heightA" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Person A — height"><label for="heightAUnit">Person A height unit</label><select id="heightAUnit" data-unit-for="heightA" aria-label="Person A height unit"><option value="cm" selected>Centimetres (cm)</option><option value="in">Inches (in)</option></select></div>
+<div class="col"><label for="weightB">Person B body weight</label><input id="weightB" data-field name="weightB" type="number" min="2" max="500" step="any" inputmode="decimal" required aria-label="Person B — body weight"><label for="weightBUnit">Person B body weight unit</label><select id="weightBUnit" data-unit-for="weightB" aria-label="Person B body weight unit"><option value="kg" selected>Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
+<div class="col"><label for="fatB">Person B — body-fat percentage (%)</label><input id="fatB" data-field name="fatB" type="number" min="0" max="75" step="any" inputmode="decimal" required aria-label="Person B — body-fat percentage"></div>
+<div class="col"><label for="heightB">Person B height</label><input id="heightB" data-field name="heightB" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Person B — height"><label for="heightBUnit">Person B height unit</label><select id="heightBUnit" data-unit-for="heightB" aria-label="Person B height unit"><option value="cm" selected>Centimetres (cm)</option><option value="in">Inches (in)</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>

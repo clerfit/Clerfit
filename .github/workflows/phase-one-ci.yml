@@ -26,7 +26,7 @@ on:
       - 'FIELD_VALIDATION_AUDIT.csv'
       - 'NUMERIC_BOUNDARY_BROWSER_AUDIT.json'
   pull_request:
-    branches: [main]
+    branches: [main, batch-1-anthropometric-20261105, batch-2-anthropometric-20261109, batch-3-anthropometric-20261112]
     paths:
       - 'index.html'
       - '404.html'
@@ -92,6 +92,9 @@ jobs:
 
       - name: Run calculator known-answer and domain regressions
         run: node tests/verify.js
+      - name: Run anthropometric formula and page regressions
+        run: node tests/anthropometric-calculators.test.js
+
       - name: Verify field-bound inventories match static source markup
         run: node scripts/sync-input-boundaries.js --check
       - name: Check phase inventory, sign-off and sitemap integrity
@@ -158,6 +161,8 @@ jobs:
           curl --fail --silent http://127.0.0.1:4173/ >/dev/null
           node scripts/browser-smoke-staging.js http://127.0.0.1:4173/
           node tests/batch1-browser-interactions.test.js http://127.0.0.1:4173/
+          node tests/batch2-browser-interactions.test.js http://127.0.0.1:4173/
+          node tests/batch3-browser-interactions.test.js http://127.0.0.1:4173/
 
       - name: Run all-page axe accessibility smoke tests
         env:

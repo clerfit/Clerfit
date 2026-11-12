@@ -14,7 +14,16 @@
     bmr: 'Basal metabolic rate: an estimate of energy used at rest to support essential body functions. It is not your total daily calorie need.',
     rmr: 'Resting metabolic rate: estimated energy used while resting. Methods and formulas differ from BMR.',
     tdee: 'Total daily energy expenditure: estimated energy used across resting metabolism, activity and digestion.',
-    ffmi: 'Fat-free mass index relates fat-free mass to height. It is an estimate and does not independently measure muscle quality or health.',
+    ffmi: 'Fat-free mass index = fat-free mass (kg) ÷ height (m)². Fat-free mass is commonly derived from body weight and measured body-fat percentage; errors in either input affect the result.',
+    'relative muscle mass': 'Relative muscle mass here means the supplied skeletal-muscle-mass measurement divided by total body weight × 100. The calculator does not estimate muscle mass from height or appearance.',
+    'skeletal muscle mass': 'Use a skeletal-muscle-mass value reported by a suitable body-composition assessment. This calculator derives ratios and a height-indexed value; it does not predict the measured mass.',
+    'appendicular lean mass': 'Appendicular lean mass is the lean soft-tissue mass of the arms and legs, typically obtained from a body-composition assessment. It is not interchangeable with total lean mass.',
+    smmi: 'Skeletal muscle mass index (SMMI) = measured skeletal muscle mass (kg) ÷ height (m)². It is not automatically interchangeable with appendicular lean mass index (ALMI).',
+    dxa: 'Dual-energy X-ray absorptiometry (DXA) is an imaging method used to estimate bone, fat and lean soft-tissue compartments. Follow the report definition and units; methods are not interchangeable without care.',
+    'fat-free mass': 'Fat-free mass is body mass excluding fat mass. In this calculator it is derived from body weight and body-fat percentage, so errors in either measurement affect FFMI.',
+    'body composition': 'Body composition describes the components of body mass, such as fat mass, lean soft tissue and bone mineral. Different devices and methods can report different compartments.',
+    almi: 'Appendicular lean mass index = appendicular lean mass (kg) ÷ height (m)². Interpretation requires a reference appropriate to the assessment method and population.',
+    fmi: 'Fat mass index = fat mass (kg) ÷ height (m)². Fat mass should come from a suitable body-composition assessment; no universal clinical category is implied.',
     'one-rep max': 'One-repetition maximum (1RM) is the heaviest load you can lift once with proper technique. Formula-based values are estimates.',
     'body fat': 'Body-fat percentage estimates the proportion of body mass that is fat. Accuracy depends on the measurement method and assumptions.',
     'waist-to-hip ratio': 'Waist circumference divided by hip circumference. Interpretation depends on age, sex and the reference standard used.',
@@ -77,8 +86,13 @@
     wrap.append(btn,pop); target.appendChild(wrap);
   }
   function init() {
+    // Explicit term markers expose glossary help for specialist abbreviations in explanatory copy.
+    document.querySelectorAll('[data-cf-tip]').forEach(el => {
+      const term = el.getAttribute('data-cf-tip') || el.textContent || '';
+      if (!el.querySelector('.cf-tip-wrap')) addTip(el, term, glossary[norm(term)] || hintFor(term));
+    });
     // Keep the interface quiet: add visible help only for unfamiliar/specialist terms.
-    const specialist = /\b(bmi|bmr|rmr|tdee|ffmi|1rm|one[- ]rep max|metabolic age|somatotype|facial thirds|facial balance|absi|rfm|ponderal index|vo2 max|vo2max|met|rpe|cadence|stride length|step length|cooper test|session density|training[- ]rest ratio|load[- ]recovery ratio|fatigue index|waist[- ]to[- ]hip ratio|waist[- ]to[- ]height ratio|body surface area|relative strength|energy balance|work[- ]rest balance|sedentary ratio|uv index|heat exposure|cold exposure|forward head index|sit[- ]stand ratio|water loss replacement|electrolyte|lean body mass|body fat percentage|body adiposity index|neck circumference|mid-upper-arm circumference|mid-thigh circumference|calf circumference|triceps skinfold|mid-upper-arm muscle circumference|bai|muac|facial ratio|jaw width ratio|chin height ratio|eye spacing|lower face height)\b/i;
+    const specialist = /\b(bmi|bmr|rmr|tdee|ffmi|1rm|one[- ]rep max|metabolic age|somatotype|facial thirds|facial balance|absi|rfm|ponderal index|vo2 max|vo2max|met|rpe|cadence|stride length|step length|cooper test|session density|training[- ]rest ratio|load[- ]recovery ratio|fatigue index|waist[- ]to[- ]hip ratio|waist[- ]to[- ]height ratio|body surface area|relative strength|energy balance|work[- ]rest balance|sedentary ratio|uv index|heat exposure|cold exposure|forward head index|sit[- ]stand ratio|water loss replacement|electrolyte|lean body mass|body fat percentage|body adiposity index|appendicular lean mass|fat-free mass|skeletal muscle mass|relative muscle mass|body composition|body-fat percentage|dxa|smmi|almi|fmi|neck circumference|mid-upper-arm circumference|mid-thigh circumference|calf circumference|triceps skinfold|mid-upper-arm muscle circumference|bai|muac|facial ratio|jaw width ratio|chin height ratio|eye spacing|lower face height)\b/i;
     const isFaceCalculator = /face|facial|jaw|chin|nose|mouth|eye-spacing|lower-face/i.test(location.pathname);
     document.querySelectorAll('label').forEach(label => {
       // Facial pages use their own shorter landmark-specific help markers from site-polish.js.

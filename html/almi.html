@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101827">
-<meta name="description" content="Appendicular Lean Mass Index (ALMI) Calculator. Educational measurement calculator with transparent method and limitations.">
+<meta name="description" content="Appendicular Lean Mass Index (<span data-cf-tip="ALMI">ALMI</span>) Calculator. Educational measurement calculator with transparent method and limitations.">
 <link rel="icon" href="../favicon.ico" sizes="any">
 <link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
 <title>ClerFit – Appendicular Lean Mass Index (ALMI) Calculator</title>
@@ -13,14 +13,14 @@
 <body data-calculator="almi">
 <aside class="sidebar" aria-label="Main navigation"></aside>
 <main class="main">
-<header class="header"><h1>Appendicular Lean Mass Index (ALMI) Calculator</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
+<header class="header"><h1><span data-cf-tip="appendicular lean mass">Appendicular Lean Mass</span> Index (<span data-cf-tip="ALMI">ALMI</span>) Calculator</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
 <section class="card" aria-labelledby="calc-heading">
 <h2 id="calc-heading">Enter your measurements</h2>
 <p class="cf-note">ALMI is appendicular lean mass divided by height squared. Use an appendicular lean-mass value from a suitable body-composition assessment; interpretation depends on reference population.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="alm">Appendicular lean mass (kg)</label><input id="alm" name="alm" type="number" min="1" max="100" step="any" inputmode="decimal" required aria-label="Appendicular lean mass"></div>
-<div class="col"><label for="height">Height (cm)</label><input id="height" name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Height"></div>
+<div class="col"><label for="alm">Appendicular lean mass</label><input id="alm" data-field name="alm" type="number" min="1" max="100" step="any" inputmode="decimal" required aria-label="Appendicular lean mass"><label for="almUnit">Appendicular lean mass unit</label><select id="almUnit" data-unit-for="alm" aria-label="Appendicular lean mass unit"><option value="kg" selected>Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
+<div class="col"><label for="height">Height</label><input id="height" data-field name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Height"><label for="heightUnit">Height unit</label><select id="heightUnit" data-unit-for="height" aria-label="Height unit"><option value="cm" selected>Centimetres (cm)</option><option value="in">Inches (in)</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
