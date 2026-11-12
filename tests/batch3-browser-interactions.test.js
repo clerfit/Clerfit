@@ -36,8 +36,8 @@ const cases = [
    await page.locator('#'+firstField).fill(String(Number(item.fields[firstField])+1));
    assert.equal((await page.locator('#calc-result').innerText()).trim(),'');
    await page.locator('#calc-form button[type="reset"]').click();
-   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(resolve)));
-   for(const id of Object.keys(item.selectors)) assert.equal(await page.locator('#'+id).inputValue(),'cm',item.page+' reset restores centimetres');
+   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+   for(const id of Object.keys(item.selectors)) assert.equal(await page.locator('#'+id).inputValue(),'cm',item.page+' '+id+' reset restores centimetres');
    for(const id of Object.keys(item.fields)) assert.equal(await page.locator('#'+id).inputValue(),'');
   }
   console.log('PASS: Batch 3 Chromium calculations, independent cm/in selectors, reset, stale-result invalidation and specialist tooltips across all five calculators.');
