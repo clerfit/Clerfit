@@ -16,6 +16,11 @@
   "almi": { kind: "almi" },
   "fmi": { kind: "fmi" },
   "ffmi-comparison": { kind: "ffmi" },
+  "chest-hip-ratio": { kind: "lengthRatio", numerator: "chest", numeratorUnit: "chestUnit", denominator: "hip", denominatorUnit: "hipUnit", numeratorMin: 40, numeratorMax: 200, denominatorMin: 40, denominatorMax: 200, numeratorLabel: "Chest circumference", denominatorLabel: "Hip circumference", title: "Chest-to-hip" },
+  "shoulder-chest-ratio": { kind: "lengthRatio", numerator: "shoulder", numeratorUnit: "shoulderUnit", denominator: "chest", denominatorUnit: "chestUnit", numeratorMin: 60, numeratorMax: 250, denominatorMin: 40, denominatorMax: 200, numeratorLabel: "Shoulder circumference", denominatorLabel: "Chest circumference", title: "Shoulder-to-chest" },
+  "biacromial-biacristal-width-ratio": { kind: "lengthRatio", numerator: "biacromial", numeratorUnit: "biacromialUnit", denominator: "biacristal", denominatorUnit: "biacristalUnit", numeratorMin: 20, numeratorMax: 70, denominatorMin: 15, denominatorMax: 60, numeratorLabel: "Biacromial breadth", denominatorLabel: "Biacristal breadth", title: "Biacromial-to-biacristal width" },
+  "sitting-height-arm-span-ratio": { kind: "lengthRatio", numerator: "sittingHeight", numeratorUnit: "sittingHeightUnit", denominator: "armSpan", denominatorUnit: "armSpanUnit", numeratorMin: 30, numeratorMax: 150, denominatorMin: 80, denominatorMax: 250, numeratorLabel: "Sitting height", denominatorLabel: "Arm span", title: "Sitting-height-to-arm-span" },
+  "arm-span-difference": { kind: "armSpanDifference" },
   "waist-circumference-reference": { kind: "measure" },
   "waist-height-comparison": { kind: "whtcompare" },
   "body-volume": { kind: "volume" },
@@ -49,6 +54,21 @@
   if (u === "cm") return n;
   if (u === "in") return n * 2.54;
   throw new RangeError("Choose centimetres (cm) or inches (in).");
+ }
+ function ratioMetrics(numerator, numeratorUnit, denominator, denominatorUnit, numeratorMin, numeratorMax, denominatorMin, denominatorMax, numeratorLabel, denominatorLabel) {
+  const a = toCm(numerator, numeratorUnit, numeratorLabel);
+  const b = toCm(denominator, denominatorUnit, denominatorLabel);
+  assertRange(a, numeratorMin, numeratorMax, numeratorLabel, "cm");
+  assertRange(b, denominatorMin, denominatorMax, denominatorLabel, "cm");
+  if (!(b > 0)) throw new RangeError(denominatorLabel + " must be greater than zero.");
+  return { numeratorCm: a, denominatorCm: b, ratio: a / b, percent: a / b * 100 };
+ }
+ function armSpanDifferenceMetrics(armSpan, armSpanUnit, standingHeight, standingHeightUnit) {
+  const span = toCm(armSpan, armSpanUnit, "Arm span");
+  const height = toCm(standingHeight, standingHeightUnit, "Standing height");
+  assertRange(span, 80, 250, "Arm span", "cm");
+  assertRange(height, 80, 250, "Standing height", "cm");
+  return { armSpanCm: span, standingHeightCm: height, differenceCm: span - height, differencePercent: (span - height) / height * 100 };
  }
  function assertRange(value, min, max, label, unit) {
   if (!Number.isFinite(value) || value < min || value > max) {
@@ -152,7 +172,7 @@
   return { personAFFMI: a.ffmiKgM2, personBFFMI: b.ffmiKgM2, absoluteDifferenceKgM2: Math.abs(a.ffmiKgM2 - b.ffmiKgM2), higher: a.ffmiKgM2 === b.ffmiKgM2 ? "equal" : a.ffmiKgM2 > b.ffmiKgM2 ? "A" : "B" };
  }
 
- const api = { toCm, toKg, toHeightCm, circleMetrics, muacMetrics, calculateBAI, bodyCompositionMetrics, skeletalMuscleMetrics, heightIndexedMass, ffmiMetrics, compareFFMI };
+ const api = { toCm, toKg, toHeightCm, circleMetrics, muacMetrics, calculateBAI, bodyCompositionMetrics, skeletalMuscleMetrics, heightIndexedMass, ffmiMetrics, compareFFMI, ratioMetrics, armSpanDifferenceMetrics };
  if (typeof window !== "undefined") window.ClerFitAnthropometric = api;
 
  function clearResultFieldErrors(form, output) {
@@ -263,6 +283,19 @@
      const data = heightIndexedMass(toKg(num("fat"), $("fatUnit").value), toHeightCm(num("height"), $("heightUnit").value), "Fat mass");
      result = fmt(data.indexKgM2) + " kg/m²";
      note = "FMI = fat mass (kg) ÷ height (m)². Use an assessment-derived input; this tool does not infer body fat from BMI.";
+     break;
+    }
+    case "lengthRatio": {
+     const data = ratioMetrics(num(cfg.numerator), $(cfg.numeratorUnit).value, num(cfg.denominator), $(cfg.denominatorUnit).value, cfg.numeratorMin, cfg.numeratorMax, cfg.denominatorMin, cfg.denominatorMax, cfg.numeratorLabel, cfg.denominatorLabel);
+     result = cfg.title + " ratio: " + fmt(data.ratio) + " (" + fmt(data.percent) + "%)";
+     note = "Ratio = " + cfg.numeratorLabel.toLowerCase() + " ÷ " + cfg.denominatorLabel.toLowerCase() + ". Both measurements are converted to centimetres first. No universal clinical cutoff is assigned; use consistent landmarks and a reference appropriate to the measurement protocol.";
+     break;
+    }
+    case "armSpanDifference": {
+     const data = armSpanDifferenceMetrics(num("armSpan"), $("armSpanUnit").value, num("standingHeight"), $("standingHeightUnit").value);
+     const signed = (n, suffix) => (n > 0 ? "+" : "") + fmt(n) + suffix;
+     result = "Arm span difference: " + signed(data.differenceCm, " cm") + " · " + signed(data.differencePercent, "%") + " of standing height";
+     note = "Difference = arm span − standing height. A positive result means arm span is longer; a negative result means standing height is greater. The percentage is the signed difference divided by standing height × 100. Measurement technique and posture can affect small differences.";
      break;
     }
     case "ffmi": {
