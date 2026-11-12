@@ -30,7 +30,8 @@ const cases = [
     await marker.waitFor({state:'visible'});
     await marker.click();
     assert.equal(await marker.getAttribute('aria-expanded'),'true',item.page+' exposes '+term+' tooltip');
-    await page.evaluate(()=>document.querySelector('main').dispatchEvent(new MouseEvent('click',{bubbles:true})));
+    await marker.press('Escape');
+    assert.equal(await marker.getAttribute('aria-expanded'),'false',item.page+' closes '+term+' tooltip with Escape');
    }
    const firstField=Object.keys(item.fields)[0];
    await page.locator('#'+firstField).fill(String(Number(item.fields[firstField])+1));
