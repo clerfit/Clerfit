@@ -92,6 +92,9 @@ jobs:
 
       - name: Run calculator known-answer and domain regressions
         run: node tests/verify.js
+      - name: Run anthropometric formula and page regressions
+        run: node tests/anthropometric-calculators.test.js
+
       - name: Verify field-bound inventories match static source markup
         run: node scripts/sync-input-boundaries.js --check
       - name: Check phase inventory, sign-off and sitemap integrity
