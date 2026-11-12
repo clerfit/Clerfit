@@ -31,7 +31,7 @@ const cases = [
    await page.evaluate(()=>{window.__batch3ResetFired=false;window.__batch3ResetClickFired=false;const f=document.querySelector('#calc-form');const b=f.querySelector('input[type="reset"]');b.addEventListener('click',()=>{window.__batch3ResetClickFired=true;});f.addEventListener('reset',()=>{window.__batch3ResetFired=true;});});
    await page.locator('#calc-form input[type="reset"]').click();
    await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
-   const resetDebug=await page.evaluate(()=>({fired:window.__batch3ResetFired,clickFired:window.__batch3ResetClickFired,buttonWired:document.querySelector('#calc-form button[type="reset"]').dataset.cfResetWired,formWired:document.querySelector('#calc-form').dataset.clerfitUnitResetWired,buttonForm:document.querySelector('#calc-form button[type="reset"]').form?.id,buttonType:document.querySelector('#calc-form button[type="reset"]').type}));
+   const resetDebug=await page.evaluate(()=>({fired:window.__batch3ResetFired,clickFired:window.__batch3ResetClickFired,formWired:document.querySelector('#calc-form').dataset.clerfitUnitResetWired,inputForm:document.querySelector('#calc-form input[type="reset"]').form?.id,inputType:document.querySelector('#calc-form input[type="reset"]').type}));
    console.log('Batch 3 reset diagnostics '+item.page+': '+JSON.stringify(resetDebug));
    assert.equal(resetDebug.clickFired,true,item.page+' reset button receives click');
    assert.equal(resetDebug.fired,true,item.page+' reset dispatches form reset');
