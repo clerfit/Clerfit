@@ -26,7 +26,7 @@ const registryMatch = nav.match(/const CALCULATORS\s*=\s*(\[[\s\S]*?\]);\s*\ncon
 assert.ok(registryMatch, 'central calculator registry must be parseable');
 const calculators = JSON.parse(registryMatch[1]);
 const routeFiles = [...new Set(calculators.map(item => item.file))];
-assert.equal(routeFiles.length, 159, 'the production route inventory must contain 159 unique calculators');
+assert.equal(routeFiles.length, 159, 'the production route inventory must contain 164 unique calculators');
 
 const required = ['index.html', 'contact.html', '404.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html', 'robots.txt', 'sitemap.xml', 'css/style.css', 'js/navigation.js'];
 for (const file of required) assert.ok(exists(file), 'missing required production file: ' + file);
