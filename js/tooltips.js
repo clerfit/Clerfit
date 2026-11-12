@@ -29,7 +29,7 @@
     'biacristal breadth': 'Biacristal breadth is the straight-line distance between the iliac-crest landmarks. Use a suitable anthropometric caliper and a consistent landmarking protocol.',
     'sitting height': 'Sitting height is measured from the sitting surface to the top of the head while seated upright. Seat height and posture must be handled consistently.',
     'arm span': 'Arm span is the fingertip-to-fingertip distance with both arms extended horizontally. Keep shoulders level and elbows and wrists extended without forcing the posture.',
-    'standing height': 'Measure standing height without shoes, standing upright against a suitable height-measuring surface. Keep head position and posture consistent.'
+    'standing height': 'Measure standing height without shoes, standing upright against a suitable height-measuring surface. Keep head position and posture consistent.',
     almi: 'Appendicular lean mass index = appendicular lean mass (kg) ÷ height (m)². Interpretation requires a reference appropriate to the assessment method and population.',
     fmi: 'Fat mass index = fat mass (kg) ÷ height (m)². Fat mass should come from a suitable body-composition assessment; no universal clinical category is implied.',
     'one-rep max': 'One-repetition maximum (1RM) is the heaviest load you can lift once with proper technique. Formula-based values are estimates.',
