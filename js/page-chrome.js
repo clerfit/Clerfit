@@ -5,15 +5,12 @@
 
   const selector = ".clerfit-fixed-actions, .top-right-buttons, .cf-floating-links, .cf-page-actions";
   const placeInHeader = (nav) => {
-    // Keep the homepage actions inside its branded header; do not detach them from that background.
-    if (nav.closest(".cf-home-top")) return;
     const main = document.querySelector("main.main, main, .main") || document.body;
-    const header = main.querySelector(":scope > .header, :scope > header, .header");
-    if (header && header.parentNode) {
-      if (nav !== header.previousElementSibling) header.parentNode.insertBefore(nav, header);
-      return;
+    // Put quick navigation first inside the page's main content so it remains
+    // in normal document flow and consistently precedes the page heading.
+    if (nav.parentNode !== main || nav !== main.firstElementChild) {
+      main.insertBefore(nav, main.firstElementChild);
     }
-    if (nav.parentNode !== main || nav !== main.firstElementChild) main.insertBefore(nav, main.firstElementChild);
   };
 
   // Add a shared, non-duplicated footer to legacy calculator pages.

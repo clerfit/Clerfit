@@ -841,4 +841,30 @@ pageTest = runPageFunction('difference.html', 'calculateDifference', {
 assert.match(pageTest.output('diffResult'), /valid finite numerical values/i);
 checks++;
 
+
+const metabolism = require('../js/metabolism-energy-calculators.js');
+const metabolismVectors = [
+ ['harris-benedict',{weight:70,height:175,age:30,sex:'male'},1695.667],
+ ['katch-mcardle',{weight:70,bodyFat:15},1655.2],
+ ['cunningham',{weight:70,bodyFat:15},1809],
+ ['schofield',{weight:70,age:40,sex:'male'},1676.14],
+ ['owen',{weight:70,sex:'male'},1593],
+ ['energy-availability',{weight:70,bodyFat:14,intake:2500,exercise:600},31.561461794],
+ ['adaptive-thermogenesis',{predicted:2500,observed:2300},-200],
+ ['thermic-effect-food',{protein:150,carbs:250,fat:70},234.45],
+ ['calorie-cycling',{weekly:14000,highDays:2,highShare:40},2000],
+ ['reverse-dieting',{start:2000,increment:100,weeks:4},2400],
+ ['refeed-calories',{maintenance:2500,factor:1.1},2750]
+];
+for(const [id,input,expected] of metabolismVectors){
+ const result=metabolism.calculate(id,input);
+ assert.ok(Math.abs(result.value-expected)<0.02,id+' known-answer result');
+ assert.ok(result.formula && result.note,id+' formula and limitation disclosure');
+ checks++;
+}
+assert.throws(()=>metabolism.calculate('schofield',{weight:60,age:17,sex:'male'}),/Age must be between 18 and 120/i);
+assert.throws(()=>metabolism.calculate('energy-availability',{weight:70,intake:2500,exercise:500}),/fat-free mass/i);
+assert.throws(()=>metabolism.calculate('calorie-cycling',{weekly:14000,highDays:7,highShare:40}),/1–6 higher-calorie days/i);
+checks+=3;
+
 console.log('PASS: ' + checks + ' known-answer/domain assertions across generated calculators, CDC BMI-for-age, legacy formulas, and unit conversions.');

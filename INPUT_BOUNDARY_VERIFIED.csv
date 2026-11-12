@@ -282,3 +282,33 @@ leg-height-ratio.html,leg,Leg length,20,160,any
 leg-height-ratio.html,height,Standing height,80,250,any
 sitting-height-ratio.html,sitting,Sitting height,30,150,any
 sitting-height-ratio.html,height,Standing height,80,250,any
+harris-benedict.html,weight,Body weight,2,500,any
+harris-benedict.html,height,Height (cm),100,250,any
+harris-benedict.html,age,Age (years),18,120,1
+katch-mcardle.html,weight,Body weight,2,500,any
+katch-mcardle.html,bodyFat,Measured body-fat (%),2,70,any
+katch-mcardle.html,ffm,"Fat-free mass (kg), if known",2,300,any
+cunningham.html,weight,Body weight,2,500,any
+cunningham.html,bodyFat,Measured body-fat (%),2,70,any
+cunningham.html,ffm,"Fat-free mass (kg), if known",2,300,any
+schofield.html,weight,Body weight,2,500,any
+schofield.html,age,Age (years),18,120,1
+owen.html,weight,Body weight,2,500,any
+energy-availability.html,weight,Body weight,2,500,any
+energy-availability.html,bodyFat,Measured body-fat (%),2,70,any
+energy-availability.html,ffm,"Fat-free mass (kg), if known",2,300,any
+energy-availability.html,intake,Daily energy intake (kcal),0,10000,any
+energy-availability.html,exercise,Exercise energy expenditure (kcal/day),0,5000,any
+adaptive-thermogenesis.html,predicted,Expected maintenance (kcal/day),300,10000,any
+adaptive-thermogenesis.html,observed,Observed maintenance estimate (kcal/day),300,10000,any
+thermic-effect-food.html,protein,Protein (g/day),0,500,any
+thermic-effect-food.html,carbs,Carbohydrate (g/day),0,1000,any
+thermic-effect-food.html,fat,Fat (g/day),0,500,any
+calorie-cycling.html,weekly,Weekly calorie budget (kcal),3500,70000,any
+calorie-cycling.html,highDays,Number of higher-calorie days,1,6,1
+calorie-cycling.html,highShare,Share of weekly budget for higher days (%),0,100,any
+reverse-dieting.html,start,Starting daily intake (kcal),500,10000,any
+reverse-dieting.html,increment,Weekly increase (kcal/day),0,500,any
+reverse-dieting.html,weeks,Number of weeks,1,52,1
+refeed-calories.html,maintenance,Maintenance estimate (kcal/day),500,10000,any
+refeed-calories.html,factor,Refeed multiplier (e.g. 1.0 = maintenance),0.8,1.5,0.01
