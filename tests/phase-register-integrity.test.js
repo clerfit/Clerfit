@@ -37,7 +37,7 @@ assert.ok(registryMatch, 'central calculator registry must be parseable');
 const registry = JSON.parse(registryMatch[1]);
 assert.equal(registry.length, 164, 'central registry should contain 164 routes');
 const routeFiles = registry.map(route => route.file);
-assert.equal(new Set(routeFiles).size, 159, 'central registry must not repeat route files');
+assert.equal(new Set(routeFiles).size, 164, 'central registry must not repeat route files');
 for (const file of routeFiles) {
   assert.ok(fs.existsSync(path.join(root, 'html', file)), 'missing registry target: html/' + file);
 }
