@@ -7,7 +7,8 @@ const pages = [
 'neck-circumference','muac','mid-thigh-circumference','calf-circumference','bai',
 'relative-muscle-mass','skeletal-muscle-mass','almi','fmi','ffmi-comparison',
 'waist-circumference-reference','waist-height-comparison','body-volume','body-density',
-'anthropometric-z-score','body-measurement-symmetry','arm-waist-ratio','leg-height-ratio','sitting-height-ratio'
+'anthropometric-z-score','body-measurement-symmetry','arm-waist-ratio','leg-height-ratio','sitting-height-ratio',
+'chest-hip-ratio','shoulder-chest-ratio','biacromial-biacristal-width-ratio','sitting-height-arm-span-ratio','arm-span-difference'
 ];
 const engine = fs.readFileSync('js/anthropometric-calculators.js','utf8');
 new Function(engine);
@@ -45,3 +46,12 @@ assert.throws(() => calc.heightIndexedMass(0, 180, 'Fat mass'), /positive finite
 assert.throws(() => calc.skeletalMuscleMetrics(20, 60, 79), /between 80 and 250/);
 console.log('Batch 2 known-answer and invalid-domain formula checks passed.');
 
+
+assert.equal(calc.ratioMetrics(100,"cm",100,"cm",40,200,40,200,"Chest","Hip").ratio,1);
+assert.ok(Math.abs(calc.ratioMetrics(39.3700787,"in",100,"cm",40,200,40,200,"Chest","Hip").ratio-1)<1e-8);
+assert.throws(() => calc.ratioMetrics(30,"cm",100,"cm",40,200,40,200,"Chest","Hip"),/between 40 and 200/);
+assert.throws(() => calc.ratioMetrics(100,"cm",0,"cm",40,200,40,200,"Chest","Hip"),/positive finite/);
+assert.equal(calc.armSpanDifferenceMetrics(182,"cm",180,"cm").differenceCm,2);
+assert.ok(Math.abs(calc.armSpanDifferenceMetrics(70.8661417,"in",180,"cm").differenceCm)<1e-6);
+assert.throws(() => calc.armSpanDifferenceMetrics(79,"cm",180,"cm"),/between 80 and 250/);
+console.log("Batch 3 anthropometric ratio and arm-span difference formula checks passed.");
