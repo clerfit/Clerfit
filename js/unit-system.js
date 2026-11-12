@@ -66,7 +66,7 @@
   }
   // Reset unit selectors from explicit per-field associations even if a page's
   // own form reset handling runs before or after the shared unit wiring.
-  document.addEventListener('reset', event => {
+  if (typeof document.addEventListener === 'function') document.addEventListener('reset', event => {
     const form = event.target;
     if (!form || !form.querySelectorAll) return;
     const restore = () => {
