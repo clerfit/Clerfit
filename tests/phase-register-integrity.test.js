@@ -53,7 +53,7 @@ const sourceIndex = inventoryHeader.indexOf('source_file');
 const existsIndex = inventoryHeader.indexOf('file_exists');
 const sitemapIndex = inventoryHeader.indexOf('url_in_sitemap');
 const canonicalIndex = inventoryHeader.indexOf('canonical_sitemap_url');
-assert.equal(new Set(inventory.map(row => row[sourceIndex])).size, 159, 'inventory source files must be unique');
+assert.equal(new Set(inventory.map(row => row[sourceIndex])).size, 164, 'inventory source files must be unique');
 for (const row of inventory) {
   assert.equal(row[existsIndex], 'YES', 'inventory must not report a missing source: ' + row[sourceIndex]);
   assert.ok(fs.existsSync(path.join(root, row[sourceIndex])), 'inventory source file not found: ' + row[sourceIndex]);
@@ -141,4 +141,4 @@ assert.match(accessibleTest, /sibling error node is retained/, 'validation acces
 assert.match(read('.github/workflows/phase-one-ci.yml'), /browser-smoke-staging\.js/, 'full workflow must run source-staging interaction tests');
 assert.match(read('.github/workflows/phase-one-ci.yml'), /accessibility-smoke\.js/, 'full workflow must run all-page accessibility checks');
 
-console.log('PASS: 159 routes, 287 source-matched static field bounds, inventory/file parity, unique 142-URL sitemap, per-route sign-off register and release-gate honesty.');
+console.log('PASS: 164 routes, 297 source-matched static field bounds, inventory/file parity, unique 169-URL sitemap, per-route sign-off register and release-gate honesty.');
