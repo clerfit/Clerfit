@@ -3,11 +3,11 @@ const assert = require('node:assert/strict');
 const { chromium } = require('playwright');
 const base = process.argv[2] || 'http://127.0.0.1:4173/';
 const cases = [
- {page:'chest-hip-ratio.html', terms:['chest circumference','hip circumference'], fields:{chest:'100',hip:'100'}, selectors:{chestUnit:'in',hipUnit:'in'}, expected:/ratio: 1 \\(100%\\)/},
- {page:'shoulder-chest-ratio.html', terms:['shoulder circumference','chest circumference'], fields:{shoulder:'120',chest:'100'}, selectors:{shoulderUnit:'in',chestUnit:'cm'}, expected:/ratio: 1\\.2 \\(120%\\)/},
- {page:'biacromial-biacristal-width-ratio.html', terms:['biacromial breadth','biacristal breadth'], fields:{biacromial:'40',biacristal:'30'}, selectors:{biacromialUnit:'in',biacristalUnit:'cm'}, expected:/ratio: 1\\.333 \\(133\\.333%\\)/},
- {page:'sitting-height-arm-span-ratio.html', terms:['sitting height','arm span'], fields:{sittingHeight:'90',armSpan:'180'}, selectors:{sittingHeightUnit:'in',armSpanUnit:'cm'}, expected:/ratio: 0\\.5 \\(50%\\)/},
- {page:'arm-span-difference.html', terms:['arm span','standing height'], fields:{armSpan:'182',standingHeight:'180'}, selectors:{armSpanUnit:'in',standingHeightUnit:'cm'}, expected:/\\+2 cm/}
+ {page:'chest-hip-ratio.html', terms:['chest circumference','hip circumference'], fields:{chest:'100',hip:'100'}, selectors:{chestUnit:'in',hipUnit:'in'}, expected:/ratio: 1 \(100%\)/},
+ {page:'shoulder-chest-ratio.html', terms:['shoulder circumference','chest circumference'], fields:{shoulder:'120',chest:'100'}, selectors:{shoulderUnit:'in',chestUnit:'cm'}, expected:/ratio: 1\.2 \(120%\)/},
+ {page:'biacromial-biacristal-width-ratio.html', terms:['biacromial breadth','biacristal breadth'], fields:{biacromial:'40',biacristal:'30'}, selectors:{biacromialUnit:'in',biacristalUnit:'cm'}, expected:/ratio: 1\.333 \(133\.333%\)/},
+ {page:'sitting-height-arm-span-ratio.html', terms:['sitting height','arm span'], fields:{sittingHeight:'90',armSpan:'180'}, selectors:{sittingHeightUnit:'in',armSpanUnit:'cm'}, expected:/ratio: 0\.5 \(50%\)/},
+ {page:'arm-span-difference.html', terms:['arm span','standing height'], fields:{armSpan:'182',standingHeight:'180'}, selectors:{armSpanUnit:'in',standingHeightUnit:'cm'}, expected:/\+2 cm/}
 ];
 (async()=>{
  const browser=await chromium.launch({headless:true});
