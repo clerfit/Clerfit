@@ -38,7 +38,7 @@ const cases = [
    await page.evaluate(()=>{window.__batch3ResetFired=false;document.querySelector('#calc-form').addEventListener('reset',()=>{window.__batch3ResetFired=true;});});
    await page.locator('#calc-form button[type="reset"]').click();
    await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
-   const resetDebug=await page.evaluate(()=>({fired:window.__batch3ResetFired,formWired:document.querySelector('#calc-form').dataset.clerfitUnitResetWired,selects:Array.from(document.querySelectorAll('#calc-form select')).map(s=>({id:s.id,value:s.value,defaultSelected:Array.from(s.options).map(o=>o.defaultSelected),wired:s.dataset.clerfitUnitWired,previous:s.dataset.clerfitPreviousUnit}))}));
+   const resetDebug=await page.evaluate(()=>({fired:window.__batch3ResetFired,formWired:document.querySelector('#calc-form').dataset.clerfitUnitResetWired,buttonForm:document.querySelector('#calc-form button[type="reset"]').form?.id,buttonType:document.querySelector('#calc-form button[type="reset"]').type,contains:document.querySelector('#calc-form').contains(document.querySelector('#calc-form button[type="reset"]')),selects:Array.from(document.querySelectorAll('#calc-form select')).map(s=>({id:s.id,value:s.value,defaultSelected:Array.from(s.options).map(o=>o.defaultSelected),wired:s.dataset.clerfitUnitWired,previous:s.dataset.clerfitPreviousUnit}))}));
    console.log('Batch 3 reset diagnostics '+item.page+': '+JSON.stringify(resetDebug));
    for(const id of Object.keys(item.selectors)) assert.equal(await page.locator('#'+id).inputValue(),'cm',item.page+' '+id+' reset restores centimetres');
    for(const id of Object.keys(item.fields)) assert.equal(await page.locator('#'+id).inputValue(),'');
