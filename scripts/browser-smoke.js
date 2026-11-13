@@ -174,7 +174,7 @@ async function runRoute(browser, route) {
   const pageErrors=[], consoleErrors=[];
   page.on('pageerror', err=>pageErrors.push(err.message || String(err)));
   page.on('console', msg=>{ if(msg.type()==='error') consoleErrors.push(msg.text()); });
-  let loaded=false, inputCount=0, clicked=false, bodyOverflow=false, outputsBefore=[], outputsAfter=[], responsiveLayout={};
+  let loaded=false, inputCount=0, clicked=false, bodyOverflow=false, outputsBefore=[], outputsAfter=[], responsiveLayout={}, footerState={count:0,present:false,visible:false,sharedClass:false,iconRows:0};
   let navState={present:false,nearTop:false,staticFlow:false,homeLink:false,contactLink:false,insideMain:false};
   try {
     const response = await page.goto(url, {waitUntil:'domcontentloaded',timeout:20000});
@@ -258,6 +258,26 @@ async function runRoute(browser, route) {
         }
       };
     });
+    const footerState = await page.evaluate(() => {
+      const footers = Array.from(document.querySelectorAll('footer'));
+      const footer = footers[0];
+      const text = (footer?.textContent || '').replace(/\\s+/g, ' ').trim();
+      return {
+        count: footers.length,
+        present: !!footer,
+        visible: !!footer && footer.getClientRects().length > 0,
+        sharedClass: !!footer && footer.classList.contains('cf-footer'),
+        iconRows: footer ? footer.querySelectorAll('.cf-footer-category-icons').length : 0,
+        hasBrand: !!footer?.querySelector('.cf-footer-brand'),
+        hasFooterLinks: !!footer?.querySelector('.cf-footer-links a'),
+        compactLegacyText: /^ClerFit\\s*[·—-]\\s*Health\\s*&\\s*Performance\\s*Tools$/i.test(text)
+      };
+    });
+    if (footerState.count !== 1) failures.push(pageName + ' must have exactly one footer; found ' + footerState.count + '.');
+    if (!footerState.present || !footerState.visible) failures.push(pageName + ' footer is missing or not visible.');
+    if (!footerState.sharedClass) failures.push(pageName + ' footer is missing the shared cf-footer styling class.');
+    if (footerState.iconRows !== 1) failures.push(pageName + ' must have exactly one shared decorative footer icon row.');
+    if (footerState.compactLegacyText) failures.push(pageName + ' still has the un-upgraded compact legacy footer.');
     // Responsive sweep: run every calculator at common phone, tablet and desktop widths.
     // Sweep a broad CSS viewport range rather than assuming one phone/tablet/desktop size.
     // Include common device widths and dense samples across the full supported range.
@@ -315,7 +335,7 @@ async function runRoute(browser, route) {
   } finally {
     await page.close().catch(()=>{});
   }
-  const row={file:pageName,url,loaded,inputCount,actionClicked:clicked,bodyOverflow,responsiveLayout,navState,pageErrors,consoleErrors,outputs:outputsAfter.length,validationOutputs:outputsAfter.filter(x=>x.validation).map(x=>x.text).slice(0,4),outputSample:outputsAfter.map(x=>x.text).join(' | ').slice(0,260)};
+  const row={file:pageName,url,loaded,inputCount,actionClicked:clicked,bodyOverflow,responsiveLayout,navState,footerState,pageErrors,consoleErrors,outputs:outputsAfter.length,validationOutputs:outputsAfter.filter(x=>x.validation).map(x=>x.text).slice(0,4),outputSample:outputsAfter.map(x=>x.text).join(' | ').slice(0,260)};
   if (!loaded) failures.push(pageName + ' failed to load/execute: ' + pageErrors.join(' | '));
   if (inputCount===0) failures.push(pageName + ' has no visible interactive input.');
   if (!clicked && !/unit\.html$/i.test(pageName)) failures.push(pageName + ' has no actionable Calculate/Convert control.');
@@ -560,7 +580,31 @@ async function waitForDeployedRelease() {
   throw new Error('Timed out waiting for live homepage release marker ' + EXPECTED_RELEASE_ID + ' (' + lastStatus + ').');
 }
 
-async function main() {
+async function auditFooterOnly(browser, file) {
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  try {
+    const url = new URL('html/' + encodeURI(file) + '?footerAudit=R3', BASE).href;
+    const response = await page.goto(url, { waitUntil: 'load', timeout: 20000 });
+    if (!response || !response.ok()) throw new Error(file + ' HTTP status ' + (response ? response.status() : 'no response'));
+    await page.waitForTimeout(100);
+    const state = await page.evaluate(() => {
+      const footers = Array.from(document.querySelectorAll('footer'));
+      const footer = footers[0];
+      const text = (footer?.textContent || '').replace(/\\s+/g, ' ').trim();
+      return {
+        count: footers.length, present: !!footer, visible: !!footer && footer.getClientRects().length > 0,
+        sharedClass: !!footer && footer.classList.contains('cf-footer'),
+        iconRows: footer ? footer.querySelectorAll('.cf-footer-category-icons').length : 0,
+        compactLegacyText: /^ClerFit\\s*[·—-]\\s*Health\\s*&\\s*Performance\\s*Tools$/i.test(text)
+      };
+    });
+    if (state.count !== 1 || !state.present || !state.visible || !state.sharedClass || state.iconRows !== 1 || state.compactLegacyText) {
+      throw new Error(file + ' footer audit failed: ' + JSON.stringify(state));
+    }
+    return { file, ...state, status: 'PASS' };
+  } finally { await page.close().catch(() => {}); }
+}
+\nasync function main() {
   await waitForDeployedRelease();
   const navUrl=new URL('js/navigation.js?browserSmoke=R3-2026-10-17',BASE).href;
   const sitemapUrl=new URL('sitemap.xml?browserSmoke=R3-2026-10-17',BASE).href;
@@ -577,6 +621,13 @@ async function main() {
   const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
   try {
     let cursor=0;
+    const htmlRoutes = [...sitemap].map(value => new URL(value)).filter(url => url.pathname.startsWith(new URL('html/', BASE).pathname) && url.pathname.toLowerCase().endsWith('.html')).map(url => decodeURIComponent(url.pathname.split('/').pop()));
+    const footerOnlyRoutes = htmlRoutes.filter(file => !registry.some(route => route.file === file));
+    const footerOnlyResults = [];
+    for (const file of footerOnlyRoutes) {
+      try { footerOnlyResults.push(await auditFooterOnly(browser, file)); }
+      catch (error) { failures.push('Footer-only route ' + file + ' failed: ' + (error && error.message || error)); footerOnlyResults.push({file,status:'FAIL',error:String(error)}); }
+    }
     const routeResults=new Array(registry.length);
     async function worker(){ while(true){const i=cursor++;if(i>=registry.length)return;routeResults[i]=await runRoute(browser,registry[i]);} }
     await Promise.all(Array.from({length:Math.min(WORKERS,registry.length)},worker));
@@ -616,12 +667,12 @@ async function main() {
     }
     const report={
       base:BASE.href, checkedAt:new Date().toISOString(), status:failures.length?'FAIL':'PASS',
-      routeCount:registry.length, routesLoaded:routeResults.filter(r=>r.loaded).length,
+      routeCount:registry.length, htmlPageCount:htmlRoutes.length, footerOnlyRoutes:footerOnlyResults, routesLoaded:routeResults.filter(r=>r.loaded).length,
       actionsClicked:routeResults.filter(r=>r.actionClicked).length,
       mobileOverflow:routeResults.filter(r=>r.bodyOverflow).map(r=>r.file),
       responsiveOverflow:Object.fromEntries(['mobile','tablet','desktop'].map(device=>[device,routeResults.filter(r=>r.responsiveLayout && r.responsiveLayout[device] && r.responsiveLayout[device].horizontalOverflow).map(r=>r.file)])),
       responsiveNavigationHeadingOverlap:Object.fromEntries(['mobile','tablet','desktop'].map(device=>[device,routeResults.filter(r=>r.responsiveLayout && r.responsiveLayout.samples && r.responsiveLayout.samples.some(sample=>sample.viewportWidth>=(device==='mobile'?320:device==='tablet'?601:1025) && sample.viewportWidth<=(device==='mobile'?600:device==='tablet'?1024:2560) && sample.navigationHeadingOverlap)).map(r=>r.file)])),
-      navigationFailures:routeResults.filter(r=>!r.navState.present || !r.navState.nearTop || !r.navState.staticFlow || !r.navState.homeLink || !r.navState.contactLink || !r.navState.insideMain).map(r=>({file:r.file,navState:r.navState})),
+      navigationFailures:routeResults.filter(r=>!r.navState.present || !r.navState.nearTop || !r.navState.staticFlow || !r.navState.homeLink || !r.navState.contactLink || !r.navState.insideMain).map(r=>({file:r.file,navState:r.navState})),\n      footerFailures:routeResults.filter(r=>!r.footerState.present || !r.footerState.visible || !r.footerState.sharedClass || r.footerState.iconRows!==1 || r.footerState.count!==1).map(r=>({file:r.file,footerState:r.footerState})),
       pageErrors:routeResults.filter(r=>r.pageErrors.length).map(r=>({file:r.file,errors:r.pageErrors})),
       consoleErrors:routeResults.filter(r=>r.consoleErrors.length).map(r=>({file:r.file,errors:r.consoleErrors})),
       noVisibleInput:routeResults.filter(r=>!r.inputCount).map(r=>r.file),
@@ -635,7 +686,7 @@ async function main() {
         '# ClerFit live browser smoke',
         '',
         '- Status: **'+report.status+'**',
-        '- Registered calculators: '+report.routeCount,
+        '- Registered calculators: '+report.routeCount,\n        '- HTML pages footer-audited: '+report.htmlPageCount,\n        '- Footer failures: '+report.footerFailures.length,
         '- Routes loaded: '+report.routesLoaded,
         '- Action buttons clicked: '+report.actionsClicked,
         '- Mobile overflows: '+report.responsiveOverflow.mobile.length,
@@ -658,7 +709,7 @@ async function main() {
       ].join('\n');
       fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary+'\n');
     }
-    console.log(JSON.stringify({status:report.status,routeCount:report.routeCount,routesLoaded:report.routesLoaded,actionsClicked:report.actionsClicked,mobileOverflow:report.responsiveOverflow.mobile.length,tabletOverflow:report.responsiveOverflow.tablet.length,desktopOverflow:report.responsiveOverflow.desktop.length,pageErrors:report.pageErrors.length,consoleErrors:report.consoleErrors.length,targetedUnitChecks:targeted.length,failures:report.failures},null,2));
+    console.log(JSON.stringify({status:report.status,routeCount:report.routeCount,routesLoaded:report.routesLoaded,actionsClicked:report.actionsClicked,mobileOverflow:report.responsiveOverflow.mobile.length,tabletOverflow:report.responsiveOverflow.tablet.length,desktopOverflow:report.responsiveOverflow.desktop.length,pageErrors:report.pageErrors.length,consoleErrors:report.consoleErrors.length,footerFailures:report.footerFailures.length,targetedUnitChecks:targeted.length,failures:report.failures},null,2));
     if(failures.length)process.exit(1);
   } finally { await browser.close(); }
 }
