@@ -114,7 +114,47 @@
   return { value, hipCm, heightCm, age: years };
  }
 
- const api = { toCm, circleMetrics, muacMetrics, calculateBAI };
+
+ function toKg(value, unit, label) {
+  const n = Number(value), u = String(unit || "kg").trim().toLowerCase();
+  if (!Number.isFinite(n) || n <= 0) throw new RangeError(label + " must be a positive finite value.");
+  if (u === "kg") return n;
+  if (u === "lb" || u === "lbs") return n * 0.45359237;
+  throw new RangeError("Choose kg or lb for " + label + ".");
+ }
+ function relativeMuscleMetrics(muscle, muscleUnit, weight, weightUnit) {
+  const m = toKg(muscle, muscleUnit, "Skeletal muscle mass"), w = toKg(weight, weightUnit, "Body weight");
+  assertRange(m, 0.1, 200, "Measured skeletal muscle mass", "kg"); assertRange(w, 2, 500, "Body weight", "kg");
+  if (m > w) throw new RangeError("Measured skeletal muscle mass cannot exceed total body weight.");
+  return { muscleKg:m, weightKg:w, percent:m/w*100 };
+ }
+ function skeletalMuscleMetrics(muscle, muscleUnit, weight, weightUnit, height, heightUnit) {
+  const base = relativeMuscleMetrics(muscle, muscleUnit, weight, weightUnit), h = toCm(height, heightUnit, "Height");
+  assertRange(h, 80, 250, "Height", "cm");
+  return { ...base, heightCm:h, index:base.muscleKg/Math.pow(h/100,2) };
+ }
+ function almiMetrics(alm, almUnit, height, heightUnit) {
+  const a=toKg(alm,almUnit,"Appendicular lean mass"), h=toCm(height,heightUnit,"Height");
+  assertRange(a,1,100,"Appendicular lean mass","kg"); assertRange(h,80,250,"Height","cm");
+  return { appendicularLeanMassKg:a, heightCm:h, value:a/Math.pow(h/100,2) };
+ }
+ function fmiMetrics(fat, fatUnit, weight, weightUnit, height, heightUnit) {
+  const f=toKg(fat,fatUnit,"Fat mass"), w=toKg(weight,weightUnit,"Body weight"), h=toCm(height,heightUnit,"Height");
+  assertRange(f,0.1,300,"Fat mass","kg"); assertRange(w,2,500,"Body weight","kg"); assertRange(h,80,250,"Height","cm");
+  if(f>w) throw new RangeError("Fat mass cannot exceed total body weight.");
+  return { fatMassKg:f, weightKg:w, heightCm:h, value:f/Math.pow(h/100,2) };
+ }
+ function ffmiMetrics(weightA, weightUnitA, fatA, heightA, heightUnitA, weightB, weightUnitB, fatB, heightB, heightUnitB) {
+  const wa=toKg(weightA,weightUnitA,"Person A body weight"), wb=toKg(weightB,weightUnitB,"Person B body weight");
+  const ha=toCm(heightA,heightUnitA,"Person A height"), hb=toCm(heightB,heightUnitB,"Person B height");
+  const fa=Number(fatA), fb=Number(fatB);
+  assertRange(wa,2,500,"Person A body weight","kg"); assertRange(wb,2,500,"Person B body weight","kg");
+  assertRange(ha,80,250,"Person A height","cm"); assertRange(hb,80,250,"Person B height","cm");
+  assertRange(fa,0,75,"Person A body-fat percentage","%"); assertRange(fb,0,75,"Person B body-fat percentage","%");
+  const ffma=wa*(1-fa/100), ffmb=wb*(1-fb/100), a=ffma/Math.pow(ha/100,2), b=ffmb/Math.pow(hb/100,2);
+  return { fatFreeMassA:ffma, fatFreeMassB:ffmb, ffmiA:a, ffmiB:b, difference:Math.abs(a-b) };
+ }
+\n const api = { toCm, toKg, circleMetrics, muacMetrics, calculateBAI, relativeMuscleMetrics, skeletalMuscleMetrics, almiMetrics, fmiMetrics, ffmiMetrics };
  if (typeof window !== "undefined") window.ClerFitAnthropometric = api;
 
  function clearResultFieldErrors(form, output) {
@@ -204,30 +244,33 @@
      break;
     }
     case "relative": {
-     const p = num("muscle") / num("weight") * 100;
-     result = fmt(p) + "% of body mass";
-     note = "Calculated from the supplied skeletal-muscle-mass value. This tool does not validate or independently estimate that input.";
+     const d=relativeMuscleMetrics(num("muscle"),$("muscleUnit").value,num("weight"),$("weightUnit").value);
+     result=fmt(d.percent)+"% of body mass · measured muscle mass: "+fmt(d.muscleKg)+" kg";
+     note="Relative muscle mass = measured skeletal muscle mass ÷ body weight × 100. The muscle-mass input must come from a suitable assessment; this calculator does not predict it.";
      break;
     }
     case "skeletal": {
-     const p = num("muscle") / num("weight") * 100, idx = num("muscle") / Math.pow(num("height") / 100, 2);
-     result = fmt(num("muscle")) + " kg · " + fmt(p) + "% of body mass · SMMI " + fmt(idx) + " kg/m²";
-     note = "Derived from the supplied muscle-mass assessment. No independent muscle-mass prediction is performed.";
+     const d=skeletalMuscleMetrics(num("muscle"),$("muscleUnit").value,num("weight"),$("weightUnit").value,num("height"),$("heightUnit").value);
+     result="Measured skeletal muscle mass: "+fmt(d.muscleKg)+" kg · Relative muscle mass: "+fmt(d.percent)+"% · Skeletal muscle mass index: "+fmt(d.index)+" kg/m²";
+     note="The entered muscle mass must come from a suitable assessment. The height-normalized index is descriptive, not a universally standardized diagnostic measure; no clinical cutoff is assigned.";
      break;
     }
-    case "almi":
-     result = fmt(num("alm") / Math.pow(num("height") / 100, 2)) + " kg/m²";
-     note = "ALMI = appendicular lean mass (kg) ÷ height (m)².";
+    case "almi": {
+     const d=almiMetrics(num("alm"),$("almUnit").value,num("height"),$("heightUnit").value);
+     result=fmt(d.value)+" kg/m²";
+     note="ALMI = appendicular lean mass (kg) ÷ height (m)². Use the combined arm-and-leg lean-mass result from a suitable assessment; do not substitute total lean mass. Reference interpretation varies by sex, population and method.";
      break;
-    case "fmi":
-     result = fmt(num("fat") / Math.pow(num("height") / 100, 2)) + " kg/m²";
-     note = "FMI = fat mass (kg) ÷ height (m)².";
+    }
+    case "fmi": {
+     const d=fmiMetrics(num("fat"),$("fatUnit").value,num("weight"),$("weightUnit").value,num("height"),$("heightUnit").value);
+     result=fmt(d.value)+" kg/m² · fat mass: "+fmt(d.fatMassKg)+" kg";
+     note="FMI = measured fat mass (kg) ÷ height (m)². Use fat mass from a suitable assessment; the calculator does not infer it from weight alone. Reference ranges vary by population and method.";
      break;
+    }
     case "ffmi": {
-     const a = (num("weightA") * (1 - num("fatA") / 100)) / Math.pow(num("heightA") / 100, 2);
-     const b = (num("weightB") * (1 - num("fatB") / 100)) / Math.pow(num("heightB") / 100, 2);
-     result = "Person A: " + fmt(a) + " kg/m² · Person B: " + fmt(b) + " kg/m² · Difference: " + fmt(Math.abs(a - b)) + " kg/m²";
-     note = "FFMI = estimated fat-free mass ÷ height². Body-fat measurement error affects the comparison.";
+     const d=ffmiMetrics(num("weightA"),$("weightUnitA").value,num("fatA"),num("heightA"),$("heightUnitA").value,num("weightB"),$("weightUnitB").value,num("fatB"),num("heightB"),$("heightUnitB").value);
+     result="Person A: "+fmt(d.ffmiA)+" kg/m² (fat-free mass "+fmt(d.fatFreeMassA)+" kg) · Person B: "+fmt(d.ffmiB)+" kg/m² (fat-free mass "+fmt(d.fatFreeMassB)+" kg) · Difference: "+fmt(d.difference)+" kg/m²";
+     note="FFMI = fat-free mass ÷ height²; fat-free mass = body weight × (1 − body-fat fraction). Body-fat measurement error affects both estimates. This is not a health or athletic ranking.";
      break;
     }
     case "whtcompare": {
