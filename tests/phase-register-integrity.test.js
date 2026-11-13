@@ -121,7 +121,7 @@ assert.ok(sitemapUrls.every(url => {
   } catch { return false; }
 }), 'sitemap URLs must be HTTPS and remain under the ClerFit GitHub Pages project path');
 assert.equal(new Set(sitemapUrls).size, sitemapUrls.length, 'sitemap must not contain duplicate URLs');
-assert.equal(sitemapUrls.length, 179, 'sitemap should include 174 tools and five root routes plus Batch 5 and five root routes');
+assert.equal(sitemapUrls.length, 179, 'sitemap should include 174 calculator routes and five root routes');
 for (const row of inventory) {
   assert.ok(sitemapUrls.includes(row[canonicalIndex]), 'sitemap is missing ' + row[canonicalIndex]);
 }
