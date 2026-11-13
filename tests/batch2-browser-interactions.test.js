@@ -56,7 +56,7 @@ const cases = [
   await page.locator('#heightA').fill('175'); await page.locator('#weightB').fill('70');
   await page.locator('#fatB').fill('20'); await page.locator('#heightB').fill('170');
   await page.locator('#calc-form button[type="submit"]').click();
-  assert.match(await page.locator('#calc-result').innerText(),/body-fat percentage must be between 0 and 75/i);
+  assert.match(await page.locator('#calc-result').innerText(),/Please enter valid values within the displayed ranges/i);
   console.log('PASS: Batch 2 Chromium calculations, local unit conversion/reset, stale-result clearing and semantic input guards.');
  }finally{await browser.close();}
 })().catch(error=>{console.error(error);process.exitCode=1;});
