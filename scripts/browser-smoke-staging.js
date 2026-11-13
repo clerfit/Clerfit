@@ -262,7 +262,7 @@ async function runRoute(browser, route) {
     await page.waitForFunction(() => {
       const link = document.querySelector('link[data-cf-portrait-footer="true"]');
       return !!(link && link.sheet);
-    }, { timeout: 5000 }).catch(() => {});
+    }, null, { timeout: 5000 }).catch(() => {});
     footerState = await page.evaluate(() => {
       const link = document.querySelector('link[data-cf-portrait-footer="true"]');
       const footer = document.querySelector('footer.cf-footer');
