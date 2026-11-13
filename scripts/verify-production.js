@@ -175,9 +175,9 @@ async function main() {
   assert(validation.body.includes('function calculatorScope(trigger)') && validation.body.includes('visibleNumericInputs(scope)'), 'Numeric validation must be scoped to the active form/card.');
   regressionChecks.push('shared validation scope, decimal input bounds, and unit-selector regressions');
 
-  assert(/^<\?xml\s+version=[\"']1\\.0[\"']/i.test(sitemap.body.trim()), 'Sitemap is missing its XML declaration.');
-  assert(/<urlset\\s+xmlns=[\"']http:\\/\\/www\\.sitemaps\\.org\\/schemas\\/sitemap\\/0\\.9[\"']/i.test(sitemap.body), 'Sitemap is missing the standard sitemap namespace.');
-  assert(/<\\/urlset>\\s*$/i.test(sitemap.body), 'Sitemap is missing its closing urlset element.');
+  assert(/^<\?xml\s+version=["']1\.0["']/i.test(sitemap.body.trim()), 'Sitemap is missing its XML declaration.');
+  assert(/<urlset\s+xmlns=["']http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9["']/i.test(sitemap.body), 'Sitemap is missing the standard sitemap namespace.');
+  assert(/<\/urlset>\s*$/i.test(sitemap.body), 'Sitemap is missing its closing urlset element.');
   const locs = [...sitemap.body.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(m => m[1].trim());
   const pages = [...new Set(locs)];
   assert(locs.length === pages.length, 'Sitemap contains duplicate locations.');
