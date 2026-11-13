@@ -125,6 +125,14 @@
       const text = (el.textContent || '').replace(/\s+/g,' ').trim();
       if (text && specialist.test(text) && !el.querySelector('.cf-tip-wrap')) addTip(el, text, hintFor(text));
     });
+    // Keep only one contextual popover open at a time. Capture phase closes any
+    // previous popover before the newly clicked trigger toggles its own state.
+    document.addEventListener('click', e => {
+      const current = e.target.closest('.cf-tip-wrap');
+      document.querySelectorAll('.cf-tip-open').forEach(w => {
+        if (w !== current) { w.classList.remove('cf-tip-open'); w.querySelector('button')?.setAttribute('aria-expanded','false'); }
+      });
+    }, true);
     document.addEventListener('click', e => {
       if (!e.target.closest('.cf-tip-wrap')) document.querySelectorAll('.cf-tip-open').forEach(w => {w.classList.remove('cf-tip-open');w.querySelector('button')?.setAttribute('aria-expanded','false')});
     }, {passive:true});
