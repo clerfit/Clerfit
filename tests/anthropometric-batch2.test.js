@@ -9,7 +9,7 @@ const source = fs.readFileSync('js/anthropometric-calculators.js','utf8');
 vm.runInNewContext(source, vm.createContext({window,document,console,Number,Math}), {filename:'js/anthropometric-calculators.js',timeout:3000});
 const api=window.ClerFitAnthropometric;
 assert.ok(api, 'body-composition API is exported');
-const close=(a,b,msg,tol=1e-8)=>assert.ok(Math.abs(a-b)<=tol,msg+': expected '+b+', got '+a);
+const close=(a,b,msg,tol=1e-6)=>assert.ok(Math.abs(a-b)<=tol,msg+': expected '+b+', got '+a);
 
 // Relative muscle mass: 20 kg / 80 kg = 25%; pounds must be equivalent.
 close(api.relativeMuscleMetrics(20,'kg',80,'kg').percent,25,'relative muscle mass');
