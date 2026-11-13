@@ -1,6 +1,6 @@
 # ClerFit R3 — Final Local Audit Report
 
-Audit date: 2026-10-18.
+Audit date: 2026-10-18 (historical baseline; current inventory reconciliation added 2026-11-13).
 
 ## Executive result
 
@@ -47,3 +47,12 @@ The updated source and generated production build pass the available local autom
 - **Engineering and automated acceptance gates: PASS.** The current runtime/test source has passing JavaScript, 118-route formula/method, inventory consistency for 242 static numeric inputs, focused regression, staging, browser interaction, and accessibility gates. Latest full verification: [GitHub Actions run 39061691909](https://github.com/clerfit/Clerfit/actions/runs/39061691909); it passed on `481fe233daf5ff8c3110419cdd974b379b4672b2`. The only follow-on commit before this report refresh changed the final report document, not runtime/test code.
 - **Live website checks: partial pass.** The production verifier passed on its checked revision with 123 sitemap pages, 118 calculator routes, 158 same-site references and zero verifier failures; a repeat of the live 118-route smoke also passed. The exact PageSpeed-reported 404 URL was not supplied, so that specific URL is not certified fixed.
 - **Do not call release acceptance 100% complete.** Outstanding evidence is the exact `ClerFit_R3_NEW_UI_COMPLETE.zip` for byte/page-level parity, formula-aware semantic review of all 242 fields plus generated fields, human keyboard/screen-reader and physical-device acceptance, real consented contact submission with inbox receipt, independent domain review where warranted, and current-host response-header / weak-network performance checks. GitHub Pages does not apply Netlify `_headers` automatically.
+
+
+## Current inventory reconciliation — 2026-11-13
+
+- Current main-branch registry: **159 unique calculator routes**; all registered calculator HTML files are present.
+- Current source sitemap: **164 URLs** (159 calculator routes plus the homepage and four informational pages). Registry-to-sitemap parity was checked against the current source tree.
+- The 118-route and 123-URL counts above are retained as historical audit evidence only; they are not current inventory values.
+- The legacy `release-transfer` workflow still contains a 158-entry / 127-HTML payload contract and writes directly to `main`. It is unsafe for the current inventory until its payload is rebuilt and independently reconciled.
+- Live Google indexing status and deployed sitemap HTTP behavior are not established by this source audit. Search Console exclusion reasons are still required to diagnose Google's non-indexing.

@@ -1,11 +1,8 @@
-name: Publish complete ClerFit R3 release
+name: Legacy ClerFit R3 payload (manual, blocked pending rebuild)
 
 on:
-  push:
-    branches:
-      - release-transfer
-    paths:
-      - 'deploy_payload/READY'
+  # Disabled automatic publication: this legacy payload is stale and must not overwrite main.
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -18,6 +15,10 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      - name: Block stale release payload
+        run: |
+          echo "This legacy release-transfer payload is incompatible with the current 159-calculator inventory. Rebuild and verify the complete payload before restoring publication."
+          exit 1
       - name: Checkout release transfer branch
         uses: actions/checkout@v4
         with:
