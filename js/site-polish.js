@@ -88,7 +88,7 @@
     const sharedHeader=document.querySelector('.clerfit-page-header');
     const sharedActions=document.querySelector('.clerfit-fixed-actions');
     if(sharedHeader&&sharedActions&&sharedActions.parentElement!==sharedHeader) sharedHeader.appendChild(sharedActions);
-    if(!document.querySelector('.clerfit-page-footer')){
+    if(!document.querySelector('footer')){
       const footer=document.createElement('footer'); footer.className='clerfit-page-footer';
       footer.innerHTML=`<div class="clerfit-footer-particles" aria-hidden="true"></div><a class="clerfit-footer-logo" href="${home}"><img src="${logo}" alt=""><span><strong>ClerFit</strong><small>Health &amp; Performance</small></span></a><p>Educational tools for better-informed health and performance decisions. Estimates are not medical diagnoses.</p><nav class="clerfit-legal-links" aria-label="Legal information"><a href="${root}privacy.html">Privacy</a><a href="${root}terms-of-use.html">Terms of Use</a><a href="${root}educational-disclaimer.html">Educational Disclaimer</a></nav><div class="clerfit-footer-bottom"><span>© ${new Date().getFullYear()} ClerFit. All rights reserved where applicable.</span><a href="#top" class="clerfit-back-top">Back to top</a></div>`;
       main.appendChild(footer);
