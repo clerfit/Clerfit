@@ -22,6 +22,34 @@
     const existingFooter = document.querySelector("footer");
     if (existingFooter) {
       existingFooter.classList.add("cf-footer");
+      // Upgrade the known legacy one-line footer without touching richer page-specific footers.
+      const compactFooterText = (existingFooter.textContent || "").replace(/\\s+/g, " ").trim();
+      if (!existingFooter.querySelector(".cf-footer-main") &&
+          /^ClerFit\\s*[·—-]\\s*Health\\s*&\\s*Performance\\s*Tools$/i.test(compactFooterText)) {
+        const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
+        const home = new URL("index.html", root).href;
+        const contact = new URL("contact.html", root).href;
+        existingFooter.innerHTML =
+          '<div class="cf-footer-main">' +
+            '<a class="cf-footer-brand" href="' + home + '"><span>ClerFit</span></a>' +
+            '<p>Clear tools for better-informed everyday decisions.</p>' +
+            '<nav class="cf-footer-links" aria-label="Footer navigation">' +
+              '<a href="' + home + '#all-calculators">Explore calculators</a>' +
+              '<a href="' + contact + '">Contact</a>' +
+            '</nav>' +
+          '</div>' +
+          '<div class="cf-footer-bottom">' +
+            '<span>© <span class="cf-footer-year"></span> ClerFit. Educational estimates, not medical diagnoses.</span>' +
+            '<a href="#top" class="cf-back-top">Back to top ↑</a>' +
+          '</div>';
+        const year = existingFooter.querySelector(".cf-footer-year");
+        if (year) year.textContent = String(new Date().getFullYear());
+        const backTop = existingFooter.querySelector(".cf-back-top");
+        if (backTop) backTop.addEventListener("click", (event) => {
+          event.preventDefault();
+          window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        });
+      }
       // Ensure page-specific footers also receive the shared decorative icon row.
       if (!existingFooter.querySelector(".cf-footer-category-icons")) {
         const iconRow = document.createElement("div");
