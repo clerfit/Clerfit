@@ -40,7 +40,7 @@ const cases = [
    assert.doesNotMatch(result,/NaN|Infinity/);
    const first=Object.keys(item.fields)[0];
    await page.locator('#'+first).fill(String(Number(item.fields[first])+1));
-   assert.equal((await output.innerText()).trim(),' ',item.page+' invalidates stale output after edit');
+   assert.equal((await output.innerText()).trim(),'',item.page+' invalidates stale output after edit');
   }
   // Semantic guards beyond basic HTML min/max validation.
   await page.goto(new URL('html/relative-muscle-mass.html',base).href,{waitUntil:'networkidle'});
