@@ -32,6 +32,8 @@ jobs:
         run: node tests/verify.js
       - name: Run Batch 2 anthropometric formula and boundary regressions
         run: node tests/anthropometric-batch2.test.js
+      - name: Run Batch 5 micronutrient formula and life-stage regressions
+        run: node tests/micronutrient-batch5.test.js
       - name: Verify ratio decimal precision and denominator edge cases
         run: node tests/ratio-decimal-precision.test.js
       - name: Verify field-bound inventories match static source markup
