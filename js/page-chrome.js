@@ -23,9 +23,9 @@
     if (existingFooter) {
       existingFooter.classList.add("cf-footer");
       // Upgrade the known legacy one-line footer without touching richer page-specific footers.
-      const compactFooterText = (existingFooter.textContent || "").replace(/\\s+/g, " ").trim();
+      const compactFooterText = (existingFooter.textContent || "").replace(/\s+/g, " ").trim();
       if (!existingFooter.querySelector(".cf-footer-main") &&
-          /^ClerFit\\s*[·—-]\\s*Health\\s*&\\s*Performance\\s*Tools$/i.test(compactFooterText)) {
+          /^ClerFit\s*[·—-]\s*Health\s*&\s*Performance\s*Tools$/i.test(compactFooterText)) {
         const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
         const home = new URL("index.html", root).href;
         const contact = new URL("contact.html", root).href;
