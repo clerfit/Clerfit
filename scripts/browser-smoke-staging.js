@@ -735,6 +735,7 @@ async function main() {
       routeCount:registry.length, routesLoaded:routeResults.filter(r=>r.loaded).length,
       actionsClicked:routeResults.filter(r=>r.actionClicked).length,
       mobileOverflow:routeResults.filter(r=>r.bodyOverflow).map(r=>r.file),
+      footerFailures:routeResults.filter(r=>!r.footerState.present || !r.footerState.stylesheetLoaded || !r.footerState.gridApplied || r.footerState.iconCount!==11 || !r.footerState.animationApplied).map(r=>({file:r.file,footerState:r.footerState})),
       navigationFailures:routeResults.filter(r=>!r.navState.present || !r.navState.nearTop || !r.navState.staticFlow || !r.navState.homeLink || !r.navState.contactLink || !r.navState.insideMain).map(r=>({file:r.file,navState:r.navState})),
       pageErrors:routeResults.filter(r=>r.pageErrors.length).map(r=>({file:r.file,errors:r.pageErrors})),
       consoleErrors:routeResults.filter(r=>r.consoleErrors.length).map(r=>({file:r.file,errors:r.consoleErrors})),
@@ -753,6 +754,7 @@ async function main() {
         '- Routes loaded: '+report.routesLoaded,
         '- Action buttons clicked: '+report.actionsClicked,
         '- Mobile overflows: '+report.mobileOverflow.length,
+        '- Mobile portrait footer failures: '+report.footerFailures.length,
         '- Page errors: '+report.pageErrors.length,
         '- Console errors: '+report.consoleErrors.length,
         '- Targeted unit checks: '+targeted.length,
@@ -769,7 +771,7 @@ async function main() {
       ].join('\n');
       fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary+'\n');
     }
-    console.log(JSON.stringify({status:report.status,routeCount:report.routeCount,routesLoaded:report.routesLoaded,actionsClicked:report.actionsClicked,mobileOverflow:report.mobileOverflow.length,pageErrors:report.pageErrors.length,consoleErrors:report.consoleErrors.length,targetedUnitChecks:targeted.length,failures:report.failures},null,2));
+    console.log(JSON.stringify({status:report.status,routeCount:report.routeCount,routesLoaded:report.routesLoaded,actionsClicked:report.actionsClicked,mobileOverflow:report.mobileOverflow.length,footerFailures:report.footerFailures.length,pageErrors:report.pageErrors.length,consoleErrors:report.consoleErrors.length,targetedUnitChecks:targeted.length,failures:report.failures},null,2));
     if(failures.length)process.exit(1);
   } finally { await browser.close(); }
 }
