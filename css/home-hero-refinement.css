@@ -1,0 +1,97 @@
+/* Homepage hero card refinement — isolated from calculator page styles */
+body .cf-home-hero {
+  grid-template-columns: minmax(0, 1.12fr) minmax(260px, .88fr);
+  min-height: 350px;
+  gap: clamp(20px, 3.2vw, 42px);
+  padding: clamp(24px, 3.5vw, 46px) !important;
+  overflow: hidden;
+}
+body .cf-home-hero .cf-hero-content { max-width: 690px; }
+body .cf-home-hero h1 {
+  max-width: 660px;
+  text-wrap: balance;
+}
+body .cf-home-hero p {
+  max-width: 570px;
+  margin: 0;
+}
+body .cf-home-hero .cf-hero-actions { margin-top: 22px; }
+body .cf-home-hero .cf-hero-link {
+  min-height: 48px;
+  padding-inline: 18px;
+}
+body .cf-home-hero .cf-hero-link:focus-visible {
+  outline: 3px solid #8ddfd2;
+  outline-offset: 4px;
+}
+body .cf-home-hero .cf-hero-stats {
+  gap: clamp(12px, 1.6vw, 20px);
+  margin-top: 25px;
+}
+body .cf-home-hero .cf-hero-stats div { min-width: 0; }
+body .cf-home-hero .cf-hero-stats strong {
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.2;
+}
+body .cf-home-hero .cf-hero-stats span {
+  font-size: 11px;
+  line-height: 1.35;
+}
+body .cf-home-hero .cf-hero-art {
+  min-height: 260px;
+  min-width: 0;
+}
+body .cf-home-hero .cf-art-panel {
+  width: min(100%, 305px);
+  transform: rotate(-1deg);
+}
+@media (max-width: 900px) and (min-width: 721px) {
+  body .cf-home-hero {
+    grid-template-columns: minmax(0, 1.05fr) minmax(220px, .8fr);
+    gap: 18px;
+    padding: 28px !important;
+  }
+  body .cf-home-hero h1 { font-size: clamp(30px, 3.6vw, 42px) !important; }
+  body .cf-home-hero .cf-hero-art { min-height: 230px; }
+  body .cf-home-hero .cf-art-panel { padding: 14px; }
+  body .cf-home-hero .cf-art-line { padding-block: 10px; }
+}
+@media (max-width: 720px) {
+  body .cf-home-hero {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    gap: 12px;
+    padding: 26px 22px !important;
+  }
+  body .cf-home-hero .cf-hero-content { max-width: none; }
+  body .cf-home-hero h1 {
+    max-width: 600px;
+    font-size: clamp(29px, 7vw, 40px) !important;
+  }
+  body .cf-home-hero p { max-width: 620px; }
+  body .cf-home-hero .cf-hero-art {
+    min-height: 205px;
+    margin-top: 2px;
+  }
+  body .cf-home-hero .cf-art-panel { width: min(100%, 310px); }
+  body .cf-home-hero .cf-hero-stats { margin-top: 21px; }
+}
+@media (max-width: 430px) {
+  body .cf-home-hero { padding: 23px 17px !important; }
+  body .cf-home-hero h1 { font-size: clamp(28px, 8vw, 34px) !important; }
+  body .cf-home-hero .cf-hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    align-items: start;
+  }
+  body .cf-home-hero .cf-hero-stats i { display: none; }
+  body .cf-home-hero .cf-hero-stats strong { font-size: 17px; }
+  body .cf-home-hero .cf-hero-stats span {
+    font-size: 9px;
+    overflow-wrap: anywhere;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body .cf-home-hero .cf-orbit { animation: none !important; }
+}
