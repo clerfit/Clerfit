@@ -92,6 +92,8 @@ jobs:
 
       - name: Run calculator known-answer and domain regressions
         run: node tests/verify.js
+      - name: Run anthropometric formula and page regressions
+        run: node tests/anthropometric-calculators.test.js
       - name: Verify field-bound inventories match static source markup
         run: node scripts/sync-input-boundaries.js --check
       - name: Check phase inventory, sign-off and sitemap integrity
@@ -159,6 +161,8 @@ jobs:
           node scripts/browser-smoke-staging.js http://127.0.0.1:4173/
           node tests/batch1-browser-interactions.test.js http://127.0.0.1:4173/
           node tests/anthropometric-batch2.test.js
+          node tests/batch2-browser-interactions.test.js http://127.0.0.1:4173/
+          node tests/batch3-browser-interactions.test.js http://127.0.0.1:4173/
 
       - name: Run all-page axe accessibility smoke tests
         env:
