@@ -38,9 +38,9 @@ For a local server, run `python -m http.server 8000` from this folder and open `
 - `scripts/browser-smoke-staging.js` and `scripts/accessibility-smoke.js` — all-route Chromium interaction/boundary checks and all-page axe accessibility audit for the local staged build.
 - `scripts/verify-production.js` — post-deployment route, sitemap, robots and HTTPS smoke test.
 - `SOURCES_AND_METHODS.md`, `FORMULA_REFERENCE_AUDIT.md` and `CALCULATOR_VERIFICATION_MATRIX.csv` — formula/method summaries, references, route-level known-answer status and documented limitations.
-- `FIELD_VALIDATION_AUDIT.csv` and `INPUT_BOUNDARY_VERIFIED.csv` — inventory of 297 static numeric fields and verified structural min/max/step constraints; exhaustive semantic edge cases remain a release gate.
+- `FIELD_VALIDATION_AUDIT.csv` and `INPUT_BOUNDARY_VERIFIED.csv` — inventory of 308 static numeric fields; source-matched structural bounds passed; exhaustive semantic edge cases remain a release gate.
 - `DEPLOYMENT_GUIDE.md` — deployment requirements and post-release checks.
-- `tests/verify.js` — automated route, syntax, integrity, 164/164 route-level formula/method vectors, boundary inventory, input validation and conversion checks.
+- `tests/verify.js` — automated route, syntax, integrity, known-answer and domain checks; Batch 1–4 anthropometric formula/browser suites passed; Batch 5 micronutrient formula/browser suites are included in the implementation branch; formula/method matrix documents 138 of 169 routes, with 31 route entries still to map.
 - `FINAL_COMPLETION_REPORT.md` — final status, verified evidence and remaining external/review requirements.
 - `FINAL_BROWSER_SMOKE_REPORT.json` — previously recorded all-page in-memory Chromium smoke results (historical evidence; not a fresh run after the latest CSS edits).
 - `FINAL_BROWSER_SMOKE_TARGETED.json` — previously recorded targeted browser smoke results (historical evidence).
@@ -85,6 +85,7 @@ node tests/verify.js
 node tests/anthropometric-calculators.test.js
 node tests/batch2-browser-interactions.test.js http://127.0.0.1:4173/
 node tests/batch3-browser-interactions.test.js http://127.0.0.1:4173/
+node tests/batch4-browser-interactions.test.js http://127.0.0.1:4173/
 node tests/phase-register-integrity.test.js
 node tests/input-validation-accessibility.test.js
 for test_file in tests/bmi-page.test.js tests/bodyfat-page.test.js tests/bsa-page.test.js tests/fatmass-page.test.js tests/ffmi-page.test.js tests/leanmass-page.test.js tests/whr-page.test.js tests/wht-page.test.js; do node "$test_file"; done
@@ -96,4 +97,9 @@ SITE_URL=https://clerfit.github.io/Clerfit node scripts/verify-staging.js
 
 ## Important release limitations
 
-Automated checks now include a passing known-answer or method-specific regression vector for every registered calculator (164/164 routes), a documented method/reference basis for every route, and structural boundary checks for all 297 static numeric inputs plus runtime-generated controls. This does not mean every possible input combination has been tested or that site-defined metrics are scientifically standardized. Full semantic boundary combinations, real-device and screen-reader QA, live contact-form delivery and deployed production parity remain open. The sitemap and canonical URLs are generated from Netlify’s deployment URL or the explicit `SITE_URL`; the generator preserves project-site paths such as `/Clerfit`. See `FORMULA_REFERENCE_AUDIT.md`, `MASTER_REQUIREMENTS_CHECKLIST.md` and `AUDIT_REPORT.md` before publishing.
+Automated checks include 171 deterministic known-answer/domain assertions plus dedicated Batch 1–4 anthropometric formula and browser suites. The formula/method matrix currently documents 138 of 169 routes; 31 route entries still need explicit mapping. Structural boundary checks pass for all 308 static numeric inputs plus runtime-generated controls; semantic domain review remains open. This does not mean every possible input combination has been tested or that site-defined metrics are scientifically standardized. Full semantic boundary combinations, real-device and screen-reader QA, live contact-form delivery and deployed production parity remain open. The sitemap and canonical URLs are generated from Netlify’s deployment URL or the explicit `SITE_URL`; the generator preserves project-site paths such as `/Clerfit`. See `FORMULA_REFERENCE_AUDIT.md`, `MASTER_REQUIREMENTS_CHECKLIST.md` and `AUDIT_REPORT.md` before publishing.
+
+
+## Batch 5 — Micronutrient calculators
+
+Batch 5 adds Daily Micronutrient Intake and separate Vitamin A, B12, B6 and C intake calculators. Reference comparisons use U.S. NIH Office of Dietary Supplements life-stage RDAs for ages 14 and above. The combined page reports each nutrient separately and does not create an overall nutrition score. Vitamin A total RAE is not compared with the preformed-retinol UL; vitamin B12 has no established UL; vitamin B6 and C ULs are contextual safety references, not targets. These pages are educational and do not diagnose deficiencies or prescribe supplements.

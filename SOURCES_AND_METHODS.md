@@ -60,3 +60,26 @@ Calories Burned, Activity Time and METs now use the same estimate: `kcal ≈ MET
 - **MUAC-derived arm areas:** The calculator uses the standard anthropometric relationship MUAMC = MUAC − π × triceps skinfold, after converting both readings to the same length unit. It then derives total arm area = MUAC²/(4π), MUAMA = MUAMC²/(4π), and estimated arm fat area = total arm area − MUAMA. Method reference: [Nutritional Assessment — Anthropometry](https://nutritionalassessment.mumc.nl/en/anthropometry) and [Nutritional Assessment of Body Composition](https://nutritionalassessment.org/bodycomposition/). The circular model is approximate; MUAMA includes bone area and is not a direct muscle-mass measurement. No population percentile or clinical classification is inferred.
 - **Neck, mid-thigh and calf geometry:** Diameter = C/π, radius = C/(2π), and circle-equivalent cross-sectional area = C²/(4π). These are mathematical circle identities, not validated anatomical or clinical estimators. The optional segment-volume output is area × length under a constant circular-cylinder assumption; it must not be described as measured muscle or tissue volume.
 - **Body Adiposity Index:** Bergman et al., *A better index of body adiposity* (2011), [Obesity](https://doi.org/10.1038/oby.2011.38), proposed BAI = hip circumference (cm)/height (m)^1.5 − 18 from adult study populations. The calculator therefore requires age 18 or older and does not assign health-risk categories. A comparative evaluation by Freedman et al. (2012), [Obesity](https://doi.org/10.1038/oby.2012.81), reported bias by sex and body-fat level and found no accuracy advantage over BMI or circumference measures. BAI is presented as an approximate population-derived index, not a direct measurement or diagnosis. The implementation's 0–100% output guard is solely a computational plausibility check to prevent impossible displayed percentages; it is not a validated clinical reference interval, diagnostic cutoff or health category.
+
+
+## Batch 4 — anthropometric segment methods
+
+These five calculators use transparent mathematical descriptors rather than clinical reference standards:
+
+- Upper-to-lower body segment ratio: sitting height is used as the upper segment; lower segment = standing height − sitting height; ratio = upper ÷ lower. Sitting height must be less than standing height.
+- Femur-to-height ratio: user-entered femur length ÷ standing height, after converting both lengths to centimetres.
+- Tibia-to-height ratio: user-entered tibia length ÷ standing height, after converting both lengths to centimetres.
+- Body proportion deviation: measured segment ÷ standing height × 100, compared with a reference percentage entered by the user. No population norm is supplied or implied.
+- Anthropometric measurement change: current measurement − baseline; percentage change = difference ÷ baseline × 100.
+
+For femur and tibia lengths, the user must follow a consistent landmark and measurement protocol. Surface measurements are not interchangeable with imaging. All results are descriptive and are not diagnoses, clinical cutoffs, attractiveness scores or athletic-potential ratings. Batch 4 known-answer and invalid-domain tests are present; exact-commit CI and browser verification remain pending.
+
+
+## Batch 5 — Micronutrient reference values
+
+- [NIH ODS Vitamin A and Carotenoids (health professional)](https://ods.od.nih.gov/factsheets/VitaminA-HealthProfessional/): RDA by age, sex and pregnancy/lactation; units are mcg retinol activity equivalents (RAE). The UL applies only to preformed vitamin A, not total RAE from carotenoids.
+- [NIH ODS Vitamin B12 (health professional)](https://ods.od.nih.gov/factsheets/VitaminB12-HealthProfessional): RDA by age and life stage. No tolerable upper intake level has been established.
+- [NIH ODS Vitamin B6 (health professional)](https://ods.od.nih.gov/factsheets/VitaminB6-HealthProfessional): RDA by age, sex and pregnancy/lactation; U.S. UL values are shown only as context.
+- [NIH ODS Vitamin C (health professional)](https://ods.od.nih.gov/factsheets/VitaminC-HealthProfessional/): RDA by age, sex and pregnancy/lactation; U.S. UL values are shown only as context.
+
+Implementation scope: ages 14+; values are U.S. Dietary Reference Intakes for healthy populations. RDA percentages are planning comparisons, not diagnoses, and these calculators do not prescribe supplements.

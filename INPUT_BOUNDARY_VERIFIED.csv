@@ -296,3 +296,27 @@ sitting-height-arm-span-ratio.html,sittingHeight,Sitting height,30,150,any
 sitting-height-arm-span-ratio.html,armSpan,Arm span,80,250,any
 arm-span-difference.html,armSpan,Arm span,80,250,any
 arm-span-difference.html,standingHeight,Standing height,80,250,any
+upper-lower-body-segment-ratio.html,sittingHeight,Sitting height,30,150,any
+upper-lower-body-segment-ratio.html,standingHeight,Standing height,80,250,any
+femur-height-ratio.html,femur,Femur length,20,80,any
+femur-height-ratio.html,height,Standing height,80,250,any
+tibia-height-ratio.html,tibia,Tibia length,20,70,any
+tibia-height-ratio.html,height,Standing height,80,250,any
+body-proportion-deviation.html,segmentLength,Segment length,5,200,any
+body-proportion-deviation.html,standingHeight,Standing height,80,250,any
+body-proportion-deviation.html,referencePercent,Reference proportion (%),0.1,99.9,any
+anthropometric-measurement-change.html,baseline,Baseline measurement,0.1,250,any
+anthropometric-measurement-change.html,current,Current measurement,0.1,250,any
+daily-micronutrient-intake.html,age,Age (years),14,120,1
+vitamin-a-intake.html,age,Age (years),14,120,1
+vitamin-b12-intake.html,age,Age (years),14,120,1
+vitamin-b6-intake.html,age,Age (years),14,120,1
+vitamin-c-intake.html,age,Age (years),14,120,1
+daily-micronutrient-intake.html,vitaminA,Vitamin A intake,0,50000,any
+daily-micronutrient-intake.html,vitaminB12,Vitamin B12 intake,0,10000,any
+daily-micronutrient-intake.html,vitaminB6,Vitamin B6 intake,0,1000,any
+daily-micronutrient-intake.html,vitaminC,Vitamin C intake,0,10000,any
+vitamin-a-intake.html,intake,Vitamin A intake,0,50000,any
+vitamin-b12-intake.html,intake,Vitamin B12 intake,0,10000,any
+vitamin-b6-intake.html,intake,Vitamin B6 intake,0,1000,any
+vitamin-c-intake.html,intake,Vitamin C intake,0,10000,any
