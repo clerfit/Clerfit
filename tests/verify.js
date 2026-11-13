@@ -842,5 +842,6 @@ assert.match(pageTest.output('diffResult'), /valid finite numerical values/i);
 checks++;
 
 require('./anthropometric-batch1.test.js');
+require('./anthropometric-batch2.test.js');
 require('./unit-system-reset.test.js');
 console.log('PASS: ' + checks + ' known-answer/domain assertions across generated calculators, CDC BMI-for-age, legacy formulas, and unit conversions.');
