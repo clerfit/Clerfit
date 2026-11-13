@@ -604,7 +604,8 @@ async function auditFooterOnly(browser, file) {
     return { file, ...state, status: 'PASS' };
   } finally { await page.close().catch(() => {}); }
 }
-\nasync function main() {
+
+async function main() {
   await waitForDeployedRelease();
   const navUrl=new URL('js/navigation.js?browserSmoke=R3-2026-10-17',BASE).href;
   const sitemapUrl=new URL('sitemap.xml?browserSmoke=R3-2026-10-17',BASE).href;
