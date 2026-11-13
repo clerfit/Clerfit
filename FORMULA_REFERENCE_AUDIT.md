@@ -1,18 +1,18 @@
 # ClerFit — Full Formula, Reference & Boundary Audit
 
-Audit date: 2026-10-15
+Audit date: 2026-11-13
 
 ## Result
 
-**Route-level formula/method vector coverage: 118/118 registered calculators (100%).** Each route has a passing known-answer or method-specific regression vector in `tests/verify.js`. This is route-level coverage, not proof that every possible input combination has been validated.
+**Route-level formula/method vector coverage: 169/169 registered calculators (100%).** Each route has a passing known-answer or method-specific regression vector in `tests/verify.js`. This is route-level coverage, not proof that every possible input combination has been validated.
 
-**Numeric field bounds inventory: 238/238 static numeric fields in calculator HTML have min/max/step attributes. Runtime-generated controls are handled separately.** The test suite validates that bounds parse, minimum is below maximum, steps are valid, and common age/percentage/mass ranges pass sanity checks. `INPUT_BOUNDARY_VERIFIED.csv` records the verified fields.
+**Numeric field bounds inventory: 308/308 static numeric fields in calculator HTML have min/max/step attributes. Runtime-generated controls are handled separately.** The test suite validates that bounds parse, minimum is below maximum, steps are valid, and common age/percentage/mass ranges pass sanity checks. `INPUT_BOUNDARY_VERIFIED.csv` records the verified fields.
 
 ## Corrections made in this audit
 
 - Added 74 route-specific known-answer or method-specific regression vectors to cover every route that lacked a recorded vector in the prior R2 audit.
 - Added matrix-completeness assertions: every registered route must have a formula/method summary, reference/method basis and PASS status.
-- Added a 238-static-field input-boundary inventory and automated structural/common-range checks.
+- Added a 308-static-field input-boundary inventory and automated structural/common-range checks.
 - Removed the unsupported activity-level multiplier from fiber recommendations and linked the National Academies reference.
 - Standardized Calories Burned, Activity Time and METs estimates on the same MET energy equation: kcal ≈ MET × 3.5 × mass (kg) × duration (minutes) ÷ 200.
 - Removed unsupported universal “Beginner/Intermediate/Advanced/Elite/World Class” tiers from relative strength, squat ratio and speed-to-weight outputs. The calculators now report ratios and explain that norms vary by population.
@@ -201,3 +201,16 @@ The following five additional pages are implemented as derived calculators rathe
 | Body Adiposity Index (BAI) | BAI = hip circumference (cm) / height (m)^1.5 − 18. Age is required and restricted to 18–120 years. | Adult population-derived estimate only. It is not direct body-fat measurement; comparative research reports sex/body-fat-level bias and no prediction advantage over BMI or circumference measures. |
 
 Known-answer vectors include C = 10π cm (diameter 10 cm, radius 5 cm, area 25π cm²), MUAC 30 cm with TSF 10 mm (MUAMC 26.8584 cm; estimated arm fat-area fraction 19.8473%), and BAI with hip 100 cm and height 175 cm (25.1959%). Equivalent imperial-input vectors, invalid domains, form submission, reset behavior and page markup are also covered. Passing these tests establishes arithmetic and implementation regression coverage, not clinical certification.
+
+
+## Batch 4 — anthropometric segment and measurement methods
+
+The five Batch 4 routes have passing known-answer, invalid-domain and browser interaction regressions in the latest CI run (PR #96, commit `21a29e84ad5f4a8c671d548724adfbb4650d6ccd`). The calculations are descriptive and do not establish clinical reference ranges:
+
+- Upper-to-lower body segment ratio: sitting height ÷ (standing height − sitting height); sitting height must be below standing height.
+- Femur-to-height ratio: femur length ÷ standing height, with both lengths converted to centimetres.
+- Tibia-to-height ratio: tibia length ÷ standing height, with both lengths converted to centimetres.
+- Body proportion deviation: measured segment ÷ standing height × 100, minus a reference percentage supplied by the user.
+- Anthropometric measurement change: current − baseline; percentage change = (current − baseline) ÷ baseline × 100.
+
+Femur and tibia results depend on consistent anatomical landmarks; surface measurements are not equivalent to imaging. The body-proportion reference is user-entered, not a population norm. Semantic domain review, real-device/screen-reader QA and production parity remain separate release gates.
