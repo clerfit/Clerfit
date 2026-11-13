@@ -6,9 +6,9 @@ const BASE_INPUT = process.argv[2] || process.env.CLERFIT_LIVE_BASE || 'https://
 const BASE = new URL(BASE_INPUT.endsWith('/') ? BASE_INPUT : BASE_INPUT + '/');
 const SITE_PREFIX = BASE.pathname.endsWith('/') ? BASE.pathname : BASE.pathname + '/';
 const EXPECTED_RELEASE_ID = 'R3-2026-10-17-phase12-a11y-v1';
-const EXPECTED_CALCULATORS = 118;
-const EXPECTED_SITEMAP_PAGES = 123;
-const EXPECTED_NESTED_HTML = 118;
+const EXPECTED_CALCULATORS = 159;
+const EXPECTED_SITEMAP_PAGES = 164;
+const EXPECTED_NESTED_HTML = 159;
 const CONCURRENCY = 8;
 const FAILURES = [];
 const RESOURCES = new Map();
@@ -175,6 +175,9 @@ async function main() {
   assert(validation.body.includes('function calculatorScope(trigger)') && validation.body.includes('visibleNumericInputs(scope)'), 'Numeric validation must be scoped to the active form/card.');
   regressionChecks.push('shared validation scope, decimal input bounds, and unit-selector regressions');
 
+  assert(/^<\?xml\s+version=[\"']1\\.0[\"']/i.test(sitemap.body.trim()), 'Sitemap is missing its XML declaration.');
+  assert(/<urlset\\s+xmlns=[\"']http:\\/\\/www\\.sitemaps\\.org\\/schemas\\/sitemap\\/0\\.9[\"']/i.test(sitemap.body), 'Sitemap is missing the standard sitemap namespace.');
+  assert(/<\\/urlset>\\s*$/i.test(sitemap.body), 'Sitemap is missing its closing urlset element.');
   const locs = [...sitemap.body.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(m => m[1].trim());
   const pages = [...new Set(locs)];
   assert(locs.length === pages.length, 'Sitemap contains duplicate locations.');
