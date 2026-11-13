@@ -39,6 +39,7 @@ const cases = [
     await marker.press('Escape');
     const collapsed=await marker.getAttribute('aria-expanded');
     assert.equal(collapsed,'false',item.page+' tooltip closes for '+term+'; state='+collapsed);
+    assert.equal(await marker.evaluate(el=>getComputedStyle(el.parentElement.querySelector('.cf-tip-popover')).pointerEvents),'none',item.page+' closed tooltip '+term+' does not intercept pointer events');
     assert.match(await marker.getAttribute('aria-label'),/^Help:/);
    }
    for(const width of [320,390,768,1024,1440]){
