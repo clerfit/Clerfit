@@ -31,7 +31,10 @@ const cases = [
    for(const term of item.tips){
     const marker=page.locator('[data-cf-tip="'+term+'"] .cf-tip-trigger').first();
     assert.ok(await marker.count(),item.page+' tooltip '+term);
+    const beforeTooltip=await marker.evaluate(el=>({button:el.outerHTML,parent:el.parentElement?.outerHTML,disabled:el.disabled}));
     await marker.click();
+    const afterTooltip=await marker.evaluate(el=>({expanded:el.getAttribute('aria-expanded'),parentClass:el.parentElement?.className}));
+    console.log('Batch 4 tooltip debug',item.page,term,JSON.stringify({beforeTooltip,afterTooltip}));
     const expanded=await marker.getAttribute('aria-expanded');
     assert.equal(expanded,'true',item.page+' tooltip opens for '+term+'; state='+expanded);
     await marker.press('Escape');
