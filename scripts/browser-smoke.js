@@ -633,7 +633,13 @@ async function main() {
   try {
     let cursor=0;
     const htmlRoutes = fs.readdirSync(path.join(__dirname, '..', 'html')).filter(file => file.toLowerCase().endsWith('.html'));
-    const footerOnlyRoutes = htmlRoutes.filter(file => !registry.some(route => route.file === file));
+    const redirectOnlyRoutes = htmlRoutes.filter(file =>
+      !registry.some(route => route.file === file) &&
+      fs.readFileSync(path.join(__dirname, '..', 'html', file), 'utf8').includes('This page has moved.')
+    );
+    const footerOnlyRoutes = htmlRoutes.filter(file =>
+      !registry.some(route => route.file === file) && !redirectOnlyRoutes.includes(file)
+    );
     const footerOnlyResults = [];
     for (const file of footerOnlyRoutes) {
       try { footerOnlyResults.push(await auditFooterOnly(browser, file)); }
@@ -678,7 +684,7 @@ async function main() {
     }
     const report={
       base:BASE.href, checkedAt:new Date().toISOString(), status:failures.length?'FAIL':'PASS',
-      routeCount:registry.length, htmlPageCount:htmlRoutes.length, footerOnlyRoutes:footerOnlyResults, routesLoaded:routeResults.filter(r=>r.loaded).length,
+      routeCount:registry.length, htmlPageCount:htmlRoutes.length, redirectOnlyRoutes, footerOnlyRoutes:footerOnlyResults, routesLoaded:routeResults.filter(r=>r.loaded).length,
       actionsClicked:routeResults.filter(r=>r.actionClicked).length,
       mobileOverflow:routeResults.filter(r=>r.bodyOverflow).map(r=>r.file),
       responsiveOverflow:Object.fromEntries(['mobile','tablet','desktop'].map(device=>[device,routeResults.filter(r=>r.responsiveLayout && r.responsiveLayout[device] && r.responsiveLayout[device].horizontalOverflow).map(r=>r.file)])),
