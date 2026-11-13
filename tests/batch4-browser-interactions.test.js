@@ -14,6 +14,7 @@ const cases = [
  const page=await browser.newPage({viewport:{width:390,height:844}});
  try {
   for(const item of cases){
+   await page.setViewportSize({width:390,height:844});
    await page.goto(new URL('html/'+item.page,base).href,{waitUntil:'networkidle'});
    for(const [id,value] of Object.entries(item.fields)) await page.locator('#'+id).fill(value);
    for(const [id,value] of Object.entries(item.selectors)) await page.locator('#'+id).selectOption(value);
