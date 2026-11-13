@@ -115,7 +115,7 @@
     const isFaceCalculator = /face|facial|jaw|chin|nose|mouth|eye-spacing|lower-face/i.test(location.pathname);
     document.querySelectorAll('label').forEach(label => {
       // Facial pages use their own shorter landmark-specific help markers from site-polish.js.
-      if (isFaceCalculator || label.querySelector('.cf-tip-wrap')) return;
+      if (isFaceCalculator || label.querySelector('.cf-tip-wrap') || label.nextElementSibling?.matches('.cf-field-help[data-cf-tip]')) return;
       const text = label.textContent.replace(/\s+/g,' ').trim();
       if (!text || /^(gender|sex|height|weight|age|units?|date|name)$/i.test(text) || !specialist.test(text)) return;
       addTip(label, text, hintFor(text, label.control));
