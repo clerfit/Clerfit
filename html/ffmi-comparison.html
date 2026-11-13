@@ -15,26 +15,12 @@
 <main class="main">
 <header class="header"><h1>Fat-Free Mass Index Comparison</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
 <section class="card" aria-labelledby="calc-heading">
-<h2 id="calc-heading">Enter your measurements</h2>
+<h2 id="calc-heading">Calculate from measured body-composition values</h2>
 <p class="cf-note">Compare FFMI for two sets of measurements using the same calculation method. FFMI is descriptive and does not independently assess health or athletic ability.</p>
-<form id="calc-form" novalidate>
-<div class="row">
-<div class="col"><label for="weightA">Person A — body weight (kg)</label><input id="weightA" name="weightA" type="number" min="2" max="500" step="any" inputmode="decimal" required aria-label="Person A — body weight"></div>
-<div class="col"><label for="fatA">Person A — body-fat percentage (%)</label><input id="fatA" name="fatA" type="number" min="0" max="75" step="any" inputmode="decimal" required aria-label="Person A — body-fat percentage"></div>
-<div class="col"><label for="heightA">Person A — height (cm)</label><input id="heightA" name="heightA" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Person A — height"></div>
-<div class="col"><label for="weightB">Person B — body weight (kg)</label><input id="weightB" name="weightB" type="number" min="2" max="500" step="any" inputmode="decimal" required aria-label="Person B — body weight"></div>
-<div class="col"><label for="fatB">Person B — body-fat percentage (%)</label><input id="fatB" name="fatB" type="number" min="0" max="75" step="any" inputmode="decimal" required aria-label="Person B — body-fat percentage"></div>
-<div class="col"><label for="heightB">Person B — height (cm)</label><input id="heightB" name="heightB" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Person B — height"></div>
-</div>
-<div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
-</form>
+<form id="calc-form" novalidate><div class="row"><div class="col"><h3>Person A</h3><label for="weightA">Body weight</label><input id="weightA" name="weightA" data-field type="number" min="2" max="500" step="any" inputmode="decimal" required><select id="weightUnitA" aria-label="Person A body weight unit" data-unit-for="weightA"><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select><label for="fatA">Body-fat percentage (%)</label><input id="fatA" name="fatA" data-field type="number" min="0" max="75" step="any" inputmode="decimal" required><label for="heightA">Height</label><input id="heightA" name="heightA" data-field type="number" min="80" max="250" step="any" inputmode="decimal" required><select id="heightUnitA" aria-label="Person A height unit" data-unit-for="heightA"><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select></div><div class="col"><h3>Person B</h3><label for="weightB">Body weight</label><input id="weightB" name="weightB" data-field type="number" min="2" max="500" step="any" inputmode="decimal" required><select id="weightUnitB" aria-label="Person B body weight unit" data-unit-for="weightB"><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select><label for="fatB">Body-fat percentage (%)</label><input id="fatB" name="fatB" data-field type="number" min="0" max="75" step="any" inputmode="decimal" required><label for="heightB">Height</label><input id="heightB" name="heightB" data-field type="number" min="80" max="250" step="any" inputmode="decimal" required><select id="heightUnitB" aria-label="Person B height unit" data-unit-for="heightB"><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select></div></div><div class="cf-form-actions"><button class="calculate-btn" type="submit">Compare</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div></form>
 <div id="calc-result" class="result" aria-live="polite"></div>
 </section>
-<section class="card">
-<h2>Method and limitations</h2>
-<p>Compare FFMI for two sets of measurements using the same calculation method. FFMI is descriptive and does not independently assess health or athletic ability.</p>
-<p>Use consistent measurement landmarks, units and conditions when comparing results over time. ClerFit provides educational calculations, not medical diagnosis or personalised treatment advice.</p>
-</section>
+<section class="card"><h2>Method and limitations</h2><p>For each person: fat-free mass = body weight × (1 − body-fat percentage ÷ 100). FFMI = fat-free mass (kg) ÷ height (m)². The calculator displays both indices and their absolute difference.</p><p>Body-fat percentage is an estimate and its error carries into FFMI. Use comparable measurement methods for both people. FFMI does not measure muscle quality, health, strength or athletic potential, and the comparison is not a ranking.</p></section>
 </main>
 <section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Enter values within the displayed ranges, select Calculate, and review the method and limitations alongside the result.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
 <script src="../js/navigation.js" defer></script>
