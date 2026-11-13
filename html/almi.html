@@ -16,11 +16,13 @@
 <header class="header"><h1>Appendicular Lean Mass Index (ALMI) Calculator</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
 <section class="card" aria-labelledby="calc-heading">
 <h2 id="calc-heading">Enter your measurements</h2>
-<p class="cf-note">ALMI is appendicular lean mass divided by height squared. Use an appendicular lean-mass value from a suitable body-composition assessment; interpretation depends on reference population.</p>
+<p id="calc-help" class="cf-note">ALMI is appendicular lean mass divided by height squared. Use an appendicular lean-mass value from a suitable body-composition assessment; interpretation depends on reference population.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="alm">Appendicular lean mass (kg)</label><input id="alm" name="alm" type="number" min="1" max="100" step="any" inputmode="decimal" required aria-label="Appendicular lean mass"></div>
-<div class="col"><label for="height">Height (cm)</label><input id="height" name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Height"></div>
+<div class="col"><label for="alm">Appendicular lean mass (kg)</label><input id="alm" name="alm" data-field type="number" step="any" inputmode="decimal" required aria-describedby="calc-help">
+<label for="almUnit">Mass unit</label><select id="almUnit" data-unit-for="alm"><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
+<div class="col"><label for="height">Height (cm)</label><input id="height" name="height" data-field type="number" step="any" inputmode="decimal" required aria-describedby="calc-help">
+<label for="heightUnit">Height unit</label><select id="heightUnit" data-unit-for="height"><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
