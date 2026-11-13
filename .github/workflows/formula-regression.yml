@@ -30,6 +30,8 @@ jobs:
           node-version: '22'
       - name: Run known-answer and domain regressions
         run: node tests/verify.js
+      - name: Run Batch 2 anthropometric formula and boundary regressions
+        run: node tests/anthropometric-batch2.test.js
       - name: Verify ratio decimal precision and denominator edge cases
         run: node tests/ratio-decimal-precision.test.js
       - name: Verify field-bound inventories match static source markup
