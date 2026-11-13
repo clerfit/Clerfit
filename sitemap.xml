@@ -379,6 +379,11 @@
   <url><loc>https://clerfit.github.io/Clerfit/html/almi.html</loc></url>
   <url><loc>https://clerfit.github.io/Clerfit/html/fmi.html</loc></url>
   <url><loc>https://clerfit.github.io/Clerfit/html/ffmi-comparison.html</loc></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/chest-hip-ratio.html</loc></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/shoulder-chest-ratio.html</loc></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/biacromial-biacristal-width-ratio.html</loc></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/sitting-height-arm-span-ratio.html</loc></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/arm-span-difference.html</loc></url>
   <url><loc>https://clerfit.github.io/Clerfit/html/waist-circumference-reference.html</loc></url>
   <url><loc>https://clerfit.github.io/Clerfit/html/waist-height-comparison.html</loc></url>
   <url><loc>https://clerfit.github.io/Clerfit/html/body-volume.html</loc></url>
@@ -410,4 +415,9 @@
   <url><loc>https://clerfit.github.io/Clerfit/html/biacromial-width-ratio.html</loc></url>
   <url><loc>https://clerfit.github.io/Clerfit/html/body-fat-change.html</loc></url>
   <url><loc>https://clerfit.github.io/Clerfit/html/fat-free-mass-change.html</loc></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/upper-lower-body-segment-ratio.html</loc></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/femur-height-ratio.html</loc></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/tibia-height-ratio.html</loc></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/body-proportion-deviation.html</loc></url>
+  <url><loc>https://clerfit.github.io/Clerfit/html/anthropometric-measurement-change.html</loc></url>
 </urlset>

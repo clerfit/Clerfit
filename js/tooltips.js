@@ -14,7 +14,35 @@
     bmr: 'Basal metabolic rate: an estimate of energy used at rest to support essential body functions. It is not your total daily calorie need.',
     rmr: 'Resting metabolic rate: estimated energy used while resting. Methods and formulas differ from BMR.',
     tdee: 'Total daily energy expenditure: estimated energy used across resting metabolism, activity and digestion.',
-    ffmi: 'Fat-free mass index relates fat-free mass to height. It is an estimate and does not independently measure muscle quality or health.',
+    ffmi: 'Fat-free mass index = fat-free mass (kg) ÷ height (m)². Fat-free mass is commonly derived from body weight and measured body-fat percentage; errors in either input affect the result.',
+    'relative muscle mass': 'Relative muscle mass here means the supplied skeletal-muscle-mass measurement divided by total body weight × 100. The calculator does not estimate muscle mass from height or appearance.',
+    'skeletal muscle mass': 'Use a skeletal-muscle-mass value reported by a suitable body-composition assessment. This calculator derives ratios and a height-indexed value; it does not predict the measured mass.',
+    'appendicular lean mass': 'Appendicular lean mass is the lean soft-tissue mass of the arms and legs, typically obtained from a body-composition assessment. It is not interchangeable with total lean mass.',
+    smmi: 'Skeletal muscle mass index (SMMI) = measured skeletal muscle mass (kg) ÷ height (m)². It is not automatically interchangeable with appendicular lean mass index (ALMI).',
+    dxa: 'Dual-energy X-ray absorptiometry (DXA) is an imaging method used to estimate bone, fat and lean soft-tissue compartments. Follow the report definition and units; methods are not interchangeable without care.',
+    'fat-free mass': 'Fat-free mass is body mass excluding fat mass. In this calculator it is derived from body weight and body-fat percentage, so errors in either measurement affect FFMI.',
+    'body composition': 'Body composition describes the components of body mass, such as fat mass, lean soft tissue and bone mineral. Different devices and methods can report different compartments.',
+    'chest circumference': 'Measure around the chest at a clearly defined horizontal landmark, with the tape level and breathing phase consistent. Do not compare readings taken at different sites or breathing phases.',
+    'hip circumference': 'Measure around the maximum hip or buttock circumference using a level tape. Keep posture, tape tension and landmark protocol consistent.',
+    'shoulder circumference': 'Shoulder girth is a circumference measurement around the shoulders and upper torso. Follow one documented tape path and keep posture and tape tension consistent.',
+    'biacromial breadth': 'Biacromial breadth is the straight-line distance between the left and right acromion landmarks. It is usually measured with an anthropometric spreading caliper; tape circumference is not interchangeable.',
+    'biacristal breadth': 'Biacristal breadth is the straight-line distance between the iliac-crest landmarks. Use a suitable anthropometric caliper and a consistent landmarking protocol.',
+    'sitting height': 'Sitting height is measured from the sitting surface to the top of the head while seated upright. Seat height and posture must be handled consistently.',
+    'arm span': 'Arm span is the fingertip-to-fingertip distance with both arms extended horizontally. Keep shoulders level and elbows and wrists extended without forcing the posture.',
+
+    'segment length': 'Measure the segment using the landmarks required by your chosen protocol. Do not mix surface estimates with imaging-derived lengths.',
+    'upper-to-lower body segment ratio': 'Upper segment = sitting height; lower segment = standing height minus sitting height. The ratio is descriptive and has no universal clinical cutoff.',
+    'anthropometric measurement change': 'This compares a baseline with a current measurement. Use the same landmarks, posture, instrument and technique for both observations.',
+    'femur length': 'Femur length is the measured length of the thigh bone between the specified anatomical landmarks. The measurement method must be consistent; surface estimates are not equivalent to imaging.',
+    'tibia length': 'Tibia length is the measured length of the shin bone between the specified anatomical landmarks. The measurement method must be consistent; surface estimates are not equivalent to imaging.',
+    'body proportion deviation': 'This calculator compares a measured segment proportion with a reference percentage that you enter. It does not supply a universal body-proportion norm.',
+    'reference proportion (%)': 'Enter a reference percentage from a source or protocol you selected. The calculator does not validate that reference for your age, sex or population.',
+    'baseline measurement': 'The baseline is the earlier measurement used as the comparison point. Use the same landmarks, posture, instrument and unit convention when comparing later measurements.',
+    'current measurement': 'The current measurement is compared with the baseline. Differences can reflect technique or measurement error as well as actual change.',
+
+    'standing height': 'Measure standing height without shoes, standing upright against a suitable height-measuring surface. Keep head position and posture consistent.',
+    almi: 'Appendicular lean mass index = appendicular lean mass (kg) ÷ height (m)². Interpretation requires a reference appropriate to the assessment method and population.',
+    fmi: 'Fat mass index = fat mass (kg) ÷ height (m)². Fat mass should come from a suitable body-composition assessment; no universal clinical category is implied.',
     'one-rep max': 'One-repetition maximum (1RM) is the heaviest load you can lift once with proper technique. Formula-based values are estimates.',
     'body fat': 'Body-fat percentage estimates the proportion of body mass that is fat. Accuracy depends on the measurement method and assumptions.',
     'waist-to-hip ratio': 'Waist circumference divided by hip circumference. Interpretation depends on age, sex and the reference standard used.',
@@ -77,12 +105,17 @@
     wrap.append(btn,pop); target.appendChild(wrap);
   }
   function init() {
+    // Explicit term markers expose glossary help for specialist abbreviations in explanatory copy.
+    document.querySelectorAll('[data-cf-tip]').forEach(el => {
+      const term = el.getAttribute('data-cf-tip') || el.textContent || '';
+      if (!el.querySelector('.cf-tip-wrap')) addTip(el, term, glossary[norm(term)] || hintFor(term));
+    });
     // Keep the interface quiet: add visible help only for unfamiliar/specialist terms.
-    const specialist = /\b(bmi|bmr|rmr|tdee|ffmi|1rm|one[- ]rep max|metabolic age|somatotype|facial thirds|facial balance|absi|rfm|ponderal index|vo2 max|vo2max|met|rpe|cadence|stride length|step length|cooper test|session density|training[- ]rest ratio|load[- ]recovery ratio|fatigue index|waist[- ]to[- ]hip ratio|waist[- ]to[- ]height ratio|body surface area|relative strength|energy balance|work[- ]rest balance|sedentary ratio|uv index|heat exposure|cold exposure|forward head index|sit[- ]stand ratio|water loss replacement|electrolyte|lean body mass|relative muscle mass|skeletal muscle mass|appendicular lean mass index|fat mass index|fat-free mass index|body fat percentage|body adiposity index|neck circumference|mid-upper-arm circumference|mid-thigh circumference|calf circumference|triceps skinfold|mid-upper-arm muscle circumference|bai|muac|facial ratio|jaw width ratio|chin height ratio|eye spacing|lower face height)\b/i;
+    const specialist = /\b(bmi|bmr|rmr|tdee|ffmi|1rm|one[- ]rep max|metabolic age|somatotype|facial thirds|facial balance|absi|rfm|ponderal index|vo2 max|vo2max|met|rpe|cadence|stride length|step length|cooper test|session density|training[- ]rest ratio|load[- ]recovery ratio|fatigue index|waist[- ]to[- ]hip ratio|waist[- ]to[- ]height ratio|body surface area|relative strength|energy balance|work[- ]rest balance|sedentary ratio|uv index|heat exposure|cold exposure|forward head index|sit[- ]stand ratio|water loss replacement|electrolyte|lean body mass|body fat percentage|body adiposity index|appendicular lean mass|fat-free mass|skeletal muscle mass|relative muscle mass|body composition|body-fat percentage|dxa|smmi|almi|fmi|neck circumference|sitting height|standing height|femur length|tibia length|segment length|upper-to-lower body segment ratio|body proportion deviation|reference proportion|baseline measurement|current measurement|anthropometric measurement change|mid-upper-arm circumference|mid-thigh circumference|calf circumference|triceps skinfold|mid-upper-arm muscle circumference|bai|muac|facial ratio|jaw width ratio|chin height ratio|eye spacing|lower face height)\b/i;
     const isFaceCalculator = /face|facial|jaw|chin|nose|mouth|eye-spacing|lower-face/i.test(location.pathname);
     document.querySelectorAll('label').forEach(label => {
       // Facial pages use their own shorter landmark-specific help markers from site-polish.js.
-      if (isFaceCalculator || label.querySelector('.cf-tip-wrap')) return;
+      if (isFaceCalculator || label.querySelector('.cf-tip-wrap') || label.nextElementSibling?.matches('.cf-field-help[data-cf-tip]')) return;
       const text = label.textContent.replace(/\s+/g,' ').trim();
       if (!text || /^(gender|sex|height|weight|age|units?|date|name)$/i.test(text) || !specialist.test(text)) return;
       addTip(label, text, hintFor(text, label.control));

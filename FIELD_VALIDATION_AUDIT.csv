@@ -286,3 +286,24 @@ html/bai.html,age,age,Age (years),18,120,1,yes,not-detected,STRUCTURAL PASS; BOU
 html/calf-circumference.html,segmentLength,segmentLength,Optional segment length,5,80,any,no,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/mid-thigh-circumference.html,segmentLength,segmentLength,Optional segment length,5,100,any,no,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/muac.html,tricepsSkinfold,tricepsSkinfold,Triceps skinfold thickness,1,60,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/chest-hip-ratio.html,chest,chest,Chest circumference,40,200,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
+html/chest-hip-ratio.html,hip,hip,Hip circumference,40,200,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
+html/shoulder-chest-ratio.html,shoulder,shoulder,Shoulder circumference,60,250,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
+html/shoulder-chest-ratio.html,chest,chest,Chest circumference,40,200,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
+html/biacromial-biacristal-width-ratio.html,biacromial,biacromial,Biacromial breadth,20,70,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
+html/biacromial-biacristal-width-ratio.html,biacristal,biacristal,Biacristal breadth,15,60,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
+html/sitting-height-arm-span-ratio.html,sittingHeight,sittingHeight,Sitting height,30,150,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
+html/sitting-height-arm-span-ratio.html,armSpan,armSpan,Arm span,80,250,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
+html/arm-span-difference.html,armSpan,armSpan,Arm span,80,250,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
+html/arm-span-difference.html,standingHeight,standingHeight,Standing height,80,250,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
+html/upper-lower-body-segment-ratio.html,sittingHeight,sittingHeight,Sitting height,30,150,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/upper-lower-body-segment-ratio.html,standingHeight,standingHeight,Standing height,80,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/femur-height-ratio.html,femur,femur,Femur length,20,80,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/femur-height-ratio.html,height,height,Standing height,80,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/tibia-height-ratio.html,tibia,tibia,Tibia length,20,70,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/tibia-height-ratio.html,height,height,Standing height,80,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/body-proportion-deviation.html,segmentLength,segmentLength,Segment length,5,200,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/body-proportion-deviation.html,standingHeight,standingHeight,Standing height,80,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/body-proportion-deviation.html,referencePercent,referencePercent,Reference proportion (%),0.1,99.9,any,yes,no,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/anthropometric-measurement-change.html,baseline,baseline,Baseline measurement,0.1,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/anthropometric-measurement-change.html,current,current,Current measurement,0.1,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE

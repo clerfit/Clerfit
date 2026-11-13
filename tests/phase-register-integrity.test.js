@@ -35,9 +35,9 @@ const navigation = read('js/navigation.js');
 const registryMatch = navigation.match(/const CALCULATORS\s*=\s*(\[[\s\S]*?\]);\s*\nconst path/);
 assert.ok(registryMatch, 'central calculator registry must be parseable');
 const registry = JSON.parse(registryMatch[1]);
-assert.equal(registry.length, 159, 'central registry should contain 159 routes');
+assert.equal(registry.length, 169, 'central registry should contain 169 routes');
 const routeFiles = registry.map(route => route.file);
-assert.equal(new Set(routeFiles).size, 159, 'central registry must not repeat route files');
+assert.equal(new Set(routeFiles).size, 169, 'central registry must not repeat route files');
 for (const file of routeFiles) {
   assert.ok(fs.existsSync(path.join(root, 'html', file)), 'missing registry target: html/' + file);
 }
@@ -48,12 +48,12 @@ for (const field of ['title', 'category', 'slug', 'source_file', 'file_exists', 
   assert.ok(inventoryHeader.includes(field), 'inventory header missing ' + field);
 }
 const inventory = inventoryRows.slice(1);
-assert.equal(inventory.length, 159, 'audit inventory should contain 159 calculator rows');
+assert.equal(inventory.length, 169, 'audit inventory should contain 169 calculator rows');
 const sourceIndex = inventoryHeader.indexOf('source_file');
 const existsIndex = inventoryHeader.indexOf('file_exists');
 const sitemapIndex = inventoryHeader.indexOf('url_in_sitemap');
 const canonicalIndex = inventoryHeader.indexOf('canonical_sitemap_url');
-assert.equal(new Set(inventory.map(row => row[sourceIndex])).size, 159, 'inventory source files must be unique');
+assert.equal(new Set(inventory.map(row => row[sourceIndex])).size, 169, 'inventory source files must be unique');
 for (const row of inventory) {
   assert.equal(row[existsIndex], 'YES', 'inventory must not report a missing source: ' + row[sourceIndex]);
   assert.ok(fs.existsSync(path.join(root, row[sourceIndex])), 'inventory source file not found: ' + row[sourceIndex]);
@@ -82,10 +82,10 @@ for (const field of ['file', 'id', 'min', 'max', 'step']) {
 }
 const fieldAuditData = new Map(fieldAuditRows.slice(1).map(row => [row[fieldAuditHeader.indexOf('file')] + '|' + row[fieldAuditHeader.indexOf('id')], row]));
 const verifiedBoundsData = new Map(verifiedBoundsRows.slice(1).map(row => [row[verifiedBoundsHeader.indexOf('file')] + '|' + row[verifiedBoundsHeader.indexOf('id')], row]));
-assert.equal(fieldAuditRows.length - 1, 287, 'field validation audit must contain 287 static numeric fields');
-assert.equal(verifiedBoundsRows.length - 1, 287, 'verified boundary inventory must contain 287 static numeric fields');
-assert.equal(fieldAuditData.size, 287, 'field audit must not duplicate file/id records');
-assert.equal(verifiedBoundsData.size, 287, 'boundary inventory must not duplicate file/id records');
+assert.equal(fieldAuditRows.length - 1, 308, 'field validation audit must contain 308 static numeric fields');
+assert.equal(verifiedBoundsRows.length - 1, 308, 'verified boundary inventory must contain 308 static numeric fields');
+assert.equal(fieldAuditData.size, 308, 'field audit must not duplicate file/id records');
+assert.equal(verifiedBoundsData.size, 308, 'boundary inventory must not duplicate file/id records');
 let sourceNumericFieldCount = 0;
 for (const file of fs.readdirSync(path.join(root, 'html')).filter(name => name.toLowerCase().endsWith('.html'))) {
   const relative = 'html/' + file;
@@ -107,7 +107,7 @@ for (const file of fs.readdirSync(path.join(root, 'html')).filter(name => name.t
     }
   }
 }
-assert.equal(sourceNumericFieldCount, 287, 'static HTML numeric input count must match field inventories');
+assert.equal(sourceNumericFieldCount, 308, 'static HTML numeric input count must match field inventories');
 
 const sitemapText = read('sitemap.xml');
 assert.ok(sitemapText.trim().startsWith('<?xml'), 'sitemap must begin with an XML declaration');
@@ -121,7 +121,7 @@ assert.ok(sitemapUrls.every(url => {
   } catch { return false; }
 }), 'sitemap URLs must be HTTPS and remain under the ClerFit GitHub Pages project path');
 assert.equal(new Set(sitemapUrls).size, sitemapUrls.length, 'sitemap must not contain duplicate URLs');
-assert.equal(sitemapUrls.length, 164, 'sitemap should include 159 tools and five root routes');
+assert.equal(sitemapUrls.length, 174, 'sitemap should include 169 tools and five root routes');
 for (const row of inventory) {
   assert.ok(sitemapUrls.includes(row[canonicalIndex]), 'sitemap is missing ' + row[canonicalIndex]);
 }
@@ -141,4 +141,4 @@ assert.match(accessibleTest, /sibling error node is retained/, 'validation acces
 assert.match(read('.github/workflows/phase-one-ci.yml'), /browser-smoke-staging\.js/, 'full workflow must run source-staging interaction tests');
 assert.match(read('.github/workflows/phase-one-ci.yml'), /accessibility-smoke\.js/, 'full workflow must run all-page accessibility checks');
 
-console.log('PASS: 159 routes, 287 source-matched static field bounds, inventory/file parity, unique 142-URL sitemap, per-route sign-off register and release-gate honesty.');
+console.log('PASS: 169 routes, 308 source-matched static field bounds, inventory/file parity, unique 174-URL sitemap, per-route sign-off register and release-gate honesty.');

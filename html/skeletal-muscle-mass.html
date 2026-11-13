@@ -13,18 +13,15 @@
 <body data-calculator="skeletal-muscle-mass">
 <aside class="sidebar" aria-label="Main navigation"></aside>
 <main class="main">
-<header class="header"><h1>Skeletal Muscle Mass Estimate</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
+<header class="header"><h1><span data-cf-tip="skeletal muscle mass">Skeletal Muscle Mass</span> Estimate</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
 <section class="card" aria-labelledby="calc-heading">
 <h2 id="calc-heading">Enter your measurements</h2>
-<p id="calc-help" class="cf-note">Enter a skeletal-muscle-mass result from a validated assessment (such as a compatible body-composition device or DXA report). There is no universal reliable estimate from height and weight alone.</p>
+<p class="cf-note" id="calc-help">Enter a skeletal-muscle-mass result from a validated assessment (such as a compatible body-composition device or <span data-cf-tip="DXA">DXA</span> report). There is no universal reliable estimate from height and weight alone. The page also reports the skeletal muscle mass index (<span data-cf-tip="SMMI">SMMI</span>), which divides measured skeletal muscle mass by height squared.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="muscle">Skeletal muscle mass from assessment (kg)</label><input id="muscle" name="muscle" data-field type="number" min="0.1" max="200" data-base-min="0.1" data-base-max="200" data-base-unit="kg" step="any" inputmode="decimal" required aria-describedby="calc-help" aria-describedby="calc-help">
-<label for="muscleUnit">Mass unit</label><select id="muscleUnit" data-unit-for="muscle"><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
-<div class="col"><label for="weight">Body weight (kg)</label><input id="weight" name="weight" data-field type="number" min="2" max="500" data-base-min="2" data-base-max="500" data-base-unit="kg" step="any" inputmode="decimal" required aria-describedby="calc-help" aria-describedby="calc-help">
-<label for="weightUnit">Mass unit</label><select id="weightUnit" data-unit-for="weight"><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
-<div class="col"><label for="height">Height (cm)</label><input id="height" name="height" data-field type="number" min="80" max="250" data-base-min="80" data-base-max="250" data-base-unit="cm" step="any" inputmode="decimal" required aria-describedby="calc-help" aria-describedby="calc-help">
-<label for="heightUnit">Height unit</label><select id="heightUnit" data-unit-for="height"><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select></div>
+<div class="col"><label for="muscle">Skeletal muscle mass from assessment</label><input aria-describedby="calc-help" id="muscle" data-field name="muscle" type="number" min="0.1" max="200" step="any" inputmode="decimal" required aria-label="Skeletal muscle mass from assessment"><label for="muscleUnit">Skeletal muscle mass unit</label><select id="muscleUnit" data-unit-for="muscle" aria-label="Skeletal muscle mass unit"><option value="kg" selected>Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
+<div class="col"><label for="weight">Body weight</label><input aria-describedby="calc-help" id="weight" data-field name="weight" type="number" min="2" max="500" step="any" inputmode="decimal" required aria-label="Body weight"><label for="weightUnit">Body weight unit</label><select id="weightUnit" data-unit-for="weight" aria-label="Body weight unit"><option value="kg" selected>Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
+<div class="col"><label for="height">Height</label><input aria-describedby="calc-help" id="height" data-field name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Height"><label for="heightUnit">Height unit</label><select id="heightUnit" data-unit-for="height" aria-label="Height unit"><option value="cm" selected>Centimetres (cm)</option><option value="in">Inches (in)</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>

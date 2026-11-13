@@ -64,6 +64,23 @@
       else Promise.resolve().then(restore);
     });
   }
+  // Reset unit selectors from explicit per-field associations even if a page's
+  // own form reset handling runs before or after the shared unit wiring.
+  if (typeof document.addEventListener === 'function') document.addEventListener('reset', event => {
+    const form = event.target;
+    if (!form || !form.querySelectorAll) return;
+    const restore = () => {
+      form.querySelectorAll('select[data-unit-for], select[data-clerfit-unit-wired="true"]').forEach(select => {
+        const defaultOption = Array.from(select.options || []).find(option => option.defaultSelected);
+        if (defaultOption) select.value = defaultOption.value;
+        else if (select.options && select.options.length) select.value = select.options[0].value;
+        select.dataset.clerfitPreviousUnit = select.value;
+        findInputs(select).forEach(restoreBounds);
+      });
+    };
+    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(restore);
+    else Promise.resolve().then(restore);
+  }, true);
   // Some calculators share one unit selector across multiple inputs or use it only for output formatting.
   // Explicit page associations avoid converting a random neighboring number field.
   const PAGE_UNIT_ASSOCIATIONS = {

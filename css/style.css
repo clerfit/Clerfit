@@ -714,7 +714,7 @@ body{background:linear-gradient(135deg,#f4f8fc 0%,#edf5f7 55%,#f6f8fc 100%);colo
 .cf-control-tip{display:inline-flex;align-items:center;gap:4px;max-width:100%;position:relative}
 .cf-control-tip>.cf-tip-wrap{margin-inline-start:2px}
 label .cf-tip-wrap{margin-inline-start:.35rem}
-@media(max-width:600px){.cf-tip-popover{position:fixed;left:18px!important;right:18px!important;bottom:18px;top:auto;transform:none!important;width:auto;max-width:none;box-shadow:0 10px 32px #07182766}.cf-tip-wrap:hover .cf-tip-popover{visibility:hidden;opacity:0}.cf-tip-wrap.cf-tip-open .cf-tip-popover,.cf-tip-wrap:focus-within .cf-tip-popover{visibility:visible;opacity:1;transform:none!important}.cf-tip-trigger{width:22px;height:22px;min-width:22px}}
+@media(max-width:600px){.cf-tip-popover{position:fixed;left:18px!important;right:18px!important;bottom:18px;top:auto;transform:none!important;width:auto;max-width:none;box-shadow:0 10px 32px #07182766}.cf-tip-wrap:hover .cf-tip-popover{visibility:hidden;opacity:0;pointer-events:none}.cf-tip-wrap.cf-tip-open .cf-tip-popover,.cf-tip-wrap:focus-within .cf-tip-popover{visibility:visible;opacity:1;transform:none!important;pointer-events:auto}.cf-tip-trigger{width:22px;height:22px;min-width:22px}}
 @media(prefers-reduced-motion:reduce){.cf-tip-popover{transition:none}}
 
 
