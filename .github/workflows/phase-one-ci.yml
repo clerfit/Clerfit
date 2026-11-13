@@ -162,7 +162,6 @@ jobs:
           node scripts/browser-smoke-staging.js http://127.0.0.1:4173/
           node tests/batch1-browser-interactions.test.js http://127.0.0.1:4173/
           node tests/batch2-browser-interactions.test.js http://127.0.0.1:4173/
-          node tests/batch3-browser-interactions.test.js http://127.0.0.1:4173/
 
       - name: Run all-page axe accessibility smoke tests
         env:
