@@ -286,3 +286,4 @@ bai.html,age,Age (years),18,120,1
 calf-circumference.html,segmentLength,Optional segment length,5,80,any
 mid-thigh-circumference.html,segmentLength,Optional segment length,5,100,any
 muac.html,tricepsSkinfold,Triceps skinfold thickness,1,60,any
+fmi.html,weight,Body weight,2,500,any
