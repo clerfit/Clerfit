@@ -307,3 +307,16 @@ html/body-proportion-deviation.html,standingHeight,standingHeight,Standing heigh
 html/body-proportion-deviation.html,referencePercent,referencePercent,Reference proportion (%),0.1,99.9,any,yes,no,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/anthropometric-measurement-change.html,baseline,baseline,Baseline measurement,0.1,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/anthropometric-measurement-change.html,current,current,Current measurement,0.1,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/daily-micronutrient-intake.html,age,age,Age (years),14,120,1,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/vitamin-a-intake.html,age,age,Age (years),14,120,1,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/vitamin-b12-intake.html,age,age,Age (years),14,120,1,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/vitamin-b6-intake.html,age,age,Age (years),14,120,1,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/vitamin-c-intake.html,age,age,Age (years),14,120,1,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/daily-micronutrient-intake.html,vitaminA,vitaminA,Vitamin A intake,0,50000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/daily-micronutrient-intake.html,vitaminB12,vitaminB12,Vitamin B12 intake,0,10000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/daily-micronutrient-intake.html,vitaminB6,vitaminB6,Vitamin B6 intake,0,1000,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/daily-micronutrient-intake.html,vitaminC,vitaminC,Vitamin C intake,0,10000,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/vitamin-a-intake.html,intake,intake,Vitamin A intake,0,50000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/vitamin-b12-intake.html,intake,intake,Vitamin B12 intake,0,10000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/vitamin-b6-intake.html,intake,intake,Vitamin B6 intake,0,1000,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/vitamin-c-intake.html,intake,intake,Vitamin C intake,0,10000,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE

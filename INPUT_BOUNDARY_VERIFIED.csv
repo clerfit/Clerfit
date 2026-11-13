@@ -307,3 +307,16 @@ body-proportion-deviation.html,standingHeight,Standing height,80,250,any
 body-proportion-deviation.html,referencePercent,Reference proportion (%),0.1,99.9,any
 anthropometric-measurement-change.html,baseline,Baseline measurement,0.1,250,any
 anthropometric-measurement-change.html,current,Current measurement,0.1,250,any
+daily-micronutrient-intake.html,age,Age (years),14,120,1
+vitamin-a-intake.html,age,Age (years),14,120,1
+vitamin-b12-intake.html,age,Age (years),14,120,1
+vitamin-b6-intake.html,age,Age (years),14,120,1
+vitamin-c-intake.html,age,Age (years),14,120,1
+daily-micronutrient-intake.html,vitaminA,Vitamin A intake,0,50000,any
+daily-micronutrient-intake.html,vitaminB12,Vitamin B12 intake,0,10000,any
+daily-micronutrient-intake.html,vitaminB6,Vitamin B6 intake,0,1000,any
+daily-micronutrient-intake.html,vitaminC,Vitamin C intake,0,10000,any
+vitamin-a-intake.html,intake,Vitamin A intake,0,50000,any
+vitamin-b12-intake.html,intake,Vitamin B12 intake,0,10000,any
+vitamin-b6-intake.html,intake,Vitamin B6 intake,0,1000,any
+vitamin-c-intake.html,intake,Vitamin C intake,0,10000,any

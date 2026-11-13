@@ -73,3 +73,13 @@ These five calculators use transparent mathematical descriptors rather than clin
 - Anthropometric measurement change: current measurement − baseline; percentage change = difference ÷ baseline × 100.
 
 For femur and tibia lengths, the user must follow a consistent landmark and measurement protocol. Surface measurements are not interchangeable with imaging. All results are descriptive and are not diagnoses, clinical cutoffs, attractiveness scores or athletic-potential ratings. Batch 4 known-answer and invalid-domain tests are present; exact-commit CI and browser verification remain pending.
+
+
+## Batch 5 — Micronutrient reference values
+
+- [NIH ODS Vitamin A and Carotenoids (health professional)](https://ods.od.nih.gov/factsheets/VitaminA-HealthProfessional/): RDA by age, sex and pregnancy/lactation; units are mcg retinol activity equivalents (RAE). The UL applies only to preformed vitamin A, not total RAE from carotenoids.
+- [NIH ODS Vitamin B12 (health professional)](https://ods.od.nih.gov/factsheets/VitaminB12-HealthProfessional): RDA by age and life stage. No tolerable upper intake level has been established.
+- [NIH ODS Vitamin B6 (health professional)](https://ods.od.nih.gov/factsheets/VitaminB6-HealthProfessional): RDA by age, sex and pregnancy/lactation; U.S. UL values are shown only as context.
+- [NIH ODS Vitamin C (health professional)](https://ods.od.nih.gov/factsheets/VitaminC-HealthProfessional/): RDA by age, sex and pregnancy/lactation; U.S. UL values are shown only as context.
+
+Implementation scope: ages 14+; values are U.S. Dietary Reference Intakes for healthy populations. RDA percentages are planning comparisons, not diagnoses, and these calculators do not prescribe supplements.
