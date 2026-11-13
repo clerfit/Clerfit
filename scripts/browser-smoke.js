@@ -14,6 +14,15 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const failures = [];
 const rows = [];
 function assert(condition, message) { if (!condition) failures.push(message); }
+async function gotoWithRetry(page, url, options) {
+  let response = null;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    response = await page.goto(url, options);
+    if (!response || response.status() !== 503 || attempt === 2) return response;
+    await page.waitForTimeout(500 * (attempt + 1));
+  }
+  return response;
+}
 function finiteAttr(value) { if (value === null || value === '') return null; const n = Number(value); return Number.isFinite(n) ? n : null; }
 function clampToInput(value, info) {
   let v = Number(value);
@@ -178,7 +187,7 @@ async function runRoute(browser, route) {
   let loaded=false, inputCount=0, clicked=false, bodyOverflow=false, outputsBefore=[], outputsAfter=[], responsiveLayout={}, footerState={count:0,present:false,visible:false,sharedClass:false,iconRows:0};
   let navState={present:false,nearTop:false,staticFlow:false,homeLink:false,contactLink:false,insideMain:false};
   try {
-    const response = await page.goto(url, {waitUntil:'domcontentloaded',timeout:20000});
+    let response = await gotoWithRetry(page, url, {waitUntil:'domcontentloaded',timeout:20000});
     if (!response || !response.ok()) throw new Error('page HTTP status ' + (response ? response.status() : 'no response'));
     await page.waitForLoadState('load',{timeout:10000}).catch(()=>{});
     await page.waitForTimeout(120);
@@ -585,7 +594,7 @@ async function auditFooterOnly(browser, file) {
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
   try {
     const url = new URL('html/' + encodeURI(file) + '?footerAudit=R3', BASE).href;
-    const response = await page.goto(url, { waitUntil: 'load', timeout: 20000 });
+    const response = await gotoWithRetry(page, url, { waitUntil: 'load', timeout: 20000 });
     if (!response || !response.ok()) throw new Error(file + ' HTTP status ' + (response ? response.status() : 'no response'));
     await page.waitForTimeout(100);
     const state = await page.evaluate(() => {
