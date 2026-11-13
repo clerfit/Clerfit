@@ -28,6 +28,9 @@ assert.match(polish, /header:not\(\.clerfit-page-header\):not\(\.cf-legal-headin
 assert.ok(polish.includes('const isLegacyBrand=/clerfit\\s*(?:health\\s*&?\\s*performance|health.*fitness calculators)|all rights reserved/.test(text);'),
   'legacy header cleanup must target known branding instead of deleting every header that mentions ClerFit');
 assert.match(chrome, /function ensureSiteFooter\(\)/, 'shared page chrome must define footer injection');
+assert.ok(chrome.includes('replace(/\\s+/g, " ").trim()'), 'legacy footer text normalization must collapse real whitespace');
+assert.ok(chrome.includes('/^ClerFit\\s*[·—-]\\s*Health\\s*&\\s*Performance\\s*Tools$/i'), 'known compact legacy footer variants must be recognized by a whitespace-aware pattern');
+assert.ok(fs.readFileSync(path.join(root, 'scripts/browser-smoke.js'), 'utf8').includes('footerFailures:routeResults'), 'live browser smoke must verify the shared footer on every registered calculator route');
 assert.match(chrome, /const existingFooter = document\.querySelector\("footer"\);[\s\S]*?existingFooter\.classList\.add\("cf-footer"\)/, 'existing footers must receive shared styling without duplication');
 assert.match(chrome, /new URL\("index\.html", root\)/, 'footer home link must respect root versus html/ paths');
 assert.match(chrome, /new URL\("contact\.html", root\)/, 'footer contact link must respect root versus html/ paths');
