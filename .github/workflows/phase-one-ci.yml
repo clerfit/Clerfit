@@ -163,6 +163,7 @@ jobs:
           node tests/anthropometric-batch2.test.js
           node tests/batch2-browser-interactions.test.js http://127.0.0.1:4173/
           node tests/batch3-browser-interactions.test.js http://127.0.0.1:4173/
+          node tests/batch4-browser-interactions.test.js http://127.0.0.1:4173/
 
       - name: Run all-page axe accessibility smoke tests
         env:
