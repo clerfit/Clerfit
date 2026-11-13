@@ -3,6 +3,14 @@
   const glossary = {
     bmi: 'Body mass index = weight in kilograms ÷ height in metres squared. It is a screening measure, not a direct body-fat measurement.',
     'body adiposity index': 'Body Adiposity Index (BAI) = hip circumference in centimetres ÷ height in metres to the power 1.5, minus 18. It is an adult population-derived estimate, not a direct body-fat measurement or diagnosis.',
+    'relative muscle mass': 'Relative muscle mass = measured skeletal muscle mass divided by body weight × 100. The muscle-mass input must come from a suitable assessment; this tool does not estimate it.',
+    'skeletal muscle mass': 'Use a skeletal-muscle-mass value from a suitable body-composition assessment. Device definitions vary; height and weight alone do not determine skeletal muscle mass.',
+    'appendicular lean mass': 'Appendicular lean mass is the combined lean mass of the arms and legs. Use this value from a suitable assessment; do not substitute total lean body mass.',
+    almi: 'ALMI = appendicular lean mass divided by height squared. Interpretation depends on sex, population and measurement method; this calculator does not diagnose sarcopenia.',
+    'fat mass index': 'FMI = measured fat mass divided by height squared. Use a body-composition assessment; the calculator does not infer fat mass from body weight alone.',
+    fmi: 'FMI = measured fat mass divided by height squared. It is different from body-fat percentage and is not a diagnosis.',
+    'body-fat percentage': 'Body-fat percentage is an estimate whose accuracy depends on the measurement method. FFMI comparisons inherit this measurement error.',
+    'ffmi comparison': 'FFMI = fat-free mass divided by height squared. The comparison depends on the body-fat estimates supplied and is not a health or athletic ranking.',
     bai: 'BAI is an adult population-derived adiposity estimate. Research has reported bias across sex and body-fat levels; do not treat it as a direct measurement or stand-alone health assessment.',
     muac: 'Mid-upper-arm circumference (MUAC) is measured at the midpoint between the acromion and olecranon. When paired with triceps skinfold, it can support approximate arm-area calculations.',
     'mid-upper-arm circumference': 'Measure MUAC at the midpoint between the acromion and olecranon landmarks, using the same arm and side as the triceps skinfold reading.',
@@ -78,7 +86,7 @@
   }
   function init() {
     // Keep the interface quiet: add visible help only for unfamiliar/specialist terms.
-    const specialist = /\b(bmi|bmr|rmr|tdee|ffmi|1rm|one[- ]rep max|metabolic age|somatotype|facial thirds|facial balance|absi|rfm|ponderal index|vo2 max|vo2max|met|rpe|cadence|stride length|step length|cooper test|session density|training[- ]rest ratio|load[- ]recovery ratio|fatigue index|waist[- ]to[- ]hip ratio|waist[- ]to[- ]height ratio|body surface area|relative strength|energy balance|work[- ]rest balance|sedentary ratio|uv index|heat exposure|cold exposure|forward head index|sit[- ]stand ratio|water loss replacement|electrolyte|lean body mass|body fat percentage|body adiposity index|neck circumference|mid-upper-arm circumference|mid-thigh circumference|calf circumference|triceps skinfold|mid-upper-arm muscle circumference|bai|muac|facial ratio|jaw width ratio|chin height ratio|eye spacing|lower face height)\b/i;
+    const specialist = /\b(bmi|bmr|rmr|tdee|ffmi|1rm|one[- ]rep max|metabolic age|somatotype|facial thirds|facial balance|absi|rfm|ponderal index|vo2 max|vo2max|met|rpe|cadence|stride length|step length|cooper test|session density|training[- ]rest ratio|load[- ]recovery ratio|fatigue index|waist[- ]to[- ]hip ratio|waist[- ]to[- ]height ratio|body surface area|relative strength|energy balance|work[- ]rest balance|sedentary ratio|uv index|heat exposure|cold exposure|forward head index|sit[- ]stand ratio|water loss replacement|electrolyte|lean body mass|body fat percentage|body adiposity index|relative muscle mass|skeletal muscle mass|appendicular lean mass|almi|fat mass index|fmi|body-fat percentage|ffmi comparison|neck circumference|mid-upper-arm circumference|mid-thigh circumference|calf circumference|triceps skinfold|mid-upper-arm muscle circumference|bai|muac|facial ratio|jaw width ratio|chin height ratio|eye spacing|lower face height)\b/i;
     const isFaceCalculator = /face|facial|jaw|chin|nose|mouth|eye-spacing|lower-face/i.test(location.pathname);
     document.querySelectorAll('label').forEach(label => {
       // Facial pages use their own shorter landmark-specific help markers from site-polish.js.
