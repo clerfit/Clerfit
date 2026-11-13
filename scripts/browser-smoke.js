@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 const fs = require('node:fs');
+const path = require('node:path');
 const vm = require('node:vm');
 const { chromium } = require('playwright');
 
@@ -622,7 +623,7 @@ async function main() {
   const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
   try {
     let cursor=0;
-    const htmlRoutes = [...sitemap].map(value => new URL(value)).filter(url => url.pathname.startsWith(new URL('html/', BASE).pathname) && url.pathname.toLowerCase().endsWith('.html')).map(url => decodeURIComponent(url.pathname.split('/').pop()));
+    const htmlRoutes = fs.readdirSync(path.join(__dirname, '..', 'html')).filter(file => file.toLowerCase().endsWith('.html'));
     const footerOnlyRoutes = htmlRoutes.filter(file => !registry.some(route => route.file === file));
     const footerOnlyResults = [];
     for (const file of footerOnlyRoutes) {
