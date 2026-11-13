@@ -21,6 +21,11 @@
   "biacromial-biacristal-width-ratio": { kind: "lengthRatio", numerator: "biacromial", numeratorUnit: "biacromialUnit", denominator: "biacristal", denominatorUnit: "biacristalUnit", numeratorMin: 20, numeratorMax: 70, denominatorMin: 15, denominatorMax: 60, numeratorLabel: "Biacromial breadth", denominatorLabel: "Biacristal breadth", title: "Biacromial-to-biacristal width" },
   "sitting-height-arm-span-ratio": { kind: "lengthRatio", numerator: "sittingHeight", numeratorUnit: "sittingHeightUnit", denominator: "armSpan", denominatorUnit: "armSpanUnit", numeratorMin: 30, numeratorMax: 150, denominatorMin: 80, denominatorMax: 250, numeratorLabel: "Sitting height", denominatorLabel: "Arm span", title: "Sitting-height-to-arm-span" },
   "arm-span-difference": { kind: "armSpanDifference" },
+  "upper-lower-body-segment-ratio": { kind: "upperLower" },
+  "femur-height-ratio": { kind: "lengthRatio", numerator: "femur", numeratorUnit: "femurUnit", denominator: "height", denominatorUnit: "heightUnit", numeratorMin: 20, numeratorMax: 80, denominatorMin: 80, denominatorMax: 250, numeratorLabel: "Femur length", denominatorLabel: "Standing height", title: "Femur-to-height" },
+  "tibia-height-ratio": { kind: "lengthRatio", numerator: "tibia", numeratorUnit: "tibiaUnit", denominator: "height", denominatorUnit: "heightUnit", numeratorMin: 20, numeratorMax: 70, denominatorMin: 80, denominatorMax: 250, numeratorLabel: "Tibia length", denominatorLabel: "Standing height", title: "Tibia-to-height" },
+  "body-proportion-deviation": { kind: "bodyProportionDeviation" },
+  "anthropometric-measurement-change": { kind: "measurementChange" },
   "waist-circumference-reference": { kind: "measure" },
   "waist-height-comparison": { kind: "whtcompare" },
   "body-volume": { kind: "volume" },
@@ -69,6 +74,33 @@
   assertRange(span, 80, 250, "Arm span", "cm");
   assertRange(height, 80, 250, "Standing height", "cm");
   return { armSpanCm: span, standingHeightCm: height, differenceCm: span - height, differencePercent: (span - height) / height * 100 };
+ }
+ function upperLowerSegmentMetrics(sittingHeight, sittingUnit, standingHeight, standingUnit) {
+  const upper = toCm(sittingHeight, sittingUnit, "Sitting height");
+  const total = toCm(standingHeight, standingUnit, "Standing height");
+  assertRange(upper, 30, 150, "Sitting height", "cm");
+  assertRange(total, 80, 250, "Standing height", "cm");
+  if (upper >= total) throw new RangeError("Sitting height must be less than standing height so the lower-body segment is positive.");
+  const lower = total - upper;
+  return { upperCm: upper, lowerCm: lower, ratio: upper / lower, upperPercent: upper / total * 100 };
+ }
+ function bodyProportionDeviationMetrics(segment, segmentUnit, height, heightUnit, referencePercent) {
+  const segmentCm = toCm(segment, segmentUnit, "Segment length");
+  const heightCmValue = toCm(height, heightUnit, "Standing height");
+  assertRange(segmentCm, 5, 200, "Segment length", "cm");
+  assertRange(heightCmValue, 80, 250, "Standing height", "cm");
+  if (segmentCm >= heightCmValue) throw new RangeError("Segment length must be less than standing height.");
+  const reference = Number(referencePercent);
+  assertRange(reference, 0.1, 99.9, "Reference proportion", "%");
+  const measuredPercent = segmentCm / heightCmValue * 100;
+  return { segmentCm, heightCm: heightCmValue, measuredPercent, referencePercent: reference, deviationPoints: measuredPercent - reference };
+ }
+ function anthropometricMeasurementChangeMetrics(baseline, baselineUnit, current, currentUnit) {
+  const before = toCm(baseline, baselineUnit, "Baseline measurement");
+  const after = toCm(current, currentUnit, "Current measurement");
+  assertRange(before, 0.1, 250, "Baseline measurement", "cm");
+  assertRange(after, 0.1, 250, "Current measurement", "cm");
+  return { baselineCm: before, currentCm: after, changeCm: after - before, changePercent: (after - before) / before * 100 };
  }
  function assertRange(value, min, max, label, unit) {
   if (!Number.isFinite(value) || value < min || value > max) {
@@ -172,7 +204,7 @@
   return { personAFFMI: a.ffmiKgM2, personBFFMI: b.ffmiKgM2, absoluteDifferenceKgM2: Math.abs(a.ffmiKgM2 - b.ffmiKgM2), higher: a.ffmiKgM2 === b.ffmiKgM2 ? "equal" : a.ffmiKgM2 > b.ffmiKgM2 ? "A" : "B" };
  }
 
- const api = { toCm, toKg, toHeightCm, circleMetrics, muacMetrics, calculateBAI, bodyCompositionMetrics, skeletalMuscleMetrics, heightIndexedMass, ffmiMetrics, compareFFMI, ratioMetrics, armSpanDifferenceMetrics };
+ const api = { toCm, toKg, toHeightCm, circleMetrics, muacMetrics, calculateBAI, bodyCompositionMetrics, skeletalMuscleMetrics, heightIndexedMass, ffmiMetrics, compareFFMI, ratioMetrics, armSpanDifferenceMetrics, upperLowerSegmentMetrics, bodyProportionDeviationMetrics, anthropometricMeasurementChangeMetrics };
  if (typeof window !== "undefined") window.ClerFitAnthropometric = api;
 
  function clearResultFieldErrors(form, output) {
@@ -296,6 +328,26 @@
      const signed = (n, suffix) => (n > 0 ? "+" : "") + fmt(n) + suffix;
      result = "Arm span difference: " + signed(data.differenceCm, " cm") + " · " + signed(data.differencePercent, "%") + " of standing height";
      note = "Difference = arm span − standing height. A positive result means arm span is longer; a negative result means standing height is greater. The percentage is the signed difference divided by standing height × 100. Measurement technique and posture can affect small differences.";
+     break;
+    }
+    case "upperLower": {
+     const d = upperLowerSegmentMetrics(num("sittingHeight"), $("sittingHeightUnit").value, num("standingHeight"), $("standingHeightUnit").value);
+     result = "Upper segment: " + fmt(d.upperCm) + " cm · Lower segment: " + fmt(d.lowerCm) + " cm · Upper-to-lower ratio: " + fmt(d.ratio);
+     note = "Upper segment is represented by sitting height; lower segment = standing height − sitting height. Ratio = sitting height ÷ lower segment. This is a descriptive segment comparison, not a clinical classification.";
+     break;
+    }
+    case "bodyProportionDeviation": {
+     const d = bodyProportionDeviationMetrics(num("segmentLength"), $("segmentLengthUnit").value, num("standingHeight"), $("standingHeightUnit").value, num("referencePercent"));
+     const signed = (n) => (n > 0 ? "+" : "") + fmt(n);
+     result = "Measured proportion: " + fmt(d.measuredPercent) + "% · Difference from entered reference: " + signed(d.deviationPoints) + " percentage points";
+     note = "Measured proportion = segment length ÷ standing height × 100. Deviation = measured proportion − the reference percentage entered by the user. The reference is user-supplied; no population norm or clinical cutoff is assumed.";
+     break;
+    }
+    case "measurementChange": {
+     const d = anthropometricMeasurementChangeMetrics(num("baseline"), $("baselineUnit").value, num("current"), $("currentUnit").value);
+     const signed = (n, suffix) => (n > 0 ? "+" : "") + fmt(n) + suffix;
+     result = "Baseline: " + fmt(d.baselineCm) + " cm · Current: " + fmt(d.currentCm) + " cm · Change: " + signed(d.changeCm, " cm") + " · Percentage change: " + signed(d.changePercent, "%");
+     note = "Absolute change = current measurement − baseline measurement. Percentage change = absolute change ÷ baseline × 100. Compare measurements taken with the same landmarks, posture and technique.";
      break;
     }
     case "ffmi": {
