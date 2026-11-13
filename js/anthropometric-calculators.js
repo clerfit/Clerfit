@@ -16,6 +16,11 @@
   "almi": { kind: "almi" },
   "fmi": { kind: "fmi" },
   "ffmi-comparison": { kind: "ffmi" },
+  "chest-hip-ratio": { kind: "lengthRatio", numerator: "chest", numeratorUnit: "chestUnit", denominator: "hip", denominatorUnit: "hipUnit", numeratorMin: 40, numeratorMax: 200, denominatorMin: 40, denominatorMax: 200, numeratorLabel: "Chest circumference", denominatorLabel: "Hip circumference", title: "Chest-to-hip" },
+  "shoulder-chest-ratio": { kind: "lengthRatio", numerator: "shoulder", numeratorUnit: "shoulderUnit", denominator: "chest", denominatorUnit: "chestUnit", numeratorMin: 60, numeratorMax: 250, denominatorMin: 40, denominatorMax: 200, numeratorLabel: "Shoulder circumference", denominatorLabel: "Chest circumference", title: "Shoulder-to-chest" },
+  "biacromial-biacristal-width-ratio": { kind: "lengthRatio", numerator: "biacromial", numeratorUnit: "biacromialUnit", denominator: "biacristal", denominatorUnit: "biacristalUnit", numeratorMin: 20, numeratorMax: 70, denominatorMin: 15, denominatorMax: 60, numeratorLabel: "Biacromial breadth", denominatorLabel: "Biacristal breadth", title: "Biacromial-to-biacristal width" },
+  "sitting-height-arm-span-ratio": { kind: "lengthRatio", numerator: "sittingHeight", numeratorUnit: "sittingHeightUnit", denominator: "armSpan", denominatorUnit: "armSpanUnit", numeratorMin: 30, numeratorMax: 150, denominatorMin: 80, denominatorMax: 250, numeratorLabel: "Sitting height", denominatorLabel: "Arm span", title: "Sitting-height-to-arm-span" },
+  "arm-span-difference": { kind: "armSpanDifference" },
   "waist-circumference-reference": { kind: "measure" },
   "waist-height-comparison": { kind: "whtcompare" },
   "body-volume": { kind: "volume" },
@@ -36,6 +41,35 @@
   return n * factors[u];
  }
 
+ function toKg(value, unit) {
+  const n = Number(value), u = String(unit || "kg").toLowerCase();
+  if (!Number.isFinite(n) || n <= 0) throw new RangeError("Mass must be a positive finite value.");
+  if (u === "kg") return n;
+  if (u === "lb") return n * 0.45359237;
+  throw new RangeError("Choose kilograms (kg) or pounds (lb).");
+ }
+ function toHeightCm(value, unit) {
+  const n = Number(value), u = String(unit || "cm").toLowerCase();
+  if (!Number.isFinite(n) || n <= 0) throw new RangeError("Height must be a positive finite value.");
+  if (u === "cm") return n;
+  if (u === "in") return n * 2.54;
+  throw new RangeError("Choose centimetres (cm) or inches (in).");
+ }
+ function ratioMetrics(numerator, numeratorUnit, denominator, denominatorUnit, numeratorMin, numeratorMax, denominatorMin, denominatorMax, numeratorLabel, denominatorLabel) {
+  const a = toCm(numerator, numeratorUnit, numeratorLabel);
+  const b = toCm(denominator, denominatorUnit, denominatorLabel);
+  assertRange(a, numeratorMin, numeratorMax, numeratorLabel, "cm");
+  assertRange(b, denominatorMin, denominatorMax, denominatorLabel, "cm");
+  if (!(b > 0)) throw new RangeError(denominatorLabel + " must be greater than zero.");
+  return { numeratorCm: a, denominatorCm: b, ratio: a / b, percent: a / b * 100 };
+ }
+ function armSpanDifferenceMetrics(armSpan, armSpanUnit, standingHeight, standingHeightUnit) {
+  const span = toCm(armSpan, armSpanUnit, "Arm span");
+  const height = toCm(standingHeight, standingHeightUnit, "Standing height");
+  assertRange(span, 80, 250, "Arm span", "cm");
+  assertRange(height, 80, 250, "Standing height", "cm");
+  return { armSpanCm: span, standingHeightCm: height, differenceCm: span - height, differencePercent: (span - height) / height * 100 };
+ }
  function assertRange(value, min, max, label, unit) {
   if (!Number.isFinite(value) || value < min || value > max) {
    throw new RangeError(label + " must be between " + min + " and " + max + " " + unit + ".");
@@ -107,51 +141,67 @@
  }
 
 
- function toKg(value, unit, label) {
-  const n=Number(value),u=String(unit||"kg").trim().toLowerCase();
-  if(!Number.isFinite(n)||n<=0) throw new RangeError(label+" must be a positive finite value.");
-  const factors={kg:1,lb:0.45359237,lbs:0.45359237};
-  if(!Object.prototype.hasOwnProperty.call(factors,u)) throw new RangeError("Choose kilograms (kg) or pounds (lb).");
-  return n*factors[u];
+ function bodyCompositionMetrics(muscleMass, weight) {
+  const muscle = Number(muscleMass), body = Number(weight);
+  if (!Number.isFinite(muscle) || !Number.isFinite(body) || muscle <= 0 || body <= 0) throw new RangeError("Muscle mass and body weight must be positive finite values.");
+  if (muscle > body) throw new RangeError("Measured skeletal muscle mass cannot exceed total body weight; check the source values and units.");
+  return { muscleMassKg: muscle, bodyWeightKg: body, relativeMuscleMassPercent: muscle / body * 100 };
  }
- function heightCm(value,unit,label) {
-  const n=Number(value),u=String(unit||"cm").trim().toLowerCase();
-  if(!Number.isFinite(n)||n<=0) throw new RangeError(label+" must be a positive finite value.");
-  const factors={cm:1,in:2.54,inch:2.54};
-  if(!Object.prototype.hasOwnProperty.call(factors,u)) throw new RangeError("Choose centimetres (cm) or inches (in).");
-  const cm=n*factors[u]; assertRange(cm,80,250,label,"cm"); return cm;
+ function skeletalMuscleMetrics(muscleMass, weight, heightCm) {
+  const base = bodyCompositionMetrics(muscleMass, weight);
+  const h = Number(heightCm);
+  assertRange(h, 80, 250, "Height", "cm");
+  return { ...base, smmiKgM2: base.muscleMassKg / Math.pow(h / 100, 2) };
  }
- function massRange(value,min,max,label){assertRange(value,min,max,label,"kg");}
- function calculateRelativeMuscleMass(m,mUnit,w,wUnit){
-  const muscleKg=toKg(m,mUnit,"Skeletal muscle mass"),weightKg=toKg(w,wUnit,"Body weight");
-  massRange(muscleKg,0.1,200,"Skeletal muscle mass");massRange(weightKg,2,500,"Body weight");
-  if(muscleKg>weightKg)throw new RangeError("Skeletal muscle mass cannot exceed total body weight.");
-  return {muscleKg,weightKg,percent:muscleKg/weightKg*100};
+ function heightIndexedMass(massKg, heightCm, label) {
+  const mass = Number(massKg), h = Number(heightCm);
+  if (!Number.isFinite(mass) || mass <= 0) throw new RangeError(label + " must be a positive finite value.");
+  assertRange(h, 80, 250, "Height", "cm");
+  return { massKg: mass, heightCm: h, indexKgM2: mass / Math.pow(h / 100, 2) };
  }
- function calculateSkeletalMuscleMass(m,mu,w,wu,h,hu){
-  const base=calculateRelativeMuscleMass(m,mu,w,wu),cm=heightCm(h,hu,"Height");
-  return {...base,heightCm:cm,index:base.muscleKg/Math.pow(cm/100,2)};
+ function ffmiMetrics(weightKg, bodyFatPercent, heightCm) {
+  const weight = Number(weightKg), fat = Number(bodyFatPercent), h = Number(heightCm);
+  assertRange(weight, 2, 500, "Body weight", "kg");
+  assertRange(fat, 0, 75, "Body-fat percentage", "%");
+  assertRange(h, 80, 250, "Height", "cm");
+  const fatFreeMassKg = weight * (1 - fat / 100);
+  return { weightKg: weight, bodyFatPercent: fat, heightCm: h, fatFreeMassKg, ffmiKgM2: fatFreeMassKg / Math.pow(h / 100, 2) };
  }
- function calculateALMI(m,mu,h,hu){
-  const mass=toKg(m,mu,"Appendicular lean mass");massRange(mass,1,100,"Appendicular lean mass");
-  const cm=heightCm(h,hu,"Height");return {massKg:mass,heightCm:cm,index:mass/Math.pow(cm/100,2)};
- }
- function calculateFMI(m,mu,h,hu){
-  const mass=toKg(m,mu,"Fat mass");massRange(mass,0.1,300,"Fat mass");
-  const cm=heightCm(h,hu,"Height");return {massKg:mass,heightCm:cm,index:mass/Math.pow(cm/100,2)};
- }
- function calculateFFMI(wa,wua,fa,ha,hua,wb,wub,fb,hb,hub){
-  function one(w,wu,f,h,hu,label){
-   const kg=toKg(w,wu,label+" body weight");massRange(kg,2,500,label+" body weight");
-   const fat=Number(f);assertRange(fat,0,75,label+" body-fat percentage","%");
-   const cm=heightCm(h,hu,label+" height"),ffm=kg*(1-fat/100);
-   return {weightKg:kg,fatPercent:fat,heightCm:cm,fatFreeMassKg:ffm,index:ffm/Math.pow(cm/100,2)};
-  }
-  const a=one(wa,wua,fa,ha,hua,"Person A"),b=one(wb,wub,fb,hb,hub,"Person B");
-  return {a,b,difference:Math.abs(a.index-b.index)};
+ function compareFFMI(a, b) {
+  if (!a || !b || !Number.isFinite(a.ffmiKgM2) || !Number.isFinite(b.ffmiKgM2)) throw new RangeError("Provide two valid FFMI calculations.");
+  return { personAFFMI: a.ffmiKgM2, personBFFMI: b.ffmiKgM2, absoluteDifferenceKgM2: Math.abs(a.ffmiKgM2 - b.ffmiKgM2), higher: a.ffmiKgM2 === b.ffmiKgM2 ? "equal" : a.ffmiKgM2 > b.ffmiKgM2 ? "A" : "B" };
  }
 
- const api = { toCm, circleMetrics, muacMetrics, calculateBAI, toKg, heightCm, calculateRelativeMuscleMass, calculateSkeletalMuscleMass, calculateALMI, calculateFMI, calculateFFMI };
+ function calculateRelativeMuscleMass(muscleMass, muscleUnit, bodyWeight, weightUnit) {
+  const data = bodyCompositionMetrics(toKg(muscleMass, muscleUnit), toKg(bodyWeight, weightUnit));
+  return { ...data, percent: data.relativeMuscleMassPercent };
+ }
+ function calculateSkeletalMuscleMass(muscleMass, muscleUnit, bodyWeight, weightUnit, height, heightUnit) {
+  const data = skeletalMuscleMetrics(toKg(muscleMass, muscleUnit), toKg(bodyWeight, weightUnit), toHeightCm(height, heightUnit));
+  return { ...data, percent: data.relativeMuscleMassPercent, index: data.smmiKgM2 };
+ }
+ function calculateALMI(alm, massUnit, height, heightUnit) {
+  const mass = toKg(alm, massUnit);
+  assertRange(mass, 1, 100, "Appendicular lean mass", "kg");
+  const data = heightIndexedMass(mass, toHeightCm(height, heightUnit), "Appendicular lean mass");
+  return { ...data, index: data.indexKgM2 };
+ }
+ function calculateFMI(fatMass, massUnit, height, heightUnit) {
+  const data = heightIndexedMass(toKg(fatMass, massUnit), toHeightCm(height, heightUnit), "Fat mass");
+  return { ...data, index: data.indexKgM2 };
+ }
+ function calculateFFMI(weightA, weightAUnit, fatA, heightA, heightAUnit, weightB, weightBUnit, fatB, heightB, heightBUnit) {
+  const a = ffmiMetrics(toKg(weightA, weightAUnit), fatA, toHeightCm(heightA, heightAUnit));
+  const b = ffmiMetrics(toKg(weightB, weightBUnit), fatB, toHeightCm(heightB, heightBUnit));
+  const comparison = compareFFMI(a, b);
+  return {
+   a: { ...a, index: a.ffmiKgM2 },
+   b: { ...b, index: b.ffmiKgM2 },
+   difference: comparison.absoluteDifferenceKgM2,
+   higher: comparison.higher
+  };
+ }
+ const api = { toCm, toKg, toHeightCm, circleMetrics, muacMetrics, calculateBAI, bodyCompositionMetrics, skeletalMuscleMetrics, heightIndexedMass, ffmiMetrics, compareFFMI, ratioMetrics, armSpanDifferenceMetrics, calculateRelativeMuscleMass, calculateSkeletalMuscleMass, calculateALMI, calculateFMI, calculateFFMI };
  if (typeof window !== "undefined") window.ClerFitAnthropometric = api;
 
  function clearResultFieldErrors(form, output) {
@@ -241,33 +291,48 @@
      break;
     }
     case "relative": {
-     const d=calculateRelativeMuscleMass(num("muscle"),$("muscleUnit").value,num("weight"),$("weightUnit").value);
-     result=fmt(d.percent)+"% of body mass";
-     note="Relative muscle mass = measured skeletal-muscle mass ÷ body weight × 100. Both masses are converted to kg. This reports the supplied assessment; it does not estimate muscle mass.";
+     const data = bodyCompositionMetrics(toKg(num("muscle"), $("muscleUnit").value), toKg(num("weight"), $("weightUnit").value));
+     result = fmt(data.relativeMuscleMassPercent) + "% of body mass";
+     note = "Calculated from the supplied skeletal-muscle-mass value. This tool does not validate or independently estimate that input.";
      break;
     }
     case "skeletal": {
-     const d=calculateSkeletalMuscleMass(num("muscle"),$("muscleUnit").value,num("weight"),$("weightUnit").value,num("height"),$("heightUnit").value);
-     result=fmt(d.muscleKg)+" kg measured skeletal muscle · "+fmt(d.percent)+"% of body mass · SMMI "+fmt(d.index)+" kg/m²";
-     note="SMMI = measured skeletal muscle mass (kg) ÷ height (m)². Relative mass = muscle mass ÷ body weight × 100. No independent muscle-mass prediction or diagnostic classification is performed.";
+     const data = skeletalMuscleMetrics(toKg(num("muscle"), $("muscleUnit").value), toKg(num("weight"), $("weightUnit").value), toHeightCm(num("height"), $("heightUnit").value));
+     result = fmt(data.muscleMassKg) + " kg · " + fmt(data.relativeMuscleMassPercent) + "% of body mass · SMMI " + fmt(data.smmiKgM2) + " kg/m²";
+     note = "Derived from the supplied muscle-mass assessment. No independent muscle-mass prediction is performed.";
      break;
     }
     case "almi": {
-     const d=calculateALMI(num("alm"),$("almUnit").value,num("height"),$("heightUnit").value);
-     result="ALMI: "+fmt(d.index)+" kg/m²";
-     note="ALMI = appendicular lean mass (kg) ÷ height (m)². Use a suitable body-composition assessment; interpretation depends on the reference population. No universal cutoff is applied.";
+     const data = heightIndexedMass(toKg(num("alm"), $("almUnit").value), toHeightCm(num("height"), $("heightUnit").value), "Appendicular lean mass");
+     result = fmt(data.indexKgM2) + " kg/m²";
+     note = "ALMI = appendicular lean mass (kg) ÷ height (m)². Use an assessment-derived input; interpretation requires a population- and method-matched reference.";
      break;
     }
     case "fmi": {
-     const d=calculateFMI(num("fat"),$("fatUnit").value,num("height"),$("heightUnit").value);
-     result="FMI: "+fmt(d.index)+" kg/m²";
-     note="FMI = fat mass (kg) ÷ height (m)². Use a suitable body-composition assessment. FMI is descriptive, not a diagnosis; no universal category is applied.";
+     const data = heightIndexedMass(toKg(num("fat"), $("fatUnit").value), toHeightCm(num("height"), $("heightUnit").value), "Fat mass");
+     result = fmt(data.indexKgM2) + " kg/m²";
+     note = "FMI = fat mass (kg) ÷ height (m)². Use an assessment-derived input; this tool does not infer body fat from BMI.";
+     break;
+    }
+    case "lengthRatio": {
+     const data = ratioMetrics(num(cfg.numerator), $(cfg.numeratorUnit).value, num(cfg.denominator), $(cfg.denominatorUnit).value, cfg.numeratorMin, cfg.numeratorMax, cfg.denominatorMin, cfg.denominatorMax, cfg.numeratorLabel, cfg.denominatorLabel);
+     result = cfg.title + " ratio: " + fmt(data.ratio) + " (" + fmt(data.percent) + "%)";
+     note = "Ratio = " + cfg.numeratorLabel.toLowerCase() + " ÷ " + cfg.denominatorLabel.toLowerCase() + ". Both measurements are converted to centimetres first. No universal clinical cutoff is assigned; use consistent landmarks and a reference appropriate to the measurement protocol.";
+     break;
+    }
+    case "armSpanDifference": {
+     const data = armSpanDifferenceMetrics(num("armSpan"), $("armSpanUnit").value, num("standingHeight"), $("standingHeightUnit").value);
+     const signed = (n, suffix) => (n > 0 ? "+" : "") + fmt(n) + suffix;
+     result = "Arm span difference: " + signed(data.differenceCm, " cm") + " · " + signed(data.differencePercent, "%") + " of standing height";
+     note = "Difference = arm span − standing height. A positive result means arm span is longer; a negative result means standing height is greater. The percentage is the signed difference divided by standing height × 100. Measurement technique and posture can affect small differences.";
      break;
     }
     case "ffmi": {
-     const d=calculateFFMI(num("weightA"),$("weightUnitA").value,num("fatA"),num("heightA"),$("heightUnitA").value,num("weightB"),$("weightUnitB").value,num("fatB"),num("heightB"),$("heightUnitB").value);
-     result="Person A: "+fmt(d.a.index)+" kg/m² · Person B: "+fmt(d.b.index)+" kg/m² · Difference: "+fmt(d.difference)+" kg/m²";
-     note="FFMI = fat-free mass ÷ height²; fat-free mass = body weight × (1 − body-fat percentage ÷ 100). Measurement error in body-fat percentage affects the comparison; no ranking is inferred.";
+     const a = ffmiMetrics(toKg(num("weightA"), $("weightAUnit").value), num("fatA"), toHeightCm(num("heightA"), $("heightAUnit").value));
+     const b = ffmiMetrics(toKg(num("weightB"), $("weightBUnit").value), num("fatB"), toHeightCm(num("heightB"), $("heightBUnit").value));
+     const comparison = compareFFMI(a, b);
+     result = "Person A: " + fmt(a.ffmiKgM2) + " kg/m² · Person B: " + fmt(b.ffmiKgM2) + " kg/m² · Difference: " + fmt(comparison.absoluteDifferenceKgM2) + " kg/m² · Higher FFMI: " + comparison.higher;
+     note = "FFMI = estimated fat-free mass ÷ height². Body-fat measurement error affects the comparison.";
      break;
     }
     case "whtcompare": {
@@ -323,18 +388,6 @@
    if (event.target && (event.target.matches("[data-field]") || event.target.matches('input[type="number"]'))) invalidateResult();
   });
   form.addEventListener("change", event => {
-   if (event.target && event.target.matches("select[data-unit-for]")) {
-    const selector=event.target, input=$(selector.dataset.unitFor);
-    if (input) {
-     const base=input.dataset.baseUnit||selector.value, previous=input.dataset.currentUnit||base, next=selector.value;
-     const factor=u=>u==="lb"?0.45359237:u==="in"?2.54:1;
-     const raw=String(input.value||"").trim();
-     if(raw!=="") { const canonical=Number(raw)*factor(previous); if(Number.isFinite(canonical)) input.value=String(Number((canonical/factor(next)).toFixed(6))); }
-     if(input.dataset.baseMin) input.min=String(Number((Number(input.dataset.baseMin)/factor(next)).toFixed(6)));
-     if(input.dataset.baseMax) input.max=String(Number((Number(input.dataset.baseMax)/factor(next)).toFixed(6)));
-     input.dataset.currentUnit=next;
-    }
-   }
    if (event.target && event.target.matches("select")) invalidateResult();
   });
   form.addEventListener("submit", event => { event.preventDefault(); clearResultFieldErrors(form, output); calculate(); });

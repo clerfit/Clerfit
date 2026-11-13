@@ -286,3 +286,13 @@ bai.html,age,Age (years),18,120,1
 calf-circumference.html,segmentLength,Optional segment length,5,80,any
 mid-thigh-circumference.html,segmentLength,Optional segment length,5,100,any
 muac.html,tricepsSkinfold,Triceps skinfold thickness,1,60,any
+chest-hip-ratio.html,chest,Chest circumference,40,200,any
+chest-hip-ratio.html,hip,Hip circumference,40,200,any
+shoulder-chest-ratio.html,shoulder,Shoulder circumference,60,250,any
+shoulder-chest-ratio.html,chest,Chest circumference,40,200,any
+biacromial-biacristal-width-ratio.html,biacromial,Biacromial breadth,20,70,any
+biacromial-biacristal-width-ratio.html,biacristal,Biacristal breadth,15,60,any
+sitting-height-arm-span-ratio.html,sittingHeight,Sitting height,30,150,any
+sitting-height-arm-span-ratio.html,armSpan,Arm span,80,250,any
+arm-span-difference.html,armSpan,Arm span,80,250,any
+arm-span-difference.html,standingHeight,Standing height,80,250,any

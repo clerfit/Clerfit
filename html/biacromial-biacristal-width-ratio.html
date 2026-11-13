@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<meta name="description" content="Biacromial-to-Biacristal Width Ratio Calculator. Educational anthropometric measurement calculator with transparent method and limitations.">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
+<title>ClerFit – Biacromial-to-Biacristal Width Ratio Calculator</title>
+<link rel="canonical" href="https://clerfit.github.io/Clerfit/html/biacromial-biacristal-width-ratio.html">
+</head>
+<body data-calculator="biacromial-biacristal-width-ratio">
+<aside class="sidebar" aria-label="Main navigation"></aside>
+<main class="main">
+<header class="header"><h1>Biacromial-to-Biacristal Width Ratio Calculator</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
+<section class="card" aria-labelledby="calc-heading">
+<h2 id="calc-heading">Enter your measurements</h2>
+<p class="cf-note">Compare biacromial breadth (distance between the acromion landmarks) with biacristal breadth (distance between the iliac-crest landmarks). Accurate landmarking and a suitable anthropometric caliper are important.</p>
+<form id="calc-form" novalidate>
+<div class="row">
+<div class="col"><label for="biacromial"><span data-cf-tip="biacromial breadth">Biacromial breadth</span> (cm)</label><input id="biacromial" data-field name="biacromial" type="number" min="20" max="70" step="any" inputmode="decimal" required aria-label="Biacromial breadth"><label for="biacromialUnit">Biacromial breadth unit</label><select id="biacromialUnit" data-unit-for="biacromial" aria-label="Biacromial breadth unit"><option value="cm" selected>Centimetres (cm)</option><option value="in">Inches (in)</option></select></div>
+<div class="col"><label for="biacristal"><span data-cf-tip="biacristal breadth">Biacristal breadth</span> (cm)</label><input id="biacristal" data-field name="biacristal" type="number" min="15" max="60" step="any" inputmode="decimal" required aria-label="Biacristal breadth"><label for="biacristalUnit">Biacristal breadth unit</label><select id="biacristalUnit" data-unit-for="biacristal" aria-label="Biacristal breadth unit"><option value="cm" selected>Centimetres (cm)</option><option value="in">Inches (in)</option></select></div>
+</div>
+<div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><input type="reset" class="calculate-btn cf-reset-btn" value="Reset" aria-label="Reset measurements"></div>
+</form>
+<div id="calc-result" class="result" aria-live="polite"></div>
+</section>
+<section class="card">
+<h2>Method and limitations</h2>
+<p>Compare biacromial breadth (distance between the acromion landmarks) with biacristal breadth (distance between the iliac-crest landmarks). Accurate landmarking and a suitable anthropometric caliper are important.</p>
+<p>Ratio = first measurement ÷ second measurement. Convert all measurements to centimetres before calculation. Use the same landmarks, posture, tape tension or caliper protocol when comparing results. This descriptive result is not a diagnosis, a validated health-risk score or a measure of attractiveness or athletic potential.</p>
+</section>
+</main>
+<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Enter values within the displayed ranges, choose the unit for each measurement, select Calculate, and review the method and limitations alongside the result.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and input quality. They are not a substitute for professional advice.</p></div></details></section>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+<script src="../js/anthropometric-calculators.js" defer></script>
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js?v=20261017-nav-v4" defer></script>
+</body></html>
