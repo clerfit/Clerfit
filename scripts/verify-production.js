@@ -75,6 +75,7 @@ function references(html, from) {
 }
 async function main() {
   const sitemapUrl = new URL('sitemap.xml', BASE).href;
+  const robotsUrl = new URL('robots.txt', BASE).href;
   const navUrl = new URL('js/navigation.js', BASE).href;
   const cssUrl = new URL('css/style.css?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
   const homeUrl = new URL('index.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
@@ -91,15 +92,15 @@ async function main() {
   const leanMassPageUrl = new URL('html/leanmass.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
   const macroSplitPageUrl = new URL('html/macro-split.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
   const releaseMarker = 'name="clerfit-release" content="' + EXPECTED_RELEASE_ID + '"';
-  const [sitemap, nav, css, home, unit, advanced, bmiHelper, validation, bmiAgePage, bmiChangePage, relativeStrengthPage, weeklyWeightPage, tdeePage, metabolicAgePage, leanMassPage, macroSplitPage] = await Promise.all([
-    fetchText(sitemapUrl), fetchText(navUrl), fetchUntilMarker(cssUrl, 'ClerFit R3 live calculator UI'),
+  const [sitemap, robots, nav, css, home, unit, advanced, bmiHelper, validation, bmiAgePage, bmiChangePage, relativeStrengthPage, weeklyWeightPage, tdeePage, metabolicAgePage, leanMassPage, macroSplitPage] = await Promise.all([
+    fetchText(sitemapUrl), fetchText(robotsUrl), fetchText(navUrl), fetchUntilMarker(cssUrl, 'ClerFit R3 live calculator UI'),
     fetchUntilMarker(homeUrl, releaseMarker), fetchUntilMarker(unitUrl, EXPECTED_RELEASE_ID),
     fetchUntilMarker(advancedUrl, EXPECTED_RELEASE_ID),
     fetchText(bmiHelperUrl), fetchText(validationUrl), fetchText(bmiAgePageUrl),
     fetchText(bmiChangePageUrl), fetchText(relativeStrengthPageUrl), fetchText(weeklyWeightPageUrl),
     fetchText(tdeePageUrl), fetchText(metabolicAgePageUrl), fetchText(leanMassPageUrl), fetchText(macroSplitPageUrl)
   ]);
-  if (![sitemap.body, nav.body, css.body, home.body, unit.body].every(Boolean)) {
+  if (![sitemap.body, robots.body, nav.body, css.body, home.body, unit.body].every(Boolean)) {
     console.error(JSON.stringify({ status: 'FAIL', failures: FAILURES }, null, 2));
     process.exit(1);
   }
@@ -175,10 +176,37 @@ async function main() {
   assert(validation.body.includes('function calculatorScope(trigger)') && validation.body.includes('visibleNumericInputs(scope)'), 'Numeric validation must be scoped to the active form/card.');
   regressionChecks.push('shared validation scope, decimal input bounds, and unit-selector regressions');
 
-  assert(/^<\?xml\s+version=["']1\.0["']/i.test(sitemap.body.trim()), 'Sitemap is missing its XML declaration.');
-  assert(/<urlset\s+xmlns=["']http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9["']/i.test(sitemap.body), 'Sitemap is missing the standard sitemap namespace.');
+  assert(/(?:application|text)\/(?:xml|octet-stream)/i.test(sitemap.contentType), 'Sitemap response has an unexpected Content-Type: ' + sitemap.contentType + '.');
+  assert(/^<\?xml\s+version=["']1\.0["']\s+encoding=["']UTF-8["']\s*\?>/i.test(sitemap.body.trim()), 'Sitemap is missing the expected UTF-8 XML declaration.');
+  assert(/<urlset\s+xmlns=["']http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9["']\s*>/i.test(sitemap.body), 'Sitemap is missing the standard sitemap namespace.');
   assert(/<\/urlset>\s*$/i.test(sitemap.body), 'Sitemap is missing its closing urlset element.');
+  // Validate balanced/nested tags; URL extraction alone can hide malformed XML.
+  const xmlWithoutDeclaration = sitemap.body.replace(/^\s*<\?xml[^?]*\?>/i, '');
+  const tagTokens = [...xmlWithoutDeclaration.matchAll(/<\/?([A-Za-z][\w:-]*)\b[^>]*>/g)];
+  const tagStack = [];
+  for (const token of tagTokens) {
+    const raw = token[0];
+    const name = token[1];
+    if (/^<\//.test(raw)) {
+      assert(tagStack.pop() === name, 'Sitemap XML contains mismatched or incorrectly nested closing tags near ' + raw + '.');
+    } else if (!/\/>$/.test(raw)) tagStack.push(name);
+  }
+  assert(tagStack.length === 0, 'Sitemap XML contains unclosed elements: ' + tagStack.join(', ') + '.');
+  assert(tagTokens.length > 0 && tagTokens[0][1] === 'urlset', 'Sitemap XML root element must be urlset.');
+  const urlBlocks = [...sitemap.body.matchAll(/<url>([\s\S]*?)<\/url>/gi)].map(m => m[1]);
   const locs = [...sitemap.body.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(m => m[1].trim());
+  assert(urlBlocks.length === locs.length, 'Every sitemap url entry must contain exactly one loc element.');
+  const invalidLocs = locs.filter(loc => {
+    try {
+      const u = new URL(loc);
+      return !['https:', 'http:'].includes(u.protocol) || u.origin !== BASE.origin ||
+        !u.pathname.startsWith(SITE_PREFIX) || u.search !== '' || u.hash !== '' || /\s/.test(loc);
+    } catch { return true; }
+  });
+  assert(invalidLocs.length === 0, 'Sitemap contains invalid, off-site, query-string, or fragment URLs: ' + invalidLocs.slice(0, 10).join(', '));
+  const robotsLines = robots.body.split(/\r?\n/).map(line => line.trim());
+  assert(robotsLines.some(line => /^Sitemap:\s*https?:\/\//i.test(line)), 'robots.txt does not declare a Sitemap URL.');
+  assert(robotsLines.some(line => line.toLowerCase() === ('Sitemap: ' + sitemapUrl).toLowerCase()), 'robots.txt does not declare the exact published sitemap URL.');
   const pages = [...new Set(locs)];
   assert(locs.length === pages.length, 'Sitemap contains duplicate locations.');
   assert(pages.length === EXPECTED_SITEMAP_PAGES, 'Expected ' + EXPECTED_SITEMAP_PAGES + ' sitemap pages but found ' + pages.length + '.');
