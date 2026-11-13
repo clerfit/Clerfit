@@ -102,7 +102,18 @@
     main.appendChild(footer);
   }
 
+  const loadPortraitFooterStyles = () => {
+    if (document.querySelector('link[data-cf-portrait-footer="true"]')) return;
+    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
+    const stylesheet = document.createElement("link");
+    stylesheet.rel = "stylesheet";
+    stylesheet.href = new URL("css/mobile-portrait-footer.css?v=20261113-2", root).href;
+    stylesheet.setAttribute("data-cf-portrait-footer", "true");
+    document.head.appendChild(stylesheet);
+  };
+
   const init = () => {
+    loadPortraitFooterStyles();
     ensureSiteFooter();
     const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
     let nav = document.querySelector(selector);

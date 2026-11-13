@@ -1,0 +1,97 @@
+/* ClerFit portrait-only correction: keep the hero illustration card square to its
+   rounded container. The shared footer correction lives in css/style.css.
+   Landscape, tablet and desktop layouts intentionally remain untouched. */
+@media screen and (max-width: 700px) and (orientation: portrait) {
+  body .cf-home-hero {
+    overflow: hidden !important;
+    border-radius: 24px !important;
+  }
+
+  body .cf-home-hero .cf-hero-art {
+    min-width: 0 !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    border-radius: 18px !important;
+    display: grid !important;
+    place-items: center !important;
+  }
+
+  body .cf-home-hero .cf-art-panel {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 340px !important;
+    margin-inline: auto !important;
+    transform: none !important;
+    border-radius: 18px !important;
+  }
+}
+
+
+/* Visual correction pass from narrow-phone screenshots (portrait only). */
+@media screen and (max-width: 700px) and (orientation: portrait) {
+  /* Keep the fixed menu control out of the hero heading's text area. */
+  body .cf-menu-toggle {
+    top: max(10px, env(safe-area-inset-top)) !important;
+    left: max(10px, env(safe-area-inset-left)) !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    max-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    padding: 10px !important;
+    border: 1px solid rgba(255,255,255,.7) !important;
+    border-radius: 12px !important;
+    transform: none !important;
+  }
+
+  body .cf-home-hero {
+    padding: 82px 18px 22px !important;
+    border-radius: 22px !important;
+    overflow: hidden !important;
+  }
+
+  body .cf-home-hero .cf-hero-content,
+  body .cf-home-hero .cf-hero-art {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Remove every transform/cutout and clip children to one continuous radius. */
+  body .cf-home-hero .cf-hero-art {
+    min-height: 0 !important;
+    padding: 8px 0 4px !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+    clip-path: none !important;
+  }
+  body .cf-home-hero .cf-art-panel {
+    display: block !important;
+    box-sizing: border-box !important;
+    width: min(100%, 340px) !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 auto !important;
+    padding: 17px !important;
+    border: 1px solid #dce7f4 !important;
+    border-radius: 22px !important;
+    overflow: hidden !important;
+    clip-path: none !important;
+    transform: none !important;
+    -webkit-clip-path: none !important;
+    background: linear-gradient(145deg, #fbfdff 0%, #eaf2fc 100%) !important;
+    box-shadow: 0 12px 28px rgba(5, 24, 48, .2) !important;
+  }
+  body .cf-home-hero .cf-art-top,
+  body .cf-home-hero .cf-art-line,
+  body .cf-home-hero .cf-art-foot {
+    min-width: 0 !important;
+  }
+}
+
+@media screen and (max-width: 390px) and (orientation: portrait) {
+  body .cf-home-hero { padding-inline: 15px !important; }
+  body .cf-home-hero .cf-art-panel {
+    padding: 14px !important;
+    border-radius: 20px !important;
+  }
+}
