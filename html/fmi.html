@@ -19,9 +19,9 @@
 <p id="calc-help" class="cf-note">FMI is fat mass divided by height squared. It is a descriptive body-composition index, not a diagnosis.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="fat">Fat mass (kg)</label><input id="fat" name="fat" data-field type="number" step="any" inputmode="decimal" required aria-describedby="calc-help">
+<div class="col"><label for="fat">Fat mass (kg)</label><input id="fat" name="fat" data-field type="number" min="0.1" max="300" data-base-min="0.1" data-base-max="300" data-base-unit="kg" step="any" inputmode="decimal" required aria-describedby="calc-help" aria-describedby="calc-help">
 <label for="fatUnit">Mass unit</label><select id="fatUnit" data-unit-for="fat"><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
-<div class="col"><label for="height">Height (cm)</label><input id="height" name="height" data-field type="number" step="any" inputmode="decimal" required aria-describedby="calc-help">
+<div class="col"><label for="height">Height (cm)</label><input id="height" name="height" data-field type="number" min="80" max="250" data-base-min="80" data-base-max="250" data-base-unit="cm" step="any" inputmode="decimal" required aria-describedby="calc-help" aria-describedby="calc-help">
 <label for="heightUnit">Height unit</label><select id="heightUnit" data-unit-for="height"><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
