@@ -82,8 +82,8 @@ for (const field of ['file', 'id', 'min', 'max', 'step']) {
 }
 const fieldAuditData = new Map(fieldAuditRows.slice(1).map(row => [row[fieldAuditHeader.indexOf('file')] + '|' + row[fieldAuditHeader.indexOf('id')], row]));
 const verifiedBoundsData = new Map(verifiedBoundsRows.slice(1).map(row => [row[verifiedBoundsHeader.indexOf('file')] + '|' + row[verifiedBoundsHeader.indexOf('id')], row]));
-assert.equal(fieldAuditRows.length - 1, 308, 'field validation audit must contain 297 static numeric fields');
-assert.equal(verifiedBoundsRows.length - 1, 308, 'verified boundary inventory must contain 297 static numeric fields');
+assert.equal(fieldAuditRows.length - 1, 308, 'field validation audit must contain 308 static numeric fields');
+assert.equal(verifiedBoundsRows.length - 1, 308, 'verified boundary inventory must contain 308 static numeric fields');
 assert.equal(fieldAuditData.size, 308, 'field audit must not duplicate file/id records');
 assert.equal(verifiedBoundsData.size, 308, 'boundary inventory must not duplicate file/id records');
 let sourceNumericFieldCount = 0;
