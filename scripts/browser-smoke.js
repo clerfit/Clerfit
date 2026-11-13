@@ -261,7 +261,7 @@ async function runRoute(browser, route) {
     const footerState = await page.evaluate(() => {
       const footers = Array.from(document.querySelectorAll('footer'));
       const footer = footers[0];
-      const text = (footer?.textContent || '').replace(/\\s+/g, ' ').trim();
+      const text = (footer?.textContent || '').replace(/\s+/g, ' ').trim();
       return {
         count: footers.length,
         present: !!footer,
@@ -270,7 +270,7 @@ async function runRoute(browser, route) {
         iconRows: footer ? footer.querySelectorAll('.cf-footer-category-icons').length : 0,
         hasBrand: !!footer?.querySelector('.cf-footer-brand'),
         hasFooterLinks: !!footer?.querySelector('.cf-footer-links a'),
-        compactLegacyText: /^ClerFit\\s*[·—-]\\s*Health\\s*&\\s*Performance\\s*Tools$/i.test(text)
+        compactLegacyText: /^ClerFit\s*[·—-]\s*Health\s*&\s*Performance\s*Tools$/i.test(text)
       };
     });
     if (footerState.count !== 1) failures.push(pageName + ' must have exactly one footer; found ' + footerState.count + '.');
