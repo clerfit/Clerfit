@@ -14,6 +14,7 @@ const cases = [
  const page=await browser.newPage({viewport:{width:390,height:844}});
  try {
   for(const item of cases){
+   await page.setViewportSize({width:390,height:844});
    await page.goto(new URL('html/'+item.page,base).href,{waitUntil:'networkidle'});
    for(const [id,value] of Object.entries(item.fields)) await page.locator('#'+id).fill(value);
    for(const [id,value] of Object.entries(item.selectors)){
@@ -37,15 +38,24 @@ const cases = [
    for(const id of Object.keys(item.selectors)) assert.equal(await page.locator('#'+id).inputValue(),'cm',item.page+' '+id+' reset restores centimetres');
    for(const id of Object.keys(item.fields)) assert.equal(await page.locator('#'+id).inputValue(),'');
    for(const term of item.terms){
-    const markers=page.locator('[data-cf-tip="'+term+'"] .cf-tip-trigger');
-    assert.ok(await markers.count()>0,item.page+' includes '+term+' contextual help');
+    const marker=page.locator('[data-cf-tip="'+term+'"] .cf-tip-trigger').first();
+    assert.ok(await marker.count()>0,item.page+' includes '+term+' contextual help');
+    assert.equal(await marker.evaluate(el=>!!el.closest('label')),false,item.page+' tooltip '+term+' is outside its label');
+    await marker.click();
+    assert.equal(await marker.getAttribute('aria-expanded'),'true',item.page+' opens tooltip '+term);
+    await marker.press('Escape');
+    assert.equal(await marker.getAttribute('aria-expanded'),'false',item.page+' closes tooltip '+term+' with Escape');
    }
-   const marker=page.locator('[data-cf-tip="'+item.terms[0]+'"] .cf-tip-trigger').first();
-   await marker.click();
-   assert.equal(await marker.getAttribute('aria-expanded'),'true',item.page+' opens its specialist tooltip');
-   await marker.press('Escape');
-   assert.equal(await marker.getAttribute('aria-expanded'),'false',item.page+' closes its specialist tooltip with Escape');
+   for(const width of [320,390,768,1024,1440]){
+    await page.setViewportSize({width,height:844});
+    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+1);
+    assert.equal(overflow,false,item.page+' horizontal overflow at '+width+'px');
+   }
+   for(const id of Object.keys(item.fields)){
+    const label=await page.locator('label[for="'+id+'"]').innerText();
+    assert.doesNotMatch(label,/\(cm\)/,item.page+' field label must not imply cm after unit switching');
+   }
   }
-  console.log('PASS: Batch 3 Chromium calculations, independent cm/in selectors, reset, stale-result invalidation and specialist tooltips across all five calculators.');
+  console.log('PASS: Batch 3 Chromium calculations, independent cm/in selectors, reset, stale-result invalidation, all specialist tooltips and 320–1440px responsive widths across five calculators.');
  } finally { await browser.close(); }
 })().catch(error=>{console.error(error);process.exitCode=1;});
