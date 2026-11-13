@@ -1,5 +1,5 @@
 /* ClerFit portrait-only correction: keep the hero illustration card square to its
-   rounded container and keep the footer icon row balanced on narrow screens.
+   rounded container. The shared footer correction lives in css/style.css.
    Landscape, tablet and desktop layouts intentionally remain untouched. */
 @media screen and (max-width: 700px) and (orientation: portrait) {
   body .cf-home-hero {
