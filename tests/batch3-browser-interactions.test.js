@@ -43,8 +43,10 @@ const cases = [
     assert.equal(await marker.evaluate(el=>!!el.closest('label')),false,item.page+' tooltip '+term+' is outside its label');
     await marker.click();
     assert.equal(await marker.getAttribute('aria-expanded'),'true',item.page+' opens tooltip '+term);
+    assert.equal(await marker.evaluate(el=>getComputedStyle(el.parentElement.querySelector('.cf-tip-popover')).pointerEvents),'auto',item.page+' open tooltip '+term+' accepts pointer events');
     await marker.press('Escape');
     assert.equal(await marker.getAttribute('aria-expanded'),'false',item.page+' closes tooltip '+term+' with Escape');
+    assert.equal(await marker.evaluate(el=>getComputedStyle(el.parentElement.querySelector('.cf-tip-popover')).pointerEvents),'none',item.page+' closed tooltip '+term+' does not intercept pointer events');
    }
    for(const width of [320,390,768,1024,1440]){
     await page.setViewportSize({width,height:844});
