@@ -258,7 +258,7 @@ async function runRoute(browser, route) {
         }
       };
     });
-    const footerState = await page.evaluate(() => {
+    footerState = await page.evaluate(() => {
       const footers = Array.from(document.querySelectorAll('footer'));
       const footer = footers[0];
       const text = (footer?.textContent || '').replace(/\s+/g, ' ').trim();
