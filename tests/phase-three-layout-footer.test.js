@@ -28,6 +28,7 @@ assert.match(polish, /header:not\(\.clerfit-page-header\):not\(\.cf-legal-headin
 assert.ok(polish.includes('const isLegacyBrand=/clerfit\\s*(?:health\\s*&?\\s*performance|health.*fitness calculators)|all rights reserved/.test(text);'),
   'legacy header cleanup must target known branding instead of deleting every header that mentions ClerFit');
 assert.match(chrome, /function ensureSiteFooter\(\)/, 'shared page chrome must define footer injection');
+assert.ok(polish.includes("if(!document.querySelector('footer'))"), 'legacy site polish must not append a second footer when a page footer already exists');
 assert.ok(chrome.includes('replace(/\\s+/g, " ").trim()'), 'legacy footer text normalization must collapse real whitespace');
 assert.ok(chrome.includes('/^ClerFit\\s*[·—-]\\s*Health\\s*&\\s*Performance\\s*Tools$/i'), 'known compact legacy footer variants must be recognized by a whitespace-aware pattern');
 assert.ok(fs.readFileSync(path.join(root, 'scripts/browser-smoke.js'), 'utf8').includes('footerFailures:routeResults'), 'live browser smoke must verify the shared footer on every registered calculator route');
