@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101827">
-<meta name="description" content="Fat Mass Index (FMI) Calculator. Educational measurement calculator with transparent method and limitations.">
+<meta name="description" content="Fat Mass Index (<span data-cf-tip="FMI">FMI</span>) Calculator. Educational measurement calculator with transparent method and limitations.">
 <link rel="icon" href="../favicon.ico" sizes="any">
 <link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
 <title>ClerFit – Fat Mass Index (FMI) Calculator</title>
@@ -13,16 +13,14 @@
 <body data-calculator="fmi">
 <aside class="sidebar" aria-label="Main navigation"></aside>
 <main class="main">
-<header class="header"><h1>Fat Mass Index (FMI) Calculator</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
+<header class="header"><h1>Fat Mass Index (<span data-cf-tip="FMI">FMI</span>) Calculator</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
 <section class="card" aria-labelledby="calc-heading">
 <h2 id="calc-heading">Enter your measurements</h2>
-<p id="calc-help" class="cf-note">FMI is fat mass divided by height squared. It is a descriptive body-composition index, not a diagnosis.</p>
+<p class="cf-note">FMI is fat mass divided by height squared. It is a descriptive body-composition index, not a diagnosis.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="fat">Fat mass (kg)</label><input id="fat" name="fat" data-field type="number" min="0.1" max="300" data-base-min="0.1" data-base-max="300" data-base-unit="kg" step="any" inputmode="decimal" required aria-describedby="calc-help" aria-describedby="calc-help">
-<label for="fatUnit">Mass unit</label><select id="fatUnit" data-unit-for="fat"><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
-<div class="col"><label for="height">Height (cm)</label><input id="height" name="height" data-field type="number" min="80" max="250" data-base-min="80" data-base-max="250" data-base-unit="cm" step="any" inputmode="decimal" required aria-describedby="calc-help" aria-describedby="calc-help">
-<label for="heightUnit">Height unit</label><select id="heightUnit" data-unit-for="height"><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select></div>
+<div class="col"><label for="fat">Fat mass</label><input id="fat" data-field name="fat" type="number" min="0.1" max="300" step="any" inputmode="decimal" required aria-label="Fat mass"><label for="fatUnit">Fat mass unit</label><select id="fatUnit" data-unit-for="fat" aria-label="Fat mass unit"><option value="kg" selected>Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
+<div class="col"><label for="height">Height</label><input id="height" data-field name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Height"><label for="heightUnit">Height unit</label><select id="heightUnit" data-unit-for="height" aria-label="Height unit"><option value="cm" selected>Centimetres (cm)</option><option value="in">Inches (in)</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
