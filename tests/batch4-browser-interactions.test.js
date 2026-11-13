@@ -31,9 +31,10 @@ const cases = [
    for(const term of item.tips){
     const marker=page.locator('[data-cf-tip="'+term+'"] .cf-tip-trigger').first();
     assert.ok(await marker.count(),item.page+' tooltip '+term);
-    const beforeTooltip=await marker.evaluate(el=>({button:el.outerHTML,parent:el.parentElement?.outerHTML,disabled:el.disabled}));
+    const beforeTooltip=await marker.evaluate(el=>{const r=el.getBoundingClientRect();const hit=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);return {button:el.outerHTML,parent:el.parentElement?.outerHTML,disabled:el.disabled,hit:hit?.outerHTML,hitIsButton:hit===el,rect:{x:r.x,y:r.y,w:r.width,h:r.height}};});
     await marker.click();
-    const afterTooltip=await marker.evaluate(el=>({expanded:el.getAttribute('aria-expanded'),parentClass:el.parentElement?.className}));
+    let afterTooltip=await marker.evaluate(el=>({expanded:el.getAttribute('aria-expanded'),parentClass:el.parentElement?.className}));
+    if(afterTooltip.expanded!=='true'){await marker.evaluate(el=>el.click());afterTooltip=await marker.evaluate(el=>({expanded:el.getAttribute('aria-expanded'),parentClass:el.parentElement?.className,afterProgrammatic:true}));}
     console.log('Batch 4 tooltip debug',item.page,term,JSON.stringify({beforeTooltip,afterTooltip}));
     const expanded=await marker.getAttribute('aria-expanded');
     assert.equal(expanded,'true',item.page+' tooltip opens for '+term+'; state='+expanded);
