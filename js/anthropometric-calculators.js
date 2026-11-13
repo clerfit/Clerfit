@@ -154,7 +154,8 @@
   const ffma=wa*(1-fa/100), ffmb=wb*(1-fb/100), a=ffma/Math.pow(ha/100,2), b=ffmb/Math.pow(hb/100,2);
   return { fatFreeMassA:ffma, fatFreeMassB:ffmb, ffmiA:a, ffmiB:b, difference:Math.abs(a-b) };
  }
-\n const api = { toCm, toKg, circleMetrics, muacMetrics, calculateBAI, relativeMuscleMetrics, skeletalMuscleMetrics, almiMetrics, fmiMetrics, ffmiMetrics };
+
+ const api = { toCm, toKg, circleMetrics, muacMetrics, calculateBAI, relativeMuscleMetrics, skeletalMuscleMetrics, almiMetrics, fmiMetrics, ffmiMetrics };
  if (typeof window !== "undefined") window.ClerFitAnthropometric = api;
 
  function clearResultFieldErrors(form, output) {
