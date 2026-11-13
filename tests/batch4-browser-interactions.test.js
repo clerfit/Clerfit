@@ -7,7 +7,7 @@ const cases = [
  {page:'femur-height-ratio.html',fields:{femur:'45',height:'180'},selectors:{femurUnit:'in',heightUnit:'cm'},expected:/ratio: 0\.25/,tips:['femur length','standing height']},
  {page:'tibia-height-ratio.html',fields:{tibia:'42',height:'180'},selectors:{tibiaUnit:'in',heightUnit:'cm'},expected:/ratio: 0\.233/,tips:['tibia length','standing height']},
  {page:'body-proportion-deviation.html',fields:{segmentLength:'90',standingHeight:'180',referencePercent:'48'},selectors:{segmentLengthUnit:'in',standingHeightUnit:'cm'},expected:/\+2 percentage points/,tips:['segment length','standing height','reference proportion (%)']},
- {page:'anthropometric-measurement-change.html',fields:{baseline:'90',current:'95'},selectors:{baselineUnit:'in',currentUnit:'in'},expected:/Change: \+5 cm/,tips:['baseline measurement','current measurement']}
+ {page:'anthropometric-measurement-change.html',fields:{baseline:'90',current:'95'},selectors:{baselineUnit:'cm',currentUnit:'in'},expected:/Change: \+5 cm/,tips:['baseline measurement','current measurement']}
 ];
 (async()=>{
  const browser=await chromium.launch({headless:true});
@@ -31,18 +31,25 @@ const cases = [
    for(const term of item.tips){
     const marker=page.locator('[data-cf-tip="'+term+'"] .cf-tip-trigger').first();
     assert.ok(await marker.count(),item.page+' tooltip '+term);
-    const beforeTooltip=await marker.evaluate(el=>{const r=el.getBoundingClientRect();const hit=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);return {button:el.outerHTML,parent:el.parentElement?.outerHTML,disabled:el.disabled,hit:hit?.outerHTML,hitIsButton:hit===el,rect:{x:r.x,y:r.y,w:r.width,h:r.height}};});
+    assert.equal(await marker.evaluate(el=>!!el.closest('label')),false,item.page+' tooltip trigger is outside the label');
     await marker.click();
-    let afterTooltip=await marker.evaluate(el=>({expanded:el.getAttribute('aria-expanded'),parentClass:el.parentElement?.className}));
-    if(afterTooltip.expanded!=='true'){await marker.evaluate(el=>el.click());afterTooltip=await marker.evaluate(el=>({expanded:el.getAttribute('aria-expanded'),parentClass:el.parentElement?.className,afterProgrammatic:true}));}
-    console.log('Batch 4 tooltip debug',item.page,term,JSON.stringify({beforeTooltip,afterTooltip}));
     const expanded=await marker.getAttribute('aria-expanded');
     assert.equal(expanded,'true',item.page+' tooltip opens for '+term+'; state='+expanded);
     await marker.press('Escape');
     const collapsed=await marker.getAttribute('aria-expanded');
     assert.equal(collapsed,'false',item.page+' tooltip closes for '+term+'; state='+collapsed);
+    assert.match(await marker.getAttribute('aria-label'),/^Help:/);
+   }
+   for(const width of [320,390,768,1024,1440]){
+    await page.setViewportSize({width,height:844});
+    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+1);
+    assert.equal(overflow,false,item.page+' horizontal overflow at '+width+'px');
+   }
+   for(const id of Object.keys(item.fields)){
+    const label=await page.locator('label[for="'+id+'"]').innerText();
+    assert.doesNotMatch(label,/\(cm\)/,item.page+' field label must not imply cm after unit switching');
    }
   }
-  console.log('PASS: Batch 4 Chromium known-answer calculations, independent unit conversion, reset, stale-result clearing and tooltips across five calculators.');
+  console.log('PASS: Batch 4 Chromium known-answer calculations, mixed-unit conversion, reset, stale-result clearing, accessible tooltips and 320–1440px responsive widths across five calculators.');
  } finally { await browser.close(); }
 })().catch(error=>{console.error(error);process.exitCode=1;});
