@@ -39,7 +39,7 @@ assert.throws(()=>api.calculateALMI(20,'stone',175,'cm'),/kilograms \(kg\) or po
 assert.throws(()=>api.calculateFMI(15,'kg',175,'ft'),/centimetres \(cm\) or inches \(in\)/i);
 for(const p of ['relative-muscle-mass.html','skeletal-muscle-mass.html','almi.html','fmi.html','ffmi-comparison.html']){
  const h=fs.readFileSync('html/'+p,'utf8');
- assert.match(h,/id="calc-help"/,p+' accessible help');
+ assert.match(h,/data-cf-tip=/,p+' contextual tooltip help');
  assert.match(h,/data-field/,p+' semantic fields');
  assert.match(h,/data-unit-for=/,p+' scoped unit selector');
  assert.match(h,/id="calc-result"/,p+' live result region');
