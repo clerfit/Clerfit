@@ -1,35 +1,35 @@
 # ClerFit — Full Formula, Reference & Boundary Audit
 
-Audit date: 2026-10-15
+Audit date: 2026-11-13
 
 ## Result
 
-**Route-level formula/method vector coverage: 118/118 registered calculators (100%).** Each route has a passing known-answer or method-specific regression vector in `tests/verify.js`. This is route-level coverage, not proof that every possible input combination has been validated.
+**Documented formula/method matrix: 138/169 registered calculator routes (81.7%).** The remaining 31 routes are not yet represented by a dedicated row in `CALCULATOR_VERIFICATION_MATRIX.csv`. The test suite also contains 171 deterministic assertions in `tests/verify.js` and dedicated Batch 1–4 anthropometric suites; assertion count is not the same as one unique vector per route.
 
-**Numeric field bounds inventory: 238/238 static numeric fields in calculator HTML have min/max/step attributes. Runtime-generated controls are handled separately.** The test suite validates that bounds parse, minimum is below maximum, steps are valid, and common age/percentage/mass ranges pass sanity checks. `INPUT_BOUNDARY_VERIFIED.csv` records the verified fields.
+**Numeric field bounds inventory: 308/308 static numeric fields in calculator HTML have min/max/step attributes. Runtime-generated controls are handled separately.** The test suite validates that bounds parse, minimum is below maximum, steps are valid, and common age/percentage/mass ranges pass sanity checks. `INPUT_BOUNDARY_VERIFIED.csv` records the verified fields.
 
 ## Corrections made in this audit
 
 - Added 74 route-specific known-answer or method-specific regression vectors to cover every route that lacked a recorded vector in the prior R2 audit.
-- Added matrix-completeness assertions: every registered route must have a formula/method summary, reference/method basis and PASS status.
-- Added a 238-static-field input-boundary inventory and automated structural/common-range checks.
+- Added explicit formula/method matrix entries for Batch 1–4. The matrix currently documents 138 routes; 31 registered routes still need a row and method mapping.
+- Added a 308-static-field input-boundary inventory and automated structural/common-range checks.
 - Removed the unsupported activity-level multiplier from fiber recommendations and linked the National Academies reference.
 - Standardized Calories Burned, Activity Time and METs estimates on the same MET energy equation: kcal ≈ MET × 3.5 × mass (kg) × duration (minutes) ÷ 200.
 - Removed unsupported universal “Beginner/Intermediate/Advanced/Elite/World Class” tiers from relative strength, squat ratio and speed-to-weight outputs. The calculators now report ratios and explain that norms vary by population.
 - Retained caveats for site-defined face/posture/performance metrics and avoided claims of guaranteed safe exposure time or fabricated metabolic age.
 
-## What 100% means—and does not mean
+## What coverage means—and does not mean
 
-The 100% figure means every registered route has at least one passing known-answer/method vector and a documented formula/method basis. It does **not** mean every input-boundary combination has been tested, every heuristic has scientific validity, or the live website has passed production certification. For custom metrics without a universal standard, vectors test the displayed arithmetic and stable output, not the existence of a universal norm.
+The 138/169 figure is documented matrix coverage, not a claim that only those routes have tests. Batch 1–4 anthropometric suites cover their implemented calculator groups, and the general regression suite contains shared-method assertions. The remaining 31 routes still need explicit matrix mapping. None of this proves every input-boundary combination, scientific validity of every heuristic, or production certification. For custom metrics without a universal standard, tests verify displayed arithmetic and stable output, not the existence of a universal norm.
 
 ## Remaining release gates
 
-1. Exhaustive field-by-field semantic range and boundary-vector review across all 238 static numeric inputs plus runtime-generated controls, including alternate units, zero denominators and lower/upper extremes.
+1. Exhaustive field-by-field semantic range and boundary-vector review across all 308 static numeric inputs plus runtime-generated controls, including alternate units, zero denominators and lower/upper extremes.
 2. Real phone/tablet testing in portrait and landscape, full keyboard-only walkthrough and screen-reader testing.
 3. Live contact-form delivery verification and production deployment parity over HTTPS.
 4. Review of estimation assumptions against relevant local guidance where no single global formula exists.
 
-## Full route matrix
+## Documented formula/method matrix (138 entries; 31 registered routes remain unmapped)
 
 | Calculator | File | Formula / method | Test status | Reference / method basis |
 |---|---|---|---|---|
@@ -152,6 +152,22 @@ The 100% figure means every registered route has at least one passing known-answ
 | Sunlight Duration | sunlight.html | UV context indicator = UV index × entered duration; it is not a safe-time, vitamin-D or sunburn prediction. | Route-specific known-answer/method vector in tests/verify.js; PASS | See SOURCES_AND_METHODS.md; method/assumptions must be checked per route. |
 | Physical Activity Level | pal.html | Physical Activity Level (PAL) is assigned from the page’s age/sex/activity selection and its displayed lookup table; it is not a measured physiological value. | Route-specific known-answer/method vector in tests/verify.js; PASS | See SOURCES_AND_METHODS.md; method/assumptions must be checked per route. |
 
+| Neck Circumference Calculator | neck-circumference.html | For circumference C: diameter = C/π; radius = C/(2π); circle-equivalent area = C²/(4π). | Batch 1 formula and boundary regression; PASS | Circle-equivalent geometry only; not an anatomical cross-section or health-risk inference. |
+| MUAC Calculator | muac.html | MUAMC = MUAC − π × triceps skinfold; arm-area proxies use circle geometry. | Batch 1 formula and boundary regression; PASS | Concentric-circle anthropometric model; MUAMA includes bone area and is not direct muscle mass. |
+| Mid-Thigh Circumference Calculator | mid-thigh-circumference.html | Circle-equivalent diameter, radius and area; optional cylinder volume proxy = area × segment length. | Batch 1 formula and boundary regression; PASS | Geometric approximation only; not anatomical tissue volume. |
+| Calf Circumference Calculator | calf-circumference.html | Circle-equivalent diameter, radius and area; optional cylinder volume proxy = area × segment length. | Batch 1 formula and boundary regression; PASS | Geometric approximation only; not anatomical tissue volume. |
+| Body Adiposity Index (BAI) | bai.html | BAI = hip circumference (cm) ÷ height (m)^1.5 − 18; age restricted to 18–120. | Batch 1 formula and boundary regression; PASS | Adult population-derived estimate; not direct body-fat measurement or diagnosis. |
+| Relative Muscle Mass | relative-muscle-mass.html | Relative muscle mass (%) = measured skeletal muscle mass ÷ total body mass × 100. | Batch 2 formula and unit-equivalence regression; PASS | Requires a measured muscle-mass value; not estimated from appearance. |
+| Skeletal Muscle Mass Estimate | skeletal-muscle-mass.html | Relative muscle mass (%) = muscle mass ÷ body mass × 100; SMMI = muscle mass (kg) ÷ height (m)^2. | Batch 2 formula and unit-equivalence regression; PASS | Device/assessment input required; interpretation depends on method and population. |
+| Appendicular Lean Mass Index (ALMI) | almi.html | ALMI = appendicular lean mass (kg) ÷ height (m)^2. | Batch 2 formula and unit-equivalence regression; PASS | Reference thresholds vary by population and method; no universal diagnosis is assigned. |
+| Fat Mass Index (FMI) | fmi.html | FMI = fat mass (kg) ÷ height (m)^2. | Batch 2 formula and unit-equivalence regression; PASS | Descriptive index; no universal clinical threshold is assigned. |
+| Fat-Free Mass Index Comparison | ffmi-comparison.html | FFMI = fat-free mass (kg) ÷ height (m)^2 for each person; compare the absolute difference. | Batch 2 formula and unit-equivalence regression; PASS | Inputs must use consistent methods; descriptive comparison only. |
+| Chest-to-Hip Ratio | chest-hip-ratio.html | Chest-to-hip ratio = chest circumference ÷ hip circumference after unit normalization. | Batch 3 formula and Chromium interaction regression; PASS | Descriptive ratio; no universal health or aesthetic cutoff. |
+| Shoulder-to-Chest Ratio | shoulder-chest-ratio.html | Shoulder-to-chest ratio = shoulder circumference ÷ chest circumference after unit normalization. | Batch 3 formula and Chromium interaction regression; PASS | Descriptive ratio; no universal health or aesthetic cutoff. |
+| Biacromial-to-Biacristal Width Ratio | biacromial-biacristal-width-ratio.html | Biacromial breadth ÷ biacristal breadth after unit normalization. | Batch 3 formula and Chromium interaction regression; PASS | Consistent landmarks required; no universal classification. |
+| Sitting Height-to-Arm Span Ratio | sitting-height-arm-span-ratio.html | Sitting height ÷ arm span after unit normalization. | Batch 3 formula and Chromium interaction regression; PASS | Descriptive ratio; no universal health or performance cutoff. |
+| Arm Span Difference | arm-span-difference.html | Arm span − standing height after unit normalization. | Batch 3 formula and Chromium interaction regression; PASS | Descriptive difference; no universal health or performance cutoff. |
+
 ## Core external references
 
 - Adult BMI and pediatric BMI interpretation: CDC, [Adult BMI Categories](https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html) and [Child and Teen BMI Calculator](https://www.cdc.gov/bmi/child-teen-calculator/index.html).
@@ -183,9 +199,9 @@ SITE_URL=https://clerfit.github.io/Clerfit node scripts/verify-staging.js
 Local checks cannot prove live message delivery, real-device behaviour or that the deployed website matches this archive; those require production access and physical-device QA.
 
 
-## Current inventory addendum — 2026-10-18
+## Current inventory addendum — 2026-11-13
 
-The initial audit-time count of 238 fields above is historical. The current main-branch source and both checked CSV inventories contain **242 static numeric input fields**, and the phase-register integrity test enforces a one-to-one match with source HTML. Current full verification passed on run [39061691909](https://github.com/clerfit/Clerfit/actions/runs/39061691909), including formula/method regressions, source/inventory consistency, all 118 route interactions, and the 124-page automated accessibility scan. The four-field increase does not change the meaning of route-level vector coverage: it still does not certify every domain-specific input combination. Human/external release gates remain open.
+The current integration branch contains **169 calculator routes**, **308 static numeric inputs**, **179 HTML documents**, and **174 unique sitemap URLs**. CI run [43358056079](https://github.com/clerfit/Clerfit/actions/runs/43358056079) passed the full regression and staging workflow: all 169 routes loaded, mobile overflow = 0, page errors = 0, console errors = 0; all 175 user-facing pages were scanned by axe with 0 critical/serious violations. The report still records 221 checks requiring manual review. The 308-field source/boundary inventories match structurally; the sign-off register contains all 169 calculator routes plus 10 public pages. Semantic-domain review remains open. The formula/method matrix documents 138/169 routes, leaving 31 route entries to map. Production HTTPS, physical-device/screen-reader QA and latest release ZIP parity remain open.
 
 
 ## Additional 41-calculator inventory — Batch 1 (implementation evidence)
@@ -201,3 +217,16 @@ The following five additional pages are implemented as derived calculators rathe
 | Body Adiposity Index (BAI) | BAI = hip circumference (cm) / height (m)^1.5 − 18. Age is required and restricted to 18–120 years. | Adult population-derived estimate only. It is not direct body-fat measurement; comparative research reports sex/body-fat-level bias and no prediction advantage over BMI or circumference measures. |
 
 Known-answer vectors include C = 10π cm (diameter 10 cm, radius 5 cm, area 25π cm²), MUAC 30 cm with TSF 10 mm (MUAMC 26.8584 cm; estimated arm fat-area fraction 19.8473%), and BAI with hip 100 cm and height 175 cm (25.1959%). Equivalent imperial-input vectors, invalid domains, form submission, reset behavior and page markup are also covered. Passing these tests establishes arithmetic and implementation regression coverage, not clinical certification.
+
+
+## Batch 4 — anthropometric segment and measurement methods
+
+The five Batch 4 routes have passing known-answer, invalid-domain and browser interaction regressions in the latest CI run (PR #96, commit `21a29e84ad5f4a8c671d548724adfbb4650d6ccd`). The calculations are descriptive and do not establish clinical reference ranges:
+
+- Upper-to-lower body segment ratio: sitting height ÷ (standing height − sitting height); sitting height must be below standing height.
+- Femur-to-height ratio: femur length ÷ standing height, with both lengths converted to centimetres.
+- Tibia-to-height ratio: tibia length ÷ standing height, with both lengths converted to centimetres.
+- Body proportion deviation: measured segment ÷ standing height × 100, minus a reference percentage supplied by the user.
+- Anthropometric measurement change: current − baseline; percentage change = (current − baseline) ÷ baseline × 100.
+
+Femur and tibia results depend on consistent anatomical landmarks; surface measurements are not equivalent to imaging. The body-proportion reference is user-entered, not a population norm. Semantic domain review, real-device/screen-reader QA and production parity remain separate release gates.

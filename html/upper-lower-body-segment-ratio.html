@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<meta name="description" content="Upper-to-Lower Body Segment Ratio. Educational anthropometric measurement calculator with transparent method and limitations.">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
+<title>ClerFit – Upper-to-Lower Body Segment Ratio</title>
+<link rel="canonical" href="https://clerfit.github.io/Clerfit/html/upper-lower-body-segment-ratio.html">
+</head>
+<body data-calculator="upper-lower-body-segment-ratio">
+<aside class="sidebar" aria-label="Main navigation"></aside>
+<main class="main">
+<header class="header"><h1>Upper-to-Lower Body Segment Ratio</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
+<section class="card" aria-labelledby="calc-heading">
+<h2 id="calc-heading">Enter your measurements</h2>
+<p class="cf-note" id="calc-help">Compare sitting height with the lower-body segment derived from standing height.</p>
+<form id="calc-form" novalidate>
+<div class="row"><div class="col"><label for="sittingHeight">Sitting height</label><span class="cf-field-help" data-cf-tip="sitting height"></span><input aria-describedby="calc-help" id="sittingHeight" data-field name="sittingHeight" type="number" min="30" max="150" step="any" inputmode="decimal" required aria-label="Sitting height"><label for="sittingHeightUnit">Sitting height unit</label><select id="sittingHeightUnit" data-unit-for="sittingHeight" aria-label="Sitting height unit"><option value="cm" selected>Centimetres (cm)</option><option value="in">Inches (in)</option></select></div><div class="col"><label for="standingHeight">Standing height</label><span class="cf-field-help" data-cf-tip="standing height"></span><input aria-describedby="calc-help" id="standingHeight" data-field name="standingHeight" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Standing height"><label for="standingHeightUnit">Standing height unit</label><select id="standingHeightUnit" data-unit-for="standingHeight" aria-label="Standing height unit"><option value="cm" selected>Centimetres (cm)</option><option value="in">Inches (in)</option></select></div></div>
+<div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><input type="reset" class="calculate-btn cf-reset-btn" value="Reset" aria-label="Reset measurements"></div>
+</form>
+<div id="calc-result" class="result" aria-live="polite"></div>
+</section>
+<section class="card"><h2>Method and limitations</h2>
+<p>Compare sitting height with the lower-body segment derived from standing height.</p>
+<p>All length inputs are converted to centimetres before calculation. Use consistent anatomical landmarks, posture and measurement technique. These outputs are descriptive calculations only; no universal clinical cutoff, diagnosis, attractiveness score or athletic-performance claim is assigned.</p>
+</section>
+</main>
+<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Enter values within the displayed ranges, choose the unit for each length measurement, select Calculate, and review the method and limitations alongside the result.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and input quality. They are not a substitute for professional advice.</p></div></details></section>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+<script src="../js/anthropometric-calculators.js" defer></script>
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js?v=20261017-nav-v4" defer></script>
+</body></html>

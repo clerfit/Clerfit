@@ -296,3 +296,14 @@ html/sitting-height-arm-span-ratio.html,sittingHeight,sittingHeight,Sitting heig
 html/sitting-height-arm-span-ratio.html,armSpan,armSpan,Arm span,80,250,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
 html/arm-span-difference.html,armSpan,armSpan,Arm span,80,250,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
 html/arm-span-difference.html,standingHeight,standingHeight,Standing height,80,250,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
+html/upper-lower-body-segment-ratio.html,sittingHeight,sittingHeight,Sitting height,30,150,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/upper-lower-body-segment-ratio.html,standingHeight,standingHeight,Standing height,80,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/femur-height-ratio.html,femur,femur,Femur length,20,80,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/femur-height-ratio.html,height,height,Standing height,80,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/tibia-height-ratio.html,tibia,tibia,Tibia length,20,70,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/tibia-height-ratio.html,height,height,Standing height,80,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/body-proportion-deviation.html,segmentLength,segmentLength,Segment length,5,200,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/body-proportion-deviation.html,standingHeight,standingHeight,Standing height,80,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/body-proportion-deviation.html,referencePercent,referencePercent,Reference proportion (%),0.1,99.9,any,yes,no,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/anthropometric-measurement-change.html,baseline,baseline,Baseline measurement,0.1,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/anthropometric-measurement-change.html,current,current,Current measurement,0.1,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
