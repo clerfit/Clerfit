@@ -26,7 +26,7 @@ on:
       - 'FIELD_VALIDATION_AUDIT.csv'
       - 'NUMERIC_BOUNDARY_BROWSER_AUDIT.json'
   pull_request:
-    branches: [main, batch-1-anthropometric-20261105, batch-2-anthropometric-20261109, batch-3-anthropometric-20261112]
+    branches: [main]
     paths:
       - 'index.html'
       - '404.html'
@@ -92,9 +92,6 @@ jobs:
 
       - name: Run calculator known-answer and domain regressions
         run: node tests/verify.js
-      - name: Run anthropometric formula and page regressions
-        run: node tests/anthropometric-calculators.test.js
-
       - name: Verify field-bound inventories match static source markup
         run: node scripts/sync-input-boundaries.js --check
       - name: Check phase inventory, sign-off and sitemap integrity
@@ -143,7 +140,7 @@ jobs:
           npm install --no-save --package-lock=false playwright axe-core
           npx playwright install --with-deps chromium
 
-      - name: Run 118-route interaction and semantic-boundary smoke tests
+      - name: Run all-route interaction and semantic-boundary smoke tests
         env:
           CLERFIT_BROWSER_REPORT: browser-smoke-report.json
           CLERFIT_ALLOW_LOCAL_STAGING: '1'
@@ -162,6 +159,7 @@ jobs:
           node scripts/browser-smoke-staging.js http://127.0.0.1:4173/
           node tests/batch1-browser-interactions.test.js http://127.0.0.1:4173/
           node tests/batch2-browser-interactions.test.js http://127.0.0.1:4173/
+          node tests/anthropometric-batch2.test.js
 
       - name: Run all-page axe accessibility smoke tests
         env:
