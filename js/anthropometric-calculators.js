@@ -323,6 +323,18 @@
    if (event.target && (event.target.matches("[data-field]") || event.target.matches('input[type="number"]'))) invalidateResult();
   });
   form.addEventListener("change", event => {
+   if (event.target && event.target.matches("select[data-unit-for]")) {
+    const selector=event.target, input=$(selector.dataset.unitFor);
+    if (input) {
+     const base=input.dataset.baseUnit||selector.value, previous=input.dataset.currentUnit||base, next=selector.value;
+     const factor=u=>u==="lb"?0.45359237:u==="in"?2.54:1;
+     const raw=String(input.value||"").trim();
+     if(raw!=="") { const canonical=Number(raw)*factor(previous); if(Number.isFinite(canonical)) input.value=String(Number((canonical/factor(next)).toFixed(6))); }
+     if(input.dataset.baseMin) input.min=String(Number((Number(input.dataset.baseMin)/factor(next)).toFixed(6)));
+     if(input.dataset.baseMax) input.max=String(Number((Number(input.dataset.baseMax)/factor(next)).toFixed(6)));
+     input.dataset.currentUnit=next;
+    }
+   }
    if (event.target && event.target.matches("select")) invalidateResult();
   });
   form.addEventListener("submit", event => { event.preventDefault(); clearResultFieldErrors(form, output); calculate(); });
