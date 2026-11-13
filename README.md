@@ -20,11 +20,11 @@ For a local server, run `python -m http.server 8000` from this folder and open `
 - `404.html` — branded not-found fallback page.
 - `netlify.toml` and `_headers` — static-hosting settings, security headers and asset caching.
 - `robots.txt` — crawl policy; `scripts/generate-sitemap.js` creates the sitemap and canonical URLs at build time from `SITE_URL` or Netlify’s deployment `URL`.
-- `css/style.css` — shared styling and responsive rules.
+- `css/style.css` — shared styling, responsive rules and shared calculator footer styles.
 - `js/navigation.js` — central calculator registry, sidebar, categories, search and shared page enhancements.
 - `js/unit-system.js` — per-calculator unit conversion with no global preference or browser storage.
 - `js/input-validation.js` — shared numeric input guardrails.
-- `js/page-chrome.js` — shared Home/Contact navigation, semantic main landmark and accessible naming support for legacy page markup.
+- `js/page-chrome.js` — shared Home/Contact navigation, semantic main landmark, accessible naming support and the shared footer for calculator pages.
 - `js/site-polish.js` — image viewer, face-measurement help and shared page enhancements.
 - `js/tooltips.js` — contextual glossary and specialist tooltips.
 - `js/advanced-calculators.js` — reusable implementation for 24 advanced calculator forms.
@@ -50,6 +50,32 @@ For a local server, run `python -m http.server 8000` from this folder and open `
 - `INPUT_VALIDATION_REPORT.md` — validation/unit-system scope and limitations.
 - `PHASE_ONE_AUDIT_SIGNOFF.md` and `PHASE_TWO_CALCULATOR_SIGNOFF.md` — current phase evidence, disposition and release gates.
 - `PHASE_1_CALCULATOR_INVENTORY.csv`, `PHASE_1_SIGNOFF_REGISTER.csv` and `PHASE_1_FINDINGS_REGISTER.csv` — page-level inventory, baseline sign-off evidence and prioritized blockers. See `PHASE_1_ROUTE_REGISTER_NOTES.md` for provenance and status semantics.
+
+## New calculator implementation standard
+
+Every newly added calculator must follow this checklist. Treat it as the required definition of done, not an optional styling suggestion.
+
+### Shared footer — mandatory on every calculator page
+
+- Reuse the existing shared footer implementation in `js/page-chrome.js` and its styles in `css/style.css`. Do not create a calculator-specific footer design or paste a second, hand-maintained footer implementation into a new page.
+- Ensure the calculator page loads the shared page-chrome script and stylesheet using the correct relative paths from its location under `html/`.
+- Keep the calculator content inside the expected main content container so the shared page-chrome code can add the footer in the correct place.
+- The footer must have exactly one visible `.cf-footer` element and exactly one `.cf-footer-category-icons` row.
+- Preserve the shared footer composition: decorative category icon row; ClerFit brand and short description; Explore calculators and Contact links; educational-estimates disclaimer; current copyright year; and Back to top link.
+- Keep footer links root-aware so they work from nested calculator URLs. Retain responsive styling, accessible navigation labeling, and reduced-motion behavior.
+- Do not add duplicate footers. If a page already has a richer footer, preserve its content and let the shared enhancement add the missing shared class/icon row as designed.
+- Verify the rendered footer on desktop, tablet and mobile; do not rely only on source inspection.
+
+### Every new calculator — required implementation and documentation steps
+
+1. Add the calculator page and its central registry entry; use the established category, naming, URL and asset conventions.
+2. Preserve the shared navigation, tooltip, input-validation and unit-system behavior applicable to that calculator. Do not introduce a global unit preference.
+3. Add or update the formula/method reference, verification matrix, known-answer tests and input-boundary documentation required for the calculator.
+4. Add the calculator to the homepage directory/category listing and ensure sitemap generation includes its canonical URL.
+5. Run the relevant formula, route, interaction, accessibility, responsive-layout and footer checks. The footer audit must confirm one visible `.cf-footer`, one icon row and no duplicate footer.
+6. **Update this README in the same calculator-addition change.** Keep the calculator inventory/current total and any relevant category or structure notes accurate. If a new shared file, script, test suite or workflow is introduced, document it in the Structure section too. Do not leave the README describing the previous calculator count after a new calculator is added.
+7. Include the README update in the same pull request as the calculator implementation, and do not mark the calculator complete until the documentation and required checks are included.
+
 
 ## Verify
 
