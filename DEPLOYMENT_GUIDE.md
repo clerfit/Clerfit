@@ -4,7 +4,7 @@
 
 ### GitHub Pages (existing project URL)
 
-The repository has previously been published at `https://clerfit.github.io/Clerfit/`. The workflow at `.github/workflows/pages.yml` is configured to:
+The repository has previously been published at `https://clerfit.github.io/Clerfit/`. The repository currently has no `.github/workflows/pages.yml` deployment workflow. The GitHub Pages steps below describe the intended process, not a verified active workflow.
 
 1. Run JavaScript syntax checks, the regression suite, route registry checks, the sitemap path test and contact-form mocked success/failure tests.
 2. Stage the production website into `dist/`, generate canonical URLs and `sitemap.xml`, and preserve the `/Clerfit` project-site path.
@@ -24,10 +24,10 @@ Run:
 node scripts/verify-production.js https://clerfit.github.io/Clerfit/
 ```
 
-Replace the URL if using another host. The script checks the homepage, contact page, sitemap, robots file, 404 page and all 118 registered calculator routes, and writes `PRODUCTION_SMOKE_REPORT.json`.
+Replace the URL if using another host. The script checks the homepage, contact page, sitemap, robots file, 404 page and all 159 registered calculator routes, and writes `PRODUCTION_SMOKE_REPORT.json`.
 
 The live contact form should be tested with a consented message. The local suite mocks successful and failed Formspree responses, but cannot establish that Formspree has authorized the endpoint or that the message reaches the intended inbox.
 
 ## Why production is not marked verified inside this archive
 
-This environment has no repository write credential, no configured hosting account credential and no ability to resolve the public host from the local shell. Therefore it cannot publish the files or honestly report the new production version as live. The GitHub Pages workflow automates deployment after the archive is integrated into the repository and the Pages source is enabled.
+This environment has no repository write credential, no configured hosting account credential and no ability to resolve the public host from the local shell. Therefore it cannot publish the files or honestly report the new production version as live. A GitHub Pages deployment workflow must be added or the repository's Pages branch-source deployment must be confirmed in Settings before this process can be treated as automated.
