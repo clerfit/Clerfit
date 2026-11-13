@@ -286,4 +286,4 @@ html/bai.html,age,age,Age (years),18,120,1,yes,not-detected,STRUCTURAL PASS; BOU
 html/calf-circumference.html,segmentLength,segmentLength,Optional segment length,5,80,any,no,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/mid-thigh-circumference.html,segmentLength,segmentLength,Optional segment length,5,100,any,no,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/muac.html,tricepsSkinfold,tricepsSkinfold,Triceps skinfold thickness,1,60,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/fmi.html,weight,,Body weight,2,500,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; SEMANTIC CHECK: FAT MASS MUST NOT EXCEED BODY WEIGHT
+html/fmi.html,weight,,Body weight,2,500,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
