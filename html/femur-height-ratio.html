@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<meta name="description" content="Femur-to-Height Ratio. Educational anthropometric measurement calculator with transparent method and limitations.">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
+<title>ClerFit – Femur-to-Height Ratio</title>
+<link rel="canonical" href="https://clerfit.github.io/Clerfit/html/femur-height-ratio.html">
+</head>
+<body data-calculator="femur-height-ratio">
+<aside class="sidebar" aria-label="Main navigation"></aside>
+<main class="main">
+<header class="header"><h1>Femur-to-Height Ratio</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
+<section class="card" aria-labelledby="calc-heading">
+<h2 id="calc-heading">Enter your measurements</h2>
+<p class="cf-note">Compare measured femur length with standing height using consistent anatomical landmarks.</p>
+<form id="calc-form" novalidate>
+<div class="row"><div class="col"><label for="femur"><span data-cf-tip="femur length">Femur length</span> (cm)</label><input id="femur" data-field name="femur" type="number" min="20" max="80" step="any" inputmode="decimal" required aria-label="Femur length"><label for="femurUnit">Femur length unit</label><select id="femurUnit" data-unit-for="femur" aria-label="Femur length unit"><option value="cm" selected>Centimetres (cm)</option><option value="in">Inches (in)</option></select></div><div class="col"><label for="height"><span data-cf-tip="standing height">Standing height</span> (cm)</label><input id="height" data-field name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Standing height"><label for="heightUnit">Standing height unit</label><select id="heightUnit" data-unit-for="height" aria-label="Standing height unit"><option value="cm" selected>Centimetres (cm)</option><option value="in">Inches (in)</option></select></div></div>
+<div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><input type="reset" class="calculate-btn cf-reset-btn" value="Reset" aria-label="Reset measurements"></div>
+</form>
+<div id="calc-result" class="result" aria-live="polite"></div>
+</section>
+<section class="card"><h2>Method and limitations</h2>
+<p>Compare measured femur length with standing height using consistent anatomical landmarks.</p>
+<p>All length inputs are converted to centimetres before calculation. Use consistent anatomical landmarks, posture and measurement technique. These outputs are descriptive calculations only; no universal clinical cutoff, diagnosis, attractiveness score or athletic-performance claim is assigned.</p>
+</section>
+</main>
+<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Enter values within the displayed ranges, choose the unit for each length measurement, select Calculate, and review the method and limitations alongside the result.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and input quality. They are not a substitute for professional advice.</p></div></details></section>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/unit-system.js" defer></script>
+<script src="../js/anthropometric-calculators.js" defer></script>
+<script src="../js/tooltips.js" defer></script>
+<script src="../js/site-polish.js" defer></script>
+<script src="../js/input-validation.js" defer></script>
+<script src="../js/page-chrome.js?v=20261017-nav-v4" defer></script>
+</body></html>
