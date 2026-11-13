@@ -4,6 +4,14 @@
  const $ = id => document.getElementById(id);
  const num = id => Number($(id).value);
  const fmt = n => Number(n).toLocaleString(undefined, { maximumFractionDigits: 3 });
+ const kg = (id, unitId) => {
+  const v = num(id), u = unitId && $(unitId) ? $(unitId).value : "kg";
+  if (!Number.isFinite(v) || v <= 0) throw new RangeError("Enter a positive finite mass.");
+  if (u === "kg") return v;
+  if (u === "lb") return v * 0.45359237;
+  throw new RangeError("Choose kg or lb for every mass input.");
+ };
+ const cm = (id, unitId) => toCm(num(id), unitId && $(unitId) ? $(unitId).value : "cm", "Height");
 
  const definitions = {
   "neck-circumference": { kind: "circle", input: "neck", unit: "neckUnit", label: "neck" },
