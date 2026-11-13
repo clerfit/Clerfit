@@ -140,7 +140,7 @@ jobs:
           npm install --no-save --package-lock=false playwright axe-core
           npx playwright install --with-deps chromium
 
-      - name: Run 118-route interaction and semantic-boundary smoke tests
+      - name: Run all-route interaction and semantic-boundary smoke tests
         env:
           CLERFIT_BROWSER_REPORT: browser-smoke-report.json
           CLERFIT_ALLOW_LOCAL_STAGING: '1'

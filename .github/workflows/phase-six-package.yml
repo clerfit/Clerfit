@@ -76,7 +76,7 @@ jobs:
             const url = `https://clerfit.github.io/Clerfit/html/${route.file}`;
             if (!sitemap.includes(`<loc>${url}</loc>`)) throw new Error(`Route absent from sitemap: ${url}`);
           }
-          console.log('PASS: all 118 registered calculator routes exist in the candidate and appear in the sitemap.');
+          console.log('PASS: all 159 registered calculator routes exist in the candidate and appear in the sitemap.');
           NODE
 
       - name: Package deployable site with exact source metadata
