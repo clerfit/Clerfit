@@ -172,7 +172,36 @@
   return { personAFFMI: a.ffmiKgM2, personBFFMI: b.ffmiKgM2, absoluteDifferenceKgM2: Math.abs(a.ffmiKgM2 - b.ffmiKgM2), higher: a.ffmiKgM2 === b.ffmiKgM2 ? "equal" : a.ffmiKgM2 > b.ffmiKgM2 ? "A" : "B" };
  }
 
- const api = { toCm, toKg, toHeightCm, circleMetrics, muacMetrics, calculateBAI, bodyCompositionMetrics, skeletalMuscleMetrics, heightIndexedMass, ffmiMetrics, compareFFMI, ratioMetrics, armSpanDifferenceMetrics };
+ function calculateRelativeMuscleMass(muscleMass, muscleUnit, bodyWeight, weightUnit) {
+  const data = bodyCompositionMetrics(toKg(muscleMass, muscleUnit), toKg(bodyWeight, weightUnit));
+  return { ...data, percent: data.relativeMuscleMassPercent };
+ }
+ function calculateSkeletalMuscleMass(muscleMass, muscleUnit, bodyWeight, weightUnit, height, heightUnit) {
+  const data = skeletalMuscleMetrics(toKg(muscleMass, muscleUnit), toKg(bodyWeight, weightUnit), toHeightCm(height, heightUnit));
+  return { ...data, percent: data.relativeMuscleMassPercent, index: data.smmiKgM2 };
+ }
+ function calculateALMI(alm, massUnit, height, heightUnit) {
+  const mass = toKg(alm, massUnit);
+  assertRange(mass, 1, 100, "Appendicular lean mass", "kg");
+  const data = heightIndexedMass(mass, toHeightCm(height, heightUnit), "Appendicular lean mass");
+  return { ...data, index: data.indexKgM2 };
+ }
+ function calculateFMI(fatMass, massUnit, height, heightUnit) {
+  const data = heightIndexedMass(toKg(fatMass, massUnit), toHeightCm(height, heightUnit), "Fat mass");
+  return { ...data, index: data.indexKgM2 };
+ }
+ function calculateFFMI(weightA, weightAUnit, fatA, heightA, heightAUnit, weightB, weightBUnit, fatB, heightB, heightBUnit) {
+  const a = ffmiMetrics(toKg(weightA, weightAUnit), fatA, toHeightCm(heightA, heightAUnit));
+  const b = ffmiMetrics(toKg(weightB, weightBUnit), fatB, toHeightCm(heightB, heightBUnit));
+  const comparison = compareFFMI(a, b);
+  return {
+   a: { ...a, index: a.ffmiKgM2 },
+   b: { ...b, index: b.ffmiKgM2 },
+   difference: comparison.absoluteDifferenceKgM2,
+   higher: comparison.higher
+  };
+ }
+ const api = { toCm, toKg, toHeightCm, circleMetrics, muacMetrics, calculateBAI, bodyCompositionMetrics, skeletalMuscleMetrics, heightIndexedMass, ffmiMetrics, compareFFMI, ratioMetrics, armSpanDifferenceMetrics, calculateRelativeMuscleMass, calculateSkeletalMuscleMass, calculateALMI, calculateFMI, calculateFFMI };
  if (typeof window !== "undefined") window.ClerFitAnthropometric = api;
 
  function clearResultFieldErrors(form, output) {
