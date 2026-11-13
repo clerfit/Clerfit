@@ -32,9 +32,11 @@ const cases = [
     const marker=page.locator('[data-cf-tip="'+term+'"] .cf-tip-trigger').first();
     assert.ok(await marker.count(),item.page+' tooltip '+term);
     await marker.click();
-    assert.equal(await marker.getAttribute('aria-expanded'),'true');
+    const expanded=await marker.getAttribute('aria-expanded');
+    assert.equal(expanded,'true',item.page+' tooltip opens for '+term+'; state='+expanded);
     await marker.press('Escape');
-    assert.equal(await marker.getAttribute('aria-expanded'),'false');
+    const collapsed=await marker.getAttribute('aria-expanded');
+    assert.equal(collapsed,'false',item.page+' tooltip closes for '+term+'; state='+collapsed);
    }
   }
   console.log('PASS: Batch 4 Chromium known-answer calculations, independent unit conversion, reset, stale-result clearing and tooltips across five calculators.');
