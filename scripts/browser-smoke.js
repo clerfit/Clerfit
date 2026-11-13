@@ -590,12 +590,12 @@ async function auditFooterOnly(browser, file) {
     const state = await page.evaluate(() => {
       const footers = Array.from(document.querySelectorAll('footer'));
       const footer = footers[0];
-      const text = (footer?.textContent || '').replace(/\\s+/g, ' ').trim();
+      const text = (footer?.textContent || '').replace(/\s+/g, ' ').trim();
       return {
         count: footers.length, present: !!footer, visible: !!footer && footer.getClientRects().length > 0,
         sharedClass: !!footer && footer.classList.contains('cf-footer'),
         iconRows: footer ? footer.querySelectorAll('.cf-footer-category-icons').length : 0,
-        compactLegacyText: /^ClerFit\\s*[·—-]\\s*Health\\s*&\\s*Performance\\s*Tools$/i.test(text)
+        compactLegacyText: /^ClerFit\s*[·—-]\s*Health\s*&\s*Performance\s*Tools$/i.test(text)
       };
     });
     if (state.count !== 1 || !state.present || !state.visible || !state.sharedClass || state.iconRows !== 1 || state.compactLegacyText) {
