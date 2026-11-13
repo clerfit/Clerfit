@@ -241,12 +241,12 @@ html/bmi-for-age.html,weight,weight,Weight (kg),4.535,453.592,any,yes,yes,STRUCT
 html/bmi-for-age.html,height,height,Height (cm),30.48,274.32,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/bmi-for-age.html,age,age,Age (completed years),2,19,1,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/bmi-for-age.html,ageMonths,ageMonths,Additional completed months,0,11,1,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/neck-circumference.html,neck,,Neck circumference,10,100,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/muac.html,muac,,Mid-upper arm circumference,5,80,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/mid-thigh-circumference.html,thigh,,Mid-thigh circumference,15,120,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/calf-circumference.html,calf,,Calf circumference,10,100,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/bai.html,hip,,Hip circumference,30,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/bai.html,height,,Height,80,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/neck-circumference.html,neck,,Neck circumference,10,100,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/muac.html,muac,,Mid-upper arm circumference,5,80,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/mid-thigh-circumference.html,thigh,,Mid-thigh circumference,15,120,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/calf-circumference.html,calf,,Calf circumference,10,100,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bai.html,hip,,Hip circumference,30,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bai.html,height,,Height,80,250,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/relative-muscle-mass.html,muscle,,Skeletal muscle mass (measured),0.1,200,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/relative-muscle-mass.html,weight,,Body weight,2,500,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/skeletal-muscle-mass.html,muscle,,Skeletal muscle mass from assessment,0.1,200,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
@@ -282,3 +282,8 @@ html/leg-height-ratio.html,leg,,Leg length,20,160,any,yes,not-detected,STRUCTURA
 html/leg-height-ratio.html,height,,Standing height,80,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/sitting-height-ratio.html,sitting,,Sitting height,30,150,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/sitting-height-ratio.html,height,,Standing height,80,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/bai.html,age,age,Age (years),18,120,1,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/calf-circumference.html,segmentLength,segmentLength,Optional segment length,5,80,any,no,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/mid-thigh-circumference.html,segmentLength,segmentLength,Optional segment length,5,100,any,no,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/muac.html,tricepsSkinfold,tricepsSkinfold,Triceps skinfold thickness,1,60,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/fmi.html,weight,,Body weight,2,500,any,yes,yes,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE

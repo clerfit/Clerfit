@@ -31,6 +31,39 @@
   function unit(value) { return ALIASES[norm(value)] || null; }
   function options(select) { return Array.from(select.options || []).map(o => ({ value: o.value, label: o.textContent || '' })); }
   const PAGE = String((window.location && window.location.pathname) || '').split('/').pop().toLowerCase();
+  // Preserve source constraints independently of the currently selected display unit.
+  // Native form reset does not restore attributes changed by convertConstraints().
+  const ORIGINAL_BOUNDS = new WeakMap();
+  function rememberBounds(input) {
+    if (!input || ORIGINAL_BOUNDS.has(input)) return;
+    ORIGINAL_BOUNDS.set(input, {
+      min: input.getAttribute('min'),
+      max: input.getAttribute('max')
+    });
+  }
+  function restoreBounds(input) {
+    const original = input && ORIGINAL_BOUNDS.get(input);
+    if (!original) return;
+    if (original.min == null) input.removeAttribute('min'); else input.setAttribute('min', original.min);
+    if (original.max == null) input.removeAttribute('max'); else input.setAttribute('max', original.max);
+  }
+  function wireFormReset(form) {
+    if (!form || form.dataset.clerfitUnitResetWired) return;
+    form.dataset.clerfitUnitResetWired = 'true';
+    form.addEventListener('reset', () => {
+      const restore = () => {
+        form.querySelectorAll('select[data-clerfit-unit-wired="true"]').forEach(select => {
+          const defaultOption = Array.from(select.options || []).find(option => option.defaultSelected);
+          if (defaultOption) select.value = defaultOption.value;
+          else if (select.options && select.options.length) select.value = select.options[0].value;
+          select.dataset.clerfitPreviousUnit = select.value;
+          findInputs(select).forEach(restoreBounds);
+        });
+      };
+      if (typeof requestAnimationFrame === 'function') requestAnimationFrame(restore);
+      else Promise.resolve().then(restore);
+    });
+  }
   // Some calculators share one unit selector across multiple inputs or use it only for output formatting.
   // Explicit page associations avoid converting a random neighboring number field.
   const PAGE_UNIT_ASSOCIATIONS = {
@@ -166,11 +199,13 @@
   function wireSelect(select) {
     if (!select || !select.matches('select') || !classify(select) || select.dataset.clerfitUnitWired) return;
     const inputs = findInputs(select);
+    inputs.forEach(rememberBounds);
     // No target means this selector is an output preference or a separate converter;
     // never guess an unrelated input from a whole row/card.
     if (!inputs.length) return;
     select.dataset.clerfitUnitWired = 'true';
     select.dataset.clerfitPreviousUnit = select.value;
+    if (select.form) wireFormReset(select.form);
     select.addEventListener('change', () => {
       const prev = select.dataset.clerfitPreviousUnit || select.value, next = select.value;
       if (prev !== next) {

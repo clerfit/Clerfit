@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101827">
-<meta name="description" content="Mid-Thigh Circumference Calculator. Educational measurement calculator with transparent method and limitations.">
+<meta name="description" content="Calculate circle-equivalent mid-thigh area and an optional cylindrical volume proxy from circumference and segment length.">
 <link rel="icon" href="../favicon.ico" sizes="any">
 <link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
 <title>ClerFit – Mid-Thigh Circumference Calculator</title>
@@ -15,23 +15,35 @@
 <main class="main">
 <header class="header"><h1>Mid-Thigh Circumference Calculator</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
 <section class="card" aria-labelledby="calc-heading">
-<h2 id="calc-heading">Enter your measurements</h2>
-<p class="cf-note">Record mid-thigh circumference at a consistently defined midpoint. Measurement protocol affects repeatability.</p>
+<h2 id="calc-heading">Calculate mid-thigh geometry</h2>
+<p id="calc-help" class="cf-note">Measure at a consistently defined mid-thigh landmark. Use the same posture, side, tape tension and unit each time.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="thigh">Mid-thigh circumference (cm)</label><input id="thigh" name="thigh" type="number" min="15" max="120" step="any" inputmode="decimal" required aria-label="Mid-thigh circumference"></div>
+<div class="col">
+<label for="thigh">Mid-thigh circumference</label>
+<input id="thigh" name="thigh" data-field type="number" min="15" max="120" step="any" inputmode="decimal" required aria-describedby="calc-help">
+<label for="thighUnit">Circumference unit</label>
+<select id="thighUnit" data-unit-for="thigh"><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select>
 </div>
+<div class="col">
+<label for="segmentLength">Optional segment length</label>
+<input id="segmentLength" name="segmentLength" data-field type="number" min="5" max="100" step="any" inputmode="decimal" aria-describedby="calc-help">
+<label for="segmentLengthUnit">Segment-length unit</label>
+<select id="segmentLengthUnit" data-unit-for="segmentLength"><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select>
+</div>
+</div>
+<p class="cf-note">Leave segment length blank if you only need the circle-equivalent cross-sectional area.</p>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
 <div id="calc-result" class="result" aria-live="polite"></div>
 </section>
 <section class="card">
 <h2>Method and limitations</h2>
-<p>Record mid-thigh circumference at a consistently defined midpoint. Measurement protocol affects repeatability.</p>
-<p>Use consistent measurement landmarks, units and conditions when comparing results over time. ClerFit provides educational calculations, not medical diagnosis or personalised treatment advice.</p>
+<p>For circumference C, diameter = C ÷ π, radius = C ÷ (2π), and circle-equivalent area = C² ÷ (4π). If segment length L is entered, the cylindrical volume proxy is area × L.</p>
+<p>The optional volume assumes a constant circular cross-section along the entire segment. Real thigh shape and tissue distribution vary; the output is not muscle volume, body composition, or a clinical assessment.</p>
 </section>
 </main>
-<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Enter values within the displayed ranges, select Calculate, and review the method and limitations alongside the result.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
+<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Measure the thigh at a consistently defined midpoint and enter its circumference. Segment length is optional and is used only for the simplified cylinder-volume calculation.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
 <script src="../js/navigation.js" defer></script>
 <script src="../js/unit-system.js" defer></script>
 <script src="../js/anthropometric-calculators.js" defer></script>

@@ -15,22 +15,12 @@
 <main class="main">
 <header class="header"><h1>Fat Mass Index (FMI) Calculator</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
 <section class="card" aria-labelledby="calc-heading">
-<h2 id="calc-heading">Enter your measurements</h2>
+<h2 id="calc-heading">Calculate from measured body-composition values</h2>
 <p class="cf-note">FMI is fat mass divided by height squared. It is a descriptive body-composition index, not a diagnosis.</p>
-<form id="calc-form" novalidate>
-<div class="row">
-<div class="col"><label for="fat">Fat mass (kg)</label><input id="fat" name="fat" type="number" min="0.1" max="300" step="any" inputmode="decimal" required aria-label="Fat mass"></div>
-<div class="col"><label for="height">Height (cm)</label><input id="height" name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Height"></div>
-</div>
-<div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
-</form>
+<form id="calc-form" novalidate><div class="row"><div class="col"><label for="fat">Measured fat mass</label><input id="fat" name="fat" data-field type="number" min="0.1" max="300" step="any" inputmode="decimal" required><select id="fatUnit" aria-label="Fat mass unit" data-unit-for="fat"><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div><div class="col"><label for="weight">Body weight</label><input id="weight" name="weight" data-field type="number" min="2" max="500" step="any" inputmode="decimal" required><select id="weightUnit" aria-label="Body weight unit" data-unit-for="weight"><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select><p class="cf-note">Consistency check: measured fat mass cannot exceed total body weight.</p></div><div class="col"><label for="height">Height</label><input id="height" name="height" data-field type="number" min="80" max="250" step="any" inputmode="decimal" required><select id="heightUnit" aria-label="Height unit" data-unit-for="height"><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select></div></div><div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div></form>
 <div id="calc-result" class="result" aria-live="polite"></div>
 </section>
-<section class="card">
-<h2>Method and limitations</h2>
-<p>FMI is fat mass divided by height squared. It is a descriptive body-composition index, not a diagnosis.</p>
-<p>Use consistent measurement landmarks, units and conditions when comparing results over time. ClerFit provides educational calculations, not medical diagnosis or personalised treatment advice.</p>
-</section>
+<section class="card"><h2>Method and limitations</h2><p>FMI = measured fat mass (kg) ÷ height (m)². It expresses fat mass relative to height and is different from body-fat percentage.</p><p>Use fat mass from a suitable body-composition assessment; the calculator does not infer fat mass from weight alone. FMI reference ranges vary by sex, age, population and measurement method. No diagnosis or universal health category is assigned.</p></section>
 </main>
 <section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Enter values within the displayed ranges, select Calculate, and review the method and limitations alongside the result.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
 <script src="../js/navigation.js" defer></script>

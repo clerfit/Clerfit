@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101827">
-<meta name="description" content="Body Adiposity Index (BAI) Calculator. Educational measurement calculator with transparent method and limitations.">
+<meta name="description" content="Calculate the adult Body Adiposity Index (BAI) from hip circumference, height and age, with method limitations.">
 <link rel="icon" href="../favicon.ico" sizes="any">
 <link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
 <title>ClerFit – Body Adiposity Index (BAI) Calculator</title>
@@ -15,12 +15,26 @@
 <main class="main">
 <header class="header"><h1>Body Adiposity Index (BAI) Calculator</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
 <section class="card" aria-labelledby="calc-heading">
-<h2 id="calc-heading">Enter your measurements</h2>
-<p class="cf-note">BAI is a population-derived estimate based on hip circumference and height. It is not a direct body-fat measurement and may be inaccurate for an individual.</p>
+<h2 id="calc-heading">Calculate adult BAI</h2>
+<p id="calc-help" class="cf-note">The original BAI method was developed in adults. This calculator requires age 18 or older and does not assign health-risk categories.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="hip">Hip circumference (cm)</label><input id="hip" name="hip" type="number" min="30" max="250" step="any" inputmode="decimal" required aria-label="Hip circumference"></div>
-<div class="col"><label for="height">Height (cm)</label><input id="height" name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Height"></div>
+<div class="col">
+<label for="hip">Hip circumference</label>
+<input id="hip" name="hip" data-field type="number" min="30" max="250" step="any" inputmode="decimal" required aria-describedby="calc-help">
+<label for="hipUnit">Hip unit</label>
+<select id="hipUnit" data-unit-for="hip"><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select>
+</div>
+<div class="col">
+<label for="height">Height</label>
+<input id="height" name="height" data-field type="number" min="80" max="250" step="any" inputmode="decimal" required aria-describedby="calc-help">
+<label for="heightUnit">Height unit</label>
+<select id="heightUnit" data-unit-for="height"><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select>
+</div>
+<div class="col">
+<label for="age">Age (years)</label>
+<input id="age" name="age" data-field type="number" min="18" max="120" step="1" inputmode="numeric" required aria-describedby="calc-help">
+</div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
@@ -28,11 +42,11 @@
 </section>
 <section class="card">
 <h2>Method and limitations</h2>
-<p>BAI is a population-derived estimate based on hip circumference and height. It is not a direct body-fat measurement and may be inaccurate for an individual.</p>
-<p>Use consistent measurement landmarks, units and conditions when comparing results over time. ClerFit provides educational calculations, not medical diagnosis or personalised treatment advice.</p>
+<p>BAI = hip circumference (cm) ÷ height (m)<sup>1.5</sup> − 18. The result is expressed as an estimated body-adiposity percentage by the original method.</p>
+<p>BAI was developed in adult study populations. A later comparison reported bias by sex and body-fat level and found no prediction advantage over BMI or circumference measures. Treat it as one approximate index, not a direct measurement, diagnosis, or stand-alone health assessment.</p>
 </section>
 </main>
-<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Enter values within the displayed ranges, select Calculate, and review the method and limitations alongside the result.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
+<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Enter adult age, hip circumference and height. Select the unit beside each measurement; the calculator converts inputs to canonical units before applying the published BAI equation.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
 <script src="../js/navigation.js" defer></script>
 <script src="../js/unit-system.js" defer></script>
 <script src="../js/anthropometric-calculators.js" defer></script>
