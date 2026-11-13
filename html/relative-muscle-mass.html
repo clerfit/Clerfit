@@ -19,9 +19,9 @@
 <p id="calc-help" class="cf-note">Calculate the percentage of body mass represented by a skeletal-muscle-mass value supplied from a measurement device or assessment. This page does not estimate muscle mass from appearance.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="muscle">Skeletal muscle mass (measured) (kg)</label><input id="muscle" name="muscle" data-field type="number" step="any" inputmode="decimal" required aria-describedby="calc-help">
+<div class="col"><label for="muscle">Skeletal muscle mass (measured) (kg)</label><input id="muscle" name="muscle" data-field type="number" min="0.1" max="200" data-base-min="0.1" data-base-max="200" data-base-unit="kg" step="any" inputmode="decimal" required aria-describedby="calc-help" aria-describedby="calc-help">
 <label for="muscleUnit">Mass unit</label><select id="muscleUnit" data-unit-for="muscle"><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
-<div class="col"><label for="weight">Body weight (kg)</label><input id="weight" name="weight" data-field type="number" step="any" inputmode="decimal" required aria-describedby="calc-help">
+<div class="col"><label for="weight">Body weight (kg)</label><input id="weight" name="weight" data-field type="number" min="2" max="500" data-base-min="2" data-base-max="500" data-base-unit="kg" step="any" inputmode="decimal" required aria-describedby="calc-help" aria-describedby="calc-help">
 <label for="weightUnit">Mass unit</label><select id="weightUnit" data-unit-for="weight"><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
