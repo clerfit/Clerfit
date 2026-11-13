@@ -44,8 +44,8 @@ for (const field of required) {
   assert.ok(audit.header.includes(field), 'FIELD_VALIDATION_AUDIT.csv missing ' + field);
   assert.ok(boundary.header.includes(field), 'INPUT_BOUNDARY_VERIFIED.csv missing ' + field);
 }
-assert.equal(audit.rows.length, 283, 'expected 283 static numeric field audit rows');
-assert.equal(boundary.rows.length, 283, 'expected 283 static numeric boundary rows');
+assert.equal(audit.rows.length, 287, 'expected 287 static numeric field audit rows');
+assert.equal(boundary.rows.length, 287, 'expected 287 static numeric boundary rows');
 
 const keyOf = row => row.file.replace(/^html\//, '') + '|' + row.id;
 const auditByKey = new Map(audit.rows.map(row => [keyOf(row), row]));

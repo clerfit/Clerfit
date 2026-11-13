@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const source=fs.readFileSync('js/anthropometric-calculators.js','utf8');
+const window={};
+const document={body:{dataset:{calculator:''}},getElementById:()=>null,querySelectorAll:()=>[],addEventListener(){}};
+vm.runInNewContext(source,vm.createContext({window,document,console,Number,Math}),{filename:'js/anthropometric-calculators.js',timeout:3000});
+const api=window.ClerFitAnthropometric;
+assert.ok(api,'Batch 2 calculation API exported');
+const close=(a,b,m,t=1e-9)=>assert.ok(Math.abs(a-b)<=t,m+': '+a+' vs '+b);
+const rel=api.calculateRelativeMuscleMass(30,'kg',75,'kg');
+close(rel.percent,40,'relative muscle mass known answer');
+close(api.calculateRelativeMuscleMass(66.138678,'lb',165.346695,'lb').percent,40,'relative imperial equivalence',1e-6);
+const smm=api.calculateSkeletalMuscleMass(30,'kg',75,'kg',177.5,'cm');
+close(smm.percent,40,'SMM percentage');
+close(smm.index,30/Math.pow(1.775,2),'SMMI known answer');
+const almi=api.calculateALMI(20,'kg',175,'cm');
+close(almi.index,20/Math.pow(1.75,2),'ALMI known answer');
+close(api.calculateALMI(44.092452,'lb',68.897638,'in').index,almi.index,'ALMI imperial equivalence',1e-6);
+const fmi=api.calculateFMI(15,'kg',175,'cm');
+close(fmi.index,15/Math.pow(1.75,2),'FMI known answer');
+close(api.calculateFMI(33.069339,'lb',68.897638,'in').index,fmi.index,'FMI imperial equivalence',1e-6);
+const ffmi=api.calculateFFMI(80,'kg',20,180,'cm',70,'kg',15,175,'cm');
+close(ffmi.a.index,(80*.8)/Math.pow(1.8,2),'FFMI person A');
+close(ffmi.b.index,(70*.85)/Math.pow(1.75,2),'FFMI person B');
+close(ffmi.difference,Math.abs(ffmi.a.index-ffmi.b.index),'FFMI difference');
+const ffmiImp=api.calculateFFMI(176.36981,'lb',20,70.866142,'in',154.323584,'lb',15,68.897638,'in');
+close(ffmiImp.a.index,ffmi.a.index,'FFMI imperial A',1e-6);
+close(ffmiImp.b.index,ffmi.b.index,'FFMI imperial B',1e-6);
+assert.throws(()=>api.calculateRelativeMuscleMass(80,'kg',75,'kg'),/cannot exceed total body weight/i);
+assert.throws(()=>api.calculateSkeletalMuscleMass(0,'kg',75,'kg',175,'cm'),/positive finite/i);
+assert.throws(()=>api.calculateALMI(.99,'kg',175,'cm'),/between 1 and 100 kg/i);
+assert.throws(()=>api.calculateFMI(0,'kg',175,'cm'),/positive finite/i);
+assert.throws(()=>api.calculateFFMI(80,'kg',75.01,180,'cm',70,'kg',15,175,'cm'),/between 0 and 75 %/i);
+assert.throws(()=>api.calculateFFMI(80,'kg',20,79.9,'cm',70,'kg',15,175,'cm'),/between 80 and 250 cm/i);
+assert.throws(()=>api.calculateALMI(20,'stone',175,'cm'),/kilograms \(kg\) or pounds \(lb\)/i);
+assert.throws(()=>api.calculateFMI(15,'kg',175,'ft'),/centimetres \(cm\) or inches \(in\)/i);
+for(const p of ['relative-muscle-mass.html','skeletal-muscle-mass.html','almi.html','fmi.html','ffmi-comparison.html']){
+ const h=fs.readFileSync('html/'+p,'utf8');
+ assert.match(h,/id="calc-help"/,p+' accessible help');
+ assert.match(h,/data-field/,p+' semantic fields');
+ assert.match(h,/data-unit-for=/,p+' scoped unit selector');
+ assert.match(h,/id="calc-result"/,p+' live result region');
+}
+console.log('Batch 2 formula, unit conversion, boundary and markup checks passed.');

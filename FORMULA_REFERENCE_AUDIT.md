@@ -186,3 +186,18 @@ Local checks cannot prove live message delivery, real-device behaviour or that t
 ## Current inventory addendum — 2026-10-18
 
 The initial audit-time count of 238 fields above is historical. The current main-branch source and both checked CSV inventories contain **242 static numeric input fields**, and the phase-register integrity test enforces a one-to-one match with source HTML. Current full verification passed on run [39061691909](https://github.com/clerfit/Clerfit/actions/runs/39061691909), including formula/method regressions, source/inventory consistency, all 118 route interactions, and the 124-page automated accessibility scan. The four-field increase does not change the meaning of route-level vector coverage: it still does not certify every domain-specific input combination. Human/external release gates remain open.
+
+
+## Additional 41-calculator inventory — Batch 1 (implementation evidence)
+
+The following five additional pages are implemented as derived calculators rather than raw-measurement displays. Their formulas are tested in tests/anthropometric-batch1.test.js, which is invoked by tests/verify.js. These outputs are descriptive estimates; no unsupported clinical cutoffs are assigned.
+
+| Calculator | Inputs and calculation | Interpretation limits |
+|---|---|---|
+| Neck circumference | d = C/π, r = C/(2π), A = C²/(4π), where C is neck circumference. | Circle-equivalent geometry only. Human neck cross-sections are not perfect circles; no airway, body-fat or health-risk inference. |
+| MUAC | MUAMC = MUAC − π × TSF; total arm area = MUAC²/(4π); MUAMA = MUAMC²/(4π); estimated arm fat area = total arm area − MUAMA; fat-area fraction = fat area / total area × 100. | Concentric-circle anthropometric model. MUAMA includes bone area; it is not direct muscle mass. Skinfold compressibility and bone size affect accuracy. |
+| Mid-thigh circumference | Circle-equivalent diameter, radius and area as above. Optional cylindrical volume proxy = area × segment length. | Volume assumes a constant circular cross-section along the entered length; not anatomical tissue or muscle volume. |
+| Calf circumference | Circle-equivalent diameter, radius and area as above. Optional cylindrical volume proxy = area × segment length. | Same geometric limitation; no sarcopenia or malnutrition category is inferred. |
+| Body Adiposity Index (BAI) | BAI = hip circumference (cm) / height (m)^1.5 − 18. Age is required and restricted to 18–120 years. | Adult population-derived estimate only. It is not direct body-fat measurement; comparative research reports sex/body-fat-level bias and no prediction advantage over BMI or circumference measures. |
+
+Known-answer vectors include C = 10π cm (diameter 10 cm, radius 5 cm, area 25π cm²), MUAC 30 cm with TSF 10 mm (MUAMC 26.8584 cm; estimated arm fat-area fraction 19.8473%), and BAI with hip 100 cm and height 175 cm (25.1959%). Equivalent imperial-input vectors, invalid domains, form submission, reset behavior and page markup are also covered. Passing these tests establishes arithmetic and implementation regression coverage, not clinical certification.

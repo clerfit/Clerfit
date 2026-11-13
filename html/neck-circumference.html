@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101827">
-<meta name="description" content="Neck Circumference Calculator. Educational measurement calculator with transparent method and limitations.">
+<meta name="description" content="Calculate circle-equivalent neck diameter, radius and cross-sectional area from a measured neck circumference.">
 <link rel="icon" href="../favicon.ico" sizes="any">
 <link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
 <title>ClerFit – Neck Circumference Calculator</title>
@@ -15,11 +15,16 @@
 <main class="main">
 <header class="header"><h1>Neck Circumference Calculator</h1><p>ClerFit · Health &amp; Performance Tools</p></header>
 <section class="card" aria-labelledby="calc-heading">
-<h2 id="calc-heading">Enter your measurements</h2>
-<p class="cf-note">Record neck circumference using a consistent tape position. This tool reports the measurement only; it does not assign a universal health category.</p>
+<h2 id="calc-heading">Calculate neck geometry</h2>
+<p id="calc-help" class="cf-note">Measure at the same defined neck landmark each time, with the tape level and not compressing the skin. Choose the unit for this calculator only.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="neck">Neck circumference (cm)</label><input id="neck" name="neck" type="number" min="10" max="100" step="any" inputmode="decimal" required aria-label="Neck circumference"></div>
+<div class="col">
+<label for="neck">Neck circumference</label>
+<input id="neck" name="neck" data-field type="number" min="10" max="100" step="any" inputmode="decimal" required aria-describedby="calc-help">
+<label for="neckUnit">Circumference unit</label>
+<select id="neckUnit" data-unit-for="neck"><option value="cm">Centimetres (cm)</option><option value="in">Inches (in)</option></select>
+</div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
@@ -27,11 +32,11 @@
 </section>
 <section class="card">
 <h2>Method and limitations</h2>
-<p>Record neck circumference using a consistent tape position. This tool reports the measurement only; it does not assign a universal health category.</p>
-<p>Use consistent measurement landmarks, units and conditions when comparing results over time. ClerFit provides educational calculations, not medical diagnosis or personalised treatment advice.</p>
+<p>For circumference C, the equivalent circular diameter is C ÷ π, radius is C ÷ (2π), and cross-sectional area is C² ÷ (4π).</p>
+<p>The human neck is not a perfect circle. These values are geometric approximations only; they do not estimate airway size, tissue composition, body fat, or medical risk.</p>
 </section>
 </main>
-<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Enter values within the displayed ranges, select Calculate, and review the method and limitations alongside the result.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
+<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Measure the neck at a consistent landmark with the tape level and gently in contact with the skin. Enter the circumference and select Calculate to see the circle-equivalent geometry.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
 <script src="../js/navigation.js" defer></script>
 <script src="../js/unit-system.js" defer></script>
 <script src="../js/anthropometric-calculators.js" defer></script>

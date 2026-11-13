@@ -157,6 +157,8 @@ jobs:
           done
           curl --fail --silent http://127.0.0.1:4173/ >/dev/null
           node scripts/browser-smoke-staging.js http://127.0.0.1:4173/
+          node tests/batch1-browser-interactions.test.js http://127.0.0.1:4173/
+          node tests/anthropometric-batch2.test.js
 
       - name: Run all-page axe accessibility smoke tests
         env:
