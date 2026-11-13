@@ -29,6 +29,13 @@
     'biacristal breadth': 'Biacristal breadth is the straight-line distance between the iliac-crest landmarks. Use a suitable anthropometric caliper and a consistent landmarking protocol.',
     'sitting height': 'Sitting height is measured from the sitting surface to the top of the head while seated upright. Seat height and posture must be handled consistently.',
     'arm span': 'Arm span is the fingertip-to-fingertip distance with both arms extended horizontally. Keep shoulders level and elbows and wrists extended without forcing the posture.',
+    'femur length': 'Femur length is the measured length of the thigh bone between the specified anatomical landmarks. The measurement method must be consistent; surface estimates are not equivalent to imaging.',
+    'tibia length': 'Tibia length is the measured length of the shin bone between the specified anatomical landmarks. The measurement method must be consistent; surface estimates are not equivalent to imaging.',
+    'body proportion deviation': 'This calculator compares a measured segment proportion with a reference percentage that you enter. It does not supply a universal body-proportion norm.',
+    'reference proportion (%)': 'Enter a reference percentage from a source or protocol you selected. The calculator does not validate that reference for your age, sex or population.',
+    'baseline measurement': 'The baseline is the earlier measurement used as the comparison point. Use the same landmarks, posture, instrument and unit convention when comparing later measurements.',
+    'current measurement': 'The current measurement is compared with the baseline. Differences can reflect technique or measurement error as well as actual change.',
+
     'standing height': 'Measure standing height without shoes, standing upright against a suitable height-measuring surface. Keep head position and posture consistent.',
     almi: 'Appendicular lean mass index = appendicular lean mass (kg) ÷ height (m)². Interpretation requires a reference appropriate to the assessment method and population.',
     fmi: 'Fat mass index = fat mass (kg) ÷ height (m)². Fat mass should come from a suitable body-composition assessment; no universal clinical category is implied.',
