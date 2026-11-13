@@ -1795,3 +1795,50 @@ body .cf-footer .cf-footer-category-icons {
     padding-block-end: 14px !important;
   }
 }
+
+/* Site-wide mobile portrait footer refinement.
+   page-chrome.js injects .cf-footer-category-icons on legacy calculator pages,
+   so this shared rule reaches calculator, informational and contact pages alike. */
+@media screen and (max-width: 700px) and (orientation: portrait) {
+  body .cf-footer .cf-footer-category-icons {
+    display: grid !important;
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    grid-auto-flow: row !important;
+    justify-items: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-content: center !important;
+    gap: 12px 10px !important;
+    width: min(100%, 420px) !important;
+    height: auto !important;
+    min-height: 76px !important;
+    padding: 18px 8px 12px !important;
+    margin-inline: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  body .cf-footer .cf-footer-category-icons span {
+    flex: none !important;
+    width: 18px !important;
+    height: 18px !important;
+    animation: cf-site-portrait-icon-drift 8s ease-in-out infinite alternate !important;
+    animation-delay: 0s !important;
+    will-change: transform;
+  }
+
+  body .cf-footer .cf-footer-category-icons span:nth-child(2n) { animation-delay: -2s !important; }
+  body .cf-footer .cf-footer-category-icons span:nth-child(3n) { animation-delay: -4s !important; }
+  body .cf-footer .cf-footer-category-icons span:nth-child(5n) { animation-delay: -6s !important; }
+}
+
+@keyframes cf-site-portrait-icon-drift {
+  from { transform: translate3d(0, 2px, 0) rotate(-1deg); }
+  to   { transform: translate3d(0, -2px, 0) rotate(1deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body .cf-footer .cf-footer-category-icons span {
+    animation: none !important;
+    transform: none !important;
+  }
+}
