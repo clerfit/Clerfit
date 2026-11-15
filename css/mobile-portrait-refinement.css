@@ -459,8 +459,9 @@
     z-index: 0 !important;
     width: calc(100% - 18px) !important;
     max-width: 350px !important;
-    height: calc(100% - 24px) !important;
+    height: auto !important;
     top: 11px !important;
+    bottom: 15px !important;
     left: 50% !important;
     box-sizing: border-box !important;
     border: 1px solid rgba(151, 205, 231, .72) !important;
