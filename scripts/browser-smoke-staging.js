@@ -170,7 +170,7 @@ async function chooseAction(page) {
 async function runRoute(browser, route) {
   const pageName = route.file;
   const url = new URL('html/' + encodeURI(pageName) + '?browserSmoke=R3-2026-10-17', BASE).href;
-  const page = await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1,isMobile:true,hasTouch:true});
+  const page = await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1,isMobile:true,hasTouch:true,reducedMotion:'no-preference'});
   const pageErrors=[], consoleErrors=[];
   page.on('pageerror', err=>pageErrors.push(err.message || String(err)));
   page.on('console', msg=>{ if(msg.type()==='error') consoleErrors.push(msg.text()); });
@@ -274,13 +274,17 @@ async function runRoute(browser, route) {
       const style = getComputedStyle(row);
       const firstIcon = row.querySelector('span');
       const iconStyle = firstIcon ? getComputedStyle(firstIcon) : null;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const animationApplied = !!(iconStyle && iconStyle.animationName === 'cf-site-portrait-icon-drift' &&
+        parseFloat(iconStyle.animationDuration) >= 7.9);
       return {
         present: true,
         stylesheetLoaded: !!(link && link.sheet),
         gridApplied: style.display === 'grid' && style.gridTemplateColumns.split(' ').length === 6,
         iconCount: row.querySelectorAll('span').length,
-        animationApplied: !!(iconStyle && iconStyle.animationName === 'cf-site-portrait-icon-drift' &&
-          parseFloat(iconStyle.animationDuration) >= 7.9)
+        reducedMotion,
+        animationApplied,
+        animationRespectsPreference: reducedMotion ? !animationApplied : animationApplied
       };
     });
     bodyOverflow = await page.evaluate(()=>document.documentElement.scrollWidth > window.innerWidth + 1);
@@ -296,7 +300,7 @@ async function runRoute(browser, route) {
   if (!clicked && !/unit\.html$/i.test(pageName)) failures.push(pageName + ' has no actionable Calculate/Convert control.');
   if (bodyOverflow) failures.push(pageName + ' overflows the 390px mobile viewport.');
   if (!footerState.present || !footerState.stylesheetLoaded || !footerState.gridApplied ||
-      footerState.iconCount !== 11 || !footerState.animationApplied) {
+      footerState.iconCount !== 11 || !footerState.animationRespectsPreference) {
     failures.push(pageName + ' mobile portrait footer refinement is missing or not applied: ' + JSON.stringify(footerState));
   }
 
