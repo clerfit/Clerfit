@@ -186,7 +186,7 @@ async function main() {
   const match = nav.match(/const\s+CALCULATORS\s*=\s*(\[[\s\S]*?\]);\s*\nconst path/);
   if (!match) throw new Error('Could not parse the deployed calculator registry.');
   const registry = JSON.parse(match[1]);
-  if (registry.length !== EXPECTED_ROUTES) throw new Error('Expected 137 calculator routes; found ' + registry.length);
+  if (registry.length !== EXPECTED_ROUTES) throw new Error('Expected ' + EXPECTED_ROUTES + ' calculator routes; found ' + registry.length);
   const routes = ['/', ...registry.map(item => 'html/' + item.file), 'contact.html', 'about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html'];
   const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
   try {
