@@ -31,13 +31,15 @@
     display:inline-flex !important; flex:0 0 34px !important; align-items:center !important; justify-content:center !important;
     width:34px !important; min-width:34px !important; max-width:34px !important;
     height:34px !important; min-height:34px !important; margin:0 !important; padding:0 !important;
-    border:0 !important; border-radius:50% !important; color:#315c70 !important;
-    background:transparent !important; box-shadow:none !important; font-size:0 !important;
+    border:0 !important; border-radius:0 !important; color:#315c70 !important;
+    background:none !important; background-color:transparent !important; box-shadow:none !important; font-size:0 !important;
     cursor:pointer !important; appearance:none !important; -webkit-appearance:none !important;
   }
-  .cf-home-top .cf-header-search button:hover { color:#087d79 !important; background:#eef7f7 !important; }
+  .cf-home-top .cf-header-search button:hover,
+  .cf-home-top .cf-header-search button:active { color:#087d79 !important; background:none !important; background-color:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; }
   .cf-home-top .cf-header-search button svg { display:block !important; width:18px !important; height:18px !important; flex:0 0 18px !important; fill:none !important; stroke:currentColor !important; stroke-width:1.9 !important; stroke-linecap:round !important; stroke-linejoin:round !important; }
-  .cf-home-top .cf-header-search input:focus-visible, .cf-home-top .cf-header-search button:focus-visible { outline:2px solid #167c83 !important; outline-offset:1px !important; }
+  .cf-home-top .cf-header-search input:focus-visible { outline:0 !important; }
+  .cf-home-top .cf-header-search button:focus-visible { outline:2px solid #167c83 !important; outline-offset:1px !important; }
   @media (max-width:720px) {
     .cf-home-top .cf-header-search { flex:0 1 205px !important; width:205px !important; min-width:145px !important; height:38px !important; min-height:38px !important; }
     .cf-home-top .cf-header-search input { font-size:12px !important; }
