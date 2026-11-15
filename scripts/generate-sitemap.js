@@ -59,6 +59,9 @@ const aliasCanonical = {
 const canonicalFiles = [
   { file: path.join(root, 'index.html'), url: `${base}/` },
   { file: path.join(root, 'contact.html'), url: `${base}/contact.html` },
+  { file: path.join(root, 'about-us.html'), url: `${base}/about-us.html` },
+  { file: path.join(root, 'scientific-references.html'), url: `${base}/scientific-references.html` },
+  { file: path.join(root, 'editorial-standards.html'), url: `${base}/editorial-standards.html` },
   { file: path.join(root, 'privacy.html'), url: `${base}/privacy.html` },
   { file: path.join(root, 'terms-of-use.html'), url: `${base}/terms-of-use.html` },
   { file: path.join(root, 'educational-disclaimer.html'), url: `${base}/educational-disclaimer.html` },
@@ -83,6 +86,9 @@ for (const entry of canonicalFiles) {
 const urls = [
   { loc: `${base}/`, priority: '1.0' },
   { loc: `${base}/contact.html`, priority: '0.4' },
+  { loc: `${base}/about-us.html`, priority: '0.5' },
+  { loc: `${base}/scientific-references.html`, priority: '0.6' },
+  { loc: `${base}/editorial-standards.html`, priority: '0.5' },
   { loc: `${base}/privacy.html`, priority: '0.3' },
   { loc: `${base}/terms-of-use.html`, priority: '0.3' },
   { loc: `${base}/educational-disclaimer.html`, priority: '0.3' },

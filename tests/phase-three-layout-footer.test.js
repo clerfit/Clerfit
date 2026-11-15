@@ -13,7 +13,7 @@ const css = fs.readFileSync(path.join(root, 'css/style.css'), 'utf8');
 assert.doesNotMatch(chrome, /fresh\.searchParams\.set\(["']v["']/,
   'shared page chrome must not rewrite a stylesheet URL after the initial CSS request');
 const publicHtml = [
-  '404.html', 'contact.html', 'educational-disclaimer.html', 'privacy.html', 'terms-of-use.html',
+  '404.html', 'contact.html', 'about-us.html', 'scientific-references.html', 'editorial-standards.html', 'educational-disclaimer.html', 'privacy.html', 'terms-of-use.html',
   ...fs.readdirSync(path.join(root, 'html')).filter(name => name.endsWith('.html')).map(name => path.join('html', name))
 ].map(file => path.join(root, file)).filter(file => fs.existsSync(file));
 const staleCssUrls = publicHtml.filter(file => {
@@ -28,13 +28,39 @@ assert.match(polish, /header:not\(\.clerfit-page-header\):not\(\.cf-legal-headin
 assert.ok(polish.includes('const isLegacyBrand=/clerfit\\s*(?:health\\s*&?\\s*performance|health.*fitness calculators)|all rights reserved/.test(text);'),
   'legacy header cleanup must target known branding instead of deleting every header that mentions ClerFit');
 assert.match(chrome, /function ensureSiteFooter\(\)/, 'shared page chrome must define footer injection');
+assert.ok(chrome.includes('const footerDestinations = ['), 'existing page-specific footers must receive the trust and legal destinations');
+for (const page of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html', 'contact.html']) {
+  assert.ok(chrome.includes('"' + page + '"'), 'shared footer must add ' + page + ' to existing page footers');
+}
+assert.ok(chrome.includes('if (!alreadyLinked)'), 'shared footer link injection must avoid duplicates');
+
 assert.ok(polish.includes("if(!document.querySelector('footer'))"), 'legacy site polish must not append a second footer when a page footer already exists');
 assert.ok(chrome.includes('replace(/\\s+/g, " ").trim()'), 'legacy footer text normalization must collapse real whitespace');
 assert.ok(chrome.includes('/^ClerFit\\s*[·—-]\\s*Health\\s*&\\s*Performance\\s*Tools$/i'), 'known compact legacy footer variants must be recognized by a whitespace-aware pattern');
 assert.ok(fs.readFileSync(path.join(root, 'scripts/browser-smoke.js'), 'utf8').includes('footerFailures:routeResults'), 'live browser smoke must verify the shared footer on every registered calculator route');
 assert.match(chrome, /const existingFooter = document\.querySelector\("footer"\);[\s\S]*?existingFooter\.classList\.add\("cf-footer"\)/, 'existing footers must receive shared styling without duplication');
 assert.match(chrome, /new URL\("index\.html", root\)/, 'footer home link must respect root versus html/ paths');
+assert.ok(chrome.includes('document.baseURI'), 'shared footer root resolution must respect the custom 404 base URL on deep paths');
+
 assert.match(chrome, /new URL\("contact\.html", root\)/, 'footer contact link must respect root versus html/ paths');
+for (const page of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html']) {
+  assert.ok(chrome.includes(new URL(page, 'https://clerfit.github.io/').href) || chrome.includes('new URL("' + page + '", root)'),
+    'shared footer must provide a root-aware link to ' + page);
+}
+const homepage = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+for (const page of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html']) {
+  assert.ok(homepage.includes('href="' + page + '"'), 'homepage footer must link to ' + page);
+}
+for (const page of ['about-us.html', 'scientific-references.html', 'editorial-standards.html']) {
+  const html = fs.readFileSync(path.join(root, page), 'utf8');
+  assert.ok(html.includes('js/page-chrome.js'), page + ' must load shared footer chrome');
+}
+const privacy = fs.readFileSync(path.join(root, 'privacy.html'), 'utf8');
+assert.match(privacy, /does not offer account creation, login, registration, saved user profiles/i,
+  'privacy notice must explicitly preserve the no-account/no-profile policy');
+assert.match(privacy, /not intentionally transmit calculator inputs or results to a ClerFit measurement database/i,
+  'privacy notice must explain local calculator processing');
+
 assert.match(chrome, /main\.appendChild\(footer\)/, 'shared footer must be attached to calculator content');
 assert.ok(polish.includes('function normalizeTables(scope)') && polish.includes('normalizeTables(document)'),
   'all existing calculator tables must be normalized on initial load');

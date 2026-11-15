@@ -26,7 +26,7 @@
       const compactFooterText = (existingFooter.textContent || "").replace(/\s+/g, " ").trim();
       if (!existingFooter.querySelector(".cf-footer-main") &&
           /^ClerFit\s*[·—-]\s*Health\s*&\s*Performance\s*Tools$/i.test(compactFooterText)) {
-        const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
+        const root = new URL(location.pathname.includes("/html/") ? "../" : "./", document.baseURI);
         const home = new URL("index.html", root).href;
         const contact = new URL("contact.html", root).href;
         existingFooter.innerHTML =
@@ -35,6 +35,12 @@
             '<p>Clear tools for better-informed everyday decisions.</p>' +
             '<nav class="cf-footer-links" aria-label="Footer navigation">' +
               '<a href="' + home + '#all-calculators">Explore calculators</a>' +
+              '<a href="' + new URL("about-us.html", root).href + '">About Us</a>' +
+              '<a href="' + new URL("scientific-references.html", root).href + '">Scientific References</a>' +
+              '<a href="' + new URL("editorial-standards.html", root).href + '">Editorial Standards</a>' +
+              '<a href="' + new URL("privacy.html", root).href + '">Privacy</a>' +
+              '<a href="' + new URL("terms-of-use.html", root).href + '">Terms</a>' +
+              '<a href="' + new URL("educational-disclaimer.html", root).href + '">Disclaimer</a>' +
               '<a href="' + contact + '">Contact</a>' +
             '</nav>' +
           '</div>' +
@@ -69,11 +75,43 @@
           '<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19m0-14-1.5 1.5m-11 11L5 19"/></svg></span>';
         existingFooter.insertBefore(iconRow, existingFooter.firstChild);
       }
+      // Preserve page-specific footer content while ensuring every page exposes
+      // the same trust, reference, privacy and legal destinations.
+      const footerRoot = new URL(location.pathname.includes("/html/") ? "../" : "./", document.baseURI);
+      let footerNav = existingFooter.querySelector(".cf-footer-links");
+      if (!footerNav) {
+        footerNav = document.createElement("nav");
+        footerNav.className = "cf-footer-links";
+        footerNav.setAttribute("aria-label", "Footer navigation");
+        (existingFooter.querySelector(".cf-footer-main") || existingFooter).appendChild(footerNav);
+      }
+      const footerDestinations = [
+        ["about-us.html", "About Us"],
+        ["scientific-references.html", "Scientific References"],
+        ["editorial-standards.html", "Editorial Standards"],
+        ["privacy.html", "Privacy"],
+        ["terms-of-use.html", "Terms"],
+        ["educational-disclaimer.html", "Disclaimer"],
+        ["contact.html", "Contact"]
+      ];
+      footerDestinations.forEach(([file, label]) => {
+        const target = new URL(file, footerRoot);
+        const alreadyLinked = [...footerNav.querySelectorAll("a[href]")].some(anchor => {
+          try { return new URL(anchor.getAttribute("href"), location.href).pathname === target.pathname; }
+          catch (_) { return false; }
+        });
+        if (!alreadyLinked) {
+          const link = document.createElement("a");
+          link.href = target.href;
+          link.textContent = label;
+          footerNav.appendChild(link);
+        }
+      });
       return;
     }
     const main = document.querySelector("main.main, main, .main");
     if (!main) return;
-    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
+    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", document.baseURI);
     const home = new URL("index.html", root).href;
     const contact = new URL("contact.html", root).href;
     const footer = document.createElement("footer");
@@ -85,7 +123,13 @@
         '<p>Clear tools for better-informed everyday decisions.</p>' +
         '<nav class="cf-footer-links" aria-label="Footer navigation">' +
           '<a href="' + home + '#all-calculators">Explore calculators</a>' +
-          '<a href="' + contact + '">Contact</a>' +
+          '<a href="' + new URL("about-us.html", root).href + '">About Us</a>' +
+              '<a href="' + new URL("scientific-references.html", root).href + '">Scientific References</a>' +
+              '<a href="' + new URL("editorial-standards.html", root).href + '">Editorial Standards</a>' +
+              '<a href="' + new URL("privacy.html", root).href + '">Privacy</a>' +
+              '<a href="' + new URL("terms-of-use.html", root).href + '">Terms</a>' +
+              '<a href="' + new URL("educational-disclaimer.html", root).href + '">Disclaimer</a>' +
+              '<a href="' + contact + '">Contact</a>' +
         '</nav>' +
       '</div>' +
       '<div class="cf-footer-bottom">' +
@@ -104,7 +148,7 @@
 
   const loadPortraitFooterStyles = () => {
     if (document.querySelector('link[data-cf-portrait-footer="true"]')) return;
-    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
+    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", document.baseURI);
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
     stylesheet.href = new URL("css/mobile-portrait-footer.css?v=20261113-2", root).href;
@@ -115,7 +159,7 @@
   const init = () => {
     loadPortraitFooterStyles();
     ensureSiteFooter();
-    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
+    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", document.baseURI);
     let nav = document.querySelector(selector);
     if (!nav) {
       nav = document.createElement("nav");

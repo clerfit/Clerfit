@@ -7,6 +7,9 @@ on:
       - 'index.html'
       - '404.html'
       - 'contact.html'
+      - 'about-us.html'
+      - 'scientific-references.html'
+      - 'editorial-standards.html'
       - 'privacy.html'
       - 'terms-of-use.html'
       - 'educational-disclaimer.html'
@@ -31,6 +34,9 @@ on:
       - 'index.html'
       - '404.html'
       - 'contact.html'
+      - 'about-us.html'
+      - 'scientific-references.html'
+      - 'editorial-standards.html'
       - 'privacy.html'
       - 'terms-of-use.html'
       - 'educational-disclaimer.html'
@@ -165,6 +171,7 @@ jobs:
           node tests/batch3-browser-interactions.test.js http://127.0.0.1:4173/
 
       - name: Run all-page axe accessibility smoke tests
+        if: always()
         env:
           CLERFIT_ACCESSIBILITY_REPORT: accessibility-smoke-report.json
         shell: bash

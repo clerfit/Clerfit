@@ -16,7 +16,11 @@ For a local server, run `python -m http.server 8000` from this folder and open `
 ## Structure
 
 - `index.html` — homepage, categories and full calculator directory.
-- `contact.html` — root contact page.
+- `contact.html` — root contact page; submissions are sent to the disclosed contact-form provider.
+- `about-us.html` — purpose, development approach and trust disclosures.
+- `scientific-references.html` — selected primary research and authoritative guidance.
+- `editorial-standards.html` — sourcing, formula transparency, testing and professional-review policy.
+- `privacy.html` — no-account/no-profile policy, local calculator processing and third-party service disclosures.
 - `404.html` — branded not-found fallback page.
 - `netlify.toml` and `_headers` — static-hosting settings, security headers and asset caching.
 - `robots.txt` — crawl policy; `scripts/generate-sitemap.js` creates the sitemap and canonical URLs at build time from `SITE_URL` or Netlify’s deployment `URL`.
