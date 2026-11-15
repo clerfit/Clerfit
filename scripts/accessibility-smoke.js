@@ -99,7 +99,7 @@ async function main() {
   const files = classified.userPages;
   if (!files.includes('index.html')) throw new Error('dist/index.html is missing from user-facing pages');
   const axePath = require.resolve('axe-core/axe.min.js');
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
   try {
     await pool(files, CONCURRENCY, async file => {
       const page = await browser.newPage({ viewport: { width: 390, height: 844 } });

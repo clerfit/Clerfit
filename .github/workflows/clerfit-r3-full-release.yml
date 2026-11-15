@@ -1,14 +1,12 @@
 name: Publish complete ClerFit R3 release
 
+# Disabled: this archived transfer payload predates the current 164-calculator release.
+# Do not re-enable until a fresh, fully verified release manifest is produced.
 on:
-  push:
-    branches:
-      - release-transfer
-    paths:
-      - 'deploy_payload/READY'
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: clerfit-r3-full-release
@@ -16,6 +14,7 @@ concurrency:
 
 jobs:
   publish:
+    if: false # fail closed; this legacy workflow must not publish stale files to main
     runs-on: ubuntu-latest
     steps:
       - name: Checkout release transfer branch

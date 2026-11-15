@@ -191,7 +191,6 @@ async function main() {
   for (const file of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html']) {
     const url = new URL(file, BASE).href;
     assert(sitemapSet.has(url), 'Sitemap is missing trust/legal page: ' + file + '.');
-    assert(PAGE_BODIES.get(url)?.includes('js/page-chrome.js'), file + ' is missing the shared footer script.');
   }
   const missingRoutes = registry.filter(c => !c || !c.file || !sitemapSet.has(new URL('html/' + c.file, BASE).href));
   assert(missingRoutes.length === 0, 'Calculator routes missing from sitemap: ' + missingRoutes.map(c => c && c.file || '?').join(', '));
@@ -210,6 +209,10 @@ async function main() {
     }
     for (const ref of references(page.body, page.url)) RESOURCES.set(ref, { url: ref, from: page.url });
   });
+  for (const file of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html']) {
+    const url = new URL(file, BASE).href;
+    assert(PAGE_BODIES.get(url)?.includes('js/page-chrome.js'), file + ' is missing the shared footer script.');
+  }
   for (const m of css.body.matchAll(/url\(\s*(["']?)(.*?)\1\s*\)/gi)) {
     const url = normalizeLocal(m[2].trim(), cssUrl);
     if (url) RESOURCES.set(url, { url, from: cssUrl });
