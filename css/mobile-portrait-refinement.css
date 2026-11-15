@@ -95,3 +95,56 @@
     border-radius: 20px !important;
   }
 }
+
+
+/* Final portrait-only corner correction.
+   The panel itself owns the radius and clips its own contents; the art wrapper
+   must not act as a second rounded frame around a square panel. */
+@media screen and (max-width: 700px) and (orientation: portrait) {
+  body .cf-home-hero {
+    box-sizing: border-box !important;
+    border: 1px solid rgba(180, 226, 226, .24) !important;
+    border-radius: 26px !important;
+    background-clip: padding-box !important;
+    overflow: hidden !important;
+  }
+
+  body .cf-home-hero .cf-hero-art {
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
+  }
+
+  body .cf-home-hero .cf-art-panel {
+    position: relative !important;
+    box-sizing: border-box !important;
+    width: min(100%, 340px) !important;
+    max-width: 100% !important;
+    border: 1px solid #dce7f4 !important;
+    border-radius: 24px !important;
+    overflow: hidden !important;
+    clip-path: inset(0 round 24px) !important;
+    -webkit-clip-path: inset(0 round 24px) !important;
+    background: linear-gradient(145deg, #ffffff 0%, #f5f9ff 56%, #eaf4fb 100%) !important;
+    background-clip: padding-box !important;
+    transform: none !important;
+    isolation: isolate !important;
+  }
+
+  body .cf-home-hero .cf-art-panel > * {
+    position: relative;
+    z-index: 1;
+    min-width: 0 !important;
+  }
+}
+
+@media screen and (max-width: 390px) and (orientation: portrait) {
+  body .cf-home-hero .cf-art-panel {
+    border-radius: 22px !important;
+    clip-path: inset(0 round 22px) !important;
+    -webkit-clip-path: inset(0 round 22px) !important;
+  }
+}
