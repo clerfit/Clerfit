@@ -22,6 +22,8 @@ on:
       - 'robots.txt'
       - 'site.webmanifest'
       - '.github/workflows/phase-six-package.yml'
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
