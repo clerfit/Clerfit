@@ -248,3 +248,115 @@
     padding-block: 8px !important;
   }
 }
+
+
+/* Focused fix: the INNER white YOUR TOOLKIT card, not the outer hero.
+   Mobile portrait only. Keep the hero copy intact and reduce its total height. */
+@media screen and (max-width: 700px) and (orientation: portrait) {
+  body .cf-home-hero {
+    padding: 58px 14px 14px !important;
+    gap: 4px !important;
+    min-height: 0 !important;
+  }
+
+  body .cf-home-hero .cf-hero-content {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body .cf-home-hero .cf-hero-art {
+    width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* The white toolkit panel is the only visible card in the illustration. */
+  body .cf-home-hero .cf-art-panel {
+    display: block !important;
+    position: relative !important;
+    width: min(100%, 286px) !important;
+    max-width: 286px !important;
+    min-width: 0 !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    padding: 11px 13px !important;
+    box-sizing: border-box !important;
+    transform: none !important;
+    rotate: 0deg !important;
+    border: 1px solid #dce7f4 !important;
+    border-radius: 20px !important;
+    clip-path: inset(0 round 20px) !important;
+    -webkit-clip-path: inset(0 round 20px) !important;
+    background: #fff !important;
+    box-shadow: 0 5px 14px rgba(5, 24, 48, .12) !important;
+    overflow: hidden !important;
+  }
+
+  body .cf-home-hero .cf-art-panel::before,
+  body .cf-home-hero .cf-art-panel::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  body .cf-home-hero .cf-art-top {
+    padding: 0 2px 8px !important;
+    line-height: 1.2 !important;
+  }
+
+  body .cf-home-hero .cf-art-line {
+    gap: 8px !important;
+    padding: 7px 1px !important;
+    min-height: 0 !important;
+  }
+
+  body .cf-home-hero .cf-art-icon {
+    width: 32px !important;
+    height: 32px !important;
+    flex: 0 0 32px !important;
+    border-radius: 9px !important;
+  }
+
+  body .cf-home-hero .cf-art-line b {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+  }
+
+  body .cf-home-hero .cf-art-line small {
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+  }
+
+  body .cf-home-hero .cf-art-line em {
+    font-size: 9px !important;
+  }
+
+  body .cf-home-hero .cf-art-foot {
+    padding: 8px 2px 0 !important;
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+  }
+
+  body .cf-home-hero .cf-hero-stats {
+    margin-top: 14px !important;
+  }
+}
+
+@media screen and (max-width: 390px) and (orientation: portrait) {
+  body .cf-home-hero {
+    padding: 56px 12px 12px !important;
+  }
+  body .cf-home-hero .cf-art-panel {
+    width: min(100%, 270px) !important;
+    max-width: 270px !important;
+    padding: 10px 12px !important;
+    border-radius: 18px !important;
+    clip-path: inset(0 round 18px) !important;
+    -webkit-clip-path: inset(0 round 18px) !important;
+  }
+}
