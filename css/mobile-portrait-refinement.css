@@ -168,13 +168,6 @@
     border: 0 !important;
     transform: none !important;
   }
-  body .cf-home-hero .cf-orbit,
-  body .cf-home-hero .cf-orbit-one,
-  body .cf-home-hero .cf-orbit-two {
-    display: none !important;
-    animation: none !important;
-    opacity: 0 !important;
-  }
   body .cf-home-hero .cf-art-panel {
     transform: none !important;
     rotate: none !important;
@@ -542,20 +535,4 @@
 }
 
 
-/* Subtle diagonal stroke texture on the white toolkit card only (mobile portrait).
-   No rear card, backing square, or rotation is introduced. */
-@media screen and (max-width: 700px) and (orientation: portrait) {
-  body .cf-home-hero .cf-art-panel {
-    background-image:
-      repeating-linear-gradient(
-        135deg,
-        transparent 0,
-        transparent 22px,
-        rgba(65, 133, 171, .10) 23px,
-        rgba(65, 133, 171, .10) 25px,
-        transparent 25px,
-        transparent 46px
-      ),
-      linear-gradient(145deg, #fff 0%, #f5f9ff 56%, #eaf4fb 100%) !important;
-  }
-}
+/* Removed diagonal stroke texture from inside the white toolkit panel. */
