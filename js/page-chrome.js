@@ -35,6 +35,12 @@
             '<p>Clear tools for better-informed everyday decisions.</p>' +
             '<nav class="cf-footer-links" aria-label="Footer navigation">' +
               '<a href="' + home + '#all-calculators">Explore calculators</a>' +
+              '<a href="' + new URL("about-us.html", root).href + '">About Us</a>' +
+              '<a href="' + new URL("scientific-references.html", root).href + '">Scientific References</a>' +
+              '<a href="' + new URL("editorial-standards.html", root).href + '">Editorial Standards</a>' +
+              '<a href="' + new URL("privacy.html", root).href + '">Privacy</a>' +
+              '<a href="' + new URL("terms-of-use.html", root).href + '">Terms</a>' +
+              '<a href="' + new URL("educational-disclaimer.html", root).href + '">Disclaimer</a>' +
               '<a href="' + contact + '">Contact</a>' +
             '</nav>' +
           '</div>' +
@@ -85,7 +91,13 @@
         '<p>Clear tools for better-informed everyday decisions.</p>' +
         '<nav class="cf-footer-links" aria-label="Footer navigation">' +
           '<a href="' + home + '#all-calculators">Explore calculators</a>' +
-          '<a href="' + contact + '">Contact</a>' +
+          '<a href="' + new URL("about-us.html", root).href + '">About Us</a>' +
+              '<a href="' + new URL("scientific-references.html", root).href + '">Scientific References</a>' +
+              '<a href="' + new URL("editorial-standards.html", root).href + '">Editorial Standards</a>' +
+              '<a href="' + new URL("privacy.html", root).href + '">Privacy</a>' +
+              '<a href="' + new URL("terms-of-use.html", root).href + '">Terms</a>' +
+              '<a href="' + new URL("educational-disclaimer.html", root).href + '">Disclaimer</a>' +
+              '<a href="' + contact + '">Contact</a>' +
         '</nav>' +
       '</div>' +
       '<div class="cf-footer-bottom">' +
