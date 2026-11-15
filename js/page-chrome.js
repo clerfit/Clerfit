@@ -26,7 +26,7 @@
       const compactFooterText = (existingFooter.textContent || "").replace(/\s+/g, " ").trim();
       if (!existingFooter.querySelector(".cf-footer-main") &&
           /^ClerFit\s*[·—-]\s*Health\s*&\s*Performance\s*Tools$/i.test(compactFooterText)) {
-        const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
+        const root = new URL(location.pathname.includes("/html/") ? "../" : "./", document.baseURI);
         const home = new URL("index.html", root).href;
         const contact = new URL("contact.html", root).href;
         existingFooter.innerHTML =
@@ -77,7 +77,7 @@
       }
       // Preserve page-specific footer content while ensuring every page exposes
       // the same trust, reference, privacy and legal destinations.
-      const footerRoot = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
+      const footerRoot = new URL(location.pathname.includes("/html/") ? "../" : "./", document.baseURI);
       let footerNav = existingFooter.querySelector(".cf-footer-links");
       if (!footerNav) {
         footerNav = document.createElement("nav");
@@ -111,7 +111,7 @@
     }
     const main = document.querySelector("main.main, main, .main");
     if (!main) return;
-    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
+    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", document.baseURI);
     const home = new URL("index.html", root).href;
     const contact = new URL("contact.html", root).href;
     const footer = document.createElement("footer");
@@ -148,7 +148,7 @@
 
   const loadPortraitFooterStyles = () => {
     if (document.querySelector('link[data-cf-portrait-footer="true"]')) return;
-    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
+    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", document.baseURI);
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
     stylesheet.href = new URL("css/mobile-portrait-footer.css?v=20261113-2", root).href;
@@ -159,7 +159,7 @@
   const init = () => {
     loadPortraitFooterStyles();
     ensureSiteFooter();
-    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
+    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", document.baseURI);
     let nav = document.querySelector(selector);
     if (!nav) {
       nav = document.createElement("nav");
