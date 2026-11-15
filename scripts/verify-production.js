@@ -191,7 +191,6 @@ async function main() {
   for (const file of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html']) {
     const url = new URL(file, BASE).href;
     assert(sitemapSet.has(url), 'Sitemap is missing trust/legal page: ' + file + '.');
-
   }
   const missingRoutes = registry.filter(c => !c || !c.file || !sitemapSet.has(new URL('html/' + c.file, BASE).href));
   assert(missingRoutes.length === 0, 'Calculator routes missing from sitemap: ' + missingRoutes.map(c => c && c.file || '?').join(', '));
