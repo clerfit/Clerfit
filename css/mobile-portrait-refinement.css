@@ -502,3 +502,41 @@
     width: min(100%, 320px) !important;
   }
 }
+
+
+/* Correction per visual direction: do not fabricate a translucent rear square/card.
+   Keep only the white YOUR TOOLKIT panel and clip its own edges cleanly. */
+@media screen and (max-width: 700px) and (orientation: portrait) {
+  body .cf-home-hero .cf-hero-art::before,
+  body .cf-home-hero .cf-hero-art::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+  body .cf-home-hero .cf-hero-art {
+    overflow: visible !important;
+    padding: 8px 4px 10px !important;
+  }
+  body .cf-home-hero .cf-art-panel {
+    width: min(100%, 340px) !important;
+    max-width: 340px !important;
+    border: 1px solid #dce7f4 !important;
+    border-radius: 22px !important;
+    clip-path: inset(0 round 22px) !important;
+    -webkit-clip-path: inset(0 round 22px) !important;
+    overflow: hidden !important;
+    transform: none !important;
+    rotate: none !important;
+    background: linear-gradient(145deg, #fff 0%, #f5f9ff 56%, #eaf4fb 100%) !important;
+  }
+}
+@media screen and (max-width: 390px) and (orientation: portrait) {
+  body .cf-home-hero .cf-art-panel {
+    width: min(100%, 320px) !important;
+    border-radius: 20px !important;
+    clip-path: inset(0 round 20px) !important;
+    -webkit-clip-path: inset(0 round 20px) !important;
+  }
+}
