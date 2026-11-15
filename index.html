@@ -66,6 +66,39 @@
     .cf-home-top .cf-header-search { flex:0 0 230px !important; width:230px !important; min-width:210px !important; height:38px !important; min-height:38px !important; }
     .cf-home-top .cf-header-search input { font-size:12px !important; }
   }
+  /* Phone layout: give the search its own full-width row inside the header card.
+     This prevents the fixed-width search field from being pushed off the left edge. */
+  @media (max-width:600px) {
+    body .cf-home-top { display:flex !important; flex-wrap:wrap !important; align-items:center !important; gap:12px !important; }
+    body .cf-home-top .cf-wordmark { flex:1 1 100% !important; min-width:0 !important; }
+    body .cf-home-top .cf-top-actions { display:block !important; flex:1 1 100% !important; width:100% !important; min-width:0 !important; }
+    body .cf-home-top .clerfit-fixed-actions {
+      display:grid !important;
+      grid-template-columns:minmax(0,1fr) auto auto !important;
+      grid-template-rows:auto auto !important;
+      align-items:center !important;
+      justify-content:stretch !important;
+      gap:8px !important;
+      width:100% !important;
+      min-width:0 !important;
+      max-width:100% !important;
+      box-sizing:border-box !important;
+      overflow:visible !important;
+    }
+    body .cf-home-top .clerfit-fixed-actions .cf-header-search {
+      grid-column:1 / -1 !important;
+      grid-row:1 !important;
+      display:flex !important;
+      flex:0 1 auto !important;
+      width:100% !important;
+      min-width:0 !important;
+      max-width:100% !important;
+      box-sizing:border-box !important;
+      margin:0 !important;
+    }
+    body .cf-home-top .clerfit-fixed-actions .clerfit-fixed-home { grid-column:2 !important; grid-row:2 !important; }
+    body .cf-home-top .clerfit-fixed-actions .clerfit-fixed-contact { grid-column:3 !important; grid-row:2 !important; }
+  }
 
   #browse-categories #cf-category-grid {
     display: grid !important;
