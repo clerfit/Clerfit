@@ -66,6 +66,23 @@ Every newly added calculator must follow this checklist. Treat it as the require
 - Do not add duplicate footers. If a page already has a richer footer, preserve its content and let the shared enhancement add the missing shared class/icon row as designed.
 - Verify the rendered footer on desktop, tablet and mobile; do not rely only on source inspection.
 
+### Calculator Guide — mandatory on every new calculator
+
+Each new calculator page must include a separate, initially collapsed, native and accessible `<details>/<summary>` section titled **Calculator Guide**, styled with the existing education accordion language. Keep the existing About This / Understand This Calculator section separate.
+
+The expanded guide must contain concise, calculator-specific sections:
+1. **How to measure** — exact measurement landmark and method, or how to obtain a reliable source value (for dietary intake, use food records, serving sizes and labels; do not describe it as a body measurement).
+2. **How to calculate** — short numbered steps explaining inputs and processing.
+3. **Formula** — exact implemented equation, defined variables and units, including any unit conversion.
+4. **Understanding the result** — neutral explanation of what the output does and does not establish.
+5. **Limitations** — material assumptions, population scope, measurement uncertainty and non-clinical boundaries.
+
+Keep copy calm, short and plain-English. Match formulas and units to the implementation, tests and source/method record. Never invent thresholds, norms, diagnosis or advice. If the measurement method or formula is not established, state that gap. Keep the guide collapsed by default; support pointer/touch and keyboard operation, visible focus, logical headings, responsive layout and no duplicate IDs. Test open/close behavior and verify all five headings on every new calculator.
+
+### Five-calculator batch staffing recommendation
+
+Plan two distinct roles: **one implementation developer** and **one independent reviewer** for formulas, source-backed instructions, validation, units and accessibility. This is a staffing recommendation, not a claim that contractors have been hired or assigned. Record actual contributors accurately in each batch PR; if the same person performs both roles, do not describe the review as independent.
+
 ### Every new calculator — required implementation and documentation steps
 
 1. Add the calculator page and its central registry entry; use the established category, naming, URL and asset conventions.
