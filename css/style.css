@@ -1795,3 +1795,15 @@ body .cf-footer .cf-footer-category-icons {
     padding-block-end: 14px !important;
   }
 }
+
+
+/* Homepage hero: remove decorative orbit/diagonal line graphics around the Your Toolkit panel on every viewport. */
+body .cf-home-hero .cf-orbit,
+body .cf-home-hero .cf-orbit-one,
+body .cf-home-hero .cf-orbit-two {
+  display: none !important;
+  visibility: hidden !important;
+  animation: none !important;
+  border: 0 !important;
+  background: none !important;
+}
