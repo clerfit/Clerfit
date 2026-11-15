@@ -2,19 +2,46 @@
 <html lang="en"><head>
 <link rel="icon" href="https://clerfit.github.io/Clerfit/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="16x16" href="https://clerfit.github.io/Clerfit/favicon-16.png"><link rel="icon" type="image/png" sizes="32x32" href="https://clerfit.github.io/Clerfit/favicon-32.png"><link rel="icon" type="image/png" sizes="48x48" href="https://clerfit.github.io/Clerfit/favicon-48.png"><link rel="apple-touch-icon" sizes="180x180" href="https://clerfit.github.io/Clerfit/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="https://clerfit.github.io/Clerfit/app-icon-192.png"><link rel="manifest" href="https://clerfit.github.io/Clerfit/site.webmanifest">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
-<meta name="referrer" content="strict-origin-when-cross-origin"><meta charset="utf-8"><meta name="clerfit-release" content="R3-2026-10-17-phase12-a11y-v1"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#101827"><title>ClerFit — Health & Fitness Calculators</title><meta name="description" content="Explore practical calculators for body measurements, nutrition, training, recovery and everyday conversions."><link rel="stylesheet" href="css/style.css?v=20261029-category-tiles-grid-hotfix-v4">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta charset="utf-8"><meta name="clerfit-release" content="R3-2026-10-17-phase12-a11y-v1"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#101827"><title>ClerFit — Health & Fitness Calculators</title><meta name="description" content="Explore practical calculators for body measurements, nutrition, training, recovery and everyday conversions."><link rel="stylesheet" href="css/style.css?v=20261115-search-fix-1">
 <link rel="stylesheet" href="css/home-hero-refinement.css?v=20261115-2">
 <link rel="stylesheet" href="css/mobile-portrait-refinement.css?v=20261115-10">
 <style id="cf-category-grid-layout-hotfix">
-  .cf-home-top .cf-header-search { display:inline-flex; align-items:center; gap:0; flex:0 1 240px; width:240px; max-width:100%; height:38px; min-width:150px; margin:0 2px; padding:0 10px 0 14px; border:1px solid #d7e1e9; border-radius:999px; background:#fff; box-shadow:0 1px 3px rgba(25,55,80,.05); transition:border-color .18s ease,box-shadow .18s ease; }
-  .cf-home-top .cf-header-search:focus-within { border-color:#4d9299; box-shadow:0 0 0 3px rgba(22,124,131,.12); }
-  .cf-home-top .cf-header-search input { flex:1 1 auto; width:100%; min-width:0; height:100%; margin:0; padding:0 5px 0 0; border:0; outline:0; background:transparent; color:#20394f; font:inherit; font-size:12px; box-shadow:none; }
-  .cf-home-top .cf-header-search input::placeholder { color:#7a8b9c; opacity:1; }
-  .cf-home-top .cf-header-search button { display:inline-flex; flex:0 0 26px; align-items:center; justify-content:center; width:26px; height:28px; min-height:28px; padding:0; border:0; border-radius:0; color:#315c70; background:transparent; cursor:pointer; }
-  .cf-home-top .cf-header-search button:hover { color:#087d79; background:transparent; }
-  .cf-home-top .cf-header-search svg { width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
-  .cf-home-top .cf-header-search input:focus-visible, .cf-home-top .cf-header-search button:focus-visible { outline:2px solid #167c83; outline-offset:2px; }
-  @media (max-width:600px) { .cf-home-top .cf-header-search { flex:0 1 220px; width:min(220px, 100%); min-width:135px; height:35px; } .cf-home-top .cf-header-search input { font-size:11px; } }
+  /* Homepage search: one compact control. Override legacy global input/button sizing. */
+  .cf-home-top .cf-header-search {
+    display:flex !important; align-items:center !important; flex:0 1 240px !important;
+    width:240px !important; min-width:170px !important; max-width:100% !important;
+    height:40px !important; min-height:40px !important; margin:0 2px !important;
+    padding:0 9px 0 15px !important; gap:0 !important; box-sizing:border-box !important;
+    border:1px solid #d7e1e9 !important; border-radius:999px !important;
+    background:#fff !important; box-shadow:0 2px 8px rgba(25,55,80,.07) !important;
+    overflow:hidden !important;
+  }
+  .cf-home-top .cf-header-search:focus-within { border-color:#4d9299 !important; box-shadow:0 0 0 3px rgba(22,124,131,.12) !important; }
+  .cf-home-top .cf-header-search input,
+  .cf-home-top .cf-header-search input[type="search"] {
+    display:block !important; flex:1 1 0 !important; width:1px !important; min-width:0 !important;
+    height:100% !important; min-height:0 !important; margin:0 !important; padding:0 6px 0 0 !important;
+    border:0 !important; border-radius:0 !important; outline:0 !important; background:transparent !important;
+    color:#20394f !important; font:500 14px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif !important;
+    box-shadow:none !important; appearance:none !important; -webkit-appearance:none !important;
+  }
+  .cf-home-top .cf-header-search input::placeholder { color:#7a8b9c !important; opacity:1; }
+  .cf-home-top .cf-header-search button,
+  .cf-home-top .cf-header-search button[type="submit"] {
+    display:inline-flex !important; flex:0 0 34px !important; align-items:center !important; justify-content:center !important;
+    width:34px !important; min-width:34px !important; max-width:34px !important;
+    height:34px !important; min-height:34px !important; margin:0 !important; padding:0 !important;
+    border:0 !important; border-radius:50% !important; color:#315c70 !important;
+    background:transparent !important; box-shadow:none !important; font-size:0 !important;
+    cursor:pointer !important; appearance:none !important; -webkit-appearance:none !important;
+  }
+  .cf-home-top .cf-header-search button:hover { color:#087d79 !important; background:#eef7f7 !important; }
+  .cf-home-top .cf-header-search button svg { display:block !important; width:18px !important; height:18px !important; flex:0 0 18px !important; fill:none !important; stroke:currentColor !important; stroke-width:1.9 !important; stroke-linecap:round !important; stroke-linejoin:round !important; }
+  .cf-home-top .cf-header-search input:focus-visible, .cf-home-top .cf-header-search button:focus-visible { outline:2px solid #167c83 !important; outline-offset:1px !important; }
+  @media (max-width:720px) {
+    .cf-home-top .cf-header-search { flex:0 1 205px !important; width:205px !important; min-width:145px !important; height:38px !important; min-height:38px !important; }
+    .cf-home-top .cf-header-search input { font-size:12px !important; }
+  }
 
   #browse-categories #cf-category-grid {
     display: grid !important;
