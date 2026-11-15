@@ -70,16 +70,53 @@ Every newly added calculator must follow this checklist. Treat it as the require
 - Do not add duplicate footers. If a page already has a richer footer, preserve its content and let the shared enhancement add the missing shared class/icon row as designed.
 - Verify the rendered footer on desktop, tablet and mobile; do not rely only on source inspection.
 
+### Calculator Guide — mandatory collapsible section on every upcoming calculator
+
+Every newly implemented calculator must include a separate, native, accessible collapsible section titled **Calculator Guide**. It is an additional help section, not a replacement for the existing About This / Understand This Calculator / Method and Limitations content. It must start collapsed and open on click, touch and keyboard activation.
+
+Use the existing site accordion/details visual language and shared styles wherever suitable. Do not introduce a new visual system, large card, modal, or permanently expanded block. The summary row must be easy to discover, compact, clearly named and show a small expand/collapse indicator. Use semantic `<details>` and `<summary>` unless an established accessible component already provides the same behavior. Keep the section responsive and avoid duplicate IDs.
+
+The expanded guide must be written specifically for that calculator and contain these short, clearly labelled parts:
+
+1. **How to measure** — identify each required measurement, the exact practical landmark or source, the tool/method, posture or positioning, and any consistency instruction. If the value must come from a laboratory, scan, body-composition device or other assessment, say so plainly; never imply it can be measured reliably from height/weight alone.
+2. **How to calculate** — give a short numbered sequence explaining what the user enters and what the calculator does. Mention unit conversion only where relevant and explain which values are compared or combined.
+3. **Formula** — show the exact implemented equation, define every symbol, state units and any conversion or exponent convention. The guide must match the tested implementation and source/method documentation; never invent or simplify a formula in a way that changes its meaning.
+4. **Understanding the result** — explain in calm, neutral language what the output represents and what it does not establish. Avoid alarmist, judgemental, attractiveness, performance-potential or diagnostic claims.
+5. **Limitations** — disclose material assumptions, measurement error, population restrictions, unavailable reference ranges and non-clinical status where applicable. Do not repeat generic disclaimers at the expense of calculator-specific limitations.
+
+Writing rules:
+- Prefer concise, soothing everyday English; short paragraphs and numbered steps.
+- Explain specialist terms in plain language and retain the existing small contextual tooltip pattern for terms that need more detail.
+- Do not repeat the entire page introduction or duplicate every tooltip definition.
+- Do not add universal clinical thresholds, population norms, health-risk labels or treatment advice unless a reliable, applicable source explicitly supports them.
+- If a reliable measurement method or formula cannot be established, document that limitation rather than fabricating instructions.
+- Keep the guide content in the calculator page or its established data source so it remains calculator-specific and can be reviewed alongside the formula.
+
+Accessibility and behavior requirements:
+- Use a real `<details>` / `<summary>` disclosure (or equivalent established accessible pattern), not a clickable `div`.
+- Ensure visible keyboard focus, logical heading order, sufficient contrast, and a clear expanded/collapsed state.
+- Do not make the entire calculator card or unrelated page area clickable.
+- Verify opening and closing with mouse, touch and keyboard; confirm the page has no duplicate IDs and no horizontal overflow at mobile widths.
+- Preserve all existing calculator input, reset, stale-result clearing, validation, unit-selector, tooltip and calculation behavior.
+
 ### Every new calculator — required implementation and documentation steps
 
 1. Add the calculator page and its central registry entry; use the established category, naming, URL and asset conventions.
 2. Preserve the shared navigation, tooltip, input-validation and unit-system behavior applicable to that calculator. Do not introduce a global unit preference.
-3. Add or update the formula/method reference, verification matrix, known-answer tests and input-boundary documentation required for the calculator.
-4. Add the calculator to the homepage directory/category listing and ensure sitemap generation includes its canonical URL.
-5. Run the relevant formula, route, interaction, accessibility, responsive-layout and footer checks. The footer audit must confirm one visible `.cf-footer`, one icon row and no duplicate footer.
-6. **Update this README in the same calculator-addition change.** Keep the calculator inventory/current total and any relevant category or structure notes accurate. If a new shared file, script, test suite or workflow is introduced, document it in the Structure section too. Do not leave the README describing the previous calculator count after a new calculator is added.
-7. Include the README update in the same pull request as the calculator implementation, and do not mark the calculator complete until the documentation and required checks are included.
+3. Add the calculator-specific collapsible Calculator Guide described above, and cross-check every measurement instruction, formula, variable definition and limitation against the actual implementation and source references.
+4. Add or update the formula/method reference, verification matrix, known-answer tests and input-boundary documentation required for the calculator.
+5. Add the calculator to the homepage directory/category listing and ensure sitemap generation includes its canonical URL.
+6. Run the relevant formula, route, interaction, accessibility, responsive-layout, Calculator Guide and footer checks. The footer audit must confirm one visible `.cf-footer`, one icon row and no duplicate footer.
+7. **Update this README in the same calculator-addition change.** Keep the calculator inventory/current total and any relevant category or structure notes accurate. If a new shared file, script, test suite or workflow is introduced, document it in the Structure section too. Do not leave the README describing the previous calculator count after a new calculator is added.
+8. Include the README update in the same pull request as the calculator implementation, and do not mark the calculator complete until the documentation and required checks are included.
 
+### Batch staffing and ownership guidance
+
+For a five-calculator batch, plan for **two distinct engineering roles**:
+- **1 implementation developer:** owns the five pages, calculator-specific guide copy, formula wiring, registry/sitemap/inventory updates and first-pass tests.
+- **1 independent reviewer:** checks the source-backed formula and measurement instructions, edge cases, unit handling, accessibility and implementation diff before verification sign-off.
+
+This is a workload/role recommendation, not a claim that two external developers have been hired or assigned. If one person performs both roles, the review must be treated as a separate pass and must not be described as independent. Record the actual contributors and role split in each batch pull request; never invent contributor names or staffing.
 
 ## Verify
 
