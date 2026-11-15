@@ -6,15 +6,15 @@
 <link rel="stylesheet" href="css/home-hero-refinement.css?v=20261115-2">
 <link rel="stylesheet" href="css/mobile-portrait-refinement.css?v=20261115-10">
 <style id="cf-category-grid-layout-hotfix">
-  .cf-home-top .cf-header-search { display:inline-flex; align-items:center; gap:0; width:clamp(190px, 23vw, 270px); height:38px; min-width:0; margin:0 2px; padding:0 5px 0 13px; border:1px solid rgba(112,135,160,.30); border-radius:999px; background:rgba(255,255,255,.88); box-shadow:0 2px 9px rgba(25,55,80,.06); transition:border-color .18s ease,box-shadow .18s ease; }
+  .cf-home-top .cf-header-search { display:inline-flex; align-items:center; gap:0; flex:0 1 240px; width:240px; max-width:100%; height:38px; min-width:150px; margin:0 2px; padding:0 10px 0 14px; border:1px solid #d7e1e9; border-radius:999px; background:#fff; box-shadow:0 1px 3px rgba(25,55,80,.05); transition:border-color .18s ease,box-shadow .18s ease; }
   .cf-home-top .cf-header-search:focus-within { border-color:#4d9299; box-shadow:0 0 0 3px rgba(22,124,131,.12); }
   .cf-home-top .cf-header-search input { flex:1 1 auto; width:100%; min-width:0; height:100%; margin:0; padding:0 5px 0 0; border:0; outline:0; background:transparent; color:#20394f; font:inherit; font-size:12px; box-shadow:none; }
   .cf-home-top .cf-header-search input::placeholder { color:#7a8b9c; opacity:1; }
-  .cf-home-top .cf-header-search button { display:inline-flex; flex:0 0 30px; align-items:center; justify-content:center; width:30px; height:30px; min-height:30px; padding:0; border:0; border-radius:50%; color:#234f65; background:#eaf3f5; cursor:pointer; }
-  .cf-home-top .cf-header-search button:hover { color:#fff; background:#167c83; }
+  .cf-home-top .cf-header-search button { display:inline-flex; flex:0 0 26px; align-items:center; justify-content:center; width:26px; height:28px; min-height:28px; padding:0; border:0; border-radius:0; color:#315c70; background:transparent; cursor:pointer; }
+  .cf-home-top .cf-header-search button:hover { color:#087d79; background:transparent; }
   .cf-home-top .cf-header-search svg { width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
   .cf-home-top .cf-header-search input:focus-visible, .cf-home-top .cf-header-search button:focus-visible { outline:2px solid #167c83; outline-offset:2px; }
-  @media (max-width:600px) { .cf-home-top .cf-header-search { width:min(100%, 230px); height:35px; } .cf-home-top .cf-header-search input { font-size:11px; } }
+  @media (max-width:600px) { .cf-home-top .cf-header-search { flex:0 1 220px; width:min(220px, 100%); min-width:135px; height:35px; } .cf-home-top .cf-header-search input { font-size:11px; } }
 
   #browse-categories #cf-category-grid {
     display: grid !important;
