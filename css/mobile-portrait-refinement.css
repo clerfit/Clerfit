@@ -148,3 +148,46 @@
     -webkit-clip-path: inset(0 round 22px) !important;
   }
 }
+
+
+/* Remove the misleading tilted backing/decorative layers on portrait phones.
+   The white toolkit panel is the only card surface in this composition. */
+@media screen and (max-width: 700px) and (orientation: portrait) {
+  body .cf-home-hero .cf-hero-art {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  body .cf-home-hero .cf-hero-art::before,
+  body .cf-home-hero .cf-hero-art::after,
+  body .cf-home-hero .cf-art-panel::before,
+  body .cf-home-hero .cf-art-panel::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    transform: none !important;
+  }
+  body .cf-home-hero .cf-orbit,
+  body .cf-home-hero .cf-orbit-one,
+  body .cf-home-hero .cf-orbit-two {
+    display: none !important;
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  body .cf-home-hero .cf-art-panel {
+    transform: none !important;
+    rotate: none !important;
+    box-shadow: 0 14px 30px rgba(5, 24, 48, .18) !important;
+    border-radius: 26px !important;
+    clip-path: inset(0 round 26px) !important;
+    -webkit-clip-path: inset(0 round 26px) !important;
+  }
+}
+@media screen and (max-width: 390px) and (orientation: portrait) {
+  body .cf-home-hero .cf-art-panel {
+    border-radius: 23px !important;
+    clip-path: inset(0 round 23px) !important;
+    -webkit-clip-path: inset(0 round 23px) !important;
+  }
+}
