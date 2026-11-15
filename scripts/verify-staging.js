@@ -56,6 +56,10 @@ assert.ok(read('robots.txt').includes('Sitemap: ' + baseWithoutTrailingSlash + '
 const rootCanonical = read('index.html');
 assert.ok(rootCanonical.includes('rel="canonical" href="' + baseWithoutTrailingSlash + '/"'), 'home canonical URL must match the configured base');
 assert.ok(read('contact.html').includes('rel="canonical" href="' + baseWithoutTrailingSlash + '/contact.html"'), 'contact canonical URL must match the configured base');
+for (const page of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html']) {
+  assert.ok(read(page).includes('rel="canonical" href="' + baseWithoutTrailingSlash + '/' + page + '"'), page + ' canonical URL must match the configured base');
+}
+
 
 const htmlFiles = ['index.html', 'contact.html', 'about-us.html', 'scientific-references.html', 'editorial-standards.html', '404.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html'];
 for (const entry of fs.readdirSync(path.join(DIST, 'html'))) {
