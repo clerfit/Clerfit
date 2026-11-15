@@ -540,3 +540,22 @@
     -webkit-clip-path: inset(0 round 20px) !important;
   }
 }
+
+
+/* Subtle diagonal stroke texture on the white toolkit card only (mobile portrait).
+   No rear card, backing square, or rotation is introduced. */
+@media screen and (max-width: 700px) and (orientation: portrait) {
+  body .cf-home-hero .cf-art-panel {
+    background-image:
+      repeating-linear-gradient(
+        135deg,
+        transparent 0,
+        transparent 22px,
+        rgba(83, 145, 180, .045) 23px,
+        rgba(83, 145, 180, .045) 24px,
+        transparent 25px,
+        transparent 46px
+      ),
+      linear-gradient(145deg, #fff 0%, #f5f9ff 56%, #eaf4fb 100%) !important;
+  }
+}
