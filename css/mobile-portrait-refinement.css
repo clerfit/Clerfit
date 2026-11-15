@@ -191,3 +191,60 @@
     -webkit-clip-path: inset(0 round 23px) !important;
   }
 }
+
+
+/* Mobile portrait: flatten the toolkit card and tighten the hero stack.
+   This removes the skewed blue wedges caused by the rotated panel while
+   preserving the dark hero backdrop and all toolkit content. */
+@media screen and (max-width: 700px) and (orientation: portrait) {
+  body .cf-home-hero {
+    gap: 6px !important;
+    padding-bottom: 14px !important;
+  }
+  body .cf-home-hero .cf-hero-art {
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin-top: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+  }
+  body .cf-home-hero .cf-art-panel {
+    width: min(100%, 340px) !important;
+    padding: 13px !important;
+    margin: 0 auto !important;
+    transform: none !important;
+    rotate: 0deg !important;
+    border-radius: 22px !important;
+    clip-path: inset(0 round 22px) !important;
+    -webkit-clip-path: inset(0 round 22px) !important;
+    box-shadow: 0 10px 22px rgba(5, 24, 48, .14) !important;
+  }
+  body .cf-home-hero .cf-art-top {
+    padding-bottom: 9px !important;
+  }
+  body .cf-home-hero .cf-art-line {
+    gap: 9px !important;
+    padding: 9px 2px !important;
+  }
+  body .cf-home-hero .cf-art-icon {
+    width: 36px !important;
+    height: 36px !important;
+    flex-basis: 36px !important;
+    border-radius: 10px !important;
+  }
+  body .cf-home-hero .cf-art-foot {
+    padding: 10px 3px 0 !important;
+  }
+}
+@media screen and (max-width: 390px) and (orientation: portrait) {
+  body .cf-home-hero .cf-art-panel {
+    padding: 12px !important;
+    border-radius: 20px !important;
+    clip-path: inset(0 round 20px) !important;
+    -webkit-clip-path: inset(0 round 20px) !important;
+  }
+  body .cf-home-hero .cf-art-line {
+    padding-block: 8px !important;
+  }
+}
