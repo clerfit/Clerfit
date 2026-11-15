@@ -74,7 +74,8 @@ function references(html, from) {
   return result;
 }
 async function main() {
-  const sitemapUrl = new URL('sitemap.xml', BASE).href;
+  const sitemapUrl = new URL('sitemap.xml?verification=' + Date.now(), BASE).href;
+  const sitemapReadyMarker = '<loc>' + new URL('about-us.html', BASE).href + '</loc>';
   const navUrl = new URL('js/navigation.js', BASE).href;
   const cssUrl = new URL('css/style.css?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
   const homeUrl = new URL('index.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
@@ -92,7 +93,7 @@ async function main() {
   const macroSplitPageUrl = new URL('html/macro-split.html?release=' + encodeURIComponent(EXPECTED_RELEASE_ID), BASE).href;
   const releaseMarker = 'name="clerfit-release" content="' + EXPECTED_RELEASE_ID + '"';
   const [sitemap, nav, css, home, unit, advanced, bmiHelper, validation, bmiAgePage, bmiChangePage, relativeStrengthPage, weeklyWeightPage, tdeePage, metabolicAgePage, leanMassPage, macroSplitPage] = await Promise.all([
-    fetchText(sitemapUrl), fetchText(navUrl), fetchUntilMarker(cssUrl, 'ClerFit R3 live calculator UI'),
+    fetchUntilMarker(sitemapUrl, sitemapReadyMarker, 30), fetchText(navUrl), fetchUntilMarker(cssUrl, 'ClerFit R3 live calculator UI'),
     fetchUntilMarker(homeUrl, releaseMarker), fetchUntilMarker(unitUrl, EXPECTED_RELEASE_ID),
     fetchUntilMarker(advancedUrl, EXPECTED_RELEASE_ID),
     fetchText(bmiHelperUrl), fetchText(validationUrl), fetchText(bmiAgePageUrl),
