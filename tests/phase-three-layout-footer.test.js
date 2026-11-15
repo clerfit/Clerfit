@@ -28,6 +28,12 @@ assert.match(polish, /header:not\(\.clerfit-page-header\):not\(\.cf-legal-headin
 assert.ok(polish.includes('const isLegacyBrand=/clerfit\\s*(?:health\\s*&?\\s*performance|health.*fitness calculators)|all rights reserved/.test(text);'),
   'legacy header cleanup must target known branding instead of deleting every header that mentions ClerFit');
 assert.match(chrome, /function ensureSiteFooter\(\)/, 'shared page chrome must define footer injection');
+assert.ok(chrome.includes('const footerDestinations = ['), 'existing page-specific footers must receive the trust and legal destinations');
+for (const page of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html', 'contact.html']) {
+  assert.ok(chrome.includes('"' + page + '"'), 'shared footer must add ' + page + ' to existing page footers');
+}
+assert.ok(chrome.includes('if (!alreadyLinked)'), 'shared footer link injection must avoid duplicates');
+
 assert.ok(polish.includes("if(!document.querySelector('footer'))"), 'legacy site polish must not append a second footer when a page footer already exists');
 assert.ok(chrome.includes('replace(/\\s+/g, " ").trim()'), 'legacy footer text normalization must collapse real whitespace');
 assert.ok(chrome.includes('/^ClerFit\\s*[·—-]\\s*Health\\s*&\\s*Performance\\s*Tools$/i'), 'known compact legacy footer variants must be recognized by a whitespace-aware pattern');
