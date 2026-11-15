@@ -40,6 +40,8 @@ assert.ok(chrome.includes('/^ClerFit\\s*[·—-]\\s*Health\\s*&\\s*Performance\\
 assert.ok(fs.readFileSync(path.join(root, 'scripts/browser-smoke.js'), 'utf8').includes('footerFailures:routeResults'), 'live browser smoke must verify the shared footer on every registered calculator route');
 assert.match(chrome, /const existingFooter = document\.querySelector\("footer"\);[\s\S]*?existingFooter\.classList\.add\("cf-footer"\)/, 'existing footers must receive shared styling without duplication');
 assert.match(chrome, /new URL\("index\.html", root\)/, 'footer home link must respect root versus html/ paths');
+assert.ok(chrome.includes('document.baseURI'), 'shared footer root resolution must respect the custom 404 base URL on deep paths');
+
 assert.match(chrome, /new URL\("contact\.html", root\)/, 'footer contact link must respect root versus html/ paths');
 for (const page of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html']) {
   assert.ok(chrome.includes(new URL(page, 'https://clerfit.github.io/').href) || chrome.includes('new URL("' + page + '", root)'),
