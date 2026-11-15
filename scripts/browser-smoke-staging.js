@@ -176,6 +176,7 @@ async function runRoute(browser, route) {
   page.on('console', msg=>{ if(msg.type()==='error') consoleErrors.push(msg.text()); });
   let loaded=false, inputCount=0, clicked=false, bodyOverflow=false, outputsBefore=[], outputsAfter=[];
   let navState={present:false,nearTop:false,staticFlow:false,homeLink:false,contactLink:false,insideMain:false};
+  let footerState={present:false,stylesheetLoaded:false,gridApplied:false,iconCount:0,animationApplied:false};
   try {
     const response = await page.goto(url, {waitUntil:'domcontentloaded',timeout:20000});
     if (!response || !response.ok()) throw new Error('page HTTP status ' + (response ? response.status() : 'no response'));
@@ -258,6 +259,30 @@ async function runRoute(browser, route) {
         }
       };
     });
+    await page.waitForFunction(() => {
+      const link = document.querySelector('link[data-cf-portrait-footer="true"]');
+      return !!(link && link.sheet);
+    }, null, { timeout: 5000 }).catch(() => {});
+    footerState = await page.evaluate(() => {
+      const link = document.querySelector('link[data-cf-portrait-footer="true"]');
+      const footer = document.querySelector('footer.cf-footer');
+      const row = footer && footer.querySelector('.cf-footer-category-icons');
+      if (!row) return {
+        present: false, stylesheetLoaded: !!(link && link.sheet),
+        gridApplied: false, iconCount: 0, animationApplied: false
+      };
+      const style = getComputedStyle(row);
+      const firstIcon = row.querySelector('span');
+      const iconStyle = firstIcon ? getComputedStyle(firstIcon) : null;
+      return {
+        present: true,
+        stylesheetLoaded: !!(link && link.sheet),
+        gridApplied: style.display === 'grid' && style.gridTemplateColumns.split(' ').length === 6,
+        iconCount: row.querySelectorAll('span').length,
+        animationApplied: !!(iconStyle && iconStyle.animationName === 'cf-site-portrait-icon-drift' &&
+          parseFloat(iconStyle.animationDuration) >= 7.9)
+      };
+    });
     bodyOverflow = await page.evaluate(()=>document.documentElement.scrollWidth > window.innerWidth + 1);
     loaded=true;
   } catch (error) {
@@ -265,11 +290,16 @@ async function runRoute(browser, route) {
   } finally {
     await page.close().catch(()=>{});
   }
-  const row={file:pageName,url,loaded,inputCount,actionClicked:clicked,bodyOverflow,navState,pageErrors,consoleErrors,outputs:outputsAfter.length,validationOutputs:outputsAfter.filter(x=>x.validation).map(x=>x.text).slice(0,4),outputSample:outputsAfter.map(x=>x.text).join(' | ').slice(0,260)};
+  const row={file:pageName,url,loaded,inputCount,actionClicked:clicked,bodyOverflow,navState,footerState,pageErrors,consoleErrors,outputs:outputsAfter.length,validationOutputs:outputsAfter.filter(x=>x.validation).map(x=>x.text).slice(0,4),outputSample:outputsAfter.map(x=>x.text).join(' | ').slice(0,260)};
   if (!loaded) failures.push(pageName + ' failed to load/execute: ' + pageErrors.join(' | '));
   if (inputCount===0) failures.push(pageName + ' has no visible interactive input.');
   if (!clicked && !/unit\.html$/i.test(pageName)) failures.push(pageName + ' has no actionable Calculate/Convert control.');
   if (bodyOverflow) failures.push(pageName + ' overflows the 390px mobile viewport.');
+  if (!footerState.present || !footerState.stylesheetLoaded || !footerState.gridApplied ||
+      footerState.iconCount !== 11 || !footerState.animationApplied) {
+    failures.push(pageName + ' mobile portrait footer refinement is missing or not applied: ' + JSON.stringify(footerState));
+  }
+
   if (!navState.present) failures.push(pageName + ' is missing visible Home/Contact quick navigation.');
   if (!navState.nearTop || !navState.insideMain) failures.push(pageName + ' Home/Contact navigation is not positioned at the top of the main page content.');
   if (!navState.staticFlow) failures.push(pageName + ' Home/Contact navigation overlaps the page as a fixed/sticky overlay.');
@@ -705,6 +735,7 @@ async function main() {
       routeCount:registry.length, routesLoaded:routeResults.filter(r=>r.loaded).length,
       actionsClicked:routeResults.filter(r=>r.actionClicked).length,
       mobileOverflow:routeResults.filter(r=>r.bodyOverflow).map(r=>r.file),
+      footerFailures:routeResults.filter(r=>!r.footerState.present || !r.footerState.stylesheetLoaded || !r.footerState.gridApplied || r.footerState.iconCount!==11 || !r.footerState.animationApplied).map(r=>({file:r.file,footerState:r.footerState})),
       navigationFailures:routeResults.filter(r=>!r.navState.present || !r.navState.nearTop || !r.navState.staticFlow || !r.navState.homeLink || !r.navState.contactLink || !r.navState.insideMain).map(r=>({file:r.file,navState:r.navState})),
       pageErrors:routeResults.filter(r=>r.pageErrors.length).map(r=>({file:r.file,errors:r.pageErrors})),
       consoleErrors:routeResults.filter(r=>r.consoleErrors.length).map(r=>({file:r.file,errors:r.consoleErrors})),
@@ -723,6 +754,7 @@ async function main() {
         '- Routes loaded: '+report.routesLoaded,
         '- Action buttons clicked: '+report.actionsClicked,
         '- Mobile overflows: '+report.mobileOverflow.length,
+        '- Mobile portrait footer failures: '+report.footerFailures.length,
         '- Page errors: '+report.pageErrors.length,
         '- Console errors: '+report.consoleErrors.length,
         '- Targeted unit checks: '+targeted.length,
@@ -739,7 +771,7 @@ async function main() {
       ].join('\n');
       fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary+'\n');
     }
-    console.log(JSON.stringify({status:report.status,routeCount:report.routeCount,routesLoaded:report.routesLoaded,actionsClicked:report.actionsClicked,mobileOverflow:report.mobileOverflow.length,pageErrors:report.pageErrors.length,consoleErrors:report.consoleErrors.length,targetedUnitChecks:targeted.length,failures:report.failures},null,2));
+    console.log(JSON.stringify({status:report.status,routeCount:report.routeCount,routesLoaded:report.routesLoaded,actionsClicked:report.actionsClicked,mobileOverflow:report.mobileOverflow.length,footerFailures:report.footerFailures.length,pageErrors:report.pageErrors.length,consoleErrors:report.consoleErrors.length,targetedUnitChecks:targeted.length,failures:report.failures},null,2));
     if(failures.length)process.exit(1);
   } finally { await browser.close(); }
 }
