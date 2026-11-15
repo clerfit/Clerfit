@@ -360,3 +360,69 @@
     -webkit-clip-path: inset(0 round 18px) !important;
   }
 }
+
+
+/* Hero illustration correction: restore the separate diagonal backing card.
+   Keep its complete rounded outline visible behind the white YOUR TOOLKIT card. */
+@media screen and (max-width: 700px) and (orientation: portrait) {
+  body .cf-home-hero {
+    padding-top: 58px !important;
+    padding-bottom: 14px !important;
+    gap: 8px !important;
+    min-height: 0 !important;
+  }
+  body .cf-home-hero .cf-hero-art {
+    position: relative !important;
+    display: grid !important;
+    place-items: center !important;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 9px 8px 12px !important;
+    overflow: visible !important;
+    isolation: isolate !important;
+  }
+  /* This is the rear card, deliberately separate from the white front card. */
+  body .cf-home-hero .cf-hero-art::before {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    z-index: 0 !important;
+    width: min(86%, 258px) !important;
+    height: calc(100% - 20px) !important;
+    top: 8px !important;
+    left: 50% !important;
+    border: 1px solid rgba(151, 205, 231, .58) !important;
+    border-radius: 21px !important;
+    background: linear-gradient(145deg, #d9e9f6 0%, #b8d0e5 100%) !important;
+    box-shadow: 0 8px 18px rgba(4, 20, 42, .2) !important;
+    transform: translateX(-50%) rotate(4deg) !important;
+    transform-origin: center !important;
+    clip-path: inset(0 round 21px) !important;
+    -webkit-clip-path: inset(0 round 21px) !important;
+    pointer-events: none !important;
+  }
+  body .cf-home-hero .cf-hero-art::after {
+    content: none !important;
+    display: none !important;
+  }
+  body .cf-home-hero .cf-art-panel {
+    position: relative !important;
+    z-index: 1 !important;
+    width: min(100%, 286px) !important;
+    max-width: 286px !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    clip-path: inset(0 round 20px) !important;
+    -webkit-clip-path: inset(0 round 20px) !important;
+    transform: none !important;
+    rotate: none !important;
+    box-shadow: 0 6px 16px rgba(5, 24, 48, .16) !important;
+  }
+}
+@media screen and (max-width: 390px) and (orientation: portrait) {
+  body .cf-home-hero .cf-hero-art::before {
+    border-radius: 19px !important;
+    clip-path: inset(0 round 19px) !important;
+    -webkit-clip-path: inset(0 round 19px) !important;
+  }
+}
