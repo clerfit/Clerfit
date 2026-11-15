@@ -75,6 +75,38 @@
           '<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19m0-14-1.5 1.5m-11 11L5 19"/></svg></span>';
         existingFooter.insertBefore(iconRow, existingFooter.firstChild);
       }
+      // Preserve page-specific footer content while ensuring every page exposes
+      // the same trust, reference, privacy and legal destinations.
+      const footerRoot = new URL(location.pathname.includes("/html/") ? "../" : "./", location.href);
+      let footerNav = existingFooter.querySelector(".cf-footer-links");
+      if (!footerNav) {
+        footerNav = document.createElement("nav");
+        footerNav.className = "cf-footer-links";
+        footerNav.setAttribute("aria-label", "Footer navigation");
+        (existingFooter.querySelector(".cf-footer-main") || existingFooter).appendChild(footerNav);
+      }
+      const footerDestinations = [
+        ["about-us.html", "About Us"],
+        ["scientific-references.html", "Scientific References"],
+        ["editorial-standards.html", "Editorial Standards"],
+        ["privacy.html", "Privacy"],
+        ["terms-of-use.html", "Terms"],
+        ["educational-disclaimer.html", "Disclaimer"],
+        ["contact.html", "Contact"]
+      ];
+      footerDestinations.forEach(([file, label]) => {
+        const target = new URL(file, footerRoot);
+        const alreadyLinked = [...footerNav.querySelectorAll("a[href]")].some(anchor => {
+          try { return new URL(anchor.getAttribute("href"), location.href).pathname === target.pathname; }
+          catch (_) { return false; }
+        });
+        if (!alreadyLinked) {
+          const link = document.createElement("a");
+          link.href = target.href;
+          link.textContent = label;
+          footerNav.appendChild(link);
+        }
+      });
       return;
     }
     const main = document.querySelector("main.main, main, .main");
