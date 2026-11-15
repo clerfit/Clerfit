@@ -13,7 +13,7 @@ const css = fs.readFileSync(path.join(root, 'css/style.css'), 'utf8');
 assert.doesNotMatch(chrome, /fresh\.searchParams\.set\(["']v["']/,
   'shared page chrome must not rewrite a stylesheet URL after the initial CSS request');
 const publicHtml = [
-  '404.html', 'contact.html', 'educational-disclaimer.html', 'privacy.html', 'terms-of-use.html',
+  '404.html', 'contact.html', 'about-us.html', 'scientific-references.html', 'editorial-standards.html', 'educational-disclaimer.html', 'privacy.html', 'terms-of-use.html',
   ...fs.readdirSync(path.join(root, 'html')).filter(name => name.endsWith('.html')).map(name => path.join('html', name))
 ].map(file => path.join(root, file)).filter(file => fs.existsSync(file));
 const staleCssUrls = publicHtml.filter(file => {
@@ -35,6 +35,24 @@ assert.ok(fs.readFileSync(path.join(root, 'scripts/browser-smoke.js'), 'utf8').i
 assert.match(chrome, /const existingFooter = document\.querySelector\("footer"\);[\s\S]*?existingFooter\.classList\.add\("cf-footer"\)/, 'existing footers must receive shared styling without duplication');
 assert.match(chrome, /new URL\("index\.html", root\)/, 'footer home link must respect root versus html/ paths');
 assert.match(chrome, /new URL\("contact\.html", root\)/, 'footer contact link must respect root versus html/ paths');
+for (const page of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html']) {
+  assert.ok(chrome.includes(new URL(page, 'https://clerfit.github.io/').href) || chrome.includes('new URL("' + page + '", root)'),
+    'shared footer must provide a root-aware link to ' + page);
+}
+const homepage = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+for (const page of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html']) {
+  assert.ok(homepage.includes('href="' + page + '"'), 'homepage footer must link to ' + page);
+}
+for (const page of ['about-us.html', 'scientific-references.html', 'editorial-standards.html']) {
+  const html = fs.readFileSync(path.join(root, page), 'utf8');
+  assert.ok(html.includes('js/page-chrome.js'), page + ' must load shared footer chrome');
+}
+const privacy = fs.readFileSync(path.join(root, 'privacy.html'), 'utf8');
+assert.match(privacy, /does not offer account creation, login, registration, saved user profiles/i,
+  'privacy notice must explicitly preserve the no-account/no-profile policy');
+assert.match(privacy, /not intentionally transmit calculator inputs or results to a ClerFit measurement database/i,
+  'privacy notice must explain local calculator processing');
+
 assert.match(chrome, /main\.appendChild\(footer\)/, 'shared footer must be attached to calculator content');
 assert.ok(polish.includes('function normalizeTables(scope)') && polish.includes('normalizeTables(document)'),
   'all existing calculator tables must be normalized on initial load');
