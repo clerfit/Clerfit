@@ -65,23 +65,51 @@ function loadCatalog() {
   return context.window.CLERFIT_GUIDE_CATALOG;
 }
 
-test("guide catalog covers every calculator in the verification matrix exactly once", () => {
+test("guide catalog covers all 164 active calculator routes exactly once", () => {
+  const navigation = fs.readFileSync(path.join(root, "js", "navigation.js"), "utf8");
+  const registryMatch = navigation.match(/const CALCULATORS = (\\[.*?\\]);/s);
+  assert.ok(registryMatch, "Could not read the active calculator registry.");
+  const registry = JSON.parse(registryMatch[1]);
   const matrix = parseCsv(fs.readFileSync(matrixPath, "utf8"));
   const catalog = loadCatalog();
-  const matrixFiles = matrix.map((record) => record.file).filter(Boolean);
+  const registryFiles = registry.map((record) => record.file);
   const catalogFiles = catalog.map((record) => record.file);
+  const matrixByFile = new Map(matrix.map((record) => [record.file, record]));
 
-  assert.equal(matrixFiles.length, 118, "Update this expected count when the verified inventory changes.");
-  assert.equal(catalog.length, matrixFiles.length);
+  assert.equal(registry.length, 164, "Update this expected count only when the active calculator registry changes.");
+  assert.equal(new Set(registryFiles).size, 164, "The active calculator registry must not contain duplicate files.");
+  assert.equal(catalog.length, registry.length);
   assert.equal(new Set(catalogFiles).size, catalogFiles.length, "Catalog file names must be unique.");
-  assert.deepEqual([...catalogFiles].sort(), [...matrixFiles].sort());
+  assert.deepEqual([...catalogFiles].sort(), [...registryFiles].sort());
 
   catalog.forEach((record) => {
-    assert.ok(record.title, `Missing title for ${record.file}`);
-    assert.ok(record.category, `Missing category for ${record.file}`);
-    assert.ok(record.slug, `Missing route slug for ${record.file}`);
-    assert.ok(record.method, `Missing method summary for ${record.file}`);
-    assert.ok(record.reference, `Missing reference/method note for ${record.file}`);
+    const route = registry.find((item) => item.file === record.file);
+    assert.ok(route, `Catalog entry is not an active route: ${record.file}`);
+    assert.equal(record.title, route.title, `Title mismatch for ${record.file}`);
+    assert.equal(record.category, route.category, `Category mismatch for ${record.file}`);
+    assert.equal(record.slug, route.slug, `Slug mismatch for ${record.file}`);
+    assert.ok(record.method, `Missing method guidance for ${record.file}`);
+    assert.ok(record.reference, `Missing formula/reference note for ${record.file}`);
+    if (matrixByFile.has(record.file)) {
+      assert.ok(matrixByFile.get(record.file).formula_or_method_summary);
+    }
+  });
+
+  assert.equal(matrix.length, 118, "The verification matrix is a separate, smaller evidence inventory.");
+});
+
+test("every active calculator route loads shared page chrome and has calculator controls", () => {
+  const navigation = fs.readFileSync(path.join(root, "js", "navigation.js"), "utf8");
+  const registryMatch = navigation.match(/const CALCULATORS = (\\[.*?\\]);/s);
+  assert.ok(registryMatch, "Could not read the active calculator registry.");
+  const registry = JSON.parse(registryMatch[1]);
+
+  registry.forEach(({ file }) => {
+    const pagePath = path.join(root, "html", file);
+    assert.ok(fs.existsSync(pagePath), `Missing active calculator page: html/${file}`);
+    const html = fs.readFileSync(pagePath, "utf8");
+    assert.match(html, /page-chrome\\.js/i, `Shared guide loader missing from html/${file}`);
+    assert.match(html, /<(?:input|select|textarea)\\b/i, `No calculator input control found in html/${file}`);
   });
 });
 
