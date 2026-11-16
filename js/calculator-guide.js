@@ -6,7 +6,12 @@
   "use strict";
 
   const text = (value) => (value || "").replace(/\\s+/g, " ").trim();
+  const pageFile = decodeURIComponent(location.pathname.split("/").pop() || "").toLowerCase();
+  const catalogEntry = (window.CLERFIT_GUIDE_CATALOG || []).find((entry) =>
+    (entry.file || "").toLowerCase() === pageFile
+  );
   const titleFromPage = () => {
+    if (catalogEntry && catalogEntry.title) return catalogEntry.title;
     const heading = document.querySelector(".card h2, .calculator-card h2, main h1, .main h1");
     return text(heading && heading.textContent) || text(document.title).replace(/^ClerFit\\s*[–—-]\\s*/i, "");
   };
@@ -17,7 +22,7 @@
     .slice(0, 12);
 
   function classify(title, labels) {
-    const value = (title + " " + labels.join(" ")).toLowerCase();
+    const value = (title + " " + labels.join(" ") + " " + (catalogEntry?.category || "") + " " + (catalogEntry?.method || "")).toLowerCase();
     if (/face|facial|jaw|chin|nose|forehead|cheek|eye|lip|brow|aesthetic/.test(value)) return "face";
     if (/skinfold|jackson|durnin|navy|somatotype/.test(value)) return "skinfold";
     if (/waist|hip|chest|neck|thigh|arm|shoulder|calf|wrist|ankle|girth|circumference|width|diameter|ratio/.test(value)) return "circumference";
@@ -173,15 +178,32 @@
     section(content, "Limitations and safety", guide.limits);
 
     const formula = document.querySelector("#formula, .formula, [data-formula]");
-    if (formula && text(formula.textContent)) {
+    const pageMethod = text(catalogEntry?.method) || text(formula?.textContent);
+    if (pageMethod) {
       const method = document.createElement("div");
       method.className = "cf-education-formula cf-guide-method";
       const label = document.createElement("strong");
       label.textContent = "Method shown on this calculator";
       const detail = document.createElement("p");
-      detail.textContent = text(formula.textContent);
+      detail.textContent = pageMethod;
       method.append(label, detail);
       content.insertBefore(method, content.children[1] || null);
+    }
+    if (catalogEntry?.reference) {
+      const source = document.createElement("div");
+      source.className = "cf-guide-source";
+      const sourceHeading = document.createElement("strong");
+      sourceHeading.textContent = "Method / reference noted in the calculator verification record";
+      const sourceText = document.createElement("p");
+      sourceText.textContent = catalogEntry.reference;
+      source.append(sourceHeading, sourceText);
+      content.appendChild(source);
+    }
+    if (catalogEntry?.referenceStatus) {
+      const status = document.createElement("p");
+      status.className = "cf-guide-source-status";
+      status.textContent = "Evidence note: " + catalogEntry.referenceStatus;
+      content.appendChild(status);
     }
 
     if (labels.length) {
