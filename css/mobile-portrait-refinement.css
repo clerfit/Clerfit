@@ -612,3 +612,79 @@
   body .cf-home-hero .cf-orbit-one { width: 228px !important; }
   body .cf-home-hero .cf-orbit-two { width: 188px !important; }
 }
+
+
+/* Footer-only mobile portrait refinement: compact the decorative icon band and
+   give the floating icons clear room without affecting tablet/desktop. */
+@media screen and (max-width: 600px) and (orientation: portrait) {
+  body .cf-footer {
+    margin-top: 22px !important;
+    padding: 0 12px 0 !important;
+    overflow: hidden !important;
+  }
+  body .cf-footer-category-icons {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    grid-auto-rows: 22px !important;
+    align-items: center !important;
+    justify-items: center !important;
+    justify-content: stretch !important;
+    gap: 5px 8px !important;
+    width: min(100%, 300px) !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    padding: 12px 4px 10px !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+  }
+  body .cf-footer-category-icons span {
+    position: relative !important;
+    flex: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+    animation: cf-footer-phone-drift 4.8s ease-in-out infinite alternate !important;
+    transform-origin: center !important;
+  }
+  body .cf-footer-category-icons span:nth-child(2n) { animation-delay: -1.6s !important; }
+  body .cf-footer-category-icons span:nth-child(3n) { animation-delay: -2.8s !important; }
+  body .cf-footer-category-icons span:nth-child(5n) { animation-delay: -3.7s !important; }
+  body .cf-footer-main {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    width: 100% !important;
+    padding: 12px 0 16px !important;
+  }
+  body .cf-footer-brand { gap: 8px !important; font-size: 16px !important; }
+  body .cf-footer-brand .cf-real-footer-logo {
+    width: 28px !important;
+    height: 28px !important;
+    flex: 0 0 28px !important;
+  }
+  body .cf-footer-main p { font-size: 11px !important; line-height: 1.45 !important; }
+  body .cf-footer-links {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    gap: 8px 14px !important;
+    width: 100% !important;
+  }
+  body .cf-footer-links a { font-size: 11px !important; line-height: 1.5 !important; }
+  body .cf-footer-bottom {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+    padding: 10px 0 14px !important;
+    margin: 0 !important;
+    font-size: 10px !important;
+  }
+}
+@keyframes cf-footer-phone-drift {
+  from { transform: translate3d(0, 3px, 0) rotate(-2deg); }
+  to { transform: translate3d(0, -3px, 0) rotate(2deg); }
+}
