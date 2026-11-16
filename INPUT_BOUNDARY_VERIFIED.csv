@@ -263,16 +263,16 @@ ffmi-comparison.html,weightB,Person B body weight,2,500,any
 ffmi-comparison.html,fatB,Person B body-fat percentage,0,75,any
 ffmi-comparison.html,heightB,Person B height,80,250,any
 waist-circumference-reference.html,waist,Waist circumference,30,250,any
-waist-height-comparison.html,waistA,Person A waist circumference,30,250,any
-waist-height-comparison.html,heightA,Person A height,80,250,any
-waist-height-comparison.html,waistB,Person B waist circumference,30,250,any
-waist-height-comparison.html,heightB,Person B height,80,250,any
+waist-height-comparison.html,waistA,Person A — waist circumference,30,250,any
+waist-height-comparison.html,heightA,Person A — height,80,250,any
+waist-height-comparison.html,waistB,Person B — waist circumference,30,250,any
+waist-height-comparison.html,heightB,Person B — height,80,250,any
 body-volume.html,mass,Mass,0.1,500,any
 body-volume.html,density,Density,0.01,2,any
 body-density.html,mass,Mass,0.1,500,any
 body-density.html,volume,Volume,0.01,1000,any
-anthropometric-z-score.html,value,Observed measurement,-100000,100000,any
-anthropometric-z-score.html,mean,Reference mean,-100000,100000,any
+anthropometric-z-score.html,value,Observed measurement,0.000001,100000,any
+anthropometric-z-score.html,mean,Reference mean,0.000001,100000,any
 anthropometric-z-score.html,sd,Reference standard deviation,0.000001,100000,any
 body-measurement-symmetry.html,left,Left-side measurement,0.1,250,any
 body-measurement-symmetry.html,right,Right-side measurement,0.1,250,any
