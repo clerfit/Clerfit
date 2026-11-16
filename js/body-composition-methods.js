@@ -31,7 +31,7 @@ jp7:()=>row(sex(),input("age","Age (years)",18,61,1))+row(input("chest","Chest (
 "chest-height-ratio":()=>row(input("a","Chest circumference",0.1,300),input("b","Height",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]],"a,b")),
 "hip-height-ratio":()=>row(input("a","Hip circumference",0.1,300),input("b","Height",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]],"a,b")),
 "upper-arm-height-ratio":()=>row(input("a","Upper-arm circumference",0.1,150),input("b","Height",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]],"a,b")),
-"biacromial-width-ratio":()=>row(input("a","Biacromial shoulder breadth",0.1,100),input("b","Height",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]])),
+"biacromial-width-ratio":()=>row(input("a","Biacromial shoulder breadth",0.1,100),input("b","Height",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]],"a,b")),
 "body-fat-change":()=>row(input("a","Earlier body-fat reading (%)",0,75),input("b","Current body-fat reading (%)",0,75)),
 "fat-free-mass-change":()=>row(input("wa","Earlier body weight",1,500),select("waUnit","Earlier weight unit",massUnits(),"wa"),input("fa","Earlier body fat (%)",0,75))+row(input("wb","Current body weight",1,500),select("wbUnit","Current weight unit",massUnits(),"wb"),input("fb","Current body fat (%)",0,75))
 };
