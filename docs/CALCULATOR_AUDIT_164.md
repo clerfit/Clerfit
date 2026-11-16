@@ -19,7 +19,7 @@ The register and matrix now each contain 164 unique calculator file entries. `te
 - Extracted these calculations into named functions and added known-answer and invalid-domain tests.
 - Extracted body-composition calculations into named functions so formula behaviour can be tested separately from page rendering.
 - Added explicit input-domain and known-answer tests for Jackson–Pollock 3-site and 7-site equations, Durnin–Womersley, YMCA body-fat estimation, measured-value proportions, water compartments, ratios, body-fat change and fat-free-mass change.
-- Corrected the Durnin–Womersley age range: the page now begins at age 17 and uses the 17–19 coefficient band, rather than assigning an unsupported age-16 coefficient row.
+- Verified the Durnin–Womersley age bands against the published coefficient table: age 16 uses the under-17 coefficients, ages 17–19 use the next band, and subsequent adult bands continue through 72 years.
 - Added route-wiring checks for all 22 body-composition pages. The existing anthropometric suite covers all 24 additional anthropometric pages.
 - Added a check that skinfold-derived body-fat estimates outside the supported 0–75% output range are rejected.
 
