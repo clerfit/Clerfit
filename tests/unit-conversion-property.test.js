@@ -30,7 +30,7 @@ near(units.convert(1, 'mi', 'km'), 1.609344, 1e-9, 'miles to kilometres');
 near(units.convert(1000, 'ml', 'l'), 1, 1e-12, 'millilitres to litres');
 near(units.convert(1, 'gal', 'l'), 3.785411784, 1e-9, 'US gallons to litres');
 near(units.convert(1, 'in2', 'cm2'), 6.4516, 1e-10, 'square inches to square centimetres');
-near(units.convert(120, 'cm²', 'in²'), 18.600929, 1e-6, 'superscript square-unit aliases');
+near(units.convert(120, 'cm²', 'in²'), 18.6000372, 1e-6, 'superscript square-unit aliases');
 near(units.convert(units.convert(120, 'cm2', 'in2'), 'in2', 'cm2'), 120, 1e-9, 'area round trip');
 
 near(units.convert(units.convert(70, 'kg', 'lb'), 'lb', 'kg'), 70, 1e-9, 'mass round trip');
