@@ -66,4 +66,34 @@ assert.throws(() => api.calculateBodyVolume(NaN, 1), /positive finite value/);
 assert.throws(() => api.calculateBodyDensity(70, Infinity), /positive finite value/);
 assert.throws(() => api.calculateZScore(NaN, 60, 5), /finite numbers/);
 
-process.stdout.write('Anthropometric domain regressions passed (22 assertions).\\n');
+
+/* Unit-conversion, comparison and indexed-mass regression coverage. */
+assert.equal(api.toCm(1, 'in', 'Length'), 2.54);
+assert.equal(api.toCm(1, 'ft', 'Length'), 30.48);
+assert.ok(Math.abs(api.toKg(1, 'lb') - 0.45359237) < 1e-12);
+assert.throws(() => api.toCm(10, 'yards', 'Length'), /supported length unit/);
+assert.throws(() => api.toKg(10, 'stone'), /kilograms/);
+assert.throws(() => api.ratioMetrics(90, 'cm', 0, 'cm', 40, 200, 40, 200, 'A', 'B'), /positive finite/);
+assert.throws(() => api.ratioMetrics(10, 'cm', 20, 'cm', 40, 200, 40, 200, 'A', 'B'), /between 40 and 200/);
+const ratio = api.ratioMetrics(10, 'in', 25.4, 'cm', 10, 200, 10, 200, 'A', 'B');
+assert.ok(Math.abs(ratio.ratio - 1) < 1e-12);
+const span = api.armSpanDifferenceMetrics(180, 'cm', 70.8661417323, 'in');
+assert.ok(Math.abs(span.differenceCm) < 1e-8);
+assert.throws(() => api.armSpanDifferenceMetrics(0, 'cm', 180, 'cm'), /positive finite/);
+const relative = api.calculateRelativeMuscleMass(30, 'kg', 75, 'kg');
+assert.equal(relative.percent, 40);
+const skeletal = api.calculateSkeletalMuscleMass(30, 'kg', 75, 'kg', 180, 'cm');
+assert.ok(Math.abs(skeletal.index - (30 / 3.24)) < 1e-12);
+assert.throws(() => api.calculateSkeletalMuscleMass(80, 'kg', 75, 'kg', 180, 'cm'), /cannot exceed/);
+const almi = api.calculateALMI(20, 'kg', 2, 'm');
+assert.equal(almi.index, 5);
+const fmi = api.calculateFMI(18, 'kg', 180, 'cm');
+assert.ok(Math.abs(fmi.index - (18 / 3.24)) < 1e-12);
+const ffmi = api.calculateFFMI(80, 'kg', 15, 180, 'cm', 176.369809, 'lb', 15, 70.8661417, 'in');
+assert.ok(Math.abs(ffmi.a.index - ffmi.b.index) < 1e-7);
+assert.equal(ffmi.higher, 'equal');
+assert.throws(() => api.calculateBAI(100, 'cm', 180, 'cm', 30.5), /adults aged/);
+assert.throws(() => api.calculateFMI(0, 'kg', 180, 'cm'), /positive finite/);
+assert.throws(() => api.calculateFFMI(80, 'kg', 80, 180, 'cm', 80, 'kg', 15, 180, 'cm'), /between 0 and 75/);
+
+process.stdout.write('Anthropometric domain regressions passed (43 assertions).\\n');
