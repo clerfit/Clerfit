@@ -27,6 +27,8 @@ function calculateABSI() {
   const height = Number(document.getElementById('height').value);
   const heightUnit = document.getElementById('heightUnit').value;
   const weight = Number(document.getElementById('weight').value);
+  const weightUnit = document.getElementById('weightUnit').value;
+  const weightKg = weightUnit === 'lb' ? weight * 0.45359237 : weight;
 
   // Empty inputs convert to zero with Number(); validate the original fields first.
   result.textContent = '';
@@ -56,12 +58,12 @@ function calculateABSI() {
   }
 
   // Guard semantic plausibility in canonical units, independent of selected units.
-  if (heightM < 0.5 || heightM > 2.74 || waistM < 0.2 || waistM > 3.0 || weight < 2 || weight > 500) {
+  if (heightM < 0.5 || heightM > 2.74 || waistM < 0.2 || waistM > 3.0 || weightKg < 2 || weightKg > 500) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">Check that height, waist, and weight are plausible for the person being measured.</p>';
     return;
   }
 
-  const bmi = weight / (heightM * heightM);
+  const bmi = weightKg / (heightM * heightM);
   if (!Number.isFinite(bmi) || bmi <= 0) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">These values cannot produce a valid BMI-based calculation.</p>';
     return;
@@ -77,6 +79,14 @@ function calculateABSI() {
   const indicator = document.getElementById('indicator');
   if (indicator && indicator.parentElement) indicator.parentElement.hidden = true;
 }
+document.addEventListener('DOMContentLoaded', () => {
+  ['waist', 'height', 'weight', 'waistUnit', 'heightUnit', 'weightUnit'].forEach(id => {
+    const field = document.getElementById(id);
+    if (!field) return;
+    field.addEventListener('input', () => { const result = document.getElementById('result'); if (result) result.textContent = ''; });
+    field.addEventListener('change', () => { const result = document.getElementById('result'); if (result) result.textContent = ''; });
+  });
+});
 </script>
 
   <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/absi.html">
@@ -158,8 +168,9 @@ function calculateABSI() {
       <option value="ft">ft</option>
     </select>
 
-    <label for="weight">Weight (kg)</label>
+    <label for="weight">Weight</label>
     <input id="weight" type="number" min="0.1" max="500" step="any">
+    <select id="weightUnit" data-unit-for="weight" aria-label="Weight unit"><option value="kg">kg</option><option value="lb">lb</option></select>
 
     <button class="calculate-btn" onclick="calculateABSI()">Calculate</button>
 
