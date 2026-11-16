@@ -49,7 +49,7 @@ assert.ok(muac.fatAreaPercent > 0 && muac.fatAreaPercent < 100);
 const bai = api.calculateBAI(100, 'cm', 180, 'cm', 30);
 assert.ok(Math.abs(bai.value - (100 / Math.pow(1.8, 1.5) - 18)) < 1e-12);
 assert.throws(() => api.calculateBAI(100, 'cm', 180, 'cm', 17), /adults aged 18–120/);
-assert.throws(() => api.muacMetrics(10, 'cm', 60, 'mm'), /too large for this MUAC/);
+assert.throws(() => api.muacMetrics(10, 'cm', 40, 'mm'), /too large for this MUAC/);
 
 for (const [name, operation] of [
   ['waist-height zero denominator', () => api.calculateWaistHeightComparison(80, 170, 90, 0)],
