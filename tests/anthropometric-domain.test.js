@@ -34,6 +34,23 @@ const symmetry = api.calculateMeasurementSymmetry(40, 42);
 assert.equal(symmetry.absoluteDifference, 2);
 assert.ok(Math.abs(symmetry.relativeDifferencePercent - (2 / 41) * 100) < 1e-12);
 
+const circle = api.circleMetrics('neck-circumference', 37, 'cm');
+assert.ok(Math.abs(circle.diameterCm - 37 / Math.PI) < 1e-12);
+assert.ok(Math.abs(circle.areaCm2 - (37 * 37) / (4 * Math.PI)) < 1e-12);
+const cylinder = api.circleMetrics('mid-thigh-circumference', 50, 'cm', 40, 'cm');
+assert.ok(Math.abs(cylinder.volumeCm3 - (50 * 50) / (4 * Math.PI) * 40) < 1e-10);
+
+const muac = api.muacMetrics(30, 'cm', 10, 'mm');
+const expectedMuscleCircumference = 30 - Math.PI;
+assert.ok(Math.abs(muac.muscleCircumferenceCm - expectedMuscleCircumference) < 1e-12);
+assert.ok(Math.abs(muac.totalArmAreaCm2 - 900 / (4 * Math.PI)) < 1e-12);
+assert.ok(muac.fatAreaPercent > 0 && muac.fatAreaPercent < 100);
+
+const bai = api.calculateBAI(100, 'cm', 180, 'cm', 30);
+assert.ok(Math.abs(bai.value - (100 / Math.pow(1.8, 1.5) - 18)) < 1e-12);
+assert.throws(() => api.calculateBAI(100, 'cm', 180, 'cm', 17), /adults aged 18–120/);
+assert.throws(() => api.muacMetrics(10, 'cm', 60, 'mm'), /too large for this MUAC/);
+
 for (const [name, operation] of [
   ['waist-height zero denominator', () => api.calculateWaistHeightComparison(80, 170, 90, 0)],
   ['body-volume zero density', () => api.calculateBodyVolume(70, 0)],
@@ -49,4 +66,4 @@ assert.throws(() => api.calculateBodyVolume(NaN, 1), /positive finite value/);
 assert.throws(() => api.calculateBodyDensity(70, Infinity), /positive finite value/);
 assert.throws(() => api.calculateZScore(NaN, 60, 5), /finite numbers/);
 
-process.stdout.write('Anthropometric domain regressions passed (13 assertions).\\n');
+process.stdout.write('Anthropometric domain regressions passed (22 assertions).\\n');
