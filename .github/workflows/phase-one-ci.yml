@@ -133,6 +133,9 @@ jobs:
       - name: Verify calculator registry and sitemap
         run: node scripts/generate-sitemap.js --check
 
+      - name: Verify practical guide coverage for every inventoried calculator
+        run: node tests/calculator-guide-coverage.test.js
+
       - name: Build production staging directory
         env:
           SITE_URL: https://clerfit.github.io/Clerfit
