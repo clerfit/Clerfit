@@ -15,8 +15,8 @@ const cases = [
   { page: 'ymca-body-fat.html', selects: { sex: 'female', weightUnit: 'lb', waistUnit: 'in' }, fields: { weight: '70', waist: '80' }, expected: /26\.76% estimated body fat/ },
   { page: 'body-fat-comparison.html', fields: { a: '15', b: '20' }, expected: /Change: \+5\.00 percentage points/ },
   { page: 'total-body-water.html', selects: { measuredUnit: 'lb', weightUnit: 'lb' }, fields: { measured: '40', weight: '70' }, expected: /57\.14% of body mass/ },
-  { page: 'intracellular-water.html', selects: { compartmentUnit: 'mL', totalUnit: 'mL', weightUnit: 'lb' }, fields: { compartment: '25', total: '40', weight: '70' }, expected: /62\.50% of total body water.*35\.71% of body mass/ },
-  { page: 'extracellular-water.html', selects: { compartmentUnit: 'mL', totalUnit: 'mL', weightUnit: 'lb' }, fields: { compartment: '15', total: '40', weight: '70' }, expected: /37\.50% of total body water.*21\.43% of body mass/ },
+  { page: 'intracellular-water.html', selects: { compartmentUnit: 'mL', totalUnit: 'mL', weightUnit: 'lb' }, fields: { compartment: '25', total: '40', weight: '70' }, expected: /62\.50% of total body water[\s\S]*35\.71% of body mass/ },
+  { page: 'extracellular-water.html', selects: { compartmentUnit: 'mL', totalUnit: 'mL', weightUnit: 'lb' }, fields: { compartment: '15', total: '40', weight: '70' }, expected: /37\.50% of total body water[\s\S]*21\.43% of body mass/ },
   { page: 'bone-mass.html', selects: { measuredUnit: 'lb', weightUnit: 'lb' }, fields: { measured: '3', weight: '70' }, expected: /4\.29% of body mass/ },
   { page: 'visceral-fat.html', selects: { measuredUnit: 'in2' }, fields: { measured: '120' }, expected: /120\.00 cm² assessment-reported visceral-fat area/ },
   { page: 'subcutaneous-fat.html', selects: { measuredUnit: 'in' }, fields: { measured: '20' }, expected: /20\.00 mm assessment-reported subcutaneous-fat thickness/ },
@@ -55,7 +55,7 @@ const cases = [
         }
         await page.locator('#calc-form button[type="submit"]').click();
         const output = await page.locator('#calc-result').innerText();
-        assert.match(output, item.expected, item.page + ' returns the expected known-answer result');
+        assert.match(output, item.expected, item.page + ' returns the expected known-answer result. Actual output: ' + JSON.stringify(output));
         assert.doesNotMatch(output, /NaN|Infinity|undefined/);
         assert.equal(pageErrors.length, 0, item.page + ' has no uncaught browser errors');
 
