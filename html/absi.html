@@ -79,14 +79,6 @@ function calculateABSI() {
   const indicator = document.getElementById('indicator');
   if (indicator && indicator.parentElement) indicator.parentElement.hidden = true;
 }
-document.addEventListener('DOMContentLoaded', () => {
-  ['waist', 'height', 'weight', 'waistUnit', 'heightUnit', 'weightUnit'].forEach(id => {
-    const field = document.getElementById(id);
-    if (!field) return;
-    field.addEventListener('input', () => { const result = document.getElementById('result'); if (result) result.textContent = ''; });
-    field.addEventListener('change', () => { const result = document.getElementById('result'); if (result) result.textContent = ''; });
-  });
-});
 </script>
 
   <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/absi.html">
@@ -152,16 +144,16 @@ document.addEventListener('DOMContentLoaded', () => {
     <h2>ABSI Calculator</h2>
 
     <label for="waist">Waist Circumference</label>
-    <input id="waist" type="number" min="20" max="300" step="any">
-    <select id="waistUnit" aria-label="Waist unit">
+    <input id="waist" type="number" min="20" max="300" step="any" oninput="document.getElementById('result').textContent=''">
+    <select id="waistUnit" aria-label="Waist unit" onchange="document.getElementById('result').textContent=''">
       <option value="m">m</option>
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
     </select>
 
     <label for="height">Height</label>
-    <input id="height" type="number" min="30" max="300" step="any">
-    <select id="heightUnit" aria-label="Height unit">
+    <input id="height" type="number" min="30" max="300" step="any" oninput="document.getElementById('result').textContent=''">
+    <select id="heightUnit" aria-label="Height unit" onchange="document.getElementById('result').textContent=''">
       <option value="m">m</option>
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
@@ -169,8 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
     </select>
 
     <label for="weight">Weight</label>
-    <input id="weight" type="number" min="0.1" max="500" step="any">
-    <select id="weightUnit" data-unit-for="weight" aria-label="Weight unit"><option value="kg">kg</option><option value="lb">lb</option></select>
+    <input id="weight" type="number" min="0.1" max="500" step="any" oninput="document.getElementById('result').textContent=''">
+    <select id="weightUnit" data-unit-for="weight" aria-label="Weight unit" onchange="document.getElementById('result').textContent=''"><option value="kg">kg</option><option value="lb">lb</option></select>
 
     <button class="calculate-btn" onclick="calculateABSI()">Calculate</button>
 
