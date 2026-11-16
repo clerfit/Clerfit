@@ -67,7 +67,7 @@ function loadCatalog() {
 
 test("guide catalog covers all 164 active calculator routes exactly once", () => {
   const navigation = fs.readFileSync(path.join(root, "js", "navigation.js"), "utf8");
-  const registryMatch = navigation.match(/const CALCULATORS = (\\[.*?\\]);/s);
+  const registryMatch = navigation.match(/const CALCULATORS = (\[[\s\S]*?\]);/);
   assert.ok(registryMatch, "Could not read the active calculator registry.");
   const registry = JSON.parse(registryMatch[1]);
   const matrix = parseCsv(fs.readFileSync(matrixPath, "utf8"));
@@ -100,7 +100,7 @@ test("guide catalog covers all 164 active calculator routes exactly once", () =>
 
 test("every active calculator route loads shared page chrome and has calculator controls", () => {
   const navigation = fs.readFileSync(path.join(root, "js", "navigation.js"), "utf8");
-  const registryMatch = navigation.match(/const CALCULATORS = (\\[.*?\\]);/s);
+  const registryMatch = navigation.match(/const CALCULATORS = (\[[\s\S]*?\]);/);
   assert.ok(registryMatch, "Could not read the active calculator registry.");
   const registry = JSON.parse(registryMatch[1]);
 
@@ -109,7 +109,7 @@ test("every active calculator route loads shared page chrome and has calculator 
     assert.ok(fs.existsSync(pagePath), `Missing active calculator page: html/${file}`);
     const html = fs.readFileSync(pagePath, "utf8");
     assert.match(html, /page-chrome\\.js/i, `Shared guide loader missing from html/${file}`);
-    assert.match(html, /<(?:input|select|textarea)\\b/i, `No calculator input control found in html/${file}`);
+    assert.ok(/<(?:input|select|textarea)\b/i.test(html) || (/id=["']advanced-fields["']/i.test(html) && /advanced-calculators\.js/i.test(html)), \`No static or runtime-generated calculator controls found in html/\${file}\`);
   });
 });
 
@@ -120,7 +120,7 @@ test("every inventoried calculator page loads shared page chrome and has calcula
     assert.ok(fs.existsSync(pagePath), `Missing calculator page: html/${file}`);
     const html = fs.readFileSync(pagePath, "utf8");
     assert.match(html, /page-chrome\.js/i, `Shared guide loader missing from html/${file}`);
-    assert.match(html, /<(?:input|select|textarea)\b/i, `No calculator input control found in html/${file}`);
+    assert.ok(/<(?:input|select|textarea)\b/i.test(html) || (/id=["']advanced-fields["']/i.test(html) && /advanced-calculators\.js/i.test(html)), \`No static or runtime-generated calculator controls found in html/\${file}\`);
   });
 });
 
