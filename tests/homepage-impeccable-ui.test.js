@@ -27,7 +27,7 @@ test("homepage exposes the full calculator directory before JavaScript runs", ()
   assert.equal(hrefs.length, registry.length);
   assert.deepEqual([...hrefs].sort(), registry.map((item) => item.file).sort());
   registry.forEach(({ file }) => {
-    assert.ok(fs.existsSync(path.join(root, "html", file)), \`Missing calculator route: html/\${file}\`);
+    assert.ok(fs.existsSync(path.join(root, "html", file)), "Missing calculator route: html/" + file);
   });
 });
 
