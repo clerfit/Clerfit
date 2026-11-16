@@ -108,7 +108,7 @@ test("every active calculator route loads shared page chrome and has calculator 
     const pagePath = path.join(root, "html", file);
     assert.ok(fs.existsSync(pagePath), `Missing active calculator page: html/${file}`);
     const html = fs.readFileSync(pagePath, "utf8");
-    assert.match(html, /page-chrome\.js/i, \`Shared guide loader missing from html/\${file}\`);
+    assert.match(html, /page-chrome\.js/i, "Shared guide loader missing from html/" + file);
     assert.ok(/<(?:input|select|textarea)\b/i.test(html) ||
       ((/id=["'](?:advanced-fields|calculator-fields)["']/i.test(html)) &&
        /(?:advanced-calculators|body-composition-methods)\.js/i.test(html)),
