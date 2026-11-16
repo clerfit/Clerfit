@@ -114,6 +114,11 @@ test("guide catalog covers all 164 active calculator routes exactly once", () =>
     assert.equal(record.slug, route.slug, `Slug mismatch for ${record.file}`);
     assert.ok(record.method, `Missing method guidance for ${record.file}`);
     assert.ok(record.reference, `Missing formula/reference note for ${record.file}`);
+    assert.ok(record.referenceStatus, "Missing method/source verification status for " + record.file);
+    assert.doesNotMatch(record.method, /Follow the calculation method and formula shown on this calculator page/i,
+      "Generic fallback method is not acceptable for " + record.file);
+    assert.doesNotMatch(record.referenceStatus, /not yet recorded in the 118-entry verification matrix/i,
+      "Stale 118-route verification status remains in " + record.file);
     if (matrixByFile.has(record.file)) {
       assert.ok(matrixByFile.get(record.file).formula_or_method_summary);
     }
