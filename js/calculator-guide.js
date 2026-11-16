@@ -34,12 +34,15 @@
     const value = (title + " " + labels.join(" ") + " " + (catalogEntry?.category || "") + " " + (catalogEntry?.method || "")).toLowerCase();
     if (/face|facial|jaw|chin|nose|forehead|cheek|eye|lip|brow|aesthetic/.test(value)) return "face";
     if (/skinfold|jackson|durnin|navy|somatotype/.test(value)) return "skinfold";
-    if (/waist|hip|chest|neck|thigh|arm|shoulder|calf|wrist|ankle|girth|circumference|width|diameter/.test(value)) return "circumference";
-    if (/height|stature|leg length|sitting height|arm span|span difference|segment|femur|tibia/.test(value)) return "height";
-    if (/weight|mass|bmi|body fat|fat-free|lean mass|water|bone|visceral|ponderal|ffmi|bsa|absi|rfm/.test(value)) return "body";
     if (/push.?up|pull.?up|plank|run|walk|step test|jump|sprint|vo2|fitness|strength|endurance|flexibility|sit.?and.?reach/.test(value)) return "fitness";
     if (/protein|calorie|energy|carbohydrate|fat intake|sugar|fibre|fiber|cholesterol|hydration|water intake|nutrition|meal/.test(value)) return "nutrition";
-    if (/pace|speed|distance|time|duration|date|age|sleep|interval|unit|conversion/.test(value)) return "utility";
+    if (/pace|speed|distance|time|duration|date|age|interval|unit|conversion/.test(value)) return "utility";
+    if (/waist|hip|chest|neck|thigh|arm|shoulder|calf|wrist|ankle|girth|circumference|width|diameter/.test(value)) return "circumference";
+    if (/height|stature|leg length|sitting height|arm span|span difference|segment|femur|tibia/.test(value)) return "height";
+    if (/recovery|sleep|fatigue/.test(value)) return "recovery";
+    if (/health|posture|medical/.test((catalogEntry?.category || "").toLowerCase())) return "health";
+    if (/fat loss|weight goals/.test((catalogEntry?.category || "").toLowerCase())) return "goals";
+    if (/body measurements|metabolism|calories/.test((catalogEntry?.category || "").toLowerCase())) return "body";
     return "general";
   }
 
@@ -115,6 +118,33 @@
       accuracy: ["Do not round intermediate values unless the page instructs you to.", "Check whether the result is a rate, total, interval or simple unit conversion.", "Retain the original value so the conversion can be independently checked."],
       meaning: "The output is a mathematical conversion or comparison of the values supplied. It does not validate the accuracy of the original measurement.",
       limits: "Conversion cannot correct an inaccurate source value or a misunderstood unit. Calendar, time-zone and rate calculations may depend on conventions stated by the page."
+    },
+    recovery: {
+      purpose: "Recovery and sleep calculations summarise recorded habits or measurements. They are useful for reflection, but estimates from diaries and consumer devices are not clinical assessments.",
+      equipment: ["A consistent sleep or recovery diary", "A clock or device for recording sleep and wake times", "A wearable tracker only if the calculator specifically requests device-derived values", "A record of training load, perceived fatigue or relevant context when requested"],
+      preparation: ["Choose a consistent observation period and use the same definitions each day.", "Record sleep opportunity separately from estimated time asleep when possible.", "Note unusual circumstances such as travel, illness, shift work or late training that may affect interpretation."],
+      steps: ["Read whether the calculator asks for time in bed, time asleep, wake time, training duration, perceived effort or another measure.", "Record values close to when they occur rather than relying on long-term memory.", "Use the same units and time format for every entry.", "Enter the requested observation period and check that the dates or durations refer to the same window.", "Review the output as a summary of recorded information, not a definitive recovery score."],
+      accuracy: ["Use the same recording method and device settings over time.", "Treat wearable sleep-stage estimates as approximations; do not assume they are equivalent to a clinical sleep study.", "Include context such as illness, stress and schedule changes when interpreting trends."],
+      meaning: "The output describes the entries and assumptions used by this calculator. It may help organise self-observation but cannot measure every aspect of recovery or readiness.",
+      limits: "Sleep and recovery are influenced by health, stress, environment, training and individual differences. Persistent sleep problems, severe fatigue or concerning symptoms warrant advice from a qualified healthcare professional."
+    },
+    health: {
+      purpose: "This health- or posture-related calculator provides an educational estimate based on the measurements or answers entered. Follow the page's exact definitions and do not treat the output as a diagnosis.",
+      equipment: ["The measurement device named by the calculator, such as a non-stretch tape, scale, ruler or validated home monitor", "The original clinical or laboratory report if a field requests a result that cannot be measured at home", "A written record of units, date and measurement conditions"],
+      preparation: ["Check whether the calculator is intended for screening, education or tracking, and whether it applies to the relevant age group.", "Do not substitute a home estimate for a clinical measurement or a laboratory result.", "If the page requests a medical value, use the value and units exactly as reported by the qualified provider."],
+      steps: ["Read every field definition and confirm the required unit and measurement period.", "Use the named device and protocol; if the method is unclear, do not guess the measurement site or clinical threshold.", "Enter only values that you can reliably obtain and leave optional fields blank when permitted.", "Review the formula, source note and stated population before interpreting the output.", "Discuss concerning symptoms or decisions about diagnosis and treatment with a qualified healthcare professional."],
+      accuracy: ["Use validated equipment where relevant and follow its instructions.", "Record the date, posture and conditions for repeat measurements.", "Avoid comparing values obtained with different devices or incompatible protocols."],
+      meaning: "The result is limited to the formula and data shown on this page. It should be interpreted alongside relevant clinical context rather than in isolation.",
+      limits: "This educational calculator cannot diagnose, rule out disease or replace an examination. Seek urgent care for severe or sudden symptoms; consult a qualified clinician for individual medical interpretation."
+    },
+    goals: {
+      purpose: "Weight- and body-goal calculators organise measurements or estimates for planning and reflection. An estimated target is not automatically appropriate, necessary or healthy for every person.",
+      equipment: ["A reliable digital scale if body mass is an input", "A height-measuring device or tape if stature is requested", "A record of measurement dates and the same units used previously", "The source report for any body-composition value requested"],
+      preparation: ["Check whether the calculator asks for current measurements, a goal, a rate of change or a time period.", "Use realistic measured starting values rather than guessing or changing inputs to obtain a preferred answer.", "Avoid using a single weigh-in to represent a long-term trend."],
+      steps: ["Measure body mass under consistent conditions if required, using the same scale on a hard, level floor.", "Enter height and other measurements using the units selected in the form.", "Read any assumptions about time, rate or target values before calculating.", "Review the output as a mathematical scenario based on the values entered, not as an instruction to lose or gain weight.", "If a goal affects health, growth, medication or eating behaviour, discuss it with a qualified professional."],
+      accuracy: ["Compare trends over consistent intervals rather than reacting to day-to-day fluctuations.", "Use the same equipment, time of day and clothing conditions for repeated body-mass measurements.", "Keep estimates and direct measurements clearly distinguished."],
+      meaning: "The output describes the scenario defined by the inputs and formula. It does not establish an ideal body size or guarantee a particular outcome.",
+      limits: "Weight and body composition are influenced by growth, health, hydration, medication and many other factors. Avoid aggressive targets or restrictive approaches; seek qualified advice for an individual plan."
     },
     general: {
       purpose: "This guide explains a repeatable way to prepare inputs, use the calculator and assess the reliability of its output. Follow the specific field labels and method shown on this page.",
