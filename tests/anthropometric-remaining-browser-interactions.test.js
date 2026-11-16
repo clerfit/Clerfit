@@ -22,10 +22,12 @@ const cases = [
   try {
     for (const item of cases) {
       const page = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+      page.setDefaultTimeout(5000);
+      page.setDefaultNavigationTimeout(10000);
       const errors = [];
       page.on('pageerror', error => errors.push(error.message));
       try {
-        const response = await page.goto(new URL('html/' + item.page, base).href, { waitUntil: 'load', timeout: 20000 });
+        const response = await page.goto(new URL('html/' + item.page, base).href, { waitUntil: 'domcontentloaded', timeout: 10000 });
         assert.ok(response && response.ok(), item.page + ' loads');
         for (const [id, value] of Object.entries(item.fields)) await page.locator('#' + id).fill(value);
         for (const [id, value] of Object.entries(item.selects)) await page.locator('#' + id).selectOption(value);
