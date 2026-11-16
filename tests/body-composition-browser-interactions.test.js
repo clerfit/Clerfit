@@ -49,10 +49,10 @@ const cases = [
         for (const [id, value] of Object.entries(item.selects || {})) {
           if (id === 'sex') await page.locator('#' + id).selectOption(value);
         }
-        for (const [id, value] of Object.entries(item.fields || {})) await page.locator('#' + id).fill(value);
         for (const [id, value] of Object.entries(item.selects || {})) {
           if (id !== 'sex') await page.locator('#' + id).selectOption(value);
         }
+        for (const [id, value] of Object.entries(item.fields || {})) await page.locator('#' + id).fill(value);
         await page.locator('#calc-form button[type="submit"]').click();
         const output = await page.locator('#calc-result').innerText();
         assert.match(output, item.expected, item.page + ' returns the expected known-answer result. Actual output: ' + JSON.stringify(output));
