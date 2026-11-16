@@ -1795,3 +1795,20 @@ body .cf-footer .cf-footer-category-icons {
     padding-block-end: 14px !important;
   }
 }
+
+
+/* Practical calculator guides: separate from the existing About/Understand panel. */
+.cf-practical-guide{margin-block:18px 28px}
+.cf-practical-guide summary{background:linear-gradient(100deg,#eef4ff,#edf9f6)}
+.cf-practical-guide-content{gap:16px}
+.cf-guide-intro{margin:0;padding:14px 16px;border:1px solid #dce9f1;border-radius:12px;background:#f7fbff;color:#29445f;line-height:1.7}
+.cf-guide-section{padding:15px 17px;border:1px solid #e2eaf2;border-radius:12px;background:#fff}
+.cf-guide-section h3{margin:0 0 9px;color:#173b63;font-size:1rem}
+.cf-guide-section p,.cf-guide-section li{color:#42546b;font-size:.97rem;line-height:1.7}
+.cf-guide-section ol,.cf-guide-fields ul{margin:0;padding-inline-start:1.35rem}
+.cf-guide-section li+li,.cf-guide-fields li+li{margin-top:6px}
+.cf-guide-fields{padding:14px 16px;border:1px solid #e2eaf2;border-radius:12px;background:#f9fbfd;color:#42546b}
+.cf-guide-fields strong{display:block;margin-bottom:7px;color:#173b63}
+.cf-guide-fields ul{margin:0;padding-inline-start:1.2rem}
+.cf-guide-method p{margin:0;line-height:1.65}
+@media(max-width:640px){.cf-guide-section{padding:13px}.cf-guide-section p,.cf-guide-section li{font-size:1rem}}
