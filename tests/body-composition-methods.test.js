@@ -47,8 +47,10 @@ assert.ok(Math.abs(methods.calculateDurninWomersleyDensity('male', 19, 40) - (1.
 assert.ok(Math.abs(methods.calculateDurninWomersleyDensity('female', 20, 40) - (1.1599 - 0.0717 * logSum)) < 1e-12);
 assert.ok(Math.abs(methods.bodyFatFromDensity(1.05) - (495 / 1.05 - 450)) < 1e-12);
 
-assert.throws(() => methods.calculateDurninWomersleyDensity('male', 16, 40), /ages 17–72/);
-assert.throws(() => methods.calculateDurninWomersleyDensity('male', 73, 40), /ages 17–72/);
+assert.ok(Math.abs(methods.calculateDurninWomersleyDensity('male', 16, 40) - (1.1533 - 0.0643 * logSum)) < 1e-12);
+assert.ok(Math.abs(methods.calculateDurninWomersleyDensity('female', 16, 40) - (1.1369 - 0.0598 * logSum)) < 1e-12);
+assert.throws(() => methods.calculateDurninWomersleyDensity('male', 15, 40), /ages 16–72/);
+assert.throws(() => methods.calculateDurninWomersleyDensity('male', 73, 40), /ages 16–72/);
 assert.throws(() => methods.calculateDurninWomersleyDensity('other', 20, 40), /equation group/);
 assert.throws(() => methods.calculateDurninWomersleyDensity('male', 20, 0), /sum of the four skinfold/);
 
