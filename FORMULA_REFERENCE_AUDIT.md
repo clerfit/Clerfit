@@ -2,6 +2,22 @@
 
 Audit date: 2026-10-15
 
+## Addendum — 2026-11-16: reconciliation to the active 164-route registry
+
+The active navigation registry now contains **164 calculator routes**. The verification matrix has been expanded from 118 to 164 rows so that every active route has a method summary and a reference or explicit mathematical-method basis.
+
+- The original 118 rows retain their historical known-answer PASS records; they still require a rerun against the current candidate SHA before release.
+- The 46 additional routes now have route-specific method descriptions, assumptions and source/method notes in the matrix and calculator guide catalog.
+- Browser known-answer coverage has been added for the 46 additional routes: body-composition pages use `tests/body-composition-browser-interactions.test.js`; anthropometric pages use the anthropometric formula and browser regression suites.
+- These 46 new route vectors are marked **pending current candidate CI**. Do not describe the expanded 164-route matrix as 164/164 passing until the candidate workflow and browser tests complete successfully.
+- The 164-row `CALCULATOR_164_AUDIT_REGISTER.csv` separately tracks units, boundary cases, reset/recovery, guides, accessibility and responsive evidence. All overall route statuses remain PENDING until those checks are evidenced.
+
+An earlier staged browser smoke run loaded and exercised all 164 routes with no missing action targets, page errors, console errors or mobile horizontal overflow. An all-page axe scan covered 173 HTML documents with zero confirmed axe violations; incomplete/manual-review findings for contrast and accessible-name/content checks remain open. The current candidate is being retested after unit-handling and browser-test changes.
+
+The PageSpeed screenshots supplied on 2026-11-16 used `https://clerfit.github.io/` and displayed GitHub's 404 page. Those scores are not valid measurements of the project site. The correct project URL is `https://clerfit.github.io/Clerfit/`; a fresh mobile and desktop Lighthouse run on that exact URL is still required.
+
+---
+
 ## Result
 
 **Route-level formula/method vector coverage: 118/118 registered calculators (100%).** Each route has a passing known-answer or method-specific regression vector in `tests/verify.js`. This is route-level coverage, not proof that every possible input combination has been validated.
