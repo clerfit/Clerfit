@@ -167,6 +167,59 @@
   const fatFreeMassKg = weight * (1 - fat / 100);
   return { weightKg: weight, bodyFatPercent: fat, heightCm: h, fatFreeMassKg, ffmiKgM2: fatFreeMassKg / Math.pow(h / 100, 2) };
  }
+ function positiveFinite(value, label) {
+  const number = Number(value);
+  if (!Number.isFinite(number) || number <= 0) {
+   throw new RangeError(label + " must be a positive finite value.");
+  }
+  return number;
+ }
+
+ function calculateWaistHeightComparison(waistA, heightA, waistB, heightB) {
+  const aWaist = positiveFinite(waistA, "Person A waist");
+  const aHeight = positiveFinite(heightA, "Person A height");
+  const bWaist = positiveFinite(waistB, "Person B waist");
+  const bHeight = positiveFinite(heightB, "Person B height");
+  return {
+   personA: aWaist / aHeight,
+   personB: bWaist / bHeight,
+   absoluteDifference: Math.abs(aWaist / aHeight - bWaist / bHeight)
+  };
+ }
+
+ function calculateBodyVolume(massKg, densityKgPerLitre) {
+  const mass = positiveFinite(massKg, "Mass");
+  const density = positiveFinite(densityKgPerLitre, "Density");
+  return mass / density;
+ }
+
+ function calculateBodyDensity(massKg, volumeLitres) {
+  const mass = positiveFinite(massKg, "Mass");
+  const volume = positiveFinite(volumeLitres, "Volume");
+  return mass / volume;
+ }
+
+ function calculateZScore(value, mean, standardDeviation) {
+  const observed = Number(value);
+  const referenceMean = Number(mean);
+  const deviation = positiveFinite(standardDeviation, "Reference standard deviation");
+  if (!Number.isFinite(observed) || !Number.isFinite(referenceMean)) {
+   throw new RangeError("Observed value and reference mean must be finite numbers.");
+  }
+  return (observed - referenceMean) / deviation;
+ }
+
+ function calculateMeasurementSymmetry(left, right) {
+  const leftValue = positiveFinite(left, "Left-side measurement");
+  const rightValue = positiveFinite(right, "Right-side measurement");
+  const difference = Math.abs(leftValue - rightValue);
+  const mean = (leftValue + rightValue) / 2;
+  return {
+   absoluteDifference: difference,
+   relativeDifferencePercent: difference / mean * 100
+  };
+ }
+
  function compareFFMI(a, b) {
   if (!a || !b || !Number.isFinite(a.ffmiKgM2) || !Number.isFinite(b.ffmiKgM2)) throw new RangeError("Provide two valid FFMI calculations.");
   return { personAFFMI: a.ffmiKgM2, personBFFMI: b.ffmiKgM2, absoluteDifferenceKgM2: Math.abs(a.ffmiKgM2 - b.ffmiKgM2), higher: a.ffmiKgM2 === b.ffmiKgM2 ? "equal" : a.ffmiKgM2 > b.ffmiKgM2 ? "A" : "B" };
@@ -201,7 +254,15 @@
    higher: comparison.higher
   };
  }
- const api = { toCm, toKg, toHeightCm, circleMetrics, muacMetrics, calculateBAI, bodyCompositionMetrics, skeletalMuscleMetrics, heightIndexedMass, ffmiMetrics, compareFFMI, ratioMetrics, armSpanDifferenceMetrics, calculateRelativeMuscleMass, calculateSkeletalMuscleMass, calculateALMI, calculateFMI, calculateFFMI };
+ const api = {
+  toCm, toKg, toHeightCm, circleMetrics, muacMetrics, calculateBAI,
+  bodyCompositionMetrics, skeletalMuscleMetrics, heightIndexedMass,
+  ffmiMetrics, compareFFMI, ratioMetrics, armSpanDifferenceMetrics,
+  calculateRelativeMuscleMass, calculateSkeletalMuscleMass, calculateALMI,
+  calculateFMI, calculateFFMI, calculateWaistHeightComparison,
+  calculateBodyVolume, calculateBodyDensity, calculateZScore,
+  calculateMeasurementSymmetry
+ };
  if (typeof window !== "undefined") window.ClerFitAnthropometric = api;
 
  function clearResultFieldErrors(form, output) {
@@ -336,26 +397,26 @@
      break;
     }
     case "whtcompare": {
-     const a = num("waistA") / num("heightA"), b = num("waistB") / num("heightB");
-     result = "Person A: " + fmt(a) + " · Person B: " + fmt(b) + " · Difference: " + fmt(Math.abs(a - b));
+     const data = calculateWaistHeightComparison(num("waistA"), num("heightA"), num("waistB"), num("heightB"));
+     result = "Person A: " + fmt(data.personA) + " · Person B: " + fmt(data.personB) + " · Difference: " + fmt(data.absoluteDifference);
      note = "Waist-to-height ratio = waist circumference ÷ height, using the same units.";
      break;
     }
     case "volume":
-     result = fmt(num("mass") / num("density")) + " L";
+     result = fmt(calculateBodyVolume(num("mass"), num("density"))) + " L";
      note = "Volume = mass ÷ density. This assumes average density is representative and uses kg and kg/L.";
      break;
     case "density":
-     result = fmt(num("mass") / num("volume")) + " kg/L";
+     result = fmt(calculateBodyDensity(num("mass"), num("volume"))) + " kg/L";
      note = "Density = mass ÷ volume. Ensure volume is entered in litres.";
      break;
     case "zscore":
-     result = fmt((num("value") - num("mean")) / num("sd"));
+     result = fmt(calculateZScore(num("value"), num("mean"), num("sd")));
      note = "Z-score = (observed value − reference mean) ÷ reference standard deviation. Reference selection is essential.";
      break;
     case "symmetry": {
-     const a = num("left"), b = num("right"), d = Math.abs(a - b), p = d / ((a + b) / 2) * 100;
-     result = "Absolute difference: " + fmt(d) + " cm · Relative difference: " + fmt(p) + "%";
+     const data = calculateMeasurementSymmetry(num("left"), num("right"));
+     result = "Absolute difference: " + fmt(data.absoluteDifference) + " cm · Relative difference: " + fmt(data.relativeDifferencePercent) + "%";
      note = "Relative difference = absolute side-to-side difference ÷ mean of both sides × 100.";
      break;
     }
