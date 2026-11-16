@@ -18,9 +18,11 @@ function getRegistry() {
 
 test("homepage exposes the full calculator directory before JavaScript runs", () => {
   const registry = getRegistry();
-  const directory = html.match(/<div class="cf-directory-grid" id="cf-directory-grid"[^>]*>([\s\S]*?)<\/div>\s*<div class="cf-empty-state"/);
-  assert.ok(directory, "A server-rendered calculator directory is required.");
-  const hrefs = [...directory[1].matchAll(/href="html\/([^"]+)"/g)].map((match) => decodeURI(match[1]));
+  const directoryStart = html.indexOf('id="cf-directory-grid"');
+  const directoryEnd = html.indexOf('<div class="cf-empty-state"', directoryStart);
+  assert.ok(directoryStart >= 0 && directoryEnd > directoryStart, "A server-rendered calculator directory is required.");
+  const directoryMarkup = html.slice(directoryStart, directoryEnd);
+  const hrefs = [...directoryMarkup.matchAll(/href="html\/([^"]+)"/g)].map((match) => decodeURI(match[1]));
   assert.equal(registry.length, 164);
   assert.equal(hrefs.length, registry.length);
   assert.deepEqual([...hrefs].sort(), registry.map((item) => item.file).sort());
@@ -32,12 +34,14 @@ test("homepage exposes the full calculator directory before JavaScript runs", ()
 test("homepage has static category and popular calculator content", () => {
   const registry = getRegistry();
   const categoryCount = new Set(registry.map((item) => item.category)).size;
-  const categoryMarkup = html.match(/<div class="cf-category-grid" id="cf-category-grid">([\s\S]*?)<\/div>/);
-  const popularMarkup = html.match(/<div class="cf-feature-grid" id="cf-popular-grid">([\s\S]*?)<\/div>/);
-  assert.ok(categoryMarkup);
-  assert.ok(popularMarkup);
-  assert.equal((categoryMarkup[1].match(/class="cf-category-card"/g) || []).length, categoryCount);
-  assert.ok((popularMarkup[1].match(/class="cf-feature-card"/g) || []).length >= 6);
+  const popularStart = html.indexOf('id="cf-popular-grid"');
+  const categoryStart = html.indexOf('id="cf-category-grid"');
+  const directoryStart = html.indexOf('id="cf-directory-grid"');
+  assert.ok(popularStart >= 0 && categoryStart > popularStart && directoryStart > categoryStart);
+  const popularMarkup = html.slice(popularStart, categoryStart);
+  const categoryMarkup = html.slice(categoryStart, directoryStart);
+  assert.equal((categoryMarkup.match(/class="cf-category-card"/g) || []).length, categoryCount);
+  assert.ok((popularMarkup.match(/class="cf-feature-card"/g) || []).length >= 6);
 });
 
 test("homepage metadata, landmarks and search controls are accessible", () => {
