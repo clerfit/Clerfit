@@ -124,7 +124,9 @@ test("guide catalog covers all 164 active calculator routes exactly once", () =>
     }
   });
 
-  assert.equal(matrix.length, 118, "The verification matrix is a separate, smaller evidence inventory.");
+  assert.equal(matrix.length, 164, "The formula/reference matrix must cover all active calculator routes.");
+  assert.equal(matrixByFile.size, 164, "The formula/reference matrix must not contain duplicate routes.");
+  registry.forEach(route => assert.ok(matrixByFile.has(route.file), "Missing formula/reference matrix row for " + route.file));
 });
 
 test("every active calculator route loads shared page chrome and has calculator controls", () => {
