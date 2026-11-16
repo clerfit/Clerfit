@@ -32,7 +32,7 @@ jp7:()=>row(sex(),input("age","Age (years)",18,61,1))+row(input("chest","Chest (
 const host=$("calculator-fields");if(host&&schemas[slug])host.innerHTML=schemas[slug]();
 function fail(s){$("calc-result").innerHTML='<p class="cf-validation-message" role="alert">'+s+'</p>';}
 function valid(ids){for(const id of ids){const e=$(id),x=Number(e?.value);if(!e||e.value.trim()===""||!Number.isFinite(x)||x<Number(e.min)||x>Number(e.max)){fail("Enter valid values within the displayed ranges.");e?.focus();return false;}}return true;}
-const bf=d=>495/d-450;
+const bf=d=>{const density=Number(d);if(!Number.isFinite(density)||density<=0)throw new RangeError("Body density must be a positive finite value.");return 495/density-450;};
 const DURNIN_WOMERSLEY_COEFFICIENTS = {
  male: [
   { min: 16, max: 16, a: 1.1533, b: 0.0643 },
