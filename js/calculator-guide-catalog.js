@@ -5,414 +5,414 @@ window.CLERFIT_GUIDE_CATALOG = [
     "category": "Body Measurements & Composition",
     "file": "jp3.html",
     "slug": "jp3",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Jackson–Pollock 3-site body-density equation selected by sex: men use chest, abdomen and thigh; women use triceps, suprailiac and thigh. Apply the sex-specific quadratic equation to the skinfold sum in millimetres and age in years, then Siri conversion: % body fat = 495 / density − 450. Adult population estimate, not direct measurement.",
+    "reference": "Jackson & Pollock (1978), PMID 718832: https://pubmed.ncbi.nlm.nih.gov/718832/ ; Jackson, Pollock & Ward (1980), PMID 7402053: https://pubmed.ncbi.nlm.nih.gov/7402053/ ; equation table: https://pmc.ncbi.nlm.nih.gov/articles/PMC10271096/",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Body Fat Jackson-Pollock 7-Site Calculator",
     "category": "Body Measurements & Composition",
     "file": "jp7.html",
     "slug": "jp7",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Jackson–Pollock 7-site body-density equation: sum chest, midaxillary, triceps, subscapular, abdomen, suprailiac and thigh skinfolds in millimetres; apply the sex-specific quadratic density equation and age coefficient, then Siri conversion: % body fat = 495 / density − 450. Use only within the studied adult age range.",
+    "reference": "Jackson & Pollock (1978), PMID 718832: https://pubmed.ncbi.nlm.nih.gov/718832/ ; Jackson, Pollock & Ward (1980), PMID 7402053: https://pubmed.ncbi.nlm.nih.gov/7402053/ ; equation table: https://pmc.ncbi.nlm.nih.gov/articles/PMC10271096/",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Durnin-Womersley Body Fat Calculator",
     "category": "Body Measurements & Composition",
     "file": "durnin-womersley.html",
     "slug": "durnin-womersley",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Durnin–Womersley four-site method: measure biceps, triceps, subscapular and suprailiac skinfolds in millimetres; calculate log10 of their sum; apply the sex- and age-band-specific density coefficients; then Siri conversion: % body fat = 495 / density − 450.",
+    "reference": "Durnin & Womersley (1974), PMID 4843734: https://pubmed.ncbi.nlm.nih.gov/4843734/ ; age/sex coefficient table: https://www.measurement-toolkit.org/anthropometry/objective-methods/simple-measures-skinfolds",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "YMCA Body Fat Calculator",
     "category": "Body Measurements & Composition",
     "file": "ymca-body-fat.html",
     "slug": "ymca-body-fat",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "YMCA tape estimate: convert waist to inches and body mass to pounds. Men: %BF = [4.15 × waist(in) − 0.082 × weight(lb) − 98.42] / weight(lb) × 100. Women use 76.76 instead of 98.42. A rough estimate, not a clinical assessment.",
+    "reference": "YMCA of the USA, Fitness Testing and Assessment Manual, 4th ed. (Golding, ed., 2000); formula reproduced with worked examples: https://bodysizecalc.com/ymca-body-fat-calculator/ (secondary source).",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Body Fat Percentage Comparison",
     "category": "Body Measurements & Composition",
     "file": "body-fat-comparison.html",
     "slug": "body-fat-comparison",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Subtract the first body-fat percentage from the second for percentage-point change. Relative change = difference ÷ absolute first reading × 100; omit relative change when the first reading is zero.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Total Body Water Percentage Calculator",
     "category": "Body Measurements & Composition",
     "file": "total-body-water.html",
     "slug": "total-body-water",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Measured total body-water mass ÷ body mass × 100. Reports a proportion of supplied assessment values; it does not estimate body water from height, weight or demographic data.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Intracellular Water Calculator",
     "category": "Body Measurements & Composition",
     "file": "intracellular-water.html",
     "slug": "intracellular-water",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Measured intracellular water ÷ measured total body water × 100. Also reports approximate mass-equivalent share of body mass assuming water density ≈1 kg/L. These are supplied assessment values, not predictions or diagnostic thresholds.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Extracellular Water Calculator",
     "category": "Body Measurements & Composition",
     "file": "extracellular-water.html",
     "slug": "extracellular-water",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Measured extracellular water ÷ measured total body water × 100. Also reports approximate mass-equivalent share of body mass assuming water density ≈1 kg/L. These are supplied assessment values, not predictions or diagnostic thresholds.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Bone Mass Estimate Calculator",
     "category": "Body Measurements & Composition",
     "file": "bone-mass.html",
     "slug": "bone-mass",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Assessment-reported bone mass ÷ body mass × 100. This is a proportion of supplied values, not a bone-density, osteoporosis or fracture-risk estimate.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Visceral Fat Estimate Calculator",
     "category": "Body Measurements & Composition",
     "file": "visceral-fat.html",
     "slug": "visceral-fat",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "No predictive equation is applied. Enter the visceral-fat area reported by a device or imaging method; convert selected area units to cm² and display the supplied value. Interpretation depends on the source method.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Subcutaneous Fat Estimate Calculator",
     "category": "Body Measurements & Composition",
     "file": "subcutaneous-fat.html",
     "slug": "subcutaneous-fat",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "No predictive equation is applied. Enter the thickness reported by the measurement method; convert selected mm/cm/in units to millimetres and display the supplied value.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Waist-to-Arm Ratio Calculator",
     "category": "Body Measurements & Composition",
     "file": "waist-arm-ratio.html",
     "slug": "waist-arm-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Waist circumference ÷ upper-arm circumference, using the same selected length unit. Dimensionless descriptive ratio; no universal health or aesthetic cutoff.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Waist-to-Thigh Ratio Calculator",
     "category": "Body Measurements & Composition",
     "file": "waist-thigh-ratio.html",
     "slug": "waist-thigh-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Waist circumference ÷ thigh circumference, using the same selected length unit. Dimensionless descriptive ratio; no universal cutoff.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Chest-to-Waist Ratio Calculator",
     "category": "Body Measurements & Composition",
     "file": "chest-waist-ratio.html",
     "slug": "chest-waist-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Chest circumference ÷ waist circumference, using the same selected length unit. Dimensionless descriptive ratio, not a clinical diagnosis.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Shoulder-to-Waist Ratio Calculator",
     "category": "Body Measurements & Composition",
     "file": "shoulder-waist-ratio.html",
     "slug": "shoulder-waist-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Shoulder circumference ÷ waist circumference, using the same selected length unit. Descriptive ratio; no universal aesthetic or health threshold.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Shoulder-to-Hip Ratio Calculator",
     "category": "Body Measurements & Composition",
     "file": "shoulder-hip-ratio.html",
     "slug": "shoulder-hip-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Shoulder circumference ÷ hip circumference, using the same selected length unit. Descriptive ratio; no universal cutoff.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Chest-to-Height Ratio Calculator",
     "category": "Body Measurements & Composition",
     "file": "chest-height-ratio.html",
     "slug": "chest-height-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Chest circumference ÷ standing height after converting both to the same selected length unit. Descriptive ratio, not a validated clinical classification.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Hip-to-Height Ratio Calculator",
     "category": "Body Measurements & Composition",
     "file": "hip-height-ratio.html",
     "slug": "hip-height-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Hip circumference ÷ standing height after converting both to the same selected length unit. Descriptive ratio, not a validated clinical classification.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Upper-Arm-to-Height Ratio Calculator",
     "category": "Body Measurements & Composition",
     "file": "upper-arm-height-ratio.html",
     "slug": "upper-arm-height-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Upper-arm circumference ÷ standing height after converting both to the same selected length unit. Descriptive ratio, not a validated clinical classification.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Biacromial Width Ratio Calculator",
     "category": "Body Measurements & Composition",
     "file": "biacromial-width-ratio.html",
     "slug": "biacromial-width-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Biacromial breadth ÷ the paired breadth measurement entered on this page, using the same selected unit. Descriptive proportion; use consistent anatomical landmarks.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Body Fat Change Calculator",
     "category": "Body Measurements & Composition",
     "file": "body-fat-change.html",
     "slug": "body-fat-change",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Current body-fat percentage − earlier body-fat percentage = percentage-point change. Relative change is shown only when the earlier value is non-zero. Use the same body-fat method for both readings.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Fat-Free Mass Change Calculator",
     "category": "Body Measurements & Composition",
     "file": "fat-free-mass-change.html",
     "slug": "fat-free-mass-change",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "At each time point, fat-free mass = body mass × (1 − body-fat percentage / 100). Convert selected mass units to kilograms, then subtract earlier fat-free mass from current fat-free mass.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
   {
     "title": "Neck Circumference",
     "category": "Body Measurements & Composition",
     "file": "neck-circumference.html",
     "slug": "neck-circumference",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Model circumference as a circle: diameter = C/π; radius = C/(2π); cross-sectional area = C²/(4π). Optional volume = area × segment length, a cylindrical proxy rather than anatomical volume.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "MUAC",
     "category": "Body Measurements & Composition",
     "file": "muac.html",
     "slug": "muac",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Use MUAC and triceps skinfold (TSF) in consistent units. MUAMC = MUAC − π×TSF; total arm area = MUAC²/(4π); muscle-plus-bone area = MUAMC²/(4π); fat area = total − muscle-plus-bone area; fat-area % = fat area/total area×100. Circular-arm approximation may overestimate muscle area.",
+    "reference": "Measurement Toolkit, MUAC and arm anthropometry: https://www.measurement-toolkit.org/anthropometry/objective-methods/simple-measures-muac",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Mid-Thigh Circumference",
     "category": "Body Measurements & Composition",
     "file": "mid-thigh-circumference.html",
     "slug": "mid-thigh-circumference",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Model thigh circumference as a circle: diameter = C/π; area = C²/(4π). Optional segment volume = area × length, a cylindrical proxy rather than direct tissue volume.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Calf Circumference",
     "category": "Body Measurements & Composition",
     "file": "calf-circumference.html",
     "slug": "calf-circumference",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Model calf circumference as a circle: diameter = C/π; area = C²/(4π). Optional segment volume = area × length, a cylindrical proxy rather than direct tissue volume.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Body Adiposity Index (BAI)",
     "category": "Body Measurements & Composition",
     "file": "bai.html",
     "slug": "bai",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "BAI = hip circumference (cm) ÷ height (m)^1.5 − 18. The original study proposed it as an adiposity index; later validation found it was not more accurate than BMI or simple circumferences and could be biased by sex and adiposity. Estimate only, not diagnosis.",
+    "reference": "Bergman et al. (2011), PMID 21372804: https://pubmed.ncbi.nlm.nih.gov/21372804/ ; validation critique, Freedman et al. (2012), PMID 22484365: https://pubmed.ncbi.nlm.nih.gov/22484365/",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Relative Muscle Mass",
     "category": "Body Measurements & Composition",
     "file": "relative-muscle-mass.html",
     "slug": "relative-muscle-mass",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Measured muscle mass ÷ total body mass × 100. Muscle mass must come from a separate assessment; this calculator does not infer it from tape measurements.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Skeletal Muscle Mass",
     "category": "Body Measurements & Composition",
     "file": "skeletal-muscle-mass.html",
     "slug": "skeletal-muscle-mass",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Calculate measured skeletal muscle mass as a percentage of body mass and SMMI = skeletal muscle mass (kg) ÷ height (m)^2. It does not infer skeletal muscle mass from circumferences.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Appendicular Lean Mass Index (ALMI)",
     "category": "Body Measurements & Composition",
     "file": "almi.html",
     "slug": "almi",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "ALMI = measured appendicular lean mass (kg) ÷ height (m)^2. Lean mass must come from a suitable body-composition assessment; this calculator does not estimate it.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Fat Mass Index (FMI)",
     "category": "Body Measurements & Composition",
     "file": "fmi.html",
     "slug": "fmi",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "FMI = measured fat mass (kg) ÷ height (m)^2. Fat mass must come from a body-composition assessment; this calculator does not estimate it.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "FFMI Comparison",
     "category": "Body Measurements & Composition",
     "file": "ffmi-comparison.html",
     "slug": "ffmi-comparison",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "For each person, fat-free mass = body mass × (1 − body-fat fraction); FFMI = fat-free mass (kg) ÷ height (m)^2. Compare the two indices; estimates inherit body-fat measurement error.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Chest-to-Hip Ratio",
     "category": "Body Measurements & Composition",
     "file": "chest-hip-ratio.html",
     "slug": "chest-hip-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Chest circumference ÷ hip circumference using the same selected unit. Dimensionless body-proportion description, not a medical or universal aesthetic standard.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Shoulder-to-Chest Ratio",
     "category": "Body Measurements & Composition",
     "file": "shoulder-chest-ratio.html",
     "slug": "shoulder-chest-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Shoulder circumference ÷ chest circumference using the same selected unit. Descriptive proportion dependent on consistent tape placement and posture.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Biacromial-to-Biacristal Width Ratio",
     "category": "Body Measurements & Composition",
     "file": "biacromial-biacristal-width-ratio.html",
     "slug": "biacromial-biacristal-width-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Biacromial breadth (acromion-to-acromion) ÷ biacristal breadth (iliac-crest-to-iliac-crest). Use the same unit and consistent skeletal landmarks; descriptive proportion.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Sitting Height-to-Arm Span Ratio",
     "category": "Body Measurements & Composition",
     "file": "sitting-height-arm-span-ratio.html",
     "slug": "sitting-height-arm-span-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Sitting height ÷ arm span using the same selected unit. Ensure consistent posture and measurement protocol; descriptive proportion.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Arm Span Difference",
     "category": "Body Measurements & Composition",
     "file": "arm-span-difference.html",
     "slug": "arm-span-difference",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Arm span − standing height after converting both to centimetres. Positive means arm span is greater; negative means shorter. No diagnostic threshold is assigned.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Waist Circumference Reference",
     "category": "Body Measurements & Composition",
     "file": "waist-circumference-reference.html",
     "slug": "waist-circumference-reference",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Convert waist circumference to centimetres and report the measurement only. Protocols and thresholds vary by organisation, population and anatomical site; no universal risk category is assigned.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Waist-to-Height Comparison",
     "category": "Body Measurements & Composition",
     "file": "waist-height-comparison.html",
     "slug": "waist-height-comparison",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "For each person, waist-to-height ratio = waist circumference ÷ standing height after converting to centimetres. Compare the dimensionless ratios using the same waist-measurement protocol; no diagnosis is produced.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Body Volume Estimate",
     "category": "Body Measurements & Composition",
     "file": "body-volume.html",
     "slug": "body-volume",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Body volume = mass ÷ density. Convert mass to kilograms; density is entered in kg/L, so the result is litres. Accuracy depends on supplied density and assumptions.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Body Density",
     "category": "Body Measurements & Composition",
     "file": "body-density.html",
     "slug": "body-density",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Average density = mass ÷ measured volume. Convert mass to kilograms and volume to litres; result is kg/L. Mass and volume must refer to the same subject and conditions.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Anthropometric Z-Score",
     "category": "Body Measurements & Composition",
     "file": "anthropometric-z-score.html",
     "slug": "anthropometric-z-score",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Z-score = (observed measurement − reference mean) ÷ reference standard deviation. Convert all three values using the same selected unit. Reference population and protocol must match the measurement.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Body Measurement Symmetry",
     "category": "Body Measurements & Composition",
     "file": "body-measurement-symmetry.html",
     "slug": "body-measurement-symmetry",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Convert left and right measurements to centimetres. Absolute difference = |left − right|; relative difference = absolute difference ÷ mean(left,right) × 100. Descriptive comparison, not diagnosis.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Arm-to-Waist Ratio",
     "category": "Body Measurements & Composition",
     "file": "arm-waist-ratio.html",
     "slug": "arm-waist-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Arm circumference ÷ waist circumference after converting both to the same selected length unit. Dimensionless descriptive ratio; no universal clinical interpretation.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Leg-to-Height Ratio",
     "category": "Body Measurements & Composition",
     "file": "leg-height-ratio.html",
     "slug": "leg-height-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Measured leg length ÷ standing height after converting both to the same selected length unit. Descriptive proportion; define and repeat the leg-length protocol.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "Sitting Height Ratio",
     "category": "Body Measurements & Composition",
     "file": "sitting-height-ratio.html",
     "slug": "sitting-height-ratio",
-    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
-    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
-    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+    "method": "Sitting height ÷ standing height after converting both to the same selected length unit. Descriptive proportion; use consistent seated posture and technique.",
+    "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
+    "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/anthropometric-calculators.test.js and browser-interaction regression tests; candidate CI remains the release evidence gate."
   },
   {
     "title": "BMI Calculator",
