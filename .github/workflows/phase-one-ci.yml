@@ -176,6 +176,7 @@ jobs:
           node tests/batch3-browser-interactions.test.js http://127.0.0.1:4173/
           node tests/body-composition-browser-interactions.test.js http://127.0.0.1:4173/
           node tests/anthropometric-remaining-browser-interactions.test.js http://127.0.0.1:4173/
+          node tests/legacy-unit-equivalence-browser.test.js http://127.0.0.1:4173/
 
       - name: Verify mobile landscape, tablet and desktop layouts across all 164 calculator routes
         if: always()
