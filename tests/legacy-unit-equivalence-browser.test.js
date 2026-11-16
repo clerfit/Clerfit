@@ -16,7 +16,8 @@ const base = process.argv[2] || 'http://127.0.0.1:4173/';
       button: '.calculate-btn',
       expected: /ABSI:\s*0\.080/,
       result: '#result',
-      name: 'ABSI canonical kg conversion'
+      name: 'ABSI canonical kg conversion',
+      resetButton: 'button[onclick="resetABSI()"]'
     },
     {
       file: 'heat-exposure.html',
@@ -25,7 +26,8 @@ const base = process.argv[2] || 'http://127.0.0.1:4173/';
       button: 'button[onclick="calculateHeat()"]',
       expected: /Estimated heat index: 40\.7 °C \(105\.2 °F\)/,
       result: '#result',
-      name: 'Heat-index Celsius/Fahrenheit equivalence'
+      name: 'Heat-index Celsius/Fahrenheit equivalence',
+      resetButton: 'button[onclick="resetHeat()"]'
     },
     {
       file: 'cold-exposure.html',
@@ -34,7 +36,8 @@ const base = process.argv[2] || 'http://127.0.0.1:4173/';
       button: 'button[onclick="calculateCold()"]',
       expected: /Estimated wind-chill temperature: -3\.3 °C/,
       result: '#result',
-      name: 'Wind-chill Celsius/Fahrenheit equivalence'
+      name: 'Wind-chill Celsius/Fahrenheit equivalence',
+      resetButton: 'button[onclick="resetCold()"]'
     }
   ];
 
@@ -57,6 +60,11 @@ const base = process.argv[2] || 'http://127.0.0.1:4173/';
         const firstField = Object.keys(item.fields)[0];
         await page.locator('#' + firstField).fill(String(Number(await page.locator('#' + firstField).inputValue()) + 1));
         assert.equal((await page.locator(item.result).innerText()).trim(), '', item.file + ' clears stale output after input edit');
+        await page.locator(item.resetButton).click();
+        assert.equal((await page.locator(item.result).innerText()).trim(), '', item.file + ' reset clears the result');
+        for (const id of Object.keys(item.fields)) {
+          assert.equal(await page.locator('#' + id).inputValue(), '', item.file + ' reset clears ' + id);
+        }
       } catch (error) {
         failures.push(item.file + ': ' + (error && error.message || String(error)));
       } finally {
