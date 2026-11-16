@@ -275,3 +275,17 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
   else init();
 })();
+
+
+// Load the shared, page-specific practical guide after the common page chrome is ready.
+// The guide script detects the current calculator and leaves existing calculator logic untouched.
+(() => {
+  "use strict";
+  if (document.querySelector(".main .card, main .card, .calculator-card")) {
+    const root = new URL(location.pathname.includes("/html/") ? "../" : "./", document.baseURI);
+    const guideScript = document.createElement("script");
+    guideScript.src = new URL("js/calculator-guide.js?v=20261116-guides-v1", root).href;
+    guideScript.defer = true;
+    document.head.appendChild(guideScript);
+  }
+})();
