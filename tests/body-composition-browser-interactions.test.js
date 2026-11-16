@@ -27,6 +27,7 @@ const cases = [
   { page: 'shoulder-hip-ratio.html', selects: { unit: 'in' }, fields: { a: '120', b: '100' }, expected: /1\.20 ratio/ },
   { page: 'chest-height-ratio.html', selects: { unit: 'in' }, fields: { a: '100', b: '180' }, expected: /0\.56 ratio/ },
   { page: 'hip-height-ratio.html', selects: { unit: 'in' }, fields: { a: '100', b: '180' }, expected: /0\.56 ratio/ },
+  { page: 'biacromial-width-ratio.html', selects: { unit: 'in' }, fields: { a: '40', b: '25' }, expected: /1\.60 ratio/ },
   { page: 'upper-arm-height-ratio.html', selects: { unit: 'in' }, fields: { a: '35', b: '180' }, expected: /0\.19 ratio/ },
   { page: 'body-fat-change.html', fields: { a: '15', b: '18' }, expected: /Change: \+3\.00 percentage points/ },
   { page: 'fat-free-mass-change.html', selects: { waUnit: 'lb', wbUnit: 'lb' }, fields: { wa: '70', fa: '20', wb: '72', fb: '18' }, expected: /Earlier: 56\.00 kg.*Current: 59\.04 kg.*Change: \+3\.04 kg/ }
@@ -38,10 +39,12 @@ const cases = [
   try {
     for (const item of cases) {
       const page = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+      page.setDefaultTimeout(5000);
+      page.setDefaultNavigationTimeout(10000);
       const pageErrors = [];
       page.on('pageerror', error => pageErrors.push(error.message));
       try {
-        const response = await page.goto(new URL('html/' + item.page, base).href, { waitUntil: 'load', timeout: 20000 });
+        const response = await page.goto(new URL('html/' + item.page, base).href, { waitUntil: 'domcontentloaded', timeout: 10000 });
         assert.ok(response && response.ok(), item.page + ' loads successfully');
         for (const [id, value] of Object.entries(item.selects || {})) {
           if (id === 'sex') await page.locator('#' + id).selectOption(value);
