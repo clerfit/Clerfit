@@ -724,8 +724,8 @@ label .cf-tip-wrap{margin-inline-start:.35rem}
 body.cf-sidebar-is-open .cf-menu-toggle{display:none!important;visibility:hidden!important;pointer-events:none!important}
 .cf-sidebar-close{display:grid!important;place-items:center!important;box-sizing:border-box!important;flex:0 0 36px!important;width:36px!important;min-width:36px!important;max-width:36px!important;height:36px!important;min-height:36px!important;max-height:36px!important;padding:0!important;font-size:22px!important;line-height:1!important;border-radius:50%!important;overflow:hidden!important}
 .cf-sidebar-backdrop{z-index:110!important}
-.cf-sidebar-search-toggle{flex:0 0 36px!important;width:36px!important;min-width:36px!important;max-width:36px!important;height:36px!important;min-height:36px!important;max-height:36px!important;padding:0!important;border-radius:50%!important;overflow:hidden!important}
-.cf-sidebar-search-toggle svg{width:18px!important;height:18px!important;max-width:18px!important;flex:none!important}
+.cf-sidebar-search-toggle{flex:0 0 44px!important;width:44px!important;min-width:44px!important;max-width:44px!important;height:44px!important;min-height:44px!important;max-height:44px!important;padding:0!important;border-radius:50%!important;overflow:hidden!important}
+.cf-sidebar-search-toggle svg{width:20px!important;height:20px!important;max-width:20px!important;flex:none!important}
 .cf-floating-links{top:12px!important;right:12px!important;max-width:calc(100vw - 76px)!important;box-sizing:border-box!important;gap:5px!important;padding:4px!important;z-index:105!important}
 .cf-floating-links a{min-width:0!important;max-width:100%!important;flex:0 1 auto!important;gap:6px!important;padding:8px 10px!important;font-size:12px!important;line-height:1.15!important;overflow:hidden!important}
 .cf-floating-links svg{flex:0 0 16px!important;width:16px!important;height:16px!important;max-width:16px!important}
