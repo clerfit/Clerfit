@@ -15,17 +15,26 @@
     const heading = document.querySelector(".card h2, .calculator-card h2, main h1, .main h1");
     return text(heading && heading.textContent) || text(document.title).replace(/^ClerFit\\s*[–—-]\\s*/i, "");
   };
-  const inputLabels = () => [...document.querySelectorAll(".main label, main label, .card label")]
-    .map((label) => text(label.textContent))
-    .filter(Boolean)
-    .filter((label, index, all) => all.indexOf(label) === index)
-    .slice(0, 12);
+  const inputLabels = () => {
+    const labels = [...document.querySelectorAll(".main label, main label, .card label")]
+      .map((label) => text(label.textContent))
+      .filter(Boolean);
+    const controls = [...document.querySelectorAll(
+      '.main input:not([type="hidden"]), main input:not([type="hidden"]), .main select, main select, .main textarea, main textarea'
+    )].map((control) =>
+      text(control.getAttribute("aria-label")) ||
+      text(control.getAttribute("placeholder")) ||
+      text(control.name) ||
+      text(control.id).replace(/[-_]+/g, " ")
+    ).filter(Boolean);
+    return [...new Set([...labels, ...controls])].slice(0, 16);
+  };
 
   function classify(title, labels) {
     const value = (title + " " + labels.join(" ") + " " + (catalogEntry?.category || "") + " " + (catalogEntry?.method || "")).toLowerCase();
     if (/face|facial|jaw|chin|nose|forehead|cheek|eye|lip|brow|aesthetic/.test(value)) return "face";
     if (/skinfold|jackson|durnin|navy|somatotype/.test(value)) return "skinfold";
-    if (/waist|hip|chest|neck|thigh|arm|shoulder|calf|wrist|ankle|girth|circumference|width|diameter|ratio/.test(value)) return "circumference";
+    if (/waist|hip|chest|neck|thigh|arm|shoulder|calf|wrist|ankle|girth|circumference|width|diameter/.test(value)) return "circumference";
     if (/height|stature|leg length|sitting height|arm span|span difference|segment|femur|tibia/.test(value)) return "height";
     if (/weight|mass|bmi|body fat|fat-free|lean mass|water|bone|visceral|ponderal|ffmi|bsa|absi|rfm/.test(value)) return "body";
     if (/push.?up|pull.?up|plank|run|walk|step test|jump|sprint|vo2|fitness|strength|endurance|flexibility|sit.?and.?reach/.test(value)) return "fitness";
