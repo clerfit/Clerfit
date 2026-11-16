@@ -70,7 +70,7 @@ const results = [];
               viewportWidth: window.innerWidth,
               documentWidth: html.scrollWidth,
               bodyWidth: body ? body.scrollWidth : 0,
-              hasMainLandmark: Boolean(main),
+              hasMainLandmark: Boolean(document.querySelector('main, [role="main"]')),
               lang: html.getAttribute('lang') || '',
               hasViewportMeta: Boolean(document.querySelector('meta[name="viewport"]')),
               controlsOutsideViewport: outside
