@@ -90,4 +90,4 @@ assert.ok(Math.abs(ffmChange.current - 63.96) < 1e-12);
 assert.ok(Math.abs(ffmChange.change + 0.04) < 1e-12);
 assert.throws(() => methods.calculateFatFreeMassChange(80, 80, 78, 18), /0 to 75 percent/);
 
-process.stdout.write('Body-composition formula regressions passed (31 assertions).\\n');
+process.stdout.write('Body-composition formula regressions passed (33 assertions).\\n');
