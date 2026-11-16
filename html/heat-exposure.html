@@ -126,8 +126,9 @@
 
   <div class="row">
     <div class="col">
-      <label for="tempC">Air Temperature (°C)</label>
+      <label for="tempC">Air Temperature</label>
       <input type="number" id="tempC" min="-100" max="70" step="any">
+      <select id="tempUnit" data-unit-for="tempC" aria-label="Temperature unit"><option value="C">°C</option><option value="F">°F</option></select>
     </div>
 
     <div class="col">
@@ -171,7 +172,9 @@
 
 <script>
 function calculateHeat() {
-  const T = Number(document.getElementById("tempC").value);
+  const temperatureValue = Number(document.getElementById("tempC").value);
+  const tempUnit = document.getElementById("tempUnit").value;
+  const T = tempUnit === "F" ? (temperatureValue - 32) * 5 / 9 : temperatureValue;
   const RH = Number(document.getElementById("humidity").value);
   const duration = Number(document.getElementById("duration").value);
   const timeUnit = document.getElementById("timeUnit").value;
@@ -197,6 +200,9 @@ function calculateHeat() {
   const thresholdNote = hiF >= 103 ? "The U.S. National Weather Service notes that heat indices at or above 103°F can lead to dangerous heat disorders with prolonged exposure or physical activity." : "Heat index is a shade-based apparent-temperature estimate, not a personal safety guarantee.";
   result.innerHTML = `<strong>Estimated heat index: ${hiC.toFixed(1)} °C (${hiF.toFixed(1)} °F)</strong><p>Air temperature: ${T.toFixed(1)} °C; relative humidity: ${RH.toFixed(0)}%; planned duration: ${durationMinutes.toFixed(0)} minutes; sun exposure: ${sun}; work intensity: ${intensity}.</p><p>${thresholdNote}</p><p>Direct sunlight can raise apparent heat burden substantially, and physical work, acclimatization, clothing, hydration, medications and individual health all matter. This calculator does not produce a validated cumulative heat-strain score or safe exposure time. Follow local heat advisories and occupational/sport safety guidance. Method reference: <a href="https://www.weather.gov/tbw/heatindex" target="_blank" rel="noopener noreferrer">U.S. National Weather Service heat-index methodology</a>.</p>`;
 }
+document.addEventListener("DOMContentLoaded", () => {
+  ["tempC", "tempUnit"].forEach(id => { const field = document.getElementById(id); if (field) { field.addEventListener("input", () => { document.getElementById("result").textContent = ""; }); field.addEventListener("change", () => { document.getElementById("result").textContent = ""; }); } });
+});
 </script>
 
 
