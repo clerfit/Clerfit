@@ -79,6 +79,17 @@ function calculateABSI() {
   const indicator = document.getElementById('indicator');
   if (indicator && indicator.parentElement) indicator.parentElement.hidden = true;
 }
+function resetABSI() {
+  ['waist', 'height', 'weight'].forEach(id => { document.getElementById(id).value = ''; });
+  [['waistUnit', 'cm'], ['heightUnit', 'cm'], ['weightUnit', 'kg']].forEach(([id, value]) => {
+    const select = document.getElementById(id);
+    select.value = value;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+  document.getElementById('result').textContent = '';
+  const indicator = document.getElementById('indicator');
+  if (indicator && indicator.parentElement) indicator.parentElement.hidden = true;
+}
 </script>
 
   <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/absi.html">
@@ -165,6 +176,7 @@ function calculateABSI() {
     <select id="weightUnit" data-unit-for="weight" aria-label="Weight unit" onchange="document.getElementById('result').textContent=''"><option value="kg">kg</option><option value="lb">lb</option></select>
 
     <button class="calculate-btn" onclick="calculateABSI()">Calculate</button>
+    <button type="button" class="calculate-btn" onclick="resetABSI()" aria-label="Reset ABSI calculator">Reset</button>
 
     <div id="result" class="result"></div>
 
