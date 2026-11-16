@@ -2,7 +2,11 @@
 
 Audit date: 2026-10-15
 
-## Result
+## Current status note — 16 November 2026
+
+This document records the historical 118-route formula audit from 15 October 2026. The live registry has since grown to 164 calculators. The follow-up branch audit has expanded both the formula matrix and scientific review register to 164 routes; see [docs/CALCULATOR_AUDIT_164.md](docs/CALCULATOR_AUDIT_164.md) and PR #109. The 46 additional routes have shared-function known-answer/domain tests and route-wiring checks. Full browser/accessibility acceptance remains a separate gate.
+
+## Historical result
 
 **Route-level formula/method vector coverage: 118/118 registered calculators (100%).** Each route has a passing known-answer or method-specific regression vector in `tests/verify.js`. This is route-level coverage, not proof that every possible input combination has been validated.
 
