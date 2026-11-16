@@ -536,3 +536,79 @@
 
 
 /* Removed diagonal stroke texture from inside the white toolkit panel. */
+
+
+/* Mobile portrait polish: compact the toolkit illustration and give its orbit rings room. */
+@media screen and (max-width: 700px) and (orientation: portrait) {
+  body .cf-home-hero .cf-hero-art {
+    position: relative !important;
+    display: grid !important;
+    place-items: center !important;
+    width: 100% !important;
+    min-height: 250px !important;
+    height: auto !important;
+    margin: 8px 0 0 !important;
+    padding: 14px 8px !important;
+    overflow: visible !important;
+    isolation: isolate !important;
+  }
+  body .cf-home-hero .cf-orbit-one {
+    display: block !important;
+    width: 250px !important;
+    max-width: calc(100% - 12px) !important;
+    opacity: 1 !important;
+  }
+  body .cf-home-hero .cf-orbit-two {
+    display: block !important;
+    width: 205px !important;
+    max-width: calc(82% - 4px) !important;
+    opacity: 1 !important;
+  }
+  body .cf-home-hero .cf-art-panel {
+    position: relative !important;
+    z-index: 1 !important;
+    display: block !important;
+    width: min(100%, 258px) !important;
+    max-width: 258px !important;
+    min-width: 0 !important;
+    margin: 0 auto !important;
+    padding: 12px 13px !important;
+    box-sizing: border-box !important;
+    border-radius: 19px !important;
+    overflow: hidden !important;
+    transform: none !important;
+    rotate: none !important;
+  }
+  body .cf-home-hero .cf-art-top {
+    padding: 0 2px 8px !important;
+    font-size: 8px !important;
+  }
+  body .cf-home-hero .cf-art-line {
+    gap: 8px !important;
+    padding: 8px 1px !important;
+  }
+  body .cf-home-hero .cf-art-icon {
+    width: 32px !important;
+    height: 32px !important;
+    flex: 0 0 32px !important;
+    border-radius: 9px !important;
+  }
+  body .cf-home-hero .cf-art-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  body .cf-home-hero .cf-art-line b { font-size: 12px !important; }
+  body .cf-home-hero .cf-art-line small { font-size: 9px !important; }
+  body .cf-home-hero .cf-art-line em { font-size: 9px !important; }
+  body .cf-home-hero .cf-art-foot {
+    gap: 6px !important;
+    padding: 9px 2px 0 !important;
+    font-size: 9px !important;
+  }
+}
+@media screen and (max-width: 390px) and (orientation: portrait) {
+  body .cf-home-hero .cf-hero-art { min-height: 230px !important; padding-inline: 4px !important; }
+  body .cf-home-hero .cf-art-panel { width: min(100%, 244px) !important; max-width: 244px !important; padding: 11px 12px !important; }
+  body .cf-home-hero .cf-orbit-one { width: 228px !important; }
+  body .cf-home-hero .cf-orbit-two { width: 188px !important; }
+}
