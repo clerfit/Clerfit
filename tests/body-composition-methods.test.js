@@ -36,7 +36,7 @@ for (const slug of pages) {
   assert.match(html, /body-composition-methods\.js/, slug + ' shared implementation');
   assert.match(html, /id="calc-form"/, slug + ' calculator form');
   assert.match(html, /id="calc-result"[^>]*aria-live="polite"/, slug + ' live result region');
-  assert.match(implementation, new RegExp('(?:[\\"\\\\\']' + slug + '[\\"\\\\\']|\\\\b' + slug + '\\\\s*:)'), slug + ' implementation schema');
+  assert.ok(implementation.includes(slug + ':') || implementation.includes('"' + slug + '":'), slug + ' implementation schema');
 }
 assert.equal(pages.length, 22, 'All 22 body-composition routes are included in this suite.');
 
