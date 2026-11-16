@@ -8,6 +8,7 @@ const test = require("node:test");
 
 const root = path.resolve(__dirname, "..");
 const matrixPath = path.join(root, "CALCULATOR_VERIFICATION_MATRIX.csv");
+const auditPath = path.join(root, "CALCULATOR_164_AUDIT_REGISTER.csv");
 const catalogPath = path.join(root, "js", "calculator-guide-catalog.js");
 const guidePath = path.join(root, "js", "calculator-guide.js");
 const chromePath = path.join(root, "js", "page-chrome.js");
@@ -64,6 +65,29 @@ function loadCatalog() {
   vm.runInNewContext(fs.readFileSync(catalogPath, "utf8"), context);
   return context.window.CLERFIT_GUIDE_CATALOG;
 }
+
+test("164-route audit register matches the active calculator registry exactly", () => {
+  const navigation = fs.readFileSync(path.join(root, "js", "navigation.js"), "utf8");
+  const registryMatch = navigation.match(/const CALCULATORS = (\[[\s\S]*?\]);/);
+  assert.ok(registryMatch, "Could not read the active calculator registry.");
+  const registry = JSON.parse(registryMatch[1]);
+  const audit = parseCsv(fs.readFileSync(auditPath, "utf8"));
+  const auditByFile = new Map(audit.map((record) => [record.html_file, record]));
+
+  assert.equal(audit.length, 164, "The audit register must have one row per active calculator.");
+  assert.equal(auditByFile.size, audit.length, "The audit register must not contain duplicate routes.");
+  assert.equal(auditByFile.size, registry.length, "The audit register and active registry must have equal route counts.");
+
+  registry.forEach((route) => {
+    const record = auditByFile.get(route.file);
+    assert.ok(record, "Missing audit row for " + route.file);
+    assert.equal(record.calculator_title, route.title, "Title mismatch for " + route.file);
+    assert.equal(record.category, route.category, "Category mismatch for " + route.file);
+    assert.ok(record.formula_method_evidence, "Formula/method status missing for " + route.file);
+    assert.ok(record.reference_evidence, "Reference status missing for " + route.file);
+    assert.equal(record.overall_status, "PENDING", "Do not mark a route complete before evidence-based review: " + route.file);
+  });
+});
 
 test("guide catalog covers all 164 active calculator routes exactly once", () => {
   const navigation = fs.readFileSync(path.join(root, "js", "navigation.js"), "utf8");
