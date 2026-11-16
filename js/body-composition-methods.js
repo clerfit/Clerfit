@@ -70,9 +70,118 @@ function calculateDurninWomersleyDensity(sex, age, skinfoldSum) {
  return density;
 }
 
+function calculateJacksonPollockDensity(method, sex, age, readings) {
+ const years = Number(age);
+ const values = Array.isArray(readings) ? readings.map(Number) : [];
+ const expectedCount = method === "jp3" ? 3 : method === "jp7" ? 7 : 0;
+ if (!expectedCount || values.length !== expectedCount) {
+  throw new RangeError("The selected Jackson–Pollock method requires " + expectedCount + " skinfold readings.");
+ }
+ if (!["male", "female"].includes(sex)) throw new RangeError("Choose a supported equation group.");
+ if (!Number.isInteger(years) || years < 18 || years > 61 || (sex === "female" && years > 55)) {
+  throw new RangeError("The selected Jackson–Pollock equation supports adults aged 18–61 years; the female equation is limited to age 55.");
+ }
+ if (values.some(value => !Number.isFinite(value) || value <= 0)) {
+  throw new RangeError("Every skinfold reading must be a positive finite value in millimetres.");
+ }
+ const sum = values.reduce((total, value) => total + value, 0);
+ if (method === "jp3") {
+  return sex === "male"
+   ? 1.10938 - 0.0008267 * sum + 0.0000016 * sum * sum - 0.0002574 * years
+   : 1.0994921 - 0.0009929 * sum + 0.0000023 * sum * sum - 0.0001392 * years;
+ }
+ return sex === "male"
+  ? 1.112 - 0.00043499 * sum + 0.00000055 * sum * sum - 0.00028826 * years
+  : 1.097 - 0.00046971 * sum + 0.00000056 * sum * sum - 0.00012828 * years;
+}
+
+function calculateYMCABodyFatPercent(weightKg, waistCm, sex) {
+ const weight = Number(weightKg);
+ const waist = Number(waistCm);
+ if (!Number.isFinite(weight) || weight <= 0 || !Number.isFinite(waist) || waist <= 0) {
+  throw new RangeError("Weight and waist circumference must be positive finite values.");
+ }
+ if (!["male", "female"].includes(sex)) throw new RangeError("Choose a supported equation group.");
+ const weightLb = weight * 2.2046226218;
+ const waistIn = waist / 2.54;
+ const constant = sex === "male" ? 98.42 : 76.76;
+ const result = ((4.15 * waistIn - 0.082 * weightLb - constant) / weightLb) * 100;
+ if (!Number.isFinite(result) || result < 0 || result > 75) {
+  throw new RangeError("The inputs produce a result outside 0–75%. Recheck your measurements.");
+ }
+ return result;
+}
+
+function calculateBodyFatChange(previousPercent, currentPercent) {
+ const previous = Number(previousPercent);
+ const current = Number(currentPercent);
+ if (![previous, current].every(value => Number.isFinite(value) && value >= 0 && value <= 75)) {
+  throw new RangeError("Both body-fat readings must be between 0 and 75 percent.");
+ }
+ const difference = current - previous;
+ return {
+  percentagePointChange: difference,
+  relativeChangePercent: previous === 0 ? null : difference / Math.abs(previous) * 100
+ };
+}
+
+function calculateMeasuredProportion(measuredValue, totalMass, label) {
+ const measured = Number(measuredValue);
+ const total = Number(totalMass);
+ if (!Number.isFinite(measured) || measured < 0 || !Number.isFinite(total) || total <= 0) {
+  throw new RangeError(label + " must be non-negative and total body mass must be positive.");
+ }
+ if (measured > total) throw new RangeError(label + " cannot exceed total body mass.");
+ return measured / total * 100;
+}
+
+function calculateWaterCompartment(compartment, totalWater, bodyWeight) {
+ const value = Number(compartment);
+ const total = Number(totalWater);
+ const weight = Number(bodyWeight);
+ if (![value, total, weight].every(Number.isFinite) || value < 0 || total <= 0 || weight <= 0) {
+  throw new RangeError("Water measurements must be finite; total water and body weight must be positive.");
+ }
+ if (value > total) throw new RangeError("Compartment water cannot exceed total body water.");
+ if (total > weight) throw new RangeError("Total body water cannot exceed body weight.");
+ return {
+  percentOfTotalWater: value / total * 100,
+  percentOfBodyMass: value / weight * 100
+ };
+}
+
+function calculatePositiveRatio(numerator, denominator) {
+ const top = Number(numerator);
+ const bottom = Number(denominator);
+ if (!Number.isFinite(top) || top <= 0 || !Number.isFinite(bottom) || bottom <= 0) {
+  throw new RangeError("Both measurements must be positive finite values.");
+ }
+ return top / bottom;
+}
+
+function calculateFatFreeMassChange(weightA, fatA, weightB, fatB) {
+ const values = [weightA, fatA, weightB, fatB].map(Number);
+ const [firstWeight, firstFat, secondWeight, secondFat] = values;
+ if (!Number.isFinite(firstWeight) || firstWeight <= 0 || !Number.isFinite(secondWeight) || secondWeight <= 0 ||
+     !Number.isFinite(firstFat) || firstFat < 0 || firstFat > 75 ||
+     !Number.isFinite(secondFat) || secondFat < 0 || secondFat > 75) {
+  throw new RangeError("Enter positive body weights and body-fat readings from 0 to 75 percent.");
+ }
+ const earlier = firstWeight * (1 - firstFat / 100);
+ const current = secondWeight * (1 - secondFat / 100);
+ return { earlier, current, change: current - earlier };
+}
+
 if (typeof window !== "undefined") {
  window.ClerFitBodyComposition = {
   calculateDurninWomersleyDensity,
+  calculateJacksonPollockDensity,
+  calculateYMCABodyFatPercent,
+  calculateBodyFatChange,
+  calculateMeasuredProportion,
+  calculateWaterCompartment,
+  calculatePositiveRatio,
+  calculateFatFreeMassChange,
   bodyFatFromDensity: bf
  };
 }
