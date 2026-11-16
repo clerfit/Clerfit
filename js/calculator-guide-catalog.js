@@ -176,7 +176,7 @@ window.CLERFIT_GUIDE_CATALOG = [
     "category": "Body Measurements & Composition",
     "file": "biacromial-width-ratio.html",
     "slug": "biacromial-width-ratio",
-    "method": "Biacromial breadth ÷ the paired breadth measurement entered on this page, using the same selected unit. Descriptive proportion; use consistent anatomical landmarks.",
+    "method": "Biacromial shoulder breadth ÷ standing height after converting both to the same selected length unit. This is a descriptive proportion, not a validated clinical classification.",
     "reference": "Direct mathematical or measurement-derived definition; no universal clinical cutoff or diagnosis is claimed.",
     "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
