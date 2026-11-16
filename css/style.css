@@ -1812,3 +1812,10 @@ body .cf-footer .cf-footer-category-icons {
 .cf-guide-fields ul{margin:0;padding-inline-start:1.2rem}
 .cf-guide-method p{margin:0;line-height:1.65}
 @media(max-width:640px){.cf-guide-section{padding:13px}.cf-guide-section p,.cf-guide-section li{font-size:1rem}}
+
+
+/* Method and evidence notes for calculator-specific practical guides. */
+.cf-guide-source{padding:14px 16px;border:1px solid #dce8ef;border-radius:12px;background:#f5fafb;color:#42546b}
+.cf-guide-source strong{display:block;margin-bottom:6px;color:#174a56}
+.cf-guide-source p,.cf-guide-source-status{margin:0;font-size:.94rem;line-height:1.65;color:#42546b}
+.cf-guide-source-status{padding-inline:2px;color:#64748b}
