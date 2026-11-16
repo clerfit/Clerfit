@@ -1,5 +1,419 @@
-/* Generated from CALCULATOR_VERIFICATION_MATRIX.csv. Keep entries aligned with the verified calculator inventory. */
+/* Generated from the 164-entry active calculator registry and verification matrix where available. */
 window.CLERFIT_GUIDE_CATALOG = [
+  {
+    "title": "Body Fat Jackson-Pollock 3-Site Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "jp3.html",
+    "slug": "jp3",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Body Fat Jackson-Pollock 7-Site Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "jp7.html",
+    "slug": "jp7",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Durnin-Womersley Body Fat Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "durnin-womersley.html",
+    "slug": "durnin-womersley",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "YMCA Body Fat Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "ymca-body-fat.html",
+    "slug": "ymca-body-fat",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Body Fat Percentage Comparison",
+    "category": "Body Measurements & Composition",
+    "file": "body-fat-comparison.html",
+    "slug": "body-fat-comparison",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Total Body Water Percentage Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "total-body-water.html",
+    "slug": "total-body-water",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Intracellular Water Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "intracellular-water.html",
+    "slug": "intracellular-water",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Extracellular Water Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "extracellular-water.html",
+    "slug": "extracellular-water",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Bone Mass Estimate Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "bone-mass.html",
+    "slug": "bone-mass",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Visceral Fat Estimate Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "visceral-fat.html",
+    "slug": "visceral-fat",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Subcutaneous Fat Estimate Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "subcutaneous-fat.html",
+    "slug": "subcutaneous-fat",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Waist-to-Arm Ratio Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "waist-arm-ratio.html",
+    "slug": "waist-arm-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Waist-to-Thigh Ratio Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "waist-thigh-ratio.html",
+    "slug": "waist-thigh-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Chest-to-Waist Ratio Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "chest-waist-ratio.html",
+    "slug": "chest-waist-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Shoulder-to-Waist Ratio Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "shoulder-waist-ratio.html",
+    "slug": "shoulder-waist-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Shoulder-to-Hip Ratio Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "shoulder-hip-ratio.html",
+    "slug": "shoulder-hip-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Chest-to-Height Ratio Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "chest-height-ratio.html",
+    "slug": "chest-height-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Hip-to-Height Ratio Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "hip-height-ratio.html",
+    "slug": "hip-height-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Upper-Arm-to-Height Ratio Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "upper-arm-height-ratio.html",
+    "slug": "upper-arm-height-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Biacromial Width Ratio Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "biacromial-width-ratio.html",
+    "slug": "biacromial-width-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Body Fat Change Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "body-fat-change.html",
+    "slug": "body-fat-change",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Fat-Free Mass Change Calculator",
+    "category": "Body Measurements & Composition",
+    "file": "fat-free-mass-change.html",
+    "slug": "fat-free-mass-change",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Neck Circumference",
+    "category": "Body Measurements & Composition",
+    "file": "neck-circumference.html",
+    "slug": "neck-circumference",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "MUAC",
+    "category": "Body Measurements & Composition",
+    "file": "muac.html",
+    "slug": "muac",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Mid-Thigh Circumference",
+    "category": "Body Measurements & Composition",
+    "file": "mid-thigh-circumference.html",
+    "slug": "mid-thigh-circumference",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Calf Circumference",
+    "category": "Body Measurements & Composition",
+    "file": "calf-circumference.html",
+    "slug": "calf-circumference",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Body Adiposity Index (BAI)",
+    "category": "Body Measurements & Composition",
+    "file": "bai.html",
+    "slug": "bai",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Relative Muscle Mass",
+    "category": "Body Measurements & Composition",
+    "file": "relative-muscle-mass.html",
+    "slug": "relative-muscle-mass",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Skeletal Muscle Mass",
+    "category": "Body Measurements & Composition",
+    "file": "skeletal-muscle-mass.html",
+    "slug": "skeletal-muscle-mass",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Appendicular Lean Mass Index (ALMI)",
+    "category": "Body Measurements & Composition",
+    "file": "almi.html",
+    "slug": "almi",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Fat Mass Index (FMI)",
+    "category": "Body Measurements & Composition",
+    "file": "fmi.html",
+    "slug": "fmi",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "FFMI Comparison",
+    "category": "Body Measurements & Composition",
+    "file": "ffmi-comparison.html",
+    "slug": "ffmi-comparison",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Chest-to-Hip Ratio",
+    "category": "Body Measurements & Composition",
+    "file": "chest-hip-ratio.html",
+    "slug": "chest-hip-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Shoulder-to-Chest Ratio",
+    "category": "Body Measurements & Composition",
+    "file": "shoulder-chest-ratio.html",
+    "slug": "shoulder-chest-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Biacromial-to-Biacristal Width Ratio",
+    "category": "Body Measurements & Composition",
+    "file": "biacromial-biacristal-width-ratio.html",
+    "slug": "biacromial-biacristal-width-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Sitting Height-to-Arm Span Ratio",
+    "category": "Body Measurements & Composition",
+    "file": "sitting-height-arm-span-ratio.html",
+    "slug": "sitting-height-arm-span-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Arm Span Difference",
+    "category": "Body Measurements & Composition",
+    "file": "arm-span-difference.html",
+    "slug": "arm-span-difference",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Waist Circumference Reference",
+    "category": "Body Measurements & Composition",
+    "file": "waist-circumference-reference.html",
+    "slug": "waist-circumference-reference",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Waist-to-Height Comparison",
+    "category": "Body Measurements & Composition",
+    "file": "waist-height-comparison.html",
+    "slug": "waist-height-comparison",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Body Volume Estimate",
+    "category": "Body Measurements & Composition",
+    "file": "body-volume.html",
+    "slug": "body-volume",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Body Density",
+    "category": "Body Measurements & Composition",
+    "file": "body-density.html",
+    "slug": "body-density",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Anthropometric Z-Score",
+    "category": "Body Measurements & Composition",
+    "file": "anthropometric-z-score.html",
+    "slug": "anthropometric-z-score",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Body Measurement Symmetry",
+    "category": "Body Measurements & Composition",
+    "file": "body-measurement-symmetry.html",
+    "slug": "body-measurement-symmetry",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Arm-to-Waist Ratio",
+    "category": "Body Measurements & Composition",
+    "file": "arm-waist-ratio.html",
+    "slug": "arm-waist-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Leg-to-Height Ratio",
+    "category": "Body Measurements & Composition",
+    "file": "leg-height-ratio.html",
+    "slug": "leg-height-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
+  {
+    "title": "Sitting Height Ratio",
+    "category": "Body Measurements & Composition",
+    "file": "sitting-height-ratio.html",
+    "slug": "sitting-height-ratio",
+    "method": "Follow the calculation method and formula shown on this calculator page. This guide explains how to prepare and enter the requested measurements; it does not replace the page's formula.",
+    "reference": "Use the formula and field definitions displayed on this calculator page. This calculator is not yet included in the 118-entry verification matrix.",
+    "referenceStatus": "Guide coverage added from the active 164-calculator navigation registry. Formula/reference verification is not yet recorded in the 118-entry verification matrix."
+  },
   {
     "title": "BMI Calculator",
     "category": "Body Measurements & Composition",
@@ -748,7 +1162,7 @@ window.CLERFIT_GUIDE_CATALOG = [
     "referenceStatus": "Method/source recorded and route vector-tested; exhaustive boundary combinations not yet certified"
   },
   {
-    "title": "Recovery Time",
+    "title": "Recovery Interval",
     "category": "Recovery, Sleep & Fatigue",
     "file": "recovery-time.html",
     "slug": "recovery-time",
@@ -775,7 +1189,7 @@ window.CLERFIT_GUIDE_CATALOG = [
     "referenceStatus": "Method/source recorded and route vector-tested; exhaustive boundary combinations not yet certified"
   },
   {
-    "title": "Waist Risk",
+    "title": "Waist Measurement Review",
     "category": "Health, Posture & Medical",
     "file": "waist-risk.html",
     "slug": "waist-risk",
@@ -784,7 +1198,7 @@ window.CLERFIT_GUIDE_CATALOG = [
     "referenceStatus": "Source/method traceability updated; route-specific implementation comparison and semantic boundary review still required; exhaustive boundaries not certified."
   },
   {
-    "title": "Hip Risk",
+    "title": "Waist-to-Hip Context",
     "category": "Health, Posture & Medical",
     "file": "hip-risk.html",
     "slug": "hip-risk",
@@ -793,7 +1207,7 @@ window.CLERFIT_GUIDE_CATALOG = [
     "referenceStatus": "Source/method traceability updated; route-specific implementation comparison and semantic boundary review still required; exhaustive boundaries not certified."
   },
   {
-    "title": "Waist-Height Risk",
+    "title": "Waist-to-Height Ratio",
     "category": "Health, Posture & Medical",
     "file": "waist-height-risk.html",
     "slug": "waist-height-risk",
@@ -829,7 +1243,7 @@ window.CLERFIT_GUIDE_CATALOG = [
     "referenceStatus": "Method/source recorded and route vector-tested; exhaustive boundary combinations not yet certified"
   },
   {
-    "title": "Sit-Stand Ratio",
+    "title": "Sit-to-Stand Rate",
     "category": "Health, Posture & Medical",
     "file": "sit-stand-ratio.html",
     "slug": "sit-stand-ratio",
