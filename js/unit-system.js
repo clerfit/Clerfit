@@ -11,6 +11,7 @@
     m: ['length', 1, 0], meter: ['length', 1, 0], meters: ['length', 1, 0], metre: ['length', 1, 0], metres: ['length', 1, 0],
     in: ['length', 0.0254, 0], inch: ['length', 0.0254, 0], inches: ['length', 0.0254, 0],
     ft: ['length', 0.3048, 0], foot: ['length', 0.3048, 0], feet: ['length', 0.3048, 0],
+    cm2: ['area', 0.0001, 0], 'cm²': ['area', 0.0001, 0], m2: ['area', 1, 0], 'm²': ['area', 1, 0], in2: ['area', 0.00064516, 0], 'in²': ['area', 0.00064516, 0],
     km: ['distance', 1000, 0], kilometer: ['distance', 1000, 0], kilometers: ['distance', 1000, 0], kilometre: ['distance', 1000, 0], kilometres: ['distance', 1000, 0],
     mi: ['distance', 1609.344, 0], mile: ['distance', 1609.344, 0], miles: ['distance', 1609.344, 0],
     ml: ['volume', 0.001, 0], milliliter: ['volume', 0.001, 0], milliliters: ['volume', 0.001, 0],
