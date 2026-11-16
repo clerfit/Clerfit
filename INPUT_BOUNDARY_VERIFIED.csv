@@ -6,7 +6,7 @@ BMI.html,height,Height,50,274,any
 BMI.html,age,Age,2,120,1
 absi.html,waist,Waist Circumference,20,300,any
 absi.html,height,Height,30,300,any
-absi.html,weight,Weight (kg),0.1,500,any
+absi.html,weight,Weight,0.1,500,any
 activity-time.html,duration,Duration,0,10080,any
 activity-time.html,weightActivity,Your Weight,0.1,500,any
 bmi-change.html,currentWeightBMI,Current Weight,0.1,500,any
@@ -47,7 +47,7 @@ circumference-track.html,thighInit,Initial Thigh,0.1,300,any
 circumference-track.html,thighCurrent,Current Thigh,0.1,300,any
 circumference-track.html,calfInit,Initial Calf,0.1,300,any
 circumference-track.html,calfCurrent,Current Calf,0.1,300,any
-cold-exposure.html,tempC,Air Temperature (°C),-100,70,any
+cold-exposure.html,tempC,Air Temperature,-100,70,any
 cold-exposure.html,windSpeed,Wind Speed,0,1000,any
 cold-exposure.html,duration,Exposure Time,0,10080,any
 cooper-test.html,cooperDistance,Distance Covered in 12 Minutes,0,10000,any
@@ -98,7 +98,7 @@ healthrisk.html,weight,Weight (kg),0.1,500,any
 healthrisk.html,height,Height (cm),30,300,any
 heartrate.html,age,Age (years),18,120,1
 heartrate.html,rhr,"Resting Heart Rate (optional, default 70 bpm)",20,120,1
-heat-exposure.html,tempC,Air Temperature (°C),-100,70,any
+heat-exposure.html,tempC,Air Temperature,-100,70,any
 heat-exposure.html,humidity,Relative Humidity (%),0,100,any
 heat-exposure.html,duration,Exposure Time,0,10080,any
 height-convert.html,heightValue,Enter height,0,1000000,any
