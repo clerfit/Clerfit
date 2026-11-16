@@ -19,8 +19,9 @@
 <p class="cf-note">Calculate leg length as a proportion of standing height. Use a clearly defined and repeatable leg-length measurement method.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="leg">Leg length (cm)</label><input id="leg" name="leg" type="number" min="20" max="160" step="any" inputmode="decimal" required aria-label="Leg length"></div>
-<div class="col"><label for="height">Standing height (cm)</label><input id="height" name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Standing height"></div>
+<div class="col"><label for="leg">Leg length</label><input id="leg" name="leg" type="number" min="20" max="160" step="any" inputmode="decimal" required aria-label="Leg length"></div>
+<div class="col"><label for="height">Standing height</label><input id="height" name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Standing height"></div>
+<div class="col"><label for="unit">Measurement unit</label><select id="unit" data-unit-for="leg,height"><option value="cm">cm</option><option value="mm">mm</option><option value="in">inches</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
