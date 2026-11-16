@@ -43,8 +43,13 @@ const cases = [
       try {
         const response = await page.goto(new URL('html/' + item.page, base).href, { waitUntil: 'load', timeout: 20000 });
         assert.ok(response && response.ok(), item.page + ' loads successfully');
+        for (const [id, value] of Object.entries(item.selects || {})) {
+          if (id === 'sex') await page.locator('#' + id).selectOption(value);
+        }
         for (const [id, value] of Object.entries(item.fields || {})) await page.locator('#' + id).fill(value);
-        for (const [id, value] of Object.entries(item.selects || {})) await page.locator('#' + id).selectOption(value);
+        for (const [id, value] of Object.entries(item.selects || {})) {
+          if (id !== 'sex') await page.locator('#' + id).selectOption(value);
+        }
         await page.locator('#calc-form button[type="submit"]').click();
         const output = await page.locator('#calc-result').innerText();
         assert.match(output, item.expected, item.page + ' returns the expected known-answer result');
