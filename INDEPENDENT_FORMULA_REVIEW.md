@@ -3,7 +3,11 @@
 Audit date: 2026-10-16  
 Scope: 118 registered calculator routes, their documented methods, formula implementations, known-answer tests, input constraints, and health/specialist interpretations.
 
-## Outcome
+## Current status note — 16 November 2026
+
+The 118-route scope below is the historical October baseline, not the current registry size. A follow-up audit has added the 46 newer calculators to the formula matrix and scientific review register, bringing both to 164 unique routes. Details and current verification state are tracked in [docs/CALCULATOR_AUDIT_164.md](docs/CALCULATOR_AUDIT_164.md) and PR #109. The follow-up remains a code-level review, not independent clinical certification.
+
+## Historical outcome
 
 - 118/118 registered routes have a passing known-answer or method-specific regression vector in `tests/verify.js`.
 - The implementation was cross-checked against the formula/method matrix and the sources recorded in `SOURCES_AND_METHODS.md`; route-specific notes and classifications are in `SCIENTIFIC_REVIEW_REGISTER.csv`.
