@@ -20,6 +20,26 @@ vm.runInNewContext(
 const methods = window.ClerFitBodyComposition;
 assert.ok(methods, 'Body-composition calculation API must be available.');
 
+const pages = [
+  'jp3', 'jp7', 'durnin-womersley', 'ymca-body-fat',
+  'body-fat-comparison', 'total-body-water', 'intracellular-water',
+  'extracellular-water', 'bone-mass', 'visceral-fat', 'subcutaneous-fat',
+  'waist-arm-ratio', 'waist-thigh-ratio', 'chest-waist-ratio',
+  'shoulder-waist-ratio', 'shoulder-hip-ratio', 'chest-height-ratio',
+  'hip-height-ratio', 'upper-arm-height-ratio', 'biacromial-width-ratio',
+  'body-fat-change', 'fat-free-mass-change'
+];
+const implementation = fs.readFileSync('js/body-composition-methods.js', 'utf8');
+for (const slug of pages) {
+  const html = fs.readFileSync('html/' + slug + '.html', 'utf8');
+  assert.match(html, new RegExp('data-calculator="' + slug + '"'), slug + ' route marker');
+  assert.match(html, /body-composition-methods\.js/, slug + ' shared implementation');
+  assert.match(html, /id="calc-form"/, slug + ' calculator form');
+  assert.match(html, /id="calc-result"[^>]*aria-live="polite"/, slug + ' live result region');
+  assert.ok(implementation.includes("'" + slug + "'") || implementation.includes('"' + slug + '"'), slug + ' implementation schema');
+}
+assert.equal(pages.length, 22, 'All 22 body-composition routes are included in this suite.');
+
 const logSum = Math.log10(40);
 assert.ok(Math.abs(methods.calculateDurninWomersleyDensity('male', 17, 40) - (1.1620 - 0.0630 * logSum)) < 1e-12);
 assert.ok(Math.abs(methods.calculateDurninWomersleyDensity('female', 17, 40) - (1.1549 - 0.0678 * logSum)) < 1e-12);
