@@ -222,7 +222,16 @@
 
  function compareFFMI(a, b) {
   if (!a || !b || !Number.isFinite(a.ffmiKgM2) || !Number.isFinite(b.ffmiKgM2)) throw new RangeError("Provide two valid FFMI calculations.");
-  return { personAFFMI: a.ffmiKgM2, personBFFMI: b.ffmiKgM2, absoluteDifferenceKgM2: Math.abs(a.ffmiKgM2 - b.ffmiKgM2), higher: a.ffmiKgM2 === b.ffmiKgM2 ? "equal" : a.ffmiKgM2 > b.ffmiKgM2 ? "A" : "B" };
+  const difference = a.ffmiKgM2 - b.ffmiKgM2;
+  const absoluteDifferenceKgM2 = Math.abs(difference);
+  // Ignore sub-micro-unit differences caused by metric/imperial conversion rounding.
+  const comparisonToleranceKgM2 = 1e-6;
+  return {
+   personAFFMI: a.ffmiKgM2,
+   personBFFMI: b.ffmiKgM2,
+   absoluteDifferenceKgM2,
+   higher: absoluteDifferenceKgM2 <= comparisonToleranceKgM2 ? "equal" : difference > 0 ? "A" : "B"
+  };
  }
 
  function calculateRelativeMuscleMass(muscleMass, muscleUnit, bodyWeight, weightUnit) {
