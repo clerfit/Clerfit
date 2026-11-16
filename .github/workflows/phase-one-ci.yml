@@ -90,6 +90,9 @@ jobs:
       - name: Verify custom 404 path-base handling and metadata
         run: node tests/404-base-path.test.js
 
+      - name: Verify homepage accessibility and static calculator directory
+        run: node tests/homepage-impeccable-ui.test.js
+
       - name: Verify Google Search favicon eligibility assets
         run: node tests/seo-favicon.test.js
 
