@@ -8,7 +8,7 @@ const sex=()=>select("sex","Equation group",[["male","Male equation"],["female",
 const schemas={
 jp3:()=>row(sex(),input("age","Age (years)",18,61,1))+row(input("chest","Chest skinfold (mm)",1,80),input("abdomen","Abdomen skinfold (mm)",1,100))+row(input("triceps","Triceps skinfold (mm) · female",1,80),input("suprailiac","Suprailiac skinfold (mm) · female",1,80),input("thigh","Thigh skinfold (mm)",1,100)),
 jp7:()=>row(sex(),input("age","Age (years)",18,61,1))+row(input("chest","Chest (mm)",1,80),input("midaxillary","Midaxillary (mm)",1,80))+row(input("triceps","Triceps (mm)",1,80),input("subscapular","Subscapular (mm)",1,80))+row(input("abdomen","Abdomen (mm)",1,100),input("suprailiac","Suprailiac (mm)",1,80),input("thigh","Thigh (mm)",1,100)),
-"durnin-womersley":()=>row(sex(),input("age","Age (years)",17,72,1))+row(input("biceps","Biceps skinfold (mm)",1,80),input("triceps","Triceps skinfold (mm)",1,80))+row(input("subscapular","Subscapular skinfold (mm)",1,80),input("suprailiac","Suprailiac skinfold (mm)",1,80)),
+"durnin-womersley":()=>row(sex(),input("age","Age (years)",16,72,1))+row(input("biceps","Biceps skinfold (mm)",1,80),input("triceps","Triceps skinfold (mm)",1,80))+row(input("subscapular","Subscapular skinfold (mm)",1,80),input("suprailiac","Suprailiac skinfold (mm)",1,80)),
 "ymca-body-fat":()=>row(sex(),input("weight","Body weight (kg)",20,350))+row(input("waist","Waist circumference (cm)",30,250)),
 "body-fat-comparison":()=>row(input("a","First body-fat reading (%)",0,75),input("b","Second body-fat reading (%)",0,75)),
 "total-body-water":()=>row(input("measured","Measured total body water (kg)",0,250),input("weight","Body weight (kg)",1,500)),
@@ -35,6 +35,7 @@ function valid(ids){for(const id of ids){const e=$(id),x=Number(e?.value);if(!e|
 const bf=d=>495/d-450;
 const DURNIN_WOMERSLEY_COEFFICIENTS = {
  male: [
+  { min: 16, max: 16, a: 1.1533, b: 0.0643 },
   { min: 17, max: 19, a: 1.1620, b: 0.0630 },
   { min: 20, max: 29, a: 1.1631, b: 0.0632 },
   { min: 30, max: 39, a: 1.1422, b: 0.0544 },
@@ -42,6 +43,7 @@ const DURNIN_WOMERSLEY_COEFFICIENTS = {
   { min: 50, max: 72, a: 1.1715, b: 0.0779 }
  ],
  female: [
+  { min: 16, max: 16, a: 1.1369, b: 0.0598 },
   { min: 17, max: 19, a: 1.1549, b: 0.0678 },
   { min: 20, max: 29, a: 1.1599, b: 0.0717 },
   { min: 30, max: 39, a: 1.1423, b: 0.0632 },
@@ -55,8 +57,8 @@ function calculateDurninWomersleyDensity(sex, age, skinfoldSum) {
  const years = Number(age);
  const sum = Number(skinfoldSum);
  if (!group) throw new RangeError("Choose a supported equation group.");
- if (!Number.isInteger(years) || years < 17 || years > 72) {
-  throw new RangeError("The Durnin–Womersley reference coefficients support ages 17–72 years.");
+ if (!Number.isInteger(years) || years < 16 || years > 72) {
+  throw new RangeError("The Durnin–Womersley reference coefficients support ages 16–72 years.");
  }
  if (!Number.isFinite(sum) || sum <= 0) {
   throw new RangeError("The sum of the four skinfold measurements must be positive.");
