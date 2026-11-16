@@ -19,10 +19,11 @@
 <p class="cf-note">Compare waist-to-height ratios for two measurements. Use the same waist-measurement protocol and units for both people; the ratio is a screening indicator, not a diagnosis.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="waistA">Person A — waist circumference (cm)</label><input id="waistA" name="waistA" type="number" min="30" max="250" step="any" inputmode="decimal" required aria-label="Person A — waist circumference"></div>
-<div class="col"><label for="heightA">Person A — height (cm)</label><input id="heightA" name="heightA" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Person A — height"></div>
+<div class="col"><label for="waistA">Person A — waist circumference</label><input id="waistA" name="waistA" type="number" min="30" max="250" step="any" inputmode="decimal" required aria-label="Person A — waist circumference"></div>
+<div class="col"><label for="heightA">Person A — height</label><input id="heightA" name="heightA" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Person A — height"></div>
 <div class="col"><label for="waistB">Person B — waist circumference (cm)</label><input id="waistB" name="waistB" type="number" min="30" max="250" step="any" inputmode="decimal" required aria-label="Person B — waist circumference"></div>
 <div class="col"><label for="heightB">Person B — height (cm)</label><input id="heightB" name="heightB" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Person B — height"></div>
+<div class="col"><label for="unit">Measurement unit</label><select id="unit" data-unit-for="waistA,heightA,waistB,heightB"><option value="cm">cm</option><option value="in">inches</option><option value="mm">mm</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
