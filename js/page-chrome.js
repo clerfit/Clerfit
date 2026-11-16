@@ -281,7 +281,7 @@
 // the legacy .card markup. Redirects and informational pages have no calculator inputs.
 (() => {
   "use strict";
-  const isCalculatorRoute = /\\/html\\/[^/]+\\.html$/i.test(location.pathname);
+  const isCalculatorRoute = /\/html\/[^/]+\.html$/i.test(location.pathname);
   const hasCalculatorInputs = Boolean(
     document.querySelector('input:not([type="hidden"]), select, textarea')
   );
