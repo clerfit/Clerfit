@@ -177,6 +177,21 @@ jobs:
           node tests/body-composition-browser-interactions.test.js http://127.0.0.1:4173/
           node tests/anthropometric-remaining-browser-interactions.test.js http://127.0.0.1:4173/
 
+      - name: Verify mobile landscape, tablet and desktop layouts across all 164 calculator routes
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4175 --directory dist >/tmp/clerfit-responsive-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4175/ >/dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:4175/ >/dev/null
+          node scripts/responsive-layout-smoke.js http://127.0.0.1:4175/
+
       - name: Run all-page axe accessibility smoke tests
         if: always()
         env:
