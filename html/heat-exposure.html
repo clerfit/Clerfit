@@ -126,19 +126,20 @@
 
   <div class="row">
     <div class="col">
-      <label for="tempC">Air Temperature (°C)</label>
-      <input type="number" id="tempC" min="-100" max="70" step="any">
+      <label for="tempC">Air Temperature</label>
+      <input type="number" id="tempC" min="-100" max="70" step="any" oninput="document.getElementById('result').textContent=''">
+      <select id="tempUnit" data-unit-for="tempC" aria-label="Temperature unit" onchange="document.getElementById('result').textContent=''"><option value="C">°C</option><option value="F">°F</option></select>
     </div>
 
     <div class="col">
       <label for="humidity">Relative Humidity (%)</label>
-      <input type="number" id="humidity" min="0" max="100" step="any">
+      <input type="number" id="humidity" min="0" max="100" step="any" oninput="document.getElementById('result').textContent=''">
     </div>
 
     <div class="col">
       <label for="duration">Exposure Time</label>
-      <input type="number" id="duration" min="0" max="10080" step="any">
-      <select id="timeUnit" aria-label="Time unit">
+      <input type="number" id="duration" min="0" max="10080" step="any" oninput="document.getElementById('result').textContent=''">
+      <select id="timeUnit" aria-label="Time unit" onchange="document.getElementById('result').textContent=''">
         <option value="minutes">Minutes</option>
         <option value="hours">Hours</option>
       </select>
@@ -146,7 +147,7 @@
 
     <div class="col">
       <label for="sunExposure">Sun Exposure</label>
-      <select id="sunExposure" aria-label="Sun exposure">
+      <select id="sunExposure" aria-label="Sun exposure" onchange="document.getElementById('result').textContent=''">
         <option value="0">Shade</option>
         <option value="5">Partial Sun</option>
         <option value="10">Direct Sun</option>
@@ -155,7 +156,7 @@
 
     <div class="col">
       <label for="intensity">Work Intensity</label>
-      <select id="intensity" aria-label="Activity intensity">
+      <select id="intensity" aria-label="Activity intensity" onchange="document.getElementById('result').textContent=''">
         <option value="1">Light</option>
         <option value="1.3">Moderate</option>
         <option value="1.6">Heavy</option>
@@ -165,13 +166,16 @@
 
   <br>
   <button class="calculate-btn" onclick="calculateHeat()">Calculate</button>
+  <button type="button" class="calculate-btn" onclick="resetHeat()" aria-label="Reset exposure calculator">Reset</button>
 
   <div id="result" style="margin-top:25px;"></div>
 </div>
 
 <script>
 function calculateHeat() {
-  const T = Number(document.getElementById("tempC").value);
+  const temperatureValue = Number(document.getElementById("tempC").value);
+  const tempUnit = document.getElementById("tempUnit").value;
+  const T = tempUnit === "F" ? (temperatureValue - 32) * 5 / 9 : temperatureValue;
   const RH = Number(document.getElementById("humidity").value);
   const duration = Number(document.getElementById("duration").value);
   const timeUnit = document.getElementById("timeUnit").value;
@@ -196,6 +200,16 @@ function calculateHeat() {
   const durationMinutes = timeUnit === "hours" ? duration * 60 : duration;
   const thresholdNote = hiF >= 103 ? "The U.S. National Weather Service notes that heat indices at or above 103°F can lead to dangerous heat disorders with prolonged exposure or physical activity." : "Heat index is a shade-based apparent-temperature estimate, not a personal safety guarantee.";
   result.innerHTML = `<strong>Estimated heat index: ${hiC.toFixed(1)} °C (${hiF.toFixed(1)} °F)</strong><p>Air temperature: ${T.toFixed(1)} °C; relative humidity: ${RH.toFixed(0)}%; planned duration: ${durationMinutes.toFixed(0)} minutes; sun exposure: ${sun}; work intensity: ${intensity}.</p><p>${thresholdNote}</p><p>Direct sunlight can raise apparent heat burden substantially, and physical work, acclimatization, clothing, hydration, medications and individual health all matter. This calculator does not produce a validated cumulative heat-strain score or safe exposure time. Follow local heat advisories and occupational/sport safety guidance. Method reference: <a href="https://www.weather.gov/tbw/heatindex" target="_blank" rel="noopener noreferrer">U.S. National Weather Service heat-index methodology</a>.</p>`;
+}
+function resetHeat() {
+  const card = document.querySelector('.card');
+  card.querySelectorAll('input[type="number"]').forEach(input => { input.value = ''; });
+  card.querySelectorAll('select').forEach(select => {
+    const option = Array.from(select.options).find(item => item.defaultSelected) || select.options[0];
+    if (option) select.value = option.value;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+  document.getElementById('result').textContent = '';
 }
 </script>
 

@@ -48,6 +48,13 @@
   if (u === "lb") return n * 0.45359237;
   throw new RangeError("Choose kilograms (kg) or pounds (lb).");
  }
+ function toLitres(value, unit) {
+  const n = Number(value), u = String(unit || "L").toLowerCase();
+  if (!Number.isFinite(n) || n <= 0) throw new RangeError("Volume must be a positive finite value.");
+  if (u === "l") return n;
+  if (u === "ml") return n / 1000;
+  throw new RangeError("Choose litres (L) or millilitres (mL).");
+ }
  function toHeightCm(value, unit) {
   const n = Number(value), u = String(unit || "cm").toLowerCase();
   if (!Number.isFinite(n) || n <= 0) throw new RangeError("Height must be a positive finite value.");
@@ -281,7 +288,7 @@
      break;
     }
     case "measure":
-     result = fmt(num(fields[0].id)) + " cm";
+     result = fmt(toCm(num("waist"), $("waistUnit").value, "Waist circumference")) + " cm";
      note = "Recorded measurement only. Compare it only with a reference that uses the same measurement protocol.";
      break;
     case "bai": {
@@ -336,25 +343,35 @@
      break;
     }
     case "whtcompare": {
-     const a = num("waistA") / num("heightA"), b = num("waistB") / num("heightB");
+     const unit = $("unit").value;
+     const a = toCm(num("waistA"), unit, "Person A waist") / toCm(num("heightA"), unit, "Person A height");
+     const b = toCm(num("waistB"), unit, "Person B waist") / toCm(num("heightB"), unit, "Person B height");
      result = "Person A: " + fmt(a) + " · Person B: " + fmt(b) + " · Difference: " + fmt(Math.abs(a - b));
      note = "Waist-to-height ratio = waist circumference ÷ height, using the same units.";
      break;
     }
     case "volume":
-     result = fmt(num("mass") / num("density")) + " L";
+     result = fmt(toKg(num("mass"), $("massUnit").value) / num("density")) + " L";
      note = "Volume = mass ÷ density. This assumes average density is representative and uses kg and kg/L.";
      break;
     case "density":
-     result = fmt(num("mass") / num("volume")) + " kg/L";
+     result = fmt(toKg(num("mass"), $("massUnit").value) / toLitres(num("volume"), $("volumeUnit").value)) + " kg/L";
      note = "Density = mass ÷ volume. Ensure volume is entered in litres.";
      break;
-    case "zscore":
-     result = fmt((num("value") - num("mean")) / num("sd"));
+    case "zscore": {
+     const unit = $("unit").value;
+     const observed = toCm(num("value"), unit, "Observed measurement");
+     const mean = toCm(num("mean"), unit, "Reference mean");
+     const sd = toCm(num("sd"), unit, "Reference standard deviation");
+     result = fmt((observed - mean) / sd);
+     break;
+    }
      note = "Z-score = (observed value − reference mean) ÷ reference standard deviation. Reference selection is essential.";
      break;
     case "symmetry": {
-     const a = num("left"), b = num("right"), d = Math.abs(a - b), p = d / ((a + b) / 2) * 100;
+     const unit = $("unit").value;
+     const a = toCm(num("left"), unit, "Left measurement"), b = toCm(num("right"), unit, "Right measurement");
+     const d = Math.abs(a - b), p = d / ((a + b) / 2) * 100;
      result = "Absolute difference: " + fmt(d) + " cm · Relative difference: " + fmt(p) + "%";
      note = "Relative difference = absolute side-to-side difference ÷ mean of both sides × 100.";
      break;
