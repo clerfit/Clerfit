@@ -32,7 +32,9 @@ jobs:
         run: node tests/verify.js
       - name: Verify anthropometric calculator domain guards
         run: node tests/anthropometric-domain.test.js
-      - name: Verify body-composition formula coefficients\n        run: node tests/body-composition-methods.test.js\n      - name: Run Batch 2 anthropometric formula and boundary regressions
+      - name: Verify body-composition formula coefficients
+        run: node tests/body-composition-methods.test.js
+      - name: Run Batch 2 anthropometric formula and boundary regressions
         run: node tests/anthropometric-batch2.test.js
       - name: Verify ratio decimal precision and denominator edge cases
         run: node tests/ratio-decimal-precision.test.js
