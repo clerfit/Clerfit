@@ -1,0 +1,8 @@
+# Generated and third-party files
+node_modules/
+dist/
+build/
+coverage/
+
+# Keep archived audit exports and generated reports out of routine formatting.
+reports/generated/
