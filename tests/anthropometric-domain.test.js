@@ -96,4 +96,4 @@ assert.throws(() => api.calculateBAI(100, 'cm', 180, 'cm', 30.5), /adults aged/)
 assert.throws(() => api.calculateFMI(0, 'kg', 180, 'cm'), /positive finite/);
 assert.throws(() => api.calculateFFMI(80, 'kg', 80, 180, 'cm', 80, 'kg', 15, 180, 'cm'), /between 0 and 75/);
 
-process.stdout.write('Anthropometric domain regressions passed (43 assertions).\\n');
+process.stdout.write('Anthropometric domain regressions passed.\\n');
