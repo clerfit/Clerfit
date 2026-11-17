@@ -23,20 +23,18 @@ The register and matrix now each contain 164 unique calculator file entries. `te
 - Added route-wiring checks for all 22 body-composition pages. The existing anthropometric suite covers all 24 additional anthropometric pages.
 - Added a check that skinfold-derived body-fat estimates outside the supported 0–75% output range are rejected.
 
-## Automated evidence
+## Automated evidence — 17 November 2026 recheck
 
-The formula-regression workflow has passed on the audit branch, including:
+The latest available PR-triggered run on the pre-fix candidate (merge commit `aa0788947c74710c8e5f479c35831706593ddf45`, PR #109) reported:
 
-- Existing 118-route known-answer/domain suite
-- New anthropometric domain tests
-- New body-composition coefficient and formula tests
-- 24-page anthropometric route and formula checks
-- 22-page body-composition route-wiring checks
-- Field-bound inventory consistency
-- Scientific register / matrix / 164-route registry consistency
-- JavaScript syntax checks
+- **All-route browser smoke: PASS** (workflow run 43934414997). This is candidate-branch evidence, not a production-live test.
+- **Production staging/package: PASS** (workflow run 43934415049).
+- **Formula regression: FAIL** (workflow run 43934415282). The run exposed an ALMI test fixture using unsupported height unit `m`; the implementation accepts `cm` or `in`. The fixture was corrected to 200 cm in commit `5b8dc3afdb6a23a6b248378f49768617c5fa8122`.
+- **Phase 1/2 verification: FAIL** (workflow run 43934415315). JavaScript syntax checking exposed a malformed escaped newline at the end of `tests/body-composition-methods.test.js`. That footer was corrected in commit `d93b4f2815bcacebe15c337f5033021f17f4e2f8`.
+- The Phase 1/2 accessibility step did **not** complete an axe scan: the earlier syntax failure prevented the staging build, so the later `if: always()` accessibility step had no `dist/` site to serve and exited during its local HTTP check. This is **not** an axe pass or an axe violation result.
+- A later commit removed an unverified hard-coded assertion count from the anthropometric test output: `b92ee79c71fead2a4e93e344b1f66e91165214a1`.
 
-The latest full browser smoke and Phase 1/2 accessibility/staging workflows are still running for the newest commit. Their results must be checked before this PR is considered ready.
+The fixes above have been committed to the audit branch. **No CI result has yet been retrieved for the corrected branch head**, so these corrections are not yet verified. Do not describe the formula suite, full accessibility scan, or Phase 1/2 workflow as passing until a fresh run on the exact corrected head is green and its artifacts are reviewed.
 
 ## Code-quality direction
 
