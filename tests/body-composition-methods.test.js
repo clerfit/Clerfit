@@ -94,4 +94,4 @@ assert.throws(() => methods.calculateFatFreeMassChange(80, 80, 78, 18), /0 to 75
 assert.throws(() => methods.bodyFatFromDensity(0), /positive finite value/);
 assert.throws(() => methods.bodyFatFromDensity(Infinity), /positive finite value/);
 assert.throws(() => methods.bodyFatFromDensity(NaN), /positive finite value/);
-\nprocess.stdout.write('Body-composition formula regressions passed (36 assertions).\\n');
+process.stdout.write('Body-composition formula regressions passed.\\n');
