@@ -87,6 +87,7 @@ assert.ok(Math.abs(skeletal.index - (30 / 3.24)) < 1e-12);
 assert.throws(() => api.calculateSkeletalMuscleMass(80, 'kg', 75, 'kg', 180, 'cm'), /cannot exceed/);
 const almi = api.calculateALMI(20, 'kg', 200, 'cm');
 assert.equal(almi.index, 5);
+assert.throws(() => api.calculateALMI(20, 'kg', 2, 'm'), /centimetres \(cm\) or inches \(in\)/);
 const fmi = api.calculateFMI(18, 'kg', 180, 'cm');
 assert.ok(Math.abs(fmi.index - (18 / 3.24)) < 1e-12);
 const ffmi = api.calculateFFMI(80, 'kg', 15, 180, 'cm', 176.369809, 'lb', 15, 70.8661417, 'in');
