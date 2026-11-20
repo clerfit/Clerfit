@@ -2,7 +2,11 @@
 
 Audit date: 2026-10-15
 
-## Result
+## Current status note — 16 November 2026
+
+This document records the historical 118-route formula audit from 15 October 2026. The live registry has since grown to 164 calculators. The follow-up branch audit has expanded both the formula matrix and scientific review register to 164 routes; see [docs/CALCULATOR_AUDIT_164.md](docs/CALCULATOR_AUDIT_164.md) and PR #109. The 46 additional routes have shared-function known-answer/domain tests and route-wiring checks. Full browser/accessibility acceptance remains a separate gate.
+
+## Historical result
 
 **Route-level formula/method vector coverage: 118/118 registered calculators (100%).** Each route has a passing known-answer or method-specific regression vector in `tests/verify.js`. This is route-level coverage, not proof that every possible input combination has been validated.
 
@@ -150,7 +154,7 @@ The 100% figure means every registered route has at least one passing known-answ
 | Heat Exposure | heat-exposure.html | Heat index uses the US National Weather Service heat-index method from air temperature and relative humidity; it is not a safe-exposure-time predictor. | Direct/shared known-answer vector in tests/verify.js; PASS | US National Weather Service heat-index method |
 | Cold Exposure | cold-exposure.html | Wind chill uses the US National Weather Service wind-chill equation from air temperature and wind speed; it does not predict exact frostbite time. | Direct/shared known-answer vector in tests/verify.js; PASS | US National Weather Service wind-chill method |
 | Sunlight Duration | sunlight.html | UV context indicator = UV index × entered duration; it is not a safe-time, vitamin-D or sunburn prediction. | Route-specific known-answer/method vector in tests/verify.js; PASS | See SOURCES_AND_METHODS.md; method/assumptions must be checked per route. |
-| Physical Activity Level | pal.html | Physical Activity Level (PAL) is assigned from the page’s age/sex/activity selection and its displayed lookup table; it is not a measured physiological value. | Route-specific known-answer/method vector in tests/verify.js; PASS | See SOURCES_AND_METHODS.md; method/assumptions must be checked per route. |
+| Physical Activity Level | pal.html | PAL = average 24-hour TEE ÷ 24-hour BMR; adult population lifestyle reference bands: 1.40–1.69 sedentary/light, 1.70–1.99 active/moderate, 2.00–2.40 vigorous. | Direct known-answer and boundary regressions in tests/verify.js; PASS after correction | FAO/WHO/UNU, Human energy requirements, PAL definition and classification: https://www.fao.org/4/y5686e/y5686e07.htm. Categories describe population lifestyles, not individual clinical cut-offs. |
 
 ## Core external references
 

@@ -86,127 +86,85 @@
 
 
 <!-- ===== Physical Activity Level Calculator ===== -->
-<div class="card">
-  <h2>Physical Activity Level (PAL) Calculator</h2>
-
-  <div class="row">
-    <div class="col">
-      <label for="age">Age</label>
-      <input type="number" id="age" placeholder="Enter age" min="1" max="120" step="1" aria-label="Enter age">
+<section class="card" aria-labelledby="pal-heading">
+  <h2 id="pal-heading">Physical Activity Level (PAL) Calculator</h2>
+  <p class="cf-note" id="pal-help">PAL is calculated from average total energy expenditure (TEE) over 24 hours divided by basal metabolic rate (BMR) over 24 hours. Enter both values in kcal/day. Activity frequency alone cannot measure PAL.</p>
+  <form id="pal-form" onsubmit="event.preventDefault(); calculatePAL();">
+    <div class="row">
+      <div class="col">
+        <label for="tee">Average total energy expenditure (TEE)</label>
+        <input type="number" id="tee" min="1" max="50000" step="any" inputmode="decimal" placeholder="e.g. 2970" required aria-describedby="pal-help">
+        <small>kcal per 24 hours</small>
+      </div>
+      <div class="col">
+        <label for="bmr">Basal metabolic rate (BMR)</label>
+        <input type="number" id="bmr" min="1" max="10000" step="any" inputmode="decimal" placeholder="e.g. 1700" required aria-describedby="pal-help">
+        <small>kcal per 24 hours</small>
+      </div>
     </div>
-
-    <div class="col">
-      <label for="gender">Gender</label>
-      <select id="gender" aria-label="Sex / reference group">
-        <option value="" selected disabled>Select</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
+    <div class="cf-form-actions">
+      <button class="calculate-btn" type="submit">Calculate PAL</button>
+      <button class="calculate-btn cf-reset-btn" type="reset">Reset</button>
     </div>
-
-    <div class="col">
-      <label for="activity">Daily Activity Level</label>
-      <select id="activity" aria-label="Activity level">
-        <option value="" selected disabled>Select</option>
-        <option value="sedentary">Sedentary (little or no exercise)</option>
-        <option value="light">Lightly Active (1–3 days/week)</option>
-        <option value="moderate">Moderately Active (3–5 days/week)</option>
-        <option value="active">Active (6–7 days/week)</option>
-        <option value="veryactive">Very Active (hard exercise daily)</option>
-        <option value="extraactive">Extra Active (physical job or intense training)</option>
-      </select>
-    </div>
-  </div>
-
-  <button class="calculate-btn" onclick="calculatePAL()">Calculate PAL</button>
-
-  <div class="result" id="result"></div>
-
-  <h3 style="margin-top:20px;">PAL Reference Table</h3>
+  </form>
+  <div class="result" id="result" aria-live="polite"></div>
+  <h3 style="margin-top:20px">Adult lifestyle reference bands</h3>
+  <p class="cf-note">FAO/WHO/UNU reference categories describe population lifestyles, not precise individual cut-offs.</p>
   <table>
-    <tr><th>PAL Value</th><th>Activity Level</th><th>Meaning</th><th>Typical Applications</th></tr>
-    <tr><td>1.2</td><td>Sedentary</td><td>Minimal activity</td><td>Office workers, limited movement</td></tr>
-    <tr><td>1.375</td><td>Lightly Active</td><td>Low activity</td><td>Light exercise 1–3 days/week</td></tr>
-    <tr><td>1.55</td><td>Moderately Active</td><td>Moderate activity</td><td>Exercise 3–5 days/week, walking, household chores</td></tr>
-    <tr><td>1.725</td><td>Active</td><td>High activity</td><td>Daily training, sports enthusiasts</td></tr>
-    <tr><td>1.9</td><td>Very Active</td><td>Very high activity</td><td>Intense training, physical labor jobs</td></tr>
-    <tr><td>2.0+</td><td>Extra Active</td><td>Extreme activity</td><td>Professional athletes, manual labor, extreme workouts</td></tr>
+    <thead><tr><th scope="col">PAL</th><th scope="col">Reference lifestyle</th></tr></thead>
+    <tbody>
+      <tr><td>1.40–1.69</td><td>Sedentary or light activity</td></tr>
+      <tr><td>1.70–1.99</td><td>Active or moderately active</td></tr>
+      <tr><td>2.00–2.40</td><td>Vigorous or vigorously active</td></tr>
+    </tbody>
   </table>
-</div>
-
-
-<div class="card">
-
-
-
-<div style="margin-top:20px;">
-
-  <h4>Meaning</h4>
-  <ul style="padding-left:18px; line-height:1.6;">
-    <li>PAL (Physical Activity Level) represents your overall daily activity level.</li>
-    <li>It is the ratio of total daily energy expenditure (TDEE) to basal metabolic rate (BMR).</li>
-    <li>Higher PAL values indicate a more active lifestyle.</li>
-  </ul>
-
-  <h4 style="margin-top:16px;">Applications</h4>
-  <ul style="padding-left:18px; line-height:1.6;">
-    <li>Used to calculate daily calorie needs accurately.</li>
-    <li>Helps plan diet for weight loss, maintenance, or muscle gain.</li>
-    <li>Useful for athletes, fitness tracking, and lifestyle analysis.</li>
-    <li>Supports better understanding of energy balance.</li>
-  </ul>
-
-  <h4 style="margin-top:16px;">Cautions</h4>
-  <ul style="padding-left:18px; line-height:1.6;">
-    <li>PAL is an estimate and may vary based on actual daily activity.</li>
-    <li>Overestimating activity can lead to excess calorie intake.</li>
-    <li>Does not account for metabolic differences between individuals.</li>
-    <li>Should be used along with real progress tracking (weight, performance).</li>
-    <li>Not a substitute for professional medical or dietary advice.</li>
-  </ul>
-
-</div>
-</div>
-
-
-
+</section>
 
 <script>
 function calculatePAL() {
-  const ageRaw = document.getElementById("age").value;
-  const age = Number(ageRaw);
-  const gender = document.getElementById("gender").value;
-  const activity = document.getElementById("activity").value;
+  const teeRaw = document.getElementById("tee").value;
+  const bmrRaw = document.getElementById("bmr").value;
+  const tee = Number(teeRaw);
+  const bmr = Number(bmrRaw);
   const result = document.getElementById("result");
   result.textContent = "";
 
-  if (ageRaw.trim() === "" || !Number.isInteger(age) || age < 1 || age > 120) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter an integer age from 1 to 120.</p>';
-    return;
-  }
-  if (!["male", "female"].includes(gender)) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose a supported sex/reference group.</p>';
-    return;
-  }
-
-  const factors = {
-    sedentary: 1.2,
-    light: 1.375,
-    moderate: 1.55,
-    active: 1.725,
-    veryactive: 1.9,
-    extraactive: 2.0
-  };
-  const palValue = factors[activity];
-  if (!Number.isFinite(palValue)) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">Choose a listed activity level.</p>';
+  if (teeRaw.trim() === "" || bmrRaw.trim() === "" ||
+      !Number.isFinite(tee) || !Number.isFinite(bmr) || tee <= 0 || bmr <= 0 ||
+      tee > 50000 || bmr > 10000) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter positive, finite TEE and BMR values within the displayed limits, using kcal per 24 hours for both.</p>';
     return;
   }
 
-  result.innerHTML =
-    `Age: <b>${age}</b>, Sex/reference group: <b>${gender}</b><br>
-     Physical Activity Level (PAL): <b>${palValue.toFixed(2)}</b>
-     <p class="cf-note">PAL is the multiplier associated with the selected activity category; it is not a measurement of your actual daily energy expenditure.</p>`;
+  const pal = tee / bmr;
+  if (!Number.isFinite(pal)) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">These values do not produce a valid PAL. Check the inputs.</p>';
+    return;
+  }
+
+  let category;
+  let interpretation;
+  if (pal < 1.40) {
+    category = "Below the usual sustained adult reference range";
+    interpretation = "Check that TEE and BMR use the same 24-hour basis and that both values are appropriate. A value below 1.40 is outside the FAO/WHO/UNU lifestyle bands; it is not a diagnosis.";
+  } else if (pal < 1.70) {
+    category = "Sedentary or light activity";
+    interpretation = "This falls within the FAO/WHO/UNU sedentary or light adult lifestyle band.";
+  } else if (pal < 2.00) {
+    category = "Active or moderately active";
+    interpretation = "This falls within the FAO/WHO/UNU active or moderately active adult lifestyle band.";
+  } else if (pal <= 2.40) {
+    category = "Vigorous or vigorously active";
+    interpretation = "This falls within the FAO/WHO/UNU vigorous adult lifestyle band.";
+  } else {
+    category = "Above the usual long-term adult reference range";
+    interpretation = "The FAO/WHO/UNU report notes that PAL values above 2.40 are difficult to maintain over the long term. Recheck the estimates and time period.";
+  }
+
+  result.innerHTML = '<strong>Physical Activity Level (PAL): ' + pal.toFixed(2) +
+    '</strong><p>TEE: ' + tee.toFixed(0) + ' kcal/day ÷ BMR: ' + bmr.toFixed(0) +
+    ' kcal/day.</p><p><b>Reference band:</b> ' + category + '</p><p>' + interpretation +
+    '</p><p class="cf-note">The result inherits uncertainty from measured or estimated TEE and BMR. FAO/WHO/UNU bands describe adult population lifestyles; they are not individual clinical thresholds.</p>';
 }
 </script>
 
@@ -218,11 +176,11 @@ function calculatePAL() {
   <summary id="cf-understanding-title">Understand Physical Activity Level <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
   <div class="cf-education-content">
    <figure class="cf-education-visual"><img src="../images/lifestyle.svg" alt="Illustration for Physical Activity Level" loading="lazy" width="120" height="120"><figcaption>Visual guide for Physical Activity Level</figcaption></figure>
-   <div class="cf-education-section"><h3>What is Physical Activity Level?</h3><p>Physical Activity Level (PAL) is a ratio of estimated total daily energy expenditure to basal or resting energy expenditure. This calculator presents a factor associated with the selected activity category; it does not measure your actual energy expenditure.</p></div>
+   <div class="cf-education-section"><h3>What is Physical Activity Level?</h3><p>PAL = average total energy expenditure (TEE) over 24 hours ÷ basal metabolic rate (BMR) over 24 hours. Both inputs must use the same energy unit and time basis. This calculator computes the ratio from the two values you supply; it does not estimate TEE or BMR for you.</p></div>
    
-   <div class="cf-education-section"><h3>What does the result mean?</h3><p>Interpret the Physical Activity Level result in the context of the input values, displayed units and assumptions. Real-world conditions vary; an estimate cannot guarantee safety, health outcomes or exact activity results.</p></div>
+   <div class="cf-education-section"><h3>Limitations</h3><p>FAO/WHO/UNU classifies adult population lifestyles as 1.40–1.69 sedentary/light, 1.70–1.99 active/moderate and 2.00–2.40 vigorous. These are population reference bands, not precise personal cut-offs. Estimated TEE or BMR introduces uncertainty; children, pregnancy and lactation require separate assessment.</p></div>
    <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help structure planning and make assumptions visible.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Real-world conditions vary; an estimate cannot guarantee safety, health outcomes or exact activity results.</p></div></div>
-   <div class="cf-education-section"><h3>How to use it</h3><p>Enter accurate values and the relevant time period or conditions. Review warnings and do not treat a calculated exposure duration as a safety guarantee.</p></div>
+   <div class="cf-education-section"><h3>How to use it</h3><p>Enter your average 24-hour TEE and BMR in kcal/day, using measured values or clearly identified estimates from the same period. Select Calculate PAL. For example, 2,970 kcal/day ÷ 1,700 kcal/day gives a PAL of 1.75. Do not enter a workout multiplier in place of TEE or BMR.</p></div>
    <p class="cf-education-note"><strong>Important:</strong> ClerFit provides educational calculations. It does not replace professional medical, nutrition or exercise advice. Check the calculator's formula and units before relying on a result.</p>
   </div>
  </details>
@@ -232,6 +190,7 @@ function calculatePAL() {
 <script src="../js/site-polish.js" defer></script>
 
 <script src="../js/input-validation.js" defer></script>
+<script src="../js/calculator-guides.js" defer></script>
 <script src="../js/page-chrome.js?v=20261017-nav-v4" defer></script>
 </body>
 </html>

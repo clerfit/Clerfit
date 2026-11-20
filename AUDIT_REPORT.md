@@ -2,7 +2,11 @@
 
 Audit date: 2026-10-18.
 
-## Executive result
+## Current status note — 16 November 2026
+
+This report is the historical 18 October 2026 audit snapshot and its 118-route count should not be read as the current registry size. The current registry contains 164 calculators; the follow-up review matrix and scientific register now cover all 164. See [docs/CALCULATOR_AUDIT_164.md](docs/CALCULATOR_AUDIT_164.md) and PR #109 for the current branch status. Full browser/accessibility workflows are still pending for that branch.
+
+## Historical executive result
 
 The updated source and generated production build pass the available local automated checks. There are 118 registered calculator routes, each with a passing known-answer or method-specific regression vector. The formula-by-formula desk-review register is `SCIENTIFIC_REVIEW_REGISTER.csv`; methodology, sources, limitations and unresolved external checks are in `INDEPENDENT_FORMULA_REVIEW.md`.
 

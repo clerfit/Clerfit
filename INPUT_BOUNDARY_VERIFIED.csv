@@ -126,7 +126,6 @@ mets.html,duration,Duration (minutes),0.1,500,any
 monthly-weight.html,tdeeMonthly,Your TDEE (Daily Calories Burned),0,20000,any
 monthly-weight.html,intakeMonthly,Your Daily Calorie Intake,0,20000,any
 monthly-weight.html,days,Days in Month,28,31,1
-pal.html,age,Age,1,120,1
 percentage.html,value1,Value 1,-1000000,1000000,any
 percentage.html,value2,Value 2,-1000000,1000000,any
 performance-score.html,workOutput,Work Output i Total mechanical work done during exercise in Joules. Include all reps and weights lifted.,0.1,500,any
@@ -296,3 +295,5 @@ sitting-height-arm-span-ratio.html,sittingHeight,Sitting height,30,150,any
 sitting-height-arm-span-ratio.html,armSpan,Arm span,80,250,any
 arm-span-difference.html,armSpan,Arm span,80,250,any
 arm-span-difference.html,standingHeight,Standing height,80,250,any
+pal.html,tee,Average total energy expenditure (TEE),1,50000,any
+pal.html,bmr,Basal metabolic rate (BMR),1,10000,any

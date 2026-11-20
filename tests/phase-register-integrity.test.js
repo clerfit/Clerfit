@@ -42,6 +42,20 @@ for (const file of routeFiles) {
   assert.ok(fs.existsSync(path.join(root, 'html', file)), 'missing registry target: html/' + file);
 }
 
+for (const [auditFile, fileColumn] of [
+  ['CALCULATOR_VERIFICATION_MATRIX.csv', 'file'],
+  ['SCIENTIFIC_REVIEW_REGISTER.csv', 'file']
+]) {
+  const auditRows = parseCsv(read(auditFile));
+  const auditHeader = auditRows[0];
+  const fileIndex = auditHeader.indexOf(fileColumn);
+  assert.ok(fileIndex >= 0, auditFile + ' must expose a file column');
+  const auditedFiles = auditRows.slice(1).map(row => row[fileIndex]);
+  assert.equal(auditedFiles.length, 164, auditFile + ' must cover all 164 registered calculators');
+  assert.equal(new Set(auditedFiles).size, 164, auditFile + ' must not duplicate calculator files');
+  assert.deepEqual([...auditedFiles].sort(), [...routeFiles].sort(), auditFile + ' must match the live calculator registry');
+}
+
 const inventoryRows = parseCsv(read('PHASE_1_CALCULATOR_INVENTORY.csv'));
 const inventoryHeader = inventoryRows[0];
 for (const field of ['title', 'category', 'slug', 'source_file', 'file_exists', 'canonical_sitemap_url', 'url_in_sitemap']) {
