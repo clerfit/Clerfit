@@ -67,6 +67,6 @@ for (const row of last50) {
   assert.equal(target.children.length, 3, route + ' must render three guide sections.');
   assert.equal(target.children[0].children[0].textContent, 'How to use it', route + ' guide must explain use.');
   assert.equal(target.children[1].children[0].textContent, 'Method', route + ' guide must disclose the method.');
-  assert.equal(target.children[2].children[0].textContent, 'Limitations and safety' === target.children[2].children[0].textContent ? 'Limitations and safety' : target.children[2].children[0].textContent, route + ' guide must include a limitations section.');
+  assert.match(target.children[2].children[0].textContent, /limitations/i, route + ' guide must include a limitations section.');
 }
 process.stdout.write('PASS: all 50 final calculator routes load and render route-specific how-to, method and limitation guides.\n');
