@@ -31,6 +31,16 @@ const last50 = matrix.slice(-50);
 assert.equal(last50.length, 50, 'The final 50 registered calculator routes must be present.');
 assert.equal(new Set(last50.map(row => row[column.route_slug])).size, 50, 'The final 50 routes must be unique.');
 
+const fieldAudit = read('FIELD_VALIDATION_AUDIT.csv');
+const boundaryAudit = read('INPUT_BOUNDARY_VERIFIED.csv');
+assert.match(fieldAudit, /html\/pal\.html,tee,,Average total energy expenditure \(TEE\),1,50000,any,yes/);
+assert.match(fieldAudit, /html\/pal\.html,bmr,,Basal metabolic rate \(BMR\),1,10000,any,yes/);
+assert.doesNotMatch(fieldAudit, /html\/pal\.html,age,/);
+assert.match(boundaryAudit, /pal\.html,tee,Average total energy expenditure \(TEE\),1,50000,any/);
+assert.match(boundaryAudit, /pal\.html,bmr,Basal metabolic rate \(BMR\),1,10000,any/);
+assert.doesNotMatch(boundaryAudit, /pal\.html,age,/);
+assert.match(read('scripts/sync-input-boundaries.js'), /assert\.equal\(source\.size, 298,/);
+
 const source = read('js/calculator-guides.js');
 const guideKeys = [...source.matchAll(/^\s*"([^"]+)": \[/gm)].map(match => match[1]);
 assert.equal(guideKeys.length, 50, 'Exactly 50 route-specific guides must be defined.');
