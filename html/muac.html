@@ -9,6 +9,16 @@
 <link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
 <title>ClerFit – Mid-Upper Arm Circumference (MUAC) Calculator</title>
 <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/muac.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Mid-Upper Arm Circumference (MUAC) Calculator">
+<meta property="og:description" content="Calculate mid-upper-arm muscle circumference and estimated arm areas from MUAC and triceps skinfold.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/muac.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Mid-Upper Arm Circumference (MUAC) Calculator">
+<meta name="twitter:description" content="Calculate mid-upper-arm muscle circumference and estimated arm areas from MUAC and triceps skinfold.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body data-calculator="muac">
 <aside class="sidebar" aria-label="Main navigation"></aside>
@@ -42,7 +52,18 @@
 <p>The model approximates the arm as concentric circles. Skinfold compressibility, measurement technique and bone size affect accuracy. MUAMA includes the bone area and is not a direct measurement of muscle mass. No age- or sex-based clinical category is assigned.</p>
 </section>
 </main>
-<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Measure MUAC at the midpoint between the acromion and olecranon landmarks. Measure triceps skinfold at the corresponding site with an appropriate skinfold caliper, then enter both readings and their units.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
+<section class="cf-education-card" aria-labelledby="cf-guide-muac">
+<details id="cf-guide-details-muac">
+<summary id="cf-guide-muac">Understand MUAC <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+<div class="cf-education-content">
+<p class="cf-education-intro">The MUAC method derives upper-arm muscle and fat-area approximations from mid-upper-arm circumference and a triceps skinfold. It uses a concentric-circle model.</p>
+<div class="cf-education-formula"><strong>Calculation method</strong><p>MUAMC = MUAC − π × triceps skinfold. Total arm area = MUAC² ÷ (4π); estimated muscle area = MUAMC² ÷ (4π); estimated fat area = total area − muscle area, with both lengths in the same unit.</p></div>
+<div class="cf-education-section"><h3>Measurement protocol</h3><p>Measure MUAC at the protocol’s midpoint between shoulder and elbow landmarks and take the triceps skinfold at the matching site. Convert both measurements to the same unit before calculation.</p></div>
+<div class="cf-education-section"><h3>Interpretation and limits</h3><p>These are geometric anthropometric estimates, not direct tissue measurements. The concentric-circle assumption, skinfold compressibility, bone size and technique affect accuracy. Use age- and population-specific clinical references where required.</p></div>
+
+</div>
+</details>
+</section>
 <script src="../js/navigation.js" defer></script>
 <script src="../js/unit-system.js" defer></script>
 <script src="../js/anthropometric-calculators.js" defer></script>
