@@ -43,4 +43,26 @@ assert.match(calculate('intracellular-water',{compartment:43,total:42,weight:70}
 assert.match(calculate('intracellular-water',{compartment:40,total:71,weight:70}),/cannot exceed body mass/i);
 assert.match(calculate('extracellular-water',{compartment:14,total:42,weight:70}),/33\.33% of total body water/);
 assert.match(calculate('extracellular-water',{compartment:14,total:42,weight:40}),/cannot exceed body mass/i);
+// Additional published-equation vectors and the remaining shared ratio variants.
+const s7m=130,a7m=25,d7m=1.112-.00043499*s7m+.00000055*s7m**2-.00028826*a7m;
+close(value(calculate('jp7',{sex:'male',age:a7m,chest:10,midaxillary:12,triceps:15,subscapular:18,abdomen:20,suprailiac:25,thigh:30})),495/d7m-450,'JP7 male');
+const densityDWf=1.1599-.0717*Math.log10(40);
+close(value(calculate('durnin-womersley',{sex:'female',age:25,biceps:8,triceps:10,subscapular:11,suprailiac:11})),495/densityDWf-450,'Durnin-Womersley female');
+const femaleWeightLb=70*2.2046226218,femaleWaistIn=80/2.54;
+const ymcaFemale=(4.15*femaleWaistIn-.082*femaleWeightLb-76.76)/femaleWeightLb*100;
+close(value(calculate('ymca-body-fat',{sex:'female',weight:70,waist:80})),ymcaFemale,'YMCA female equation');
+assert.match(calculate('body-fat-change',{a:0,b:12}),/12\.00 percentage points/);
+assert.doesNotMatch(calculate('body-fat-change',{a:0,b:12}),/Relative change/);
+assert.match(calculate('visceral-fat',{measured:125}),/125\.00 cm² assessment-reported visceral-fat area/);
+assert.match(calculate('subcutaneous-fat',{measured:12.5}),/12\.50 mm assessment-reported subcutaneous-fat thickness/);
+for (const [slug,a,b,expected] of [
+  ['waist-thigh-ratio',80,40,2],
+  ['chest-waist-ratio',100,80,1.25],
+  ['shoulder-waist-ratio',120,80,1.5],
+  ['shoulder-hip-ratio',120,100,1.2],
+  ['chest-height-ratio',100,175,100/175],
+  ['hip-height-ratio',100,175,100/175],
+  ['upper-arm-height-ratio',35,175,.2],
+  ['biacromial-width-ratio',40,175,40/175]
+]) close(value(calculate(slug,{a,b,unit:'cm'})),expected,slug+' canonical ratio');
 console.log('Body-composition known-answer formula checks passed.');
