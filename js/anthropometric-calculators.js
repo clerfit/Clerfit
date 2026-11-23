@@ -331,13 +331,13 @@
      const a = ffmiMetrics(toKg(num("weightA"), $("weightAUnit").value), num("fatA"), toHeightCm(num("heightA"), $("heightAUnit").value));
      const b = ffmiMetrics(toKg(num("weightB"), $("weightBUnit").value), num("fatB"), toHeightCm(num("heightB"), $("heightBUnit").value));
      const comparison = compareFFMI(a, b);
-     result = "Person A: " + fmt(a.ffmiKgM2) + " kg/m² · Person B: " + fmt(b.ffmiKgM2) + " kg/m² · Difference: " + fmt(comparison.absoluteDifferenceKgM2) + " kg/m² · Higher FFMI: " + comparison.higher;
+     result = "Person A: " + fmt(a.ffmiKgM2) + " kg/m² · Person B: " + fmt(b.ffmiKgM2) + " kg/m² · Absolute difference: " + fmt(comparison.absoluteDifferenceKgM2) + " kg/m² · Higher FFMI: " + comparison.higher;
      note = "FFMI = estimated fat-free mass ÷ height². Body-fat measurement error affects the comparison.";
      break;
     }
     case "whtcompare": {
      const a = num("waistA") / num("heightA"), b = num("waistB") / num("heightB");
-     result = "Person A: " + fmt(a) + " · Person B: " + fmt(b) + " · Difference: " + fmt(Math.abs(a - b));
+     result = "Person A: " + fmt(a) + " · Person B: " + fmt(b) + " · Absolute difference: " + fmt(Math.abs(a - b));
      note = "Waist-to-height ratio = waist circumference ÷ height, using the same units.";
      break;
     }
