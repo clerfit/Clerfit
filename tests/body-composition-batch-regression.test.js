@@ -44,9 +44,9 @@ const ratios = [
     }
 
     const impossible = [
-      { page:'total-body-water.html', values:{measured:'70.01',weight:'70'}, message:/cannot exceed total body mass/i },
+      { page:'total-body-water.html', values:{measured:'70.01',weight:'70'}, message:/must be less than total body mass/i },
       { page:'bone-mass.html', values:{measured:'70.01',weight:'70'}, message:/cannot exceed total body mass/i },
-      { page:'intracellular-water.html', values:{compartment:'40',total:'71',weight:'70'}, message:/cannot exceed body mass/i },
+      { page:'intracellular-water.html', values:{compartment:'40',total:'71',weight:'70'}, message:/must be less than body mass/i },
       { page:'extracellular-water.html', values:{compartment:'40',total:'71',weight:'70'}, message:/cannot exceed body mass/i }
     ];
     for (const item of impossible) {
