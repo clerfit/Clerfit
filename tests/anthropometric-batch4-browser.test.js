@@ -26,7 +26,7 @@ const cases = [
       assert.doesNotMatch(output,/NaN|Infinity/);
       const first=Object.keys(item.values)[0];
       await page.locator('#'+first).fill(String(Number(item.values[first])+1));
-      assert.equal((await page.locator('#calc-result').innerText()).trim(),' ',item.page+' clears stale result after edits');
+      assert.equal((await page.locator('#calc-result').innerText()).trim(),'',item.page+' clears stale result after edits');
       await page.locator('#calc-form button[type="reset"]').click();
       await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
       for(const id of Object.keys(item.values)) assert.equal(await page.locator('#'+id).inputValue(),'');
