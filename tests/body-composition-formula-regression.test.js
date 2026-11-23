@@ -32,18 +32,18 @@ assert.match(calculate('waist-arm-ratio',{a:80,b:40,unit:'cm'}),/2\.00 ratio/);
 assert.match(calculate('fat-free-mass-change',{wa:80,fa:20,wb:78,fb:18}),/Change: -0\.04 kg/);
 // Cross-field physical consistency: water and bone mass cannot exceed total body mass.
 assert.match(calculate('total-body-water',{measured:42,weight:70}),/60\.00% of body mass/);
-assert.match(calculate('total-body-water',{measured:70,weight:70}),/100\.00% of body mass/);
+assert.match(calculate('total-body-water',{measured:70,weight:70}),/must be less than total body mass/i);
 assert.match(calculate('total-body-water',{measured:70.01,weight:70}),/must be less than total body mass/i);
 assert.match(calculate('bone-mass',{measured:3.5,weight:70}),/5\.00% of body mass/);
-assert.match(calculate('bone-mass',{measured:70,weight:70}),/100\.00% of body mass/);
-assert.match(calculate('bone-mass',{measured:70.01,weight:70}),/cannot exceed total body mass/i);
+assert.match(calculate('bone-mass',{measured:70,weight:70}),/must be less than total body mass/i);
+assert.match(calculate('bone-mass',{measured:70.01,weight:70}),/must be less than total body mass/i);
 // Water compartment values must remain internally consistent and respect body mass.
 assert.match(calculate('intracellular-water',{compartment:28,total:42,weight:70}),/66\.67% of total body water/);
 assert.match(calculate('intracellular-water',{compartment:43,total:42,weight:70}),/must be less than total body water/i);
 assert.match(calculate('intracellular-water',{compartment:42,total:42,weight:70}),/must be less than total body water/i);
 assert.match(calculate('intracellular-water',{compartment:40,total:71,weight:70}),/must be less than body mass/i);
 assert.match(calculate('extracellular-water',{compartment:14,total:42,weight:70}),/33\.33% of total body water/);
-assert.match(calculate('extracellular-water',{compartment:14,total:42,weight:40}),/cannot exceed body mass/i);
+assert.match(calculate('extracellular-water',{compartment:14,total:42,weight:40}),/must be less than body mass/i);
 // Additional published-equation vectors and the remaining shared ratio variants.
 const s7m=130,a7m=25,d7m=1.112-.00043499*s7m+.00000055*s7m**2-.00028826*a7m;
 close(value(calculate('jp7',{sex:'male',age:a7m,chest:10,midaxillary:12,triceps:15,subscapular:18,abdomen:20,suprailiac:25,thigh:30})),495/d7m-450,'JP7 male');
