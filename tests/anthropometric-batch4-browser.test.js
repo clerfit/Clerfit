@@ -3,15 +3,15 @@ const assert = require('node:assert/strict');
 const { chromium } = require('playwright');
 const base = process.argv[2] || 'http://127.0.0.1:4173/';
 const cases = [
-  {page:'waist-circumference-reference.html', values:{waist:'85'}, expected:/85\.00 cm/},
-  {page:'waist-height-comparison.html', values:{waistA:'80',heightA:'175',waistB:'90',heightB:'180'}, expected:/Person A: 0\.46 · Person B: 0\.50 · Absolute difference: 0\.04/},
-  {page:'body-volume.html', values:{mass:'70',density:'1.05'}, expected:/66\.67 L/},
+  {page:'waist-circumference-reference.html', values:{waist:'85'}, expected:/85 cm/},
+  {page:'waist-height-comparison.html', values:{waistA:'80',heightA:'175',waistB:'90',heightB:'180'}, expected:/Person A: 0\.457 · Person B: 0\.5 · Absolute difference: 0\.043/},
+  {page:'body-volume.html', values:{mass:'70',density:'1.05'}, expected:/66\.667 L/},
   {page:'body-density.html', values:{mass:'70',volume:'66\.6667'}, expected:/1\.05 kg\/L/},
   {page:'anthropometric-z-score.html', values:{value:'80',mean:'70',sd:'5'}, expected:/2\.00/},
-  {page:'body-measurement-symmetry.html', values:{left:'40',right:'42'}, expected:/Absolute difference: 2\.00 cm · Relative difference: 4\.88%/},
-  {page:'arm-waist-ratio.html', values:{arm:'35',waist:'80'}, expected:/0\.44 \(43\.75%\)/},
-  {page:'leg-height-ratio.html', values:{leg:'90',height:'180'}, expected:/0\.50 \(50\.00%\)/},
-  {page:'sitting-height-ratio.html', values:{sitting:'90',height:'180'}, expected:/0\.50 \(50\.00%\)/}
+  {page:'body-measurement-symmetry.html', values:{left:'40',right:'42'}, expected:/Absolute difference: 2 cm · Relative difference: 4\.878%/},
+  {page:'arm-waist-ratio.html', values:{arm:'35',waist:'80'}, expected:/0\.438 \(43\.75%\)/},
+  {page:'leg-height-ratio.html', values:{leg:'90',height:'180'}, expected:/0\.5 \(50%\)/},
+  {page:'sitting-height-ratio.html', values:{sitting:'90',height:'180'}, expected:/0\.5 \(50%\)/}
 ];
 (async()=>{
   const browser=await chromium.launch({headless:true});
