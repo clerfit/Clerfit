@@ -31,7 +31,7 @@ const ratios = [
       assert.ok(Math.abs(bIn-item.b/2.54)<0.001, item.page+' converts denominator to inches');
       await page.locator('#calc-form button[type="submit"]').click();
       const output = await page.locator('#calc-result').innerText();
-      assert.match(output, new RegExp('ratio: '+item.expected.toFixed(2).replace('.', '\\.')+' \\('), item.page+' preserves the ratio after unit conversion');
+      assert.match(output, new RegExp(item.expected.toFixed(2).replace('.', '\\.')+' ratio'), item.page+' preserves the ratio after unit conversion');
       assert.doesNotMatch(output, /NaN|Infinity/);
       await selector.selectOption('mm');
       assert.ok(Math.abs(Number(await page.locator('#a').inputValue())-item.a*10)<0.01, item.page+' converts numerator to millimetres');
