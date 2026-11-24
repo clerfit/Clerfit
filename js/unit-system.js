@@ -189,8 +189,9 @@
     const mapped = explicit ? explicit.split(',').map(id => id.trim()).filter(Boolean)
       : ((PAGE_UNIT_ASSOCIATIONS[PAGE] || {})[select && select.id] || []);
     if (mapped.length) {
-      return mapped.map(id => document.getElementById(id))
-        .filter(el => el && el.matches('input[type="number"]') && !el.disabled && !el.readOnly);
+      const numericInputs = Array.from(document.querySelectorAll('input[type="number"]'));
+      return mapped.map(id => numericInputs.find(el => el.id === id))
+        .filter(el => el && !el.disabled && !el.readOnly);
     }
     if (isOutputOnly(select)) return [];
     const input = findInput(select);
