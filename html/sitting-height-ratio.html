@@ -29,8 +29,9 @@
 <p class="cf-note">Calculate sitting height divided by standing height. Ensure both measurements use consistent posture and measurement technique.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="sitting">Sitting height (cm)</label><input id="sitting" name="sitting" type="number" min="30" max="150" step="any" inputmode="decimal" required aria-label="Sitting height"></div>
-<div class="col"><label for="height">Standing height (cm)</label><input id="height" name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Standing height"></div>
+<div class="col"><label for="sitting">Sitting height</label><input id="sitting" name="sitting" type="number" min="30" max="150" step="any" inputmode="decimal" required aria-label="Sitting height"></div>
+<div class="col"><label for="height">Standing height</label><input id="height" name="height" type="number" min="80" max="250" step="any" inputmode="decimal" required aria-label="Standing height"></div>
+<div class="col"><label for="unit">Measurement unit</label><select id="unit" data-unit-for="sitting,height"><option value="cm">cm</option><option value="mm">mm</option><option value="in">inches</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
