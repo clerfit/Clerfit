@@ -48,6 +48,13 @@
   if (u === "lb") return n * 0.45359237;
   throw new RangeError("Choose kilograms (kg) or pounds (lb).");
  }
+ function toLitres(value, unit) {
+  const n = Number(value), u = String(unit || "L").toLowerCase();
+  if (!Number.isFinite(n) || n <= 0) throw new RangeError("Volume must be a positive finite value.");
+  if (u === "l") return n;
+  if (u === "ml") return n / 1000;
+  throw new RangeError("Choose litres (L) or millilitres (mL).");
+ }
  function toHeightCm(value, unit) {
   const n = Number(value), u = String(unit || "cm").toLowerCase();
   if (!Number.isFinite(n) || n <= 0) throw new RangeError("Height must be a positive finite value.");
@@ -351,7 +358,7 @@
      break;
     }
     case "measure":
-     result = fmt(num(fields[0].id)) + " cm";
+     result = fmt(toCm(num("waist"), $("waistUnit").value, "Waist circumference")) + " cm";
      note = "Recorded measurement only. Compare it only with a reference that uses the same measurement protocol.";
      break;
     case "bai": {
@@ -401,30 +408,33 @@
      const a = ffmiMetrics(toKg(num("weightA"), $("weightAUnit").value), num("fatA"), toHeightCm(num("heightA"), $("heightAUnit").value));
      const b = ffmiMetrics(toKg(num("weightB"), $("weightBUnit").value), num("fatB"), toHeightCm(num("heightB"), $("heightBUnit").value));
      const comparison = compareFFMI(a, b);
-     result = "Person A: " + fmt(a.ffmiKgM2) + " kg/m² · Person B: " + fmt(b.ffmiKgM2) + " kg/m² · Difference: " + fmt(comparison.absoluteDifferenceKgM2) + " kg/m² · Higher FFMI: " + comparison.higher;
+     result = "Person A: " + fmt(a.ffmiKgM2) + " kg/m² · Person B: " + fmt(b.ffmiKgM2) + " kg/m² · Absolute difference: " + fmt(comparison.absoluteDifferenceKgM2) + " kg/m² · Higher FFMI: " + comparison.higher;
      note = "FFMI = estimated fat-free mass ÷ height². Body-fat measurement error affects the comparison.";
      break;
     }
     case "whtcompare": {
-     const data = calculateWaistHeightComparison(num("waistA"), num("heightA"), num("waistB"), num("heightB"));
-     result = "Person A: " + fmt(data.personA) + " · Person B: " + fmt(data.personB) + " · Difference: " + fmt(data.absoluteDifference);
+     const unit = $("unit").value;
+     const data = calculateWaistHeightComparison(toCm(num("waistA"), unit, "Person A waist"), toCm(num("heightA"), unit, "Person A height"), toCm(num("waistB"), unit, "Person B waist"), toCm(num("heightB"), unit, "Person B height"));
+     result = "Person A: " + fmt(data.personA) + " · Person B: " + fmt(data.personB) + " · Absolute difference: " + fmt(data.absoluteDifference);
      note = "Waist-to-height ratio = waist circumference ÷ height, using the same units.";
      break;
     }
     case "volume":
-     result = fmt(calculateBodyVolume(num("mass"), num("density"))) + " L";
+     result = fmt(calculateBodyVolume(toKg(num("mass"), $("massUnit").value), num("density"))) + " L";
      note = "Volume = mass ÷ density. This assumes average density is representative and uses kg and kg/L.";
      break;
     case "density":
-     result = fmt(calculateBodyDensity(num("mass"), num("volume"))) + " kg/L";
+     result = fmt(calculateBodyDensity(toKg(num("mass"), $("massUnit").value), toLitres(num("volume"), $("volumeUnit").value))) + " kg/L";
      note = "Density = mass ÷ volume. Ensure volume is entered in litres.";
      break;
     case "zscore":
-     result = fmt(calculateZScore(num("value"), num("mean"), num("sd")));
+     const unit = $("unit").value;
+     result = fmt(calculateZScore(toCm(num("value"), unit, "Observed measurement"), toCm(num("mean"), unit, "Reference mean"), toCm(num("sd"), unit, "Reference standard deviation")));
      note = "Z-score = (observed value − reference mean) ÷ reference standard deviation. Reference selection is essential.";
      break;
     case "symmetry": {
-     const data = calculateMeasurementSymmetry(num("left"), num("right"));
+     const unit = $("unit").value;
+     const data = calculateMeasurementSymmetry(toCm(num("left"), unit, "Left-side measurement"), toCm(num("right"), unit, "Right-side measurement"));
      result = "Absolute difference: " + fmt(data.absoluteDifference) + " cm · Relative difference: " + fmt(data.relativeDifferencePercent) + "%";
      note = "Relative difference = absolute side-to-side difference ÷ mean of both sides × 100.";
      break;
