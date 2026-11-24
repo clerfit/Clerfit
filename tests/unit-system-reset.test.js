@@ -26,7 +26,7 @@ const selectListeners = {};
 const form = {
   dataset: {},
   addEventListener(type, fn) { formListeners[type] = fn; },
-  querySelectorAll(selector) { return selector === 'select[data-clerfit-unit-wired="true"]' ? [select] : []; }
+  querySelectorAll(selector) { return selector === 'select[data-clerfit-unit-wired="true"]' ? [select] : selector === 'input[type="number"]' ? [input] : []; }
 };
 const select = {
   id: 'heightUnit', value: 'cm', form,
