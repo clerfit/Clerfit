@@ -295,5 +295,5 @@ sitting-height-arm-span-ratio.html,sittingHeight,Sitting height,30,150,any
 sitting-height-arm-span-ratio.html,armSpan,Arm span,80,250,any
 arm-span-difference.html,armSpan,Arm span,80,250,any
 arm-span-difference.html,standingHeight,Standing height,80,250,any
-pal.html,tee,Average total energy expenditure (TEE),1,50000,any
-pal.html,bmr,Basal metabolic rate (BMR),1,10000,any
+pal.html,tee,Average total energy expenditure (TEE),500,12000,any
+pal.html,bmr,Basal metabolic rate (BMR),500,5000,any
