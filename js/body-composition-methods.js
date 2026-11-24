@@ -196,6 +196,7 @@ if (typeof window !== "undefined") {
 
 function run(){
  let result="",note="";
+ try{
  if(slug==="jp3"||slug==="jp7"||slug==="durnin-womersley"){
   const s=$("sex").value,age=v("age");let ids=[],sum=0,density=0;
   if(slug==="jp3"){ids=s==="male"?["age","chest","abdomen","thigh"]:["age","triceps","suprailiac","thigh"];if(s==="female"&&age>55){fail("The female Jackson–Pollock 3-site equation is not validated beyond age 55.");return;}if(!valid(ids))return;density=calculateJacksonPollockDensity("jp3",s,age,ids.slice(1).map(v));
@@ -211,6 +212,7 @@ function run(){
  }else if(slug==="fat-free-mass-change"){if(!valid(["wa","fa","wb","fb"]))return;const change=calculateFatFreeMassChange(toKg(v("wa"),$("waUnit").value),v("fa"),toKg(v("wb"),$("wbUnit").value),v("fb"));const {earlier:a,current:b,change:d}=change;result="Earlier: "+fmt(a)+" kg · Current: "+fmt(b)+" kg · Change: "+(d>0?"+":"")+fmt(d)+" kg";note="Fat-free mass = body weight × (1 − body-fat fraction). The change inherits measurement error from both body weight and body-fat estimates.";
  }
  $("calc-result").innerHTML='<strong class="cf-result-value">'+result+'</strong><p class="cf-note">'+note+'</p>';
+ }catch(error){fail(error&&error.message?error.message:"Check the entered values and selected units.");return;}
 }
 document.addEventListener("DOMContentLoaded",()=>{const f=$("calc-form");if(f){f.addEventListener("submit",e=>{e.preventDefault();run();});f.addEventListener("input",e=>{if(e.target&&e.target.matches("input[type=number]"))$("calc-result").textContent="";});f.addEventListener("change",e=>{if(e.target&&e.target.matches("select"))$("calc-result").textContent="";});f.addEventListener("reset",()=>setTimeout(()=>{$("calc-result").textContent="";},0));if(slug==="jp3"){$("sex").addEventListener("change",()=>{["chest","abdomen"].forEach(id=>$(id).closest(".col").hidden=$("sex").value!=="male");["triceps","suprailiac"].forEach(id=>$(id).closest(".col").hidden=$("sex").value!=="female");});$("sex").dispatchEvent(new Event("change"));}}});
 })();
