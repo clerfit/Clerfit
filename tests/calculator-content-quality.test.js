@@ -59,6 +59,13 @@ for(const route of routes){
  summaries.add(summary); bodies.add(body);
 }
 assert.equal(summaries.size,164); assert.equal(bodies.size,164);
+const ymcaPage=read('html/ymca-body-fat.html');
+const ymcaEngine=read('js/body-composition-methods.js');
+const ymcaGuide=read('js/calculator-guide-catalog.js');
+for(const [source,label] of [[ymcaPage,'YMCA calculator page'],[ymcaEngine,'YMCA calculation result'],[ymcaGuide,'YMCA guide']]){
+ assert.match(source,/Results can vary with measurement technique and individual differences/i,label+' must show a concise practical caution');
+ assert.doesNotMatch(source,/rough estimate|not scientifically proven|not validated clinical method/i,label+' must not use unnecessarily discouraging copy');
+}
 const register=parseCsv(read('SCIENTIFIC_REVIEW_REGISTER.csv')),header=register[0],fidx=header.indexOf('file');
 assert.ok(fidx>=0,'scientific register needs a file column');
 const reviewed=register.slice(1).map(r=>r[fidx]).sort(), routed=routes.map(r=>r.file).sort();
