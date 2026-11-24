@@ -55,7 +55,16 @@ const cases = [
         for (const [id, value] of Object.entries(item.fields || {})) await page.locator('#' + id).fill(value);
         await page.locator('#calc-form button[type="submit"]').click();
         const output = await page.locator('#calc-result').innerText();
-        assert.match(output, item.expected, item.page + ' returns the expected known-answer result. Actual output: ' + JSON.stringify(output));
+        const diagnostics = await page.locator('#calc-form input').evaluateAll(inputs => inputs.map(input => ({
+          id: input.id, value: input.value, min: input.min, max: input.max, step: input.step,
+          valid: input.checkValidity(), rangeUnderflow: input.validity.rangeUnderflow,
+          rangeOverflow: input.validity.rangeOverflow, stepMismatch: input.validity.stepMismatch
+        })));
+        const unitDiagnostics = await page.locator('#calc-form select').evaluateAll(selects => selects.map(select => ({
+          id: select.id, value: select.value, wired: select.dataset.clerfitUnitWired || '',
+          previousUnit: select.dataset.clerfitPreviousUnit || '', unitFor: select.dataset.unitFor || ''
+        })));
+        assert.match(output, item.expected, item.page + ' returns the expected known-answer result. Diagnostics: ' + JSON.stringify({ output, diagnostics, unitDiagnostics }));
         assert.doesNotMatch(output, /NaN|Infinity|undefined/);
         assert.equal(pageErrors.length, 0, item.page + ' has no uncaught browser errors');
 
