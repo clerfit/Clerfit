@@ -2,32 +2,38 @@
 (()=>{"use strict";
 const $=id=>document.getElementById(id),v=id=>Number($(id).value),fmt=x=>Number(x).toFixed(2),slug=document.body.dataset.calculator;
 const input=(id,label,min=0.1,max=300,step="any")=>'<div class="col"><label for="'+id+'">'+label+'</label><input id="'+id+'" type="number" min="'+min+'" max="'+max+'" step="'+step+'" required></div>';
-const select=(id,label,opts)=>'<div class="col"><label for="'+id+'">'+label+'</label><select id="'+id+'">'+opts.map(o=>'<option value="'+o[0]+'">'+o[1]+'</option>').join("")+'</select></div>';
+const select=(id,label,opts,forInputs)=>'<div class="col"><label for="'+id+'">'+label+'</label><select id="'+id+'"'+(forInputs?' data-unit-for="'+forInputs+'"':"")+'">'+opts.map(o=>'<option value="'+o[0]+'">'+o[1]+'</option>').join("")+'</select></div>';
 const row=(...x)=>'<div class="row">'+x.join("")+'</div>';
+const massUnits=()=>[["kg","kg"],["lb","lb"]],lengthUnits=()=>[["cm","cm"],["in","inches"]],volumeUnits=()=>[["L","L"],["mL","mL"]];
+const toKg=(n,u)=>{const x=Number(n);if(!Number.isFinite(x)||x<0)throw new RangeError("Mass must be a finite non-negative value.");return u==="lb"?x*0.45359237:x;};
+const toCm=(n,u)=>{const x=Number(n);if(!Number.isFinite(x)||x<0)throw new RangeError("Length must be a finite non-negative value.");return u==="in"?x*2.54:x;};
+const toLitres=(n,u)=>{const x=Number(n);if(!Number.isFinite(x)||x<0)throw new RangeError("Volume must be a finite non-negative value.");return u==="mL"?x/1000:x;};
+const toCm2=(n,u)=>{const x=Number(n);if(!Number.isFinite(x)||x<0)throw new RangeError("Area must be a finite non-negative value.");return u==="in2"?x*6.4516:x;};
+const toMm=(n,u)=>{const x=Number(n);if(!Number.isFinite(x)||x<0)throw new RangeError("Thickness must be a finite non-negative value.");return u==="cm"?x*10:u==="in"?x*25.4:x;};
 const sex=()=>select("sex","Equation group",[["male","Male equation"],["female","Female equation"]]);
 const schemas={
 jp3:()=>row(sex(),input("age","Age (years)",18,61,1))+row(input("chest","Chest skinfold (mm)",1,80),input("abdomen","Abdomen skinfold (mm)",1,100))+row(input("triceps","Triceps skinfold (mm) · female",1,80),input("suprailiac","Suprailiac skinfold (mm) · female",1,80),input("thigh","Thigh skinfold (mm)",1,100)),
 jp7:()=>row(sex(),input("age","Age (years)",18,61,1))+row(input("chest","Chest (mm)",1,80),input("midaxillary","Midaxillary (mm)",1,80))+row(input("triceps","Triceps (mm)",1,80),input("subscapular","Subscapular (mm)",1,80))+row(input("abdomen","Abdomen (mm)",1,100),input("suprailiac","Suprailiac (mm)",1,80),input("thigh","Thigh (mm)",1,100)),
 "durnin-womersley":()=>row(sex(),input("age","Age (years)",16,72,1))+row(input("biceps","Biceps skinfold (mm)",1,80),input("triceps","Triceps skinfold (mm)",1,80))+row(input("subscapular","Subscapular skinfold (mm)",1,80),input("suprailiac","Suprailiac skinfold (mm)",1,80)),
-"ymca-body-fat":()=>row(sex(),input("weight","Body weight (kg)",20,350))+row(input("waist","Waist circumference (cm)",30,250)),
+"ymca-body-fat":()=>row(sex(),input("weight","Body weight",20,350),select("weightUnit","Weight unit",massUnits(),"weight"))+row(input("waist","Waist circumference",30,250),select("waistUnit","Waist unit",lengthUnits(),"waist")),
 "body-fat-comparison":()=>row(input("a","First body-fat reading (%)",0,75),input("b","Second body-fat reading (%)",0,75)),
-"total-body-water":()=>row(input("measured","Measured total body water (kg)",0,250),input("weight","Body weight (kg)",1,500)),
-"intracellular-water":()=>row(input("compartment","Measured intracellular water (L)",0,200),input("total","Measured total body water (L)",0.1,250))+row(input("weight","Body weight (kg)",1,500)),
-"extracellular-water":()=>row(input("compartment","Measured extracellular water (L)",0,200),input("total","Measured total body water (L)",0.1,250))+row(input("weight","Body weight (kg)",1,500)),
-"bone-mass":()=>row(input("measured","Assessment-reported bone mass (kg)",0,100),input("weight","Body weight (kg)",1,500)),
-"visceral-fat":()=>row(input("measured","Assessment-reported visceral-fat area (cm²)",0,10000)),
-"subcutaneous-fat":()=>row(input("measured","Assessment-reported subcutaneous-fat thickness (mm)",0,200)),
-"waist-arm-ratio":()=>row(input("a","Waist circumference",0.1,300),input("b","Upper-arm circumference",0.1,150))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]])),
-"waist-thigh-ratio":()=>row(input("a","Waist circumference",0.1,300),input("b","Thigh circumference",0.1,200))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]])),
-"chest-waist-ratio":()=>row(input("a","Chest circumference",0.1,300),input("b","Waist circumference",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]])),
-"shoulder-waist-ratio":()=>row(input("a","Shoulder circumference",0.1,300),input("b","Waist circumference",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]])),
-"shoulder-hip-ratio":()=>row(input("a","Shoulder circumference",0.1,300),input("b","Hip circumference",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]])),
-"chest-height-ratio":()=>row(input("a","Chest circumference",0.1,300),input("b","Height",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]])),
-"hip-height-ratio":()=>row(input("a","Hip circumference",0.1,300),input("b","Height",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]])),
-"upper-arm-height-ratio":()=>row(input("a","Upper-arm circumference",0.1,150),input("b","Height",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]])),
-"biacromial-width-ratio":()=>row(input("a","Biacromial shoulder breadth",0.1,100),input("b","Height",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]])),
+"total-body-water":()=>row(input("measured","Measured total body water",0,250),select("measuredUnit","Water mass unit",massUnits(),"measured"))+row(input("weight","Body weight",1,500),select("weightUnit","Weight unit",massUnits(),"weight")),
+"intracellular-water":()=>row(input("compartment","Measured intracellular water",0,200),select("compartmentUnit","Compartment volume unit",volumeUnits(),"compartment"))+row(input("total","Measured total body water",0.1,250),select("totalUnit","Total water volume unit",volumeUnits(),"total"))+row(input("weight","Body weight",1,500),select("weightUnit","Weight unit",massUnits(),"weight")),
+"extracellular-water":()=>row(input("compartment","Measured extracellular water",0,200),select("compartmentUnit","Compartment volume unit",volumeUnits(),"compartment"))+row(input("total","Measured total body water",0.1,250),select("totalUnit","Total water volume unit",volumeUnits(),"total"))+row(input("weight","Body weight",1,500),select("weightUnit","Weight unit",massUnits(),"weight")),
+"bone-mass":()=>row(input("measured","Assessment-reported bone mass",0,100),select("measuredUnit","Bone mass unit",massUnits(),"measured"))+row(input("weight","Body weight",1,500),select("weightUnit","Weight unit",massUnits(),"weight")),
+"visceral-fat":()=>row(input("measured","Assessment-reported visceral-fat area",0,10000),select("measuredUnit","Area unit",[["cm2","cm²"],["in2","in²"]],"measured")),
+"subcutaneous-fat":()=>row(input("measured","Assessment-reported subcutaneous-fat thickness",0,200),select("measuredUnit","Thickness unit",[["mm","mm"],["cm","cm"],["in","inches"]],"measured")),
+"waist-arm-ratio":()=>row(input("a","Waist circumference",0.1,300),input("b","Upper-arm circumference",0.1,150))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]],"a,b")),
+"waist-thigh-ratio":()=>row(input("a","Waist circumference",0.1,300),input("b","Thigh circumference",0.1,200))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]],"a,b")),
+"chest-waist-ratio":()=>row(input("a","Chest circumference",0.1,300),input("b","Waist circumference",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]],"a,b")),
+"shoulder-waist-ratio":()=>row(input("a","Shoulder circumference",0.1,300),input("b","Waist circumference",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]],"a,b")),
+"shoulder-hip-ratio":()=>row(input("a","Shoulder circumference",0.1,300),input("b","Hip circumference",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]],"a,b")),
+"chest-height-ratio":()=>row(input("a","Chest circumference",0.1,300),input("b","Height",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]],"a,b")),
+"hip-height-ratio":()=>row(input("a","Hip circumference",0.1,300),input("b","Height",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]],"a,b")),
+"upper-arm-height-ratio":()=>row(input("a","Upper-arm circumference",0.1,150),input("b","Height",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]],"a,b")),
+"biacromial-width-ratio":()=>row(input("a","Biacromial shoulder breadth",0.1,100),input("b","Height",0.1,300))+row(select("unit","Unit",[["cm","cm"],["mm","mm"],["in","inches"]],"a,b")),
 "body-fat-change":()=>row(input("a","Earlier body-fat reading (%)",0,75),input("b","Current body-fat reading (%)",0,75)),
-"fat-free-mass-change":()=>row(input("wa","Earlier body weight (kg)",1,500),input("fa","Earlier body fat (%)",0,75))+row(input("wb","Current body weight (kg)",1,500),input("fb","Current body fat (%)",0,75))
+"fat-free-mass-change":()=>row(input("wa","Earlier body weight",1,500),select("waUnit","Earlier weight unit",massUnits(),"wa"),input("fa","Earlier body fat (%)",0,75))+row(input("wb","Current body weight",1,500),select("wbUnit","Current weight unit",massUnits(),"wb"),input("fb","Current body fat (%)",0,75))
 };
 const host=$("calculator-fields");if(host&&schemas[slug])host.innerHTML=schemas[slug]();
 function fail(s){$("calc-result").innerHTML='<p class="cf-validation-message" role="alert">'+s+'</p>';}
@@ -133,7 +139,7 @@ function calculateMeasuredProportion(measuredValue, totalMass, label) {
  if (!Number.isFinite(measured) || measured < 0 || !Number.isFinite(total) || total <= 0) {
   throw new RangeError(label + " must be non-negative and total body mass must be positive.");
  }
- if (measured > total) throw new RangeError(label + " cannot exceed total body mass.");
+ if (measured >= total) throw new RangeError(label + " must be less than total body mass.");
  return measured / total * 100;
 }
 
@@ -144,11 +150,11 @@ function calculateWaterCompartment(compartment, totalWater, bodyWeight) {
  if (![value, total, weight].every(Number.isFinite) || value < 0 || total <= 0 || weight <= 0) {
   throw new RangeError("Water measurements must be finite; total water and body weight must be positive.");
  }
- if (value > total) throw new RangeError("Compartment water cannot exceed total body water.");
- if (total > weight) throw new RangeError("Total body water cannot exceed body weight.");
+ if (value >= total) throw new RangeError("Compartment water must be less than total body water because both intracellular and extracellular compartments contribute to the total.");
+ if (total * 0.993 >= weight) throw new RangeError("Total body water mass (approximately 0.993 kg per litre at body temperature) must be less than body mass. Check that all values are from the same assessment and use the expected units.");
  return {
   percentOfTotalWater: value / total * 100,
-  percentOfBodyMass: value / weight * 100
+  percentOfBodyMass: value * 0.993 / weight * 100
  };
 }
 
@@ -196,15 +202,15 @@ function run(){
   }else if(slug==="jp7"){ids=["age","chest","midaxillary","triceps","subscapular","abdomen","suprailiac","thigh"];if(s==="female"&&age>55){fail("The female Jackson–Pollock 7-site equation is not validated beyond age 55.");return;}if(!valid(ids))return;density=calculateJacksonPollockDensity("jp7",s,age,ids.slice(1).map(v));
   }else{ids=["age","biceps","triceps","subscapular","suprailiac"];if(!valid(ids))return;sum=ids.slice(1).reduce((a,id)=>a+v(id),0);try{density=calculateDurninWomersleyDensity(s,age,sum);}catch(error){fail(error.message);return;}}
   if(!(density>0)){fail("The readings do not produce a valid body-density estimate.");return;}const bodyFat=bf(density);if(!Number.isFinite(bodyFat)||bodyFat<0||bodyFat>75){fail("The readings produce a body-fat estimate outside 0–75%. Recheck the measurements and equation group.");return;}result=fmt(bodyFat)+"% estimated body fat";note="Predicted body density is converted with Siri: body-fat % = 495 ÷ density − 450. Skinfold technique and population differences can materially affect estimates; not intended for children.";
- }else if(slug==="ymca-body-fat"){if(!valid(["weight","waist"]))return;const p=calculateYMCABodyFatPercent(v("weight"),v("waist"),$("sex").value);result=fmt(p)+"% estimated body fat";note="YMCA estimate: ((4.15 × waist in inches − 0.082 × weight in pounds − constant) ÷ weight in pounds) × 100. This is a rough estimate, not a direct measurement.";
+ }else if(slug==="ymca-body-fat"){if(!valid(["weight","waist"]))return;const p=calculateYMCABodyFatPercent(toKg(v("weight"),$("weightUnit").value),toCm(v("waist"),$("waistUnit").value),$("sex").value);result=fmt(p)+"% estimated body fat";note="YMCA estimate: ((4.15 × waist in inches − 0.082 × weight in pounds − constant) ÷ weight in pounds) × 100. Results can vary with measurement technique and individual differences; use consistent measurement conditions when comparing readings.";
  }else if(["body-fat-comparison","body-fat-change"].includes(slug)){if(!valid(["a","b"]))return;const change=calculateBodyFatChange(v("a"),v("b"));const d=change.percentagePointChange;result="Change: "+(d>0?"+":"")+fmt(d)+" percentage points"+(change.relativeChangePercent===null?"":" · Relative change: "+fmt(change.relativeChangePercent)+"%");note="Use the same body-fat measurement method for both readings. Percentage points are the direct subtraction of the two percentages.";
- }else if(["total-body-water","bone-mass"].includes(slug)){if(!valid(["measured","weight"]))return;result=fmt(calculateMeasuredProportion(v("measured"),v("weight"),slug==="total-body-water"?"Total body water":"Bone mass"))+"% of body mass";note=slug==="total-body-water"?"Uses assessment-reported total body water (kg) ÷ body weight (kg) × 100. Height and weight alone cannot establish individual total body water.":"Uses assessment-reported bone mass (kg) ÷ body weight (kg) × 100. This is a proportion, not a prediction of bone mass or bone density.";
- }else if(["intracellular-water","extracellular-water"].includes(slug)){if(!valid(["compartment","total","weight"]))return;const water=calculateWaterCompartment(v("compartment"),v("total"),v("weight"));result=fmt(water.percentOfTotalWater)+"% of total body water · "+fmt(water.percentOfBodyMass)+"% of body mass";note="Uses measured compartment and total body water values. This calculator does not infer water compartments from height or weight.";
- }else if(["visceral-fat","subcutaneous-fat"].includes(slug)){if(!valid(["measured"]))return;result=fmt(v("measured"))+(slug==="visceral-fat"?" cm² assessment-reported visceral-fat area":" mm assessment-reported subcutaneous-fat thickness");note="Recorded assessment value only. This tool does not estimate tissue quantity from unrelated tape measurements. Interpret using the source device or imaging protocol.";
+ }else if(["total-body-water","bone-mass"].includes(slug)){if(!valid(["measured","weight"]))return;result=fmt(calculateMeasuredProportion(toKg(v("measured"),$("measuredUnit").value),toKg(v("weight"),$("weightUnit").value),slug==="total-body-water"?"Total body water":"Bone mass"))+"% of body mass";note=slug==="total-body-water"?"Uses assessment-reported total body water (kg) ÷ body weight (kg) × 100. Height and weight alone cannot establish individual total body water.":"Uses assessment-reported bone mass (kg) ÷ body weight (kg) × 100. This is a proportion, not a prediction of bone mass or bone density.";
+ }else if(["intracellular-water","extracellular-water"].includes(slug)){if(!valid(["compartment","total","weight"]))return;const water=calculateWaterCompartment(toLitres(v("compartment"),$("compartmentUnit").value),toLitres(v("total"),$("totalUnit").value),toKg(v("weight"),$("weightUnit").value));result=fmt(water.percentOfTotalWater)+"% of total body water · "+fmt(water.percentOfBodyMass)+"% of body mass";note="Uses measured compartment and total body water values. This calculator does not infer water compartments from height or weight.";
+ }else if(["visceral-fat","subcutaneous-fat"].includes(slug)){if(!valid(["measured"]))return;result=slug==="visceral-fat"?fmt(toCm2(v("measured"),$("measuredUnit").value))+" cm² assessment-reported visceral-fat area":fmt(toMm(v("measured"),$("measuredUnit").value))+" mm assessment-reported subcutaneous-fat thickness";note="Recorded assessment value only. This tool does not estimate tissue quantity from unrelated tape measurements. Interpret using the source device or imaging protocol.";
  }else if(slug.endsWith("-ratio")){if(!valid(["a","b"]))return;const r=calculatePositiveRatio(v("a"),v("b"));result=fmt(r)+" ratio · "+fmt(r*100)+"%";note="First measurement ÷ second measurement. Use the same unit and consistent anatomical landmarks. No universal health or aesthetic cutoff is assigned.";
- }else if(slug==="fat-free-mass-change"){if(!valid(["wa","fa","wb","fb"]))return;const change=calculateFatFreeMassChange(v("wa"),v("fa"),v("wb"),v("fb"));const {earlier:a,current:b,change:d}=change;result="Earlier: "+fmt(a)+" kg · Current: "+fmt(b)+" kg · Change: "+(d>0?"+":"")+fmt(d)+" kg";note="Fat-free mass = body weight × (1 − body-fat fraction). The change inherits measurement error from both body weight and body-fat estimates.";
+ }else if(slug==="fat-free-mass-change"){if(!valid(["wa","fa","wb","fb"]))return;const change=calculateFatFreeMassChange(toKg(v("wa"),$("waUnit").value),v("fa"),toKg(v("wb"),$("wbUnit").value),v("fb"));const {earlier:a,current:b,change:d}=change;result="Earlier: "+fmt(a)+" kg · Current: "+fmt(b)+" kg · Change: "+(d>0?"+":"")+fmt(d)+" kg";note="Fat-free mass = body weight × (1 − body-fat fraction). The change inherits measurement error from both body weight and body-fat estimates.";
  }
  $("calc-result").innerHTML='<strong class="cf-result-value">'+result+'</strong><p class="cf-note">'+note+'</p>';
 }
-document.addEventListener("DOMContentLoaded",()=>{const f=$("calc-form");if(f){f.addEventListener("submit",e=>{e.preventDefault();run();});f.addEventListener("reset",()=>setTimeout(()=>{$("calc-result").textContent="";},0));if(slug==="jp3"){$("sex").addEventListener("change",()=>{["chest","abdomen"].forEach(id=>$(id).closest(".col").hidden=$("sex").value!=="male");["triceps","suprailiac"].forEach(id=>$(id).closest(".col").hidden=$("sex").value!=="female");});$("sex").dispatchEvent(new Event("change"));}}});
+document.addEventListener("DOMContentLoaded",()=>{const f=$("calc-form");if(f){f.addEventListener("submit",e=>{e.preventDefault();run();});f.addEventListener("input",e=>{if(e.target&&e.target.matches("input[type=number]"))$("calc-result").textContent="";});f.addEventListener("change",e=>{if(e.target&&e.target.matches("select"))$("calc-result").textContent="";});f.addEventListener("reset",()=>setTimeout(()=>{$("calc-result").textContent="";},0));if(slug==="jp3"){$("sex").addEventListener("change",()=>{["chest","abdomen"].forEach(id=>$(id).closest(".col").hidden=$("sex").value!=="male");["triceps","suprailiac"].forEach(id=>$(id).closest(".col").hidden=$("sex").value!=="female");});$("sex").dispatchEvent(new Event("change"));}}});
 })();
