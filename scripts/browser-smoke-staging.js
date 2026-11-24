@@ -203,7 +203,7 @@ async function runRoute(browser, route) {
   try {
     const response = await page.goto(url, {waitUntil:'domcontentloaded',timeout:20000});
     if (!response || !response.ok()) throw new Error('page HTTP status ' + (response ? response.status() : 'no response'));
-    await page.waitForLoadState('load',{timeout:10000}).catch(()=>{});
+    await page.waitForTimeout(80);
     await page.waitForTimeout(120);
     // Test the untouched form first. Empty submission must never produce NaN,
     // Infinity, or undefined in a result panel; then run the normal populated test.
