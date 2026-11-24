@@ -32,7 +32,7 @@ window.CLERFIT_GUIDE_CATALOG = [
     "category": "Body Measurements & Composition",
     "file": "ymca-body-fat.html",
     "slug": "ymca-body-fat",
-    "method": "YMCA tape estimate: convert waist to inches and body mass to pounds. Men: %BF = [4.15 × waist(in) − 0.082 × weight(lb) − 98.42] / weight(lb) × 100. Women use 76.76 instead of 98.42. A rough estimate, not a clinical assessment.",
+    "method": "YMCA tape estimate: convert waist to inches and body mass to pounds. Men: %BF = [4.15 × waist(in) − 0.082 × weight(lb) − 98.42] / weight(lb) × 100. Women use 76.76 instead of 98.42. Results can vary with measurement technique and individual differences; use consistent measurement conditions when comparing readings.",
     "reference": "YMCA of the USA, Fitness Testing and Assessment Manual, 4th ed. (Golding, ed., 2000); formula reproduced with worked examples: https://bodysizecalc.com/ymca-body-fat-calculator/ (secondary source).",
     "referenceStatus": "Method documented; a route-specific known-answer case is included in tests/body-composition-browser-interactions.test.js; candidate CI remains the release evidence gate."
   },
