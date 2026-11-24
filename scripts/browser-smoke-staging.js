@@ -30,6 +30,10 @@ function clampToInput(value, info) {
 function preferredValue(info, pageName) {
   const s = [info.id, info.name, info.placeholder, info.aria, info.label].join(' ').toLowerCase();
   // Page-specific realistic values avoid mistaking a test-fixture value for a calculator defect.
+  if (pageName === 'pal.html') {
+    if (/\btee\b|total energy expenditure/.test(s)) return 2970;
+    if (/\bbmr\b|basal metabolic rate/.test(s)) return 1700;
+  }
   // Physically consistent body-composition fixtures exercise the strict compartment/body-mass checks.
   if (pageName === 'intracellular-water.html') {
     if (/compartment/.test(s)) return 28;
@@ -474,10 +478,13 @@ async function targetedCalculatorBoundaries(browser) {
   await exercise({file:'heartrate.html',fn:'calculateHeartRate',fields:{age:30,rhr:150,activity:0.7},resultId:'result',caseName:'extreme resting heart rate rejected',expect:/resting heart rate from 20 to 120 bpm/i});
   await exercise({file:'heartrate.html',fn:'calculateHeartRate',fields:{age:30,rhr:60,activity:0.95},resultId:'result',caseName:'unsupported heart-rate intensity rejected',expect:/listed target-intensity levels/i});
   await exercise({file:'pal.html',fn:'calculatePAL',fields:{tee:2970,bmr:1700},resultId:'result',caseName:'valid PAL from 24-hour TEE/BMR calculates',expect:/Physical Activity Level \(PAL\):\s*1\.75/i});
-  await exercise({file:'pal.html',fn:'calculatePAL',fields:{tee:'',bmr:1700},resultId:'result',caseName:'missing PAL TEE rejected',expect:/positive, finite TEE and BMR values/i});
-  await exercise({file:'pal.html',fn:'calculatePAL',fields:{tee:2970,bmr:0},resultId:'result',caseName:'zero PAL BMR rejected',expect:/positive, finite TEE and BMR values/i});
-  await exercise({file:'pal.html',fn:'calculatePAL',fields:{tee:50001,bmr:1700},resultId:'result',caseName:'out-of-range PAL TEE rejected',expect:/positive, finite TEE and BMR values/i});
-  await exercise({file:'pal.html',fn:'calculatePAL',fields:{tee:2970,bmr:10001},resultId:'result',caseName:'out-of-range PAL BMR rejected',expect:/positive, finite TEE and BMR values/i});
+  await exercise({file:'pal.html',fn:'calculatePAL',fields:{tee:'',bmr:1700},resultId:'result',caseName:'missing PAL TEE rejected',expect:/Enter TEE from 500/i});
+  await exercise({file:'pal.html',fn:'calculatePAL',fields:{tee:2970,bmr:0},resultId:'result',caseName:'zero PAL BMR rejected',expect:/Enter TEE from 500/i});
+  await exercise({file:'pal.html',fn:'calculatePAL',fields:{tee:400,bmr:1700},resultId:'result',caseName:'implausibly low PAL TEE rejected',expect:/Enter TEE from 500/i});
+  await exercise({file:'pal.html',fn:'calculatePAL',fields:{tee:2970,bmr:400},resultId:'result',caseName:'implausibly low PAL BMR rejected',expect:/Enter TEE from 500/i});
+  await exercise({file:'pal.html',fn:'calculatePAL',fields:{tee:50001,bmr:1700},resultId:'result',caseName:'out-of-range PAL TEE rejected',expect:/Enter TEE from 500/i});
+  await exercise({file:'pal.html',fn:'calculatePAL',fields:{tee:2970,bmr:10001},resultId:'result',caseName:'out-of-range PAL BMR rejected',expect:/Enter TEE from 500/i});
+  await exercise({file:'pal.html',fn:'calculatePAL',fields:{tee:1500,bmr:1700},resultId:'result',caseName:'TEE below BMR rejected',expect:/TEE must be at least as large as BMR/i});
   await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:70,weightUnit:'kg',level:1.2},resultId:'result',caseName:'valid protein estimate calculates',expect:/Estimated Protein Intake:\s*84\.00 g\/day/i});
   await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:'',weightUnit:'kg',level:1.2},resultId:'result',caseName:'blank protein weight rejected',expect:/supported weight/i});
   await exercise({file:'protein.html',fn:'calculateProtein',fields:{weight:1000000,weightUnit:'kg',level:1.2},resultId:'result',caseName:'extreme protein weight rejected',expect:/between 2 and 500 kg/i});
