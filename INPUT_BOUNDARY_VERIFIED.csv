@@ -270,8 +270,8 @@ body-volume.html,mass,Mass,0.1,500,any
 body-volume.html,density,Density,0.01,2,any
 body-density.html,mass,Mass,0.1,500,any
 body-density.html,volume,Volume,0.01,1000,any
-anthropometric-z-score.html,value,Observed measurement,-100000,100000,any
-anthropometric-z-score.html,mean,Reference mean,-100000,100000,any
+anthropometric-z-score.html,value,Observed measurement,0.000001,100000,any
+anthropometric-z-score.html,mean,Reference mean,0.000001,100000,any
 anthropometric-z-score.html,sd,Reference standard deviation,0.000001,100000,any
 body-measurement-symmetry.html,left,Left-side measurement,0.1,250,any
 body-measurement-symmetry.html,right,Right-side measurement,0.1,250,any
