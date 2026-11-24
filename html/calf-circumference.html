@@ -9,6 +9,16 @@
 <link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
 <title>ClerFit – Calf Circumference Calculator</title>
 <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/calf-circumference.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Calf Circumference Calculator">
+<meta property="og:description" content="Calculate circle-equivalent calf area and an optional cylindrical volume proxy from circumference and segment length.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/calf-circumference.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Calf Circumference Calculator">
+<meta name="twitter:description" content="Calculate circle-equivalent calf area and an optional cylindrical volume proxy from circumference and segment length.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body data-calculator="calf-circumference">
 <aside class="sidebar" aria-label="Main navigation"></aside>
@@ -43,13 +53,23 @@
 <p>The optional volume assumes a constant circular cross-section along the entire segment. Real calf shape and tissue distribution vary; the output is not muscle volume, body composition, or a clinical assessment.</p>
 </section>
 </main>
-<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Measure at the largest calf girth with the same posture, side and tape tension each time. Segment length is optional and is used only for the simplified cylinder-volume calculation.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
+<section class="cf-education-card" aria-labelledby="cf-guide-calf-circumference">
+<details id="cf-guide-details-calf-circumference">
+<summary id="cf-guide-calf-circumference">Understand Calf Circumference <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+<div class="cf-education-content">
+<p class="cf-education-intro">This calculator derives circle-equivalent calf dimensions from circumference and optionally multiplies area by a segment length to form a cylindrical volume proxy.</p>
+<div class="cf-education-formula"><strong>Calculation method</strong><p>For circumference C, area = C² ÷ (4π), diameter = C ÷ π, and radius = C ÷ (2π). Optional volume proxy = area × segment length.</p></div>
+<div class="cf-education-section"><h3>Measurement protocol</h3><p>Measure the calf at a chosen, reproducible site and enter any segment length for that same region. Use matching length units and repeat the same posture and tape tension.</p></div>
+<div class="cf-education-section"><h3>Interpretation and limits</h3><p>A calf is not a constant circular cylinder. These values do not measure muscle cross-section, diagnose sarcopenia or estimate total leg volume; they illustrate idealized geometry only.</p></div>
+
+</div>
+</details>
+</section>
 <script src="../js/navigation.js" defer></script>
 <script src="../js/unit-system.js" defer></script>
 <script src="../js/anthropometric-calculators.js" defer></script>
 <script src="../js/tooltips.js" defer></script>
 <script src="../js/site-polish.js" defer></script>
 <script src="../js/input-validation.js" defer></script>
-<script src="../js/calculator-guides.js" defer></script>
 <script src="../js/page-chrome.js?v=20261017-nav-v4" defer></script>
 </body></html>

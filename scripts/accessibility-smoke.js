@@ -129,7 +129,17 @@ async function main() {
               }))
             })),
             passes: result.passes.length,
-            incomplete: result.incomplete.map(v => ({ id: v.id, impact: v.impact, help: v.help, nodes: v.nodes.length }))
+            incomplete: result.incomplete.map(v => ({
+              id: v.id,
+              impact: v.impact,
+              help: v.help,
+              nodes: v.nodes.length,
+              sampleNodes: v.nodes.slice(0, 3).map(node => ({
+                target: node.target,
+                html: (node.html || '').slice(0, 240),
+                failureSummary: (node.failureSummary || '').slice(0, 500)
+              }))
+            }))
           };
         });
         results.push({

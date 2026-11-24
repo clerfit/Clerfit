@@ -30,6 +30,25 @@ function clampToInput(value, info) {
 function preferredValue(info, pageName) {
   const s = [info.id, info.name, info.placeholder, info.aria, info.label].join(' ').toLowerCase();
   // Page-specific realistic values avoid mistaking a test-fixture value for a calculator defect.
+  // Physically consistent body-composition fixtures exercise the strict compartment/body-mass checks.
+  if (pageName === 'intracellular-water.html') {
+    if (/compartment/.test(s)) return 28;
+    if (/total/.test(s)) return 42;
+    if (/weight|body.?mass/.test(s)) return 70;
+  }
+  if (pageName === 'extracellular-water.html') {
+    if (/compartment/.test(s)) return 14;
+    if (/total/.test(s)) return 42;
+    if (/weight|body.?mass/.test(s)) return 70;
+  }
+  if (pageName === 'total-body-water.html') {
+    if (/measured|water/.test(s)) return 42;
+    if (/weight|body.?mass/.test(s)) return 70;
+  }
+  if (pageName === 'bone-mass.html') {
+    if (/measured|bone/.test(s)) return 3.5;
+    if (/weight|body.?mass/.test(s)) return 70;
+  }
   if (pageName === 'face-shape.html') {
     if (/facelength/.test(s)) return 18;
     if (/forehead/.test(s)) return 13;
