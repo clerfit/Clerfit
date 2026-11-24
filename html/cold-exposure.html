@@ -197,9 +197,7 @@ input, select {
 
 <script>
 function calculateCold() {
-  const temperatureValue = Number(document.getElementById("tempC").value);
-  const tempUnit = document.getElementById("tempUnit").value;
-  const T = tempUnit === "F" ? (temperatureValue - 32) * 5 / 9 : temperatureValue;
+  const T = Number(document.getElementById("tempC").value);
   let wind = Number(document.getElementById("windSpeed").value);
   const windUnit = document.getElementById("windUnit").value;
   const duration = Number(document.getElementById("duration").value);
@@ -218,16 +216,6 @@ function calculateCold() {
   const windChill = 13.12 + 0.6215 * T - 11.37 * windPow + 0.3965 * T * windPow;
   const durationMinutes = timeUnit === "hours" ? duration * 60 : duration;
   result.innerHTML = `<strong>Estimated wind-chill temperature: ${windChill.toFixed(1)} °C</strong><p>Actual air temperature: ${T.toFixed(1)} °C; wind speed: ${wind.toFixed(1)} km/h; planned exposure: ${durationMinutes.toFixed(0)} minutes.</p><p>Wind chill estimates cooling of exposed skin from wind and cold; it is not the actual air temperature and does not predict an exact frostbite time. Clothing, wetness, sun, activity and individual factors matter. Frostbite requires the actual skin environment to be below freezing. Do not use this result as a safe exposure-time guarantee; follow local weather warnings and cold-weather safety guidance. Method reference: <a href="https://www.weather.gov/safety/cold-faqs" target="_blank" rel="noopener noreferrer">U.S. National Weather Service wind-chill guidance</a>.</p>`;
-}
-function resetCold() {
-  const card = document.querySelector('.card');
-  card.querySelectorAll('input[type="number"]').forEach(input => { input.value = ''; });
-  card.querySelectorAll('select').forEach(select => {
-    const option = Array.from(select.options).find(item => item.defaultSelected) || select.options[0];
-    if (option) select.value = option.value;
-    select.dispatchEvent(new Event('change', { bubbles: true }));
-  });
-  document.getElementById('result').textContent = '';
 }
 </script>
 
@@ -253,6 +241,7 @@ function resetCold() {
 <script src="../js/site-polish.js" defer></script>
 
 <script src="../js/input-validation.js" defer></script>
+<script src="../js/calculator-guides.js" defer></script>
 <script src="../js/page-chrome.js?v=20261017-nav-v4" defer></script>
 </body>
 </html>
