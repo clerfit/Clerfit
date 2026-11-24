@@ -42,8 +42,8 @@ const results = [];
             failures.push({ file: route.file, kind: 'load', detail: 'HTTP ' + (response ? response.status() : 'no response') });
             continue;
           }
+          let reportedErrors = 0;
           for (const viewport of viewports) {
-            const errorStart = pageErrors.length;
             await page.setViewportSize({ width: viewport.width, height: viewport.height });
             await page.waitForTimeout(40);
             const layout = await page.evaluate(() => {
@@ -74,7 +74,8 @@ const results = [];
                 controlsOutsideViewport: outside
               };
             });
-            const viewportErrors = pageErrors.slice(errorStart);
+            const viewportErrors = pageErrors.slice(reportedErrors);
+            reportedErrors = pageErrors.length;
             const record = { file: route.file, viewport: viewport.name, ...layout, pageErrors: viewportErrors };
             results.push(record);
             if (Math.max(layout.documentWidth, layout.bodyWidth) > layout.viewportWidth + 1) {
