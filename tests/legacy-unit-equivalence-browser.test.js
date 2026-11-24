@@ -56,6 +56,18 @@ const base = process.argv[2] || 'http://127.0.0.1:4173/';
         await page.locator(item.button).click();
         const output = await page.locator(item.result).innerText();
         assert.match(output, item.expected, item.name + ' expected result; actual: ' + JSON.stringify(output));
+        if (item.file === 'heat-exposure.html') {
+          const initialHeatIndex = output.match(/Estimated heat index: ([0-9.]+) °C/)?.[1];
+          assert.ok(initialHeatIndex, 'Heat-index result is present');
+          assert.match(output, /shown for context only/i, 'Duration, sun and work intensity are identified as context only');
+          await page.locator('#sunExposure').selectOption('10');
+          await page.locator('#intensity').selectOption('1.6');
+          await page.locator('#duration').fill('120');
+          await page.locator(item.button).click();
+          const contextOutput = await page.locator(item.result).innerText();
+          assert.equal(contextOutput.match(/Estimated heat index: ([0-9.]+) °C/)?.[1], initialHeatIndex,
+            'Context-only sun, intensity and duration fields must not alter the numeric shade heat index');
+        }
         assert.equal(pageErrors.length, 0, item.file + ' has no uncaught page errors');
         const firstField = Object.keys(item.fields)[0];
         await page.locator('#' + firstField).fill(String(Number(await page.locator('#' + firstField).inputValue()) + 1));
