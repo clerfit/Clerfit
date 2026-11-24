@@ -56,7 +56,8 @@ const cases = [
         await page.locator('#calc-form button[type="submit"]').click();
         const output = await page.locator('#calc-result').innerText();
         const diagnostics = await page.locator('#calc-form input').evaluateAll(inputs => inputs.map(input => ({
-          id: input.id, value: input.value, min: input.min, max: input.max, step: input.step,
+          id: input.id, type: input.type, value: input.value, min: input.min, max: input.max, step: input.step,
+          disabled: input.disabled, readOnly: input.readOnly, matchesNumeric: input.matches('input[type="number"]'),
           valid: input.checkValidity(), rangeUnderflow: input.validity.rangeUnderflow,
           rangeOverflow: input.validity.rangeOverflow, stepMismatch: input.validity.stepMismatch
         })));
