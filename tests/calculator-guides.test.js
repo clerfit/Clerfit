@@ -57,11 +57,13 @@ for (const row of last50) {
   const bodySlug = bodyMatch ? bodyMatch[1] : '';
   const slug = bodySlug || aliases[basename] || basename;
   assert.ok(guideKeys.includes(slug), route + ' must have an exact route guide mapping.');
-  const guideMatch = html.match(/<div class="cf-education-content">([\s\S]*?)<\/div>/i);
-  assert.ok(guideMatch, route + ' must include a static, accessible guide body.');
-  const guideText = guideMatch[1].replace(/<[^>]*>/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+  const guideStart = html.indexOf('<div class="cf-education-content">');
+  const guideEnd = html.indexOf('</details>', guideStart);
+  assert.ok(guideStart >= 0 && guideEnd > guideStart, route + ' must include a static, accessible guide body.');
+  const guideMarkup = html.slice(guideStart, guideEnd);
+  const guideText = guideMarkup.replace(/<[^>]*>/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
   assert.ok(guideText.length >= 500, route + ' guide must contain practical detail.');
-  assert.match(guideMatch[1], /method|calculation/i, route + ' guide must explain the method.');
-  assert.match(guideMatch[1], /limit|protocol|interpretation/i, route + ' guide must explain measurement context and limits.');
+  assert.match(guideMarkup, /method|calculation/i, route + ' guide must explain the method.');
+  assert.match(guideMarkup, /limit|protocol|interpretation/i, route + ' guide must explain measurement context and limits.');
 }
 process.stdout.write('PASS: all 50 final calculator routes load and render route-specific how-to, method and limitation guides.\n');
