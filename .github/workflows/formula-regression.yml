@@ -30,6 +30,12 @@ jobs:
           node-version: '22'
       - name: Run known-answer and domain regressions
         run: node tests/verify.js
+      - name: Verify route-specific guides for the final 50 calculators
+        run: node tests/calculator-guides.test.js
+      - name: Verify anthropometric calculator domain guards
+        run: node tests/anthropometric-domain.test.js
+      - name: Verify body-composition formula coefficients
+        run: node tests/body-composition-methods.test.js
       - name: Run Batch 2 anthropometric formula and boundary regressions
         run: node tests/anthropometric-batch2.test.js
       - name: Verify ratio decimal precision and denominator edge cases

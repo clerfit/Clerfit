@@ -98,6 +98,10 @@ jobs:
 
       - name: Run calculator known-answer and domain regressions
         run: node tests/verify.js
+      - name: Verify anthropometric calculator domain guards
+        run: node tests/anthropometric-domain.test.js
+      - name: Verify body-composition formula coefficients
+        run: node tests/body-composition-methods.test.js
       - name: Run anthropometric formula and page regressions
         run: node tests/anthropometric-calculators.test.js
       - name: Verify field-bound inventories match static source markup

@@ -126,7 +126,6 @@ html/mets.html,duration,,Duration (minutes),0.1,500,any,no,not-detected,STRUCTUR
 html/monthly-weight.html,tdeeMonthly,,Your TDEE (Daily Calories Burned),0,20000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/monthly-weight.html,intakeMonthly,,Your Daily Calorie Intake,0,20000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/monthly-weight.html,days,,Days in Month,28,31,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/pal.html,age,,Age,1,120,1,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/percentage.html,value1,,Value 1,-1000000,1000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/percentage.html,value2,,Value 2,-1000000,1000000,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/performance-score.html,workOutput,,Work OutputiTotal mechanical work done during exercise in Joules. Include all reps and weights lifted.,0.1,500,any,no,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
@@ -296,3 +295,5 @@ html/sitting-height-arm-span-ratio.html,sittingHeight,sittingHeight,Sitting heig
 html/sitting-height-arm-span-ratio.html,armSpan,armSpan,Arm span,80,250,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
 html/arm-span-difference.html,armSpan,armSpan,Arm span,80,250,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
 html/arm-span-difference.html,standingHeight,standingHeight,Standing height,80,250,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
+html/pal.html,tee,,Average total energy expenditure (TEE),1,50000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/pal.html,bmr,,Basal metabolic rate (BMR),1,10000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE

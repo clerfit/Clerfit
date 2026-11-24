@@ -841,6 +841,31 @@ pageTest = runPageFunction('difference.html', 'calculateDifference', {
 assert.match(pageTest.output('diffResult'), /valid finite numerical values/i);
 checks++;
 
+// Physical Activity Level is the 24-hour TEE/BMR ratio, not an activity-frequency lookup.
+pageTest = runPageFunction('pal.html', 'calculatePAL', {
+  tee: 2970, bmr: 1700
+}, ['result']);
+assert.match(pageTest.output('result'), /Physical Activity Level \(PAL\): 1\.75/);
+assert.match(pageTest.output('result'), /Active or moderately active/);
+assert.doesNotMatch(pageTest.output('result'), /NaN|Infinity/);
+checks++;
+pageTest = runPageFunction('pal.html', 'calculatePAL', {
+  tee: '', bmr: 1700
+}, ['result']);
+assert.match(pageTest.output('result'), /positive, finite TEE and BMR/i);
+assert.doesNotMatch(pageTest.output('result'), /Physical Activity Level \(PAL\):/);
+checks++;
+pageTest = runPageFunction('pal.html', 'calculatePAL', {
+  tee: 1000, bmr: 1000
+}, ['result']);
+assert.match(pageTest.output('result'), /Below the usual sustained adult reference range/);
+checks++;
+pageTest = runPageFunction('pal.html', 'calculatePAL', {
+  tee: 5000, bmr: 1000
+}, ['result']);
+assert.match(pageTest.output('result'), /Above the usual long-term adult reference range/);
+checks++;
+
 require('./anthropometric-batch1.test.js');
 require('./unit-system-reset.test.js');
 console.log('PASS: ' + checks + ' known-answer/domain assertions across generated calculators, CDC BMI-for-age, legacy formulas, and unit conversions.');
