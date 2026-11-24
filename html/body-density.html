@@ -29,8 +29,8 @@
 <p class="cf-note">Calculate average density from mass and measured volume. Ensure mass and volume refer to the same object and compatible units.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="mass">Mass (kg)</label><input id="mass" name="mass" type="number" min="0.1" max="500" step="any" inputmode="decimal" required aria-label="Mass"></div>
-<div class="col"><label for="volume">Volume (L)</label><input id="volume" name="volume" type="number" min="0.01" max="1000" step="any" inputmode="decimal" required aria-label="Volume"></div>
+<div class="col"><label for="mass">Mass</label><input id="mass" name="mass" type="number" min="0.1" max="500" step="any" inputmode="decimal" required aria-label="Mass"><label for="massUnit">Mass unit</label><select id="massUnit" data-unit-for="mass"><option value="kg">kg</option><option value="lb">lb</option></select></div>
+<div class="col"><label for="volume">Volume</label><input id="volume" name="volume" type="number" min="0.01" max="1000" step="any" inputmode="decimal" required aria-label="Volume"><label for="volumeUnit">Volume unit</label><select id="volumeUnit" data-unit-for="volume"><option value="L">L</option><option value="mL">mL</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
