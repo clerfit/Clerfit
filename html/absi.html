@@ -27,6 +27,8 @@ function calculateABSI() {
   const height = Number(document.getElementById('height').value);
   const heightUnit = document.getElementById('heightUnit').value;
   const weight = Number(document.getElementById('weight').value);
+  const weightUnit = document.getElementById('weightUnit').value;
+  const weightKg = weightUnit === 'lb' ? weight * 0.45359237 : weight;
 
   // Empty inputs convert to zero with Number(); validate the original fields first.
   result.textContent = '';
@@ -56,12 +58,12 @@ function calculateABSI() {
   }
 
   // Guard semantic plausibility in canonical units, independent of selected units.
-  if (heightM < 0.5 || heightM > 2.74 || waistM < 0.2 || waistM > 3.0 || weight < 2 || weight > 500) {
+  if (heightM < 0.5 || heightM > 2.74 || waistM < 0.2 || waistM > 3.0 || weightKg < 2 || weightKg > 500) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">Check that height, waist, and weight are plausible for the person being measured.</p>';
     return;
   }
 
-  const bmi = weight / (heightM * heightM);
+  const bmi = weightKg / (heightM * heightM);
   if (!Number.isFinite(bmi) || bmi <= 0) {
     result.innerHTML = '<p class="cf-validation-message" role="alert">These values cannot produce a valid BMI-based calculation.</p>';
     return;
@@ -74,6 +76,17 @@ function calculateABSI() {
 
   const absiRounded = absi.toFixed(3);
   result.innerHTML = `ABSI: <strong>${absiRounded}</strong><p class="cf-note">Raw ABSI only. No low/average/high risk label is assigned because interpretation requires an appropriate reference population and standardized score.</p>`;
+  const indicator = document.getElementById('indicator');
+  if (indicator && indicator.parentElement) indicator.parentElement.hidden = true;
+}
+function resetABSI() {
+  ['waist', 'height', 'weight'].forEach(id => { document.getElementById(id).value = ''; });
+  [['waistUnit', 'cm'], ['heightUnit', 'cm'], ['weightUnit', 'kg']].forEach(([id, value]) => {
+    const select = document.getElementById(id);
+    select.value = value;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+  document.getElementById('result').textContent = '';
   const indicator = document.getElementById('indicator');
   if (indicator && indicator.parentElement) indicator.parentElement.hidden = true;
 }
@@ -142,26 +155,28 @@ function calculateABSI() {
     <h2>ABSI Calculator</h2>
 
     <label for="waist">Waist Circumference</label>
-    <input id="waist" type="number" min="20" max="300" step="any">
-    <select id="waistUnit" aria-label="Waist unit">
+    <input id="waist" type="number" min="20" max="300" step="any" oninput="document.getElementById('result').textContent=''">
+    <select id="waistUnit" aria-label="Waist unit" onchange="document.getElementById('result').textContent=''">
       <option value="m">m</option>
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
     </select>
 
     <label for="height">Height</label>
-    <input id="height" type="number" min="30" max="300" step="any">
-    <select id="heightUnit" aria-label="Height unit">
+    <input id="height" type="number" min="30" max="300" step="any" oninput="document.getElementById('result').textContent=''">
+    <select id="heightUnit" aria-label="Height unit" onchange="document.getElementById('result').textContent=''">
       <option value="m">m</option>
       <option value="cm" selected>cm</option>
       <option value="inch">inch</option>
       <option value="ft">ft</option>
     </select>
 
-    <label for="weight">Weight (kg)</label>
-    <input id="weight" type="number" min="0.1" max="500" step="any">
+    <label for="weight">Weight</label>
+    <input id="weight" type="number" min="0.1" max="500" step="any" oninput="document.getElementById('result').textContent=''">
+    <select id="weightUnit" data-unit-for="weight" aria-label="Weight unit" onchange="document.getElementById('result').textContent=''"><option value="kg">kg</option><option value="lb">lb</option></select>
 
     <button class="calculate-btn" onclick="calculateABSI()">Calculate</button>
+    <button type="button" class="calculate-btn" onclick="resetABSI()" aria-label="Reset ABSI calculator">Reset</button>
 
     <div id="result" class="result"></div>
 

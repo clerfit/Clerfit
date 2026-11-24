@@ -163,14 +163,15 @@ input, select {
 
   <div class="row">
     <div class="col">
-      <label for="tempC">Air Temperature (°C)</label>
-      <input type="number" id="tempC" min="-100" max="70" step="any">
+      <label for="tempC">Air Temperature</label>
+      <input type="number" id="tempC" min="-100" max="70" step="any" oninput="document.getElementById('result').textContent=''">
+      <select id="tempUnit" data-unit-for="tempC" aria-label="Temperature unit" onchange="document.getElementById('result').textContent=''"><option value="C">°C</option><option value="F">°F</option></select>
     </div>
 
     <div class="col">
       <label for="windSpeed">Wind Speed</label>
-      <input type="number" id="windSpeed" min="0" max="1000" step="any">
-      <select id="windUnit" aria-label="Wind-speed unit">
+      <input type="number" id="windSpeed" min="0" max="1000" step="any" oninput="document.getElementById('result').textContent=''">
+      <select id="windUnit" aria-label="Wind-speed unit" onchange="document.getElementById('result').textContent=''">
         <option value="kmh">km/h</option>
         <option value="ms">m/s</option>
       </select>
@@ -178,8 +179,8 @@ input, select {
 
     <div class="col">
       <label for="duration">Exposure Time</label>
-      <input type="number" id="duration" min="0" max="10080" step="any">
-      <select id="timeUnit" aria-label="Time unit">
+      <input type="number" id="duration" min="0" max="10080" step="any" oninput="document.getElementById('result').textContent=''">
+      <select id="timeUnit" aria-label="Time unit" onchange="document.getElementById('result').textContent=''">
         <option value="minutes">Minutes</option>
         <option value="hours">Hours</option>
       </select>
@@ -189,13 +190,16 @@ input, select {
 
   <br>
   <button class="calculate-btn" onclick="calculateCold()">Calculate</button>
+  <button type="button" class="calculate-btn" onclick="resetCold()" aria-label="Reset exposure calculator">Reset</button>
 
   <div id="result" style="margin-top:25px;"></div>
 </div>
 
 <script>
 function calculateCold() {
-  const T = Number(document.getElementById("tempC").value);
+  const temperatureValue = Number(document.getElementById("tempC").value);
+  const tempUnit = document.getElementById("tempUnit").value;
+  const T = tempUnit === "F" ? (temperatureValue - 32) * 5 / 9 : temperatureValue;
   let wind = Number(document.getElementById("windSpeed").value);
   const windUnit = document.getElementById("windUnit").value;
   const duration = Number(document.getElementById("duration").value);
@@ -214,6 +218,16 @@ function calculateCold() {
   const windChill = 13.12 + 0.6215 * T - 11.37 * windPow + 0.3965 * T * windPow;
   const durationMinutes = timeUnit === "hours" ? duration * 60 : duration;
   result.innerHTML = `<strong>Estimated wind-chill temperature: ${windChill.toFixed(1)} °C</strong><p>Actual air temperature: ${T.toFixed(1)} °C; wind speed: ${wind.toFixed(1)} km/h; planned exposure: ${durationMinutes.toFixed(0)} minutes.</p><p>Wind chill estimates cooling of exposed skin from wind and cold; it is not the actual air temperature and does not predict an exact frostbite time. Clothing, wetness, sun, activity and individual factors matter. Frostbite requires the actual skin environment to be below freezing. Do not use this result as a safe exposure-time guarantee; follow local weather warnings and cold-weather safety guidance. Method reference: <a href="https://www.weather.gov/safety/cold-faqs" target="_blank" rel="noopener noreferrer">U.S. National Weather Service wind-chill guidance</a>.</p>`;
+}
+function resetCold() {
+  const card = document.querySelector('.card');
+  card.querySelectorAll('input[type="number"]').forEach(input => { input.value = ''; });
+  card.querySelectorAll('select').forEach(select => {
+    const option = Array.from(select.options).find(item => item.defaultSelected) || select.options[0];
+    if (option) select.value = option.value;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+  document.getElementById('result').textContent = '';
 }
 </script>
 

@@ -119,7 +119,8 @@ for (const file of listHtml('html')) {
     let unitSelector = 'not-detected';
     for (const selectMatch of markup.matchAll(/<select\b[^>]*>/gi)) {
       const selectAttrs = parseTagAttributes(selectMatch[0]);
-      if (selectAttrs['data-unit-for'] === id) { unitSelector = 'yes'; break; }
+      const associatedFields = String(selectAttrs['data-unit-for'] || '').split(',').map(value => value.trim()).filter(Boolean);
+      if (associatedFields.includes(id)) { unitSelector = 'yes'; break; }
     }
     source.set(key, {
       file: 'html/' + file,

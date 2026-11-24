@@ -19,9 +19,10 @@
 <p class="cf-note">Calculate a standard score from a measurement, reference mean and standard deviation. The result is meaningful only when the reference data match the relevant age, sex, population and measurement protocol.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="value">Observed measurement (value)</label><input id="value" name="value" type="number" min="-100000" max="100000" step="any" inputmode="decimal" required aria-label="Observed measurement"></div>
-<div class="col"><label for="mean">Reference mean (value)</label><input id="mean" name="mean" type="number" min="-100000" max="100000" step="any" inputmode="decimal" required aria-label="Reference mean"></div>
-<div class="col"><label for="sd">Reference standard deviation (value)</label><input id="sd" name="sd" type="number" min="0.000001" max="100000" step="any" inputmode="decimal" required aria-label="Reference standard deviation"></div>
+<div class="col"><label for="value">Observed measurement</label><input id="value" name="value" type="number" min="0.000001" max="100000" step="any" inputmode="decimal" required aria-label="Observed measurement"></div>
+<div class="col"><label for="mean">Reference mean</label><input id="mean" name="mean" type="number" min="0.000001" max="100000" step="any" inputmode="decimal" required aria-label="Reference mean"></div>
+<div class="col"><label for="sd">Reference standard deviation</label><input id="sd" name="sd" type="number" min="0.000001" max="100000" step="any" inputmode="decimal" required aria-label="Reference standard deviation"></div>
+<div class="col"><label for="unit">Measurement unit</label><select id="unit" data-unit-for="value,mean,sd"><option value="cm">cm</option><option value="mm">mm</option><option value="in">inches</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
