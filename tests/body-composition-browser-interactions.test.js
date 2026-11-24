@@ -15,11 +15,11 @@ const cases = [
   { page: 'ymca-body-fat.html', selects: { sex: 'female', weightUnit: 'lb', waistUnit: 'in' }, fields: { weight: '160', waist: '32' }, expected: /26\.83% estimated body fat/ },
   { page: 'body-fat-comparison.html', fields: { a: '15', b: '20' }, expected: /Change: \+5\.00 percentage points/ },
   { page: 'total-body-water.html', selects: { measuredUnit: 'lb', weightUnit: 'lb' }, fields: { measured: '40', weight: '70' }, expected: /57\.14% of body mass/ },
-  { page: 'intracellular-water.html', selects: { compartmentUnit: 'mL', totalUnit: 'mL', weightUnit: 'kg' }, fields: { compartment: '25000', total: '40000', weight: '70' }, expected: /62\.50% of total body water[\s\S]*35\.71% of body mass/ },
-  { page: 'extracellular-water.html', selects: { compartmentUnit: 'mL', totalUnit: 'mL', weightUnit: 'lb' }, fields: { compartment: '15000', total: '40000', weight: '70' }, expected: /37\.50% of total body water[\s\S]*21\.43% of body mass/ },
+  { page: 'intracellular-water.html', selects: { compartmentUnit: 'mL', totalUnit: 'mL', weightUnit: 'kg' }, fields: { compartment: '25000', total: '40000', weight: '70' }, expected: /62\.50% of total body water[\s\S]*35\.46% of body mass/ },
+  { page: 'extracellular-water.html', selects: { compartmentUnit: 'mL', totalUnit: 'mL', weightUnit: 'kg' }, fields: { compartment: '15000', total: '40000', weight: '70' }, expected: /37\.50% of total body water[\s\S]*21\.28% of body mass/ },
   { page: 'bone-mass.html', selects: { measuredUnit: 'lb', weightUnit: 'lb' }, fields: { measured: '3', weight: '70' }, expected: /4\.29% of body mass/ },
-  { page: 'visceral-fat.html', selects: { measuredUnit: 'in2' }, fields: { measured: '120' }, expected: /120\.00 cm² assessment-reported visceral-fat area/ },
-  { page: 'subcutaneous-fat.html', selects: { measuredUnit: 'in' }, fields: { measured: '20' }, expected: /20\.00 mm assessment-reported subcutaneous-fat thickness/ },
+  { page: 'visceral-fat.html', selects: { measuredUnit: 'in2' }, fields: { measured: '120' }, expected: /774\.19 cm² assessment-reported visceral-fat area/ },
+  { page: 'subcutaneous-fat.html', selects: { measuredUnit: 'in' }, fields: { measured: '0.5' }, expected: /12\.70 mm assessment-reported subcutaneous-fat thickness/ },
   { page: 'waist-arm-ratio.html', selects: { unit: 'in' }, fields: { a: '80', b: '35' }, expected: /2\.29 ratio/ },
   { page: 'waist-thigh-ratio.html', selects: { unit: 'in' }, fields: { a: '80', b: '55' }, expected: /1\.45 ratio/ },
   { page: 'chest-waist-ratio.html', selects: { unit: 'in' }, fields: { a: '100', b: '80' }, expected: /1\.25 ratio/ },
@@ -30,7 +30,7 @@ const cases = [
   { page: 'biacromial-width-ratio.html', selects: { unit: 'in' }, fields: { a: '40', b: '25' }, expected: /1\.60 ratio/ },
   { page: 'upper-arm-height-ratio.html', selects: { unit: 'in' }, fields: { a: '35', b: '180' }, expected: /0\.19 ratio/ },
   { page: 'body-fat-change.html', fields: { a: '15', b: '18' }, expected: /Change: \+3\.00 percentage points/ },
-  { page: 'fat-free-mass-change.html', selects: { waUnit: 'lb', wbUnit: 'lb' }, fields: { wa: '70', fa: '20', wb: '72', fb: '18' }, expected: /Earlier: 56\.00 kg.*Current: 59\.04 kg.*Change: \+3\.04 kg/ }
+  { page: 'fat-free-mass-change.html', selects: { waUnit: 'lb', wbUnit: 'lb' }, fields: { wa: '70', fa: '20', wb: '72', fb: '18' }, expected: /Earlier: 25\.40 kg.*Current: 26\.78 kg.*Change: \+1\.38 kg/ }
 ];
 
 (async () => {
