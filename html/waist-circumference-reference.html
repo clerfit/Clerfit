@@ -29,7 +29,7 @@
 <p class="cf-note">Measure at the anatomical site specified by the reference standard you intend to use. Different organisations use different protocols and thresholds; this tool reports the value without assigning a universal risk category.</p>
 <form id="calc-form" novalidate>
 <div class="row">
-<div class="col"><label for="waist">Waist circumference (cm)</label><input id="waist" name="waist" type="number" min="30" max="250" step="any" inputmode="decimal" required aria-label="Waist circumference"></div>
+<div class="col"><label for="waist">Waist circumference</label><input id="waist" name="waist" type="number" min="30" max="250" step="any" inputmode="decimal" required aria-label="Waist circumference"><label for="waistUnit">Unit</label><select id="waistUnit" data-unit-for="waist"><option value="cm">cm</option><option value="in">inches</option></select></div>
 </div>
 <div class="cf-form-actions"><button class="calculate-btn" type="submit">Calculate</button><button class="calculate-btn cf-reset-btn" type="reset">Reset</button></div>
 </form>
