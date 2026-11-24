@@ -42,7 +42,7 @@ elements.set('height', input);
 const document = {
   readyState: 'complete',
   body: {},
-  querySelectorAll: selector => selector === 'select' ? [select] : [],
+  querySelectorAll: selector => selector === 'select' ? [select] : selector === 'input[type="number"]' ? [input] : [],
   getElementById: id => elements.get(id) || null
 };
 const window = { location: { pathname: '/html/bai.html' } };
