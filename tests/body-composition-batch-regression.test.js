@@ -18,9 +18,9 @@ const ratios = [
   const page = await browser.newPage({ viewport:{ width:390, height:844 } });
   try {
     for (const item of ratios) {
-      await page.goto(new URL('html/'+item.page, base).href, { waitUntil:'networkidle' });
+      await page.goto(new URL('html/'+item.page, base).href, { waitUntil:'domcontentloaded',timeout:10000 });
       const selector = page.locator('#unit');
-      await selector.waitFor({ state:'visible' });
+      await selector.waitFor({ state:'visible', timeout:3000 });
       assert.equal(await selector.getAttribute('data-unit-for'), 'a,b', item.page+' associates both ratio inputs');
       await page.locator('#a').fill(String(item.a));
       await page.locator('#b').fill(String(item.b));
@@ -50,7 +50,7 @@ const ratios = [
       { page:'extracellular-water.html', values:{compartment:'40',total:'71',weight:'70'}, message:/must be less than body mass/i }
     ];
     for (const item of impossible) {
-      await page.goto(new URL('html/'+item.page, base).href, { waitUntil:'networkidle' });
+      await page.goto(new URL('html/'+item.page, base).href, { waitUntil:'domcontentloaded',timeout:10000 });
       for (const [id,value] of Object.entries(item.values)) await page.locator('#'+id).fill(value);
       await page.locator('#calc-form button[type="submit"]').click();
       assert.match(await page.locator('#calc-result').innerText(), item.message, item.page+' rejects physically impossible mass relationships');
