@@ -6,7 +6,7 @@ const { chromium } = require('playwright');
 const base = process.argv[2] || 'http://127.0.0.1:4173/';
 const cases = [
   { page: 'waist-circumference-reference.html', fields: { waist: '80' }, selects: { waistUnit: 'in' }, expected: /80 cm/ },
-  { page: 'waist-height-comparison.html', fields: { waistA: '80', heightA: '180', waistB: '90', heightB: '180' }, selects: { unit: 'in' }, expected: /Person A: 0\.444.*Person B: 0\.5.*Difference: 0\.056/ },
+  { page: 'waist-height-comparison.html', fields: { waistA: '80', heightA: '180', waistB: '90', heightB: '180' }, selects: { unit: 'in' }, expected: /Person A: 0\.444.*Person B: 0\.5.*Absolute difference: 0\.056/ },
   { page: 'body-volume.html', fields: { mass: '70', density: '1.05' }, selects: { massUnit: 'lb' }, expected: /66\.667 L/ },
   { page: 'body-density.html', fields: { mass: '70', volume: '70' }, selects: { massUnit: 'lb', volumeUnit: 'mL' }, expected: /1 kg\/L/ },
   { page: 'anthropometric-z-score.html', fields: { value: '80', mean: '70', sd: '5' }, selects: { unit: 'in' }, expected: /2/ },
