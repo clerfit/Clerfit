@@ -26,7 +26,7 @@ const cases = [
   { page: 'shoulder-waist-ratio.html', selects: { unit: 'in' }, fields: { a: '47.24', b: '31.50' }, expected: /1\.50 ratio/ },
   { page: 'shoulder-hip-ratio.html', selects: { unit: 'in' }, fields: { a: '47.24', b: '39.37' }, expected: /1\.20 ratio/ },
   { page: 'chest-height-ratio.html', selects: { unit: 'in' }, fields: { a: '39.37', b: '70.87' }, expected: /0\.56 ratio/ },
-  { page: 'hip-height-ratio.html', selects: { unit: 'in' }, fields: { a: '100', b: '180' }, expected: /0\.56 ratio/ },
+  { page: 'hip-height-ratio.html', selects: { unit: 'in' }, fields: { a: '39.37', b: '70.87' }, expected: /0\.56 ratio/ },
   { page: 'biacromial-width-ratio.html', selects: { unit: 'in' }, fields: { a: '15.75', b: '9.84' }, expected: /1\.60 ratio/ },
   { page: 'upper-arm-height-ratio.html', selects: { unit: 'in' }, fields: { a: '13.78', b: '70.87' }, expected: /0\.19 ratio/ },
   { page: 'body-fat-change.html', fields: { a: '15', b: '18' }, expected: /Change: \+3\.00 percentage points/ },
