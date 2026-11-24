@@ -222,8 +222,8 @@
     // never guess an unrelated input from a whole row/card.
     if (!inputs.length) return;
     select.dataset.clerfitUnitWired = 'true';
-    const declaredDefault = select.querySelector('option[selected]');
-    const initialUnit = declaredDefault ? declaredDefault.value : (select.options[0] ? select.options[0].value : select.value);
+    const declaredDefault = select.options ? Array.from(select.options).find(option => option.defaultSelected) : null;
+    const initialUnit = declaredDefault ? declaredDefault.value : (select.options && select.options[0] ? select.options[0].value : select.value);
     const currentUnit = select.value;
     // A dynamically inserted calculator may be selected before the observer wires it.
     // Reconcile bounds and any prefilled values from the first (base) option to the
