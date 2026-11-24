@@ -222,7 +222,23 @@
     // never guess an unrelated input from a whole row/card.
     if (!inputs.length) return;
     select.dataset.clerfitUnitWired = 'true';
-    select.dataset.clerfitPreviousUnit = select.value;
+    const initialUnit = select.options[0] ? select.options[0].value : select.value;
+    const currentUnit = select.value;
+    // A dynamically inserted calculator may be selected before the observer wires it.
+    // Reconcile bounds and any prefilled values from the first (base) option to the
+    // already-selected unit so the control starts in a consistent state.
+    if (initialUnit !== currentUnit) {
+      inputs.forEach(input => convertConstraints(input, initialUnit, currentUnit));
+      inputs.forEach(input => {
+        if (input.value.trim() === '') return;
+        const result = convert(Number(input.value), initialUnit, currentUnit);
+        if (Number.isFinite(result)) {
+          input.value = String(Number(result.toFixed(8)));
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      });
+    }
+    select.dataset.clerfitPreviousUnit = currentUnit;
     if (select.form) wireFormReset(select.form);
     select.addEventListener('change', () => {
       const prev = select.dataset.clerfitPreviousUnit || select.value, next = select.value;
