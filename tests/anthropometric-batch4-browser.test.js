@@ -18,7 +18,7 @@ const cases = [
   const page=await browser.newPage({viewport:{width:390,height:844}});
   try{
     for(const item of cases){
-      await page.goto(new URL('html/'+item.page,base).href,{waitUntil:'networkidle'});
+      await page.goto(new URL('html/'+item.page,base).href,{waitUntil:'domcontentloaded',timeout:10000});
       for(const [id,value] of Object.entries(item.values)) await page.locator('#'+id).fill(value);
       await page.locator('#calc-form button[type="submit"]').click();
       const output=await page.locator('#calc-result').innerText();
@@ -31,7 +31,7 @@ const cases = [
       await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
       for(const id of Object.keys(item.values)) assert.equal(await page.locator('#'+id).inputValue(),'');
     }
-    await page.goto(new URL('html/anthropometric-z-score.html',base).href,{waitUntil:'networkidle'});
+    await page.goto(new URL('html/anthropometric-z-score.html',base).href,{waitUntil:'domcontentloaded',timeout:10000});
     await page.locator('#value').fill('80'); await page.locator('#mean').fill('70'); await page.locator('#sd').fill('0');
     await page.locator('#calc-form button[type="submit"]').click();
     assert.doesNotMatch(await page.locator('#calc-result').innerText(),/NaN|Infinity|Z-score:/,'zero standard deviation must not produce a result');
