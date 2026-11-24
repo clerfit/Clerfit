@@ -228,6 +228,7 @@ jobs:
           path: |
             browser-smoke-report.json
             accessibility-smoke-report.json
+            responsive-layout-report.json
             FIELD_VALIDATION_AUDIT.csv
             INPUT_BOUNDARY_VERIFIED.csv
           if-no-files-found: ignore
