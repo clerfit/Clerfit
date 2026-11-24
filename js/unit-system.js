@@ -263,6 +263,8 @@
     if (node.matches && node.matches('select')) wireSelect(node);
     if (node.querySelectorAll) node.querySelectorAll('select').forEach(wireSelect);
   }
+  window.ClerFitUnitSystem = window.ClerFitUnitSystem || {};
+  window.ClerFitUnitSystem.refresh = wireTree;
   function init() {
     wireTree(document);
     // Some advanced calculator forms are created after page load; wire their unit selectors too.
