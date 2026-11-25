@@ -65,6 +65,7 @@ const canonicalFiles = [
   { file: path.join(root, 'privacy.html'), url: `${base}/privacy.html` },
   { file: path.join(root, 'terms-of-use.html'), url: `${base}/terms-of-use.html` },
   { file: path.join(root, 'educational-disclaimer.html'), url: `${base}/educational-disclaimer.html` },
+  { file: path.join(root, 'workflows.html'), url: `${base}/workflows.html` },
   ...uniqueFiles.map(file => ({
     file: path.join(root, 'html', file),
     url: `${base}/html/${encodeURI(file)}`
@@ -92,6 +93,7 @@ const urls = [
   { loc: `${base}/privacy.html`, priority: '0.3' },
   { loc: `${base}/terms-of-use.html`, priority: '0.3' },
   { loc: `${base}/educational-disclaimer.html`, priority: '0.3' },
+  { loc: `${base}/workflows.html`, priority: '0.7' },
   ...uniqueFiles.map(file => ({ loc: `${base}/html/${encodeURI(file)}`, priority: '0.7' }))
 ];
 const xmlEscape = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
