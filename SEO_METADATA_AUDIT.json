@@ -1,6 +1,6 @@
 {
-  "html_documents_checked": 176,
-  "public_pages_checked": 172,
+  "html_documents_checked": 177,
+  "public_pages_checked": 173,
   "checks": [
     "viewport",
     "title",
@@ -10,9 +10,10 @@
     "Twitter card/title/description/image",
     "canonical for public pages",
     "canonical and Open Graph URL consistency",
-    "calculator-specific guide coverage"
+    "calculator-specific guide coverage",
+    "guided calculator workflow hub metadata"
   ],
-  "unique_titles": 176,
-  "unique_descriptions": 176,
+  "unique_titles": 177,
+  "unique_descriptions": 177,
   "findings": []
 }
