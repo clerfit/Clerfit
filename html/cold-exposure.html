@@ -197,7 +197,9 @@ input, select {
 
 <script>
 function calculateCold() {
-  const T = Number(document.getElementById("tempC").value);
+  const rawTemperature = Number(document.getElementById("tempC").value);
+  const tempUnit = document.getElementById("tempUnit").value;
+  const T = tempUnit === "F" ? (rawTemperature - 32) * 5 / 9 : rawTemperature;
   let wind = Number(document.getElementById("windSpeed").value);
   const windUnit = document.getElementById("windUnit").value;
   const duration = Number(document.getElementById("duration").value);
@@ -242,6 +244,20 @@ function calculateCold() {
 
 <script src="../js/input-validation.js" defer></script>
 <script src="../js/calculator-guides.js" defer></script>
-<script src="../js/page-chrome.js?v=20261017-nav-v4" defer></script>
+<script src="../js/page-chrome.js?v=20261017-nav-v4" defer>
+function resetCold() {
+  ['tempC', 'windSpeed', 'duration'].forEach(id => {
+    const input = document.getElementById(id);
+    if (input) input.value = '';
+  });
+  [['tempUnit', 'C'], ['windUnit', 'kmh'], ['timeUnit', 'minutes']].forEach(([id, value]) => {
+    const select = document.getElementById(id);
+    if (!select) return;
+    select.value = value;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+  document.getElementById('result').textContent = '';
+}
+</script>
 </body>
 </html>
