@@ -60,7 +60,7 @@ assert.match(privacy, /does not offer account creation, login, registration, clo
   'privacy notice must explicitly preserve the no-account/no-cloud-profile policy');
 assert.match(privacy, /persistent local storage is used only after you actively opt in/i,
   'privacy notice must disclose that persistent browser saving is optional and consent-based');
-assert.match(privacy, /not intentionally transmit calculator inputs or results to a ClerFit measurement database/i,
+assert.match(privacy, /calculator inputs and results are not sent to a ClerFit measurement database/i,
   'privacy notice must explain local calculator processing');
 
 assert.match(chrome, /main\.appendChild\(footer\)/, 'shared footer must be attached to calculator content');
