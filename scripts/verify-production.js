@@ -7,7 +7,7 @@ const BASE = new URL(BASE_INPUT.endsWith('/') ? BASE_INPUT : BASE_INPUT + '/');
 const SITE_PREFIX = BASE.pathname.endsWith('/') ? BASE.pathname : BASE.pathname + '/';
 const EXPECTED_RELEASE_ID = 'R3-2026-10-17-phase12-a11y-v1';
 const EXPECTED_CALCULATORS = 164;
-const EXPECTED_SITEMAP_PAGES = 172;
+const EXPECTED_SITEMAP_PAGES = 173;
 const EXPECTED_NESTED_HTML = 164;
 const CONCURRENCY = 8;
 const FAILURES = [];
@@ -189,7 +189,7 @@ async function main() {
   catch (e) { FAILURES.push('Calculator registry parse failed: ' + e.message); }
   assert(registry.length === EXPECTED_CALCULATORS, 'Expected ' + EXPECTED_CALCULATORS + ' registered calculators but found ' + registry.length + '.');
   const sitemapSet = new Set(pages);
-  for (const file of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html']) {
+  for (const file of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html', 'workflows.html']) {
     const url = new URL(file, BASE).href;
     assert(sitemapSet.has(url), 'Sitemap is missing trust/legal page: ' + file + '.');
   }
