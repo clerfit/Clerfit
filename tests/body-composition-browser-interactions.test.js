@@ -65,11 +65,20 @@ const cases = [
           id: select.id, value: select.value, wired: select.dataset.clerfitUnitWired || '',
           previousUnit: select.dataset.clerfitPreviousUnit || '', unitFor: select.dataset.unitFor || ''
         })));
+        const totalLookupDiagnostics = await page.evaluate(() => {
+          const input = document.getElementById('total');
+          const select = document.getElementById('totalUnit');
+          const form = select && select.closest('form');
+          return {
+            input: input ? { tagName: input.tagName, id: input.id, type: input.type, disabled: input.disabled, readOnly: input.readOnly, formId: input.form && input.form.id, outerHTML: input.outerHTML } : null,
+            select: select ? { id: select.id, formId: select.form && select.form.id, closestFormId: form && form.id, inputCountInForm: form ? form.querySelectorAll('input').length : null } : null
+          };
+        });
         if (['intracellular-water.html', 'extracellular-water.html'].includes(item.page)) {
           for (const id of ['compartmentUnit', 'totalUnit', 'weightUnit']) {
             const unit = unitDiagnostics.find(entry => entry.id === id);
             assert.ok(unit, item.page + ' exposes ' + id);
-            assert.equal(unit.wired, 'true', item.page + ' must wire ' + id + ' to its associated numeric field. Diagnostics: ' + JSON.stringify(unitDiagnostics));
+            assert.equal(unit.wired, 'true', item.page + ' must wire ' + id + ' to its associated numeric field. Diagnostics: ' + JSON.stringify({ unitDiagnostics, diagnostics, totalLookupDiagnostics }));
           }
           const total = diagnostics.find(input => input.id === 'total');
           assert.ok(total && Number(total.max) >= 250000, item.page + ' must scale the 250 L upper bound to at least 250,000 mL. Diagnostics: ' + JSON.stringify(diagnostics));
