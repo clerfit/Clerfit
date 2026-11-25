@@ -69,9 +69,10 @@ const cases = [
           const input = document.getElementById('total');
           const select = document.getElementById('totalUnit');
           const form = select && select.closest('form');
+          const api = window.ClerFitUnits;
           return {
             input: input ? { tagName: input.tagName, id: input.id, type: input.type, disabled: input.disabled, readOnly: input.readOnly, formId: input.form && input.form.id, outerHTML: input.outerHTML } : null,
-            select: select ? { id: select.id, formId: select.form && select.form.id, closestFormId: form && form.id, inputCountInForm: form ? form.querySelectorAll('input').length : null } : null
+            select: select ? { id: select.id, formId: select.form && select.form.id, closestFormId: form && form.id, inputCountInForm: form ? form.querySelectorAll('input').length : null, optionValues: Array.from(select.options).map(option => option.value), classified: api && api.classify(select), findInputs: api ? api.findInputs(select).map(node => ({ id: node.id, type: node.type, disabled: node.disabled, readOnly: node.readOnly })) : null } : null
           };
         });
         if (['intracellular-water.html', 'extracellular-water.html'].includes(item.page)) {
