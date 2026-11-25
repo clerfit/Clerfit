@@ -230,9 +230,9 @@
   function init() {
     if (!/\/html\/[^/]+\.html$/i.test(location.pathname)) return;
     const config = journeys[page];
-    if (!config) return;
     receiveTransfer();
     addProfileControl();
+    if (!config) return;
     const watch = () => showNextSteps(config);
     config.result.forEach(selector => {
       const node = document.querySelector(selector);
