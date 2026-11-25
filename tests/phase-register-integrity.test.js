@@ -68,6 +68,7 @@ const existsIndex = inventoryHeader.indexOf('file_exists');
 const sitemapIndex = inventoryHeader.indexOf('url_in_sitemap');
 const canonicalIndex = inventoryHeader.indexOf('canonical_sitemap_url');
 assert.equal(new Set(inventory.map(row => row[sourceIndex])).size, 164, 'inventory source files must be unique');
+assert.ok(sitemapUrls.includes('https://clerfit.github.io/Clerfit/workflows.html'), 'sitemap must include guided calculator workflows');
 for (const row of inventory) {
   assert.equal(row[existsIndex], 'YES', 'inventory must not report a missing source: ' + row[sourceIndex]);
   assert.ok(fs.existsSync(path.join(root, row[sourceIndex])), 'inventory source file not found: ' + row[sourceIndex]);
@@ -135,7 +136,7 @@ assert.ok(sitemapUrls.every(url => {
   } catch { return false; }
 }), 'sitemap URLs must be HTTPS and remain under the ClerFit GitHub Pages project path');
 assert.equal(new Set(sitemapUrls).size, sitemapUrls.length, 'sitemap must not contain duplicate URLs');
-assert.equal(sitemapUrls.length, 172, 'sitemap should include 164 tools and eight root routes');
+assert.equal(sitemapUrls.length, 173, 'sitemap should include 164 tools and nine root routes');
 for (const row of inventory) {
   assert.ok(sitemapUrls.includes(row[canonicalIndex]), 'sitemap is missing ' + row[canonicalIndex]);
 }
