@@ -9,6 +9,16 @@
 <link rel="stylesheet" href="../css/style.css?v=20261019-performance-cls-v1">
 <title>ClerFit – Neck Circumference Calculator</title>
 <link rel="canonical" href="https://clerfit.github.io/Clerfit/html/neck-circumference.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ClerFit">
+<meta property="og:title" content="ClerFit – Neck Circumference Calculator">
+<meta property="og:description" content="Calculate circle-equivalent neck diameter, radius and cross-sectional area from a measured neck circumference.">
+<meta property="og:image" content="https://clerfit.github.io/Clerfit/logo.png">
+<meta property="og:url" content="https://clerfit.github.io/Clerfit/html/neck-circumference.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClerFit – Neck Circumference Calculator">
+<meta name="twitter:description" content="Calculate circle-equivalent neck diameter, radius and cross-sectional area from a measured neck circumference.">
+<meta name="twitter:image" content="https://clerfit.github.io/Clerfit/logo.png">
 </head>
 <body data-calculator="neck-circumference">
 <aside class="sidebar" aria-label="Main navigation"></aside>
@@ -36,13 +46,23 @@
 <p>The human neck is not a perfect circle. These values are geometric approximations only; they do not estimate airway size, tissue composition, body fat, or medical risk.</p>
 </section>
 </main>
-<section class="cf-education-card" aria-labelledby="cf-understanding-title"><details><summary id="cf-understanding-title">Understand this calculator <span class="cf-education-toggle" aria-hidden="true">+</span></summary><div class="cf-education-content"><div class="cf-education-section"><h3>How to use it</h3><p>Measure the neck at a consistent landmark with the tape level and gently in contact with the skin. Enter the circumference and select Calculate to see the circle-equivalent geometry.</p></div><p class="cf-education-note"><strong>Important:</strong> Results depend on measurement technique and the quality of the inputs. They are not a substitute for professional advice.</p></div></details></section>
+<section class="cf-education-card" aria-labelledby="cf-guide-neck-circumference">
+<details id="cf-guide-details-neck-circumference">
+<summary id="cf-guide-neck-circumference">Understand Neck Circumference <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
+<div class="cf-education-content">
+<p class="cf-education-intro">This page converts neck circumference into the diameter, radius and cross-sectional area of a circle with the same perimeter. It is a geometry exercise, not an anatomical scan.</p>
+<div class="cf-education-formula"><strong>Calculation method</strong><p>For circumference C: equivalent diameter = C ÷ π; radius = C ÷ (2π); area = C² ÷ (4π).</p></div>
+<div class="cf-education-section"><h3>Measurement protocol</h3><p>Measure around the neck at the site specified by your chosen protocol, without compressing soft tissue. Select the matching unit and enter the circumference only once.</p></div>
+<div class="cf-education-section"><h3>Interpretation and limits</h3><p>A human neck is not circular and changes shape along its length. These equivalent-circle values do not estimate airway size, fat, muscle, or medical risk.</p></div>
+
+</div>
+</details>
+</section>
 <script src="../js/navigation.js" defer></script>
 <script src="../js/unit-system.js" defer></script>
 <script src="../js/anthropometric-calculators.js" defer></script>
 <script src="../js/tooltips.js" defer></script>
 <script src="../js/site-polish.js" defer></script>
 <script src="../js/input-validation.js" defer></script>
-<script src="../js/calculator-guides.js" defer></script>
 <script src="../js/page-chrome.js?v=20261017-nav-v4" defer></script>
 </body></html>

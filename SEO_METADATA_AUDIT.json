@@ -1,18 +1,18 @@
 {
-  "html_documents_checked": 124,
-  "public_pages_checked": 123,
+  "html_documents_checked": 176,
+  "public_pages_checked": 172,
   "checks": [
     "viewport",
     "title",
     "description",
-    "Open Graph title/description/image",
-    "Twitter card",
-    "favicon",
-    "canonical for public pages"
+    "unique public-page titles and descriptions",
+    "Open Graph type/site name/title/description/image/URL",
+    "Twitter card/title/description/image",
+    "canonical for public pages",
+    "canonical and Open Graph URL consistency",
+    "calculator-specific guide coverage"
   ],
-  "unique_titles": 122,
-  "unique_descriptions": 123,
-  "findings": [
-    "duplicate title: ClerFit \u2013 Contact Us => dist/contact.html, dist/html/contact.html"
-  ]
+  "unique_titles": 176,
+  "unique_descriptions": 176,
+  "findings": []
 }

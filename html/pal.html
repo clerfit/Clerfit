@@ -93,12 +93,12 @@
     <div class="row">
       <div class="col">
         <label for="tee">Average total energy expenditure (TEE)</label>
-        <input type="number" id="tee" min="1" max="50000" step="any" inputmode="decimal" placeholder="e.g. 2970" required aria-describedby="pal-help">
+        <input type="number" id="tee" min="500" max="12000" step="any" inputmode="decimal" placeholder="e.g. 2970" required aria-describedby="pal-help">
         <small>kcal per 24 hours</small>
       </div>
       <div class="col">
         <label for="bmr">Basal metabolic rate (BMR)</label>
-        <input type="number" id="bmr" min="1" max="10000" step="any" inputmode="decimal" placeholder="e.g. 1700" required aria-describedby="pal-help">
+        <input type="number" id="bmr" min="500" max="5000" step="any" inputmode="decimal" placeholder="e.g. 1700" required aria-describedby="pal-help">
         <small>kcal per 24 hours</small>
       </div>
     </div>
@@ -130,9 +130,14 @@ function calculatePAL() {
   result.textContent = "";
 
   if (teeRaw.trim() === "" || bmrRaw.trim() === "" ||
-      !Number.isFinite(tee) || !Number.isFinite(bmr) || tee <= 0 || bmr <= 0 ||
-      tee > 50000 || bmr > 10000) {
-    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter positive, finite TEE and BMR values within the displayed limits, using kcal per 24 hours for both.</p>';
+      !Number.isFinite(tee) || !Number.isFinite(bmr) || tee < 500 || bmr < 500 ||
+      tee > 12000 || bmr > 5000) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">Enter TEE from 500 to 12,000 kcal/day and BMR from 500 to 5,000 kcal/day, using the same 24-hour basis.</p>';
+    return;
+  }
+
+  if (tee < bmr) {
+    result.innerHTML = '<p class="cf-validation-message" role="alert">TEE must be at least as large as BMR when both values cover the same 24-hour period.</p>';
     return;
   }
 
@@ -176,7 +181,7 @@ function calculatePAL() {
   <summary id="cf-understanding-title">Understand Physical Activity Level <span class="cf-education-toggle" aria-hidden="true">+</span></summary>
   <div class="cf-education-content">
    <figure class="cf-education-visual"><img src="../images/lifestyle.svg" alt="Illustration for Physical Activity Level" loading="lazy" width="120" height="120"><figcaption>Visual guide for Physical Activity Level</figcaption></figure>
-   <div class="cf-education-section"><h3>What is Physical Activity Level?</h3><p>PAL = average total energy expenditure (TEE) over 24 hours ÷ basal metabolic rate (BMR) over 24 hours. Both inputs must use the same energy unit and time basis. This calculator computes the ratio from the two values you supply; it does not estimate TEE or BMR for you.</p></div>
+   <div class="cf-education-section"><h3>What is Physical Activity Level?</h3><p>PAL = average total energy expenditure (TEE) over 24 hours ÷ basal metabolic rate (BMR) over 24 hours. Both inputs must use the same energy unit and time basis. Enter TEE from 500 to 12,000 kcal/day and BMR from 500 to 5,000 kcal/day; TEE must be at least BMR. This calculator computes the ratio from the two values you supply; it does not estimate TEE or BMR for you.</p></div>
    
    <div class="cf-education-section"><h3>Limitations</h3><p>FAO/WHO/UNU classifies adult population lifestyles as 1.40–1.69 sedentary/light, 1.70–1.99 active/moderate and 2.00–2.40 vigorous. These are population reference bands, not precise personal cut-offs. Estimated TEE or BMR introduces uncertainty; children, pregnancy and lactation require separate assessment.</p></div>
    <div class="cf-education-columns"><div class="cf-education-section"><h3>Uses and benefits</h3><p>It can help structure planning and make assumptions visible.</p></div><div class="cf-education-section"><h3>Limitations and cons</h3><p>Real-world conditions vary; an estimate cannot guarantee safety, health outcomes or exact activity results.</p></div></div>

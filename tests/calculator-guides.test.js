@@ -33,11 +33,11 @@ assert.equal(new Set(last50.map(row => row[column.route_slug])).size, 50, 'The f
 
 const fieldAudit = read('FIELD_VALIDATION_AUDIT.csv');
 const boundaryAudit = read('INPUT_BOUNDARY_VERIFIED.csv');
-assert.match(fieldAudit, /html\/pal\.html,tee,,Average total energy expenditure \(TEE\),1,50000,any,yes/);
-assert.match(fieldAudit, /html\/pal\.html,bmr,,Basal metabolic rate \(BMR\),1,10000,any,yes/);
+assert.match(fieldAudit, /html\/pal\.html,tee,,Average total energy expenditure \(TEE\),500,12000,any,yes/);
+assert.match(fieldAudit, /html\/pal\.html,bmr,,Basal metabolic rate \(BMR\),500,5000,any,yes/);
 assert.doesNotMatch(fieldAudit, /html\/pal\.html,age,/);
-assert.match(boundaryAudit, /pal\.html,tee,Average total energy expenditure \(TEE\),1,50000,any/);
-assert.match(boundaryAudit, /pal\.html,bmr,Basal metabolic rate \(BMR\),1,10000,any/);
+assert.match(boundaryAudit, /pal\.html,tee,Average total energy expenditure \(TEE\),500,12000,any/);
+assert.match(boundaryAudit, /pal\.html,bmr,Basal metabolic rate \(BMR\),500,5000,any/);
 assert.doesNotMatch(boundaryAudit, /pal\.html,age,/);
 assert.match(read('scripts/sync-input-boundaries.js'), /assert\.equal\(source\.size, 298,/);
 
@@ -46,37 +46,24 @@ const guideKeys = [...source.matchAll(/^\s*"([^"]+)": \[/gm)].map(match => match
 assert.equal(guideKeys.length, 50, 'Exactly 50 route-specific guides must be defined.');
 const aliases = { sunlight: 'sunlight-duration', pal: 'physical-activity-level' };
 
-function makeElement() {
-  return {
-    children: [], firstChild: null, className: '', textContent: '', href: '', target: '', rel: '',
-    appendChild(child) { this.children.push(child); if (!this.firstChild) this.firstChild = child; return child; },
-    removeChild(child) { this.children = this.children.filter(item => item !== child); this.firstChild = this.children[0] || null; }
-  };
-}
-
 for (const row of last50) {
   const file = row[column.file];
   const route = row[column.route_slug];
   const html = read(path.join('html', file));
-  assert.match(html, /calculator-guides\.js/, route + ' must load route-specific guide code.');
+  assert.match(html, /page-chrome\.js/, route + ' must load the shared route guide system.');
   assert.match(html, /cf-education-content/, route + ' must contain the accessible guide target.');
   const basename = path.basename(file, '.html');
   const bodyMatch = html.match(/<body[^>]*data-calculator="([^"]+)"/i);
   const bodySlug = bodyMatch ? bodyMatch[1] : '';
   const slug = bodySlug || aliases[basename] || basename;
   assert.ok(guideKeys.includes(slug), route + ' must have an exact route guide mapping.');
-
-  const target = makeElement();
-  const document = {
-    body: { dataset: { calculator: bodySlug } },
-    querySelector: selector => selector === '.cf-education-card .cf-education-content' ? target : null,
-    createElement: () => makeElement()
-  };
-  const window = { location: { pathname: '/Clerfit/html/' + file } };
-  vm.runInNewContext(source, { window, document }, { filename: 'js/calculator-guides.js', timeout: 3000 });
-  assert.equal(target.children.length, 3, route + ' must render three guide sections.');
-  assert.equal(target.children[0].children[0].textContent, 'How to use it', route + ' guide must explain use.');
-  assert.equal(target.children[1].children[0].textContent, 'Method', route + ' guide must disclose the method.');
-  assert.match(target.children[2].children[0].textContent, /limitations/i, route + ' guide must include a limitations section.');
+  const guideStart = html.indexOf('<div class="cf-education-content">');
+  const guideEnd = html.indexOf('</details>', guideStart);
+  assert.ok(guideStart >= 0 && guideEnd > guideStart, route + ' must include a static, accessible guide body.');
+  const guideMarkup = html.slice(guideStart, guideEnd);
+  const guideText = guideMarkup.replace(/<[^>]*>/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+  assert.ok(guideText.length >= 500, route + ' guide must contain practical detail.');
+  assert.match(guideMarkup, /method|calculation/i, route + ' guide must explain the method.');
+  assert.match(guideMarkup, /limit|protocol|interpretation/i, route + ' guide must explain measurement context and limits.');
 }
 process.stdout.write('PASS: all 50 final calculator routes load and render route-specific how-to, method and limitation guides.\n');

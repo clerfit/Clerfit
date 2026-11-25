@@ -852,7 +852,19 @@ checks++;
 pageTest = runPageFunction('pal.html', 'calculatePAL', {
   tee: '', bmr: 1700
 }, ['result']);
-assert.match(pageTest.output('result'), /positive, finite TEE and BMR/i);
+assert.match(pageTest.output('result'), /Enter TEE from 500 to 12,000 kcal\/day and BMR from 500 to 5,000 kcal\/day/i);
+assert.doesNotMatch(pageTest.output('result'), /Physical Activity Level \(PAL\):/);
+checks++;
+pageTest = runPageFunction('pal.html', 'calculatePAL', { tee: 400, bmr: 1700 }, ['result']);
+assert.match(pageTest.output('result'), /Enter TEE from 500/i);
+assert.doesNotMatch(pageTest.output('result'), /Physical Activity Level \(PAL\):/);
+checks++;
+pageTest = runPageFunction('pal.html', 'calculatePAL', { tee: 2970, bmr: 400 }, ['result']);
+assert.match(pageTest.output('result'), /Enter TEE from 500/i);
+assert.doesNotMatch(pageTest.output('result'), /Physical Activity Level \(PAL\):/);
+checks++;
+pageTest = runPageFunction('pal.html', 'calculatePAL', { tee: 1500, bmr: 1700 }, ['result']);
+assert.match(pageTest.output('result'), /TEE must be at least as large as BMR/i);
 assert.doesNotMatch(pageTest.output('result'), /Physical Activity Level \(PAL\):/);
 checks++;
 pageTest = runPageFunction('pal.html', 'calculatePAL', {

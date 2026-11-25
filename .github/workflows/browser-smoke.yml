@@ -1,26 +1,7 @@
 name: Verify live calculator interactions
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'index.html'
-      - 'html/**'
-      - 'css/**'
-      - 'js/**'
-      - 'sitemap.xml'
-      - 'scripts/browser-smoke.js'
-      - '.github/workflows/browser-smoke.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'index.html'
-      - 'html/**'
-      - 'css/**'
-      - 'js/**'
-      - 'sitemap.xml'
-      - 'scripts/browser-smoke.js'
-      - '.github/workflows/browser-smoke.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read

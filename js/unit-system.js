@@ -11,6 +11,7 @@
     m: ['length', 1, 0], meter: ['length', 1, 0], meters: ['length', 1, 0], metre: ['length', 1, 0], metres: ['length', 1, 0],
     in: ['length', 0.0254, 0], inch: ['length', 0.0254, 0], inches: ['length', 0.0254, 0],
     ft: ['length', 0.3048, 0], foot: ['length', 0.3048, 0], feet: ['length', 0.3048, 0],
+    cm2: ['area', 0.0001, 0], 'cm²': ['area', 0.0001, 0], m2: ['area', 1, 0], 'm²': ['area', 1, 0], in2: ['area', 0.00064516, 0], 'in²': ['area', 0.00064516, 0],
     km: ['distance', 1000, 0], kilometer: ['distance', 1000, 0], kilometers: ['distance', 1000, 0], kilometre: ['distance', 1000, 0], kilometres: ['distance', 1000, 0],
     mi: ['distance', 1609.344, 0], mile: ['distance', 1609.344, 0], miles: ['distance', 1609.344, 0],
     ml: ['volume', 0.001, 0], milliliter: ['volume', 0.001, 0], milliliters: ['volume', 0.001, 0],
@@ -95,6 +96,8 @@
     'goal-timeline.html': { weightUnitTimeline: ['currentWeight', 'goalWeight'] },
     'hip-change.html': { hipUnit: ['initialHip', 'currentHip'] },
     'idealweight.html': { 'iw-height-unit': ['iw-height'] },
+    'intracellular-water.html': { compartmentUnit: ['compartment'], totalUnit: ['total'], weightUnit: ['weight'] },
+    'extracellular-water.html': { compartmentUnit: ['compartment'], totalUnit: ['total'], weightUnit: ['weight'] },
     'leanmass.html': { weightUnit: ['weight'] },
     'mets.html': { weightUnit: ['weight'] },
     'performance-score.html': { squatUnit: ['squatWeight'], bodyUnit: ['bodyWeight'] },
@@ -188,8 +191,20 @@
     const mapped = explicit ? explicit.split(',').map(id => id.trim()).filter(Boolean)
       : ((PAGE_UNIT_ASSOCIATIONS[PAGE] || {})[select && select.id] || []);
     if (mapped.length) {
-      return mapped.map(id => document.getElementById(id))
-        .filter(el => el && el.matches('input[type="number"]') && !el.disabled && !el.readOnly);
+      // Resolve explicitly associated controls by ID. Form named properties can
+      // shadow names such as "total" and make form-scoped lookup inconsistent
+      // across browsers, even though the input is present in the same form.
+      // Use the input collection rather than document/form named-property lookup.
+      // Some browsers expose a form control named "total" as a legacy property;
+      // resolving the target from the numeric-input collection avoids that collision.
+      const numericInputs = Array.from(document.querySelectorAll('input[type="number"]'));
+      return mapped.flatMap(id => {
+        const matches = numericInputs.filter(input => input.id === id && !input.disabled && !input.readOnly);
+        // Prefer the target in this selector's form when duplicate IDs exist in
+        // hidden templates or alternate calculator panels.
+        const sameForm = matches.find(input => input.form && input.form === select.form);
+        return sameForm ? [sameForm] : matches.slice(0, 1);
+      });
     }
     if (isOutputOnly(select)) return [];
     const input = findInput(select);
@@ -221,7 +236,24 @@
     // never guess an unrelated input from a whole row/card.
     if (!inputs.length) return;
     select.dataset.clerfitUnitWired = 'true';
-    select.dataset.clerfitPreviousUnit = select.value;
+    const declaredDefault = select.options ? Array.from(select.options).find(option => option.defaultSelected) : null;
+    const initialUnit = declaredDefault ? declaredDefault.value : (select.options && select.options[0] ? select.options[0].value : select.value);
+    const currentUnit = select.value;
+    // A dynamically inserted calculator may be selected before the observer wires it.
+    // Reconcile bounds and any prefilled values from the first (base) option to the
+    // already-selected unit so the control starts in a consistent state.
+    if (initialUnit !== currentUnit) {
+      inputs.forEach(input => convertConstraints(input, initialUnit, currentUnit));
+      inputs.forEach(input => {
+        if (input.value.trim() === '') return;
+        const result = convert(Number(input.value), initialUnit, currentUnit);
+        if (Number.isFinite(result)) {
+          input.value = String(Number(result.toFixed(8)));
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      });
+    }
+    select.dataset.clerfitPreviousUnit = currentUnit;
     if (select.form) wireFormReset(select.form);
     select.addEventListener('change', () => {
       const prev = select.dataset.clerfitPreviousUnit || select.value, next = select.value;
@@ -245,6 +277,8 @@
     if (node.matches && node.matches('select')) wireSelect(node);
     if (node.querySelectorAll) node.querySelectorAll('select').forEach(wireSelect);
   }
+  window.ClerFitUnitSystem = window.ClerFitUnitSystem || {};
+  window.ClerFitUnitSystem.refresh = wireTree;
   function init() {
     wireTree(document);
     // Some advanced calculator forms are created after page load; wire their unit selectors too.

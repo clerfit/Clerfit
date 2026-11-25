@@ -275,3 +275,29 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
   else init();
 })();
+
+
+// Load the shared guide on every active calculator route, not only pages using
+// the legacy .card markup. Redirects and informational pages have no calculator inputs.
+(() => {
+  "use strict";
+  const isCalculatorRoute = /\/html\/[^/]+\.html$/i.test(location.pathname);
+  const hasCalculatorInputs = Boolean(
+    document.querySelector('input:not([type="hidden"]), select, textarea')
+  );
+  if (!isCalculatorRoute || !hasCalculatorInputs) return;
+
+  const root = new URL("../", document.baseURI);
+  const loadGuide = () => {
+    const guideScript = document.createElement("script");
+    guideScript.src = new URL("js/calculator-guide.js?v=20261116-guides-v2", root).href;
+    guideScript.defer = true;
+    document.head.appendChild(guideScript);
+  };
+
+  const catalogScript = document.createElement("script");
+  catalogScript.src = new URL("js/calculator-guide-catalog.js?v=20261116-guides-v1", root).href;
+  catalogScript.onload = loadGuide;
+  catalogScript.onerror = loadGuide;
+  document.head.appendChild(catalogScript);
+})();

@@ -26,7 +26,7 @@ const selectListeners = {};
 const form = {
   dataset: {},
   addEventListener(type, fn) { formListeners[type] = fn; },
-  querySelectorAll(selector) { return selector === 'select[data-clerfit-unit-wired="true"]' ? [select] : []; }
+  querySelectorAll(selector) { return selector === 'select[data-clerfit-unit-wired="true"]' ? [select] : selector === 'input[type="number"]' ? [input] : []; }
 };
 const select = {
   id: 'heightUnit', value: 'cm', form,
@@ -42,7 +42,7 @@ elements.set('height', input);
 const document = {
   readyState: 'complete',
   body: {},
-  querySelectorAll: selector => selector === 'select' ? [select] : [],
+  querySelectorAll: selector => selector === 'select' ? [select] : selector === 'input[type="number"]' ? [input] : [],
   getElementById: id => elements.get(id) || null
 };
 const window = { location: { pathname: '/html/bai.html' } };

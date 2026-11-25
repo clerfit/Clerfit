@@ -270,8 +270,8 @@ html/body-volume.html,mass,,Mass,0.1,500,any,yes,not-detected,STRUCTURAL PASS; B
 html/body-volume.html,density,,Density,0.01,2,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/body-density.html,mass,,Mass,0.1,500,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/body-density.html,volume,,Volume,0.01,1000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/anthropometric-z-score.html,value,,Observed measurement,-100000,100000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/anthropometric-z-score.html,mean,,Reference mean,-100000,100000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/anthropometric-z-score.html,value,,Observed measurement,0.000001,100000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/anthropometric-z-score.html,mean,,Reference mean,0.000001,100000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/anthropometric-z-score.html,sd,,Reference standard deviation,0.000001,100000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/body-measurement-symmetry.html,left,,Left-side measurement,0.1,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
 html/body-measurement-symmetry.html,right,,Right-side measurement,0.1,250,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
@@ -295,5 +295,5 @@ html/sitting-height-arm-span-ratio.html,sittingHeight,sittingHeight,Sitting heig
 html/sitting-height-arm-span-ratio.html,armSpan,armSpan,Arm span,80,250,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
 html/arm-span-difference.html,armSpan,armSpan,Arm span,80,250,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
 html/arm-span-difference.html,standingHeight,standingHeight,Standing height,80,250,any,yes,yes,STRUCTURAL PASS; HANDLER RANGE EXISTS; SEMANTIC LIMITS SUBJECT TO REVIEW
-html/pal.html,tee,,Average total energy expenditure (TEE),1,50000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
-html/pal.html,bmr,,Basal metabolic rate (BMR),1,10000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/pal.html,tee,,Average total energy expenditure (TEE),500,12000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE
+html/pal.html,bmr,,Basal metabolic rate (BMR),500,5000,any,yes,not-detected,STRUCTURAL PASS; BOUNDS MATCH SOURCE; FIELD-SPECIFIC SEMANTIC EDGE CASES NOT EXHAUSTIVE

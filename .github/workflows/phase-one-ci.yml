@@ -104,6 +104,12 @@ jobs:
         run: node tests/body-composition-methods.test.js
       - name: Run anthropometric formula and page regressions
         run: node tests/anthropometric-calculators.test.js
+
+      - name: Verify calculator content, guides and SEO metadata
+        run: node tests/calculator-content-quality.test.js
+
+      - name: Verify body-composition formula regressions
+        run: node tests/body-composition-formula-regression.test.js
       - name: Verify field-bound inventories match static source markup
         run: node scripts/sync-input-boundaries.js --check
       - name: Check phase inventory, sign-off and sitemap integrity
@@ -136,6 +142,9 @@ jobs:
 
       - name: Verify calculator registry and sitemap
         run: node scripts/generate-sitemap.js --check
+
+      - name: Verify practical guide coverage for every inventoried calculator
+        run: node tests/calculator-guide-coverage.test.js
 
       - name: Build production staging directory
         env:
@@ -173,6 +182,26 @@ jobs:
           node tests/anthropometric-batch2.test.js
           node tests/batch2-browser-interactions.test.js http://127.0.0.1:4173/
           node tests/batch3-browser-interactions.test.js http://127.0.0.1:4173/
+          node tests/body-composition-browser-interactions.test.js http://127.0.0.1:4173/
+          node tests/anthropometric-remaining-browser-interactions.test.js http://127.0.0.1:4173/
+          node tests/legacy-unit-equivalence-browser.test.js http://127.0.0.1:4173/
+          node tests/body-composition-batch-regression.test.js http://127.0.0.1:4173/
+          node tests/anthropometric-batch4-browser.test.js http://127.0.0.1:4173/
+
+      - name: Verify mobile landscape, tablet and desktop layouts across all 164 calculator routes
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4175 --directory dist >/tmp/clerfit-responsive-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4175/ >/dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:4175/ >/dev/null
+          node scripts/responsive-layout-smoke.js http://127.0.0.1:4175/
 
       - name: Run all-page axe accessibility smoke tests
         if: always()
@@ -199,6 +228,7 @@ jobs:
           path: |
             browser-smoke-report.json
             accessibility-smoke-report.json
+            responsive-layout-report.json
             FIELD_VALIDATION_AUDIT.csv
             INPUT_BOUNDARY_VERIFIED.csv
           if-no-files-found: ignore
