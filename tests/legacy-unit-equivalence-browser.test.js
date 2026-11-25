@@ -13,7 +13,7 @@ const base = process.argv[2] || 'http://127.0.0.1:4173/';
       file: 'absi.html',
       fields: { waist: '85', height: '175', weight: '70' },
       selects: { waistUnit: 'cm', heightUnit: 'cm', weightUnit: 'lb' },
-      button: '.calculate-btn',
+      button: 'button[onclick="calculateABSI()"]',
       expected: /ABSI:\s*0\.080/,
       result: '#result',
       name: 'ABSI canonical kg conversion',
