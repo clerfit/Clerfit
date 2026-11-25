@@ -194,8 +194,12 @@
       // Resolve explicitly associated controls by ID. Form named properties can
       // shadow names such as "total" and make form-scoped lookup inconsistent
       // across browsers, even though the input is present in the same form.
-      return mapped.map(id => document.getElementById(id))
-        .filter(el => el && el.matches('input[type="number"]') && !el.disabled && !el.readOnly);
+      // Use the input collection rather than document/form named-property lookup.
+      // Some browsers expose a form control named "total" as a legacy property;
+      // resolving the target from the numeric-input collection avoids that collision.
+      const numericInputs = Array.from(document.querySelectorAll('input[type="number"]'));
+      return mapped.map(id => numericInputs.find(input => input.id === id))
+        .filter(el => el && !el.disabled && !el.readOnly);
     }
     if (isOutputOnly(select)) return [];
     const input = findInput(select);
