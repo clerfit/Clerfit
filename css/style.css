@@ -1819,3 +1819,23 @@ body .cf-footer .cf-footer-category-icons {
 .cf-guide-source strong{display:block;margin-bottom:6px;color:#174a56}
 .cf-guide-source p,.cf-guide-source-status{margin:0;font-size:.94rem;line-height:1.65;color:#42546b}
 .cf-guide-source-status{padding-inline:2px;color:#64748b}
+
+
+/* Privacy-first calculator journeys and optional local profile reuse. */
+.cf-profile-preferences,.cf-next-steps{margin:18px auto;padding:16px 18px;max-width:980px;border:1px solid #dce7ed;border-radius:14px;background:#f8fbfc;color:#29445a;box-sizing:border-box}
+.cf-profile-preferences h2,.cf-next-steps h2{margin:0 0 8px;color:#173b55;font-size:1.05rem}
+.cf-profile-preferences p,.cf-next-steps>p{margin:8px 0;color:#536779;font-size:.92rem;line-height:1.55}
+.cf-profile-consent{display:flex;align-items:flex-start;gap:10px;font-weight:600;line-height:1.45}
+.cf-profile-consent input{width:18px;height:18px;min-width:18px;margin:2px 0 0;accent-color:#147c80}
+.cf-profile-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:10px}
+.cf-profile-actions button{min-height:36px;padding:7px 13px;border:1px solid #b9cbd5;border-radius:8px;background:#fff;color:#29445a;font:inherit;font-size:.88rem;cursor:pointer}
+#cf-profile-status{font-size:.86rem;color:#41616f}
+.cf-next-step-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px;margin-top:12px}
+.cf-journey-link{position:relative;display:flex;flex-direction:column;gap:5px;min-height:88px;padding:13px 42px 13px 14px;border:1px solid #d5e2e8;border-radius:11px;background:#fff;color:#23465d;text-decoration:none;transition:border-color .15s ease,background .15s ease}
+.cf-journey-link:hover{border-color:#5b9b9c;background:#f4faf9}
+.cf-journey-link:focus-visible{outline:3px solid rgba(20,124,128,.3);outline-offset:2px}
+.cf-journey-link-title{font-weight:700}
+.cf-journey-link-description{font-size:.88rem;line-height:1.45;color:#5a6d7d}
+.cf-journey-link-arrow{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:1.2rem;color:#147c80}
+@media(max-width:600px){.cf-profile-preferences,.cf-next-steps{margin:14px 0;padding:14px;border-radius:12px}.cf-journey-link{min-height:76px}}
+@media(prefers-reduced-motion:reduce){.cf-journey-link{transition:none}}
