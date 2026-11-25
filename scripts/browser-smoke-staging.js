@@ -783,7 +783,9 @@ async function main() {
       routesWithNumericFields: routeResults.filter(route => route.numericFields.length).length,
       numericFieldCount: numericFieldInventory.length,
       numericFieldsMissingId: numericFieldInventory.filter(field => !field.id).map(field => ({ file: field.file, label: field.label })),
+      numericFieldsMissingAccessibleName: numericFieldInventory.filter(field => !field.label && !field.ariaLabel).map(field => ({ file: field.file, id: field.id })),
       numericFieldsMissingBounds: numericFieldInventory.filter(field => field.min === '' || field.max === '' || field.step === '').map(field => ({ file: field.file, id: field.id, min: field.min, max: field.max, step: field.step })),
+      duplicateFieldIds: numericFieldInventory.filter((field, index, all) => all.findIndex(other => other.file === field.file && other.id === field.id) !== index).map(field => ({ file: field.file, id: field.id })),
       numericFieldsWithInvalidBounds: numericFieldInventory.filter(field => {
         const min = Number(field.min), max = Number(field.max), step = field.step === 'any' ? null : Number(field.step);
         return field.min === '' || field.max === '' || !Number.isFinite(min) || !Number.isFinite(max) || min >= max ||
@@ -792,11 +794,18 @@ async function main() {
       fields: numericFieldInventory
     };
     fs.writeFileSync(FIELD_REPORT_PATH, JSON.stringify(numericFieldReport, null, 2) + '\n');
+    if (numericFieldReport.numericFieldsMissingId.length) failures.push('Runtime numeric field audit found inputs without IDs: ' + JSON.stringify(numericFieldReport.numericFieldsMissingId));
+    if (numericFieldReport.numericFieldsMissingAccessibleName.length) failures.push('Runtime numeric field audit found inputs without an associated label or aria-label: ' + JSON.stringify(numericFieldReport.numericFieldsMissingAccessibleName));
+    if (numericFieldReport.numericFieldsMissingBounds.length) failures.push('Runtime numeric field audit found inputs missing min/max/step: ' + JSON.stringify(numericFieldReport.numericFieldsMissingBounds));
+    if (numericFieldReport.numericFieldsWithInvalidBounds.length) failures.push('Runtime numeric field audit found invalid numeric bounds: ' + JSON.stringify(numericFieldReport.numericFieldsWithInvalidBounds));
+    if (numericFieldReport.duplicateFieldIds.length) failures.push('Runtime numeric field audit found duplicate input IDs within a calculator: ' + JSON.stringify(numericFieldReport.duplicateFieldIds));
     const report={
       base:BASE.href, checkedAt:new Date().toISOString(), status:failures.length?'FAIL':'PASS',
       numericFieldCount: numericFieldInventory.length,
       numericFieldRoutes: numericFieldReport.routesWithNumericFields,
       numericFieldsMissingBounds: numericFieldReport.numericFieldsMissingBounds.length,
+      numericFieldsMissingAccessibleName: numericFieldReport.numericFieldsMissingAccessibleName.length,
+      duplicateNumericFieldIds: numericFieldReport.duplicateFieldIds.length,
       routeCount:registry.length, routesLoaded:routeResults.filter(r=>r.loaded).length,
       actionsClicked:routeResults.filter(r=>r.actionClicked).length,
       mobileOverflow:routeResults.filter(r=>r.bodyOverflow).map(r=>r.file),
@@ -821,6 +830,8 @@ async function main() {
         '- Visible numeric fields inventoried: '+report.numericFieldCount,
         '- Routes with numeric fields: '+report.numericFieldRoutes,
         '- Numeric fields missing min/max/step: '+report.numericFieldsMissingBounds,
+        '- Numeric fields missing label/aria-label: '+report.numericFieldsMissingAccessibleName,
+        '- Duplicate numeric field IDs: '+report.duplicateNumericFieldIds,
         '- Mobile overflows: '+report.mobileOverflow.length,
         '- Mobile portrait footer failures: '+report.footerFailures.length,
         '- Page errors: '+report.pageErrors.length,
