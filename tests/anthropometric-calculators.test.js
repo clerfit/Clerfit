@@ -27,6 +27,11 @@ const navigation=fs.readFileSync('js/navigation.js','utf8');
 for (const slug of pages) assert.ok(navigation.includes('"'+slug+'"'), 'Navigation missing '+slug);
 const sitemap=fs.readFileSync('sitemap.xml','utf8');
 for (const slug of pages) assert.ok(sitemap.includes('/html/'+slug+'.html'), 'Sitemap missing '+slug);
+const ffmiGuide=fs.readFileSync('html/ffmi-comparison.html','utf8');
+const waistHeightGuide=fs.readFileSync('html/waist-height-comparison.html','utf8');
+assert.match(ffmiGuide,/Absolute difference = \|Person B FFMI − Person A FFMI\|/,'FFMI guide matches the absolute difference returned by the calculator');
+assert.match(waistHeightGuide,/Absolute difference = \|Person B ratio − Person A ratio\|/,'waist-to-height guide matches the absolute difference returned by the calculator');
+assert.match(engine,/Absolute difference: /,'comparison output labels its absolute difference explicitly');
 console.log('Anthropometric calculator page checks passed: '+pages.length+' pages.');
 
 const sandbox = { window: {}, document: { addEventListener() {} }, Number, Math, Object, RangeError };
