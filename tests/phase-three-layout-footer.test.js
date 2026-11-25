@@ -58,7 +58,7 @@ for (const page of ['about-us.html', 'scientific-references.html', 'editorial-st
 const privacy = fs.readFileSync(path.join(root, 'privacy.html'), 'utf8');
 assert.match(privacy, /does not offer account creation, login, registration, cloud-synchronised profiles/i,
   'privacy notice must explicitly preserve the no-account/no-cloud-profile policy');
-assert.match(privacy, /optional local storage is used only after you actively opt in/i,
+assert.match(privacy, /persistent local storage is used only after you actively opt in/i,
   'privacy notice must disclose that persistent browser saving is optional and consent-based');
 assert.match(privacy, /not intentionally transmit calculator inputs or results to a ClerFit measurement database/i,
   'privacy notice must explain local calculator processing');
