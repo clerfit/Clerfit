@@ -1839,3 +1839,18 @@ body .cf-footer .cf-footer-category-icons {
 .cf-journey-link-arrow{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:1.2rem;color:#147c80}
 @media(max-width:600px){.cf-profile-preferences,.cf-next-steps{margin:14px 0;padding:14px;border-radius:12px}.cf-journey-link{min-height:76px}}
 @media(prefers-reduced-motion:reduce){.cf-journey-link{transition:none}}
+
+
+/* Guided workflow hub. */
+.cf-workflows-page{max-width:1040px;margin:0 auto;padding:28px 20px 56px}
+.cf-workflows-page .cf-legal-heading{margin-bottom:22px}
+.cf-workflow-card{margin:16px 0;padding:20px;border:1px solid #dce7ed;border-radius:16px;background:#fff;box-shadow:0 4px 18px rgba(23,59,85,.045)}
+.cf-workflow-card h2{margin:0 0 8px;color:#173b55;font-size:1.2rem}
+.cf-workflow-card>p{color:#536779;line-height:1.6}
+.cf-workflow-card ol{display:grid;gap:10px;margin:16px 0;padding:0;list-style:none;counter-reset:journey}
+.cf-workflow-card li{counter-increment:journey;display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:12px;align-items:start;padding:12px;border:1px solid #e3ebef;border-radius:11px;background:#f9fbfc}
+.cf-workflow-card li:before{content:counter(journey);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#e8f3f2;color:#176e70;font-weight:700}
+.cf-workflow-card li a{font-weight:700;color:#1c5368;text-decoration:underline;text-underline-offset:3px}
+.cf-workflow-card li span{grid-column:2;color:#5a6d7d;font-size:.9rem;line-height:1.45}
+.cf-workflow-note{padding:12px 14px;border-left:3px solid #8db8b7;background:#f5faf9;color:#536779;font-size:.9rem}
+@media(max-width:600px){.cf-workflows-page{padding:18px 14px 36px}.cf-workflow-card{padding:15px}.cf-workflow-card li{padding:10px}}
