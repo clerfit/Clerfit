@@ -228,6 +228,20 @@ function calculateHeat() {
 
 <script src="../js/input-validation.js" defer></script>
 <script src="../js/calculator-guides.js" defer></script>
-<script src="../js/page-chrome.js?v=20261017-nav-v4" defer></script>
+<script src="../js/page-chrome.js?v=20261017-nav-v4" defer>
+function resetHeat() {
+  ['tempC', 'humidity', 'duration'].forEach(id => {
+    const input = document.getElementById(id);
+    if (input) input.value = '';
+  });
+  [['tempUnit', 'C'], ['timeUnit', 'minutes'], ['sunExposure', '0'], ['intensity', '1']].forEach(([id, value]) => {
+    const select = document.getElementById(id);
+    if (!select) return;
+    select.value = value;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+  document.getElementById('result').textContent = '';
+}
+</script>
 </body>
 </html>
