@@ -21,6 +21,9 @@ assert.match(journey, /cf-clear-profile/, 'users must be able to clear saved inp
 assert.match(journey, /MAX_PROFILE_AGE\s*=\s*90/, 'saved profile must expire');
 assert.doesNotMatch(journey, /URLSearchParams|location\.search/, 'personal measurements must not be placed in URLs');
 assert.match(journey, /sessionStorage/, 'one-step transfer must be tab-scoped');
+assert.match(journey, /weightUnit1RM.*tv-weightUnit/, '1RM journey must transfer its selected weight unit');
+assert.match(journey, /cooperUnit.*distanceUnit/, 'Cooper-test journey must transfer its distance unit');
+assert.match(journey, /meters: "m", kilometers: "km", miles: "mile"/, 'Cooper distance units must map to VO2 calculator option values');
 assert.match(journey, /localStorage/, 'persistent profile reuse must be browser-local');
 assert.match(journey, /!values\.heightUnit.*!readValue\("heightUnit"\).*readValue\("heightUnit"\) !== values\.heightUnit/, 'height values must only transfer when both units are explicit and match');
 assert.match(journey, /!values\.weightUnit.*!readValue\("weightUnit"\).*readValue\("weightUnit"\) !== values\.weightUnit/, 'weight values must only transfer when both units are explicit and match');
