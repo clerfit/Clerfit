@@ -20,8 +20,8 @@ function description(html){return meta(html,'name','description');}
 function canonical(html){return html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i)?.[1]||'';}
 function strip(html){return html.replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]*>/g,' ').replace(/&(?:amp|nbsp|quot|#39|lt|gt);/g,' ').replace(/\s+/g,' ').trim();}
 const locs=[...read('sitemap.xml').matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);
-assert.equal(locs.length,172,'sitemap should list 172 public URLs');
-assert.equal(new Set(locs).size,172,'sitemap URLs should be unique');
+assert.equal(locs.length,173,'sitemap should list 173 public URLs');
+assert.equal(new Set(locs).size,173,'sitemap URLs should be unique');
 const titles=[],descriptions=[];
 for(const loc of locs){
  const url=new URL(loc), file=url.pathname.replace(/^\/Clerfit\//,'')||'index.html', html=read(file);
@@ -39,8 +39,8 @@ for(const loc of locs){
  assert.equal(meta(html,'name','twitter:image'),'https://clerfit.github.io/Clerfit/logo.png',file+' Twitter image missing');
  titles.push(t); descriptions.push(d);
 }
-assert.equal(new Set(titles).size,172,'public titles must be unique');
-assert.equal(new Set(descriptions).size,172,'public descriptions must be unique');
+assert.equal(new Set(titles).size,173,'public titles must be unique');
+assert.equal(new Set(descriptions).size,173,'public descriptions must be unique');
 const registry=read('js/navigation.js').match(/const CALCULATORS\s*=\s*(\[[\s\S]*?\]);\s*\nconst path/);
 assert.ok(registry,'calculator registry must be parseable');
 const routes=JSON.parse(registry[1]); assert.equal(routes.length,164);
@@ -73,6 +73,6 @@ assert.equal(reviewed.length,164,'scientific review register must cover every ro
 assert.deepEqual(reviewed,routed,'scientific register must match route files');
 assert.equal(new Set(reviewed).size,164,'scientific register cannot repeat a route');
 const audit=JSON.parse(read('SEO_METADATA_AUDIT.json'));
-assert.equal(audit.html_documents_checked,176); assert.equal(audit.public_pages_checked,172);
-assert.equal(audit.unique_titles,176); assert.equal(audit.unique_descriptions,176); assert.deepEqual(audit.findings,[]);
-console.log('Site content and SEO checks passed: 172 public URLs, 164 unique calculator guides, and 164 scientific-review entries.');
+assert.equal(audit.html_documents_checked,177); assert.equal(audit.public_pages_checked,173);
+assert.equal(audit.unique_titles,177); assert.equal(audit.unique_descriptions,177); assert.deepEqual(audit.findings,[]);
+console.log('Site content and SEO checks passed: 173 public URLs, 164 unique calculator guides, and 164 scientific-review entries.');
