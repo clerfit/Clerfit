@@ -155,7 +155,7 @@
     section.setAttribute("aria-labelledby", "cf-profile-title");
     section.innerHTML =
       '<h2 id="cf-profile-title">Input preferences</h2>' +
-      '<label class="cf-profile-consent"><input type="checkbox" id="cf-save-profile"' + (saved ? " checked" : "") + '> Save compatible age, height and weight inputs on this device</label>' +
+      '<label class="cf-profile-consent"><input type="checkbox" id="cf-save-profile"' + (saved ? " checked" : "") + '> Save compatible age, sex/reference selection, height and weight inputs on this device</label>' +
       '<p>Optional. Nothing is uploaded to ClerFit. Unit selectors remain calculator-specific. You can clear saved inputs here at any time.</p>' +
       '<div class="cf-profile-actions"><button type="button" id="cf-clear-profile">Clear saved inputs</button><span id="cf-profile-status" role="status" aria-live="polite"></span></div>';
     const header = main.querySelector(":scope > .header, :scope > header, .header");
