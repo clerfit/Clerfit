@@ -38,6 +38,14 @@
       result: ["#oneRMResult"],
       next: [{ title: "Plan training volume", description: "Use your lifting context to explore sets, repetitions and training volume.", file: "training-volume.html" }]
     },
+    "training-volume.html": {
+      result: ["#tv-result"],
+      next: [{ title: "Compare relative strength", description: "Compare a lifting result with body weight; enter the required values on the next page.", file: "relative-strength.html" }]
+    },
+    "heartrate.html": {
+      result: ["#result"],
+      next: [{ title: "Plan a running pace", description: "Use a measured distance and time to explore a pace estimate.", file: "running-pace.html" }]
+    },
     "cooper-test.html": {
       result: ["#cooperResult"],
       next: [{ title: "Explore a VO₂ max estimate", description: "Review the Cooper-test estimate and its limitations.", file: "vo2max.html" }]
@@ -51,6 +59,10 @@
   const profileFields = ["age", "gender", "height", "weight"];
   const root = new URL("./", location.href);
   const htmlRoot = new URL("./", location.href);
+
+  function getStorage(name) { try { return window[name] || null; } catch (_) { return null; } }
+  const localStore = getStorage("localStorage");
+  const sessionStore = getStorage("sessionStorage");
 
   function storageGet(storage, key) {
     try { return storage.getItem(key); } catch (_) { return null; }
@@ -112,17 +124,17 @@
     }
   }
   function readSavedProfile() {
-    const raw = storageGet(localStorage, PROFILE_KEY);
+    const raw = storageGet(localStore, PROFILE_KEY);
     if (!raw) return null;
     try {
       const parsed = JSON.parse(raw);
       if (!parsed || Date.now() - Number(parsed.savedAt) > MAX_PROFILE_AGE) {
-        storageRemove(localStorage, PROFILE_KEY);
+        storageRemove(localStore, PROFILE_KEY);
         return null;
       }
       return parsed.values && typeof parsed.values === "object" ? parsed.values : null;
     } catch (_) {
-      storageRemove(localStorage, PROFILE_KEY);
+      storageRemove(localStore, PROFILE_KEY);
       return null;
     }
   }
@@ -130,7 +142,7 @@
     const values = currentMeasurements();
     const existing = readSavedProfile() || {};
     const merged = { ...existing, ...values };
-    const ok = storageSet(localStorage, PROFILE_KEY, JSON.stringify({ savedAt: Date.now(), values: merged }));
+    const ok = storageSet(localStore, PROFILE_KEY, JSON.stringify({ savedAt: Date.now(), values: merged }));
     const status = document.getElementById("cf-profile-status");
     if (status) status.textContent = ok ? "Compatible inputs saved on this device." : "Browser storage is unavailable. Inputs were not saved.";
   }
@@ -155,12 +167,12 @@
     consent.addEventListener("change", () => {
       if (consent.checked) saveProfile();
       else {
-        storageRemove(localStorage, PROFILE_KEY);
+        storageRemove(localStore, PROFILE_KEY);
         section.querySelector("#cf-profile-status").textContent = "Saved inputs cleared.";
       }
     });
     section.querySelector("#cf-clear-profile").addEventListener("click", () => {
-      storageRemove(localStorage, PROFILE_KEY);
+      storageRemove(localStore, PROFILE_KEY);
       consent.checked = false;
       section.querySelector("#cf-profile-status").textContent = "Saved inputs cleared from this browser.";
     });
@@ -170,9 +182,9 @@
     main.addEventListener("change", update);
   }
   function receiveTransfer() {
-    const raw = storageGet(sessionStorage, TRANSFER_KEY);
+    const raw = storageGet(sessionStore, TRANSFER_KEY);
     if (!raw) return;
-    storageRemove(sessionStorage, TRANSFER_KEY);
+    storageRemove(sessionStore, TRANSFER_KEY);
     try {
       const transfer = JSON.parse(raw);
       if (transfer && transfer.target === page && Date.now() - Number(transfer.createdAt) < 10 * 60 * 1000) {
@@ -188,7 +200,7 @@
     link.querySelector(".cf-journey-link-title").textContent = item.title;
     link.querySelector(".cf-journey-link-description").textContent = item.description;
     link.addEventListener("click", () => {
-      storageSet(sessionStorage, TRANSFER_KEY, JSON.stringify({
+      storageSet(sessionStore, TRANSFER_KEY, JSON.stringify({
         createdAt: Date.now(),
         target: item.file.toLowerCase(),
         values: currentMeasurements()
