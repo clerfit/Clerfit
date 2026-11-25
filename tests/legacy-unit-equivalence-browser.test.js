@@ -17,7 +17,8 @@ const base = process.argv[2] || 'http://127.0.0.1:4173/';
       expected: /ABSI:\s*0\.080/,
       result: '#result',
       name: 'ABSI canonical kg conversion',
-      resetButton: 'button[onclick="resetABSI()"]'
+      resetButton: 'button[onclick="resetABSI()"]',
+      resetSelects: { waistUnit: 'cm', heightUnit: 'cm', weightUnit: 'kg' }
     },
     {
       file: 'heat-exposure.html',
@@ -27,7 +28,8 @@ const base = process.argv[2] || 'http://127.0.0.1:4173/';
       expected: /Estimated heat index: 40\.7 °C \(105\.2 °F\)/,
       result: '#result',
       name: 'Heat-index Celsius/Fahrenheit equivalence',
-      resetButton: 'button[onclick="resetHeat()"]'
+      resetButton: 'button[onclick="resetHeat()"]',
+      resetSelects: { tempUnit: 'C', timeUnit: 'minutes', sunExposure: '0', intensity: '1' }
     },
     {
       file: 'cold-exposure.html',
@@ -37,7 +39,8 @@ const base = process.argv[2] || 'http://127.0.0.1:4173/';
       expected: /Estimated wind-chill temperature: -3\.3 °C/,
       result: '#result',
       name: 'Wind-chill Celsius/Fahrenheit equivalence',
-      resetButton: 'button[onclick="resetCold()"]'
+      resetButton: 'button[onclick="resetCold()"]',
+      resetSelects: { tempUnit: 'C', windUnit: 'kmh', timeUnit: 'minutes' }
     }
   ];
 
@@ -76,6 +79,9 @@ const base = process.argv[2] || 'http://127.0.0.1:4173/';
         assert.equal((await page.locator(item.result).innerText()).trim(), '', item.file + ' reset clears the result');
         for (const id of Object.keys(item.fields)) {
           assert.equal(await page.locator('#' + id).inputValue(), '', item.file + ' reset clears ' + id);
+        }
+        for (const [id, value] of Object.entries(item.resetSelects || {})) {
+          assert.equal(await page.locator('#' + id).inputValue(), value, item.file + ' reset restores ' + id);
         }
       } catch (error) {
         failures.push(item.file + ': ' + (error && error.message || String(error)));
