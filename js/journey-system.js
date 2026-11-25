@@ -57,7 +57,6 @@
   };
 
   const profileFields = ["age", "gender", "height", "weight"];
-  const root = new URL("./", location.href);
   const htmlRoot = new URL("./", location.href);
 
   function getStorage(name) { try { return window[name] || null; } catch (_) { return null; } }
@@ -168,11 +167,13 @@
       if (consent.checked) saveProfile();
       else {
         storageRemove(localStore, PROFILE_KEY);
+        storageRemove(sessionStore, TRANSFER_KEY);
         section.querySelector("#cf-profile-status").textContent = "Saved inputs cleared.";
       }
     });
     section.querySelector("#cf-clear-profile").addEventListener("click", () => {
       storageRemove(localStore, PROFILE_KEY);
+      storageRemove(sessionStore, TRANSFER_KEY);
       consent.checked = false;
       section.querySelector("#cf-profile-status").textContent = "Saved inputs cleared from this browser.";
     });
