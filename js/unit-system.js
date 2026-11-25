@@ -198,8 +198,13 @@
       // Some browsers expose a form control named "total" as a legacy property;
       // resolving the target from the numeric-input collection avoids that collision.
       const numericInputs = Array.from(document.querySelectorAll('input[type="number"]'));
-      return mapped.map(id => numericInputs.find(input => input.id === id))
-        .filter(el => el && !el.disabled && !el.readOnly);
+      return mapped.flatMap(id => {
+        const matches = numericInputs.filter(input => input.id === id && !input.disabled && !input.readOnly);
+        // Prefer the target in this selector's form when duplicate IDs exist in
+        // hidden templates or alternate calculator panels.
+        const sameForm = matches.find(input => input.form && input.form === select.form);
+        return sameForm ? [sameForm] : matches.slice(0, 1);
+      });
     }
     if (isOutputOnly(select)) return [];
     const input = findInput(select);
