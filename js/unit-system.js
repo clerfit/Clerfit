@@ -124,7 +124,7 @@
   }
   function classify(select) {
     // The standalone converter owns its dimension/from/to selectors; the global preference must not override them.
-    if (select && (isOutputOnly(select) || /^(?:dimension|from|to)$/i.test(select.id || '') || /^(?:from|to).*(?:unit)$/i.test(select.id || ''))) return null;
+    if (select && (isOutputOnly(select) || /^(?:dimension|from|to)$/i.test(select.id || '') || /^(?:from|to)unit$/i.test(select.id || ''))) return null;
     const opts = options(select), vals = opts.map(o => norm(o.value));
     if (vals.length < 2) return null;
     const units = vals.map(unit);
@@ -197,13 +197,29 @@
       // Use the input collection rather than document/form named-property lookup.
       // Some browsers expose a form control named "total" as a legacy property;
       // resolving the target from the numeric-input collection avoids that collision.
-      const numericInputs = Array.from(document.querySelectorAll('input[type="number"]'));
+      const form = select && typeof select.closest === 'function' ? select.closest('form') : select.form;
       return mapped.flatMap(id => {
-        const matches = numericInputs.filter(input => input.id === id && !input.disabled && !input.readOnly);
-        // Prefer the target in this selector's form when duplicate IDs exist in
-        // hidden templates or alternate calculator panels.
-        const sameForm = matches.find(input => input.form && input.form === select.form);
-        return sameForm ? [sameForm] : matches.slice(0, 1);
+        // getElementById avoids legacy form named-property collisions for
+        // controls such as id="total". Confirm the node type and form ownership
+        // before accepting it so duplicate IDs in hidden templates stay isolated.
+        const direct = document.getElementById(id);
+        if (direct && direct.tagName === 'INPUT' && direct.type === 'number' &&
+            !direct.disabled && !direct.readOnly) {
+          const directForm = typeof direct.closest === 'function' ? direct.closest('form') : direct.form;
+          if (!form || !directForm || directForm === form) return [direct];
+        }
+        // Search the owning form first using the input collection and reflected
+        // type property; do not use form[id] or elements.namedItem(id).
+        const inForm = form
+          ? Array.from(form.querySelectorAll('input')).filter(input =>
+              input.id === id && input.type === 'number' && !input.disabled && !input.readOnly)
+          : [];
+        if (inForm.length) return [inForm[0]];
+        // Some legacy/generated controls are outside the selector's form;
+        // retain an exact-ID document fallback without matching unrelated fields.
+        const matches = Array.from(document.querySelectorAll('input')).filter(input =>
+          input.id === id && input.type === 'number' && !input.disabled && !input.readOnly);
+        return matches.slice(0, 1);
       });
     }
     if (isOutputOnly(select)) return [];

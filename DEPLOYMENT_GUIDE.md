@@ -1,33 +1,52 @@
-# ClerFit — Deployment and final verification
+# ClerFit R3 — Deployment and production verification
 
-## Included deployment paths
+## Current release baseline
 
-### GitHub Pages (existing project URL)
+- Repository: https://github.com/clerfit/Clerfit
+- Existing public URL: https://clerfit.github.io/Clerfit/
+- Current calculator registry: **164 routes**.
+- Latest automated candidate checked: `64541b272527255d8a9a62c063a8c4397808912c`.
+- Automated Phase 1/2, formula-regression and Phase 6 package workflows passed on that candidate.
+- Production has **not** been intentionally deployed or modified by this verification work.
 
-The repository has previously been published at `https://clerfit.github.io/Clerfit/`. The workflow at `.github/workflows/pages.yml` is configured to:
+## What the repository workflows do
 
-1. Run JavaScript syntax checks, the regression suite, route registry checks, the sitemap path test and contact-form mocked success/failure tests.
-2. Stage the production website into `dist/`, generate canonical URLs and `sitemap.xml`, and preserve the `/Clerfit` project-site path.
-3. Deploy the project through GitHub Pages when changes are pushed to `main` or `master`, or when the workflow is manually dispatched.
+- `.github/workflows/phase-one-ci.yml` runs source, formula, browser, responsive and accessibility verification. It builds a staging copy; it does not publish that copy.
+- `.github/workflows/verify-production.yml` checks the already-published GitHub Pages site after qualifying changes reach `main`. It is a verifier, not a deployment workflow.
+- `.github/workflows/clerfit-r3-full-release.yml` is explicitly disabled with a fail-closed job condition. It reconstructs an old 118-calculator transfer archive and must not be re-enabled for the current 164-calculator release.
+- There is no active GitHub Pages publishing workflow in `.github/workflows/` on the current main branch. The actual Pages source setting is an account/repository setting and was not inspected or changed here.
 
-For the workflow to run, the files must be pushed to the repository and GitHub repository settings must have **Pages → Build and deployment → Source: GitHub Actions**. This archive cannot change repository settings or push commits because no repository write credential is available in this environment.
+Do not assume that merging a pull request publishes the website. Confirm the repository's Pages source setting and the approved release procedure before any production action.
 
-### Netlify
+## Hosting and security headers
 
-`netlify.toml` runs `node scripts/build-site.js` and publishes `dist/`, so audit reports and test source files are not part of the public website. Netlify provides the configured `_headers` rules. On Netlify, the `URL` environment variable is used automatically; for another host set `SITE_URL` to the exact canonical site base URL.
+- Root `_headers` and `netlify.toml` define headers for hosts that support those configuration formats, including Netlify. GitHub Pages does not apply the Netlify configuration or the root `_headers` file as custom response headers.
+- If the production host remains GitHub Pages, do not claim that the configured CSP, HSTS, X-Content-Type-Options, Referrer-Policy, Permissions-Policy or cache rules are active without capturing the actual live HTTP response headers.
+- If those headers are a release requirement, use an approved host or proxy that can emit them (for example, Netlify or Cloudflare Pages/Worker), validate the response headers there, and only migrate production with explicit owner approval.
 
-## After the first deployment
+## Build and staging verification
 
-Run:
+Run from the repository root:
 
 ```bash
+node scripts/build-site.js
+node scripts/verify-staging.js
 node scripts/verify-production.js https://clerfit.github.io/Clerfit/
 ```
 
-Replace the URL if using another host. The script checks the homepage, contact page, sitemap, robots file, 404 page and all 118 registered calculator routes, and writes `PRODUCTION_SMOKE_REPORT.json`.
+The first two commands build and verify a local production staging directory. The last command checks the currently published site; it does not deploy changes. The verifier's route inventory must remain aligned with all 164 registered calculator routes.
 
-The live contact form should be tested with a consented message. The local suite mocks successful and failed Formspree responses, but cannot establish that Formspree has authorized the endpoint or that the message reaches the intended inbox.
+## Contact form
 
-## Why production is not marked verified inside this archive
+The automated suite verifies successful and failed Formspree responses using mocks. That proves local handling behavior, not that the live Formspree endpoint is authorized or that a real message reaches the intended inbox. Record any owner-confirmed delivery separately; do not represent a mocked test as a live delivery test.
 
-This environment has no repository write credential, no configured hosting account credential and no ability to resolve the public host from the local shell. Therefore it cannot publish the files or honestly report the new production version as live. The GitHub Pages workflow automates deployment after the archive is integrated into the repository and the Pages source is enabled.
+## Release controls
+
+1. Review the exact commit and the attached Phase 1/2 browser, responsive and accessibility artifacts.
+2. Confirm the 164-route registry, formula/method register and field-boundary inventory are aligned.
+3. Keep empirical estimates and site-defined ratios clearly distinguished from clinical measurements or validated diagnoses. The YMCA body-fat method remains identified as a rough estimate; retain a brief practical caution rather than presenting it as a definitive result.
+4. Obtain any required independent subject-matter review and record the exact SHA reviewed. No external clinician/subject-matter-expert certification is implied by the automated tests.
+5. Complete any required manual keyboard, screen-reader, zoom/reflow, physical-device and live contact-delivery acceptance.
+6. Obtain explicit owner approval before changing hosting, Pages settings, domain, or production content.
+7. After an approved deployment, run the production verifier against the exact public URL and capture actual response headers and deployed SHA.
+

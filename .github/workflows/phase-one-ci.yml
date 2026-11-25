@@ -61,8 +61,10 @@ permissions:
   contents: read
 
 concurrency:
-  group: clerfit-phase-one-two-verification
-  cancel-in-progress: false
+  # Isolate each PR/main ref so a long staging scan cannot queue the latest candidate
+  # behind an unrelated branch; superseded runs on the same ref are safe to cancel.
+  group: clerfit-phase-one-two-verification-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   verify:
@@ -227,6 +229,7 @@ jobs:
           name: clerfit-phase-one-two-verification
           path: |
             browser-smoke-report.json
+            numeric-boundary-browser-audit.json
             accessibility-smoke-report.json
             responsive-layout-report.json
             FIELD_VALIDATION_AUDIT.csv

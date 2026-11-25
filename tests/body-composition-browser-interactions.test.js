@@ -65,6 +65,15 @@ const cases = [
           id: select.id, value: select.value, wired: select.dataset.clerfitUnitWired || '',
           previousUnit: select.dataset.clerfitPreviousUnit || '', unitFor: select.dataset.unitFor || ''
         })));
+        if (['intracellular-water.html', 'extracellular-water.html'].includes(item.page)) {
+          for (const id of ['compartmentUnit', 'totalUnit', 'weightUnit']) {
+            const unit = unitDiagnostics.find(entry => entry.id === id);
+            assert.ok(unit, item.page + ' exposes ' + id);
+            assert.equal(unit.wired, 'true', item.page + ' must wire ' + id + ' to its associated numeric field. Diagnostics: ' + JSON.stringify({ unitDiagnostics, diagnostics }));
+          }
+          const total = diagnostics.find(input => input.id === 'total');
+          assert.ok(total && Number(total.max) >= 250000, item.page + ' must scale the 250 L upper bound to at least 250,000 mL. Diagnostics: ' + JSON.stringify(diagnostics));
+        }
         assert.match(output, item.expected, item.page + ' returns the expected known-answer result. Diagnostics: ' + JSON.stringify({ output, diagnostics, unitDiagnostics }));
         assert.doesNotMatch(output, /NaN|Infinity|undefined/);
         assert.equal(pageErrors.length, 0, item.page + ' has no uncaught browser errors');
