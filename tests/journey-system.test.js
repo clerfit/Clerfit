@@ -9,6 +9,7 @@ const journey = read('js/journey-system.js');
 const chrome = read('js/page-chrome.js');
 const privacy = read('privacy.html');
 const sitemap = read('scripts/generate-sitemap.js');
+const committedSitemap = read('sitemap.xml');
 const staging = read('scripts/verify-staging.js');
 const hub = read('workflows.html');
 
@@ -27,6 +28,7 @@ assert.match(privacy, /opt in/i, 'privacy notice must disclose optional persiste
 assert.match(privacy, /session storage/i, 'privacy notice must disclose temporary handoff');
 assert.match(privacy, /90 days/i, 'privacy notice must disclose retention expiry');
 assert.match(sitemap, /workflows\.html/, 'workflow hub must be included in generated canonical and sitemap entries');
+assert.match(committedSitemap, /https:\/\/clerfit\.github\.io\/Clerfit\/workflows\.html/, 'committed sitemap must include the workflow hub');
 assert.match(staging, /workflows\.html/, 'staging verification must require the workflow hub');
 assert.match(hub, /Body composition and nutrition/);
 assert.match(hub, /Strength and lifting/);
