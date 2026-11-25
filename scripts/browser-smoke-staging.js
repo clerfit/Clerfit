@@ -240,7 +240,7 @@ async function runRoute(browser, route) {
     numericFields = await page.locator('input[type="number"]:visible').evaluateAll(inputs => inputs.map(input => ({
       id: input.id || '',
       name: input.name || '',
-      label: input.labels ? Array.from(input.labels).map(label => (label.innerText || label.textContent || '').replace(/\\s+/g, ' ').trim()).filter(Boolean).join(' ') : '',
+      label: input.labels ? Array.from(input.labels).map(label => (label.innerText || label.textContent || '').replace(/\s+/g, ' ').trim()).filter(Boolean).join(' ') : '',
       ariaLabel: input.getAttribute('aria-label') || '',
       placeholder: input.getAttribute('placeholder') || '',
       min: input.getAttribute('min') || '',
@@ -791,7 +791,7 @@ async function main() {
       }).map(field => ({ file: field.file, id: field.id, min: field.min, max: field.max, step: field.step })),
       fields: numericFieldInventory
     };
-    fs.writeFileSync(FIELD_REPORT_PATH, JSON.stringify(numericFieldReport, null, 2) + '\\n');
+    fs.writeFileSync(FIELD_REPORT_PATH, JSON.stringify(numericFieldReport, null, 2) + '\n');
     const report={
       base:BASE.href, checkedAt:new Date().toISOString(), status:failures.length?'FAIL':'PASS',
       numericFieldCount: numericFieldInventory.length,
