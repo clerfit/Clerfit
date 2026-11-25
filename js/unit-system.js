@@ -197,13 +197,18 @@
       // Use the input collection rather than document/form named-property lookup.
       // Some browsers expose a form control named "total" as a legacy property;
       // resolving the target from the numeric-input collection avoids that collision.
-      const numericInputs = Array.from(document.querySelectorAll('input[type="number"]'));
+      const row = select && typeof select.closest === 'function' ? select.closest('.row') : null;
+      const rowInputs = row ? Array.from(row.querySelectorAll('input[type="number"]')) : [];
       return mapped.flatMap(id => {
-        const matches = numericInputs.filter(input => input.id === id && !input.disabled && !input.readOnly);
-        // Prefer the target in this selector's form when duplicate IDs exist in
-        // hidden templates or alternate calculator panels.
-        const sameForm = matches.find(input => input.form && input.form === select.form);
-        return sameForm ? [sameForm] : matches.slice(0, 1);
+        // The numeric field and its unit selector are siblings in one calculator row.
+        // Prefer this local association so duplicate IDs in hidden templates or
+        // alternate panels cannot bind a selector to the wrong field.
+        const local = rowInputs.find(input => input.id === id && !input.disabled && !input.readOnly);
+        if (local) return [local];
+        const scope = select.form && typeof select.form.querySelectorAll === 'function' ? select.form : document;
+        const matches = Array.from(scope.querySelectorAll('input[type="number"]'))
+          .filter(input => input.id === id && !input.disabled && !input.readOnly);
+        return matches.slice(0, 1);
       });
     }
     if (isOutputOnly(select)) return [];

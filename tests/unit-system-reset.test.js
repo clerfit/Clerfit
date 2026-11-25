@@ -21,6 +21,9 @@ const makeInput = () => {
   };
 };
 const input = makeInput();
+const shadowInput = makeInput();
+shadowInput.value = '999';
+const row = { querySelectorAll(selector) { return selector === 'input[type="number"]' ? [input] : []; } };
 const formListeners = {};
 const selectListeners = {};
 const form = {
@@ -36,13 +39,14 @@ const select = {
     { value: 'in', textContent: 'Inches (in)', defaultSelected: false }
   ],
   matches: selector => selector === 'select',
+  closest: selector => selector === '.row' ? row : null,
   addEventListener(type, fn) { selectListeners[type] = fn; }
 };
 elements.set('height', input);
 const document = {
   readyState: 'complete',
   body: {},
-  querySelectorAll: selector => selector === 'select' ? [select] : selector === 'input[type="number"]' ? [input] : [],
+  querySelectorAll: selector => selector === 'select' ? [select] : selector === 'input[type="number"]' ? [shadowInput, input] : [],
   getElementById: id => elements.get(id) || null
 };
 const window = { location: { pathname: '/html/bai.html' } };
@@ -53,12 +57,14 @@ vm.runInNewContext(source, vm.createContext({
 }), { filename: 'js/unit-system.js', timeout: 3000 });
 
 assert.equal(typeof selectListeners.change, 'function', 'unit selector is wired');
+assert.equal(shadowInput.value, '999', 'duplicate ID outside the calculator row is not selected');
 assert.equal(typeof formListeners.reset, 'function', 'calculator form reset is wired');
 select.value = 'in';
 selectListeners.change();
 assert.ok(Math.abs(Number(input.min) - 80 / 2.54) < 1e-7, 'minimum converts to inches');
 assert.ok(Math.abs(Number(input.max) - 250 / 2.54) < 1e-7, 'maximum converts to inches');
 assert.ok(Math.abs(Number(input.value) - 175 / 2.54) < 1e-7, 'value converts to inches');
+assert.equal(shadowInput.value, '999', 'adjacent field binding leaves duplicate-ID field unchanged');
 
 // Simulate the browser's native value reset before requestAnimationFrame callbacks.
 select.value = 'cm';
