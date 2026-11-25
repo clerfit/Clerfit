@@ -1,3 +1,7 @@
+> **Current status update — 25 November 2026:** The 164-calculator release candidate at `64541b272527255d8a9a62c063a8c4397808912c` passed the full Phase 1/2 workflow (run 933), formula regression (run 858), and Phase 6 package (run 330). The browser suite passed 164/164 routes and actions with zero page/console errors; responsive testing passed 656 checks across four viewports; the axe scan passed 173 user-facing pages with zero impact/critical/serious violations. Phase 3 boundary guardrail passed on the immediately preceding source candidate (run 509); the only subsequent source change was Cold Exposure guide wording. See [the 25 November release-acceptance report](docs/RELEASE_ACCEPTANCE_GAPS_2026-11-25.md) and [the current deployment guide](DEPLOYMENT_GUIDE.md). The candidate remains a verified software release candidate, not a production deployment: no external expert sign-off, manual device/screen-reader acceptance, live contact-delivery test or actual GitHub Pages response-header verification is claimed. Production remains unchanged. The historical progress log below is retained as history and should not be read as the current route count or release status.
+
+---
+
 # ClerFit R3 — Release Progress
 
 Current verification basis: latest completed full Phase 1/2 gate `39061691909` on `481fe233daf5ff8c3110419cdd974b379b4672b2`; subsequent commits are report-only updates to audit/sign-off documents, not calculator runtime code or tests.
