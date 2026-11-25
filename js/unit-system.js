@@ -199,9 +199,17 @@
       // resolving the target from the numeric-input collection avoids that collision.
       const form = select && typeof select.closest === 'function' ? select.closest('form') : select.form;
       return mapped.flatMap(id => {
-        // Search the owning form first using the input collection and the
-        // reflected type property. This avoids form named-property collisions
-        // (notably the control id "total") and avoids depending on input.form.
+        // getElementById avoids legacy form named-property collisions for
+        // controls such as id="total". Confirm the node type and form ownership
+        // before accepting it so duplicate IDs in hidden templates stay isolated.
+        const direct = document.getElementById(id);
+        if (direct && direct.tagName === 'INPUT' && direct.type === 'number' &&
+            !direct.disabled && !direct.readOnly) {
+          const directForm = typeof direct.closest === 'function' ? direct.closest('form') : direct.form;
+          if (!form || !directForm || directForm === form) return [direct];
+        }
+        // Search the owning form first using the input collection and reflected
+        // type property; do not use form[id] or elements.namedItem(id).
         const inForm = form
           ? Array.from(form.querySelectorAll('input')).filter(input =>
               input.id === id && input.type === 'number' && !input.disabled && !input.readOnly)
