@@ -96,6 +96,8 @@
     'goal-timeline.html': { weightUnitTimeline: ['currentWeight', 'goalWeight'] },
     'hip-change.html': { hipUnit: ['initialHip', 'currentHip'] },
     'idealweight.html': { 'iw-height-unit': ['iw-height'] },
+    'intracellular-water.html': { compartmentUnit: ['compartment'], totalUnit: ['total'], weightUnit: ['weight'] },
+    'extracellular-water.html': { compartmentUnit: ['compartment'], totalUnit: ['total'], weightUnit: ['weight'] },
     'leanmass.html': { weightUnit: ['weight'] },
     'mets.html': { weightUnit: ['weight'] },
     'performance-score.html': { squatUnit: ['squatWeight'], bodyUnit: ['bodyWeight'] },
