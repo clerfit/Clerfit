@@ -197,13 +197,21 @@
       // Use the input collection rather than document/form named-property lookup.
       // Some browsers expose a form control named "total" as a legacy property;
       // resolving the target from the numeric-input collection avoids that collision.
-      const numericInputs = Array.from(document.querySelectorAll('input[type="number"]'));
+      const form = select && typeof select.closest === 'function' ? select.closest('form') : select.form;
       return mapped.flatMap(id => {
-        const matches = numericInputs.filter(input => input.id === id && !input.disabled && !input.readOnly);
-        // Prefer the target in this selector's form when duplicate IDs exist in
-        // hidden templates or alternate calculator panels.
-        const sameForm = matches.find(input => input.form && input.form === select.form);
-        return sameForm ? [sameForm] : matches.slice(0, 1);
+        // Search the owning form first using the input collection and the
+        // reflected type property. This avoids form named-property collisions
+        // (notably the control id "total") and avoids depending on input.form.
+        const inForm = form
+          ? Array.from(form.querySelectorAll('input')).filter(input =>
+              input.id === id && input.type === 'number' && !input.disabled && !input.readOnly)
+          : [];
+        if (inForm.length) return [inForm[0]];
+        // Some legacy/generated controls are outside the selector's form;
+        // retain an exact-ID document fallback without matching unrelated fields.
+        const matches = Array.from(document.querySelectorAll('input')).filter(input =>
+          input.id === id && input.type === 'number' && !input.disabled && !input.readOnly);
+        return matches.slice(0, 1);
       });
     }
     if (isOutputOnly(select)) return [];
