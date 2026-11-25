@@ -6,6 +6,7 @@ const { chromium } = require('playwright');
 
 const BASE = new URL(process.argv[2] || process.env.CLERFIT_LIVE_BASE || 'https://clerfit.github.io/Clerfit/');
 const REPORT_PATH = process.env.CLERFIT_BROWSER_REPORT || 'browser-smoke-report.json';
+const FIELD_REPORT_PATH = process.env.CLERFIT_NUMERIC_FIELD_REPORT || 'numeric-boundary-browser-audit.json';
 const EXPECTED_ROUTES = 164;
 const WORKERS = 4;
 const EXPECTED_RELEASE_ID = 'R3-2026-10-17-phase12-a11y-v1';
@@ -197,7 +198,7 @@ async function runRoute(browser, route) {
   const pageErrors=[], consoleErrors=[];
   page.on('pageerror', err=>pageErrors.push(err.message || String(err)));
   page.on('console', msg=>{ if(msg.type()==='error') consoleErrors.push(msg.text()); });
-  let loaded=false, inputCount=0, clicked=false, bodyOverflow=false, outputsBefore=[], outputsAfter=[];
+  let loaded=false, inputCount=0, clicked=false, bodyOverflow=false, outputsBefore=[], outputsAfter=[], numericFields=[];
   let navState={present:false,nearTop:false,staticFlow:false,homeLink:false,contactLink:false,insideMain:false};
   let footerState={present:false,stylesheetLoaded:false,gridApplied:false,iconCount:0,animationApplied:false};
   try {
@@ -236,6 +237,20 @@ async function runRoute(browser, route) {
       }
     }
     if (pageName === 'average.html') await page.locator('#avgNumbers').fill('10, 20, 30');
+    numericFields = await page.locator('input[type="number"]:visible').evaluateAll(inputs => inputs.map(input => ({
+      id: input.id || '',
+      name: input.name || '',
+      label: input.labels ? Array.from(input.labels).map(label => (label.innerText || label.textContent || '').replace(/\\s+/g, ' ').trim()).filter(Boolean).join(' ') : '',
+      ariaLabel: input.getAttribute('aria-label') || '',
+      placeholder: input.getAttribute('placeholder') || '',
+      min: input.getAttribute('min') || '',
+      max: input.getAttribute('max') || '',
+      step: input.getAttribute('step') || '',
+      required: input.required,
+      disabled: input.disabled,
+      readOnly: input.readOnly,
+      unitSelectors: Array.from(document.querySelectorAll('select')).filter(select => select.dataset.unitFor === input.id).map(select => select.id || select.name || 'unnamed')
+    })));
     inputCount = await page.locator('input:visible,select:visible,textarea:visible').count();
     outputsBefore = await outputSnapshot(page);
     const action = await chooseAction(page);
@@ -317,7 +332,7 @@ async function runRoute(browser, route) {
   } finally {
     await page.close().catch(()=>{});
   }
-  const row={file:pageName,url,loaded,inputCount,actionClicked:clicked,bodyOverflow,navState,footerState,pageErrors,consoleErrors,outputs:outputsAfter.length,validationOutputs:outputsAfter.filter(x=>x.validation).map(x=>x.text).slice(0,4),outputSample:outputsAfter.map(x=>x.text).join(' | ').slice(0,260)};
+  const row={file:pageName,url,loaded,inputCount,numericFields,actionClicked:clicked,bodyOverflow,navState,footerState,pageErrors,consoleErrors,outputs:outputsAfter.length,validationOutputs:outputsAfter.filter(x=>x.validation).map(x=>x.text).slice(0,4),outputSample:outputsAfter.map(x=>x.text).join(' | ').slice(0,260)};
   if (!loaded) failures.push(pageName + ' failed to load/execute: ' + pageErrors.join(' | '));
   if (inputCount===0) failures.push(pageName + ' has no visible interactive input.');
   if (!clicked && !/unit\.html$/i.test(pageName)) failures.push(pageName + ' has no actionable Calculate/Convert control.');
@@ -760,8 +775,28 @@ async function main() {
         targeted.push('BMI-for-age generated form: weight/height unit selectors convert input values and still calculate');
       } finally { await p.close(); }
     }
+    const numericFieldInventory = routeResults.flatMap(route => route.numericFields.map(field => ({ file: route.file, ...field })));
+    const numericFieldReport = {
+      base: BASE.href,
+      checkedAt: new Date().toISOString(),
+      routeCount: registry.length,
+      routesWithNumericFields: routeResults.filter(route => route.numericFields.length).length,
+      numericFieldCount: numericFieldInventory.length,
+      numericFieldsMissingId: numericFieldInventory.filter(field => !field.id).map(field => ({ file: field.file, label: field.label })),
+      numericFieldsMissingBounds: numericFieldInventory.filter(field => field.min === '' || field.max === '' || field.step === '').map(field => ({ file: field.file, id: field.id, min: field.min, max: field.max, step: field.step })),
+      numericFieldsWithInvalidBounds: numericFieldInventory.filter(field => {
+        const min = Number(field.min), max = Number(field.max), step = field.step === 'any' ? null : Number(field.step);
+        return field.min === '' || field.max === '' || !Number.isFinite(min) || !Number.isFinite(max) || min >= max ||
+          (field.step !== 'any' && (!Number.isFinite(step) || step <= 0));
+      }).map(field => ({ file: field.file, id: field.id, min: field.min, max: field.max, step: field.step })),
+      fields: numericFieldInventory
+    };
+    fs.writeFileSync(FIELD_REPORT_PATH, JSON.stringify(numericFieldReport, null, 2) + '\\n');
     const report={
       base:BASE.href, checkedAt:new Date().toISOString(), status:failures.length?'FAIL':'PASS',
+      numericFieldCount: numericFieldInventory.length,
+      numericFieldRoutes: numericFieldReport.routesWithNumericFields,
+      numericFieldsMissingBounds: numericFieldReport.numericFieldsMissingBounds.length,
       routeCount:registry.length, routesLoaded:routeResults.filter(r=>r.loaded).length,
       actionsClicked:routeResults.filter(r=>r.actionClicked).length,
       mobileOverflow:routeResults.filter(r=>r.bodyOverflow).map(r=>r.file),
@@ -783,6 +818,9 @@ async function main() {
         '- Registered calculators: '+report.routeCount,
         '- Routes loaded: '+report.routesLoaded,
         '- Action buttons clicked: '+report.actionsClicked,
+        '- Visible numeric fields inventoried: '+report.numericFieldCount,
+        '- Routes with numeric fields: '+report.numericFieldRoutes,
+        '- Numeric fields missing min/max/step: '+report.numericFieldsMissingBounds,
         '- Mobile overflows: '+report.mobileOverflow.length,
         '- Mobile portrait footer failures: '+report.footerFailures.length,
         '- Page errors: '+report.pageErrors.length,
