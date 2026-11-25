@@ -124,7 +124,7 @@
   }
   function classify(select) {
     // The standalone converter owns its dimension/from/to selectors; the global preference must not override them.
-    if (select && (isOutputOnly(select) || /^(?:dimension|from|to)$/i.test(select.id || '') || /^(?:from|to).*(?:unit)$/i.test(select.id || ''))) return null;
+    if (select && (isOutputOnly(select) || /^(?:dimension|from|to)$/i.test(select.id || '') || /^(?:from|to)unit$/i.test(select.id || ''))) return null;
     const opts = options(select), vals = opts.map(o => norm(o.value));
     if (vals.length < 2) return null;
     const units = vals.map(unit);
