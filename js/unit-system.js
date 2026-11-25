@@ -191,10 +191,11 @@
     const mapped = explicit ? explicit.split(',').map(id => id.trim()).filter(Boolean)
       : ((PAGE_UNIT_ASSOCIATIONS[PAGE] || {})[select && select.id] || []);
     if (mapped.length) {
-      const scope = select.form && typeof select.form.querySelectorAll === 'function' ? select.form : document;
-      const numericInputs = Array.from(scope.querySelectorAll('input[type="number"]'));
-      return mapped.flatMap(id => numericInputs.filter(el => el.id === id))
-        .filter(el => !el.disabled && !el.readOnly);
+      // Resolve explicitly associated controls by ID. Form named properties can
+      // shadow names such as "total" and make form-scoped lookup inconsistent
+      // across browsers, even though the input is present in the same form.
+      return mapped.map(id => document.getElementById(id))
+        .filter(el => el && el.matches('input[type="number"]') && !el.disabled && !el.readOnly);
     }
     if (isOutputOnly(select)) return [];
     const input = findInput(select);
