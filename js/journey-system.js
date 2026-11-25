@@ -114,8 +114,8 @@
       if (value == null || value === "") continue;
       const node = getElement(id);
       if (!node || (onlyEmpty && String(node.value || "").trim())) continue;
-      if ((id === "height" && (readValue("heightUnit") || "") !== (values.heightUnit || "")) ||
-          (id === "weight" && (readValue("weightUnit") || "") !== (values.weightUnit || ""))) continue;
+      if ((id === "height" && (!values.heightUnit || !readValue("heightUnit") || readValue("heightUnit") !== values.heightUnit)) ||
+          (id === "weight" && (!values.weightUnit || !readValue("weightUnit") || readValue("weightUnit") !== values.weightUnit))) continue;
       if (!validForTarget(id, String(value))) continue;
       node.value = String(value);
       node.dispatchEvent(new Event("input", { bubbles: true }));
