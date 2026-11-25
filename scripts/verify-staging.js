@@ -47,6 +47,7 @@ assert.equal(locations.length, 173, 'sitemap must include 9 main URLs plus 164 r
 assert.equal(new Set(locations).size, locations.length, 'sitemap URLs must be unique');
 assert.ok(locations.includes(baseWithoutTrailingSlash + '/'), 'sitemap must include the home page');
 assert.ok(locations.includes(baseWithoutTrailingSlash + '/contact.html'), 'sitemap must include Contact Us');
+assert.ok(locations.includes(baseWithoutTrailingSlash + '/workflows.html'), 'sitemap must include the guided workflow hub');
 for (const page of ['about-us.html', 'scientific-references.html', 'editorial-standards.html']) assert.ok(locations.includes(baseWithoutTrailingSlash + '/' + page), 'sitemap must include ' + page);
 for (const file of routeFiles) {
   assert.ok(locations.includes(baseWithoutTrailingSlash + '/html/' + encodeURI(file)), 'sitemap is missing calculator route ' + file);
