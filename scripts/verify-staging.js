@@ -28,7 +28,7 @@ const calculators = JSON.parse(registryMatch[1]);
 const routeFiles = [...new Set(calculators.map(item => item.file))];
 assert.equal(routeFiles.length, 164, 'the production route inventory must contain 164 unique calculators');
 
-const required = ['index.html', 'contact.html', 'about-us.html', 'scientific-references.html', 'editorial-standards.html', '404.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html', 'robots.txt', 'sitemap.xml', 'css/style.css', 'js/navigation.js'];
+const required = ['index.html', 'contact.html', 'about-us.html', 'scientific-references.html', 'editorial-standards.html', '404.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html', 'workflows.html', 'robots.txt', 'sitemap.xml', 'css/style.css', 'js/navigation.js'];
 for (const file of required) assert.ok(exists(file), 'missing required production file: ' + file);
 for (const file of routeFiles) assert.ok(exists(path.join('html', file)), 'missing registered production route: html/' + file);
 
@@ -43,7 +43,7 @@ assert.ok(locations.every(url => {
     return parsed.protocol === 'https:' && parsed.origin === base.origin && parsed.pathname.startsWith(basePath);
   } catch { return false; }
 }), 'every sitemap URL must be valid HTTPS under the configured project-site path');
-assert.equal(locations.length, 172, 'sitemap must include 8 main URLs plus 164 registered calculators');
+assert.equal(locations.length, 173, 'sitemap must include 9 main URLs plus 164 registered calculators');
 assert.equal(new Set(locations).size, locations.length, 'sitemap URLs must be unique');
 assert.ok(locations.includes(baseWithoutTrailingSlash + '/'), 'sitemap must include the home page');
 assert.ok(locations.includes(baseWithoutTrailingSlash + '/contact.html'), 'sitemap must include Contact Us');
@@ -56,12 +56,12 @@ assert.ok(read('robots.txt').includes('Sitemap: ' + baseWithoutTrailingSlash + '
 const rootCanonical = read('index.html');
 assert.ok(rootCanonical.includes('rel="canonical" href="' + baseWithoutTrailingSlash + '/"'), 'home canonical URL must match the configured base');
 assert.ok(read('contact.html').includes('rel="canonical" href="' + baseWithoutTrailingSlash + '/contact.html"'), 'contact canonical URL must match the configured base');
-for (const page of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html']) {
+for (const page of ['about-us.html', 'scientific-references.html', 'editorial-standards.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html', 'workflows.html']) {
   assert.ok(read(page).includes('rel="canonical" href="' + baseWithoutTrailingSlash + '/' + page + '"'), page + ' canonical URL must match the configured base');
 }
 
 
-const htmlFiles = ['index.html', 'contact.html', 'about-us.html', 'scientific-references.html', 'editorial-standards.html', '404.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html'];
+const htmlFiles = ['index.html', 'contact.html', 'about-us.html', 'scientific-references.html', 'editorial-standards.html', '404.html', 'privacy.html', 'terms-of-use.html', 'educational-disclaimer.html', 'workflows.html'];
 for (const entry of fs.readdirSync(path.join(DIST, 'html'))) {
   if (entry.toLowerCase().endsWith('.html')) htmlFiles.push('html/' + entry);
 }
