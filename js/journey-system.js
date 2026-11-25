@@ -36,7 +36,7 @@
     },
     "1rm.html": {
       result: ["#oneRMResult"],
-      next: [{ title: "Plan training volume", description: "Use your lifting context to explore sets, repetitions and training volume.", file: "training-volume.html" }]
+      next: [{ title: "Plan training volume", description: "Carry the entered load and repetitions into a training-volume estimate.", file: "training-volume.html", map: [["weightUnit1RM", "tv-weightUnit"], ["liftWeight", "tv-weight"], ["reps", "tv-reps"]] }]
     },
     "training-volume.html": {
       result: ["#tv-result"],
@@ -48,7 +48,7 @@
     },
     "cooper-test.html": {
       result: ["#cooperResult"],
-      next: [{ title: "Explore a VO₂ max estimate", description: "Review the Cooper-test estimate and its limitations.", file: "vo2max.html" }]
+      next: [{ title: "Explore a VO₂ max estimate", description: "Carry the 12-minute test distance into the corresponding VO₂ max equation.", file: "vo2max.html", map: [["cooperUnit", "distanceUnit"], ["cooperDistance", "distance"]] }]
     },
     "vo2max.html": {
       result: ["#result"],
@@ -182,6 +182,23 @@
     main.addEventListener("input", update);
     main.addEventListener("change", update);
   }
+  function applyMappedValues(values, onlyEmpty) {
+    if (!values || typeof values !== "object") return;
+    const allowed = new Set(["tv-weight", "tv-reps", "tv-weightUnit", "distance", "distanceUnit"]);
+    for (const id of Object.keys(values)) {
+      if (!allowed.has(id)) continue;
+      let value = String(values[id] ?? "");
+      if (id === "distanceUnit") {
+        value = ({ meters: "m", kilometers: "km", miles: "mile" })[value] || value;
+      }
+      const node = getElement(id);
+      if (!node || (onlyEmpty && String(node.value || "").trim()) || !validForTarget(id, value)) continue;
+      node.value = value;
+      node.dispatchEvent(new Event("input", { bubbles: true }));
+      node.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  }
+
   function receiveTransfer() {
     const raw = storageGet(sessionStore, TRANSFER_KEY);
     if (!raw) return;
@@ -190,6 +207,7 @@
       const transfer = JSON.parse(raw);
       if (transfer && transfer.target === page && Date.now() - Number(transfer.createdAt) < 10 * 60 * 1000) {
         applyMeasurements(transfer.values, true);
+        applyMappedValues(transfer.extra, true);
       }
     } catch (_) {}
   }
@@ -201,10 +219,16 @@
     link.querySelector(".cf-journey-link-title").textContent = item.title;
     link.querySelector(".cf-journey-link-description").textContent = item.description;
     link.addEventListener("click", () => {
+      const extra = {};
+      (item.map || []).forEach(([source, target]) => {
+        const value = readValue(source);
+        if (value) extra[target] = value;
+      });
       storageSet(sessionStore, TRANSFER_KEY, JSON.stringify({
         createdAt: Date.now(),
         target: item.file.toLowerCase(),
-        values: currentMeasurements()
+        values: currentMeasurements(),
+        extra
       }));
     });
     return link;
