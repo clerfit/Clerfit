@@ -708,7 +708,7 @@ body{background:linear-gradient(135deg,#f4f8fc 0%,#edf5f7 55%,#f6f8fc 100%);colo
 .cf-tip-trigger{display:inline-grid;place-items:center;width:19px;height:19px;min-width:19px;padding:0;border:1px solid #7195a8;border-radius:50%;background:#e9f7f7;color:#155e63;font:700 12px/1 system-ui,sans-serif;cursor:pointer;vertical-align:middle}
 .cf-tip-trigger:hover,.cf-tip-trigger:focus-visible{background:#155e63;color:#fff;outline:2px solid #7dd3c7;outline-offset:2px}
 .cf-tip-popover{position:absolute;left:50%;bottom:calc(100% + 9px);transform:translateX(-50%) translateY(4px);width:min(280px,calc(100vw - 36px));padding:11px 13px;border:1px solid #cbdde2;border-radius:10px;background:#102a43;color:#f7fbff;box-shadow:0 8px 28px #102a4333;font:400 13px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;white-space:normal;text-align:left;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .14s ease,transform .14s ease;z-index:10000}
-.cf-tip-wrap:hover .cf-tip-popover,.cf-tip-wrap:focus-within .cf-tip-popover,.cf-tip-wrap.cf-tip-open .cf-tip-popover{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.cf-tip-wrap:hover .cf-tip-popover,.cf-tip-wrap:focus-within .cf-tip-popover,.cf-tip-wrap.cf-tip-open .cf-tip-popover{opacity:1;visibility:visible;pointer-events:none;transform:translateX(-50%) translateY(0)}
 .cf-tip-wrap:last-child .cf-tip-popover{left:auto;right:0;transform:translateY(4px)}
 .cf-tip-wrap:last-child:hover .cf-tip-popover,.cf-tip-wrap:last-child:focus-within .cf-tip-popover,.cf-tip-wrap:last-child.cf-tip-open .cf-tip-popover{transform:translateY(0)}
 .cf-control-tip{display:inline-flex;align-items:center;gap:4px;max-width:100%;position:relative}
