@@ -52,6 +52,15 @@ const cases = [
         for (const [id, value] of Object.entries(item.selects || {})) {
           if (id !== 'sex') await page.locator('#' + id).selectOption(value);
         }
+        if (['intracellular-water.html', 'extracellular-water.html'].includes(item.page)) {
+          for (const id of ['compartmentUnit', 'totalUnit', 'weightUnit']) {
+            const selector = page.locator('#' + id);
+            assert.equal(await selector.getAttribute('data-clerfit-unit-wired'), 'true', item.page + ' wires ' + id);
+            assert.ok(await selector.getAttribute('data-unit-for'), item.page + ' declares the field association for ' + id);
+          }
+          assert.equal(await page.locator('#compartment').getAttribute('max'), '200000', item.page + ' converts compartment maximum to mL');
+          assert.equal(await page.locator('#total').getAttribute('max'), '250000', item.page + ' converts total-water maximum to mL');
+        }
         for (const [id, value] of Object.entries(item.fields || {})) await page.locator('#' + id).fill(value);
         await page.locator('#calc-form button[type="submit"]').click();
         const output = await page.locator('#calc-result').innerText();
