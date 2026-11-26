@@ -134,6 +134,11 @@
         return;
       }
       if (!eventTarget?.closest('.cf-tip-wrap')) {
+        // Outside clicks on non-focusable surfaces may not move focus away from
+        // the previous trigger. Blur it so :focus-within cannot leave an obsolete
+        // popover covering the next specialist term.
+        const activeTrigger = document.activeElement?.closest?.('.cf-tip-trigger');
+        if (activeTrigger) activeTrigger.blur();
         document.querySelectorAll('.cf-tip-open').forEach(w => {
           w.classList.remove('cf-tip-open');
           w.querySelector('.cf-tip-trigger')?.setAttribute('aria-expanded', 'false');
