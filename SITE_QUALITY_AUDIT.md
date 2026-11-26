@@ -22,3 +22,8 @@ The scientific register records code-level desk review only. No external clinici
 ## Verification
 
 Added regression checks for public sitemap metadata, canonical/Open Graph URL agreement, unique calculator-guide coverage, scientific-register consistency, and known-answer vectors for the shared body-composition formulas. Existing route, formula, sitemap, and layout checks were also run against the review snapshot. GitHub Actions supplies clean-checkout verification when the pull request opens.
+
+
+## Addendum — 26 November 2026
+
+A guided-workflow hub was added for body composition/nutrition, strength/lifting and running/cardio. The committed sitemap now contains 173 public URLs: nine root-level pages plus 164 calculator routes. The new hub has a canonical URL and matching Open Graph/Twitter metadata, and the staging, production and content-quality checks were updated for the expanded URL set. This is a source-code and automated-metadata update only; it does not establish Google indexing, backlink authority, or search ranking improvements. Search Console inspection remains necessary to determine actual indexing status.

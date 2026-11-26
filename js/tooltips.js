@@ -89,7 +89,6 @@
     const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'cf-tip-trigger';
     btn.setAttribute('aria-label', `Help: ${label || 'this field'}`); btn.setAttribute('aria-expanded', 'false'); btn.textContent = 'i';
     const pop = document.createElement('span'); pop.className = 'cf-tip-popover'; pop.setAttribute('role','tooltip'); pop.textContent = hint;
-    btn.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); const open = wrap.classList.toggle('cf-tip-open'); btn.setAttribute('aria-expanded', String(open)); });
     btn.addEventListener('keydown', e => { if (e.key === 'Escape') { wrap.classList.remove('cf-tip-open'); btn.setAttribute('aria-expanded','false'); btn.blur(); } });
     wrap.append(btn,pop); target.appendChild(wrap);
   }
@@ -114,9 +113,45 @@
       const text = (el.textContent || '').replace(/\s+/g,' ').trim();
       if (text && specialist.test(text) && !el.querySelector('.cf-tip-wrap')) addTip(el, text, hintFor(text));
     });
+    // Delegate tooltip activation so dynamically inserted markers and nested
+    // specialist terms share one predictable accessible interaction path.
     document.addEventListener('click', e => {
-      if (!e.target.closest('.cf-tip-wrap')) document.querySelectorAll('.cf-tip-open').forEach(w => {w.classList.remove('cf-tip-open');w.querySelector('button')?.setAttribute('aria-expanded','false')});
-    }, {passive:true});
+      const eventTarget = e.target instanceof Element ? e.target : e.target?.parentElement;
+      const trigger = eventTarget?.closest('.cf-tip-trigger');
+      if (trigger) {
+        e.preventDefault();
+        const wrap = trigger.closest('.cf-tip-wrap');
+        if (!wrap) return;
+        const willOpen = !wrap.classList.contains('cf-tip-open');
+        document.querySelectorAll('.cf-tip-open').forEach(openWrap => {
+          openWrap.classList.remove('cf-tip-open');
+          openWrap.querySelector('.cf-tip-trigger')?.setAttribute('aria-expanded', 'false');
+        });
+        if (willOpen) {
+          wrap.classList.add('cf-tip-open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+        return;
+      }
+      if (!eventTarget?.closest('.cf-tip-wrap')) {
+        // Outside clicks on non-focusable surfaces may not move focus away from
+        // the previous trigger. Blur it so :focus-within cannot leave an obsolete
+        // popover covering the next specialist term.
+        const activeTrigger = document.activeElement?.closest?.('.cf-tip-trigger');
+        if (activeTrigger) activeTrigger.blur();
+        document.querySelectorAll('.cf-tip-open').forEach(w => {
+          w.classList.remove('cf-tip-open');
+          w.querySelector('.cf-tip-trigger')?.setAttribute('aria-expanded', 'false');
+        });
+      }
+    }, true);
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      document.querySelectorAll('.cf-tip-open').forEach(w => {
+        w.classList.remove('cf-tip-open');
+        w.querySelector('.cf-tip-trigger')?.setAttribute('aria-expanded', 'false');
+      });
+    });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

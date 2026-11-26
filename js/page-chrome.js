@@ -301,3 +301,17 @@
   catalogScript.onerror = loadGuide;
   document.head.appendChild(catalogScript);
 })();
+
+
+// Load calculator-to-calculator journeys and opt-in on-device input reuse.
+(() => {
+  "use strict";
+  const isCalculatorRoute = /\/html\/[^/]+\.html$/i.test(location.pathname);
+  const hasCalculatorInputs = Boolean(document.querySelector('input:not([type="hidden"]), select, textarea'));
+  if (!isCalculatorRoute || !hasCalculatorInputs) return;
+  const root = new URL("../", document.baseURI);
+  const script = document.createElement("script");
+  script.src = new URL("js/journey-system.js?v=20261126-journeys-v1", root).href;
+  script.defer = true;
+  document.head.appendChild(script);
+})();

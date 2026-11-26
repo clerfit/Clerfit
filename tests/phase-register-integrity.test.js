@@ -135,7 +135,8 @@ assert.ok(sitemapUrls.every(url => {
   } catch { return false; }
 }), 'sitemap URLs must be HTTPS and remain under the ClerFit GitHub Pages project path');
 assert.equal(new Set(sitemapUrls).size, sitemapUrls.length, 'sitemap must not contain duplicate URLs');
-assert.equal(sitemapUrls.length, 172, 'sitemap should include 164 tools and eight root routes');
+assert.ok(sitemapUrls.includes('https://clerfit.github.io/Clerfit/workflows.html'), 'sitemap must include guided calculator workflows');
+assert.equal(sitemapUrls.length, 173, 'sitemap should include 164 tools and nine root routes');
 for (const row of inventory) {
   assert.ok(sitemapUrls.includes(row[canonicalIndex]), 'sitemap is missing ' + row[canonicalIndex]);
 }
@@ -155,4 +156,4 @@ assert.match(accessibleTest, /sibling error node is retained/, 'validation acces
 assert.match(read('.github/workflows/phase-one-ci.yml'), /browser-smoke-staging\.js/, 'full workflow must run source-staging interaction tests');
 assert.match(read('.github/workflows/phase-one-ci.yml'), /accessibility-smoke\.js/, 'full workflow must run all-page accessibility checks');
 
-console.log('PASS: 164 routes, 298 source-matched static field bounds, inventory/file parity, unique 169-URL sitemap, per-route sign-off register and release-gate honesty.');
+console.log('PASS: 164 routes, 298 source-matched static field bounds, inventory/file parity, unique 173-URL sitemap, per-route sign-off register and release-gate honesty.');

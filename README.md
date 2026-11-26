@@ -9,18 +9,20 @@ A static HTML/CSS/JavaScript health, fitness, measurement and everyday-calculato
 3. Use the left-edge three-line menu to open the sidebar; it starts closed.
 4. Use the magnifying-glass control inside the sidebar to search calculators.
 5. Home and Contact Us links appear in normal page flow on calculator pages; they are not floating overlays.
-6. Use each calculator's own unit selector where available. Unit choices are scoped to the calculator and are not saved as a site-wide browser preference.
+6. Use each calculator's own unit selector where available. Unit choices remain scoped to the calculator. On calculator pages, visitors may optionally opt in to save compatible age, height and weight inputs in that browser; the feature is off by default and can be cleared at any time.
+7. Open `workflows.html` for guided calculator sequences. Compatible inputs are transferred to the next calculator in the same tab without putting measurements in the URL.
 
 For a local server, run `python -m http.server 8000` from this folder and open `http://localhost:8000`.
 
 ## Structure
 
-- `index.html` — homepage, categories and full calculator directory.
+- `index.html` — homepage, categories, full calculator directory and entry point to guided workflows.
+- `workflows.html` — guided body-composition/nutrition, strength and cardio calculator sequences.
 - `contact.html` — root contact page; submissions are sent to the disclosed contact-form provider.
 - `about-us.html` — purpose, development approach and trust disclosures.
 - `scientific-references.html` — selected primary research and authoritative guidance.
 - `editorial-standards.html` — sourcing, formula transparency, testing and professional-review policy.
-- `privacy.html` — no-account/no-profile policy, local calculator processing and third-party service disclosures.
+- `privacy.html` — no-account/no-cloud-profile policy, optional on-device input reuse, temporary tab-scoped calculator handoffs, local calculator processing and third-party service disclosures.
 - `404.html` — branded not-found fallback page.
 - `netlify.toml` and `_headers` — static-hosting settings, security headers and asset caching.
 - `robots.txt` — crawl policy; `scripts/generate-sitemap.js` creates the sitemap and canonical URLs at build time from `SITE_URL` or Netlify’s deployment `URL`.
@@ -28,7 +30,8 @@ For a local server, run `python -m http.server 8000` from this folder and open `
 - `js/navigation.js` — central calculator registry, sidebar, categories, search and shared page enhancements.
 - `js/unit-system.js` — per-calculator unit conversion with no global preference or browser storage.
 - `js/input-validation.js` — shared numeric input guardrails.
-- `js/page-chrome.js` — shared Home/Contact navigation, semantic main landmark, accessible naming support and the shared footer for calculator pages.
+- `js/page-chrome.js` — shared Home/Contact navigation, semantic main landmark, accessible naming support, shared footer and calculator-journey script loading.
+- `js/journey-system.js` — curated next-step calculator links, tab-scoped input handoff, and optional consent-based local input reuse across compatible calculator fields.
 - `js/site-polish.js` — image viewer, face-measurement help and shared page enhancements.
 - `js/tooltips.js` — contextual glossary and specialist tooltips.
 - `js/advanced-calculators.js` — reusable implementation for 24 advanced calculator forms.
