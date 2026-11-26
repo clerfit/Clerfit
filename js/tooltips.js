@@ -116,10 +116,10 @@
     // Delegate tooltip activation so dynamically inserted markers and nested
     // specialist terms share one predictable accessible interaction path.
     document.addEventListener('click', e => {
-      const trigger = e.target.closest('.cf-tip-trigger');
+      const eventTarget = e.target instanceof Element ? e.target : e.target?.parentElement;
+      const trigger = eventTarget?.closest('.cf-tip-trigger');
       if (trigger) {
         e.preventDefault();
-        e.stopPropagation();
         const wrap = trigger.closest('.cf-tip-wrap');
         if (!wrap) return;
         const willOpen = !wrap.classList.contains('cf-tip-open');
@@ -133,13 +133,13 @@
         }
         return;
       }
-      if (!e.target.closest('.cf-tip-wrap')) {
+      if (!eventTarget?.closest('.cf-tip-wrap')) {
         document.querySelectorAll('.cf-tip-open').forEach(w => {
           w.classList.remove('cf-tip-open');
           w.querySelector('.cf-tip-trigger')?.setAttribute('aria-expanded', 'false');
         });
       }
-    });
+    }, true);
     document.addEventListener('keydown', e => {
       if (e.key !== 'Escape') return;
       document.querySelectorAll('.cf-tip-open').forEach(w => {
