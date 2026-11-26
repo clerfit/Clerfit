@@ -36,7 +36,7 @@ jp7:()=>row(sex(),input("age","Age (years)",18,61,1))+row(input("chest","Chest (
 "fat-free-mass-change":()=>row(input("wa","Earlier body weight",1,500),select("waUnit","Earlier weight unit",massUnits(),"wa"),input("fa","Earlier body fat (%)",0,75))+row(input("wb","Current body weight",1,500),select("wbUnit","Current weight unit",massUnits(),"wb"),input("fb","Current body fat (%)",0,75))
 };
 const host=$("calculator-fields");if(host&&schemas[slug])host.innerHTML=schemas[slug]();
-if(host&&["intracellular-water","extracellular-water"].includes(slug)){
+if(host&&typeof host.querySelector==="function"&&["intracellular-water","extracellular-water"].includes(slug)){
   // Keep both volume selectors explicitly associated with their own generated fields.
   // The "total" control name can collide with legacy form named properties in some
   // browser environments, so establish the association on the rendered elements.
